@@ -2048,4 +2048,507 @@ impl<'a> SpecReviewAnnotations<'a> {
         }
         report
     }
+
+    /// Writes `text` at `path` / `field` as a marked change against the value
+    /// there now (SOM §11.9.3). A value that already holds change marks is
+    /// compared from its original — every mark rejected — so a second edit of
+    /// the same passage updates its mark instead of nesting one.
+    pub fn set_marked(&mut self, path: &str, field: Option<&str>, text: &str) -> SpecMarkedChange {
+        let base = apply_inline_marks_text(&self.get(path, field), false);
+        let result = mark_change_text(&base, text);
+        self.set(path, field, &result.text);
+        result
+    }
+
+    /// Marks the value at `path` / `field` as a change against `earlier`, an
+    /// earlier version of it.
+    pub fn mark_against(
+        &mut self,
+        path: &str,
+        field: Option<&str>,
+        earlier: &str,
+    ) -> SpecMarkedChange {
+        let result = mark_change_text(earlier, &self.get(path, field));
+        self.set(path, field, &result.text);
+        result
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Writing changes as inline marks (SOM §11.9.3, annot5).
+// ---------------------------------------------------------------------------
+
+/// A value written as a marked change.
+#[derive(Debug, Clone, PartialEq)]
+pub struct SpecMarkedChange {
+    /// The value with every difference marked.
+    pub text: String,
+    /// Whether accepting the marks gives exactly the new value and rejecting
+    /// them exactly the old one. False when a difference cannot be marked — a
+    /// change inside fenced code, or text that holds mark delimiters — and the
+    /// new value was written unmarked instead.
+    pub exact: bool,
+}
+
+impl SpecMarkedChange {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("text", json_str(&self.text)),
+            ("exact", Json::Bool(self.exact)),
+        ])
+    }
+}
+
+/// One token of a value: a run of whitespace, a word (a run of non-whitespace
+/// with inline code spans kept whole) or a fenced code block (its lines).
+#[derive(Debug, Clone)]
+struct Tok {
+    text: String,
+    space: bool,
+}
+
+fn is_ws(c: u8) -> bool {
+    c == b' ' || c == b'\t' || c == b'\n'
+}
+
+fn tok_add(out: &mut Vec<Tok>, t: &str, space: bool) {
+    if t.is_empty() {
+        return;
+    }
+    if space {
+        if let Some(last) = out.last_mut() {
+            if last.space {
+                last.text.push_str(t);
+                return;
+            }
+        }
+    }
+    out.push(Tok {
+        text: t.to_string(),
+        space,
+    });
+}
+
+fn tok_words(out: &mut Vec<Tok>, s: &str) {
+    let b = s.as_bytes();
+    let mut i = 0;
+    while i < b.len() {
+        if is_ws(b[i]) {
+            let st = i;
+            while i < b.len() && is_ws(b[i]) {
+                i += 1;
+            }
+            tok_add(out, &s[st..i], true);
+            continue;
+        }
+        let st = i;
+        while i < b.len() && !is_ws(b[i]) {
+            if b[i] == b'`' {
+                let mut n = 0;
+                while i + n < b.len() && b[i + n] == b'`' {
+                    n += 1;
+                }
+                // The matching run of exactly n backticks ends the span.
+                let mut j = i + n;
+                let mut close = None;
+                while j < b.len() {
+                    if b[j] == b'`' {
+                        let mut m = 0;
+                        while j + m < b.len() && b[j + m] == b'`' {
+                            m += 1;
+                        }
+                        if m == n {
+                            close = Some(j);
+                            break;
+                        }
+                        j += m;
+                    } else {
+                        j += 1;
+                    }
+                }
+                i = match close {
+                    None => i + n,
+                    Some(c) => c + n,
+                };
+                continue;
+            }
+            i += 1;
+        }
+        tok_add(out, &s[st..i], false);
+    }
+}
+
+fn tokens(value: &str) -> Vec<Tok> {
+    let mut out = Vec::new();
+    let lines = split_lines(value);
+    let code = code_lines(&lines);
+    let mut k = 0;
+    while k < lines.len() {
+        if k > 0 {
+            tok_add(&mut out, "\n", true);
+        }
+        let st = k;
+        let is_code = code[k];
+        while k + 1 < lines.len() && code[k + 1] == is_code {
+            k += 1;
+        }
+        let run = lines[st..k + 1].join("\n");
+        if is_code {
+            tok_add(&mut out, &run, false);
+        } else {
+            tok_words(&mut out, &run);
+        }
+        k += 1;
+    }
+    out
+}
+
+/// The diff of two token lists as ops: 0 keep, 1 delete (old), 2 insert
+/// (new), with their tokens. LCS over token text; ties prefer the deletion.
+fn diff(a: &[Tok], b: &[Tok]) -> Vec<(u8, Tok)> {
+    let (n, m) = (a.len(), b.len());
+    let mut l = vec![vec![0usize; m + 1]; n + 1];
+    for i in (0..n).rev() {
+        for j in (0..m).rev() {
+            l[i][j] = if a[i].text == b[j].text {
+                l[i + 1][j + 1] + 1
+            } else if l[i + 1][j] >= l[i][j + 1] {
+                l[i + 1][j]
+            } else {
+                l[i][j + 1]
+            };
+        }
+    }
+    let mut ops = Vec::new();
+    let (mut i, mut j) = (0, 0);
+    while i < n || j < m {
+        if i < n && j < m && a[i].text == b[j].text {
+            ops.push((0, a[i].clone()));
+            i += 1;
+            j += 1;
+        } else if j >= m || (i < n && l[i + 1][j] >= l[i][j + 1]) {
+            ops.push((1, a[i].clone()));
+            i += 1;
+        } else {
+            ops.push((2, b[j].clone()));
+            j += 1;
+        }
+    }
+    ops
+}
+
+/// `s` with its leading and trailing whitespace removed (spaces, tabs,
+/// newlines).
+fn trim_ws(s: &str) -> &str {
+    s.trim_matches([' ', '\t', '\n'])
+}
+
+/// The markup for one region whose old text is `o` and new text is `n` (both
+/// trimmed, not both empty).
+fn markup(o: &str, n: &str) -> String {
+    if o.is_empty() {
+        format!("{{++ {} ++}}", n)
+    } else if n.is_empty() {
+        format!("{{-- {} --}}", o)
+    } else {
+        format!("{{~~ {} ~> {} ~~}}", o, n)
+    }
+}
+
+fn lead_ws(x: &str) -> &str {
+    &x[..x.len() - x.trim_start().len()]
+}
+
+fn trail_ws(x: &str) -> &str {
+    &x[x.trim_end().len()..]
+}
+
+/// The marked emission for the region `[r0, r1)` of `ops`, with the old and
+/// the new text around it, or `None` when no mark round-trips there.
+#[allow(clippy::too_many_arguments)]
+fn emit_region(
+    ops: &[(u8, Tok)],
+    r0: usize,
+    r1: usize,
+    old_before: &str,
+    new_before: &str,
+    old_after: &str,
+    new_after: &str,
+) -> Option<String> {
+    let mut os = String::new();
+    let mut ns = String::new();
+    for (kind, t) in &ops[r0..r1] {
+        if *kind != 2 {
+            os.push_str(&t.text);
+        }
+        if *kind != 1 {
+            ns.push_str(&t.text);
+        }
+    }
+    let (ob, nb) = (os.as_bytes(), ns.as_bytes());
+    // Whitespace the two sides share at the edges stays outside the mark.
+    let mut lead = 0;
+    while lead < ob.len() && lead < nb.len() && ob[lead] == nb[lead] && is_ws(ob[lead]) {
+        lead += 1;
+    }
+    let mut trail = 0;
+    while trail < ob.len() - lead
+        && trail < nb.len() - lead
+        && ob[ob.len() - 1 - trail] == nb[nb.len() - 1 - trail]
+        && is_ws(ob[ob.len() - 1 - trail])
+    {
+        trail += 1;
+    }
+    let oi = &os[lead..os.len() - trail];
+    let ni = &ns[lead..ns.len() - trail];
+    // The mark's content is trimmed when read, so it must already be trimmed;
+    // the whitespace still differing is placed outside, on the side whose
+    // text keeps it, and the tidy rules then have to restore the other side.
+    let (ot, nt) = (trim_ws(oi), trim_ws(ni));
+    if ot.is_empty() && nt.is_empty() {
+        return None;
+    }
+    let pre = &os[..lead];
+    let post = &os[os.len() - trail..];
+    let candidates = [
+        (lead_ws(ni), trail_ws(ni)),
+        (lead_ws(oi), trail_ws(oi)),
+        ("", ""),
+        (lead_ws(ni), ""),
+        ("", trail_ws(ni)),
+    ];
+    let mk = markup(ot, nt);
+    for (wl, wr) in candidates {
+        let emission = format!("{}{}{}{}{}", pre, wl, mk, wr, post);
+        let acc =
+            apply_inline_marks_text(&format!("{}{}{}", new_before, emission, new_after), true);
+        let rej =
+            apply_inline_marks_text(&format!("{}{}{}", old_before, emission, old_after), false);
+        if acc == format!("{}{}{}", new_before, ns, new_after)
+            && rej == format!("{}{}{}", old_before, os, old_after)
+        {
+            return Some(emission);
+        }
+    }
+    None
+}
+
+/// Marks the token-level differences of `o` → `n`, where the text before
+/// them is `ob` (old) / `nb` (new) and after them `oa` / `na`. `None` when
+/// the marks do not round-trip.
+fn mark_tokens(o: &str, n: &str, ob: &str, nb: &str, oa: &str, na: &str) -> Option<String> {
+    let ops = diff(&tokens(o), &tokens(n));
+    let mut runs: Vec<(usize, usize)> = Vec::new();
+    let mut k = 0;
+    while k < ops.len() {
+        if ops[k].0 == 0 {
+            k += 1;
+            continue;
+        }
+        let s = k;
+        while k < ops.len() && ops[k].0 != 0 {
+            k += 1;
+        }
+        runs.push((s, k));
+    }
+    // Changes separated by at most two unchanged words are one mark.
+    let mut merged: Vec<(usize, usize)> = Vec::new();
+    for r in runs {
+        if let Some(last) = merged.last_mut() {
+            let words = (last.1..r.0).filter(|&q| !ops[q].1.space).count();
+            if words <= 2 {
+                last.1 = r.1;
+                continue;
+            }
+        }
+        merged.push(r);
+    }
+    let runs = merged;
+
+    let side = |from: usize, to: usize, skip: u8| -> String {
+        let mut b = String::new();
+        for (kind, t) in &ops[from..to] {
+            if *kind != skip {
+                b.push_str(&t.text);
+            }
+        }
+        b
+    };
+
+    // Left to right; a region that does not round-trip grows by one token on
+    // each side and is tried again.
+    let end = ops.len();
+    let mut out = String::new();
+    let mut pos = 0;
+    let mut ri = 0;
+    while ri < runs.len() {
+        let (mut r0, mut r1) = runs[ri];
+        if r0 < pos {
+            r0 = pos;
+        }
+        let emission = loop {
+            let e = emit_region(
+                &ops,
+                r0,
+                r1,
+                &format!("{}{}", ob, side(0, r0, 2)),
+                &format!("{}{}", nb, side(0, r0, 1)),
+                &format!("{}{}", side(r1, end, 2), oa),
+                &format!("{}{}", side(r1, end, 1), na),
+            );
+            if e.is_some() || (r0 <= pos && r1 >= end) {
+                break e;
+            }
+            if r0 > pos {
+                r0 -= 1;
+            }
+            if r1 < end {
+                r1 += 1;
+            }
+        };
+        let emission = emission?;
+        out.push_str(&side(pos, r0, 1));
+        out.push_str(&emission);
+        pos = r1;
+        while ri + 1 < runs.len() && runs[ri + 1].1 <= pos {
+            ri += 1;
+        }
+        ri += 1;
+    }
+    out.push_str(&side(pos, end, 1));
+    if apply_inline_marks_text(&format!("{}{}{}", nb, out, na), true)
+        != format!("{}{}{}", nb, n, na)
+        || apply_inline_marks_text(&format!("{}{}{}", ob, out, oa), false)
+            != format!("{}{}{}", ob, o, oa)
+    {
+        return None;
+    }
+    Some(out)
+}
+
+/// A whole line marked as inserted (`++`) or deleted (`--`): its indentation
+/// stays outside the mark; a blank line stays blank.
+fn line_mark(line: &str, d: &str) -> String {
+    let body = line.trim_start();
+    if body.trim().is_empty() {
+        return line.to_string();
+    }
+    let indent = &line[..line.len() - body.len()];
+    format!("{}{{{} {} {}}}", indent, d, body.trim_end(), d)
+}
+
+/// `new_value` with its differences from `old_value` marked, so that
+/// accepting every mark gives exactly `new_value` and rejecting every mark
+/// exactly `old_value` (SOM §11.9.3). The diff runs by line, then by word
+/// inside a changed run of lines; words are never split, changes separated
+/// by at most two unchanged words are one mark, and nothing inside code is
+/// marked.
+pub fn mark_change_text(old_value: &str, new_value: &str) -> SpecMarkedChange {
+    if old_value == new_value {
+        return SpecMarkedChange {
+            text: new_value.to_string(),
+            exact: true,
+        };
+    }
+    let ol = split_lines(old_value);
+    let nl = split_lines(new_value);
+    let (oc, nc) = (code_lines(&ol), code_lines(&nl));
+    let as_toks = |ls: &[String]| -> Vec<Tok> {
+        ls.iter()
+            .map(|l| Tok {
+                text: l.clone(),
+                space: false,
+            })
+            .collect()
+    };
+    let lops = diff(&as_toks(&ol), &as_toks(&nl));
+    let join = |parts: &[&[String]]| -> String { parts.concat().join("\n") };
+    let blank = |l: &String| l.trim().is_empty();
+    let mut out: Vec<String> = Vec::new();
+    let mut exact = true;
+    let (mut oi, mut ni, mut k) = (0, 0, 0);
+    while k < lops.len() {
+        if lops[k].0 == 0 {
+            out.push(nl[ni].clone());
+            oi += 1;
+            ni += 1;
+            k += 1;
+            continue;
+        }
+        let (d0, n0) = (oi, ni);
+        while k < lops.len() && lops[k].0 != 0 {
+            if lops[k].0 == 1 {
+                oi += 1;
+            } else {
+                ni += 1;
+            }
+            k += 1;
+        }
+        let (del, ins) = (&ol[d0..oi], &nl[n0..ni]);
+        let (ob, oa) = (&ol[..d0], &ol[oi..]);
+        let (nb, na) = (&nl[..n0], &nl[ni..]);
+        let round_trips = |e: &[String]| {
+            apply_inline_marks_text(&join(&[nb, e, na]), true) == new_value
+                && apply_inline_marks_text(&join(&[ob, e, oa]), false) == old_value
+        };
+        let mut emitted: Option<Vec<String>> = None;
+        let in_code = oc[d0..oi].iter().chain(nc[n0..ni].iter()).any(|&c| c);
+        if !in_code {
+            let mut candidates: Vec<Vec<String>> = Vec::new();
+            if !del.is_empty() && !ins.is_empty() {
+                let before = |ls: &[String]| {
+                    if ls.is_empty() {
+                        String::new()
+                    } else {
+                        format!("{}\n", ls.join("\n"))
+                    }
+                };
+                let after = |ls: &[String]| {
+                    if ls.is_empty() {
+                        String::new()
+                    } else {
+                        format!("\n{}", ls.join("\n"))
+                    }
+                };
+                if let Some(t) = mark_tokens(
+                    &del.join("\n"),
+                    &ins.join("\n"),
+                    &before(ob),
+                    &before(nb),
+                    &after(oa),
+                    &after(na),
+                ) {
+                    candidates.push(split_lines(&t));
+                }
+            }
+            let dm: Vec<String> = del.iter().map(|l| line_mark(l, "--")).collect();
+            let im: Vec<String> = ins.iter().map(|l| line_mark(l, "++")).collect();
+            let dmb: Vec<String> = dm.iter().filter(|l| !blank(l)).cloned().collect();
+            let imb: Vec<String> = im.iter().filter(|l| !blank(l)).cloned().collect();
+            candidates.push([dm.clone(), im.clone()].concat());
+            candidates.push([dmb.clone(), im].concat());
+            candidates.push([dm, imb.clone()].concat());
+            candidates.push([dmb, imb].concat());
+            emitted = candidates.into_iter().find(|e| round_trips(e));
+        }
+        match emitted {
+            None => {
+                exact = false;
+                out.extend(ins.iter().cloned());
+            }
+            Some(e) => out.extend(e),
+        }
+    }
+    let text = out.join("\n");
+    if exact
+        && (apply_inline_marks_text(&text, true) != new_value
+            || apply_inline_marks_text(&text, false) != old_value)
+    {
+        return SpecMarkedChange {
+            text: new_value.to_string(),
+            exact: false,
+        };
+    }
+    SpecMarkedChange { text, exact }
 }

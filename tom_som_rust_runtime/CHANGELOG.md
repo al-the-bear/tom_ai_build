@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Writing changes as inline marks (SOM §11.9.3): the free function
+  `mark_change_text(old, new)` diffs by line, then by word, merging changes
+  at most two words apart, so accepting all marks gives `new` and rejecting
+  all gives `old`. Words are never split and code is never marked. It returns
+  a `SpecMarkedChange` (`text`, `exact`). `SpecReviewAnnotations::set_marked`
+  (a second edit updates its mark) and `mark_against` (against an earlier
+  version) apply it to a value. Both new names are re-exported at the crate
+  root. The conformance suite replays `change_mark_cases.json`.
+
 - Reviewing inline marks (SOM §11.9.3): `SpecReviewAnnotations` gains
   `revision`, `list_marks`, `decide_marks` (accept / reject / leave in one
   write, `Err(SpecReviewAnnotationError)` on a stale revision or an unknown

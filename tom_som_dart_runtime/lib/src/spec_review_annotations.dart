@@ -1713,6 +1713,34 @@ class SpecReviewAnnotations {
     return report;
   }
 
+  /// Writes [text] at [path] / [field] as a marked change against the value
+  /// there now (SOM §11.9.3). A value that already holds change marks is
+  /// compared from its original — every mark rejected — so a second edit of
+  /// the same passage updates its mark instead of nesting one.
+  SpecMarkedChange setMarked({
+    required String path,
+    String? field,
+    required String text,
+  }) {
+    final current = _get(path, field);
+    final base = applyInlineMarksText(current, accept: false);
+    final result = markChangeText(base, text);
+    _set(path, field, result.text);
+    return result;
+  }
+
+  /// Marks the value at [path] / [field] as a change against [earlier], an
+  /// earlier version of it.
+  SpecMarkedChange markAgainst({
+    required String path,
+    String? field,
+    required String earlier,
+  }) {
+    final result = markChangeText(earlier, _get(path, field));
+    _set(path, field, result.text);
+    return result;
+  }
+
   /// A copy of the document without any annotation, for reading. The
   /// document itself is unchanged.
   SpecDocument stripped() {
@@ -1818,4 +1846,424 @@ class SpecReviewAnnotations {
     });
     return [for (final e in indexed) e.$2];
   }
+}
+
+// ---------------------------------------------------------------------------
+// Writing changes as inline marks (SOM §11.9.3, annot5).
+// ---------------------------------------------------------------------------
+
+/// A value written as a marked change.
+class SpecMarkedChange {
+  /// The value with every difference marked.
+  final String text;
+
+  /// Whether accepting the marks gives exactly the new value and rejecting
+  /// them exactly the old one. False when a difference cannot be marked — a
+  /// change inside fenced code, or text that holds mark delimiters — and the
+  /// new value was written unmarked instead.
+  final bool exact;
+
+  /// Creates a result.
+  const SpecMarkedChange(this.text, {required this.exact});
+
+  /// The canonical JSON form.
+  Map<String, Object?> toJson() => {'text': text, 'exact': exact};
+}
+
+/// One token of a value: a run of whitespace, a word (a run of non-whitespace
+/// with inline code spans kept whole) or a fenced code block (its lines).
+class _Tok {
+  final String text;
+  final bool space;
+  _Tok(this.text, this.space);
+}
+
+bool _isWs(String c) => c == ' ' || c == '\t' || c == '\n';
+
+List<_Tok> _tokens(String value) {
+  final out = <_Tok>[];
+  void add(String t, bool space) {
+    if (t.isEmpty) return;
+    if (space && out.isNotEmpty && out.last.space) {
+      out[out.length - 1] = _Tok(out.last.text + t, true);
+    } else {
+      out.add(_Tok(t, space));
+    }
+  }
+
+  void words(String s) {
+    var i = 0;
+    while (i < s.length) {
+      if (_isWs(s[i])) {
+        final st = i;
+        while (i < s.length && _isWs(s[i])) {
+          i++;
+        }
+        add(s.substring(st, i), true);
+        continue;
+      }
+      final st = i;
+      while (i < s.length && !_isWs(s[i])) {
+        if (s[i] == '`') {
+          var n = 0;
+          while (i + n < s.length && s[i + n] == '`') {
+            n++;
+          }
+          // The matching run of exactly n backticks ends the span.
+          var j = i + n;
+          var close = -1;
+          while (j < s.length) {
+            if (s[j] == '`') {
+              var m = 0;
+              while (j + m < s.length && s[j + m] == '`') {
+                m++;
+              }
+              if (m == n) {
+                close = j;
+                break;
+              }
+              j += m;
+            } else {
+              j++;
+            }
+          }
+          i = close < 0 ? i + n : close + n;
+          continue;
+        }
+        i++;
+      }
+      add(s.substring(st, i), false);
+    }
+  }
+
+  final lines = value.split('\n');
+  final code = _codeLines(lines);
+  var k = 0;
+  while (k < lines.length) {
+    if (k > 0) add('\n', true);
+    final st = k;
+    final isCode = code[k];
+    while (k + 1 < lines.length && code[k + 1] == isCode) {
+      k++;
+    }
+    final run = lines.sublist(st, k + 1).join('\n');
+    if (isCode) {
+      add(run, false);
+    } else {
+      words(run);
+    }
+    k++;
+  }
+  return out;
+}
+
+/// The diff of two token lists as ops: 0 keep, 1 delete (old), 2 insert
+/// (new), with their tokens. LCS over token text; ties prefer the deletion.
+List<(int, _Tok)> _diff(List<_Tok> a, List<_Tok> b) {
+  final n = a.length, m = b.length;
+  final l = List.generate(n + 1, (_) => List<int>.filled(m + 1, 0));
+  for (var i = n - 1; i >= 0; i--) {
+    for (var j = m - 1; j >= 0; j--) {
+      l[i][j] = a[i].text == b[j].text
+          ? l[i + 1][j + 1] + 1
+          : (l[i + 1][j] >= l[i][j + 1] ? l[i + 1][j] : l[i][j + 1]);
+    }
+  }
+  final ops = <(int, _Tok)>[];
+  var i = 0, j = 0;
+  while (i < n || j < m) {
+    if (i < n && j < m && a[i].text == b[j].text) {
+      ops.add((0, a[i]));
+      i++;
+      j++;
+    } else if (j >= m || (i < n && l[i + 1][j] >= l[i][j + 1])) {
+      ops.add((1, a[i]));
+      i++;
+    } else {
+      ops.add((2, b[j]));
+      j++;
+    }
+  }
+  return ops;
+}
+
+/// [s] with its leading and trailing whitespace removed (spaces, tabs,
+/// newlines).
+String _trimWs(String s) {
+  var a = 0, b = s.length;
+  while (a < b && _isWs(s[a])) {
+    a++;
+  }
+  while (b > a && _isWs(s[b - 1])) {
+    b--;
+  }
+  return s.substring(a, b);
+}
+
+/// The markup for one region whose old text is [o] and new text is [n] (both
+/// trimmed, not both empty).
+String _markup(String o, String n) {
+  if (o.isEmpty) return '{++ $n ++}';
+  if (n.isEmpty) return '{-- $o --}';
+  return '{~~ $o ~> $n ~~}';
+}
+
+/// The marked emission for the region [r0, r1) of [ops], with the old and the
+/// new text around it, or null when no mark round-trips there.
+String? _emitRegion(
+  List<(int, _Tok)> ops,
+  int r0,
+  int r1,
+  String oldBefore,
+  String newBefore,
+  String oldAfter,
+  String newAfter,
+) {
+  final o = StringBuffer(), n = StringBuffer();
+  for (var k = r0; k < r1; k++) {
+    final (kind, t) = ops[k];
+    if (kind != 2) o.write(t.text);
+    if (kind != 1) n.write(t.text);
+  }
+  final os = o.toString(), ns = n.toString();
+  // Whitespace the two sides share at the edges stays outside the mark.
+  var lead = 0;
+  while (lead < os.length &&
+      lead < ns.length &&
+      os[lead] == ns[lead] &&
+      _isWs(os[lead])) {
+    lead++;
+  }
+  var trail = 0;
+  while (trail < os.length - lead &&
+      trail < ns.length - lead &&
+      os[os.length - 1 - trail] == ns[ns.length - 1 - trail] &&
+      _isWs(os[os.length - 1 - trail])) {
+    trail++;
+  }
+  final oi = os.substring(lead, os.length - trail);
+  final ni = ns.substring(lead, ns.length - trail);
+  // The mark's content is trimmed when read, so it must already be trimmed;
+  // the whitespace still differing is placed outside, on the side whose text
+  // keeps it, and the tidy rules then have to restore the other side.
+  final ot = _trimWs(oi), nt = _trimWs(ni);
+  if (ot.isEmpty && nt.isEmpty) return null;
+  final pre = os.substring(0, lead);
+  final post = os.substring(os.length - trail);
+  String leadWs(String x) => x.substring(0, x.length - x.trimLeft().length);
+  String trailWs(String x) => x.substring(x.trimRight().length);
+  final candidates = [
+    (leadWs(ni), trailWs(ni)),
+    (leadWs(oi), trailWs(oi)),
+    ('', ''),
+    (leadWs(ni), ''),
+    ('', trailWs(ni)),
+  ];
+  for (final (wl, wr) in candidates) {
+    final emission = '$pre$wl${_markup(ot, nt)}$wr$post';
+    final acc = applyInlineMarksText(
+      '$newBefore$emission$newAfter',
+      accept: true,
+    );
+    final rej = applyInlineMarksText(
+      '$oldBefore$emission$oldAfter',
+      accept: false,
+    );
+    if (acc == '$newBefore$ns$newAfter' && rej == '$oldBefore$os$oldAfter') {
+      return emission;
+    }
+  }
+  return null;
+}
+
+/// Marks the token-level differences of [o] → [n], where the text before
+/// them is [ob] (old) / [nb] (new) and after them [oa] / [na]. Null when the
+/// marks do not round-trip.
+String? _markTokens(
+  String o,
+  String n,
+  String ob,
+  String nb,
+  String oa,
+  String na,
+) {
+  final ops = _diff(_tokens(o), _tokens(n));
+  var runs = <(int, int)>[];
+  var k = 0;
+  while (k < ops.length) {
+    if (ops[k].$1 == 0) {
+      k++;
+      continue;
+    }
+    final s = k;
+    while (k < ops.length && ops[k].$1 != 0) {
+      k++;
+    }
+    runs.add((s, k));
+  }
+  // Changes separated by at most two unchanged words are one mark.
+  final merged = <(int, int)>[];
+  for (final r in runs) {
+    if (merged.isNotEmpty) {
+      var words = 0;
+      for (var q = merged.last.$2; q < r.$1; q++) {
+        if (!ops[q].$2.space) words++;
+      }
+      if (words <= 2) {
+        merged[merged.length - 1] = (merged.last.$1, r.$2);
+        continue;
+      }
+    }
+    merged.add(r);
+  }
+  runs = merged;
+
+  String side(int from, int to, int skip) {
+    final b = StringBuffer();
+    for (var q = from; q < to; q++) {
+      if (ops[q].$1 != skip) b.write(ops[q].$2.text);
+    }
+    return b.toString();
+  }
+
+  // Left to right; a region that does not round-trip grows by one token on
+  // each side and is tried again.
+  final out = StringBuffer();
+  var pos = 0;
+  for (var ri = 0; ri < runs.length; ri++) {
+    var (r0, r1) = runs[ri];
+    if (r0 < pos) r0 = pos;
+    String? emission;
+    while (true) {
+      emission = _emitRegion(
+        ops,
+        r0,
+        r1,
+        '$ob${side(0, r0, 2)}',
+        '$nb${side(0, r0, 1)}',
+        '${side(r1, ops.length, 2)}$oa',
+        '${side(r1, ops.length, 1)}$na',
+      );
+      if (emission != null || (r0 <= pos && r1 >= ops.length)) break;
+      if (r0 > pos) r0--;
+      if (r1 < ops.length) r1++;
+    }
+    if (emission == null) return null;
+    out
+      ..write(side(pos, r0, 1))
+      ..write(emission);
+    pos = r1;
+    while (ri + 1 < runs.length && runs[ri + 1].$2 <= pos) {
+      ri++;
+    }
+  }
+  out.write(side(pos, ops.length, 1));
+  final text = out.toString();
+  if (applyInlineMarksText('$nb$text$na', accept: true) != '$nb$n$na' ||
+      applyInlineMarksText('$ob$text$oa', accept: false) != '$ob$o$oa') {
+    return null;
+  }
+  return text;
+}
+
+/// A whole line marked as inserted (`++`) or deleted (`--`): its indentation
+/// stays outside the mark; a blank line stays blank.
+String _lineMark(String line, String d) {
+  final body = line.trimLeft();
+  if (body.trim().isEmpty) return line;
+  final indent = line.substring(0, line.length - body.length);
+  return '$indent{$d ${body.trimRight()} $d}';
+}
+
+/// [newValue] with its differences from [oldValue] marked, so that accepting
+/// every mark gives exactly [newValue] and rejecting every mark exactly
+/// [oldValue] (SOM §11.9.3). The diff runs by line, then by word inside a
+/// changed run of lines; words are never split, changes separated by at most
+/// two unchanged words are one mark, and nothing inside code is marked.
+SpecMarkedChange markChangeText(String oldValue, String newValue) {
+  if (oldValue == newValue) {
+    return SpecMarkedChange(newValue, exact: true);
+  }
+  final ol = oldValue.split('\n'), nl = newValue.split('\n');
+  final oc = _codeLines(ol), nc = _codeLines(nl);
+  final lops = _diff(
+    [for (final l in ol) _Tok(l, false)],
+    [for (final l in nl) _Tok(l, false)],
+  );
+  final out = <String>[];
+  var exact = true;
+  var oi = 0, ni = 0, k = 0;
+  String join(List<String> ls) => ls.join('\n');
+  while (k < lops.length) {
+    if (lops[k].$1 == 0) {
+      out.add(nl[ni]);
+      oi++;
+      ni++;
+      k++;
+      continue;
+    }
+    final d0 = oi, n0 = ni;
+    while (k < lops.length && lops[k].$1 != 0) {
+      if (lops[k].$1 == 1) {
+        oi++;
+      } else {
+        ni++;
+      }
+      k++;
+    }
+    final del = ol.sublist(d0, oi), ins = nl.sublist(n0, ni);
+    final ob = ol.sublist(0, d0), oa = ol.sublist(oi);
+    final nb = nl.sublist(0, n0), na = nl.sublist(ni);
+    bool roundTrips(List<String> e) =>
+        applyInlineMarksText(join([...nb, ...e, ...na]), accept: true) ==
+            newValue &&
+        applyInlineMarksText(join([...ob, ...e, ...oa]), accept: false) ==
+            oldValue;
+    List<String>? emitted;
+    final inCode = [
+      for (var q = d0; q < oi; q++) oc[q],
+      for (var q = n0; q < ni; q++) nc[q],
+    ].any((c) => c);
+    if (!inCode) {
+      final candidates = <List<String>>[];
+      if (del.isNotEmpty && ins.isNotEmpty) {
+        final t = _markTokens(
+          join(del),
+          join(ins),
+          ob.isEmpty ? '' : '${join(ob)}\n',
+          nb.isEmpty ? '' : '${join(nb)}\n',
+          oa.isEmpty ? '' : '\n${join(oa)}',
+          na.isEmpty ? '' : '\n${join(na)}',
+        );
+        if (t != null) candidates.add(t.split('\n'));
+      }
+      final dm = [for (final l in del) _lineMark(l, '--')];
+      final im = [for (final l in ins) _lineMark(l, '++')];
+      bool blank(String l) => l.trim().isEmpty;
+      candidates
+        ..add([...dm, ...im])
+        ..add([...dm.where((l) => !blank(l)), ...im])
+        ..add([...dm, ...im.where((l) => !blank(l))])
+        ..add([...dm.where((l) => !blank(l)), ...im.where((l) => !blank(l))]);
+      for (final e in candidates) {
+        if (roundTrips(e)) {
+          emitted = e;
+          break;
+        }
+      }
+    }
+    if (emitted == null) {
+      exact = false;
+      out.addAll(ins);
+    } else {
+      out.addAll(emitted);
+    }
+  }
+  final text = join(out);
+  if (exact &&
+      (applyInlineMarksText(text, accept: true) != newValue ||
+          applyInlineMarksText(text, accept: false) != oldValue)) {
+    return SpecMarkedChange(newValue, exact: false);
+  }
+  return SpecMarkedChange(text, exact: exact);
 }

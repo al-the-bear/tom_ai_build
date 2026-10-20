@@ -254,6 +254,31 @@ typedef struct {
  * marks stay as written. Owned result. */
 char *spec_apply_inline_marks_text(const char *value, int accept);
 
+/* ---- writing changes as inline marks (SOM §11.9.3) ---------------------- */
+
+/* A value written as a marked change. Release with `spec_marked_change_free`. */
+typedef struct {
+  /* The value with every difference marked. Owned. */
+  char *text;
+  /* Whether accepting the marks gives exactly the new value and rejecting
+   * them exactly the old one. 0 when a difference cannot be marked — a change
+   * inside fenced code, or text that holds mark delimiters — and the new value
+   * was written unmarked instead. */
+  int exact;
+} SpecMarkedChange;
+
+void spec_marked_change_free(SpecMarkedChange *c);
+/* `{text, exact}`. Owned. */
+char *spec_marked_change_to_json(const SpecMarkedChange *c);
+
+/* `new_value` with its differences from `old_value` marked, so that accepting
+ * every mark gives exactly `new_value` and rejecting every mark exactly
+ * `old_value`. The diff runs by line, then by word inside a changed run of
+ * lines; words are never split, changes separated by at most two unchanged
+ * words are one mark, and nothing inside code is marked. */
+SpecMarkedChange spec_mark_change_text(const char *old_value,
+                                       const char *new_value);
+
 /* The lines of a comment block (`author` NULL or "" for none), written into
  * `out` (initialised by the callee). */
 void spec_format_comment_block(const char *id, const char *text,
@@ -395,6 +420,20 @@ void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
  * and are reported. `out` holds the accept report. */
 void spec_review_annotations_remove_all_annotations(
     const SpecReviewAnnotations *r, SpecMarkReport *out);
+
+/* Writes `text` at `path` / `field` (NULL: content) as a marked change
+ * against the value there now. A value that already holds change marks is
+ * compared from its original — every mark rejected — so a second edit of the
+ * same passage updates its mark instead of nesting one. */
+SpecMarkedChange spec_review_annotations_set_marked(
+    const SpecReviewAnnotations *r, const char *path, const char *field,
+    const char *text);
+
+/* Marks the value at `path` / `field` as a change against `earlier`, an
+ * earlier version of it, and writes the result. */
+SpecMarkedChange spec_review_annotations_mark_against(
+    const SpecReviewAnnotations *r, const char *path, const char *field,
+    const char *earlier);
 
 /* A copy of the document without any annotation, for reading. The document
  * itself is unchanged. Owned heap document: release with

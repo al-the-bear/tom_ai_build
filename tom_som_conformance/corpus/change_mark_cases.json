@@ -1,0 +1,475 @@
+{
+  "textCases": [
+    {
+      "name": "one word",
+      "old": "Sessions expire after 30 minutes.",
+      "new": "Sessions expire after 15 minutes.",
+      "marked": "Sessions expire after {~~ 30 ~> 15 ~~} minutes.",
+      "exact": true,
+      "accept": "Sessions expire after 15 minutes.",
+      "reject": "Sessions expire after 30 minutes."
+    },
+    {
+      "name": "a phrase",
+      "old": "The quick brown fox jumps.",
+      "new": "The slow red fox jumps.",
+      "marked": "The {~~ quick brown ~> slow red ~~} fox jumps.",
+      "exact": true,
+      "accept": "The slow red fox jumps.",
+      "reject": "The quick brown fox jumps."
+    },
+    {
+      "name": "a sentence",
+      "old": "One sentence here. Another one there.",
+      "new": "One sentence here. A completely different second sentence.",
+      "marked": "One sentence here. {~~ Another one there. ~> A completely different second sentence. ~~}",
+      "exact": true,
+      "accept": "One sentence here. A completely different second sentence.",
+      "reject": "One sentence here. Another one there."
+    },
+    {
+      "name": "changes two words apart are one mark",
+      "old": "a b c d e f g",
+      "new": "X b c Y e f g",
+      "marked": "{~~ a b c d ~> X b c Y ~~} e f g",
+      "exact": true,
+      "accept": "X b c Y e f g",
+      "reject": "a b c d e f g"
+    },
+    {
+      "name": "changes three words apart are two marks",
+      "old": "a b c d e f g",
+      "new": "X b c d Y f g",
+      "marked": "{~~ a ~> X ~~} b c d {~~ e ~> Y ~~} f g",
+      "exact": true,
+      "accept": "X b c d Y f g",
+      "reject": "a b c d e f g"
+    },
+    {
+      "name": "insertion in a sentence",
+      "old": "Before\nAfter text",
+      "new": "Before\nAfter changed text",
+      "marked": "Before\nAfter {++ changed ++} text",
+      "exact": true,
+      "accept": "Before\nAfter changed text",
+      "reject": "Before\nAfter text"
+    },
+    {
+      "name": "insertion at the start",
+      "old": "Start here.",
+      "new": "Now start here.",
+      "marked": "{~~ Start ~> Now start ~~} here.",
+      "exact": true,
+      "accept": "Now start here.",
+      "reject": "Start here."
+    },
+    {
+      "name": "punctuation added to a word",
+      "old": "word",
+      "new": "word.",
+      "marked": "{~~ word ~> word. ~~}",
+      "exact": true,
+      "accept": "word.",
+      "reject": "word"
+    },
+    {
+      "name": "a whitespace-only change",
+      "old": "a b",
+      "new": "a  b",
+      "marked": "{~~ a b ~> a  b ~~}",
+      "exact": true,
+      "accept": "a  b",
+      "reject": "a b"
+    },
+    {
+      "name": "a list item removed and one added",
+      "old": "- first item\n- second item\n- third item",
+      "new": "- first item\n- third item\n- fourth item",
+      "marked": "- first item\n{-- - second item --}\n- third item\n{++ - fourth item ++}",
+      "exact": true,
+      "accept": "- first item\n- third item\n- fourth item",
+      "reject": "- first item\n- second item\n- third item"
+    },
+    {
+      "name": "an indented list item changed",
+      "old": "- top\n  - nested old\n- end",
+      "new": "- top\n  - nested new\n- end",
+      "marked": "- top\n  - nested {~~ old ~> new ~~}\n- end",
+      "exact": true,
+      "accept": "- top\n  - nested new\n- end",
+      "reject": "- top\n  - nested old\n- end"
+    },
+    {
+      "name": "multi-line edit",
+      "old": "Line one.\nLine two.",
+      "new": "Line one.\nLine two changed.\nLine three.",
+      "marked": "Line one.\nLine {~~ two. ~> two changed.\nLine three. ~~}",
+      "exact": true,
+      "accept": "Line one.\nLine two changed.\nLine three.",
+      "reject": "Line one.\nLine two."
+    },
+    {
+      "name": "a paragraph added",
+      "old": "Para one.\n\nPara two.",
+      "new": "Para one.\n\nPara two.\n\nPara three.",
+      "marked": "Para one.\n\nPara two.\n\n{++ Para three. ++}",
+      "exact": true,
+      "accept": "Para one.\n\nPara two.\n\nPara three.",
+      "reject": "Para one.\n\nPara two."
+    },
+    {
+      "name": "a paragraph removed",
+      "old": "Para one.\n\nPara two.\n\nPara three.",
+      "new": "Para one.\n\nPara three.",
+      "marked": "Para one.\n\n{-- Para two. --}\n\nPara three.",
+      "exact": true,
+      "accept": "Para one.\n\nPara three.",
+      "reject": "Para one.\n\nPara two.\n\nPara three."
+    },
+    {
+      "name": "from nothing",
+      "old": "",
+      "new": "new text",
+      "marked": "{++ new text ++}",
+      "exact": true,
+      "accept": "new text",
+      "reject": ""
+    },
+    {
+      "name": "to nothing",
+      "old": "old text",
+      "new": "",
+      "marked": "{-- old text --}",
+      "exact": true,
+      "accept": "",
+      "reject": "old text"
+    },
+    {
+      "name": "an inline code span is kept whole",
+      "old": "Call `foo()` now.",
+      "new": "Call `bar()` now.",
+      "marked": "Call {~~ `foo()` ~> `bar()` ~~} now.",
+      "exact": true,
+      "accept": "Call `bar()` now.",
+      "reject": "Call `foo()` now."
+    },
+    {
+      "name": "unchanged code stays unmarked",
+      "old": "Before\n```\ncode\n```\nAfter text",
+      "new": "Before\n```\ncode\n```\nAfter changed text",
+      "marked": "Before\n```\ncode\n```\nAfter {++ changed ++} text",
+      "exact": true,
+      "accept": "Before\n```\ncode\n```\nAfter changed text",
+      "reject": "Before\n```\ncode\n```\nAfter text"
+    },
+    {
+      "name": "a change inside fenced code is not marked",
+      "old": "Before\n```\ncode a\n```\nAfter",
+      "new": "Before\n```\ncode b\n```\nAfter",
+      "marked": "Before\n```\ncode b\n```\nAfter",
+      "exact": false,
+      "accept": "Before\n```\ncode b\n```\nAfter",
+      "reject": "Before\n```\ncode b\n```\nAfter"
+    },
+    {
+      "name": "unchanged text",
+      "old": "Same.",
+      "new": "Same.",
+      "marked": "Same.",
+      "exact": true,
+      "accept": "Same.",
+      "reject": "Same."
+    }
+  ],
+  "cases": [
+    {
+      "name": "set a value as a marked change, then accept all",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes of inactivity."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob Smith",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "text": "Sessions expire after 15 minutes of inactivity on kiosks."
+        },
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "field": "owner",
+          "text": "Alice Smith"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "acceptAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+            "exact": true
+          },
+          {
+            "text": "{~~ Bob ~> Alice ~~} Smith",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30 minutes of inactivity.",
+              "newText": "15 minutes of inactivity on kiosks.",
+              "comment": null,
+              "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+              "context": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "Bob",
+              "newText": "Alice",
+              "comment": null,
+              "markup": "{~~ Bob ~> Alice ~~}",
+              "context": "{~~ Bob ~> Alice ~~} Smith"
+            }
+          ],
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+                "result": "15 minutes of inactivity on kiosks."
+              },
+              {
+                "id": "M-2",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ Bob ~> Alice ~~}",
+                "result": "Alice"
+              }
+            ],
+            "malformed": []
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 15 minutes of inactivity on kiosks."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Alice Smith"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "set a value as a marked change, then reject all",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes of inactivity."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob Smith",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "text": "Sessions expire after 15 minutes of inactivity on kiosks."
+        },
+        {
+          "op": "rejectAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+            "exact": true
+          },
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "reject",
+                "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+                "result": "30 minutes of inactivity."
+              }
+            ],
+            "malformed": []
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 30 minutes of inactivity."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob Smith"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "a second edit of the same passage updates its mark",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes of inactivity."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob Smith",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "text": "Sessions expire after 15 minutes of inactivity."
+        },
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "text": "Sessions expire after 10 minutes of inactivity."
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity.",
+            "exact": true
+          },
+          {
+            "text": "Sessions expire after {~~ 30 ~> 10 ~~} minutes of inactivity.",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30",
+              "newText": "10",
+              "comment": null,
+              "markup": "{~~ 30 ~> 10 ~~}",
+              "context": "Sessions expire after {~~ 30 ~> 10 ~~} minutes of inactivity."
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 10 ~~} minutes of inactivity."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob Smith"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "mark a written value against an earlier version",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes of inactivity."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob Smith",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "markAgainst",
+          "path": "DEMO/SUM",
+          "earlier": "Sessions end after 30 minutes."
+        },
+        {
+          "op": "rejectAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "Sessions {~~ end after 30 minutes. ~> expire after 30 minutes of inactivity. ~~}",
+            "exact": true
+          },
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "reject",
+                "markup": "{~~ end after 30 minutes. ~> expire after 30 minutes of inactivity. ~~}",
+                "result": "end after 30 minutes."
+              }
+            ],
+            "malformed": []
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions end after 30 minutes."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob Smith"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

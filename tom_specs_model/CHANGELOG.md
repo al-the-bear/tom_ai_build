@@ -1,3 +1,9 @@
+## 1.6.17
+
+- No model change. The chain moves with the runtimes, which gain writing
+  changes as inline marks (SOM §11.9.3: `markChangeText`, `setMarked`,
+  `markAgainst`).
+
 ## 1.6.16
 
 - No model change. The chain moves with the runtimes, which gain the review of

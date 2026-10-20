@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Writing changes as inline marks (SOM §11.9.3): `markChangeText(old, new)`
+  diffs by line, then by word, merging changes at most two words apart, so
+  accepting all marks gives `new` and rejecting all gives `old`. Words are
+  never split and code is never marked. Returns a `SpecMarkedChange`
+  (`text`, `exact`). `SpecReviewAnnotations.setMarked` (a second edit updates
+  its mark) and `markAgainst` (against an earlier version) apply it to a
+  value. Conformance: `change_mark_cases.json`.
+
 - Reviewing inline marks (SOM §11.9.3): `SpecReviewAnnotations.revision`,
   `listMarks`, `decideMarks` (accept / reject / leave in one write, refused on
   a stale revision or an unknown id), `acceptAllMarks` / `rejectAllMarks`

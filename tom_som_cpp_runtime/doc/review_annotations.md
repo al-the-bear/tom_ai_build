@@ -144,6 +144,23 @@ const som::SpecMarkReport report = review.decideMarks(
     {{marks.front().id, som::SpecMarkDecision::Accept}}, rev);
 ```
 
+### Writing changes as marks
+
+| Operation | Does |
+|-----------|------|
+| `som::markChangeText(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, `exact`) |
+| `setMarked(path, field, text)` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `markAgainst(path, field, earlier)` | Marks the value already written against an earlier version |
+
+`exact` is false only when a difference could not be marked, i.e. a change
+inside fenced code. The new text is then written unmarked.
+
+```cpp
+const som::SpecMarkedChange r = som::markChangeText(
+    "Sessions expire after 30 minutes.", "Sessions expire after 15 minutes.");
+std::cout << r.text << "\n";  // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
 ## Validation
 
 `validateDocument` reports annotation findings as its last group, ordered by

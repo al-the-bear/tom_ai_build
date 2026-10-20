@@ -75,6 +75,7 @@ void main() {
   final nodeCreationScript = _nodeCreationScript(model);
   final annotationCases = _annotationCases(model, tree);
   final inlineMarkCases = _inlineMarkCases(model, tree);
+  final changeMarkCases = _changeMarkCases(model, tree);
 
   setUpAll(() {
     if (!update) return;
@@ -129,6 +130,7 @@ void main() {
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
     write('annotation_cases.json', '${enc.convert(annotationCases)}\n');
     write('inline_mark_cases.json', '${enc.convert(inlineMarkCases)}\n');
+    write('change_mark_cases.json', '${enc.convert(changeMarkCases)}\n');
   });
 
   String read(String name) =>
@@ -1096,6 +1098,33 @@ void main() {
             (c['review'] as Map).cast<String, dynamic>(),
             (c['renamed'] as Map).cast<String, String>(),
           ),
+          c['expect'],
+        );
+      });
+    }
+  });
+
+  group('change_mark_cases.json (writing changes as marks)', () {
+    final table = update
+        ? changeMarkCases
+        : jsonDecode(read('change_mark_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['textCases'] as List).cast<Map<String, dynamic>>()) {
+      test('change text: ${c['name']}', () {
+        final r = markChangeText(c['old'] as String, c['new'] as String);
+        expect(r.text, c['marked']);
+        expect(r.exact, c['exact']);
+        expect(applyInlineMarksText(r.text, accept: true), c['accept']);
+        expect(applyInlineMarksText(r.text, accept: false), c['reject']);
+        if (r.exact) {
+          expect(c['accept'], c['new']);
+          expect(c['reject'], c['old']);
+        }
+      });
+    }
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('change: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runAnnotationCase(model, tree, c))),
           c['expect'],
         );
       });
@@ -8145,6 +8174,22 @@ Map<String, Object?> _runAnnotationCase(
         'acceptAll' => api.acceptAllMarks(path: op['path'] as String?).toJson(),
         'rejectAll' => api.rejectAllMarks(path: op['path'] as String?).toJson(),
         'removeAll' => api.removeAllAnnotations().toJson(),
+        'setMarked' =>
+          api
+              .setMarked(
+                path: op['path'] as String,
+                field: op['field'] as String?,
+                text: op['text'] as String,
+              )
+              .toJson(),
+        'markAgainst' =>
+          api
+              .markAgainst(
+                path: op['path'] as String,
+                field: op['field'] as String?,
+                earlier: op['earlier'] as String,
+              )
+              .toJson(),
         'roundTrip' => () {
           final yaml = SpecDocumentYaml.encode(
             document: doc,
@@ -8285,6 +8330,158 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
       'ops': [
         {'op': 'removeAll'},
         {'op': 'counts'},
+      ],
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runAnnotationCase(model, tree, c);
+  }
+  return {'textCases': textCases, 'cases': cases};
+}
+
+// ---------------------------------------------------------------------------
+// change_mark_cases.json — writing a change as inline marks (SOM §11.9.3).
+// ---------------------------------------------------------------------------
+
+Map<String, dynamic> _changeMarkCases(SpecModel model, SomMetaTree tree) {
+  final pairs = <String, (String, String)>{
+    'one word': (
+      'Sessions expire after 30 minutes.',
+      'Sessions expire after 15 minutes.',
+    ),
+    'a phrase': ('The quick brown fox jumps.', 'The slow red fox jumps.'),
+    'a sentence': (
+      'One sentence here. Another one there.',
+      'One sentence here. A completely different second sentence.',
+    ),
+    'changes two words apart are one mark': ('a b c d e f g', 'X b c Y e f g'),
+    'changes three words apart are two marks': (
+      'a b c d e f g',
+      'X b c d Y f g',
+    ),
+    'insertion in a sentence': (
+      'Before\nAfter text',
+      'Before\nAfter changed text',
+    ),
+    'insertion at the start': ('Start here.', 'Now start here.'),
+    'punctuation added to a word': ('word', 'word.'),
+    'a whitespace-only change': ('a b', 'a  b'),
+    'a list item removed and one added': (
+      '- first item\n- second item\n- third item',
+      '- first item\n- third item\n- fourth item',
+    ),
+    'an indented list item changed': (
+      '- top\n  - nested old\n- end',
+      '- top\n  - nested new\n- end',
+    ),
+    'multi-line edit': (
+      'Line one.\nLine two.',
+      'Line one.\nLine two changed.\nLine three.',
+    ),
+    'a paragraph added': (
+      'Para one.\n\nPara two.',
+      'Para one.\n\nPara two.\n\nPara three.',
+    ),
+    'a paragraph removed': (
+      'Para one.\n\nPara two.\n\nPara three.',
+      'Para one.\n\nPara three.',
+    ),
+    'from nothing': ('', 'new text'),
+    'to nothing': ('old text', ''),
+    'an inline code span is kept whole': (
+      'Call `foo()` now.',
+      'Call `bar()` now.',
+    ),
+    'unchanged code stays unmarked': (
+      'Before\n```\ncode\n```\nAfter text',
+      'Before\n```\ncode\n```\nAfter changed text',
+    ),
+    'a change inside fenced code is not marked': (
+      'Before\n```\ncode a\n```\nAfter',
+      'Before\n```\ncode b\n```\nAfter',
+    ),
+    'unchanged text': ('Same.', 'Same.'),
+  };
+  final textCases = [
+    for (final e in pairs.entries)
+      () {
+        final r = markChangeText(e.value.$1, e.value.$2);
+        return {
+          'name': e.key,
+          'old': e.value.$1,
+          'new': e.value.$2,
+          'marked': r.text,
+          'exact': r.exact,
+          'accept': applyInlineMarksText(r.text, accept: true),
+          'reject': applyInlineMarksText(r.text, accept: false),
+        };
+      }(),
+  ];
+  final base = {
+    'content': {'DEMO/SUM': 'Sessions expire after 30 minutes of inactivity.'},
+    'forms': {
+      'DEMO/DET': {'owner': 'Bob Smith', 'contact': 'bob@example.com'},
+    },
+  };
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'set a value as a marked change, then accept all',
+      'state': base,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'text': 'Sessions expire after 15 minutes of inactivity on kiosks.',
+        },
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'field': 'owner',
+          'text': 'Alice Smith',
+        },
+        {'op': 'listMarks'},
+        {'op': 'acceptAll'},
+      ],
+    },
+    {
+      'name': 'set a value as a marked change, then reject all',
+      'state': base,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'text': 'Sessions expire after 15 minutes of inactivity on kiosks.',
+        },
+        {'op': 'rejectAll'},
+      ],
+    },
+    {
+      'name': 'a second edit of the same passage updates its mark',
+      'state': base,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'text': 'Sessions expire after 15 minutes of inactivity.',
+        },
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'text': 'Sessions expire after 10 minutes of inactivity.',
+        },
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'mark a written value against an earlier version',
+      'state': base,
+      'ops': [
+        {
+          'op': 'markAgainst',
+          'path': 'DEMO/SUM',
+          'earlier': 'Sessions end after 30 minutes.',
+        },
+        {'op': 'rejectAll'},
       ],
     },
   ];

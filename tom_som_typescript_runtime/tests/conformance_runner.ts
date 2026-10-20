@@ -18,8 +18,9 @@
  *   * validation cases;
  *   * assembling one document from fragments (`assembly_cases.json`);
  *   * review annotations — listing and editing comment blocks, question
- *     blocks and inline marks (`annotation_cases.json`, SOM §11.9), and
- *     accepting / rejecting inline marks (`inline_mark_cases.json`);
+ *     blocks and inline marks (`annotation_cases.json`, SOM §11.9),
+ *     accepting / rejecting inline marks (`inline_mark_cases.json`), and
+ *     writing changes as marks (`change_mark_cases.json`);
  *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
  *   * DocSpecs findings bound to their document path (`docspecs_path_cases.json`);
  *   * the imperative operations script;
@@ -81,6 +82,7 @@ import {
   SpecReviewAnnotations,
   SpecStateFilter,
   applyInlineMarksText,
+  markChangeText,
   buildSomMetaTree,
   checkAddNode,
   checkSomModelVersion,
@@ -643,6 +645,12 @@ function _runAnnotationOp(
       return api.rejectAllMarks({ path: op.path ?? null }).toJson();
     case 'removeAll':
       return api.removeAllAnnotations().toJson();
+    case 'setMarked':
+      return api.setMarked({ path: op.path, field: op.field ?? null, text: op.text }).toJson();
+    case 'markAgainst':
+      return api
+        .markAgainst({ path: op.path, field: op.field ?? null, earlier: op.earlier })
+        .toJson();
     case 'roundTrip': {
       const current = JSON.stringify(doc.toJson());
       const fromYaml = yamlDecode(yamlEncode(doc, tree, _MODEL_VERSION), tree).document;
@@ -690,6 +698,44 @@ function testInlineMarks(model: SpecModel, tree: SomMetaTree): void {
   }
   for (const c of table.cases as any[]) {
     const name = `inlineMark[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
+// Writing changes as marks (SOM §11.9.3): the text table pins
+// `markChangeText`, the scripted cases run like `annotation_cases.json` with
+// the `setMarked` / `markAgainst` ops.
+function testChangeMarks(model: SpecModel, tree: SomMetaTree): void {
+  const table = _readJson('change_mark_cases.json');
+  for (const c of table.textCases as any[]) {
+    const name = `changeMarkText[${c.name}]`;
+    try {
+      const r = markChangeText(c.old, c.new);
+      const acc = applyInlineMarksText(r.text, { accept: true });
+      const rej = applyInlineMarksText(r.text, { accept: false });
+      _check(
+        name,
+        r.text === c.marked &&
+          r.exact === c.exact &&
+          acc === c.accept &&
+          rej === c.reject &&
+          (!r.exact || (c.accept === c.new && c.reject === c.old)),
+        `marked ${JSON.stringify(r.text)} vs ${JSON.stringify(c.marked)}; ` +
+          `exact ${r.exact} vs ${c.exact}; ` +
+          `accept ${JSON.stringify(acc)} vs ${JSON.stringify(c.accept)}; ` +
+          `reject ${JSON.stringify(rej)} vs ${JSON.stringify(c.reject)}`,
+      );
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+  for (const c of table.cases as any[]) {
+    const name = `changeMark[${c.name}]`;
     try {
       const got = _runAnnotationCase(model, tree, c);
       _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
@@ -2309,6 +2355,7 @@ export function main(): number {
   testAssembly();
   testAnnotations(model, tree);
   testInlineMarks(model, tree);
+  testChangeMarks(model, tree);
   testListMove(model);
   testOneLineExport(model);
   testReflection(model);

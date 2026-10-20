@@ -1795,3 +1795,498 @@ func (r *SpecReviewAnnotations) RemoveAllAnnotations() SpecMarkReport {
 	}
 	return report
 }
+
+// SetMarked writes text at path / field ("" for content) as a marked change
+// against the value there now (SOM §11.9.3). A value that already holds
+// change marks is compared from its original — every mark rejected — so a
+// second edit of the same passage updates its mark instead of nesting one.
+func (r *SpecReviewAnnotations) SetMarked(path, field, text string) SpecMarkedChange {
+	base := ApplyInlineMarksText(r.get(path, field), false)
+	result := MarkChangeText(base, text)
+	r.set(path, field, result.Text)
+	return result
+}
+
+// MarkAgainst marks the value at path / field ("" for content) as a change
+// against earlier, an earlier version of it.
+func (r *SpecReviewAnnotations) MarkAgainst(path, field, earlier string) SpecMarkedChange {
+	result := MarkChangeText(earlier, r.get(path, field))
+	r.set(path, field, result.Text)
+	return result
+}
+
+// ---------------------------------------------------------------------------
+// Writing changes as inline marks (SOM §11.9.3, annot5).
+// ---------------------------------------------------------------------------
+
+// SpecMarkedChange is a value written as a marked change.
+type SpecMarkedChange struct {
+	// Text is the value with every difference marked.
+	Text string
+	// Exact is whether accepting the marks gives exactly the new value and
+	// rejecting them exactly the old one. False when a difference cannot be
+	// marked — a change inside fenced code, or text that holds mark
+	// delimiters — and the new value was written unmarked instead.
+	Exact bool
+}
+
+// ToJSON is the canonical JSON form.
+func (c SpecMarkedChange) ToJSON() map[string]any {
+	return map[string]any{"text": c.Text, "exact": c.Exact}
+}
+
+// annTok is one token of a value: a run of whitespace, a word (a run of
+// non-whitespace with inline code spans kept whole) or a fenced code block
+// (its lines).
+type annTok struct {
+	text  string
+	space bool
+}
+
+func annIsWs(c byte) bool { return c == ' ' || c == '\t' || c == '\n' }
+
+func annTokens(value string) []annTok {
+	var out []annTok
+	add := func(t string, space bool) {
+		if t == "" {
+			return
+		}
+		if space && len(out) > 0 && out[len(out)-1].space {
+			out[len(out)-1] = annTok{out[len(out)-1].text + t, true}
+		} else {
+			out = append(out, annTok{t, space})
+		}
+	}
+	words := func(s string) {
+		i := 0
+		for i < len(s) {
+			if annIsWs(s[i]) {
+				st := i
+				for i < len(s) && annIsWs(s[i]) {
+					i++
+				}
+				add(s[st:i], true)
+				continue
+			}
+			st := i
+			for i < len(s) && !annIsWs(s[i]) {
+				if s[i] == '`' {
+					n := 0
+					for i+n < len(s) && s[i+n] == '`' {
+						n++
+					}
+					// The matching run of exactly n backticks ends the span.
+					j := i + n
+					closeAt := -1
+					for j < len(s) {
+						if s[j] == '`' {
+							m := 0
+							for j+m < len(s) && s[j+m] == '`' {
+								m++
+							}
+							if m == n {
+								closeAt = j
+								break
+							}
+							j += m
+						} else {
+							j++
+						}
+					}
+					if closeAt < 0 {
+						i += n
+					} else {
+						i = closeAt + n
+					}
+					continue
+				}
+				i++
+			}
+			add(s[st:i], false)
+		}
+	}
+	lines := strings.Split(value, "\n")
+	code := annCodeLines(lines)
+	k := 0
+	for k < len(lines) {
+		if k > 0 {
+			add("\n", true)
+		}
+		st := k
+		isCode := code[k]
+		for k+1 < len(lines) && code[k+1] == isCode {
+			k++
+		}
+		run := strings.Join(lines[st:k+1], "\n")
+		if isCode {
+			add(run, false)
+		} else {
+			words(run)
+		}
+		k++
+	}
+	return out
+}
+
+// annOp is one diff op: kind 0 keep, 1 delete (old), 2 insert (new).
+type annOp struct {
+	kind int
+	tok  annTok
+}
+
+// annDiff is the diff of two token lists. LCS over token text; ties prefer
+// the deletion.
+func annDiff(a, b []annTok) []annOp {
+	n, m := len(a), len(b)
+	l := make([][]int, n+1)
+	for i := range l {
+		l[i] = make([]int, m+1)
+	}
+	for i := n - 1; i >= 0; i-- {
+		for j := m - 1; j >= 0; j-- {
+			if a[i].text == b[j].text {
+				l[i][j] = l[i+1][j+1] + 1
+			} else if l[i+1][j] >= l[i][j+1] {
+				l[i][j] = l[i+1][j]
+			} else {
+				l[i][j] = l[i][j+1]
+			}
+		}
+	}
+	var ops []annOp
+	i, j := 0, 0
+	for i < n || j < m {
+		if i < n && j < m && a[i].text == b[j].text {
+			ops = append(ops, annOp{0, a[i]})
+			i++
+			j++
+		} else if j >= m || (i < n && l[i+1][j] >= l[i][j+1]) {
+			ops = append(ops, annOp{1, a[i]})
+			i++
+		} else {
+			ops = append(ops, annOp{2, b[j]})
+			j++
+		}
+	}
+	return ops
+}
+
+// annTrimWs is s with its leading and trailing whitespace removed (spaces,
+// tabs, newlines).
+func annTrimWs(s string) string {
+	a, b := 0, len(s)
+	for a < b && annIsWs(s[a]) {
+		a++
+	}
+	for b > a && annIsWs(s[b-1]) {
+		b--
+	}
+	return s[a:b]
+}
+
+// annMarkup is the markup for one region whose old text is o and new text
+// is n (both trimmed, not both empty).
+func annMarkup(o, n string) string {
+	if o == "" {
+		return "{++ " + n + " ++}"
+	}
+	if n == "" {
+		return "{-- " + o + " --}"
+	}
+	return "{~~ " + o + " ~> " + n + " ~~}"
+}
+
+func annLeadWs(x string) string { return x[:len(x)-len(strings.TrimLeftFunc(x, unicode.IsSpace))] }
+
+func annTrailWs(x string) string { return x[len(strings.TrimRightFunc(x, unicode.IsSpace)):] }
+
+// annEmitRegion is the marked emission for the region [r0, r1) of ops, with
+// the old and the new text around it; ok false when no mark round-trips
+// there.
+func annEmitRegion(ops []annOp, r0, r1 int, oldBefore, newBefore, oldAfter, newAfter string) (string, bool) {
+	var o, n strings.Builder
+	for k := r0; k < r1; k++ {
+		if ops[k].kind != 2 {
+			o.WriteString(ops[k].tok.text)
+		}
+		if ops[k].kind != 1 {
+			n.WriteString(ops[k].tok.text)
+		}
+	}
+	os, ns := o.String(), n.String()
+	// Whitespace the two sides share at the edges stays outside the mark.
+	lead := 0
+	for lead < len(os) && lead < len(ns) && os[lead] == ns[lead] && annIsWs(os[lead]) {
+		lead++
+	}
+	trail := 0
+	for trail < len(os)-lead && trail < len(ns)-lead &&
+		os[len(os)-1-trail] == ns[len(ns)-1-trail] && annIsWs(os[len(os)-1-trail]) {
+		trail++
+	}
+	oi := os[lead : len(os)-trail]
+	ni := ns[lead : len(ns)-trail]
+	// The mark's content is trimmed when read, so it must already be
+	// trimmed; the whitespace still differing is placed outside, on the side
+	// whose text keeps it, and the tidy rules then have to restore the other
+	// side.
+	ot, nt := annTrimWs(oi), annTrimWs(ni)
+	if ot == "" && nt == "" {
+		return "", false
+	}
+	pre := os[:lead]
+	post := os[len(os)-trail:]
+	candidates := [][2]string{
+		{annLeadWs(ni), annTrailWs(ni)},
+		{annLeadWs(oi), annTrailWs(oi)},
+		{"", ""},
+		{annLeadWs(ni), ""},
+		{"", annTrailWs(ni)},
+	}
+	markup := annMarkup(ot, nt)
+	for _, c := range candidates {
+		emission := pre + c[0] + markup + c[1] + post
+		acc := ApplyInlineMarksText(newBefore+emission+newAfter, true)
+		rej := ApplyInlineMarksText(oldBefore+emission+oldAfter, false)
+		if acc == newBefore+ns+newAfter && rej == oldBefore+os+oldAfter {
+			return emission, true
+		}
+	}
+	return "", false
+}
+
+// annMarkTokens marks the token-level differences of o → n, where the text
+// before them is ob (old) / nb (new) and after them oa / na; ok false when
+// the marks do not round-trip.
+func annMarkTokens(o, n, ob, nb, oa, na string) (string, bool) {
+	ops := annDiff(annTokens(o), annTokens(n))
+	var runs [][2]int
+	k := 0
+	for k < len(ops) {
+		if ops[k].kind == 0 {
+			k++
+			continue
+		}
+		s := k
+		for k < len(ops) && ops[k].kind != 0 {
+			k++
+		}
+		runs = append(runs, [2]int{s, k})
+	}
+	// Changes separated by at most two unchanged words are one mark.
+	var merged [][2]int
+	for _, r := range runs {
+		if len(merged) > 0 {
+			words := 0
+			for q := merged[len(merged)-1][1]; q < r[0]; q++ {
+				if !ops[q].tok.space {
+					words++
+				}
+			}
+			if words <= 2 {
+				merged[len(merged)-1][1] = r[1]
+				continue
+			}
+		}
+		merged = append(merged, r)
+	}
+	runs = merged
+
+	side := func(from, to, skip int) string {
+		var b strings.Builder
+		for q := from; q < to; q++ {
+			if ops[q].kind != skip {
+				b.WriteString(ops[q].tok.text)
+			}
+		}
+		return b.String()
+	}
+
+	// Left to right; a region that does not round-trip grows by one token
+	// on each side and is tried again.
+	var out strings.Builder
+	pos := 0
+	for ri := 0; ri < len(runs); ri++ {
+		r0, r1 := runs[ri][0], runs[ri][1]
+		if r0 < pos {
+			r0 = pos
+		}
+		var emission string
+		var ok bool
+		for {
+			emission, ok = annEmitRegion(ops, r0, r1,
+				ob+side(0, r0, 2),
+				nb+side(0, r0, 1),
+				side(r1, len(ops), 2)+oa,
+				side(r1, len(ops), 1)+na)
+			if ok || (r0 <= pos && r1 >= len(ops)) {
+				break
+			}
+			if r0 > pos {
+				r0--
+			}
+			if r1 < len(ops) {
+				r1++
+			}
+		}
+		if !ok {
+			return "", false
+		}
+		out.WriteString(side(pos, r0, 1))
+		out.WriteString(emission)
+		pos = r1
+		for ri+1 < len(runs) && runs[ri+1][1] <= pos {
+			ri++
+		}
+	}
+	out.WriteString(side(pos, len(ops), 1))
+	text := out.String()
+	if ApplyInlineMarksText(nb+text+na, true) != nb+n+na ||
+		ApplyInlineMarksText(ob+text+oa, false) != ob+o+oa {
+		return "", false
+	}
+	return text, true
+}
+
+// annLineMark is a whole line marked as inserted (`++`) or deleted (`--`):
+// its indentation stays outside the mark; a blank line stays blank.
+func annLineMark(line, d string) string {
+	body := strings.TrimLeftFunc(line, unicode.IsSpace)
+	if strings.TrimSpace(body) == "" {
+		return line
+	}
+	indent := line[:len(line)-len(body)]
+	return indent + "{" + d + " " + strings.TrimRightFunc(body, unicode.IsSpace) + " " + d + "}"
+}
+
+// MarkChangeText returns newValue with its differences from oldValue marked,
+// so that accepting every mark gives exactly newValue and rejecting every
+// mark exactly oldValue (SOM §11.9.3). The diff runs by line, then by word
+// inside a changed run of lines; words are never split, changes separated by
+// at most two unchanged words are one mark, and nothing inside code is
+// marked.
+func MarkChangeText(oldValue, newValue string) SpecMarkedChange {
+	if oldValue == newValue {
+		return SpecMarkedChange{Text: newValue, Exact: true}
+	}
+	ol, nl := strings.Split(oldValue, "\n"), strings.Split(newValue, "\n")
+	oc, nc := annCodeLines(ol), annCodeLines(nl)
+	toks := func(ls []string) []annTok {
+		out := make([]annTok, len(ls))
+		for i, l := range ls {
+			out[i] = annTok{l, false}
+		}
+		return out
+	}
+	lops := annDiff(toks(ol), toks(nl))
+	join := func(parts ...[]string) string {
+		var all []string
+		for _, p := range parts {
+			all = append(all, p...)
+		}
+		return strings.Join(all, "\n")
+	}
+	blank := func(l string) bool { return strings.TrimSpace(l) == "" }
+	nonBlank := func(ls []string) []string {
+		var out []string
+		for _, l := range ls {
+			if !blank(l) {
+				out = append(out, l)
+			}
+		}
+		return out
+	}
+	var out []string
+	exact := true
+	oi, ni, k := 0, 0, 0
+	for k < len(lops) {
+		if lops[k].kind == 0 {
+			out = append(out, nl[ni])
+			oi++
+			ni++
+			k++
+			continue
+		}
+		d0, n0 := oi, ni
+		for k < len(lops) && lops[k].kind != 0 {
+			if lops[k].kind == 1 {
+				oi++
+			} else {
+				ni++
+			}
+			k++
+		}
+		del, ins := ol[d0:oi], nl[n0:ni]
+		ob, oa := ol[:d0], ol[oi:]
+		nb, na := nl[:n0], nl[ni:]
+		roundTrips := func(e []string) bool {
+			return ApplyInlineMarksText(join(nb, e, na), true) == newValue &&
+				ApplyInlineMarksText(join(ob, e, oa), false) == oldValue
+		}
+		var emitted []string
+		found := false
+		inCode := false
+		for q := d0; q < oi; q++ {
+			inCode = inCode || oc[q]
+		}
+		for q := n0; q < ni; q++ {
+			inCode = inCode || nc[q]
+		}
+		if !inCode {
+			var candidates [][]string
+			if len(del) > 0 && len(ins) > 0 {
+				before := func(ls []string) string {
+					if len(ls) == 0 {
+						return ""
+					}
+					return join(ls) + "\n"
+				}
+				after := func(ls []string) string {
+					if len(ls) == 0 {
+						return ""
+					}
+					return "\n" + join(ls)
+				}
+				if t, ok := annMarkTokens(join(del), join(ins), before(ob), before(nb), after(oa), after(na)); ok {
+					candidates = append(candidates, strings.Split(t, "\n"))
+				}
+			}
+			dm := make([]string, len(del))
+			for i, l := range del {
+				dm[i] = annLineMark(l, "--")
+			}
+			im := make([]string, len(ins))
+			for i, l := range ins {
+				im[i] = annLineMark(l, "++")
+			}
+			cat := func(a, b []string) []string {
+				out := append([]string{}, a...)
+				return append(out, b...)
+			}
+			candidates = append(candidates,
+				cat(dm, im),
+				cat(nonBlank(dm), im),
+				cat(dm, nonBlank(im)),
+				cat(nonBlank(dm), nonBlank(im)))
+			for _, e := range candidates {
+				if roundTrips(e) {
+					emitted = e
+					found = true
+					break
+				}
+			}
+		}
+		if !found {
+			exact = false
+			out = append(out, ins...)
+		} else {
+			out = append(out, emitted...)
+		}
+	}
+	text := strings.Join(out, "\n")
+	if exact && (ApplyInlineMarksText(text, true) != newValue ||
+		ApplyInlineMarksText(text, false) != oldValue) {
+		return SpecMarkedChange{Text: newValue, Exact: false}
+	}
+	return SpecMarkedChange{Text: text, Exact: exact}
+}

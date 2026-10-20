@@ -179,6 +179,26 @@ spec_mark_entry_list_free(&marks);
 free(rev);
 ```
 
+### Writing changes as marks
+
+| Operation | Does |
+|-----------|------|
+| `spec_mark_change_text(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, owned; `exact`) |
+| `spec_review_annotations_set_marked(&review, path, field, text)` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `spec_review_annotations_mark_against(&review, path, field, earlier)` | Marks the value already written against an earlier version |
+
+`exact` is 0 only when a difference could not be marked, i.e. a change inside
+fenced code. The new text is then written unmarked. Release a result with
+`spec_marked_change_free`; `spec_marked_change_to_json` gives
+`{text, exact}`.
+
+```c
+SpecMarkedChange r = spec_mark_change_text(
+    "Sessions expire after 30 minutes.", "Sessions expire after 15 minutes.");
+printf("%s\n", r.text); /* Sessions expire after {~~ 30 ~> 15 ~~} minutes. */
+spec_marked_change_free(&r);
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by

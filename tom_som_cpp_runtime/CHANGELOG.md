@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Writing changes as inline marks (SOM §11.9.3, annot5), in
+  `spec_review_annotations`, a port of the Dart reference:
+  `som::markChangeText(old, new)` diffs by line, then by word, merging changes
+  at most two words apart, so accepting all marks gives `new` and rejecting
+  all gives `old`; words are never split and code is never marked. It returns
+  a `SpecMarkedChange` (`text`, `exact`, `toJson()`).
+  `SpecReviewAnnotations::setMarked` (a second edit updates its mark) and
+  `markAgainst` (against an earlier version) apply it to a value. The
+  conformance harness runs `change_mark_cases.json`. Guide:
+  `doc/review_annotations.md`, "Writing changes as marks".
+
 - Inline-mark review (SOM §11.9.3, annot4), in `spec_review_annotations`, a
   port of the Dart reference. `SpecReviewAnnotations` gains `revision()`
   (FNV-1a 64-bit, 16 hex digits), `listMarks(path)` (`SpecMarkEntry`, ids

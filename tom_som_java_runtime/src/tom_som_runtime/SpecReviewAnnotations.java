@@ -1549,6 +1549,29 @@ public final class SpecReviewAnnotations {
     return report;
   }
 
+  /**
+   * Writes {@code text} at {@code path} / {@code field} (null for content) as a marked change
+   * against the value there now (SOM §11.9.3). A value that already holds change marks is compared
+   * from its original — every mark rejected — so a second edit of the same passage updates its mark
+   * instead of nesting one.
+   */
+  public SpecMarkedChange setMarked(String path, String field, String text) {
+    String base = applyInlineMarksText(get(path, field), false);
+    SpecMarkedChange result = markChangeText(base, text);
+    set(path, field, result.text);
+    return result;
+  }
+
+  /**
+   * Marks the value at {@code path} / {@code field} (null for content) as a change against {@code
+   * earlier}, an earlier version of it.
+   */
+  public SpecMarkedChange markAgainst(String path, String field, String earlier) {
+    SpecMarkedChange result = markChangeText(earlier, get(path, field));
+    set(path, field, result.text);
+    return result;
+  }
+
   /** A copy of the document without any annotation, for reading. The document is unchanged. */
   public SpecDocument stripped() {
     SpecDocument copy = new SpecDocument();
@@ -1681,5 +1704,512 @@ public final class SpecReviewAnnotations {
     // List.sort is stable: equal paths keep their finding order.
     errors.sort(Comparator.comparing((SpecValidationError e) -> e.path));
     return errors;
+  }
+
+  // -------------------------------------------------------------------------
+  // Writing changes as inline marks (SOM §11.9.3, annot5).
+  // -------------------------------------------------------------------------
+
+  /**
+   * One token of a value: a run of whitespace, a word (a run of non-whitespace with inline code
+   * spans kept whole) or a fenced code block (its lines).
+   */
+  private static final class Tok {
+    final String text;
+    final boolean space;
+
+    Tok(String text, boolean space) {
+      this.text = text;
+      this.space = space;
+    }
+  }
+
+  /** One diff op: 0 keep, 1 delete (old), 2 insert (new). */
+  private static final class Op {
+    final int kind;
+    final Tok tok;
+
+    Op(int kind, Tok tok) {
+      this.kind = kind;
+      this.tok = tok;
+    }
+  }
+
+  /** Space, tab or newline. */
+  private static boolean isMarkWs(char c) {
+    return c == ' ' || c == '\t' || c == '\n';
+  }
+
+  private static void addTok(List<Tok> out, String t, boolean space) {
+    if (t.isEmpty()) {
+      return;
+    }
+    if (space && !out.isEmpty() && out.get(out.size() - 1).space) {
+      out.set(out.size() - 1, new Tok(out.get(out.size() - 1).text + t, true));
+    } else {
+      out.add(new Tok(t, space));
+    }
+  }
+
+  private static void addWords(List<Tok> out, String s) {
+    int i = 0;
+    int len = s.length();
+    while (i < len) {
+      if (isMarkWs(s.charAt(i))) {
+        int st = i;
+        while (i < len && isMarkWs(s.charAt(i))) {
+          i++;
+        }
+        addTok(out, s.substring(st, i), true);
+        continue;
+      }
+      int st = i;
+      while (i < len && !isMarkWs(s.charAt(i))) {
+        if (s.charAt(i) == '`') {
+          int n = 0;
+          while (i + n < len && s.charAt(i + n) == '`') {
+            n++;
+          }
+          // The matching run of exactly n backticks ends the span.
+          int j = i + n;
+          int close = -1;
+          while (j < len) {
+            if (s.charAt(j) == '`') {
+              int m = 0;
+              while (j + m < len && s.charAt(j + m) == '`') {
+                m++;
+              }
+              if (m == n) {
+                close = j;
+                break;
+              }
+              j += m;
+            } else {
+              j++;
+            }
+          }
+          i = close < 0 ? i + n : close + n;
+          continue;
+        }
+        i++;
+      }
+      addTok(out, s.substring(st, i), false);
+    }
+  }
+
+  private static List<Tok> tokens(String value) {
+    List<Tok> out = new ArrayList<>();
+    List<String> lines = splitLines(value);
+    boolean[] code = codeLines(lines);
+    int k = 0;
+    while (k < lines.size()) {
+      if (k > 0) {
+        addTok(out, "\n", true);
+      }
+      int st = k;
+      boolean isCode = code[k];
+      while (k + 1 < lines.size() && code[k + 1] == isCode) {
+        k++;
+      }
+      String run = String.join("\n", lines.subList(st, k + 1));
+      if (isCode) {
+        addTok(out, run, false);
+      } else {
+        addWords(out, run);
+      }
+      k++;
+    }
+    return out;
+  }
+
+  /** The diff of two token lists. LCS over token text; ties prefer the deletion. */
+  private static List<Op> diff(List<Tok> a, List<Tok> b) {
+    int n = a.size();
+    int m = b.size();
+    int[][] l = new int[n + 1][m + 1];
+    for (int i = n - 1; i >= 0; i--) {
+      for (int j = m - 1; j >= 0; j--) {
+        l[i][j] =
+            a.get(i).text.equals(b.get(j).text)
+                ? l[i + 1][j + 1] + 1
+                : (l[i + 1][j] >= l[i][j + 1] ? l[i + 1][j] : l[i][j + 1]);
+      }
+    }
+    List<Op> ops = new ArrayList<>();
+    int i = 0;
+    int j = 0;
+    while (i < n || j < m) {
+      if (i < n && j < m && a.get(i).text.equals(b.get(j).text)) {
+        ops.add(new Op(0, a.get(i)));
+        i++;
+        j++;
+      } else if (j >= m || (i < n && l[i + 1][j] >= l[i][j + 1])) {
+        ops.add(new Op(1, a.get(i)));
+        i++;
+      } else {
+        ops.add(new Op(2, b.get(j)));
+        j++;
+      }
+    }
+    return ops;
+  }
+
+  /** {@code s} with its leading and trailing spaces, tabs and newlines removed. */
+  private static String trimMarkWs(String s) {
+    int a = 0;
+    int b = s.length();
+    while (a < b && isMarkWs(s.charAt(a))) {
+      a++;
+    }
+    while (b > a && isMarkWs(s.charAt(b - 1))) {
+      b--;
+    }
+    return s.substring(a, b);
+  }
+
+  private static String trimLeft(String s) {
+    int a = 0;
+    while (a < s.length() && isWs(s.charAt(a))) {
+      a++;
+    }
+    return s.substring(a);
+  }
+
+  private static String leadWs(String x) {
+    return x.substring(0, x.length() - trimLeft(x).length());
+  }
+
+  private static String trailWs(String x) {
+    return x.substring(trimRight(x).length());
+  }
+
+  /** The markup for one region whose old text is {@code o} and new text is {@code n}. */
+  private static String markup(String o, String n) {
+    if (o.isEmpty()) {
+      return "{++ " + n + " ++}";
+    }
+    if (n.isEmpty()) {
+      return "{-- " + o + " --}";
+    }
+    return "{~~ " + o + " ~> " + n + " ~~}";
+  }
+
+  /**
+   * The marked emission for the region [r0, r1) of {@code ops}, with the old and the new text
+   * around it, or null when no mark round-trips there.
+   */
+  private static String emitRegion(
+      List<Op> ops,
+      int r0,
+      int r1,
+      String oldBefore,
+      String newBefore,
+      String oldAfter,
+      String newAfter) {
+    StringBuilder o = new StringBuilder();
+    StringBuilder n = new StringBuilder();
+    for (int k = r0; k < r1; k++) {
+      Op op = ops.get(k);
+      if (op.kind != 2) {
+        o.append(op.tok.text);
+      }
+      if (op.kind != 1) {
+        n.append(op.tok.text);
+      }
+    }
+    String os = o.toString();
+    String ns = n.toString();
+    // Whitespace the two sides share at the edges stays outside the mark.
+    int lead = 0;
+    while (lead < os.length()
+        && lead < ns.length()
+        && os.charAt(lead) == ns.charAt(lead)
+        && isMarkWs(os.charAt(lead))) {
+      lead++;
+    }
+    int trail = 0;
+    while (trail < os.length() - lead
+        && trail < ns.length() - lead
+        && os.charAt(os.length() - 1 - trail) == ns.charAt(ns.length() - 1 - trail)
+        && isMarkWs(os.charAt(os.length() - 1 - trail))) {
+      trail++;
+    }
+    String oi = os.substring(lead, os.length() - trail);
+    String ni = ns.substring(lead, ns.length() - trail);
+    // The mark's content is trimmed when read, so it must already be trimmed; the whitespace still
+    // differing is placed outside, and the tidy rules then have to restore the other side.
+    String ot = trimMarkWs(oi);
+    String nt = trimMarkWs(ni);
+    if (ot.isEmpty() && nt.isEmpty()) {
+      return null;
+    }
+    String pre = os.substring(0, lead);
+    String post = os.substring(os.length() - trail);
+    String mk = markup(ot, nt);
+    String[][] candidates = {
+      {leadWs(ni), trailWs(ni)},
+      {leadWs(oi), trailWs(oi)},
+      {"", ""},
+      {leadWs(ni), ""},
+      {"", trailWs(ni)},
+    };
+    for (String[] c : candidates) {
+      String emission = pre + c[0] + mk + c[1] + post;
+      String acc = applyInlineMarksText(newBefore + emission + newAfter, true);
+      String rej = applyInlineMarksText(oldBefore + emission + oldAfter, false);
+      if (acc.equals(newBefore + ns + newAfter) && rej.equals(oldBefore + os + oldAfter)) {
+        return emission;
+      }
+    }
+    return null;
+  }
+
+  private static String side(List<Op> ops, int from, int to, int skip) {
+    StringBuilder b = new StringBuilder();
+    for (int q = from; q < to; q++) {
+      if (ops.get(q).kind != skip) {
+        b.append(ops.get(q).tok.text);
+      }
+    }
+    return b.toString();
+  }
+
+  /**
+   * Marks the token-level differences of {@code o} → {@code n}, where the text before them is
+   * {@code ob} (old) / {@code nb} (new) and after them {@code oa} / {@code na}. Null when the marks
+   * do not round-trip.
+   */
+  private static String markTokens(
+      String o, String n, String ob, String nb, String oa, String na) {
+    List<Op> ops = diff(tokens(o), tokens(n));
+    int end = ops.size();
+    List<int[]> runs = new ArrayList<>();
+    int k = 0;
+    while (k < end) {
+      if (ops.get(k).kind == 0) {
+        k++;
+        continue;
+      }
+      int s = k;
+      while (k < end && ops.get(k).kind != 0) {
+        k++;
+      }
+      runs.add(new int[] {s, k});
+    }
+    // Changes separated by at most two unchanged words are one mark.
+    List<int[]> merged = new ArrayList<>();
+    for (int[] r : runs) {
+      if (!merged.isEmpty()) {
+        int[] last = merged.get(merged.size() - 1);
+        int words = 0;
+        for (int q = last[1]; q < r[0]; q++) {
+          if (!ops.get(q).tok.space) {
+            words++;
+          }
+        }
+        if (words <= 2) {
+          merged.set(merged.size() - 1, new int[] {last[0], r[1]});
+          continue;
+        }
+      }
+      merged.add(r);
+    }
+    runs = merged;
+
+    // Left to right; a region that does not round-trip grows by one token on each side and is
+    // tried again.
+    StringBuilder out = new StringBuilder();
+    int pos = 0;
+    for (int ri = 0; ri < runs.size(); ri++) {
+      int r0 = runs.get(ri)[0];
+      int r1 = runs.get(ri)[1];
+      if (r0 < pos) {
+        r0 = pos;
+      }
+      String emission;
+      while (true) {
+        emission =
+            emitRegion(
+                ops,
+                r0,
+                r1,
+                ob + side(ops, 0, r0, 2),
+                nb + side(ops, 0, r0, 1),
+                side(ops, r1, end, 2) + oa,
+                side(ops, r1, end, 1) + na);
+        if (emission != null || (r0 <= pos && r1 >= end)) {
+          break;
+        }
+        if (r0 > pos) {
+          r0--;
+        }
+        if (r1 < end) {
+          r1++;
+        }
+      }
+      if (emission == null) {
+        return null;
+      }
+      out.append(side(ops, pos, r0, 1)).append(emission);
+      pos = r1;
+      while (ri + 1 < runs.size() && runs.get(ri + 1)[1] <= pos) {
+        ri++;
+      }
+    }
+    out.append(side(ops, pos, end, 1));
+    String text = out.toString();
+    if (!applyInlineMarksText(nb + text + na, true).equals(nb + n + na)
+        || !applyInlineMarksText(ob + text + oa, false).equals(ob + o + oa)) {
+      return null;
+    }
+    return text;
+  }
+
+  /**
+   * A whole line marked as inserted ({@code ++}) or deleted ({@code --}): its indentation stays
+   * outside the mark; a blank line stays blank.
+   */
+  private static String lineMark(String line, String d) {
+    String body = trimLeft(line);
+    if (trim(body).isEmpty()) {
+      return line;
+    }
+    String indent = line.substring(0, line.length() - body.length());
+    return indent + "{" + d + " " + trimRight(body) + " " + d + "}";
+  }
+
+  private static List<String> nonBlank(List<String> ls) {
+    List<String> out = new ArrayList<>();
+    for (String l : ls) {
+      if (!trim(l).isEmpty()) {
+        out.add(l);
+      }
+    }
+    return out;
+  }
+
+  private static List<String> concat(List<String> a, List<String> b) {
+    List<String> out = new ArrayList<>(a);
+    out.addAll(b);
+    return out;
+  }
+
+  private static List<String> concat(List<String> a, List<String> b, List<String> c) {
+    List<String> out = concat(a, b);
+    out.addAll(c);
+    return out;
+  }
+
+  /**
+   * {@code newValue} with its differences from {@code oldValue} marked, so that accepting every mark
+   * gives exactly {@code newValue} and rejecting every mark exactly {@code oldValue} (SOM §11.9.3).
+   * The diff runs by line, then by word inside a changed run of lines; words are never split,
+   * changes separated by at most two unchanged words are one mark, and nothing inside code is
+   * marked.
+   */
+  public static SpecMarkedChange markChangeText(String oldValue, String newValue) {
+    if (oldValue.equals(newValue)) {
+      return new SpecMarkedChange(newValue, true);
+    }
+    List<String> ol = splitLines(oldValue);
+    List<String> nl = splitLines(newValue);
+    boolean[] oc = codeLines(ol);
+    boolean[] nc = codeLines(nl);
+    List<Tok> ot = new ArrayList<>();
+    for (String l : ol) {
+      ot.add(new Tok(l, false));
+    }
+    List<Tok> nt = new ArrayList<>();
+    for (String l : nl) {
+      nt.add(new Tok(l, false));
+    }
+    List<Op> lops = diff(ot, nt);
+    List<String> out = new ArrayList<>();
+    boolean exact = true;
+    int oi = 0;
+    int ni = 0;
+    int k = 0;
+    while (k < lops.size()) {
+      if (lops.get(k).kind == 0) {
+        out.add(nl.get(ni));
+        oi++;
+        ni++;
+        k++;
+        continue;
+      }
+      int d0 = oi;
+      int n0 = ni;
+      while (k < lops.size() && lops.get(k).kind != 0) {
+        if (lops.get(k).kind == 1) {
+          oi++;
+        } else {
+          ni++;
+        }
+        k++;
+      }
+      List<String> del = ol.subList(d0, oi);
+      List<String> ins = nl.subList(n0, ni);
+      List<String> ob = ol.subList(0, d0);
+      List<String> oa = ol.subList(oi, ol.size());
+      List<String> nb = nl.subList(0, n0);
+      List<String> na = nl.subList(ni, nl.size());
+      List<String> emitted = null;
+      boolean inCode = false;
+      for (int q = d0; q < oi; q++) {
+        inCode |= oc[q];
+      }
+      for (int q = n0; q < ni; q++) {
+        inCode |= nc[q];
+      }
+      if (!inCode) {
+        List<List<String>> candidates = new ArrayList<>();
+        if (!del.isEmpty() && !ins.isEmpty()) {
+          String t =
+              markTokens(
+                  String.join("\n", del),
+                  String.join("\n", ins),
+                  ob.isEmpty() ? "" : String.join("\n", ob) + "\n",
+                  nb.isEmpty() ? "" : String.join("\n", nb) + "\n",
+                  oa.isEmpty() ? "" : "\n" + String.join("\n", oa),
+                  na.isEmpty() ? "" : "\n" + String.join("\n", na));
+          if (t != null) {
+            candidates.add(splitLines(t));
+          }
+        }
+        List<String> dm = new ArrayList<>();
+        for (String l : del) {
+          dm.add(lineMark(l, "--"));
+        }
+        List<String> im = new ArrayList<>();
+        for (String l : ins) {
+          im.add(lineMark(l, "++"));
+        }
+        candidates.add(concat(dm, im));
+        candidates.add(concat(nonBlank(dm), im));
+        candidates.add(concat(dm, nonBlank(im)));
+        candidates.add(concat(nonBlank(dm), nonBlank(im)));
+        for (List<String> e : candidates) {
+          if (applyInlineMarksText(String.join("\n", concat(nb, e, na)), true).equals(newValue)
+              && applyInlineMarksText(String.join("\n", concat(ob, e, oa)), false)
+                  .equals(oldValue)) {
+            emitted = e;
+            break;
+          }
+        }
+      }
+      if (emitted == null) {
+        exact = false;
+        out.addAll(ins);
+      } else {
+        out.addAll(emitted);
+      }
+    }
+    String text = String.join("\n", out);
+    if (exact
+        && (!applyInlineMarksText(text, true).equals(newValue)
+            || !applyInlineMarksText(text, false).equals(oldValue))) {
+      return new SpecMarkedChange(newValue, false);
+    }
+    return new SpecMarkedChange(text, exact);
   }
 }

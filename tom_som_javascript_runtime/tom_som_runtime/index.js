@@ -151,6 +151,8 @@ const {
   formatQuestionBlock,
   applyInlineMarksText,
   stripAnnotationsText,
+  SpecMarkedChange,
+  markChangeText,
 } = require('./spec_review_annotations');
 const {
   SomNode,
@@ -354,6 +356,8 @@ module.exports = {
   formatQuestionBlock,
   applyInlineMarksText,
   stripAnnotationsText,
+  SpecMarkedChange,
+  markChangeText,
   // facade
   SomNode,
   SomScalar,

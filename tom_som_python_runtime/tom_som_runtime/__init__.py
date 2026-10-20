@@ -87,6 +87,7 @@ from .spec_review_annotations import (
     SpecMarkIssue,
     SpecMarkKind,
     SpecMarkOutcome,
+    SpecMarkedChange,
     SpecMarkReport,
     SpecQuestionDraft,
     SpecReviewAnnotation,
@@ -97,6 +98,7 @@ from .spec_review_annotations import (
     format_comment_block,
     apply_inline_marks_text,
     format_question_block,
+    mark_change_text,
     strip_annotations_text,
 )
 from .spec_section_id import (
@@ -306,6 +308,7 @@ __all__ = [
     "SpecMarkIssue",
     "SpecMarkKind",
     "SpecMarkOutcome",
+    "SpecMarkedChange",
     "SpecMarkReport",
     "SpecMatchSpan",
     "SpecModel",
@@ -345,6 +348,7 @@ __all__ = [
     "encode_two_letter_date",
     "format_comment_block",
     "apply_inline_marks_text",
+    "mark_change_text",
     "format_question_block",
     "generate_list_item_section_id",
     "list_item_path",

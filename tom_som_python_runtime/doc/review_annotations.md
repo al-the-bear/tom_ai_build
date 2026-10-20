@@ -136,6 +136,25 @@ marks = review.list_marks()
 report = review.decide_marks({marks[0].id: SpecMarkDecision.ACCEPT}, revision=rev)
 ```
 
+### Writing changes as marks
+
+| Operation | Does |
+|-----------|------|
+| `mark_change_text(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, `exact`) |
+| `set_marked(path, text, field=None)` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `mark_against(path, earlier, field=None)` | Marks the value already written against an earlier version |
+
+`exact` is false only when a difference could not be marked, i.e. a change
+inside fenced code. The new text is then written unmarked.
+
+```python
+r = mark_change_text(
+    "Sessions expire after 30 minutes.",
+    "Sessions expire after 15 minutes.",
+)
+print(r.text)  # Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by

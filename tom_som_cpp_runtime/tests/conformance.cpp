@@ -2945,6 +2945,18 @@ static std::string run_annotation_op(const som::SpecModel& model,
     if (name == "removeAll") {
       return json_text_canon(api.removeAllAnnotations().toJson());
     }
+    if (name == "setMarked") {
+      return json_text_canon(api.setMarked(som::jsonStrOr(op, "path"),
+                                           json_opt_str(op, "field"),
+                                           som::jsonStrOr(op, "text"))
+                                 .toJson());
+    }
+    if (name == "markAgainst") {
+      return json_text_canon(api.markAgainst(som::jsonStrOr(op, "path"),
+                                             json_opt_str(op, "field"),
+                                             som::jsonStrOr(op, "earlier"))
+                                 .toJson());
+    }
     if (name == "strip") return doc_canonical(api.stripped());
     if (name == "roundTrip") {
       const std::string before = doc_canonical(api.doc());
@@ -3042,6 +3054,37 @@ static void test_inline_marks(Checker& c, const som::SpecModel& model,
   run_annotation_cases(c, model, tree, "inline_mark_cases.json", "inlineMarks");
 }
 
+/* change_mark_cases.json: `textCases` pin `markChangeText` (the marked text,
+ * `exact`, and accepting / rejecting it); `cases` run like
+ * annotation_cases.json. */
+static void test_change_marks(Checker& c, const som::SpecModel& model,
+                              const som::SomMetaTree& tree) {
+  som::JsonPtr table = read_json("change_mark_cases.json");
+  som::JsonRef texts = som::jsonGet(table, "textCases");
+  const std::size_t n = som::jsonArrayLen(texts);
+  c.check("changeMarks.textCases", n > 0,
+          "no textCases in change_mark_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef t = som::jsonArrayAt(texts, i);
+    const std::string name = som::jsonStrOr(t, "name");
+    const som::SpecMarkedChange r = som::markChangeText(
+        som::jsonStrOr(t, "old"), som::jsonStrOr(t, "new"));
+    const std::string tag = "changeMarks.text[" + name + "]";
+    const std::string want = som::jsonStrOr(t, "marked");
+    c.check(tag + ".marked", r.text == want,
+            byte_diff(tag + ".marked", r.text, want));
+    c.check(tag + ".exact", r.exact == som::jsonBoolOr(t, "exact"),
+            r.exact ? "got exact true" : "got exact false");
+    for (const bool accept : {true, false}) {
+      const std::string w = som::jsonStrOr(t, accept ? "accept" : "reject");
+      const std::string got = som::applyInlineMarksText(r.text, accept);
+      const std::string atag = tag + "." + (accept ? "accept" : "reject");
+      c.check(atag, got == w, byte_diff(atag, got, w));
+    }
+  }
+  run_annotation_cases(c, model, tree, "change_mark_cases.json", "changeMarks");
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -3090,6 +3133,7 @@ int main(int argc, char** argv) {
   test_list_move(c, *model);
   test_annotations(c, *model, *tree);
   test_inline_marks(c, *model, *tree);
+  test_change_marks(c, *model, *tree);
 
   return c.finish();
 }

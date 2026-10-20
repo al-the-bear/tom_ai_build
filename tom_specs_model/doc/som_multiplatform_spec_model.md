@@ -1620,7 +1620,36 @@ Marks do not nest and do not span a blank line. An opening delimiter without
 its closing one in the same paragraph is a finding. Marks may stand anywhere in
 prose: in narrative text, in a form's preamble, inside a form field's value,
 and inside annotation blocks. In a field value they are part of the value.
-annot5 specifies how the API writes them.
+
+**Writing a change as marks.** An agent that changes a value in a review round
+(`tom_specs_project_flow.md` PF-ITR-REV) writes the change as marks, so the
+next reviewer sees exactly what changed. `markChangeText(old, new)` marks every
+difference and leaves unchanged text unmarked. Accepting every mark gives
+exactly `new`, and rejecting every mark gives exactly `old`.
+
+1. **Diff by line.** A run of lines only deleted or only inserted becomes
+   whole-line marks, with the indentation outside the mark
+   (`{-- - second item --}`).
+2. **Diff by word.** Inside a run of changed lines, the diff runs over words:
+   whitespace-separated runs, with inline code spans kept whole. A word is
+   never split.
+3. **Merge nearby changes.** Changes separated by at most two unchanged words
+   become one substitution.
+4. **Grow a mark that does not round-trip.** It widens by one word on each
+   side, or falls back to whole-line marks.
+5. **Leave code unmarked.** A difference inside fenced code is never marked:
+   the new text is written unmarked there, and the result says it is not
+   exact.
+
+Both diffs are a longest common subsequence over exact token text; a tie takes
+the deletion first.
+
+At document level, `setMarked(path, field, text)` writes a value as a marked
+change. A value that already holds change marks is compared from its original
+(every mark rejected), so a second edit of the same passage updates its mark
+instead of nesting one. `markAgainst(path, field, earlier)` marks a value that
+is already written against an earlier version. Cases:
+`corpus/change_mark_cases.json`.
 
 **Accepting and rejecting.** A change mark is decided one of two ways:
 accepting takes the change, rejecting undoes it. A highlight or a comment

@@ -34,7 +34,8 @@
 //!     codespecs_gate_cases.json;
 //!   - the SOM §11.9 review annotations: every operation of
 //!     `SpecReviewAnnotations` over the scripts of annotation_cases.json, and
-//!     accepting / rejecting inline marks (inline_mark_cases.json);
+//!     accepting / rejecting inline marks (inline_mark_cases.json), and
+//!     writing changes as marks (change_mark_cases.json);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
 //!     (docspecs_path_cases.json).
@@ -73,8 +74,8 @@ use tom_som_rust_runtime::spec_query::{
 };
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_review_annotations::{
-    apply_inline_marks_text, SpecMarkDecision, SpecQuestionDraft, SpecReviewAnnotationError,
-    SpecReviewAnnotations,
+    apply_inline_marks_text, mark_change_text, SpecMarkDecision, SpecQuestionDraft,
+    SpecReviewAnnotationError, SpecReviewAnnotations,
 };
 use tom_som_rust_runtime::spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision,
@@ -201,6 +202,7 @@ fn conformance() {
     test_validation(&mut c, &model);
     test_annotations(&mut c, &model, &tree);
     test_inline_marks(&mut c, &model, &tree);
+    test_change_marks(&mut c, &model, &tree);
     test_operations(&mut c);
     test_editor(&mut c, &model);
     test_section_id(&mut c);
@@ -3052,6 +3054,50 @@ fn test_inline_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
     }
 }
 
+/// `change_mark_cases.json`: `textCases` pin [`mark_change_text`] (marked
+/// text, `exact`, and accepting / rejecting the result); `cases` are
+/// annotation scripts using `setMarked` and `markAgainst`, run by the same
+/// runner as `annotation_cases.json`.
+fn test_change_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
+    let table = read_json("change_mark_cases.json");
+    let text_cases = cases(&table, "textCases");
+    c.check(
+        "changeMarks.textCases",
+        !text_cases.is_empty(),
+        "no textCases",
+    );
+    for tc in text_cases {
+        let name = tc.str_or("name");
+        let r = mark_change_text(&tc.str_or("old"), &tc.str_or("new"));
+        let marked = tc.str_or("marked");
+        c.check(
+            &format!("changeMarks.text[{}].marked", name),
+            r.text == marked,
+            &format!("got {:?} want {:?}", r.text, marked),
+        );
+        let exact = tc.bool_or("exact");
+        c.check(
+            &format!("changeMarks.text[{}].exact", name),
+            r.exact == exact,
+            &format!("got {} want {}", r.exact, exact),
+        );
+        for (accept, key) in [(true, "accept"), (false, "reject")] {
+            let got = apply_inline_marks_text(&r.text, accept);
+            let want = tc.str_or(key);
+            c.check(
+                &format!("changeMarks.text[{}].{}", name, key),
+                got == want,
+                &format!("got {:?} want {:?}", got, want),
+            );
+        }
+    }
+    let scripted = cases(&table, "cases");
+    c.check("changeMarks.cases", !scripted.is_empty(), "no cases");
+    for cc in scripted {
+        check_annotation_case(c, model, tree, cc, "changeMarks");
+    }
+}
+
 fn check_annotation_case(
     c: &mut Checker,
     model: &SpecModel,
@@ -3181,6 +3227,16 @@ fn run_annotation_case(
             "acceptAll" => Ok(api.accept_all_marks(s("path")).to_json()),
             "rejectAll" => Ok(api.reject_all_marks(s("path")).to_json()),
             "removeAll" => Ok(api.remove_all_annotations().to_json()),
+            "setMarked" => Ok(api
+                .set_marked(s("path").unwrap_or(""), s("field"), s("text").unwrap_or(""))
+                .to_json()),
+            "markAgainst" => Ok(api
+                .mark_against(
+                    s("path").unwrap_or(""),
+                    s("field"),
+                    s("earlier").unwrap_or(""),
+                )
+                .to_json()),
             "strip" => Json::parse(&api.stripped().to_json().to_canonical_json())
                 .map_err(|e| panic!("strip state does not parse: {}", e)),
             "roundTrip" => {

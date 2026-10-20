@@ -194,6 +194,8 @@ export {
   formatQuestionBlock,
   applyInlineMarksText,
   stripAnnotationsText,
+  SpecMarkedChange,
+  markChangeText,
 } from './spec_review_annotations';
 export type {
   SpecReviewAnnotationKindValue,

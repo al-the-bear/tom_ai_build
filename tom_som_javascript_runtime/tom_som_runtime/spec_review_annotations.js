@@ -1549,6 +1549,37 @@ class SpecReviewAnnotations {
   }
 
   /**
+   * Writes `text` at `path` / `field` as a marked change against the value
+   * there now (SOM §11.9.3). A value that already holds change marks is
+   * compared from its original — every mark rejected — so a second edit of
+   * the same passage updates its mark instead of nesting one.
+   *
+   * @param {{path: string, field?: string|null, text: string}} args
+   * @returns {SpecMarkedChange}
+   */
+  setMarked({ path, field = null, text }) {
+    const current = this._get(path, field);
+    const base = applyInlineMarksText(current, { accept: false });
+    const result = markChangeText(base, text);
+    this._set(path, field, result.text);
+    return result;
+  }
+
+  /**
+   * Marks the value at `path` / `field` as a change against `earlier`, an
+   * earlier version of it.
+   *
+   * @param {{path: string, field?: string|null, earlier: string}} args
+   * @returns {SpecMarkedChange}
+   */
+  markAgainst({ path, field = null, earlier }) {
+    const result = markChangeText(earlier, this._get(path, field));
+    this._set(path, field, result.text);
+    return result;
+  }
+
+
+  /**
    * A copy of the document without any annotation, for reading. The document
    * itself is unchanged.
    *
@@ -1660,6 +1691,406 @@ class SpecReviewAnnotations {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Writing changes as inline marks (SOM §11.9.3, annot5).
+// ---------------------------------------------------------------------------
+
+/** A value written as a marked change. */
+class SpecMarkedChange {
+  /**
+   * @param {string} text The value with every difference marked.
+   * @param {{exact: boolean}} options Whether accepting the marks gives
+   *   exactly the new value and rejecting them exactly the old one. False when
+   *   a difference cannot be marked — a change inside fenced code, or text that
+   *   holds mark delimiters — and the new value was written unmarked instead.
+   */
+  constructor(text, { exact }) {
+    this.text = text;
+    this.exact = exact;
+    Object.freeze(this);
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return { text: this.text, exact: this.exact };
+  }
+}
+
+// One token of a value: a run of whitespace, a word (a run of non-whitespace
+// with inline code spans kept whole) or a fenced code block (its lines).
+function _tok(text, space) {
+  return { text, space };
+}
+
+function _isWs(c) {
+  return c === ' ' || c === '\t' || c === '\n';
+}
+
+function _tokens(value) {
+  const out = [];
+  const add = (t, space) => {
+    if (t.length === 0) return;
+    if (space && out.length > 0 && out[out.length - 1].space) {
+      out[out.length - 1] = _tok(out[out.length - 1].text + t, true);
+    } else {
+      out.push(_tok(t, space));
+    }
+  };
+  const words = (s) => {
+    let i = 0;
+    while (i < s.length) {
+      if (_isWs(s[i])) {
+        const st = i;
+        while (i < s.length && _isWs(s[i])) i++;
+        add(s.substring(st, i), true);
+        continue;
+      }
+      const st = i;
+      while (i < s.length && !_isWs(s[i])) {
+        if (s[i] === '`') {
+          let n = 0;
+          while (i + n < s.length && s[i + n] === '`') n++;
+          // The matching run of exactly n backticks ends the span.
+          let j = i + n;
+          let close = -1;
+          while (j < s.length) {
+            if (s[j] === '`') {
+              let m = 0;
+              while (j + m < s.length && s[j + m] === '`') m++;
+              if (m === n) {
+                close = j;
+                break;
+              }
+              j += m;
+            } else {
+              j++;
+            }
+          }
+          i = close < 0 ? i + n : close + n;
+          continue;
+        }
+        i++;
+      }
+      add(s.substring(st, i), false);
+    }
+  };
+  const lines = value.split('\n');
+  const code = _codeLines(lines);
+  let k = 0;
+  while (k < lines.length) {
+    if (k > 0) add('\n', true);
+    const st = k;
+    const isCode = code[k];
+    while (k + 1 < lines.length && code[k + 1] === isCode) k++;
+    const run = lines.slice(st, k + 1).join('\n');
+    if (isCode) {
+      add(run, false);
+    } else {
+      words(run);
+    }
+    k++;
+  }
+  return out;
+}
+
+// The diff of two token lists as ops `[kind, token]`: 0 keep, 1 delete (old),
+// 2 insert (new). LCS over token text; ties prefer the deletion.
+function _diff(a, b) {
+  const n = a.length;
+  const m = b.length;
+  const l = [];
+  for (let i = 0; i <= n; i++) l.push(new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      l[i][j] =
+        a[i].text === b[j].text
+          ? l[i + 1][j + 1] + 1
+          : l[i + 1][j] >= l[i][j + 1]
+            ? l[i + 1][j]
+            : l[i][j + 1];
+    }
+  }
+  const ops = [];
+  let i = 0;
+  let j = 0;
+  while (i < n || j < m) {
+    if (i < n && j < m && a[i].text === b[j].text) {
+      ops.push([0, a[i]]);
+      i++;
+      j++;
+    } else if (j >= m || (i < n && l[i + 1][j] >= l[i][j + 1])) {
+      ops.push([1, a[i]]);
+      i++;
+    } else {
+      ops.push([2, b[j]]);
+      j++;
+    }
+  }
+  return ops;
+}
+
+// `s` with its leading and trailing whitespace removed (spaces, tabs,
+// newlines).
+function _trimWs(s) {
+  let a = 0;
+  let b = s.length;
+  while (a < b && _isWs(s[a])) a++;
+  while (b > a && _isWs(s[b - 1])) b--;
+  return s.substring(a, b);
+}
+
+// The markup for one region whose old text is `o` and new text is `n` (both
+// trimmed, not both empty).
+function _markup(o, n) {
+  if (o.length === 0) return `{++ ${n} ++}`;
+  if (n.length === 0) return `{-- ${o} --}`;
+  return `{~~ ${o} ~> ${n} ~~}`;
+}
+
+// The marked emission for the region [r0, r1) of `ops`, with the old and the
+// new text around it, or null when no mark round-trips there.
+function _emitRegion(ops, r0, r1, oldBefore, newBefore, oldAfter, newAfter) {
+  let os = '';
+  let ns = '';
+  for (let k = r0; k < r1; k++) {
+    const [kind, t] = ops[k];
+    if (kind !== 2) os += t.text;
+    if (kind !== 1) ns += t.text;
+  }
+  // Whitespace the two sides share at the edges stays outside the mark.
+  let lead = 0;
+  while (lead < os.length && lead < ns.length && os[lead] === ns[lead] && _isWs(os[lead])) {
+    lead++;
+  }
+  let trail = 0;
+  while (
+    trail < os.length - lead &&
+    trail < ns.length - lead &&
+    os[os.length - 1 - trail] === ns[ns.length - 1 - trail] &&
+    _isWs(os[os.length - 1 - trail])
+  ) {
+    trail++;
+  }
+  const oi = os.substring(lead, os.length - trail);
+  const ni = ns.substring(lead, ns.length - trail);
+  // The mark's content is trimmed when read, so it must already be trimmed;
+  // the whitespace still differing is placed outside, on the side whose text
+  // keeps it, and the tidy rules then have to restore the other side.
+  const ot = _trimWs(oi);
+  const nt = _trimWs(ni);
+  if (ot.length === 0 && nt.length === 0) return null;
+  const pre = os.substring(0, lead);
+  const post = os.substring(os.length - trail);
+  const leadWs = (x) => x.substring(0, x.length - x.trimStart().length);
+  const trailWs = (x) => x.substring(x.trimEnd().length);
+  const candidates = [
+    [leadWs(ni), trailWs(ni)],
+    [leadWs(oi), trailWs(oi)],
+    ['', ''],
+    [leadWs(ni), ''],
+    ['', trailWs(ni)],
+  ];
+  for (const [wl, wr] of candidates) {
+    const emission = `${pre}${wl}${_markup(ot, nt)}${wr}${post}`;
+    const acc = applyInlineMarksText(`${newBefore}${emission}${newAfter}`, { accept: true });
+    const rej = applyInlineMarksText(`${oldBefore}${emission}${oldAfter}`, { accept: false });
+    if (acc === `${newBefore}${ns}${newAfter}` && rej === `${oldBefore}${os}${oldAfter}`) {
+      return emission;
+    }
+  }
+  return null;
+}
+
+// Marks the token-level differences of `o` → `n`, where the text before them
+// is `ob` (old) / `nb` (new) and after them `oa` / `na`. Null when the marks
+// do not round-trip.
+function _markTokens(o, n, ob, nb, oa, na) {
+  const ops = _diff(_tokens(o), _tokens(n));
+  const runs = [];
+  let k = 0;
+  while (k < ops.length) {
+    if (ops[k][0] === 0) {
+      k++;
+      continue;
+    }
+    const s = k;
+    while (k < ops.length && ops[k][0] !== 0) k++;
+    runs.push([s, k]);
+  }
+  // Changes separated by at most two unchanged words are one mark.
+  const merged = [];
+  for (const r of runs) {
+    if (merged.length > 0) {
+      const last = merged[merged.length - 1];
+      let words = 0;
+      for (let q = last[1]; q < r[0]; q++) {
+        if (!ops[q][1].space) words++;
+      }
+      if (words <= 2) {
+        merged[merged.length - 1] = [last[0], r[1]];
+        continue;
+      }
+    }
+    merged.push(r);
+  }
+
+  const side = (from, to, skip) => {
+    let b = '';
+    for (let q = from; q < to; q++) {
+      if (ops[q][0] !== skip) b += ops[q][1].text;
+    }
+    return b;
+  };
+
+  // Left to right; a region that does not round-trip grows by one token on
+  // each side and is tried again.
+  let out = '';
+  let pos = 0;
+  for (let ri = 0; ri < merged.length; ri++) {
+    let [r0, r1] = merged[ri];
+    if (r0 < pos) r0 = pos;
+    let emission;
+    for (;;) {
+      emission = _emitRegion(
+        ops,
+        r0,
+        r1,
+        `${ob}${side(0, r0, 2)}`,
+        `${nb}${side(0, r0, 1)}`,
+        `${side(r1, ops.length, 2)}${oa}`,
+        `${side(r1, ops.length, 1)}${na}`,
+      );
+      if (emission !== null || (r0 <= pos && r1 >= ops.length)) break;
+      if (r0 > pos) r0--;
+      if (r1 < ops.length) r1++;
+    }
+    if (emission === null) return null;
+    out += side(pos, r0, 1) + emission;
+    pos = r1;
+    while (ri + 1 < merged.length && merged[ri + 1][1] <= pos) ri++;
+  }
+  out += side(pos, ops.length, 1);
+  if (
+    applyInlineMarksText(`${nb}${out}${na}`, { accept: true }) !== `${nb}${n}${na}` ||
+    applyInlineMarksText(`${ob}${out}${oa}`, { accept: false }) !== `${ob}${o}${oa}`
+  ) {
+    return null;
+  }
+  return out;
+}
+
+// A whole line marked as inserted (`++`) or deleted (`--`): its indentation
+// stays outside the mark; a blank line stays blank.
+function _lineMark(line, d) {
+  const body = line.trimStart();
+  if (body.trim().length === 0) return line;
+  const indent = line.substring(0, line.length - body.length);
+  return `${indent}{${d} ${body.trimEnd()} ${d}}`;
+}
+
+/**
+ * `newValue` with its differences from `oldValue` marked, so that accepting
+ * every mark gives exactly `newValue` and rejecting every mark exactly
+ * `oldValue` (SOM §11.9.3). The diff runs by line, then by word inside a
+ * changed run of lines; words are never split, changes separated by at most
+ * two unchanged words are one mark, and nothing inside code is marked.
+ *
+ * @param {string} oldValue
+ * @param {string} newValue
+ * @returns {SpecMarkedChange}
+ */
+function markChangeText(oldValue, newValue) {
+  if (oldValue === newValue) return new SpecMarkedChange(newValue, { exact: true });
+  const ol = oldValue.split('\n');
+  const nl = newValue.split('\n');
+  const oc = _codeLines(ol);
+  const nc = _codeLines(nl);
+  const lops = _diff(
+    ol.map((l) => _tok(l, false)),
+    nl.map((l) => _tok(l, false)),
+  );
+  const out = [];
+  let exact = true;
+  let oi = 0;
+  let ni = 0;
+  let k = 0;
+  const join = (ls) => ls.join('\n');
+  const blank = (l) => l.trim().length === 0;
+  while (k < lops.length) {
+    if (lops[k][0] === 0) {
+      out.push(nl[ni]);
+      oi++;
+      ni++;
+      k++;
+      continue;
+    }
+    const d0 = oi;
+    const n0 = ni;
+    while (k < lops.length && lops[k][0] !== 0) {
+      if (lops[k][0] === 1) {
+        oi++;
+      } else {
+        ni++;
+      }
+      k++;
+    }
+    const del = ol.slice(d0, oi);
+    const ins = nl.slice(n0, ni);
+    const ob = ol.slice(0, d0);
+    const oa = ol.slice(oi);
+    const nb = nl.slice(0, n0);
+    const na = nl.slice(ni);
+    const roundTrips = (e) =>
+      applyInlineMarksText(join([...nb, ...e, ...na]), { accept: true }) === newValue &&
+      applyInlineMarksText(join([...ob, ...e, ...oa]), { accept: false }) === oldValue;
+    let emitted = null;
+    const inCode = oc.slice(d0, oi).some((c) => c) || nc.slice(n0, ni).some((c) => c);
+    if (!inCode) {
+      const candidates = [];
+      if (del.length > 0 && ins.length > 0) {
+        const t = _markTokens(
+          join(del),
+          join(ins),
+          ob.length === 0 ? '' : `${join(ob)}\n`,
+          nb.length === 0 ? '' : `${join(nb)}\n`,
+          oa.length === 0 ? '' : `\n${join(oa)}`,
+          na.length === 0 ? '' : `\n${join(na)}`,
+        );
+        if (t !== null) candidates.push(t.split('\n'));
+      }
+      const dm = del.map((l) => _lineMark(l, '--'));
+      const im = ins.map((l) => _lineMark(l, '++'));
+      candidates.push(
+        [...dm, ...im],
+        [...dm.filter((l) => !blank(l)), ...im],
+        [...dm, ...im.filter((l) => !blank(l))],
+        [...dm.filter((l) => !blank(l)), ...im.filter((l) => !blank(l))],
+      );
+      for (const e of candidates) {
+        if (roundTrips(e)) {
+          emitted = e;
+          break;
+        }
+      }
+    }
+    if (emitted === null) {
+      exact = false;
+      out.push(...ins);
+    } else {
+      out.push(...emitted);
+    }
+  }
+  const text = join(out);
+  if (
+    exact &&
+    (applyInlineMarksText(text, { accept: true }) !== newValue ||
+      applyInlineMarksText(text, { accept: false }) !== oldValue)
+  ) {
+    return new SpecMarkedChange(newValue, { exact: false });
+  }
+  return new SpecMarkedChange(text, { exact });
+}
+
 module.exports = {
   SpecReviewAnnotationKind,
   SpecMarkKind,
@@ -1677,4 +2108,6 @@ module.exports = {
   formatQuestionBlock,
   applyInlineMarksText,
   stripAnnotationsText,
+  SpecMarkedChange,
+  markChangeText,
 };

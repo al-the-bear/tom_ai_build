@@ -150,6 +150,25 @@ report, err := review.DecideMarks(map[string]som.SpecMarkDecision{
 }, rev)
 ```
 
+### Writing changes as marks
+
+| Operation | Does |
+|-----------|------|
+| `MarkChangeText(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`Text`, `Exact`) |
+| `SetMarked(path, field, text)` | Writes `text` as a marked change against the value there (`field` `""` for content). A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `MarkAgainst(path, field, earlier)` | Marks the value already written against an earlier version |
+
+`Exact` is false only when a difference could not be marked, i.e. a change
+inside fenced code. The new text is then written unmarked.
+
+```go
+r := som.MarkChangeText(
+	"Sessions expire after 30 minutes.",
+	"Sessions expire after 15 minutes.",
+)
+fmt.Println(r.Text) // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
 ## Validation
 
 `ValidateDocument` reports annotation findings as its last group, ordered by

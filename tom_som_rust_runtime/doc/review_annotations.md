@@ -149,6 +149,27 @@ let decisions = HashMap::from([(marks[0].id.clone(), SpecMarkDecision::Accept)])
 let report = review.decide_marks(&decisions, &rev)?;
 ```
 
+### Writing changes as marks
+
+| Operation | Does |
+|-----------|------|
+| `mark_change_text(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, `exact`); a free function |
+| `set_marked(path, field, text)` | Writes `text` as a marked change against the value there (`field` `None` for content). A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `mark_against(path, field, earlier)` | Marks the value already written against an earlier version |
+
+`exact` is false only when a difference could not be marked, i.e. a change
+inside fenced code. The new text is then written unmarked.
+
+```rust
+use tom_som_rust_runtime::mark_change_text;
+
+let r = mark_change_text(
+    "Sessions expire after 30 minutes.",
+    "Sessions expire after 15 minutes.",
+);
+println!("{}", r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by

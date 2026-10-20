@@ -220,6 +220,30 @@ struct SpecMarkReport {
  * as written. */
 std::string applyInlineMarksText(const std::string& value, bool accept);
 
+/* ---- writing changes as inline marks (SOM §11.9.3) ---------------------- */
+
+/* A value written as a marked change. */
+struct SpecMarkedChange {
+  /* The value with every difference marked. */
+  std::string text;
+  /* Whether accepting the marks gives exactly the new value and rejecting
+   * them exactly the old one. False when a difference cannot be marked — a
+   * change inside fenced code, or text that holds mark delimiters — and the
+   * new value was written unmarked instead. */
+  bool exact = true;
+
+  /* `{text, exact}`. */
+  std::string toJson() const;
+};
+
+/* `newValue` with its differences from `oldValue` marked, so that accepting
+ * every mark gives exactly `newValue` and rejecting every mark exactly
+ * `oldValue`. The diff runs by line, then by word inside a changed run of
+ * lines; words are never split, changes separated by at most two unchanged
+ * words are one mark, and nothing inside code is marked. */
+SpecMarkedChange markChangeText(const std::string& oldValue,
+                                const std::string& newValue);
+
 /* The lines of a comment block (`author` nullopt or empty for none). */
 std::vector<std::string> formatCommentBlock(
     const std::string& id, const std::string& text,
@@ -334,6 +358,20 @@ class SpecReviewAnnotations {
    * accepted, every comment and question block removed. Malformed marks stay
    * and are reported. Returns the accept report. */
   SpecMarkReport removeAllAnnotations();
+
+  /* Writes `text` at `path` / `field` as a marked change against the value
+   * there now. A value that already holds change marks is compared from its
+   * original — every mark rejected — so a second edit of the same passage
+   * updates its mark instead of nesting one. */
+  SpecMarkedChange setMarked(const std::string& path,
+                             const std::optional<std::string>& field,
+                             const std::string& text);
+
+  /* Marks the value at `path` / `field` as a change against `earlier`, an
+   * earlier version of it, and writes the result. */
+  SpecMarkedChange markAgainst(const std::string& path,
+                               const std::optional<std::string>& field,
+                               const std::string& earlier);
 
   /* A copy of the document without any annotation, for reading. The document
    * itself is unchanged. */

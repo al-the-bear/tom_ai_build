@@ -4341,6 +4341,20 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     som_buf_puts(&b, j);
     free(j);
     spec_mark_report_free(&report);
+  } else if (strcmp(name, "setMarked") == 0 ||
+             strcmp(name, "markAgainst") == 0) {
+    SpecMarkedChange mc =
+        strcmp(name, "setMarked") == 0
+            ? spec_review_annotations_set_marked(
+                  api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+                  som_json_str_or(op, "text"))
+            : spec_review_annotations_mark_against(
+                  api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+                  som_json_str_or(op, "earlier"));
+    char *j = spec_marked_change_to_json(&mc);
+    som_buf_puts(&b, j);
+    free(j);
+    spec_marked_change_free(&mc);
   } else if (strcmp(name, "strip") == 0) {
     *stripped = spec_review_annotations_stripped(api);
     som_buf_free(&b);
@@ -4496,6 +4510,48 @@ static void test_inline_marks(Checker *c, const SpecModel *model,
                        "inlineMarks");
 }
 
+/* change_mark_cases.json: `textCases` pin `spec_mark_change_text` (the
+ * marked text, `exact`, and accepting / rejecting it); `cases` run like
+ * annotation_cases.json. */
+static void test_change_marks(Checker *c, const SpecModel *model,
+                              const SomMetaTree *tree) {
+  SomJson *table = read_json("change_mark_cases.json");
+  const SomJson *texts = som_json_get(table, "textCases");
+  size_t n = som_json_array_len(texts);
+  check(c, "changeMarks.textCases", n > 0,
+        "no textCases in change_mark_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *t = som_json_array_at(texts, i);
+    const char *name = som_json_str_or(t, "name");
+    SpecMarkedChange r = spec_mark_change_text(som_json_str_or(t, "old"),
+                                               som_json_str_or(t, "new"));
+    char tag[512];
+    snprintf(tag, sizeof(tag), "changeMarks.text[%s].marked", name);
+    const char *want = som_json_str_or(t, "marked");
+    char *d = byte_diff(tag, r.text, want);
+    check(c, tag, strcmp(r.text, want) == 0, d);
+    free(d);
+    snprintf(tag, sizeof(tag), "changeMarks.text[%s].exact", name);
+    int want_exact = som_json_bool_or(t, "exact");
+    check(c, tag, (r.exact != 0) == (want_exact != 0),
+          r.exact ? "got exact true" : "got exact false");
+    for (int accept = 1; accept >= 0; accept--) {
+      const char *w = som_json_str_or(t, accept ? "accept" : "reject");
+      char *got = spec_apply_inline_marks_text(r.text, accept);
+      snprintf(tag, sizeof(tag), "changeMarks.text[%s].%s", name,
+               accept ? "accept" : "reject");
+      char *dd = byte_diff(tag, got, w);
+      check(c, tag, strcmp(got, w) == 0, dd);
+      free(dd);
+      free(got);
+    }
+    spec_marked_change_free(&r);
+  }
+  som_json_free(table);
+  run_annotation_cases(c, model, tree, "change_mark_cases.json",
+                       "changeMarks");
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -4547,6 +4603,7 @@ int main(int argc, char **argv) {
   test_list_move(&c, model);
   test_annotations(&c, model, tree);
   test_inline_marks(&c, model, tree);
+  test_change_marks(&c, model, tree);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

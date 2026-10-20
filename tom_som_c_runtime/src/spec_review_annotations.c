@@ -2315,3 +2315,636 @@ void spec_review_annotations_remove_all_annotations(
   }
   values_free(&vals);
 }
+
+/* ---- writing changes as inline marks (SOM §11.9.3, annot5) --------------- */
+
+/* One token of a value: a run of whitespace, a word (a run of non-whitespace
+ * with inline code spans kept whole) or a fenced code block (its lines). */
+typedef struct {
+  char *text; /* owned */
+  size_t len;
+  int space;
+} Tok;
+
+typedef struct {
+  Tok *items;
+  size_t len, cap;
+} Toks;
+
+static void toks_free(Toks *t) {
+  for (size_t i = 0; i < t->len; i++) free(t->items[i].text);
+  free(t->items);
+  memset(t, 0, sizeof(*t));
+}
+
+static int is_mark_ws(char c) { return c == ' ' || c == '\t' || c == '\n'; }
+
+static void tok_add(Toks *out, const char *s, size_t n, int space) {
+  if (n == 0) return;
+  if (space && out->len > 0 && out->items[out->len - 1].space) {
+    Tok *last = &out->items[out->len - 1];
+    last->text = realloc(last->text, last->len + n + 1);
+    memcpy(last->text + last->len, s, n);
+    last->len += n;
+    last->text[last->len] = '\0';
+    return;
+  }
+  Tok t = {som_strdup_n(s, n), n, space};
+  PUSH(out->items, out->len, out->cap, t);
+}
+
+static void tok_words(Toks *out, const char *s, size_t len) {
+  size_t i = 0;
+  while (i < len) {
+    if (is_mark_ws(s[i])) {
+      size_t st = i;
+      while (i < len && is_mark_ws(s[i])) i++;
+      tok_add(out, s + st, i - st, 1);
+      continue;
+    }
+    size_t st = i;
+    while (i < len && !is_mark_ws(s[i])) {
+      if (s[i] == '`') {
+        size_t n = 0;
+        while (i + n < len && s[i + n] == '`') n++;
+        /* The matching run of exactly n backticks ends the span. */
+        size_t j = i + n;
+        long long close = -1;
+        while (j < len) {
+          if (s[j] == '`') {
+            size_t m = 0;
+            while (j + m < len && s[j + m] == '`') m++;
+            if (m == n) {
+              close = (long long)j;
+              break;
+            }
+            j += m;
+          } else {
+            j++;
+          }
+        }
+        i = close < 0 ? i + n : (size_t)close + n;
+        continue;
+      }
+      i++;
+    }
+    tok_add(out, s + st, i - st, 0);
+  }
+}
+
+static void tokens_of(const char *value, Toks *out) {
+  memset(out, 0, sizeof(*out));
+  SomStrList lines;
+  split_lines(value, &lines);
+  unsigned char *code = code_lines(&lines);
+  size_t k = 0;
+  while (k < lines.len) {
+    if (k > 0) tok_add(out, "\n", 1, 1);
+    size_t st = k;
+    unsigned char is_code = code[k];
+    while (k + 1 < lines.len && code[k + 1] == is_code) k++;
+    SomBuf run;
+    som_buf_init(&run);
+    for (size_t q = st; q <= k; q++) {
+      if (q > st) som_buf_putc(&run, '\n');
+      som_buf_puts(&run, lines.items[q]);
+    }
+    if (is_code) {
+      tok_add(out, run.data ? run.data : "", run.len, 0);
+    } else {
+      tok_words(out, run.data ? run.data : "", run.len);
+    }
+    som_buf_free(&run);
+    k++;
+  }
+  free(code);
+  som_strlist_free(&lines);
+}
+
+/* One diff op: 0 keep, 1 delete (old), 2 insert (new), with its token
+ * (borrowed from the token lists). */
+typedef struct {
+  int kind;
+  const Tok *tok;
+} DiffOp;
+
+typedef struct {
+  DiffOp *items;
+  size_t len, cap;
+} DiffOps;
+
+static int tok_eq(const Tok *a, const Tok *b) {
+  return a->len == b->len && memcmp(a->text, b->text, a->len) == 0;
+}
+
+/* LCS over token text; ties prefer the deletion. */
+static void diff_toks(const Toks *a, const Toks *b, DiffOps *out) {
+  memset(out, 0, sizeof(*out));
+  size_t n = a->len, m = b->len, w = m + 1;
+  size_t *l = calloc((n + 1) * w, sizeof(size_t));
+  for (size_t i = n; i-- > 0;) {
+    for (size_t j = m; j-- > 0;) {
+      size_t down = l[(i + 1) * w + j], right = l[i * w + j + 1];
+      l[i * w + j] = tok_eq(&a->items[i], &b->items[j])
+                         ? l[(i + 1) * w + j + 1] + 1
+                         : (down >= right ? down : right);
+    }
+  }
+  size_t i = 0, j = 0;
+  while (i < n || j < m) {
+    DiffOp op;
+    if (i < n && j < m && tok_eq(&a->items[i], &b->items[j])) {
+      op.kind = 0;
+      op.tok = &a->items[i];
+      i++;
+      j++;
+    } else if (j >= m || (i < n && l[(i + 1) * w + j] >= l[i * w + j + 1])) {
+      op.kind = 1;
+      op.tok = &a->items[i];
+      i++;
+    } else {
+      op.kind = 2;
+      op.tok = &b->items[j];
+      j++;
+    }
+    PUSH(out->items, out->len, out->cap, op);
+  }
+  free(l);
+}
+
+/* `s[0, len)` with its leading and trailing whitespace (spaces, tabs,
+ * newlines) removed. Owned. */
+static char *trim_ws_n(const char *s, size_t len) {
+  size_t a = 0, b = len;
+  while (a < b && is_mark_ws(s[a])) a++;
+  while (b > a && is_mark_ws(s[b - 1])) b--;
+  return som_strdup_n(s + a, b - a);
+}
+
+/* The markup for one region whose old text is `o` and new text is `n` (both
+ * trimmed, not both empty). Owned. */
+static char *markup_of(const char *o, const char *n) {
+  if (o[0] == '\0') return fmt("{++ %s ++}", n);
+  if (n[0] == '\0') return fmt("{-- %s --}", o);
+  return fmt("{~~ %s ~> %s ~~}", o, n);
+}
+
+static char *cat3(const char *a, const char *b, const char *c) {
+  SomBuf buf;
+  som_buf_init(&buf);
+  som_buf_puts(&buf, a);
+  som_buf_puts(&buf, b);
+  som_buf_puts(&buf, c);
+  return som_buf_take(&buf);
+}
+
+/* Whether accepting `marked` gives `want_new` and rejecting `marked_old`
+ * gives `want_old`. */
+static int round_trips(const char *marked_new, const char *want_new,
+                       const char *marked_old, const char *want_old) {
+  char *acc = spec_apply_inline_marks_text(marked_new, 1);
+  int ok = strcmp(acc, want_new) == 0;
+  free(acc);
+  if (!ok) return 0;
+  char *rej = spec_apply_inline_marks_text(marked_old, 0);
+  ok = strcmp(rej, want_old) == 0;
+  free(rej);
+  return ok;
+}
+
+/* The marked emission for the region [r0, r1) of `ops`, with the old and the
+ * new text around it, or NULL when no mark round-trips there. Owned. */
+static char *emit_region(const DiffOps *ops, size_t r0, size_t r1,
+                         const char *old_before, const char *new_before,
+                         const char *old_after, const char *new_after) {
+  SomBuf ob, nb;
+  som_buf_init(&ob);
+  som_buf_init(&nb);
+  som_buf_puts(&ob, "");
+  som_buf_puts(&nb, "");
+  for (size_t k = r0; k < r1; k++) {
+    if (ops->items[k].kind != 2)
+      som_buf_putn(&ob, ops->items[k].tok->text, ops->items[k].tok->len);
+    if (ops->items[k].kind != 1)
+      som_buf_putn(&nb, ops->items[k].tok->text, ops->items[k].tok->len);
+  }
+  size_t ol = ob.len, nl = nb.len;
+  char *os = som_buf_take(&ob), *ns = som_buf_take(&nb);
+  /* Whitespace the two sides share at the edges stays outside the mark. */
+  size_t lead = 0;
+  while (lead < ol && lead < nl && os[lead] == ns[lead] &&
+         is_mark_ws(os[lead])) {
+    lead++;
+  }
+  size_t trail = 0;
+  while (trail < ol - lead && trail < nl - lead &&
+         os[ol - 1 - trail] == ns[nl - 1 - trail] &&
+         is_mark_ws(os[ol - 1 - trail])) {
+    trail++;
+  }
+  const char *oi = os + lead, *ni = ns + lead;
+  size_t oil = ol - lead - trail, nil = nl - lead - trail;
+  char *ot = trim_ws_n(oi, oil), *nt = trim_ws_n(ni, nil);
+  char *result = NULL;
+  if (ot[0] != '\0' || nt[0] != '\0') {
+    char *pre = som_strdup_n(os, lead);
+    char *post = som_strdup_n(os + ol - trail, trail);
+    char *markup = markup_of(ot, nt);
+    /* leadWs / trailWs by Dart's trimLeft / trimRight. */
+    size_t nb_, ne_, ob_, oe_;
+    trim_bounds(ni, nil, &nb_, &ne_);
+    trim_bounds(oi, oil, &ob_, &oe_);
+    size_t ni_lead = nb_ == ne_ ? nil : nb_;
+    size_t ni_trail = nb_ == ne_ ? 0 : ne_;
+    size_t oi_lead = ob_ == oe_ ? oil : ob_;
+    size_t oi_trail = ob_ == oe_ ? 0 : oe_;
+    char *lw_n = som_strdup_n(ni, ni_lead);
+    char *tw_n = som_strdup_n(ni + ni_trail, nil - ni_trail);
+    char *lw_o = som_strdup_n(oi, oi_lead);
+    char *tw_o = som_strdup_n(oi + oi_trail, oil - oi_trail);
+    const char *cands[5][2] = {
+        {lw_n, tw_n}, {lw_o, tw_o}, {"", ""}, {lw_n, ""}, {"", tw_n}};
+    char *want_new = cat3(new_before, ns, new_after);
+    char *want_old = cat3(old_before, os, old_after);
+    for (int c = 0; c < 5 && result == NULL; c++) {
+      SomBuf e;
+      som_buf_init(&e);
+      som_buf_puts(&e, pre);
+      som_buf_puts(&e, cands[c][0]);
+      som_buf_puts(&e, markup);
+      som_buf_puts(&e, cands[c][1]);
+      som_buf_puts(&e, post);
+      char *emission = som_buf_take(&e);
+      char *mn = cat3(new_before, emission, new_after);
+      char *mo = cat3(old_before, emission, old_after);
+      if (round_trips(mn, want_new, mo, want_old)) {
+        result = emission;
+      } else {
+        free(emission);
+      }
+      free(mn);
+      free(mo);
+    }
+    free(want_new);
+    free(want_old);
+    free(lw_n);
+    free(tw_n);
+    free(lw_o);
+    free(tw_o);
+    free(markup);
+    free(pre);
+    free(post);
+  }
+  free(ot);
+  free(nt);
+  free(os);
+  free(ns);
+  return result;
+}
+
+/* The text of ops [from, to) without the ops of kind `skip`. Owned. */
+static char *ops_side(const DiffOps *ops, size_t from, size_t to, int skip) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "");
+  for (size_t q = from; q < to; q++) {
+    if (ops->items[q].kind != skip)
+      som_buf_putn(&b, ops->items[q].tok->text, ops->items[q].tok->len);
+  }
+  return som_buf_take(&b);
+}
+
+typedef struct {
+  size_t s, e;
+} Run;
+
+/* Marks the token-level differences of `o` → `n`, where the text before them
+ * is `ob` (old) / `nb` (new) and after them `oa` / `na`. NULL when the marks
+ * do not round-trip. Owned. */
+static char *mark_tokens(const char *o, const char *n, const char *ob,
+                         const char *nb, const char *oa, const char *na) {
+  Toks to, tn;
+  tokens_of(o, &to);
+  tokens_of(n, &tn);
+  DiffOps ops;
+  diff_toks(&to, &tn, &ops);
+  Run *runs = NULL;
+  size_t runs_len = 0, runs_cap = 0;
+  size_t k = 0;
+  while (k < ops.len) {
+    if (ops.items[k].kind == 0) {
+      k++;
+      continue;
+    }
+    size_t s = k;
+    while (k < ops.len && ops.items[k].kind != 0) k++;
+    /* Changes separated by at most two unchanged words are one mark. */
+    if (runs_len > 0) {
+      size_t words = 0;
+      for (size_t q = runs[runs_len - 1].e; q < s; q++) {
+        if (!ops.items[q].tok->space) words++;
+      }
+      if (words <= 2) {
+        runs[runs_len - 1].e = k;
+        continue;
+      }
+    }
+    Run r = {s, k};
+    PUSH(runs, runs_len, runs_cap, r);
+  }
+
+  /* Left to right; a region that does not round-trip grows by one token on
+   * each side and is tried again. */
+  SomBuf out;
+  som_buf_init(&out);
+  som_buf_puts(&out, "");
+  size_t pos = 0, end = ops.len;
+  int failed = 0;
+  for (size_t ri = 0; ri < runs_len; ri++) {
+    size_t r0 = runs[ri].s, r1 = runs[ri].e;
+    if (r0 < pos) r0 = pos;
+    char *emission = NULL;
+    for (;;) {
+      char *sb_o = ops_side(&ops, 0, r0, 2), *sb_n = ops_side(&ops, 0, r0, 1);
+      char *sa_o = ops_side(&ops, r1, end, 2);
+      char *sa_n = ops_side(&ops, r1, end, 1);
+      char *c_ob = cat3(ob, sb_o, ""), *c_nb = cat3(nb, sb_n, "");
+      char *c_oa = cat3(sa_o, oa, ""), *c_na = cat3(sa_n, na, "");
+      emission = emit_region(&ops, r0, r1, c_ob, c_nb, c_oa, c_na);
+      free(sb_o);
+      free(sb_n);
+      free(sa_o);
+      free(sa_n);
+      free(c_ob);
+      free(c_nb);
+      free(c_oa);
+      free(c_na);
+      if (emission != NULL || (r0 <= pos && r1 >= end)) break;
+      if (r0 > pos) r0--;
+      if (r1 < end) r1++;
+    }
+    if (emission == NULL) {
+      failed = 1;
+      break;
+    }
+    char *before = ops_side(&ops, pos, r0, 1);
+    som_buf_puts(&out, before);
+    som_buf_puts(&out, emission);
+    free(before);
+    free(emission);
+    pos = r1;
+    while (ri + 1 < runs_len && runs[ri + 1].e <= pos) ri++;
+  }
+  char *text = NULL;
+  if (!failed) {
+    char *rest = ops_side(&ops, pos, end, 1);
+    som_buf_puts(&out, rest);
+    free(rest);
+    text = som_buf_take(&out);
+    char *mn = cat3(nb, text, na), *wn = cat3(nb, n, na);
+    char *mo = cat3(ob, text, oa), *wo = cat3(ob, o, oa);
+    if (!round_trips(mn, wn, mo, wo)) {
+      free(text);
+      text = NULL;
+    }
+    free(mn);
+    free(wn);
+    free(mo);
+    free(wo);
+  }
+  som_buf_free(&out);
+  free(runs);
+  free(ops.items);
+  toks_free(&to);
+  toks_free(&tn);
+  return text;
+}
+
+/* A whole line marked as inserted (`++`) or deleted (`--`): its indentation
+ * stays outside the mark; a blank line stays blank. Owned. */
+static char *line_mark(const char *line, const char *d) {
+  size_t len = strlen(line);
+  size_t b, e;
+  trim_bounds(line, len, &b, &e);
+  if (b == e) return som_strdup(line);
+  return fmt("%.*s{%s %.*s %s}", (int)b, line, d, (int)(e - b), line + b, d);
+}
+
+/* Joins up to three line ranges with `\n` between every two lines. Owned. */
+static char *join_ranges(const char *const *a, size_t an,
+                         const char *const *b, size_t bn,
+                         const char *const *c, size_t cn) {
+  SomBuf buf;
+  som_buf_init(&buf);
+  som_buf_puts(&buf, "");
+  int first = 1;
+  const char *const *parts[3] = {a, b, c};
+  size_t lens[3] = {an, bn, cn};
+  for (int p = 0; p < 3; p++) {
+    for (size_t i = 0; i < lens[p]; i++) {
+      if (!first) som_buf_putc(&buf, '\n');
+      som_buf_puts(&buf, parts[p][i]);
+      first = 0;
+    }
+  }
+  return som_buf_take(&buf);
+}
+
+static void lines_to_toks(const SomStrList *l, Toks *out) {
+  memset(out, 0, sizeof(*out));
+  for (size_t i = 0; i < l->len; i++) {
+    Tok t = {som_strdup(l->items[i]), strlen(l->items[i]), 0};
+    PUSH(out->items, out->len, out->cap, t);
+  }
+}
+
+/* `src` without its blank lines, as borrowed pointers. */
+static void without_blank(const SomStrList *src, SomStrList *dst) {
+  som_strlist_init(dst);
+  for (size_t i = 0; i < src->len; i++) {
+    if (!is_blank(src->items[i])) som_strlist_push_copy(dst, src->items[i]);
+  }
+}
+
+static void concat_lists(const SomStrList *a, const SomStrList *b,
+                         SomStrList *out) {
+  som_strlist_init(out);
+  for (size_t i = 0; i < a->len; i++) som_strlist_push_copy(out, a->items[i]);
+  for (size_t i = 0; i < b->len; i++) som_strlist_push_copy(out, b->items[i]);
+}
+
+void spec_marked_change_free(SpecMarkedChange *c) {
+  free(c->text);
+  c->text = NULL;
+}
+
+char *spec_marked_change_to_json(const SpecMarkedChange *c) {
+  SomBuf b;
+  som_buf_init(&b);
+  int first = 1;
+  som_buf_putc(&b, '{');
+  put_str(&b, &first, "text", c->text);
+  put_bool(&b, &first, "exact", c->exact);
+  som_buf_putc(&b, '}');
+  return som_buf_take(&b);
+}
+
+SpecMarkedChange spec_mark_change_text(const char *old_value,
+                                       const char *new_value) {
+  SpecMarkedChange res;
+  if (strcmp(old_value, new_value) == 0) {
+    res.text = som_strdup(new_value);
+    res.exact = 1;
+    return res;
+  }
+  SomStrList ol, nl;
+  split_lines(old_value, &ol);
+  split_lines(new_value, &nl);
+  unsigned char *oc = code_lines(&ol), *nc = code_lines(&nl);
+  Toks olt, nlt;
+  lines_to_toks(&ol, &olt);
+  lines_to_toks(&nl, &nlt);
+  DiffOps lops;
+  diff_toks(&olt, &nlt, &lops);
+  const char *const *O = (const char *const *)ol.items;
+  const char *const *N = (const char *const *)nl.items;
+  SomStrList out;
+  som_strlist_init(&out);
+  int exact = 1;
+  size_t oi = 0, ni = 0, k = 0;
+  while (k < lops.len) {
+    if (lops.items[k].kind == 0) {
+      som_strlist_push_copy(&out, nl.items[ni]);
+      oi++;
+      ni++;
+      k++;
+      continue;
+    }
+    size_t d0 = oi, n0 = ni;
+    while (k < lops.len && lops.items[k].kind != 0) {
+      if (lops.items[k].kind == 1) {
+        oi++;
+      } else {
+        ni++;
+      }
+      k++;
+    }
+    size_t deln = oi - d0, insn = ni - n0;
+    int in_code = 0;
+    for (size_t q = d0; q < oi; q++) in_code |= oc[q];
+    for (size_t q = n0; q < ni; q++) in_code |= nc[q];
+    SomStrList emitted;
+    int have = 0;
+    if (!in_code) {
+      SomStrList cands[5];
+      size_t cn = 0;
+      if (deln > 0 && insn > 0) {
+        char *jd = join_ranges(O + d0, deln, NULL, 0, NULL, 0);
+        char *jn = join_ranges(N + n0, insn, NULL, 0, NULL, 0);
+        char *job = join_ranges(O, d0, NULL, 0, NULL, 0);
+        char *jnb = join_ranges(N, n0, NULL, 0, NULL, 0);
+        char *joa = join_ranges(O + oi, ol.len - oi, NULL, 0, NULL, 0);
+        char *jna = join_ranges(N + ni, nl.len - ni, NULL, 0, NULL, 0);
+        char *cob = d0 == 0 ? som_strdup("") : cat3(job, "\n", "");
+        char *cnb = n0 == 0 ? som_strdup("") : cat3(jnb, "\n", "");
+        char *coa = oi == ol.len ? som_strdup("") : cat3("\n", joa, "");
+        char *cna = ni == nl.len ? som_strdup("") : cat3("\n", jna, "");
+        char *t = mark_tokens(jd, jn, cob, cnb, coa, cna);
+        if (t != NULL) {
+          split_lines(t, &cands[cn++]);
+          free(t);
+        }
+        free(jd);
+        free(jn);
+        free(job);
+        free(jnb);
+        free(joa);
+        free(jna);
+        free(cob);
+        free(cnb);
+        free(coa);
+        free(cna);
+      }
+      SomStrList dm, im, dmb, imb;
+      som_strlist_init(&dm);
+      som_strlist_init(&im);
+      for (size_t q = d0; q < oi; q++)
+        som_strlist_push(&dm, line_mark(ol.items[q], "--"));
+      for (size_t q = n0; q < ni; q++)
+        som_strlist_push(&im, line_mark(nl.items[q], "++"));
+      without_blank(&dm, &dmb);
+      without_blank(&im, &imb);
+      concat_lists(&dm, &im, &cands[cn++]);
+      concat_lists(&dmb, &im, &cands[cn++]);
+      concat_lists(&dm, &imb, &cands[cn++]);
+      concat_lists(&dmb, &imb, &cands[cn++]);
+      som_strlist_free(&dm);
+      som_strlist_free(&im);
+      som_strlist_free(&dmb);
+      som_strlist_free(&imb);
+      for (size_t c = 0; c < cn; c++) {
+        const char *const *E = (const char *const *)cands[c].items;
+        if (!have) {
+          char *mn = join_ranges(N, n0, E, cands[c].len, N + ni, nl.len - ni);
+          char *mo = join_ranges(O, d0, E, cands[c].len, O + oi, ol.len - oi);
+          if (round_trips(mn, new_value, mo, old_value)) {
+            emitted = cands[c];
+            have = 1;
+            free(mn);
+            free(mo);
+            continue;
+          }
+          free(mn);
+          free(mo);
+        }
+        som_strlist_free(&cands[c]);
+      }
+    }
+    if (!have) {
+      exact = 0;
+      for (size_t q = n0; q < ni; q++) som_strlist_push_copy(&out, nl.items[q]);
+    } else {
+      for (size_t q = 0; q < emitted.len; q++)
+        som_strlist_push_copy(&out, emitted.items[q]);
+      som_strlist_free(&emitted);
+    }
+  }
+  char *text = som_strlist_join(&out, "\n");
+  som_strlist_free(&out);
+  free(lops.items);
+  toks_free(&olt);
+  toks_free(&nlt);
+  free(oc);
+  free(nc);
+  som_strlist_free(&ol);
+  som_strlist_free(&nl);
+  if (exact && !round_trips(text, new_value, text, old_value)) {
+    free(text);
+    res.text = som_strdup(new_value);
+    res.exact = 0;
+    return res;
+  }
+  res.text = text;
+  res.exact = exact;
+  return res;
+}
+
+SpecMarkedChange spec_review_annotations_set_marked(
+    const SpecReviewAnnotations *r, const char *path, const char *field,
+    const char *text) {
+  char *base = spec_apply_inline_marks_text(get_value(r->doc, path, field), 0);
+  SpecMarkedChange result = spec_mark_change_text(base, text);
+  free(base);
+  set_value(r->doc, path, field, result.text);
+  return result;
+}
+
+SpecMarkedChange spec_review_annotations_mark_against(
+    const SpecReviewAnnotations *r, const char *path, const char *field,
+    const char *earlier) {
+  char *current = som_strdup(get_value(r->doc, path, field));
+  SpecMarkedChange result = spec_mark_change_text(earlier, current);
+  free(current);
+  set_value(r->doc, path, field, result.text);
+  return result;
+}

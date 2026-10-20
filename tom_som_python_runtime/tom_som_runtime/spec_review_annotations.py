@@ -1447,6 +1447,24 @@ class SpecReviewAnnotations:
                 self._set(path, field, v)
         return report
 
+    def set_marked(self, path: str, text: str, field: Optional[str] = None) -> "SpecMarkedChange":
+        """Writes *text* at *path* / *field* as a marked change against the
+        value there now (SOM §11.9.3). A value that already holds change marks
+        is compared from its original — every mark rejected — so a second edit
+        of the same passage updates its mark instead of nesting one."""
+        current = self._get(path, field)
+        base = apply_inline_marks_text(current, accept=False)
+        result = mark_change_text(base, text)
+        self._set(path, field, result.text)
+        return result
+
+    def mark_against(self, path: str, earlier: str, field: Optional[str] = None) -> "SpecMarkedChange":
+        """Marks the value at *path* / *field* as a change against *earlier*,
+        an earlier version of it."""
+        result = mark_change_text(earlier, self._get(path, field))
+        self._set(path, field, result.text)
+        return result
+
     def stripped(self) -> SpecDocument:
         """A copy of the document without any annotation, for reading. The
         document itself is unchanged."""
@@ -1537,3 +1555,384 @@ class SpecReviewAnnotations:
                     seen.add(i)
         # sorted() is stable: equal paths keep their finding order.
         return sorted(errors, key=lambda e: e.path)
+
+
+# ---------------------------------------------------------------------------
+# Writing changes as inline marks (SOM §11.9.3, annot5).
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class SpecMarkedChange:
+    """A value written as a marked change."""
+
+    #: The value with every difference marked.
+    text: str
+    #: Whether accepting the marks gives exactly the new value and rejecting
+    #: them exactly the old one. False when a difference cannot be marked — a
+    #: change inside fenced code, or text that holds mark delimiters — and the
+    #: new value was written unmarked instead.
+    exact: bool
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {"text": self.text, "exact": self.exact}
+
+
+@dataclass(frozen=True)
+class _Tok:
+    """One token of a value: a run of whitespace, a word (a run of
+    non-whitespace with inline code spans kept whole) or a fenced code block
+    (its lines)."""
+
+    text: str
+    space: bool
+
+
+def _is_ws(c: str) -> bool:
+    return c == " " or c == "\t" or c == "\n"
+
+
+def _tokens(value: str) -> list[_Tok]:
+    out: list[_Tok] = []
+
+    def add(t: str, space: bool) -> None:
+        if t == "":
+            return
+        if space and out and out[-1].space:
+            out[-1] = _Tok(out[-1].text + t, True)
+        else:
+            out.append(_Tok(t, space))
+
+    def words(s: str) -> None:
+        i = 0
+        while i < len(s):
+            if _is_ws(s[i]):
+                st = i
+                while i < len(s) and _is_ws(s[i]):
+                    i += 1
+                add(s[st:i], True)
+                continue
+            st = i
+            while i < len(s) and not _is_ws(s[i]):
+                if s[i] == "`":
+                    n = 0
+                    while i + n < len(s) and s[i + n] == "`":
+                        n += 1
+                    # The matching run of exactly n backticks ends the span.
+                    j = i + n
+                    close = -1
+                    while j < len(s):
+                        if s[j] == "`":
+                            m = 0
+                            while j + m < len(s) and s[j + m] == "`":
+                                m += 1
+                            if m == n:
+                                close = j
+                                break
+                            j += m
+                        else:
+                            j += 1
+                    i = i + n if close < 0 else close + n
+                    continue
+                i += 1
+            add(s[st:i], False)
+
+    lines = value.split("\n")
+    code = _code_lines(lines)
+    k = 0
+    while k < len(lines):
+        if k > 0:
+            add("\n", True)
+        st = k
+        is_code = code[k]
+        while k + 1 < len(lines) and code[k + 1] == is_code:
+            k += 1
+        run = "\n".join(lines[st:k + 1])
+        if is_code:
+            add(run, False)
+        else:
+            words(run)
+        k += 1
+    return out
+
+
+def _diff(a: list[_Tok], b: list[_Tok]) -> list[tuple[int, _Tok]]:
+    """The diff of two token lists as ops: 0 keep, 1 delete (old), 2 insert
+    (new), with their tokens. LCS over token text; ties prefer the
+    deletion."""
+    n, m = len(a), len(b)
+    l = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(n - 1, -1, -1):
+        for j in range(m - 1, -1, -1):
+            if a[i].text == b[j].text:
+                l[i][j] = l[i + 1][j + 1] + 1
+            else:
+                l[i][j] = l[i + 1][j] if l[i + 1][j] >= l[i][j + 1] else l[i][j + 1]
+    ops: list[tuple[int, _Tok]] = []
+    i = j = 0
+    while i < n or j < m:
+        if i < n and j < m and a[i].text == b[j].text:
+            ops.append((0, a[i]))
+            i += 1
+            j += 1
+        elif j >= m or (i < n and l[i + 1][j] >= l[i][j + 1]):
+            ops.append((1, a[i]))
+            i += 1
+        else:
+            ops.append((2, b[j]))
+            j += 1
+    return ops
+
+
+def _trim_ws(s: str) -> str:
+    """*s* with its leading and trailing whitespace removed (spaces, tabs,
+    newlines)."""
+    a, b = 0, len(s)
+    while a < b and _is_ws(s[a]):
+        a += 1
+    while b > a and _is_ws(s[b - 1]):
+        b -= 1
+    return s[a:b]
+
+
+def _trim_left(s: str) -> str:
+    a = 0
+    while a < len(s) and s[a] in _WS:
+        a += 1
+    return s[a:]
+
+
+def _markup(o: str, n: str) -> str:
+    """The markup for one region whose old text is *o* and new text is *n*
+    (both trimmed, not both empty)."""
+    if o == "":
+        return f"{{++ {n} ++}}"
+    if n == "":
+        return f"{{-- {o} --}}"
+    return f"{{~~ {o} ~> {n} ~~}}"
+
+
+def _emit_region(
+    ops: list[tuple[int, _Tok]],
+    r0: int,
+    r1: int,
+    old_before: str,
+    new_before: str,
+    old_after: str,
+    new_after: str,
+) -> Optional[str]:
+    """The marked emission for the region [r0, r1) of *ops*, with the old and
+    the new text around it, or ``None`` when no mark round-trips there."""
+    o: list[str] = []
+    nn: list[str] = []
+    for k in range(r0, r1):
+        kind, t = ops[k]
+        if kind != 2:
+            o.append(t.text)
+        if kind != 1:
+            nn.append(t.text)
+    os_, ns = "".join(o), "".join(nn)
+    # Whitespace the two sides share at the edges stays outside the mark.
+    lead = 0
+    while (lead < len(os_) and lead < len(ns) and os_[lead] == ns[lead]
+           and _is_ws(os_[lead])):
+        lead += 1
+    trail = 0
+    while (trail < len(os_) - lead and trail < len(ns) - lead
+           and os_[len(os_) - 1 - trail] == ns[len(ns) - 1 - trail]
+           and _is_ws(os_[len(os_) - 1 - trail])):
+        trail += 1
+    oi = os_[lead:len(os_) - trail]
+    ni = ns[lead:len(ns) - trail]
+    # The mark's content is trimmed when read, so it must already be trimmed;
+    # the whitespace still differing is placed outside, on the side whose text
+    # keeps it, and the tidy rules then have to restore the other side.
+    ot, nt = _trim_ws(oi), _trim_ws(ni)
+    if ot == "" and nt == "":
+        return None
+    pre = os_[:lead]
+    post = os_[len(os_) - trail:]
+
+    def lead_ws(x: str) -> str:
+        return x[:len(x) - len(_trim_left(x))]
+
+    def trail_ws(x: str) -> str:
+        return x[len(_trim_right(x)):]
+
+    candidates = [
+        (lead_ws(ni), trail_ws(ni)),
+        (lead_ws(oi), trail_ws(oi)),
+        ("", ""),
+        (lead_ws(ni), ""),
+        ("", trail_ws(ni)),
+    ]
+    mk = _markup(ot, nt)
+    for wl, wr in candidates:
+        emission = f"{pre}{wl}{mk}{wr}{post}"
+        acc = apply_inline_marks_text(f"{new_before}{emission}{new_after}", accept=True)
+        rej = apply_inline_marks_text(f"{old_before}{emission}{old_after}", accept=False)
+        if acc == f"{new_before}{ns}{new_after}" and rej == f"{old_before}{os_}{old_after}":
+            return emission
+    return None
+
+
+def _mark_tokens(o: str, n: str, ob: str, nb: str, oa: str, na: str) -> Optional[str]:
+    """Marks the token-level differences of *o* → *n*, where the text before
+    them is *ob* (old) / *nb* (new) and after them *oa* / *na*. ``None`` when
+    the marks do not round-trip."""
+    ops = _diff(_tokens(o), _tokens(n))
+    runs: list[tuple[int, int]] = []
+    k = 0
+    while k < len(ops):
+        if ops[k][0] == 0:
+            k += 1
+            continue
+        s = k
+        while k < len(ops) and ops[k][0] != 0:
+            k += 1
+        runs.append((s, k))
+    # Changes separated by at most two unchanged words are one mark.
+    merged: list[tuple[int, int]] = []
+    for r in runs:
+        if merged:
+            words = 0
+            for q in range(merged[-1][1], r[0]):
+                if not ops[q][1].space:
+                    words += 1
+            if words <= 2:
+                merged[-1] = (merged[-1][0], r[1])
+                continue
+        merged.append(r)
+    runs = merged
+
+    def side(frm: int, to: int, skip: int) -> str:
+        return "".join(ops[q][1].text for q in range(frm, to) if ops[q][0] != skip)
+
+    # Left to right; a region that does not round-trip grows by one token on
+    # each side and is tried again.
+    out: list[str] = []
+    end = len(ops)
+    pos = 0
+    ri = 0
+    while ri < len(runs):
+        r0, r1 = runs[ri]
+        if r0 < pos:
+            r0 = pos
+        while True:
+            emission = _emit_region(
+                ops, r0, r1,
+                ob + side(0, r0, 2),
+                nb + side(0, r0, 1),
+                side(r1, end, 2) + oa,
+                side(r1, end, 1) + na,
+            )
+            if emission is not None or (r0 <= pos and r1 >= end):
+                break
+            if r0 > pos:
+                r0 -= 1
+            if r1 < end:
+                r1 += 1
+        if emission is None:
+            return None
+        out.append(side(pos, r0, 1))
+        out.append(emission)
+        pos = r1
+        while ri + 1 < len(runs) and runs[ri + 1][1] <= pos:
+            ri += 1
+        ri += 1
+    out.append(side(pos, end, 1))
+    text = "".join(out)
+    if (apply_inline_marks_text(f"{nb}{text}{na}", accept=True) != f"{nb}{n}{na}"
+            or apply_inline_marks_text(f"{ob}{text}{oa}", accept=False) != f"{ob}{o}{oa}"):
+        return None
+    return text
+
+
+def _line_mark(line: str, d: str) -> str:
+    """A whole line marked as inserted (``++``) or deleted (``--``): its
+    indentation stays outside the mark; a blank line stays blank."""
+    body = _trim_left(line)
+    if _trim(body) == "":
+        return line
+    indent = line[:len(line) - len(body)]
+    return f"{indent}{{{d} {_trim_right(body)} {d}}}"
+
+
+def mark_change_text(old_value: str, new_value: str) -> SpecMarkedChange:
+    """*new_value* with its differences from *old_value* marked, so that
+    accepting every mark gives exactly *new_value* and rejecting every mark
+    exactly *old_value* (SOM §11.9.3). The diff runs by line, then by word
+    inside a changed run of lines; words are never split, changes separated by
+    at most two unchanged words are one mark, and nothing inside code is
+    marked."""
+    if old_value == new_value:
+        return SpecMarkedChange(new_value, exact=True)
+    ol, nl = old_value.split("\n"), new_value.split("\n")
+    oc, nc = _code_lines(ol), _code_lines(nl)
+    lops = _diff([_Tok(x, False) for x in ol], [_Tok(x, False) for x in nl])
+    out: list[str] = []
+    exact = True
+    oi = ni = k = 0
+
+    def join(ls: list[str]) -> str:
+        return "\n".join(ls)
+
+    def blank(x: str) -> bool:
+        return _trim(x) == ""
+
+    while k < len(lops):
+        if lops[k][0] == 0:
+            out.append(nl[ni])
+            oi += 1
+            ni += 1
+            k += 1
+            continue
+        d0, n0 = oi, ni
+        while k < len(lops) and lops[k][0] != 0:
+            if lops[k][0] == 1:
+                oi += 1
+            else:
+                ni += 1
+            k += 1
+        dele, ins = ol[d0:oi], nl[n0:ni]
+        ob, oa = ol[:d0], ol[oi:]
+        nb, na = nl[:n0], nl[ni:]
+        emitted: Optional[list[str]] = None
+        in_code = any(oc[d0:oi]) or any(nc[n0:ni])
+        if not in_code:
+            candidates: list[list[str]] = []
+            if dele and ins:
+                t = _mark_tokens(
+                    join(dele),
+                    join(ins),
+                    f"{join(ob)}\n" if ob else "",
+                    f"{join(nb)}\n" if nb else "",
+                    f"\n{join(oa)}" if oa else "",
+                    f"\n{join(na)}" if na else "",
+                )
+                if t is not None:
+                    candidates.append(t.split("\n"))
+            dm = [_line_mark(x, "--") for x in dele]
+            im = [_line_mark(x, "++") for x in ins]
+            candidates.append([*dm, *im])
+            candidates.append([*(x for x in dm if not blank(x)), *im])
+            candidates.append([*dm, *(x for x in im if not blank(x))])
+            candidates.append([*(x for x in dm if not blank(x)),
+                               *(x for x in im if not blank(x))])
+            for e in candidates:
+                if (apply_inline_marks_text(join([*nb, *e, *na]), accept=True) == new_value
+                        and apply_inline_marks_text(join([*ob, *e, *oa]), accept=False)
+                        == old_value):
+                    emitted = e
+                    break
+        if emitted is None:
+            exact = False
+            out.extend(ins)
+        else:
+            out.extend(emitted)
+    text = join(out)
+    if exact and (apply_inline_marks_text(text, accept=True) != new_value
+                  or apply_inline_marks_text(text, accept=False) != old_value):
+        return SpecMarkedChange(new_value, exact=False)
+    return SpecMarkedChange(text, exact=exact)

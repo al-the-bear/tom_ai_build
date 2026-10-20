@@ -236,6 +236,7 @@ func TestConformance(t *testing.T) {
 	testNodeCreationScript(c, t, model)
 	testAnnotations(c, t, model, tree)
 	testInlineMarks(c, t, model, tree)
+	testChangeMarks(c, t, model, tree)
 
 	c.finish()
 }
@@ -2986,6 +2987,10 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			result = api.RejectAllMarks(opString(op, "path")).ToJSON()
 		case "removeAll":
 			result = api.RemoveAllAnnotations().ToJSON()
+		case "setMarked":
+			result = api.SetMarked(opString(op, "path"), opString(op, "field"), opString(op, "text")).ToJSON()
+		case "markAgainst":
+			result = api.MarkAgainst(opString(op, "path"), opString(op, "field"), opString(op, "earlier")).ToJSON()
 		case "roundTrip":
 			current := canonJSON(t, doc.ToJSON())
 			yamlOK := false
@@ -3061,6 +3066,46 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		got := runAnnotationCase(t, model, tree, cc)
 		want := toGenericJSON(t, cc.Expect)
 		c.check("inlineMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+}
+
+// testChangeMarks replays change_mark_cases.json: writing a change as inline
+// marks in one text (textCases), and the scripted setMarked / markAgainst
+// ops (cases).
+func testChangeMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.SomMetaTree) {
+	var table struct {
+		TextCases []struct {
+			Name   string `json:"name"`
+			Old    string `json:"old"`
+			New    string `json:"new"`
+			Marked string `json:"marked"`
+			Exact  bool   `json:"exact"`
+			Accept string `json:"accept"`
+			Reject string `json:"reject"`
+		} `json:"textCases"`
+		Cases []annotationCase `json:"cases"`
+	}
+	readJSON(t, "change_mark_cases.json", &table)
+	c.check("changeMarks.textCases", len(table.TextCases) > 0, "no textCases in change_mark_cases.json")
+	c.check("changeMarks.cases", len(table.Cases) > 0, "no cases in change_mark_cases.json")
+	for _, tc := range table.TextCases {
+		r := som.MarkChangeText(tc.Old, tc.New)
+		c.check("changeMarks.text["+tc.Name+"].marked", r.Text == tc.Marked,
+			"got "+strconv.Quote(r.Text)+" want "+strconv.Quote(tc.Marked))
+		c.check("changeMarks.text["+tc.Name+"].exact", r.Exact == tc.Exact,
+			"got "+strconv.FormatBool(r.Exact)+" want "+strconv.FormatBool(tc.Exact))
+		acc := som.ApplyInlineMarksText(tc.Marked, true)
+		c.check("changeMarks.text["+tc.Name+"].accept", acc == tc.Accept,
+			"got "+strconv.Quote(acc)+" want "+strconv.Quote(tc.Accept))
+		rej := som.ApplyInlineMarksText(tc.Marked, false)
+		c.check("changeMarks.text["+tc.Name+"].reject", rej == tc.Reject,
+			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
+	}
+	for _, cc := range table.Cases {
+		got := runAnnotationCase(t, model, tree, cc)
+		want := toGenericJSON(t, cc.Expect)
+		c.check("changeMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
 	}
 }

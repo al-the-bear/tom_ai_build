@@ -1621,4 +1621,423 @@ SpecMarkReport SpecReviewAnnotations::removeAllAnnotations() {
   return report;
 }
 
+// ---------------------------------------------------------------------------
+// Writing changes as inline marks (SOM §11.9.3, annot5).
+// ---------------------------------------------------------------------------
+
+std::string SpecMarkedChange::toJson() const {
+  return "{\"text\":" + jsonEncodeStr(text) +
+         ",\"exact\":" + (exact ? "true" : "false") + "}";
+}
+
+namespace {
+
+/* One token of a value: a run of whitespace, a word (a run of non-whitespace
+ * with inline code spans kept whole) or a fenced code block (its lines). */
+struct Tok {
+  std::string text;
+  bool space = false;
+};
+
+bool isMarkWs(char c) { return c == ' ' || c == '\t' || c == '\n'; }
+
+std::vector<Tok> tokensOf(const std::string& value) {
+  std::vector<Tok> out;
+  auto add = [&](const std::string& t, bool space) {
+    if (t.empty()) return;
+    if (space && !out.empty() && out.back().space) {
+      out.back().text += t;
+    } else {
+      out.push_back({t, space});
+    }
+  };
+  auto words = [&](const std::string& s) {
+    std::size_t i = 0;
+    while (i < s.size()) {
+      if (isMarkWs(s[i])) {
+        const std::size_t st = i;
+        while (i < s.size() && isMarkWs(s[i])) i++;
+        add(s.substr(st, i - st), true);
+        continue;
+      }
+      const std::size_t st = i;
+      while (i < s.size() && !isMarkWs(s[i])) {
+        if (s[i] == '`') {
+          std::size_t n = 0;
+          while (i + n < s.size() && s[i + n] == '`') n++;
+          // The matching run of exactly n backticks ends the span.
+          std::size_t j = i + n;
+          std::optional<std::size_t> close;
+          while (j < s.size()) {
+            if (s[j] == '`') {
+              std::size_t m = 0;
+              while (j + m < s.size() && s[j + m] == '`') m++;
+              if (m == n) {
+                close = j;
+                break;
+              }
+              j += m;
+            } else {
+              j++;
+            }
+          }
+          i = close ? *close + n : i + n;
+          continue;
+        }
+        i++;
+      }
+      add(s.substr(st, i - st), false);
+    }
+  };
+
+  const std::vector<std::string> lines = splitLines(value);
+  const std::vector<bool> code = codeLines(lines);
+  std::size_t k = 0;
+  while (k < lines.size()) {
+    if (k > 0) add("\n", true);
+    const std::size_t st = k;
+    const bool isCode = code[k];
+    while (k + 1 < lines.size() && code[k + 1] == isCode) k++;
+    std::string run;
+    for (std::size_t q = st; q <= k; q++) {
+      if (q > st) run += '\n';
+      run += lines[q];
+    }
+    if (isCode) {
+      add(run, false);
+    } else {
+      words(run);
+    }
+    k++;
+  }
+  return out;
+}
+
+/* One diff op: 0 keep, 1 delete (old), 2 insert (new), with its token. */
+struct DiffOp {
+  int kind;
+  Tok tok;
+};
+
+/* The diff of two token lists. LCS over token text; ties prefer the
+ * deletion. */
+std::vector<DiffOp> diffTokens(const std::vector<Tok>& a,
+                               const std::vector<Tok>& b) {
+  const std::size_t n = a.size(), m = b.size();
+  std::vector<std::vector<std::size_t>> l(n + 1,
+                                          std::vector<std::size_t>(m + 1, 0));
+  for (std::size_t i = n; i-- > 0;) {
+    for (std::size_t j = m; j-- > 0;) {
+      l[i][j] = a[i].text == b[j].text ? l[i + 1][j + 1] + 1
+                                       : std::max(l[i + 1][j], l[i][j + 1]);
+    }
+  }
+  std::vector<DiffOp> ops;
+  std::size_t i = 0, j = 0;
+  while (i < n || j < m) {
+    if (i < n && j < m && a[i].text == b[j].text) {
+      ops.push_back({0, a[i]});
+      i++;
+      j++;
+    } else if (j >= m || (i < n && l[i + 1][j] >= l[i][j + 1])) {
+      ops.push_back({1, a[i]});
+      i++;
+    } else {
+      ops.push_back({2, b[j]});
+      j++;
+    }
+  }
+  return ops;
+}
+
+/* `s` with its leading and trailing whitespace removed (spaces, tabs,
+ * newlines). */
+std::string trimWs(const std::string& s) {
+  std::size_t a = 0, b = s.size();
+  while (a < b && isMarkWs(s[a])) a++;
+  while (b > a && isMarkWs(s[b - 1])) b--;
+  return s.substr(a, b - a);
+}
+
+/* The markup for one region whose old text is `o` and new text is `n` (both
+ * trimmed, not both empty). */
+std::string markup(const std::string& o, const std::string& n) {
+  if (o.empty()) return "{++ " + n + " ++}";
+  if (n.empty()) return "{-- " + o + " --}";
+  return "{~~ " + o + " ~> " + n + " ~~}";
+}
+
+/* Leading / trailing whitespace by Dart's `trimLeft` / `trimRight`. */
+std::string leadWs(const std::string& x) {
+  auto [b, e] = trimBounds(x);
+  return b == e ? x : x.substr(0, b);
+}
+
+std::string trailWs(const std::string& x) {
+  auto [b, e] = trimBounds(x);
+  return b == e ? x : x.substr(e);
+}
+
+/* The marked emission for the region [r0, r1) of `ops`, with the old and the
+ * new text around it, or nullopt when no mark round-trips there. */
+std::optional<std::string> emitRegion(const std::vector<DiffOp>& ops,
+                                      std::size_t r0, std::size_t r1,
+                                      const std::string& oldBefore,
+                                      const std::string& newBefore,
+                                      const std::string& oldAfter,
+                                      const std::string& newAfter) {
+  std::string os, ns;
+  for (std::size_t k = r0; k < r1; k++) {
+    if (ops[k].kind != 2) os += ops[k].tok.text;
+    if (ops[k].kind != 1) ns += ops[k].tok.text;
+  }
+  // Whitespace the two sides share at the edges stays outside the mark.
+  std::size_t lead = 0;
+  while (lead < os.size() && lead < ns.size() && os[lead] == ns[lead] &&
+         isMarkWs(os[lead])) {
+    lead++;
+  }
+  std::size_t trail = 0;
+  while (trail < os.size() - lead && trail < ns.size() - lead &&
+         os[os.size() - 1 - trail] == ns[ns.size() - 1 - trail] &&
+         isMarkWs(os[os.size() - 1 - trail])) {
+    trail++;
+  }
+  const std::string oi = os.substr(lead, os.size() - lead - trail);
+  const std::string ni = ns.substr(lead, ns.size() - lead - trail);
+  // The mark's content is trimmed when read, so it must already be trimmed;
+  // the whitespace still differing is placed outside, on the side whose text
+  // keeps it, and the tidy rules then have to restore the other side.
+  const std::string ot = trimWs(oi), nt = trimWs(ni);
+  if (ot.empty() && nt.empty()) return std::nullopt;
+  const std::string pre = os.substr(0, lead);
+  const std::string post = os.substr(os.size() - trail);
+  const std::string mark = markup(ot, nt);
+  const std::pair<std::string, std::string> candidates[] = {
+      {leadWs(ni), trailWs(ni)}, {leadWs(oi), trailWs(oi)}, {"", ""},
+      {leadWs(ni), ""},          {"", trailWs(ni)},
+  };
+  for (const auto& [wl, wr] : candidates) {
+    const std::string emission = pre + wl + mark + wr + post;
+    const std::string acc =
+        applyInlineMarksText(newBefore + emission + newAfter, true);
+    const std::string rej =
+        applyInlineMarksText(oldBefore + emission + oldAfter, false);
+    if (acc == newBefore + ns + newAfter && rej == oldBefore + os + oldAfter) {
+      return emission;
+    }
+  }
+  return std::nullopt;
+}
+
+/* Marks the token-level differences of `o` → `n`, where the text before them
+ * is `ob` (old) / `nb` (new) and after them `oa` / `na`. nullopt when the
+ * marks do not round-trip. */
+std::optional<std::string> markTokens(const std::string& o,
+                                      const std::string& n,
+                                      const std::string& ob,
+                                      const std::string& nb,
+                                      const std::string& oa,
+                                      const std::string& na) {
+  const std::vector<DiffOp> ops = diffTokens(tokensOf(o), tokensOf(n));
+  std::vector<std::pair<std::size_t, std::size_t>> runs;
+  std::size_t k = 0;
+  while (k < ops.size()) {
+    if (ops[k].kind == 0) {
+      k++;
+      continue;
+    }
+    const std::size_t s = k;
+    while (k < ops.size() && ops[k].kind != 0) k++;
+    runs.emplace_back(s, k);
+  }
+  // Changes separated by at most two unchanged words are one mark.
+  std::vector<std::pair<std::size_t, std::size_t>> merged;
+  for (const auto& r : runs) {
+    if (!merged.empty()) {
+      std::size_t words = 0;
+      for (std::size_t q = merged.back().second; q < r.first; q++) {
+        if (!ops[q].tok.space) words++;
+      }
+      if (words <= 2) {
+        merged.back().second = r.second;
+        continue;
+      }
+    }
+    merged.push_back(r);
+  }
+  runs = merged;
+
+  auto side = [&](std::size_t from, std::size_t to, int skip) {
+    std::string b;
+    for (std::size_t q = from; q < to; q++) {
+      if (ops[q].kind != skip) b += ops[q].tok.text;
+    }
+    return b;
+  };
+
+  // Left to right; a region that does not round-trip grows by one token on
+  // each side and is tried again.
+  const std::size_t end = ops.size();
+  std::string out;
+  std::size_t pos = 0;
+  for (std::size_t ri = 0; ri < runs.size(); ri++) {
+    auto [r0, r1] = runs[ri];
+    if (r0 < pos) r0 = pos;
+    std::optional<std::string> emission;
+    while (true) {
+      emission = emitRegion(ops, r0, r1, ob + side(0, r0, 2),
+                            nb + side(0, r0, 1), side(r1, end, 2) + oa,
+                            side(r1, end, 1) + na);
+      if (emission || (r0 <= pos && r1 >= end)) break;
+      if (r0 > pos) r0--;
+      if (r1 < end) r1++;
+    }
+    if (!emission) return std::nullopt;
+    out += side(pos, r0, 1);
+    out += *emission;
+    pos = r1;
+    while (ri + 1 < runs.size() && runs[ri + 1].second <= pos) ri++;
+  }
+  out += side(pos, end, 1);
+  if (applyInlineMarksText(nb + out + na, true) != nb + n + na ||
+      applyInlineMarksText(ob + out + oa, false) != ob + o + oa) {
+    return std::nullopt;
+  }
+  return out;
+}
+
+/* A whole line marked as inserted (`++`) or deleted (`--`): its indentation
+ * stays outside the mark; a blank line stays blank. */
+std::string lineMark(const std::string& line, const std::string& d) {
+  auto [b, e] = trimBounds(line);
+  if (b == e) return line;
+  return line.substr(0, b) + "{" + d + " " + line.substr(b, e - b) + " " + d +
+         "}";
+}
+
+std::vector<std::string> slice(const std::vector<std::string>& v,
+                               std::size_t from, std::size_t to) {
+  return std::vector<std::string>(v.begin() + static_cast<long>(from),
+                                  v.begin() + static_cast<long>(to));
+}
+
+std::vector<std::string> concat(std::vector<std::string> a,
+                                const std::vector<std::string>& b) {
+  a.insert(a.end(), b.begin(), b.end());
+  return a;
+}
+
+std::vector<std::string> withoutBlank(const std::vector<std::string>& v) {
+  std::vector<std::string> out;
+  for (const auto& l : v) {
+    if (!isBlank(l)) out.push_back(l);
+  }
+  return out;
+}
+
+}  // namespace
+
+SpecMarkedChange markChangeText(const std::string& oldValue,
+                                const std::string& newValue) {
+  if (oldValue == newValue) return {newValue, true};
+  const std::vector<std::string> ol = splitLines(oldValue);
+  const std::vector<std::string> nl = splitLines(newValue);
+  const std::vector<bool> oc = codeLines(ol), nc = codeLines(nl);
+  std::vector<Tok> olt, nlt;
+  for (const auto& l : ol) olt.push_back({l, false});
+  for (const auto& l : nl) nlt.push_back({l, false});
+  const std::vector<DiffOp> lops = diffTokens(olt, nlt);
+  std::vector<std::string> out;
+  bool exact = true;
+  std::size_t oi = 0, ni = 0, k = 0;
+  while (k < lops.size()) {
+    if (lops[k].kind == 0) {
+      out.push_back(nl[ni]);
+      oi++;
+      ni++;
+      k++;
+      continue;
+    }
+    const std::size_t d0 = oi, n0 = ni;
+    while (k < lops.size() && lops[k].kind != 0) {
+      if (lops[k].kind == 1) {
+        oi++;
+      } else {
+        ni++;
+      }
+      k++;
+    }
+    const auto del = slice(ol, d0, oi), ins = slice(nl, n0, ni);
+    const auto ob = slice(ol, 0, d0), oa = slice(ol, oi, ol.size());
+    const auto nb = slice(nl, 0, n0), na = slice(nl, ni, nl.size());
+    auto roundTrips = [&](const std::vector<std::string>& e) {
+      return applyInlineMarksText(joinLines(concat(concat(nb, e), na)), true) ==
+                 newValue &&
+             applyInlineMarksText(joinLines(concat(concat(ob, e), oa)),
+                                  false) == oldValue;
+    };
+    std::optional<std::vector<std::string>> emitted;
+    bool inCode = false;
+    for (std::size_t q = d0; q < oi; q++) inCode = inCode || oc[q];
+    for (std::size_t q = n0; q < ni; q++) inCode = inCode || nc[q];
+    if (!inCode) {
+      std::vector<std::vector<std::string>> candidates;
+      if (!del.empty() && !ins.empty()) {
+        const auto t = markTokens(
+            joinLines(del), joinLines(ins),
+            ob.empty() ? "" : joinLines(ob) + "\n",
+            nb.empty() ? "" : joinLines(nb) + "\n",
+            oa.empty() ? "" : "\n" + joinLines(oa),
+            na.empty() ? "" : "\n" + joinLines(na));
+        if (t) candidates.push_back(splitLines(*t));
+      }
+      std::vector<std::string> dm, im;
+      for (const auto& l : del) dm.push_back(lineMark(l, "--"));
+      for (const auto& l : ins) im.push_back(lineMark(l, "++"));
+      candidates.push_back(concat(dm, im));
+      candidates.push_back(concat(withoutBlank(dm), im));
+      candidates.push_back(concat(dm, withoutBlank(im)));
+      candidates.push_back(concat(withoutBlank(dm), withoutBlank(im)));
+      for (const auto& e : candidates) {
+        if (roundTrips(e)) {
+          emitted = e;
+          break;
+        }
+      }
+    }
+    if (!emitted) {
+      exact = false;
+      out.insert(out.end(), ins.begin(), ins.end());
+    } else {
+      out.insert(out.end(), emitted->begin(), emitted->end());
+    }
+  }
+  const std::string text = joinLines(out);
+  if (exact && (applyInlineMarksText(text, true) != newValue ||
+                applyInlineMarksText(text, false) != oldValue)) {
+    return {newValue, false};
+  }
+  return {text, exact};
+}
+
+SpecMarkedChange SpecReviewAnnotations::setMarked(
+    const std::string& path, const std::optional<std::string>& field,
+    const std::string& text) {
+  const std::string base =
+      applyInlineMarksText(getValue(*doc_, path, field), false);
+  SpecMarkedChange result = markChangeText(base, text);
+  setValue(*doc_, path, field, result.text);
+  return result;
+}
+
+SpecMarkedChange SpecReviewAnnotations::markAgainst(
+    const std::string& path, const std::optional<std::string>& field,
+    const std::string& earlier) {
+  SpecMarkedChange result =
+      markChangeText(earlier, getValue(*doc_, path, field));
+  setValue(*doc_, path, field, result.text);
+  return result;
+}
+
 }  // namespace som

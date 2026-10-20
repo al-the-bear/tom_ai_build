@@ -142,6 +142,27 @@ const report = review.decideMarks(
 );
 ```
 
+### Writing changes as marks
+
+| Operation | Does |
+|-----------|------|
+| `markChangeText(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, `exact`) |
+| `setMarked({ path, field, text })` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `markAgainst({ path, field, earlier })` | Marks the value already written against an earlier version |
+
+`exact` is false only when a difference could not be marked, i.e. a change
+inside fenced code. The new text is then written unmarked.
+
+```javascript
+const { markChangeText } = require('tom_som_javascript_runtime');
+
+const r = markChangeText(
+  'Sessions expire after 30 minutes.',
+  'Sessions expire after 15 minutes.',
+);
+console.log(r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
 ## Validation
 
 `validateDocument` reports annotation findings as its last group, after the

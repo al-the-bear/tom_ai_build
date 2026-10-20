@@ -96,6 +96,7 @@ from tom_som_runtime import (  # noqa: E402
     encode_two_letter_date,
     generate_list_item_section_id,
     apply_inline_marks_text,
+    mark_change_text,
     validate_document,
     validate_spec_document,
     rekey_review,
@@ -1096,6 +1097,11 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
         return api.reject_all_marks(path=op.get("path")).to_json()
     if kind == "removeAll":
         return api.remove_all_annotations().to_json()
+    if kind == "setMarked":
+        return api.set_marked(op["path"], op["text"], field=op.get("field")).to_json()
+    if kind == "markAgainst":
+        return api.mark_against(
+            op["path"], op["earlier"], field=op.get("field")).to_json()
     if kind == "roundTrip":
         yaml = yaml_encode(doc, tree, model_version=_MODEL_VERSION)
         from_yaml = yaml_decode(yaml, tree).document
@@ -1150,6 +1156,33 @@ def test_inline_marks(model: SpecModel, tree) -> None:
         got = _run_annotation_case(model, tree, case)
         _check(
             f"marks[{case['name']}]",
+            got == case["expect"],
+            _json_mismatch(got, case["expect"]),
+        )
+
+
+def test_change_marks(model: SpecModel, tree) -> None:
+    """``change_mark_cases.json``: writing a change as inline marks
+    (SOM §11.9.3)."""
+    table = _read_json("change_mark_cases.json")
+    for c in table["textCases"]:
+        r = mark_change_text(c["old"], c["new"])
+        name = f"change text[{c['name']}]"
+        _check(f"{name}.marked", r.text == c["marked"],
+               f"got {r.text!r}, want {c['marked']!r}")
+        _check(f"{name}.exact", r.exact == c["exact"],
+               f"got {r.exact}, want {c['exact']}")
+        for accept, key in ((True, "accept"), (False, "reject")):
+            got = apply_inline_marks_text(r.text, accept=accept)
+            _check(f"{name}.{key}", got == c[key],
+                   f"got {got!r}, want {c[key]!r}")
+        if r.exact:
+            _check(f"{name}.exactRoundTrip",
+                   c["accept"] == c["new"] and c["reject"] == c["old"])
+    for case in table["cases"]:
+        got = _run_annotation_case(model, tree, case)
+        _check(
+            f"change[{case['name']}]",
             got == case["expect"],
             _json_mismatch(got, case["expect"]),
         )
@@ -1879,6 +1912,7 @@ def main() -> int:
     test_assembly()
     test_annotations(model, tree)
     test_inline_marks(model, tree)
+    test_change_marks(model, tree)
     test_list_move(model)
     test_build_document_matches_state()
     test_pattern()

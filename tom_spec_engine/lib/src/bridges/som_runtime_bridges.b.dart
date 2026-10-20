@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 26 files
-// Generated: 2026-10-20T10:11:30.324965 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T11:00:19.411284 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -89,6 +89,7 @@ class SomRuntimeBridge {
       _createSpecMarkReportBridge(),
       _createSpecReviewAnnotationErrorBridge(),
       _createSpecReviewAnnotationsBridge(),
+      _createSpecMarkedChangeBridge(),
       _createSpecChipBridge(),
       _createSpecRowExtrasBridge(),
       _createCodeSpecsRoutingBridge(),
@@ -197,6 +198,7 @@ class SomRuntimeBridge {
       'SpecMarkReport': _createSpecMarkReportBridge,
       'SpecReviewAnnotationError': _createSpecReviewAnnotationErrorBridge,
       'SpecReviewAnnotations': _createSpecReviewAnnotationsBridge,
+      'SpecMarkedChange': _createSpecMarkedChangeBridge,
       'SpecChip': _createSpecChipBridge,
       'SpecRowExtras': _createSpecRowExtrasBridge,
       'CodeSpecsRouting': _createCodeSpecsRoutingBridge,
@@ -307,6 +309,7 @@ class SomRuntimeBridge {
       'SpecReviewAnnotationError':
           $tom_som_dart_runtime_20.SpecReviewAnnotationError,
       'SpecReviewAnnotations': $tom_som_dart_runtime_20.SpecReviewAnnotations,
+      'SpecMarkedChange': $tom_som_dart_runtime_20.SpecMarkedChange,
       'SpecChip': $tom_som_dart_runtime_3.SpecChip,
       'SpecRowExtras': $tom_som_dart_runtime_3.SpecRowExtras,
       'CodeSpecsRouting': $tom_som_dart_runtime_4.CodeSpecsRouting,
@@ -437,6 +440,8 @@ class SomRuntimeBridge {
       'SpecReviewAnnotationError':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecReviewAnnotations':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'SpecMarkedChange':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecChip':
           'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
@@ -1354,6 +1359,22 @@ class SomRuntimeBridge {
         );
         return $tom_som_dart_runtime_20.stripAnnotationsText(value);
       },
+      'markChangeText': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'markChangeText');
+        final oldValue = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'oldValue',
+          'markChangeText',
+        );
+        final newValue = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'newValue',
+          'markChangeText',
+        );
+        return $tom_som_dart_runtime_20.markChangeText(oldValue, newValue);
+      },
       'kindChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'kindChips');
         final codeSpec = D4.getRequiredArg<$tom_som_dart_runtime_15.KindLink?>(
@@ -2010,6 +2031,8 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'stripAnnotationsText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'markChangeText':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'kindChips':
           'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'codeSpecKindChips':
@@ -2098,6 +2121,8 @@ class SomRuntimeBridge {
       'applyInlineMarksText':
           'String applyInlineMarksText(String value, {required bool accept})',
       'stripAnnotationsText': 'String stripAnnotationsText(String value)',
+      'markChangeText':
+          'SpecMarkedChange markChangeText(String oldValue, String newValue)',
       'kindChips':
           'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp, NoArtifactLink? noArtifact)',
       'codeSpecKindChips':
@@ -4414,6 +4439,36 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
             );
         return t.removeAllAnnotations();
       },
+      'setMarked': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        final path = D4.getRequiredNamedArg<String>(named, 'path', 'setMarked');
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final text = D4.getRequiredNamedArg<String>(named, 'text', 'setMarked');
+        return t.setMarked(path: path, field: field, text: text);
+      },
+      'markAgainst': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'markAgainst',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final earlier = D4.getRequiredNamedArg<String>(
+          named,
+          'earlier',
+          'markAgainst',
+        );
+        return t.markAgainst(path: path, field: field, earlier: earlier);
+      },
       'stripped': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
@@ -4457,6 +4512,10 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       'acceptAllMarks': 'SpecMarkReport acceptAllMarks({String? path})',
       'rejectAllMarks': 'SpecMarkReport rejectAllMarks({String? path})',
       'removeAllAnnotations': 'SpecMarkReport removeAllAnnotations()',
+      'setMarked':
+          'SpecMarkedChange setMarked({required String path, String? field, required String text})',
+      'markAgainst':
+          'SpecMarkedChange markAgainst({required String path, String? field, required String earlier})',
       'stripped': 'SpecDocument stripped()',
       'validate': 'List<SpecValidationError> validate()',
     },
@@ -4464,6 +4523,63 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       'doc': 'SpecDocument get doc',
       'qualifier': 'String? get qualifier',
     },
+  );
+}
+
+// =============================================================================
+// SpecMarkedChange Bridge
+// =============================================================================
+
+BridgedClass _createSpecMarkedChangeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_20.SpecMarkedChange,
+    name: 'SpecMarkedChange',
+    isAssignable: (v) => v is $tom_som_dart_runtime_20.SpecMarkedChange,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'SpecMarkedChange');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'SpecMarkedChange',
+        );
+        final exact = D4.getRequiredNamedArg<bool>(
+          named,
+          'exact',
+          'SpecMarkedChange',
+        );
+        return $tom_som_dart_runtime_20.SpecMarkedChange(text, exact: exact);
+      },
+    },
+    getters: {
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkedChange>(
+            target,
+            'SpecMarkedChange',
+          )
+          .text,
+      'exact': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkedChange>(
+            target,
+            'SpecMarkedChange',
+          )
+          .exact,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_20.SpecMarkedChange>(
+          target,
+          'SpecMarkedChange',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecMarkedChange(String text, {required bool exact})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {'text': 'String get text', 'exact': 'bool get exact'},
   );
 }
 
