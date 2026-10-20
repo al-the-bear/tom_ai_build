@@ -4682,6 +4682,8 @@ document:
                 content: Exercise form preamble.
               COREUP updates:
                 content: Exercise form preamble.
+          SDR-DECI-REF designDecisions:
+            content: Exercise form preamble.
         SSR standardSoftware:
           content: Exercise text.
           CRS compatibilityRequirements:
@@ -6424,7 +6426,7 @@ document:
             DAPRCL dataClassification:
               content:
                 content: Exercise form preamble.
-                classificationLevels: "Exercise value."
+                classificationLevels: "DCLSE-ITEM-1"
                 personalDataCategories: "Exercise value."
               DPCH handling:
                 content: Exercise form preamble.
@@ -6530,6 +6532,8 @@ document:
                   content: Exercise form preamble.
         SYARSP systemArchitecture:
           content: Exercise text.
+          SYARSP-DECI-REF decisions:
+            content: Exercise form preamble.
       SATF architectureFollowUp:
         content: Exercise text.
         COMP componentsToUse:
@@ -9681,13 +9685,9 @@ document:
                   featureId: "FPE-ITEM-1"
                 MOENCL classification:
                   content: Exercise form preamble.
-                  moscowCategory: "must"
                   justification: "Exercise value."
                 MOENVA value:
                   content: Exercise form preamble.
-                MESA stageAssignment:
-                  content: Exercise form preamble.
-                  targetStage: "STAGE-STAG-1"
                 MOENTR traceability:
                   content: Exercise form preamble.
           FESTMA featureStageMatrix:
@@ -9702,7 +9702,6 @@ document:
                   featureId: "FPE-ITEM-1"
                 FSMA assignment:
                   content: Exercise form preamble.
-                  targetStage: "STAGE-STAG-1"
                 FSMR readiness:
                   content: Exercise form preamble.
                   readinessStatus: "Exercise value."

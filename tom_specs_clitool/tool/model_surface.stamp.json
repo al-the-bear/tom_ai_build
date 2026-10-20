@@ -1,5 +1,5 @@
 {
-  "fingerprint": "b755ac4e9f2ba11548a71c0b9e14de19ac5fda601f199db308a8ef50e8dfb696",
+  "fingerprint": "4a42f9bf0713ff4ab3645ca2b3a732fcc485c64dba6067e7e1af070739c88ee8",
   "fileCount": 45,
   "declarationCount": 1296,
   "packages": [
@@ -13,6 +13,6 @@
     "tom_som_rust_v0",
     "tom_som_typescript_v0"
   ],
-  "modelHash": "ff51509d48c1ef110daf7c4aee37e3f936834b16cebd168b921042c294009375",
-  "modelVersion": "1.6.8"
+  "modelHash": "9cc34f9bc7f561f6654de8bd88e6d06537e13824eda4e9145aceee5260c20f49",
+  "modelVersion": "1.6.9"
 }

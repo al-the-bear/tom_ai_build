@@ -25825,11 +25825,6 @@ export class MoscowEntry extends SomNode {
     return new MoscowEntryValueForm(this.doc, this.path + "/MOENVA");
   }
 
-  // Stage assignment.
-  get stageAssignment(): MoscowEntryStageAssignmentForm {
-    return new MoscowEntryStageAssignmentForm(this.doc, this.path + "/MESA");
-  }
-
   // Traceability and notes.
   get traceability(): MoscowEntryTraceabilityForm {
     return new MoscowEntryTraceabilityForm(this.doc, this.path + "/MOENTR");
@@ -38038,6 +38033,11 @@ export class SoftwareDesignRequirements extends SomNode {
   get reusableComponents(): ReusableComponentsSection {
     return new ReusableComponentsSection(this.doc, this.path + "/reusableComponents");
   }
+
+  // The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+  get designDecisions(): SoftwareDesignRequirementsDesignDecisionsForm {
+    return new SoftwareDesignRequirementsDesignDecisionsForm(this.doc, this.path + "/SDR-DECI-REF");
+  }
 }
 
 // Software layer entry — a horizontal layer in the architecture.
@@ -39706,6 +39706,11 @@ export class SystemArchitectureSpec extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+  get decisions(): SystemArchitectureSpecDecisionsForm {
+    return new SystemArchitectureSpecDecisionsForm(this.doc, this.path + "/SYARSP-DECI-REF");
   }
 }
 
@@ -48913,6 +48918,14 @@ export class ActorCharacteristicsContentForm extends SomNode {
   set usageFrequency(value: string) {
     this.doc.setFormField(this.path, "usageFrequency", value);
   }
+
+  get userCategoryRef(): string {
+    return this.doc.formField(this.path, "userCategoryRef") || '';
+  }
+
+  set userCategoryRef(value: string) {
+    this.doc.setFormField(this.path, "userCategoryRef", value);
+  }
 }
 
 // Generated section facade for the `support` @Form section: its own content text followed by one typed member per form field.
@@ -50332,6 +50345,14 @@ export class AlertDefinitionEntryContentForm extends SomNode {
 
   set priority(value: ImportanceBandValue | null) {
     this.doc.setFormField(this.path, "priority", value ?? '');
+  }
+
+  get alertRuleRef(): string {
+    return this.doc.formField(this.path, "alertRuleRef") || '';
+  }
+
+  set alertRuleRef(value: string) {
+    this.doc.setFormField(this.path, "alertRuleRef", value);
   }
 }
 
@@ -58933,6 +58954,14 @@ export class BrowserCompatibilityEntryContentForm extends SomNode {
 
   set maxVersion(value: string) {
     this.doc.setFormField(this.path, "maxVersion", value);
+  }
+
+  get browserRef(): string {
+    return this.doc.formField(this.path, "browserRef") || '';
+  }
+
+  set browserRef(value: string) {
+    this.doc.setFormField(this.path, "browserRef", value);
   }
 }
 
@@ -83080,6 +83109,14 @@ export class DatabaseCompatibilityEntryContentForm extends SomNode {
   set maxVersion(value: string) {
     this.doc.setFormField(this.path, "maxVersion", value);
   }
+
+  get libraryRef(): string {
+    return this.doc.formField(this.path, "libraryRef") || '';
+  }
+
+  set libraryRef(value: string) {
+    this.doc.setFormField(this.path, "libraryRef", value);
+  }
 }
 
 // Generated section facade for the `features` @Form section: its own content text followed by one typed member per form field.
@@ -87135,6 +87172,14 @@ export class DeploymentTargetEntryContentForm extends SomNode {
 
   set targetEnvironment(value: string) {
     this.doc.setFormField(this.path, "targetEnvironment", value);
+  }
+
+  get environmentRef(): string {
+    return this.doc.formField(this.path, "environmentRef") || '';
+  }
+
+  set environmentRef(value: string) {
+    this.doc.setFormField(this.path, "environmentRef", value);
   }
 }
 
@@ -101057,28 +101102,12 @@ export class FeatureStageMappingAssignmentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get targetStage(): string {
-    return this.doc.formField(this.path, "targetStage") || '';
-  }
-
-  set targetStage(value: string) {
-    this.doc.setFormField(this.path, "targetStage", value);
-  }
-
   get stagePhase(): string {
     return this.doc.formField(this.path, "stagePhase") || '';
   }
 
   set stagePhase(value: string) {
     this.doc.setFormField(this.path, "stagePhase", value);
-  }
-
-  get fallbackStage(): string {
-    return this.doc.formField(this.path, "fallbackStage") || '';
-  }
-
-  set fallbackStage(value: string) {
-    this.doc.setFormField(this.path, "fallbackStage", value);
   }
 }
 
@@ -104713,6 +104742,14 @@ export class GoalRiskEntryContentForm extends SomNode {
   set riskCategory(value: string) {
     this.doc.setFormField(this.path, "riskCategory", value);
   }
+
+  get keyRiskRef(): string {
+    return this.doc.formField(this.path, "keyRiskRef") || '';
+  }
+
+  set keyRiskRef(value: string) {
+    this.doc.setFormField(this.path, "keyRiskRef", value);
+  }
 }
 
 // Generated section facade for the `response` @Form section: its own content text followed by one typed member per form field.
@@ -107438,6 +107475,14 @@ export class IndustryProtocolComplianceEntryImplementationForm extends SomNode {
 
   set performanceProfile(value: string) {
     this.doc.setFormField(this.path, "performanceProfile", value);
+  }
+
+  get libraryRef(): string {
+    return this.doc.formField(this.path, "libraryRef") || '';
+  }
+
+  set libraryRef(value: string) {
+    this.doc.setFormField(this.path, "libraryRef", value);
   }
 }
 
@@ -121534,6 +121579,14 @@ export class MigrationRiskEntryIdentificationForm extends SomNode {
   set affectedStreams(value: string) {
     this.doc.setFormField(this.path, "affectedStreams", value);
   }
+
+  get keyRiskRef(): string {
+    return this.doc.formField(this.path, "keyRiskRef") || '';
+  }
+
+  set keyRiskRef(value: string) {
+    this.doc.setFormField(this.path, "keyRiskRef", value);
+  }
 }
 
 // Generated section facade for the `impact` @Form section: its own content text followed by one typed member per form field.
@@ -122559,6 +122612,14 @@ export class MobileCompatibilityEntryContentForm extends SomNode {
 
   set maxVersion(value: string) {
     this.doc.setFormField(this.path, "maxVersion", value);
+  }
+
+  get platformRef(): string {
+    return this.doc.formField(this.path, "platformRef") || '';
+  }
+
+  set platformRef(value: string) {
+    this.doc.setFormField(this.path, "platformRef", value);
   }
 }
 
@@ -124071,14 +124132,6 @@ export class MoscowEntryClassificationForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get moscowCategory(): PriorityValue | null {
-    return _parsePriority(this.doc.formField(this.path, "moscowCategory"));
-  }
-
-  set moscowCategory(value: PriorityValue | null) {
-    this.doc.setFormField(this.path, "moscowCategory", value ?? '');
-  }
-
   get justification(): string {
     return this.doc.formField(this.path, "justification") || '';
   }
@@ -124120,41 +124173,6 @@ export class MoscowEntryContentForm extends SomNode {
 
   set featureId(value: string) {
     this.doc.setFormField(this.path, "featureId", value);
-  }
-}
-
-// Generated section facade for the `stageAssignment` @Form section: its own content text followed by one typed member per form field.
-export class MoscowEntryStageAssignmentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get targetStage(): string {
-    return this.doc.formField(this.path, "targetStage") || '';
-  }
-
-  set targetStage(value: string) {
-    this.doc.setFormField(this.path, "targetStage", value);
-  }
-
-  get earliestPossibleStage(): string {
-    return this.doc.formField(this.path, "earliestPossibleStage") || '';
-  }
-
-  set earliestPossibleStage(value: string) {
-    this.doc.setFormField(this.path, "earliestPossibleStage", value);
   }
 }
 
@@ -130523,6 +130541,14 @@ export class OsCompatibilityEntryContentForm extends SomNode {
 
   set maxVersion(value: string) {
     this.doc.setFormField(this.path, "maxVersion", value);
+  }
+
+  get osRef(): string {
+    return this.doc.formField(this.path, "osRef") || '';
+  }
+
+  set osRef(value: string) {
+    this.doc.setFormField(this.path, "osRef", value);
   }
 }
 
@@ -140415,6 +140441,14 @@ export class ProtocolEntryContentForm extends SomNode {
 
   set notes(value: string) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+
+  get protocolComplianceRef(): string {
+    return this.doc.formField(this.path, "protocolComplianceRef") || '';
+  }
+
+  set protocolComplianceRef(value: string) {
+    this.doc.setFormField(this.path, "protocolComplianceRef", value);
   }
 }
 
@@ -161073,6 +161107,14 @@ export class SecurityStandardComplianceEntryContentForm extends SomNode {
   set trustServiceCriteria(value: string) {
     this.doc.setFormField(this.path, "trustServiceCriteria", value);
   }
+
+  get standardRef(): string {
+    return this.doc.formField(this.path, "standardRef") || '';
+  }
+
+  set standardRef(value: string) {
+    this.doc.setFormField(this.path, "standardRef", value);
+  }
 }
 
 // Generated section facade for the `controls` @Form section: its own content text followed by one typed member per form field.
@@ -162318,6 +162360,14 @@ export class ServerEnvironmentEntryContentForm extends SomNode {
 
   set purpose(value: string) {
     this.doc.setFormField(this.path, "purpose", value);
+  }
+
+  get environmentRef(): string {
+    return this.doc.formField(this.path, "environmentRef") || '';
+  }
+
+  set environmentRef(value: string) {
+    this.doc.setFormField(this.path, "environmentRef", value);
   }
 }
 
@@ -165174,6 +165224,14 @@ export class SharedLibraryComponentEntryContentForm extends SomNode {
   set version(value: string) {
     this.doc.setFormField(this.path, "version", value);
   }
+
+  get componentRef(): string {
+    return this.doc.formField(this.path, "componentRef") || '';
+  }
+
+  set componentRef(value: string) {
+    this.doc.setFormField(this.path, "componentRef", value);
+  }
 }
 
 // Generated section facade for the `description` @Form section: its own content text followed by one typed member per form field.
@@ -165471,6 +165529,14 @@ export class SharedLibraryEntryContentForm extends SomNode {
 
   set version(value: string) {
     this.doc.setFormField(this.path, "version", value);
+  }
+
+  get componentRef(): string {
+    return this.doc.formField(this.path, "componentRef") || '';
+  }
+
+  set componentRef(value: string) {
+    this.doc.setFormField(this.path, "componentRef", value);
   }
 }
 
@@ -166540,6 +166606,33 @@ export class SloEntryTargetForm extends SomNode {
 
   set errorBudget(value: string) {
     this.doc.setFormField(this.path, "errorBudget", value);
+  }
+}
+
+// Generated section facade for the `designDecisions` @Form section: its own content text followed by one typed member per form field.
+export class SoftwareDesignRequirementsDesignDecisionsForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get refs(): string {
+    return this.doc.formField(this.path, "refs") || '';
+  }
+
+  set refs(value: string) {
+    this.doc.setFormField(this.path, "refs", value);
   }
 }
 
@@ -168655,6 +168748,22 @@ export class StageMigrationRiskEntryIdentityForm extends SomNode {
 
   set riskDescription(value: string) {
     this.doc.setFormField(this.path, "riskDescription", value);
+  }
+
+  get keyRiskRef(): string {
+    return this.doc.formField(this.path, "keyRiskRef") || '';
+  }
+
+  set keyRiskRef(value: string) {
+    this.doc.setFormField(this.path, "keyRiskRef", value);
+  }
+
+  get migrationRiskRef(): string {
+    return this.doc.formField(this.path, "migrationRiskRef") || '';
+  }
+
+  set migrationRiskRef(value: string) {
+    this.doc.setFormField(this.path, "migrationRiskRef", value);
   }
 }
 
@@ -171620,6 +171729,14 @@ export class StakeholdersAndInterestsContentForm extends SomNode {
   set otherStakeholders(value: string) {
     this.doc.setFormField(this.path, "otherStakeholders", value);
   }
+
+  get stakeholderRefs(): string {
+    return this.doc.formField(this.path, "stakeholderRefs") || '';
+  }
+
+  set stakeholderRefs(value: string) {
+    this.doc.setFormField(this.path, "stakeholderRefs", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -173527,6 +173644,33 @@ export class SupportedLocaleEntryRolloutForm extends SomNode {
 
   set localeOwner(value: string) {
     this.doc.setFormField(this.path, "localeOwner", value);
+  }
+}
+
+// Generated section facade for the `decisions` @Form section: its own content text followed by one typed member per form field.
+export class SystemArchitectureSpecDecisionsForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get refs(): string {
+    return this.doc.formField(this.path, "refs") || '';
+  }
+
+  set refs(value: string) {
+    this.doc.setFormField(this.path, "refs", value);
   }
 }
 
@@ -176075,6 +176219,14 @@ export class SystemMigrationRiskEntryContentForm extends SomNode {
 
   set owner(value: string) {
     this.doc.setFormField(this.path, "owner", value);
+  }
+
+  get keyRiskRef(): string {
+    return this.doc.formField(this.path, "keyRiskRef") || '';
+  }
+
+  set keyRiskRef(value: string) {
+    this.doc.setFormField(this.path, "keyRiskRef", value);
   }
 }
 
@@ -181869,6 +182021,14 @@ export class ThirdPartyCompatibilityEntryContentForm extends SomNode {
 
   set version(value: string) {
     this.doc.setFormField(this.path, "version", value);
+  }
+
+  get libraryRef(): string {
+    return this.doc.formField(this.path, "libraryRef") || '';
+  }
+
+  set libraryRef(value: string) {
+    this.doc.setFormField(this.path, "libraryRef", value);
   }
 }
 

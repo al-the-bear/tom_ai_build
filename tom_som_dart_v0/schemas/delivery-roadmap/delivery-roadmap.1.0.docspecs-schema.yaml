@@ -601,8 +601,6 @@ section-types:
         max-count: 1
       moenva:
         max-count: 1
-      mesa:
-        max-count: 1
       moentr:
         max-count: 1
     pattern-check-id:
@@ -1073,10 +1071,6 @@ section-types:
     prefix: FSMR
     format: fsmr-form
     description: Readiness and confidence.
-  mesa:
-    prefix: MESA
-    format: mesa-form
-    description: Stage assignment.
   miap:
     prefix: MIAP
     format: miap-form
@@ -1905,9 +1899,6 @@ form-types:
         description: Brief log of priority/stage changes
   moencl-form:
     fields:
-      - fieldname: moscowCategory
-        required: true
-        description: MoSCoW scoping band for this item.
       - fieldname: justification
         required: true
         description: "Why this feature has this classification — business rationale, regulatory need, user demand"
@@ -1921,13 +1912,6 @@ form-types:
         description: "Relative effort — story points, T-shirt size, or person-days"
       - fieldname: costOfDelay
         description: "Impact of not delivering on time — revenue loss, penalty, competitive risk"
-  mesa-form:
-    fields:
-      - fieldname: targetStage
-        required: true
-        description: Stage in which this feature is planned for delivery
-      - fieldname: earliestPossibleStage
-        description: "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved"
   moentr-form:
     fields:
       - fieldname: linkedRequirements
@@ -1940,13 +1924,8 @@ form-types:
         description: Additional notes or caveats
   fsma-form:
     fields:
-      - fieldname: targetStage
-        required: true
-        description: Stage in which this feature will be delivered
       - fieldname: stagePhase
         description: Sub-phase within the stage — Alpha / Beta / GA / Full rollout
-      - fieldname: fallbackStage
-        description: Stage to which this feature moves if cut from target stage
   fsmr-form:
     fields:
       - fieldname: readinessStatus
@@ -2100,7 +2079,7 @@ form-types:
       - fieldname: phaseObjective
         description: Primary goal of this migration phase
       - fieldname: linkedProjectStage
-        description: Which system stage this phase supports
+        description: The project stage (STAGE-…) or migration milestone (MGMLS-MILE-…) this phase belongs to
   mpds-form:
     fields:
       - fieldname: sourceSystems
@@ -2231,6 +2210,10 @@ form-types:
       - fieldname: riskDescription
         required: true
         description: Detailed description of the risk scenario
+      - fieldname: keyRiskRef
+        description: "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register"
+      - fieldname: migrationRiskRef
+        description: The migration risk (MGRSK-ITEM-…) this stage-level entry tracks; the risk itself is described there
   smrpi-form:
     fields:
       - fieldname: probability

@@ -4370,7 +4370,6 @@ static void meta_build_moscow_analysis_items_elem(SomMetaNode *n);
 static void meta_build_moscow_entry_content(SomMetaNode *n);
 static void meta_build_moscow_entry_classification(SomMetaNode *n);
 static void meta_build_moscow_entry_value(SomMetaNode *n);
-static void meta_build_moscow_entry_stage_assignment(SomMetaNode *n);
 static void meta_build_moscow_entry_traceability(SomMetaNode *n);
 static void meta_build_multi_channel_experience_content(SomMetaNode *n);
 static void meta_build_multi_channel_experience_multi_channel_configuration(SomMetaNode *n);
@@ -5908,6 +5907,7 @@ static void meta_build_software_design_requirements_content(SomMetaNode *n);
 static void meta_build_software_design_requirements_layering_and_module_structure(SomMetaNode *n);
 static void meta_build_software_design_requirements_development_environment(SomMetaNode *n);
 static void meta_build_software_design_requirements_reusable_components(SomMetaNode *n);
+static void meta_build_software_design_requirements_design_decisions(SomMetaNode *n);
 static void meta_build_software_layer_entry_content(SomMetaNode *n);
 static void meta_build_software_layer_entry_responsibilities(SomMetaNode *n);
 static void meta_build_software_layer_entry_components(SomMetaNode *n);
@@ -6140,6 +6140,7 @@ static void meta_build_supported_locale_entry_content(SomMetaNode *n);
 static void meta_build_supported_locale_entry_formatting(SomMetaNode *n);
 static void meta_build_supported_locale_entry_rollout(SomMetaNode *n);
 static void meta_build_system_architecture_spec_content(SomMetaNode *n);
+static void meta_build_system_architecture_spec_decisions(SomMetaNode *n);
 static void meta_build_system_boundaries_content(SomMetaNode *n);
 static void meta_build_system_boundaries_overview(SomMetaNode *n);
 static void meta_build_system_boundaries_external_interfaces(SomMetaNode *n);
@@ -14705,8 +14706,8 @@ static void meta_build_actor_characteristics_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("domainKnowledge");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Domain Knowledge — expertise level required");
@@ -14731,6 +14732,15 @@ static void meta_build_actor_characteristics_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("State how often the actor uses the system");
   n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("userCategoryRef");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("User Category");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The user category (UCE-…) this actor is; its characteristics are described there, not restated here");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("UCE.@sectionId");
 }
 static void meta_build_actor_characteristics_usage(SomMetaNode *n) {
   meta_set(&n->class_name, "ActorCharacteristics");
@@ -15999,8 +16009,8 @@ static void meta_build_alert_definition_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("alertDescription");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Alert Description");
@@ -16030,6 +16040,15 @@ static void meta_build_alert_definition_entry_content(SomMetaNode *n) {
   n->form->fields[2].enum_values[1] = som_strdup("high");
   n->form->fields[2].enum_values[2] = som_strdup("medium");
   n->form->fields[2].enum_values[3] = som_strdup("low");
+  n->form->fields[3].name = som_strdup("alertRuleRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Alert Rule");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The alert rule (ALERUL-ALER-…) that raises this alert; its condition and routing are defined there");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("ALERUL.@sectionId");
 }
 static void meta_build_alert_definition_entry_condition(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertDefinitionEntry");
@@ -24430,8 +24449,8 @@ static void meta_build_browser_compatibility_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("browserEngine");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Browser Engine");
@@ -24450,6 +24469,15 @@ static void meta_build_browser_compatibility_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Maximum tested version");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("browserRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Browser");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The browser of the client requirements (BROREQ browserName) this entry is about");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("BROREQ.browserName");
 }
 static void meta_build_browser_compatibility_entry_support(SomMetaNode *n) {
   meta_set(&n->class_name, "BrowserCompatibilityEntry");
@@ -48863,8 +48891,11 @@ static void meta_build_data_protection_classification_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Classification Levels");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Public, Internal, Confidential, Restricted, Top Secret");
+  n->form->fields[0].hint = som_strdup("The data classification levels (DCLSE-ITEM-…) that apply, comma-separated — defined in the data classification");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DCLSE.@sectionId");
   n->form->fields[1].name = som_strdup("personalDataCategories");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Personal Data Categories");
@@ -50739,8 +50770,8 @@ static void meta_build_database_compatibility_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("databaseType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Type");
@@ -50759,6 +50790,16 @@ static void meta_build_database_compatibility_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Maximum tested version");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("libraryRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Database Product");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 2;
+  n->form->fields[3].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("FRREEN.@sectionId");
+  n->form->fields[3].refers_to[1] = som_strdup("THPALI.@sectionId");
 }
 static void meta_build_database_compatibility_entry_support(SomMetaNode *n) {
   meta_set(&n->class_name, "DatabaseCompatibilityEntry");
@@ -54424,8 +54465,8 @@ static void meta_build_deployment_target_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("targetCategory");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Category");
@@ -54438,6 +54479,15 @@ static void meta_build_deployment_target_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Development, Staging, Production");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("environmentRef");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Environment");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("ENVEN.@sectionId");
 }
 static void meta_build_deployment_target_entry_platform(SomMetaNode *n) {
   meta_set(&n->class_name, "DeploymentTargetEntry");
@@ -68570,32 +68620,14 @@ static void meta_build_feature_stage_mapping_assignment(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Stage assignment details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("targetStage");
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("stagePhase");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Target Stage");
-  n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Stage in which this feature will be delivered");
+  n->form->fields[0].description = som_strdup("Stage Phase");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Sub-phase within the stage — Alpha / Beta / GA / Full rollout");
   n->form->fields[0].order = 0;
-  n->form->fields[0].refers_to_len = 1;
-  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[0].refers_to[0] = som_strdup("STAGE.@sectionId");
-  n->form->fields[1].name = som_strdup("stagePhase");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Stage Phase");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Sub-phase within the stage — Alpha / Beta / GA / Full rollout");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("fallbackStage");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Fallback Stage");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Stage to which this feature moves if cut from target stage");
-  n->form->fields[2].order = 2;
-  n->form->fields[2].refers_to_len = 1;
-  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[2].refers_to[0] = som_strdup("STAGE.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -72184,8 +72216,8 @@ static void meta_build_goal_risk_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("description");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Description");
@@ -72198,6 +72230,15 @@ static void meta_build_goal_risk_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("e.g., Market, Operational, Technical, Resource, Regulatory");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("keyRiskRef");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Key Risk");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("RISENT.@sectionId");
 }
 static void meta_build_goal_risk_entry_assessment(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalRiskEntry");
@@ -74874,8 +74915,8 @@ static void meta_build_industry_protocol_compliance_entry_implementation(SomMeta
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "Implementation details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("implementationLibrary");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Implementation Library");
@@ -74894,6 +74935,16 @@ static void meta_build_industry_protocol_compliance_entry_implementation(SomMeta
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Expected performance characteristics");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("libraryRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Implementing Library");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 2;
+  n->form->fields[3].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("FRREEN.@sectionId");
+  n->form->fields[3].refers_to[1] = som_strdup("THPALI.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -87681,8 +87732,12 @@ static void meta_build_migration_phase_entry_identity(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Linked Project Stage");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Which system stage this phase supports");
+  n->form->fields[2].hint = som_strdup("The project stage (STAGE-…) or migration milestone (MGMLS-MILE-…) this phase belongs to");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 2;
+  n->form->fields[2].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("STAGE.@sectionId");
+  n->form->fields[2].refers_to[1] = som_strdup("MGMLS.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -88414,8 +88469,8 @@ static void meta_build_migration_risk_entry_identification(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Risk identification details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 9;
-  n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 10;
+  n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("riskDescription");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Risk Description");
@@ -88470,6 +88525,15 @@ static void meta_build_migration_risk_entry_identification(SomMetaNode *n) {
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("Data, application, infrastructure, etc.");
   n->form->fields[8].order = 8;
+  n->form->fields[9].name = som_strdup("keyRiskRef");
+  n->form->fields[9].type_name = som_strdup("String");
+  n->form->fields[9].description = som_strdup("Key Risk");
+  n->form->fields[9].required = 0;
+  n->form->fields[9].hint = som_strdup("The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register");
+  n->form->fields[9].order = 9;
+  n->form->fields[9].refers_to_len = 1;
+  n->form->fields[9].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[9].refers_to[0] = som_strdup("RISENT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -89522,8 +89586,8 @@ static void meta_build_mobile_compatibility_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("platform");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Platform");
@@ -89542,6 +89606,15 @@ static void meta_build_mobile_compatibility_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Maximum tested version");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("platformRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Mobile Platform");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The mobile platform of the client requirements (MODERE platform) this entry is about");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MODERE.platform");
 }
 static void meta_build_mobile_compatibility_entry_devices(SomMetaNode *n) {
   meta_set(&n->class_name, "MobileCompatibilityEntry");
@@ -91100,38 +91173,26 @@ static void meta_build_moscow_entry_classification(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "MoSCoW classification details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("moscowCategory");
-  n->form->fields[0].type_name = som_strdup("Priority");
-  n->form->fields[0].description = som_strdup("MoSCoW Category");
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("justification");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Justification");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("MoSCoW scoping band for this item.");
+  n->form->fields[0].hint = som_strdup("Why this feature has this classification — business rationale, regulatory need, user demand");
   n->form->fields[0].order = 0;
-  n->form->fields[0].enum_values_len = 4;
-  n->form->fields[0].enum_values = (char **)calloc(4, sizeof(char *));
-  n->form->fields[0].enum_values[0] = som_strdup("must");
-  n->form->fields[0].enum_values[1] = som_strdup("should");
-  n->form->fields[0].enum_values[2] = som_strdup("could");
-  n->form->fields[0].enum_values[3] = som_strdup("wontThisTime");
-  n->form->fields[1].name = som_strdup("justification");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Justification");
-  n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Why this feature has this classification — business rationale, regulatory need, user demand");
+  n->form->fields[1].name = som_strdup("reclassificationRisk");
+  n->form->fields[1].type_name = som_strdup("ImportanceBand");
+  n->form->fields[1].description = som_strdup("Reclassification Risk");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Likelihood the category will change before delivery.");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("reclassificationRisk");
-  n->form->fields[2].type_name = som_strdup("ImportanceBand");
-  n->form->fields[2].description = som_strdup("Reclassification Risk");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Likelihood the category will change before delivery.");
-  n->form->fields[2].order = 2;
-  n->form->fields[2].enum_values_len = 4;
-  n->form->fields[2].enum_values = (char **)calloc(4, sizeof(char *));
-  n->form->fields[2].enum_values[0] = som_strdup("critical");
-  n->form->fields[2].enum_values[1] = som_strdup("high");
-  n->form->fields[2].enum_values[2] = som_strdup("medium");
-  n->form->fields[2].enum_values[3] = som_strdup("low");
+  n->form->fields[1].enum_values_len = 4;
+  n->form->fields[1].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("critical");
+  n->form->fields[1].enum_values[1] = som_strdup("high");
+  n->form->fields[1].enum_values[2] = som_strdup("medium");
+  n->form->fields[1].enum_values[3] = som_strdup("low");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -91172,38 +91233,6 @@ static void meta_build_moscow_entry_value(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization\",\"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique\"],\"connotation\":\"Captures the business value, effort estimate, and cost of delay used to prioritize a feature.\"}", NULL);
 }
-static void meta_build_moscow_entry_stage_assignment(SomMetaNode *n) {
-  meta_set(&n->class_name, "MoscowEntry");
-  meta_set(&n->member_name, "stageAssignment");
-  meta_set(&n->section_id, "MESA");
-  n->kind = SOM_META_KIND_FORM;
-  meta_set(&n->type_name, "String");
-  n->has_serialization_order = 1;
-  n->serialization_order = 3;
-  meta_set(&n->doc_comment, "Stage assignment.");
-  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("targetStage");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Target Stage");
-  n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Stage in which this feature is planned for delivery");
-  n->form->fields[0].order = 0;
-  n->form->fields[0].refers_to_len = 1;
-  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[0].refers_to[0] = som_strdup("STAGE.@sectionId");
-  n->form->fields[1].name = som_strdup("earliestPossibleStage");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Earliest Possible Stage");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved");
-  n->form->fields[1].order = 1;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature.\"}", NULL);
-}
 static void meta_build_moscow_entry_traceability(SomMetaNode *n) {
   meta_set(&n->class_name, "MoscowEntry");
   meta_set(&n->member_name, "traceability");
@@ -91211,7 +91240,7 @@ static void meta_build_moscow_entry_traceability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Traceability and notes.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -97866,8 +97895,8 @@ static void meta_build_os_compatibility_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("osFamily");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("OS Family");
@@ -97886,6 +97915,15 @@ static void meta_build_os_compatibility_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Maximum tested version");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("osRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Operating System");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The desktop operating system of the client requirements (DEOSRE osName) this entry is about");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("DEOSRE.osName");
 }
 static void meta_build_os_compatibility_entry_support(SomMetaNode *n) {
   meta_set(&n->class_name, "OsCompatibilityEntry");
@@ -107780,8 +107818,8 @@ static void meta_build_protocol_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("protocolType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Protocol Type");
@@ -107812,6 +107850,15 @@ static void meta_build_protocol_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Additional protocol notes");
   n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("protocolComplianceRef");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Protocol Compliance");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("The industry-protocol entry (INPRCO-…) that states this protocol's compliance");
+  n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("INPRCO.@sectionId");
 }
 static void meta_build_protocol_feature_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProtocolFeatureEntry");
@@ -128383,8 +128430,8 @@ static void meta_build_security_standard_compliance_entry_content(SomMetaNode *n
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("standardType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Standard Type");
@@ -128403,6 +128450,15 @@ static void meta_build_security_standard_compliance_entry_content(SomMetaNode *n
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("For SOC 2: Security, Availability, etc.");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("standardRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Security Standard");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The security standard (SSE-STAN-…) whose compliance this entry tracks; the standard is described there");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SSE.@sectionId");
 }
 static void meta_build_security_standard_compliance_entry_scope(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityStandardComplianceEntry");
@@ -129411,8 +129467,8 @@ static void meta_build_server_environment_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("environmentType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Environment Type");
@@ -129431,6 +129487,15 @@ static void meta_build_server_environment_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Primary purpose of this environment");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("environmentRef");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Environment");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("ENVEN.@sectionId");
 }
 static void meta_build_server_environment_entry_location(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerEnvironmentEntry");
@@ -132225,8 +132290,8 @@ static void meta_build_shared_library_component_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("componentType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Component Type");
@@ -132239,6 +132304,15 @@ static void meta_build_shared_library_component_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Current version");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("componentRef");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Component");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("CMPNT.@sectionId");
 }
 static void meta_build_shared_library_component_entry_description(SomMetaNode *n) {
   meta_set(&n->class_name, "SharedLibraryComponentEntry");
@@ -132425,8 +132499,8 @@ static void meta_build_shared_library_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("libraryType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Library Type");
@@ -132439,6 +132513,15 @@ static void meta_build_shared_library_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Current version");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("componentRef");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Component");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("CMPNT.@sectionId");
 }
 static void meta_build_shared_library_entry_description(SomMetaNode *n) {
   meta_set(&n->class_name, "SharedLibraryEntry");
@@ -133489,6 +133572,32 @@ static void meta_build_software_design_requirements_reusable_components(SomMetaN
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "8.2.3. Reusable Components.");
   meta_set(&n->class_doc_comment, "8.2.3. Reusable Components.\n\nComponents, libraries, or frameworks designed for reuse across projects\nor modules.");
+}
+static void meta_build_software_design_requirements_design_decisions(SomMetaNode *n) {
+  meta_set(&n->class_name, "SoftwareDesignRequirements");
+  meta_set(&n->member_name, "designDecisions");
+  meta_set(&n->section_id, "SDR-DECI-REF");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("refs");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Design Decisions");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section ids of the architecture decision records (`ARDE`), comma-separated");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ARDE.@sectionId");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Reference");
+  n->extra[0].args = som_json_parse("{\"description\":\"Design Decisions\"}", NULL);
 }
 static void meta_build_software_layer_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SoftwareLayerEntry");
@@ -135349,14 +135458,32 @@ static void meta_build_stage_migration_risk_entry_identity(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Risk identity and description.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 1;
-  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("riskDescription");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Risk Description");
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Detailed description of the risk scenario");
   n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("keyRiskRef");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Key Risk");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("RISENT.@sectionId");
+  n->form->fields[2].name = som_strdup("migrationRiskRef");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Migration Risk");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The migration risk (MGRSK-ITEM-…) this stage-level entry tracks; the risk itself is described there");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MGRSK.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -138139,8 +138266,8 @@ static void meta_build_stakeholders_and_interests_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("primaryActorInterest");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Primary Actor Interest — what they want");
@@ -138177,6 +138304,16 @@ static void meta_build_stakeholders_and_interests_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Any further parties and their interests");
   n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("stakeholderRefs");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Stakeholders");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("The stakeholders (STKRE-STAK-… / STKNT-…) with an interest in this interaction, comma-separated; described in the stakeholder register");
+  n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 2;
+  n->form->fields[6].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("STKRE.@sectionId");
+  n->form->fields[6].refers_to[1] = som_strdup("STKNT.@sectionId");
 }
 static void meta_build_standard_software_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardSoftwareRequirements");
@@ -140225,6 +140362,32 @@ static void meta_build_system_architecture_spec_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "System-level architecture description: layering, package structure,\nsignificant design patterns, boundary definitions, and architectural\ndrivers / trade-offs.\n\n**What to capture:**\n- Layering strategy (presentation / application / domain / infrastructure)\n- Package / module structure and dependency direction rules\n- Design patterns adopted (CQRS, event sourcing, hexagonal, etc.)\n- Architectural drivers (performance, security, maintainability)\n- Trade-offs explicitly accepted\n- Reference architecture diagrams (high-level + key views)\n- Technology-radar alignment (Adopt / Trial / Assess / Hold)\n");
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+}
+static void meta_build_system_architecture_spec_decisions(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemArchitectureSpec");
+  meta_set(&n->member_name, "decisions");
+  meta_set(&n->section_id, "SYARSP-DECI-REF");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("refs");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Architecture Decisions");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section ids of the architecture decision records (`ARDE`), comma-separated");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ARDE.@sectionId");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Reference");
+  n->extra[0].args = som_json_parse("{\"description\":\"Architecture Decisions\"}", NULL);
 }
 static void meta_build_system_boundaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBoundaries");
@@ -142861,8 +143024,8 @@ static void meta_build_system_migration_risk_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 7;
-  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("riskDescription");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Risk Description");
@@ -142919,6 +143082,15 @@ static void meta_build_system_migration_risk_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Person accountable for the risk");
   n->form->fields[6].order = 6;
+  n->form->fields[7].name = som_strdup("keyRiskRef");
+  n->form->fields[7].type_name = som_strdup("String");
+  n->form->fields[7].description = som_strdup("Key Risk");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register");
+  n->form->fields[7].order = 7;
+  n->form->fields[7].refers_to_len = 1;
+  n->form->fields[7].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[7].refers_to[0] = som_strdup("RISENT.@sectionId");
 }
 static void meta_build_system_operation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemOperation");
@@ -149321,8 +149493,8 @@ static void meta_build_third_party_compatibility_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("softwareName");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Software Name");
@@ -149347,6 +149519,16 @@ static void meta_build_third_party_compatibility_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Supported versions");
   n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("libraryRef");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Library");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 2;
+  n->form->fields[4].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("FRREEN.@sectionId");
+  n->form->fields[4].refers_to[1] = som_strdup("THPALI.@sectionId");
 }
 static void meta_build_third_party_compatibility_entry_compatibility(SomMetaNode *n) {
   meta_set(&n->class_name, "ThirdPartyCompatibilityEntry");
@@ -180277,11 +180459,6 @@ static SomMetaNode **meta_children_moscow_entry(SomStrList *stack, size_t *len) 
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_moscow_entry_stage_assignment(n);
-    meta_push(&arr, len, &cap, n);
-  }
-  {
-    SomMetaNode *n = som_meta_node_new();
     meta_build_moscow_entry_traceability(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -189388,6 +189565,11 @@ static SomMetaNode **meta_children_software_design_requirements(SomStrList *stac
   meta_push(&arr, len, &cap, meta_cx("LayeringAndModuleStructure", stack, meta_children_layering_and_module_structure, meta_build_software_design_requirements_layering_and_module_structure));
   meta_push(&arr, len, &cap, meta_cx("DevelopmentEnvironment", stack, meta_children_development_environment, meta_build_software_design_requirements_development_environment));
   meta_push(&arr, len, &cap, meta_cx("ReusableComponentsSection", stack, meta_children_reusable_components_section, meta_build_software_design_requirements_reusable_components));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_software_design_requirements_design_decisions(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -190713,6 +190895,11 @@ static SomMetaNode **meta_children_system_architecture_spec(SomStrList *stack, s
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_system_architecture_spec_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_architecture_spec_decisions(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -215740,13 +215927,6 @@ SomMetaRef moscow_entry_nav_value(som_nav_moscow_entry x) {
   free(path);
   return out;
 }
-SomMetaRef moscow_entry_nav_stage_assignment(som_nav_moscow_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "MESA");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef moscow_entry_nav_traceability(som_nav_moscow_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MOENTR");
@@ -225379,6 +225559,13 @@ som_nav_reusable_components_section software_design_requirements_nav_reusable_co
   free(path);
   return out;
 }
+SomMetaRef software_design_requirements_nav_design_decisions(som_nav_software_design_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SDR-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef software_layer_entry_nav_content(som_nav_software_layer_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -226817,6 +227004,13 @@ SomMetaRef supported_locale_entry_nav_rollout(som_nav_supported_locale_entry x) 
 SomMetaRef system_architecture_spec_nav_content(som_nav_system_architecture_spec x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef system_architecture_spec_nav_decisions(som_nav_system_architecture_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SYARSP-DECI-REF");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -237532,6 +237726,13 @@ SomMetaRef d00_solution_blueprint_id_coreup(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_sdr_deci_ref(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/SDR-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_oce_osco_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST");
@@ -240791,6 +240992,13 @@ SomListMetaRef d00_solution_blueprint_id_sae_audi_lst(som_id_d00_solution_bluepr
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_audit_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d00_solution_blueprint_id_syarsp_deci_ref(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemArchitecture/SYARSP-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -245540,6 +245748,13 @@ SomMetaRef d06_architecture_technology_specification_id_coreup(som_id_d06_archit
   free(path);
   return out;
 }
+SomMetaRef d06_architecture_technology_specification_id_sdr_deci_ref(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "softwareDesignRequirements/SDR-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d06_architecture_technology_specification_id_oce_osco_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST");
@@ -248799,6 +249014,13 @@ SomListMetaRef d06_architecture_technology_specification_id_sae_audi_lst(som_id_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_audit_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d06_architecture_technology_specification_id_syarsp_deci_ref(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemArchitecture/SYARSP-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -252729,6 +252951,13 @@ SomMetaRef d13_code_specs_projection_id_coreup(som_id_d13_code_specs_projection 
   free(path);
   return out;
 }
+SomMetaRef d13_code_specs_projection_id_sdr_deci_ref(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/softwareDesign/SDR-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d13_code_specs_projection_id_oce_osco_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST");
@@ -255988,6 +256217,13 @@ SomListMetaRef d13_code_specs_projection_id_sae_audi_lst(som_id_d13_code_specs_p
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_audit_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d13_code_specs_projection_id_syarsp_deci_ref(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/systemArchitecture/SYARSP-DECI-REF");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -259921,13 +260157,6 @@ SomMetaRef moscow_entry_id_moencl(som_id_moscow_entry x) {
 SomMetaRef moscow_entry_id_moenva(som_id_moscow_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MOENVA");
-  som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomMetaRef moscow_entry_id_mesa(som_id_moscow_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "MESA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

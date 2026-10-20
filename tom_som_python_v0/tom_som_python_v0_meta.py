@@ -1053,7 +1053,7 @@ def _mc_ActorCharacteristics(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="domainKnowledge", type_name="String", description="Domain Knowledge — expertise level required", hint="Describe the business/domain expertise the actor needs", order=0), SomFormFieldMeta(name="technicalSkills", type_name="String", description="Technical Skills — IT proficiency", hint="Rate the actor’s general IT and tooling proficiency", order=1), SomFormFieldMeta(name="trainingRequired", type_name="String", description="Training Required — onboarding needs", hint="List onboarding or training the actor requires", order=2), SomFormFieldMeta(name="usageFrequency", type_name="String", description="Usage Frequency — daily, weekly, monthly, occasional", hint="State how often the actor uses the system", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="domainKnowledge", type_name="String", description="Domain Knowledge — expertise level required", hint="Describe the business/domain expertise the actor needs", order=0), SomFormFieldMeta(name="technicalSkills", type_name="String", description="Technical Skills — IT proficiency", hint="Rate the actor’s general IT and tooling proficiency", order=1), SomFormFieldMeta(name="trainingRequired", type_name="String", description="Training Required — onboarding needs", hint="List onboarding or training the actor requires", order=2), SomFormFieldMeta(name="usageFrequency", type_name="String", description="Usage Frequency — daily, weekly, monthly, occasional", hint="State how often the actor uses the system", order=3), SomFormFieldMeta(name="userCategoryRef", type_name="String", description="User Category", hint="The user category (UCE-…) this actor is; its characteristics are described there, not restated here", order=4, refers_to=["UCE.@sectionId"])])),
          SomMetaNode(
             class_name="ActorCharacteristics",
             member_name="usage",
@@ -1494,7 +1494,7 @@ def _mc_AlertDefinitionEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="alertDescription", type_name="String", description="Alert Description", hint="What this alert means", order=0), SomFormFieldMeta(name="severity", type_name="AlertSeverity", description="Severity", hint="How fast someone has to act.", order=1, enum_values=["critical", "warning", "info"]), SomFormFieldMeta(name="priority", type_name="ImportanceBand", description="Priority", hint="How much the alert matters relative to others.", order=2, enum_values=["critical", "high", "medium", "low"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="alertDescription", type_name="String", description="Alert Description", hint="What this alert means", order=0), SomFormFieldMeta(name="severity", type_name="AlertSeverity", description="Severity", hint="How fast someone has to act.", order=1, enum_values=["critical", "warning", "info"]), SomFormFieldMeta(name="priority", type_name="ImportanceBand", description="Priority", hint="How much the alert matters relative to others.", order=2, enum_values=["critical", "high", "medium", "low"]), SomFormFieldMeta(name="alertRuleRef", type_name="String", description="Alert Rule", hint="The alert rule (ALERUL-ALER-…) that raises this alert; its condition and routing are defined there", order=3, refers_to=["ALERUL.@sectionId"])])),
          SomMetaNode(
             class_name="AlertDefinitionEntry",
             member_name="condition",
@@ -4691,7 +4691,7 @@ def _mc_BrowserCompatibilityEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="browserEngine", type_name="String", description="Browser Engine", hint="Chromium, Gecko, WebKit", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="browserEngine", type_name="String", description="Browser Engine", hint="Chromium, Gecko, WebKit", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2), SomFormFieldMeta(name="browserRef", type_name="String", description="Browser", hint="The browser of the client requirements (BROREQ browserName) this entry is about", order=3, refers_to=["BROREQ.browserName"])])),
          SomMetaNode(
             class_name="BrowserCompatibilityEntry",
             member_name="support",
@@ -15476,7 +15476,7 @@ def _mc_DataProtectionClassification(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="classificationLevels", type_name="String", description="Classification Levels", required=True, hint="Public, Internal, Confidential, Restricted, Top Secret", order=0), SomFormFieldMeta(name="personalDataCategories", type_name="String", description="Personal Data Categories", required=True, hint="Basic identity, contact, financial, health, biometric, genetic", order=1), SomFormFieldMeta(name="sensitiveDataCategories", type_name="String", description="Sensitive Data Categories", hint="Special categories Art. 9 GDPR: race, religion, health, sexual orientation, political opinion", order=2), SomFormFieldMeta(name="classificationResponsibility", type_name="String", description="Classification Responsibility", hint="Who is responsible for classifying data", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="classificationLevels", type_name="String", description="Classification Levels", required=True, hint="The data classification levels (DCLSE-ITEM-…) that apply, comma-separated — defined in the data classification", order=0, refers_to=["DCLSE.@sectionId"]), SomFormFieldMeta(name="personalDataCategories", type_name="String", description="Personal Data Categories", required=True, hint="Basic identity, contact, financial, health, biometric, genetic", order=1), SomFormFieldMeta(name="sensitiveDataCategories", type_name="String", description="Sensitive Data Categories", hint="Special categories Art. 9 GDPR: race, religion, health, sexual orientation, political opinion", order=2), SomFormFieldMeta(name="classificationResponsibility", type_name="String", description="Classification Responsibility", hint="Who is responsible for classifying data", order=3)])),
          SomMetaNode(
             class_name="DataProtectionClassification",
             member_name="handling",
@@ -16076,7 +16076,7 @@ def _mc_DatabaseCompatibilityEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="databaseType", type_name="String", description="Type", hint="RDBMS, Document, Key-Value, Graph", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="databaseType", type_name="String", description="Type", hint="RDBMS, Document, Key-Value, Graph", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2), SomFormFieldMeta(name="libraryRef", type_name="String", description="Database Product", hint="The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", order=3, refers_to=["FRREEN.@sectionId", "THPALI.@sectionId"])])),
          SomMetaNode(
             class_name="DatabaseCompatibilityEntry",
             member_name="support",
@@ -17488,7 +17488,7 @@ def _mc_DeploymentTargetEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetCategory", type_name="String", description="Category", hint="Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", order=0), SomFormFieldMeta(name="targetEnvironment", type_name="String", description="Environment", hint="Development, Staging, Production", order=1)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetCategory", type_name="String", description="Category", hint="Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", order=0), SomFormFieldMeta(name="targetEnvironment", type_name="String", description="Environment", hint="Development, Staging, Production", order=1), SomFormFieldMeta(name="environmentRef", type_name="String", description="Environment", hint="The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register", order=2, refers_to=["ENVEN.@sectionId"])])),
          SomMetaNode(
             class_name="DeploymentTargetEntry",
             member_name="platform",
@@ -23140,7 +23140,7 @@ def _mc_FeatureStageMapping(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Stage assignment details.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetStage", type_name="String", description="Target Stage", required=True, hint="Stage in which this feature will be delivered", order=0, refers_to=["STAGE.@sectionId"]), SomFormFieldMeta(name="stagePhase", type_name="String", description="Stage Phase", hint="Sub-phase within the stage — Alpha / Beta / GA / Full rollout", order=1), SomFormFieldMeta(name="fallbackStage", type_name="String", description="Fallback Stage", hint="Stage to which this feature moves if cut from target stage", order=2, refers_to=["STAGE.@sectionId"])]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stagePhase", type_name="String", description="Stage Phase", hint="Sub-phase within the stage — Alpha / Beta / GA / Full rollout", order=0)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"], "connotation": "Captures the target stage, stage phase, and fallback stage assigned to a feature."})]),
          SomMetaNode(
             class_name="FeatureStageMapping",
@@ -24492,7 +24492,7 @@ def _mc_GoalRiskEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the risk is and how it could materialize", order=0), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", hint="e.g., Market, Operational, Technical, Resource, Regulatory", order=1)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the risk is and how it could materialize", order=0), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", hint="e.g., Market, Operational, Technical, Resource, Regulatory", order=1), SomFormFieldMeta(name="keyRiskRef", type_name="String", description="Key Risk", hint="The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", order=2, refers_to=["RISENT.@sectionId"])])),
          SomMetaNode(
             class_name="GoalRiskEntry",
             member_name="assessment",
@@ -25535,7 +25535,7 @@ def _mc_IndustryProtocolComplianceEntry(s):
             type_name="String",
             serialization_order=2,
             doc_comment="Implementation details.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="implementationLibrary", type_name="String", description="Implementation Library", hint="Library used for implementation", order=0), SomFormFieldMeta(name="implementationNotes", type_name="String", description="Implementation Notes", hint="Specific implementation details", order=1), SomFormFieldMeta(name="performanceProfile", type_name="String", description="Performance Profile", hint="Expected performance characteristics", order=2)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="implementationLibrary", type_name="String", description="Implementation Library", hint="Library used for implementation", order=0), SomFormFieldMeta(name="implementationNotes", type_name="String", description="Implementation Notes", hint="Specific implementation details", order=1), SomFormFieldMeta(name="performanceProfile", type_name="String", description="Performance Profile", hint="Expected performance characteristics", order=2), SomFormFieldMeta(name="libraryRef", type_name="String", description="Implementing Library", hint="The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", order=3, refers_to=["FRREEN.@sectionId", "THPALI.@sectionId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["HL7 / FHIR / ISO 20022 — industry data-exchange standards", "ISO 9001 — quality management systems"], "connotation": "Captures the implementation library and performance profile for a protocol."})]),
          SomMetaNode(
             class_name="IndustryProtocolComplianceEntry",
@@ -30440,7 +30440,7 @@ def _mc_MigrationPhaseEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Phase identity details.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseDescription", type_name="String", description="Phase Description", hint="Detailed description of what this phase migrates", order=0), SomFormFieldMeta(name="phaseObjective", type_name="String", description="Phase Objective", hint="Primary goal of this migration phase", order=1), SomFormFieldMeta(name="linkedProjectStage", type_name="String", description="Linked Project Stage", hint="Which system stage this phase supports", order=2)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseDescription", type_name="String", description="Phase Description", hint="Detailed description of what this phase migrates", order=0), SomFormFieldMeta(name="phaseObjective", type_name="String", description="Phase Objective", hint="Primary goal of this migration phase", order=1), SomFormFieldMeta(name="linkedProjectStage", type_name="String", description="Linked Project Stage", hint="The project stage (STAGE-…) or migration milestone (MGMLS-MILE-…) this phase belongs to", order=2, refers_to=["STAGE.@sectionId", "MGMLS.@sectionId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices", "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"], "connotation": "Captures the descriptive identity, objective, and linked project stage of an individual migration phase."})]),
          SomMetaNode(
             class_name="MigrationPhaseEntry",
@@ -30650,7 +30650,7 @@ def _mc_MigrationRiskEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Risk identification details.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskDescription", type_name="String", description="Risk Description", required=True, hint="Detailed description of the risk event", order=0), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category", hint="Technical, schedule, resource, business, regulatory", order=1), SomFormFieldMeta(name="riskSubcategory", type_name="String", description="Risk Subcategory", hint="More specific categorization", order=2), SomFormFieldMeta(name="identifiedDate", type_name="String", description="Identified Date", hint="Date the risk was first recorded", order=3), SomFormFieldMeta(name="identifiedBy", type_name="String", description="Identified By", hint="Person/role who identified the risk", order=4), SomFormFieldMeta(name="identificationMethod", type_name="String", description="Identification Method", hint="Workshop, review, incident, expert judgment", order=5), SomFormFieldMeta(name="affectedSystems", type_name="String", description="Affected Systems", hint="List of systems impacted", order=6), SomFormFieldMeta(name="affectedPhases", type_name="String", description="Affected Phases", hint="Migration phases where risk applies", order=7), SomFormFieldMeta(name="affectedStreams", type_name="String", description="Affected Workstreams", hint="Data, application, infrastructure, etc.", order=8)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskDescription", type_name="String", description="Risk Description", required=True, hint="Detailed description of the risk event", order=0), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category", hint="Technical, schedule, resource, business, regulatory", order=1), SomFormFieldMeta(name="riskSubcategory", type_name="String", description="Risk Subcategory", hint="More specific categorization", order=2), SomFormFieldMeta(name="identifiedDate", type_name="String", description="Identified Date", hint="Date the risk was first recorded", order=3), SomFormFieldMeta(name="identifiedBy", type_name="String", description="Identified By", hint="Person/role who identified the risk", order=4), SomFormFieldMeta(name="identificationMethod", type_name="String", description="Identification Method", hint="Workshop, review, incident, expert judgment", order=5), SomFormFieldMeta(name="affectedSystems", type_name="String", description="Affected Systems", hint="List of systems impacted", order=6), SomFormFieldMeta(name="affectedPhases", type_name="String", description="Affected Phases", hint="Migration phases where risk applies", order=7), SomFormFieldMeta(name="affectedStreams", type_name="String", description="Affected Workstreams", hint="Data, application, infrastructure, etc.", order=8), SomFormFieldMeta(name="keyRiskRef", type_name="String", description="Key Risk", hint="The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", order=9, refers_to=["RISENT.@sectionId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "Captures how a migration risk was identified — its description, category, source, and the systems, phases, and workstreams it affects."})]),
          SomMetaNode(
             class_name="MigrationRiskEntry",
@@ -30990,7 +30990,7 @@ def _mc_MobileCompatibilityEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="platform", type_name="String", description="Platform", required=True, hint="iOS, Android, Cross-platform", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum OS version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="platform", type_name="String", description="Platform", required=True, hint="iOS, Android, Cross-platform", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum OS version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2), SomFormFieldMeta(name="platformRef", type_name="String", description="Mobile Platform", hint="The mobile platform of the client requirements (MODERE platform) this entry is about", order=3, refers_to=["MODERE.platform"])])),
          SomMetaNode(
             class_name="MobileCompatibilityEntry",
             member_name="devices",
@@ -31618,7 +31618,7 @@ def _mc_MoscowEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="MoSCoW classification details.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="moscowCategory", type_name="Priority", description="MoSCoW Category", required=True, hint="MoSCoW scoping band for this item.", order=0, enum_values=["must", "should", "could", "wontThisTime"]), SomFormFieldMeta(name="justification", type_name="String", description="Justification", required=True, hint="Why this feature has this classification — business rationale, regulatory need, user demand", order=1), SomFormFieldMeta(name="reclassificationRisk", type_name="ImportanceBand", description="Reclassification Risk", hint="Likelihood the category will change before delivery.", order=2, enum_values=["critical", "high", "medium", "low"])]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="justification", type_name="String", description="Justification", required=True, hint="Why this feature has this classification — business rationale, regulatory need, user demand", order=0), SomFormFieldMeta(name="reclassificationRisk", type_name="ImportanceBand", description="Reclassification Risk", hint="Likelihood the category will change before delivery.", order=1, enum_values=["critical", "high", "medium", "low"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"], "connotation": "Captures the MoSCoW category, justification, and reclassification risk for a single feature."})]),
          SomMetaNode(
             class_name="MoscowEntry",
@@ -31632,21 +31632,11 @@ def _mc_MoscowEntry(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization", "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique"], "connotation": "Captures the business value, effort estimate, and cost of delay used to prioritize a feature."})]),
          SomMetaNode(
             class_name="MoscowEntry",
-            member_name="stageAssignment",
-            section_id="MESA",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=3,
-            doc_comment="Stage assignment.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetStage", type_name="String", description="Target Stage", required=True, hint="Stage in which this feature is planned for delivery", order=0, refers_to=["STAGE.@sectionId"]), SomFormFieldMeta(name="earliestPossibleStage", type_name="String", description="Earliest Possible Stage", hint="The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved", order=1)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"], "connotation": "Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature."})]),
-         SomMetaNode(
-            class_name="MoscowEntry",
             member_name="traceability",
             section_id="MOENTR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=3,
             doc_comment="Traceability and notes.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="linkedRequirements", type_name="String", description="Linked Requirements", hint="Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", order=0, refers_to=["FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"]), SomFormFieldMeta(name="linkedUseCases", type_name="String", description="Linked Use Cases", hint="Interactions this feature implements — interaction section ids (INEN-INTE-…), comma-separated", order=1, refers_to=["INEN.@sectionId"]), SomFormFieldMeta(name="dependsOnFeatures", type_name="String", description="Depends on Features", hint="Features that must be delivered before this one — feature section ids (FPE-ITEM-…), comma-separated", order=2, refers_to=["FPE.@sectionId"]), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes or caveats", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition"], "connotation": "Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature."})]),
@@ -34267,7 +34257,7 @@ def _mc_OsCompatibilityEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="osFamily", type_name="String", description="OS Family", hint="Windows, Unix, Mobile", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="osFamily", type_name="String", description="OS Family", hint="Windows, Unix, Mobile", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2), SomFormFieldMeta(name="osRef", type_name="String", description="Operating System", hint="The desktop operating system of the client requirements (DEOSRE osName) this entry is about", order=3, refers_to=["DEOSRE.osName"])])),
          SomMetaNode(
             class_name="OsCompatibilityEntry",
             member_name="support",
@@ -37876,7 +37866,7 @@ def _mc_ProtocolEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="protocolType", type_name="String", description="Protocol Type", hint="Request-response, streaming, pub-sub, event-driven", order=0), SomFormFieldMeta(name="protocolVersion", type_name="String", description="Protocol Version", hint="HTTP/2, MQTT 5.0, gRPC 1.x", order=1), SomFormFieldMeta(name="transportLayer", type_name="String", description="Transport Layer", hint="TCP, UDP, QUIC", order=2), SomFormFieldMeta(name="directionality", type_name="String", description="Directionality", hint="Client-to-server, bidirectional, server-push", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional protocol notes", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="protocolType", type_name="String", description="Protocol Type", hint="Request-response, streaming, pub-sub, event-driven", order=0), SomFormFieldMeta(name="protocolVersion", type_name="String", description="Protocol Version", hint="HTTP/2, MQTT 5.0, gRPC 1.x", order=1), SomFormFieldMeta(name="transportLayer", type_name="String", description="Transport Layer", hint="TCP, UDP, QUIC", order=2), SomFormFieldMeta(name="directionality", type_name="String", description="Directionality", hint="Client-to-server, bidirectional, server-push", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional protocol notes", order=4), SomFormFieldMeta(name="protocolComplianceRef", type_name="String", description="Protocol Compliance", hint="The industry-protocol entry (INPRCO-…) that states this protocol's compliance", order=5, refers_to=["INPRCO.@sectionId"])])),
     ]
 
 
@@ -45411,7 +45401,7 @@ def _mc_SecurityStandardComplianceEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardType", type_name="String", description="Standard Type", hint="Framework, Certification, Benchmark", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=1), SomFormFieldMeta(name="trustServiceCriteria", type_name="String", description="Trust Service Criteria", hint="For SOC 2: Security, Availability, etc.", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardType", type_name="String", description="Standard Type", hint="Framework, Certification, Benchmark", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=1), SomFormFieldMeta(name="trustServiceCriteria", type_name="String", description="Trust Service Criteria", hint="For SOC 2: Security, Availability, etc.", order=2), SomFormFieldMeta(name="standardRef", type_name="String", description="Security Standard", hint="The security standard (SSE-STAN-…) whose compliance this entry tracks; the standard is described there", order=3, refers_to=["SSE.@sectionId"])])),
          SomMetaNode(
             class_name="SecurityStandardComplianceEntry",
             member_name="scope",
@@ -45740,7 +45730,7 @@ def _mc_ServerEnvironmentEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentType", type_name="String", description="Environment Type", hint="Development, QA, UAT, Staging, Production, DR", order=0), SomFormFieldMeta(name="environmentCode", type_name="String", description="Environment Code", hint="dev, stg, prod, dr", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Primary purpose of this environment", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentType", type_name="String", description="Environment Type", hint="Development, QA, UAT, Staging, Production, DR", order=0), SomFormFieldMeta(name="environmentCode", type_name="String", description="Environment Code", hint="dev, stg, prod, dr", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Primary purpose of this environment", order=2), SomFormFieldMeta(name="environmentRef", type_name="String", description="Environment", hint="The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register", order=3, refers_to=["ENVEN.@sectionId"])])),
          SomMetaNode(
             class_name="ServerEnvironmentEntry",
             member_name="location",
@@ -46738,7 +46728,7 @@ def _mc_SharedLibraryComponentEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Core, Utility, Domain, Integration, Extension", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=1)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Core, Utility, Domain, Integration, Extension", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=1), SomFormFieldMeta(name="componentRef", type_name="String", description="Component", hint="The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue", order=2, refers_to=["CMPNT.@sectionId"])])),
          SomMetaNode(
             class_name="SharedLibraryComponentEntry",
             member_name="description",
@@ -46791,7 +46781,7 @@ def _mc_SharedLibraryEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="libraryType", type_name="String", description="Library Type", hint="Utility, Domain, Infrastructure, UI", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=1)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="libraryType", type_name="String", description="Library Type", hint="Utility, Domain, Infrastructure, UI", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=1), SomFormFieldMeta(name="componentRef", type_name="String", description="Component", hint="The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue", order=2, refers_to=["CMPNT.@sectionId"])])),
          SomMetaNode(
             class_name="SharedLibraryEntry",
             member_name="description",
@@ -47184,6 +47174,16 @@ def _mc_SoftwareDesignRequirements(s):
                 class_doc_comment="8.2.3. Reusable Components.\n\nComponents, libraries, or frameworks designed for reuse across projects\nor modules.",
                 recursive=r,
                 children=c)),
+         SomMetaNode(
+            class_name="SoftwareDesignRequirements",
+            member_name="designDecisions",
+            section_id="SDR-DECI-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="refs", type_name="String", description="Design Decisions", hint="Section ids of the architecture decision records (`ARDE`), comma-separated", order=0, refers_to=["ARDE.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Design Decisions"})]),
     ]
 
 
@@ -47818,7 +47818,7 @@ def _mc_StageMigrationRiskEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Risk identity and description.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskDescription", type_name="String", description="Risk Description", required=True, hint="Detailed description of the risk scenario", order=0)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskDescription", type_name="String", description="Risk Description", required=True, hint="Detailed description of the risk scenario", order=0), SomFormFieldMeta(name="keyRiskRef", type_name="String", description="Key Risk", hint="The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", order=1, refers_to=["RISENT.@sectionId"]), SomFormFieldMeta(name="migrationRiskRef", type_name="String", description="Migration Risk", hint="The migration risk (MGRSK-ITEM-…) this stage-level entry tracks; the risk itself is described there", order=2, refers_to=["MGRSK.@sectionId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000:2018 — the risk management guidance defines risk identification and description of risk scenarios"], "connotation": "Captures the detailed description of an individual migration risk scenario."})]),
          SomMetaNode(
             class_name="StageMigrationRiskEntry",
@@ -48663,7 +48663,7 @@ def _mc_StakeholdersAndInterests(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryActorInterest", type_name="String", description="Primary Actor Interest — what they want", hint="The goal the initiating actor is pursuing", order=0), SomFormFieldMeta(name="systemOwnerInterest", type_name="String", description="System Owner Interest — business value", hint="The business value the owner expects", order=1), SomFormFieldMeta(name="regulatorInterest", type_name="String", description="Regulator Interest — compliance needs", hint="Compliance or legal interests to satisfy", order=2), SomFormFieldMeta(name="operationsInterest", type_name="String", description="Operations Interest — operational needs", hint="Operational concerns such as monitoring or SLAs", order=3), SomFormFieldMeta(name="supportStaffInterest", type_name="String", description="Support Staff Interest — support needs", hint="What support staff need to diagnose and assist", order=4), SomFormFieldMeta(name="otherStakeholders", type_name="String", description="Other Stakeholders — additional interested parties", hint="Any further parties and their interests", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryActorInterest", type_name="String", description="Primary Actor Interest — what they want", hint="The goal the initiating actor is pursuing", order=0), SomFormFieldMeta(name="systemOwnerInterest", type_name="String", description="System Owner Interest — business value", hint="The business value the owner expects", order=1), SomFormFieldMeta(name="regulatorInterest", type_name="String", description="Regulator Interest — compliance needs", hint="Compliance or legal interests to satisfy", order=2), SomFormFieldMeta(name="operationsInterest", type_name="String", description="Operations Interest — operational needs", hint="Operational concerns such as monitoring or SLAs", order=3), SomFormFieldMeta(name="supportStaffInterest", type_name="String", description="Support Staff Interest — support needs", hint="What support staff need to diagnose and assist", order=4), SomFormFieldMeta(name="otherStakeholders", type_name="String", description="Other Stakeholders — additional interested parties", hint="Any further parties and their interests", order=5), SomFormFieldMeta(name="stakeholderRefs", type_name="String", description="Stakeholders", hint="The stakeholders (STKRE-STAK-… / STKNT-…) with an interest in this interaction, comma-separated; described in the stakeholder register", order=6, refers_to=["STKRE.@sectionId", "STKNT.@sectionId"])])),
     ]
 
 
@@ -49441,6 +49441,16 @@ def _mc_SystemArchitectureSpec(s):
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="System-level architecture description: layering, package structure,\nsignificant design patterns, boundary definitions, and architectural\ndrivers / trade-offs.\n\n**What to capture:**\n- Layering strategy (presentation / application / domain / infrastructure)\n- Package / module structure and dependency direction rules\n- Design patterns adopted (CQRS, event sourcing, hexagonal, etc.)\n- Architectural drivers (performance, security, maintainability)\n- Trade-offs explicitly accepted\n- Reference architecture diagrams (high-level + key views)\n- Technology-radar alignment (Adopt / Trial / Assess / Hold)\n",
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."),
+         SomMetaNode(
+            class_name="SystemArchitectureSpec",
+            member_name="decisions",
+            section_id="SYARSP-DECI-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=1,
+            doc_comment="The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="refs", type_name="String", description="Architecture Decisions", hint="Section ids of the architecture decision records (`ARDE`), comma-separated", order=0, refers_to=["ARDE.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Architecture Decisions"})]),
     ]
 
 
@@ -50527,7 +50537,7 @@ def _mc_SystemMigrationRiskEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskDescription", type_name="String", description="Risk Description", required=True, hint="What the risk is", order=0), SomFormFieldMeta(name="probability", type_name="Probability", description="Probability", hint="Qualitative likelihood band that this migration risk occurs.", order=1, enum_values=["veryLow", "low", "medium", "high", "veryHigh"]), SomFormFieldMeta(name="impact", type_name="Impact", description="Impact", hint="Qualitative consequence band if the migration risk occurs.", order=2, enum_values=["negligible", "minor", "moderate", "major", "critical"]), SomFormFieldMeta(name="riskScore", type_name="String", description="Risk Score", hint="Combined probability/impact score — probability × impact, each counted by its band (1-5)", order=3), SomFormFieldMeta(name="mitigation", type_name="String", description="Mitigation Strategy", hint="How the risk will be reduced", order=4), SomFormFieldMeta(name="contingency", type_name="String", description="Contingency Plan", hint="Fallback if the risk materializes", order=5), SomFormFieldMeta(name="owner", type_name="String", description="Risk Owner", hint="Person accountable for the risk", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskDescription", type_name="String", description="Risk Description", required=True, hint="What the risk is", order=0), SomFormFieldMeta(name="probability", type_name="Probability", description="Probability", hint="Qualitative likelihood band that this migration risk occurs.", order=1, enum_values=["veryLow", "low", "medium", "high", "veryHigh"]), SomFormFieldMeta(name="impact", type_name="Impact", description="Impact", hint="Qualitative consequence band if the migration risk occurs.", order=2, enum_values=["negligible", "minor", "moderate", "major", "critical"]), SomFormFieldMeta(name="riskScore", type_name="String", description="Risk Score", hint="Combined probability/impact score — probability × impact, each counted by its band (1-5)", order=3), SomFormFieldMeta(name="mitigation", type_name="String", description="Mitigation Strategy", hint="How the risk will be reduced", order=4), SomFormFieldMeta(name="contingency", type_name="String", description="Contingency Plan", hint="Fallback if the risk materializes", order=5), SomFormFieldMeta(name="owner", type_name="String", description="Risk Owner", hint="Person accountable for the risk", order=6), SomFormFieldMeta(name="keyRiskRef", type_name="String", description="Key Risk", hint="The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", order=7, refers_to=["RISENT.@sectionId"])])),
     ]
 
 
@@ -53453,7 +53463,7 @@ def _mc_ThirdPartyCompatibilityEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="softwareName", type_name="String", description="Software Name", required=True, hint="Third-party software name", order=0), SomFormFieldMeta(name="vendor", type_name="String", description="Vendor", hint="Software vendor", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Antivirus, Firewall, MDM, Office", order=2), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Supported versions", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="softwareName", type_name="String", description="Software Name", required=True, hint="Third-party software name", order=0), SomFormFieldMeta(name="vendor", type_name="String", description="Vendor", hint="Software vendor", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Antivirus, Firewall, MDM, Office", order=2), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Supported versions", order=3), SomFormFieldMeta(name="libraryRef", type_name="String", description="Library", hint="The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", order=4, refers_to=["FRREEN.@sectionId", "THPALI.@sectionId"])])),
          SomMetaNode(
             class_name="ThirdPartyCompatibilityEntry",
             member_name="compatibility",
@@ -74171,10 +74181,6 @@ class MoscowEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/MOENVA")
 
     @property
-    def stageAssignment(self):
-        return SomMetaRef(self.tree, f"{self.path}/MESA")
-
-    @property
     def traceability(self):
         return SomMetaRef(self.tree, f"{self.path}/MOENTR")
 
@@ -82254,6 +82260,10 @@ class SoftwareDesignRequirementsNav(SomMetaRef):
     def reusableComponents(self):
         return ReusableComponentsSectionNav(self.tree, f"{self.path}/reusableComponents")
 
+    @property
+    def designDecisions(self):
+        return SomMetaRef(self.tree, f"{self.path}/SDR-DECI-REF")
+
 
 class SoftwareLayerEntryNav(SomMetaRef):
     """Dot-notation accessors of ``SoftwareLayerEntry`` (SOM §8). Every getter is
@@ -83399,6 +83409,10 @@ class SystemArchitectureSpecNav(SomMetaRef):
     @property
     def content(self):
         return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def decisions(self):
+        return SomMetaRef(self.tree, f"{self.path}/SYARSP-DECI-REF")
 
 
 class SystemBoundariesNav(SomMetaRef):
@@ -91511,6 +91525,10 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP")
 
     @property
+    def SDR_DECI_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/SDR-DECI-REF")
+
+    @property
     def OCE_OSCO_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
@@ -93373,6 +93391,10 @@ class D00SolutionBlueprintId(SomMetaRef):
     @property
     def SAE_AUDI_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", SecurityAuditEntryId)
+
+    @property
+    def SYARSP_DECI_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemArchitecture/SYARSP-DECI-REF")
 
     @property
     def CSVND(self):
@@ -96129,6 +96151,10 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/registry/COREUP")
 
     @property
+    def SDR_DECI_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/SDR-DECI-REF")
+
+    @property
     def OCE_OSCO_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
@@ -97991,6 +98017,10 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
     @property
     def SAE_AUDI_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST", SecurityAuditEntryId)
+
+    @property
+    def SYARSP_DECI_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/systemArchitecture/SYARSP-DECI-REF")
 
     @property
     def CSVND(self):
@@ -100286,6 +100316,10 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/registry/COREUP")
 
     @property
+    def SDR_DECI_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/SDR-DECI-REF")
+
+    @property
     def OCE_OSCO_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
@@ -102148,6 +102182,10 @@ class D13CodeSpecsProjectionId(SomMetaRef):
     @property
     def SAE_AUDI_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", SecurityAuditEntryId)
+
+    @property
+    def SYARSP_DECI_REF(self):
+        return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemArchitecture/SYARSP-DECI-REF")
 
     @property
     def USCDF_ITEM_LST(self):
@@ -105544,10 +105582,6 @@ class MoscowEntryId(SomMetaRef):
     @property
     def MOENVA(self):
         return SomMetaRef(self.tree, f"{self.path}/MOENVA")
-
-    @property
-    def MESA(self):
-        return SomMetaRef(self.tree, f"{self.path}/MESA")
 
     @property
     def MOENTR(self):

@@ -36646,11 +36646,6 @@ impl MoscowEntry {
         MoscowEntryValueForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MOENVA"))
     }
 
-    /// Stage assignment.
-    pub fn stage_assignment(&self) -> MoscowEntryStageAssignmentForm {
-        MoscowEntryStageAssignmentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MESA"))
-    }
-
     /// Traceability and notes.
     pub fn traceability(&self) -> MoscowEntryTraceabilityForm {
         MoscowEntryTraceabilityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MOENTR"))
@@ -53742,6 +53737,11 @@ impl SoftwareDesignRequirements {
     pub fn reusable_components(&self) -> ReusableComponentsSection {
         ReusableComponentsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "reusableComponents"))
     }
+
+    /// The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+    pub fn design_decisions(&self) -> SoftwareDesignRequirementsDesignDecisionsForm {
+        SoftwareDesignRequirementsDesignDecisionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SDR-DECI-REF"))
+    }
 }
 
 /// Software layer entry — a horizontal layer in the architecture.
@@ -56071,6 +56071,11 @@ impl SystemArchitectureSpec {
     pub fn set_content(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "content");
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+    pub fn decisions(&self) -> SystemArchitectureSpecDecisionsForm {
+        SystemArchitectureSpecDecisionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYARSP-DECI-REF"))
     }
 }
 
@@ -68555,6 +68560,15 @@ impl ActorCharacteristicsContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "usageFrequency", value);
     }
+
+    pub fn user_category_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userCategoryRef")
+    }
+
+    pub fn set_user_category_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userCategoryRef", value);
+    }
 }
 
 /// ActorCharacteristicsSupportForm is the generated section facade for the `support` @Form section: its own
@@ -70367,6 +70381,15 @@ impl AlertDefinitionEntryContentForm {
         let path = self.node.path().to_string();
         let text = match value { Some(v) => v.as_str(), None => "" };
         self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
+    }
+
+    pub fn alert_rule_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertRuleRef")
+    }
+
+    pub fn set_alert_rule_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertRuleRef", value);
     }
 }
 
@@ -81511,6 +81534,15 @@ impl BrowserCompatibilityEntryContentForm {
     pub fn set_max_version(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "maxVersion", value);
+    }
+
+    pub fn browser_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "browserRef")
+    }
+
+    pub fn set_browser_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "browserRef", value);
     }
 }
 
@@ -112872,6 +112904,15 @@ impl DatabaseCompatibilityEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "maxVersion", value);
     }
+
+    pub fn library_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "libraryRef")
+    }
+
+    pub fn set_library_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "libraryRef", value);
+    }
 }
 
 /// DatabaseCompatibilityEntryFeaturesForm is the generated section facade for the `features` @Form section: its own
@@ -118186,6 +118227,15 @@ impl DeploymentTargetEntryContentForm {
     pub fn set_target_environment(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "targetEnvironment", value);
+    }
+
+    pub fn environment_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environmentRef")
+    }
+
+    pub fn set_environment_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environmentRef", value);
     }
 }
 
@@ -136307,15 +136357,6 @@ impl FeatureStageMappingAssignmentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn target_stage(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "targetStage")
-    }
-
-    pub fn set_target_stage(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "targetStage", value);
-    }
-
     pub fn stage_phase(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "stagePhase")
     }
@@ -136323,15 +136364,6 @@ impl FeatureStageMappingAssignmentForm {
     pub fn set_stage_phase(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "stagePhase", value);
-    }
-
-    pub fn fallback_stage(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "fallbackStage")
-    }
-
-    pub fn set_fallback_stage(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "fallbackStage", value);
     }
 }
 
@@ -141031,6 +141063,15 @@ impl GoalRiskEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "riskCategory", value);
     }
+
+    pub fn key_risk_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRiskRef")
+    }
+
+    pub fn set_key_risk_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRiskRef", value);
+    }
 }
 
 /// GoalRiskEntryResponseForm is the generated section facade for the `response` @Form section: its own
@@ -144613,6 +144654,15 @@ impl IndustryProtocolComplianceEntryImplementationForm {
     pub fn set_performance_profile(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "performanceProfile", value);
+    }
+
+    pub fn library_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "libraryRef")
+    }
+
+    pub fn set_library_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "libraryRef", value);
     }
 }
 
@@ -162870,6 +162920,15 @@ impl MigrationRiskEntryIdentificationForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "affectedStreams", value);
     }
+
+    pub fn key_risk_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRiskRef")
+    }
+
+    pub fn set_key_risk_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRiskRef", value);
+    }
 }
 
 /// MigrationRiskEntryImpactForm is the generated section facade for the `impact` @Form section: its own
@@ -164179,6 +164238,15 @@ impl MobileCompatibilityEntryContentForm {
     pub fn set_max_version(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "maxVersion", value);
+    }
+
+    pub fn platform_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "platformRef")
+    }
+
+    pub fn set_platform_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "platformRef", value);
     }
 }
 
@@ -166149,16 +166217,6 @@ impl MoscowEntryClassificationForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn moscow_category(&self) -> Option<Priority> {
-        Priority::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "moscowCategory"))
-    }
-
-    pub fn set_moscow_category(&self, value: Option<Priority>) {
-        let path = self.node.path().to_string();
-        let text = match value { Some(v) => v.as_str(), None => "" };
-        self.node.doc().borrow_mut().set_form_field(&path, "moscowCategory", text);
-    }
-
     pub fn justification(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "justification")
     }
@@ -166215,54 +166273,6 @@ impl MoscowEntryContentForm {
     pub fn set_feature_id(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "featureId", value);
-    }
-}
-
-/// MoscowEntryStageAssignmentForm is the generated section facade for the `stageAssignment` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct MoscowEntryStageAssignmentForm {
-    pub node: som::SomNode,
-}
-
-impl MoscowEntryStageAssignmentForm {
-    /// Binds a MoscowEntryStageAssignmentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> MoscowEntryStageAssignmentForm {
-        MoscowEntryStageAssignmentForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn target_stage(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "targetStage")
-    }
-
-    pub fn set_target_stage(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "targetStage", value);
-    }
-
-    pub fn earliest_possible_stage(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "earliestPossibleStage")
-    }
-
-    pub fn set_earliest_possible_stage(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "earliestPossibleStage", value);
     }
 }
 
@@ -174490,6 +174500,15 @@ impl OsCompatibilityEntryContentForm {
     pub fn set_max_version(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "maxVersion", value);
+    }
+
+    pub fn os_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "osRef")
+    }
+
+    pub fn set_os_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "osRef", value);
     }
 }
 
@@ -187180,6 +187199,15 @@ impl ProtocolEntryContentForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+
+    pub fn protocol_compliance_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "protocolComplianceRef")
+    }
+
+    pub fn set_protocol_compliance_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "protocolComplianceRef", value);
     }
 }
 
@@ -214039,6 +214067,15 @@ impl SecurityStandardComplianceEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "trustServiceCriteria", value);
     }
+
+    pub fn standard_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "standardRef")
+    }
+
+    pub fn set_standard_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "standardRef", value);
+    }
 }
 
 /// SecurityStandardComplianceEntryControlsForm is the generated section facade for the `controls` @Form section: its own
@@ -215661,6 +215698,15 @@ impl ServerEnvironmentEntryContentForm {
     pub fn set_purpose(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
+    }
+
+    pub fn environment_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environmentRef")
+    }
+
+    pub fn set_environment_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environmentRef", value);
     }
 }
 
@@ -219309,6 +219355,15 @@ impl SharedLibraryComponentEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "version", value);
     }
+
+    pub fn component_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "componentRef")
+    }
+
+    pub fn set_component_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "componentRef", value);
+    }
 }
 
 /// SharedLibraryComponentEntryDescriptionForm is the generated section facade for the `description` @Form section: its own
@@ -219695,6 +219750,15 @@ impl SharedLibraryEntryContentForm {
     pub fn set_version(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "version", value);
+    }
+
+    pub fn component_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "componentRef")
+    }
+
+    pub fn set_component_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "componentRef", value);
     }
 }
 
@@ -221090,6 +221154,45 @@ impl SloEntryTargetForm {
     pub fn set_error_budget(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "errorBudget", value);
+    }
+}
+
+/// SoftwareDesignRequirementsDesignDecisionsForm is the generated section facade for the `designDecisions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SoftwareDesignRequirementsDesignDecisionsForm {
+    pub node: som::SomNode,
+}
+
+impl SoftwareDesignRequirementsDesignDecisionsForm {
+    /// Binds a SoftwareDesignRequirementsDesignDecisionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SoftwareDesignRequirementsDesignDecisionsForm {
+        SoftwareDesignRequirementsDesignDecisionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn refs(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refs")
+    }
+
+    pub fn set_refs(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refs", value);
     }
 }
 
@@ -223818,6 +223921,24 @@ impl StageMigrationRiskEntryIdentityForm {
     pub fn set_risk_description(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "riskDescription", value);
+    }
+
+    pub fn key_risk_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRiskRef")
+    }
+
+    pub fn set_key_risk_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRiskRef", value);
+    }
+
+    pub fn migration_risk_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "migrationRiskRef")
+    }
+
+    pub fn set_migration_risk_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "migrationRiskRef", value);
     }
 }
 
@@ -227604,6 +227725,15 @@ impl StakeholdersAndInterestsContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "otherStakeholders", value);
     }
+
+    pub fn stakeholder_refs(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stakeholderRefs")
+    }
+
+    pub fn set_stakeholder_refs(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stakeholderRefs", value);
+    }
 }
 
 /// StepUpAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -230046,6 +230176,45 @@ impl SupportedLocaleEntryRolloutForm {
     pub fn set_locale_owner(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "localeOwner", value);
+    }
+}
+
+/// SystemArchitectureSpecDecisionsForm is the generated section facade for the `decisions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SystemArchitectureSpecDecisionsForm {
+    pub node: som::SomNode,
+}
+
+impl SystemArchitectureSpecDecisionsForm {
+    /// Binds a SystemArchitectureSpecDecisionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemArchitectureSpecDecisionsForm {
+        SystemArchitectureSpecDecisionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn refs(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refs")
+    }
+
+    pub fn set_refs(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refs", value);
     }
 }
 
@@ -233373,6 +233542,15 @@ impl SystemMigrationRiskEntryContentForm {
     pub fn set_owner(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "owner", value);
+    }
+
+    pub fn key_risk_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRiskRef")
+    }
+
+    pub fn set_key_risk_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRiskRef", value);
     }
 }
 
@@ -240890,6 +241068,15 @@ impl ThirdPartyCompatibilityEntryContentForm {
     pub fn set_version(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "version", value);
+    }
+
+    pub fn library_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "libraryRef")
+    }
+
+    pub fn set_library_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "libraryRef", value);
     }
 }
 

@@ -3687,6 +3687,8 @@ form-types:
         description: Migration phases where risk applies
       - fieldname: affectedStreams
         description: "Data, application, infrastructure, etc."
+      - fieldname: keyRiskRef
+        description: "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register"
   miripr-form:
     fields:
       - fieldname: probabilityRating

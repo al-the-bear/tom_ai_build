@@ -11623,9 +11623,6 @@ MoscowEntryClassificationForm MoscowEntry::classification() const {
 MoscowEntryValueForm MoscowEntry::value() const {
   return MoscowEntryValueForm(doc(), som::joinPath(path(), "MOENVA"));
 }
-MoscowEntryStageAssignmentForm MoscowEntry::stageAssignment() const {
-  return MoscowEntryStageAssignmentForm(doc(), som::joinPath(path(), "MESA"));
-}
 MoscowEntryTraceabilityForm MoscowEntry::traceability() const {
   return MoscowEntryTraceabilityForm(doc(), som::joinPath(path(), "MOENTR"));
 }
@@ -17014,6 +17011,9 @@ DevelopmentEnvironment SoftwareDesignRequirements::developmentEnvironment() cons
 ReusableComponentsSection SoftwareDesignRequirements::reusableComponents() const {
   return ReusableComponentsSection(doc(), som::joinPath(path(), "reusableComponents"));
 }
+SoftwareDesignRequirementsDesignDecisionsForm SoftwareDesignRequirements::designDecisions() const {
+  return SoftwareDesignRequirementsDesignDecisionsForm(doc(), som::joinPath(path(), "SDR-DECI-REF"));
+}
 
 SoftwareLayerEntry::SoftwareLayerEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -17778,6 +17778,9 @@ std::string SystemArchitectureSpec::content() const {
 }
 void SystemArchitectureSpec::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
+}
+SystemArchitectureSpecDecisionsForm SystemArchitectureSpec::decisions() const {
+  return SystemArchitectureSpecDecisionsForm(doc(), som::joinPath(path(), "SYARSP-DECI-REF"));
 }
 
 SystemBoundaries::SystemBoundaries(som::SpecDocument& doc, std::string path)
@@ -22502,6 +22505,12 @@ std::string ActorCharacteristicsContentForm::usageFrequency() const {
 void ActorCharacteristicsContentForm::setUsageFrequency(const std::string& value) {
   doc().setFormField(path(), "usageFrequency", value);
 }
+std::string ActorCharacteristicsContentForm::userCategoryRef() const {
+  return doc().formField(path(), "userCategoryRef");
+}
+void ActorCharacteristicsContentForm::setUserCategoryRef(const std::string& value) {
+  doc().setFormField(path(), "userCategoryRef", value);
+}
 
 ActorCharacteristicsSupportForm::ActorCharacteristicsSupportForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -23464,6 +23473,12 @@ std::string AlertDefinitionEntryContentForm::priority() const {
 }
 void AlertDefinitionEntryContentForm::setPriority(const std::string& value) {
   doc().setFormField(path(), "priority", value);
+}
+std::string AlertDefinitionEntryContentForm::alertRuleRef() const {
+  return doc().formField(path(), "alertRuleRef");
+}
+void AlertDefinitionEntryContentForm::setAlertRuleRef(const std::string& value) {
+  doc().setFormField(path(), "alertRuleRef", value);
 }
 
 AlertDefinitionEntryNotificationForm::AlertDefinitionEntryNotificationForm(som::SpecDocument& doc, std::string path)
@@ -29205,6 +29220,12 @@ std::string BrowserCompatibilityEntryContentForm::maxVersion() const {
 }
 void BrowserCompatibilityEntryContentForm::setMaxVersion(const std::string& value) {
   doc().setFormField(path(), "maxVersion", value);
+}
+std::string BrowserCompatibilityEntryContentForm::browserRef() const {
+  return doc().formField(path(), "browserRef");
+}
+void BrowserCompatibilityEntryContentForm::setBrowserRef(const std::string& value) {
+  doc().setFormField(path(), "browserRef", value);
 }
 
 BrowserCompatibilityEntryFeaturesForm::BrowserCompatibilityEntryFeaturesForm(som::SpecDocument& doc, std::string path)
@@ -45009,6 +45030,12 @@ std::string DatabaseCompatibilityEntryContentForm::maxVersion() const {
 void DatabaseCompatibilityEntryContentForm::setMaxVersion(const std::string& value) {
   doc().setFormField(path(), "maxVersion", value);
 }
+std::string DatabaseCompatibilityEntryContentForm::libraryRef() const {
+  return doc().formField(path(), "libraryRef");
+}
+void DatabaseCompatibilityEntryContentForm::setLibraryRef(const std::string& value) {
+  doc().setFormField(path(), "libraryRef", value);
+}
 
 DatabaseCompatibilityEntryFeaturesForm::DatabaseCompatibilityEntryFeaturesForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -47625,6 +47652,12 @@ std::string DeploymentTargetEntryContentForm::targetEnvironment() const {
 }
 void DeploymentTargetEntryContentForm::setTargetEnvironment(const std::string& value) {
   doc().setFormField(path(), "targetEnvironment", value);
+}
+std::string DeploymentTargetEntryContentForm::environmentRef() const {
+  return doc().formField(path(), "environmentRef");
+}
+void DeploymentTargetEntryContentForm::setEnvironmentRef(const std::string& value) {
+  doc().setFormField(path(), "environmentRef", value);
 }
 
 DeploymentTargetEntryPlatformForm::DeploymentTargetEntryPlatformForm(som::SpecDocument& doc, std::string path)
@@ -56712,23 +56745,11 @@ std::string FeatureStageMappingAssignmentForm::content() const {
 void FeatureStageMappingAssignmentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string FeatureStageMappingAssignmentForm::targetStage() const {
-  return doc().formField(path(), "targetStage");
-}
-void FeatureStageMappingAssignmentForm::setTargetStage(const std::string& value) {
-  doc().setFormField(path(), "targetStage", value);
-}
 std::string FeatureStageMappingAssignmentForm::stagePhase() const {
   return doc().formField(path(), "stagePhase");
 }
 void FeatureStageMappingAssignmentForm::setStagePhase(const std::string& value) {
   doc().setFormField(path(), "stagePhase", value);
-}
-std::string FeatureStageMappingAssignmentForm::fallbackStage() const {
-  return doc().formField(path(), "fallbackStage");
-}
-void FeatureStageMappingAssignmentForm::setFallbackStage(const std::string& value) {
-  doc().setFormField(path(), "fallbackStage", value);
 }
 
 FeatureStageMappingContentForm::FeatureStageMappingContentForm(som::SpecDocument& doc, std::string path)
@@ -59152,6 +59173,12 @@ std::string GoalRiskEntryContentForm::riskCategory() const {
 void GoalRiskEntryContentForm::setRiskCategory(const std::string& value) {
   doc().setFormField(path(), "riskCategory", value);
 }
+std::string GoalRiskEntryContentForm::keyRiskRef() const {
+  return doc().formField(path(), "keyRiskRef");
+}
+void GoalRiskEntryContentForm::setKeyRiskRef(const std::string& value) {
+  doc().setFormField(path(), "keyRiskRef", value);
+}
 
 GoalRiskEntryResponseForm::GoalRiskEntryResponseForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -60911,6 +60938,12 @@ std::string IndustryProtocolComplianceEntryImplementationForm::performanceProfil
 }
 void IndustryProtocolComplianceEntryImplementationForm::setPerformanceProfile(const std::string& value) {
   doc().setFormField(path(), "performanceProfile", value);
+}
+std::string IndustryProtocolComplianceEntryImplementationForm::libraryRef() const {
+  return doc().formField(path(), "libraryRef");
+}
+void IndustryProtocolComplianceEntryImplementationForm::setLibraryRef(const std::string& value) {
+  doc().setFormField(path(), "libraryRef", value);
 }
 
 IndustryProtocolComplianceEntryInteroperabilityForm::IndustryProtocolComplianceEntryInteroperabilityForm(som::SpecDocument& doc, std::string path)
@@ -70209,6 +70242,12 @@ std::string MigrationRiskEntryIdentificationForm::affectedStreams() const {
 void MigrationRiskEntryIdentificationForm::setAffectedStreams(const std::string& value) {
   doc().setFormField(path(), "affectedStreams", value);
 }
+std::string MigrationRiskEntryIdentificationForm::keyRiskRef() const {
+  return doc().formField(path(), "keyRiskRef");
+}
+void MigrationRiskEntryIdentificationForm::setKeyRiskRef(const std::string& value) {
+  doc().setFormField(path(), "keyRiskRef", value);
+}
 
 MigrationRiskEntryImpactForm::MigrationRiskEntryImpactForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -70897,6 +70936,12 @@ std::string MobileCompatibilityEntryContentForm::maxVersion() const {
 }
 void MobileCompatibilityEntryContentForm::setMaxVersion(const std::string& value) {
   doc().setFormField(path(), "maxVersion", value);
+}
+std::string MobileCompatibilityEntryContentForm::platformRef() const {
+  return doc().formField(path(), "platformRef");
+}
+void MobileCompatibilityEntryContentForm::setPlatformRef(const std::string& value) {
+  doc().setFormField(path(), "platformRef", value);
 }
 
 MobileCompatibilityEntryDevicesForm::MobileCompatibilityEntryDevicesForm(som::SpecDocument& doc, std::string path)
@@ -71888,12 +71933,6 @@ std::string MoscowEntryClassificationForm::content() const {
 void MoscowEntryClassificationForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string MoscowEntryClassificationForm::moscowCategory() const {
-  return doc().formField(path(), "moscowCategory");
-}
-void MoscowEntryClassificationForm::setMoscowCategory(const std::string& value) {
-  doc().setFormField(path(), "moscowCategory", value);
-}
 std::string MoscowEntryClassificationForm::justification() const {
   return doc().formField(path(), "justification");
 }
@@ -71920,27 +71959,6 @@ std::string MoscowEntryContentForm::featureId() const {
 }
 void MoscowEntryContentForm::setFeatureId(const std::string& value) {
   doc().setFormField(path(), "featureId", value);
-}
-
-MoscowEntryStageAssignmentForm::MoscowEntryStageAssignmentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string MoscowEntryStageAssignmentForm::content() const {
-  return doc().content(path());
-}
-void MoscowEntryStageAssignmentForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string MoscowEntryStageAssignmentForm::targetStage() const {
-  return doc().formField(path(), "targetStage");
-}
-void MoscowEntryStageAssignmentForm::setTargetStage(const std::string& value) {
-  doc().setFormField(path(), "targetStage", value);
-}
-std::string MoscowEntryStageAssignmentForm::earliestPossibleStage() const {
-  return doc().formField(path(), "earliestPossibleStage");
-}
-void MoscowEntryStageAssignmentForm::setEarliestPossibleStage(const std::string& value) {
-  doc().setFormField(path(), "earliestPossibleStage", value);
 }
 
 MoscowEntryTraceabilityForm::MoscowEntryTraceabilityForm(som::SpecDocument& doc, std::string path)
@@ -76145,6 +76163,12 @@ std::string OsCompatibilityEntryContentForm::maxVersion() const {
 }
 void OsCompatibilityEntryContentForm::setMaxVersion(const std::string& value) {
   doc().setFormField(path(), "maxVersion", value);
+}
+std::string OsCompatibilityEntryContentForm::osRef() const {
+  return doc().formField(path(), "osRef");
+}
+void OsCompatibilityEntryContentForm::setOsRef(const std::string& value) {
+  doc().setFormField(path(), "osRef", value);
 }
 
 OsCompatibilityEntryLifecycleForm::OsCompatibilityEntryLifecycleForm(som::SpecDocument& doc, std::string path)
@@ -82723,6 +82747,12 @@ std::string ProtocolEntryContentForm::notes() const {
 }
 void ProtocolEntryContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+std::string ProtocolEntryContentForm::protocolComplianceRef() const {
+  return doc().formField(path(), "protocolComplianceRef");
+}
+void ProtocolEntryContentForm::setProtocolComplianceRef(const std::string& value) {
+  doc().setFormField(path(), "protocolComplianceRef", value);
 }
 
 ProtocolFeatureEntryContentForm::ProtocolFeatureEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -96213,6 +96243,12 @@ std::string SecurityStandardComplianceEntryContentForm::trustServiceCriteria() c
 void SecurityStandardComplianceEntryContentForm::setTrustServiceCriteria(const std::string& value) {
   doc().setFormField(path(), "trustServiceCriteria", value);
 }
+std::string SecurityStandardComplianceEntryContentForm::standardRef() const {
+  return doc().formField(path(), "standardRef");
+}
+void SecurityStandardComplianceEntryContentForm::setStandardRef(const std::string& value) {
+  doc().setFormField(path(), "standardRef", value);
+}
 
 SecurityStandardComplianceEntryControlsForm::SecurityStandardComplianceEntryControlsForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -97019,6 +97055,12 @@ std::string ServerEnvironmentEntryContentForm::purpose() const {
 }
 void ServerEnvironmentEntryContentForm::setPurpose(const std::string& value) {
   doc().setFormField(path(), "purpose", value);
+}
+std::string ServerEnvironmentEntryContentForm::environmentRef() const {
+  return doc().formField(path(), "environmentRef");
+}
+void ServerEnvironmentEntryContentForm::setEnvironmentRef(const std::string& value) {
+  doc().setFormField(path(), "environmentRef", value);
 }
 
 ServerEnvironmentEntryLifecycleForm::ServerEnvironmentEntryLifecycleForm(som::SpecDocument& doc, std::string path)
@@ -98919,6 +98961,12 @@ std::string SharedLibraryComponentEntryContentForm::version() const {
 void SharedLibraryComponentEntryContentForm::setVersion(const std::string& value) {
   doc().setFormField(path(), "version", value);
 }
+std::string SharedLibraryComponentEntryContentForm::componentRef() const {
+  return doc().formField(path(), "componentRef");
+}
+void SharedLibraryComponentEntryContentForm::setComponentRef(const std::string& value) {
+  doc().setFormField(path(), "componentRef", value);
+}
 
 SharedLibraryComponentEntryDescriptionForm::SharedLibraryComponentEntryDescriptionForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -99110,6 +99158,12 @@ std::string SharedLibraryEntryContentForm::version() const {
 }
 void SharedLibraryEntryContentForm::setVersion(const std::string& value) {
   doc().setFormField(path(), "version", value);
+}
+std::string SharedLibraryEntryContentForm::componentRef() const {
+  return doc().formField(path(), "componentRef");
+}
+void SharedLibraryEntryContentForm::setComponentRef(const std::string& value) {
+  doc().setFormField(path(), "componentRef", value);
 }
 
 SharedLibraryEntryDescriptionForm::SharedLibraryEntryDescriptionForm(som::SpecDocument& doc, std::string path)
@@ -99800,6 +99854,21 @@ std::string SloEntryTargetForm::errorBudget() const {
 }
 void SloEntryTargetForm::setErrorBudget(const std::string& value) {
   doc().setFormField(path(), "errorBudget", value);
+}
+
+SoftwareDesignRequirementsDesignDecisionsForm::SoftwareDesignRequirementsDesignDecisionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SoftwareDesignRequirementsDesignDecisionsForm::content() const {
+  return doc().content(path());
+}
+void SoftwareDesignRequirementsDesignDecisionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SoftwareDesignRequirementsDesignDecisionsForm::refs() const {
+  return doc().formField(path(), "refs");
+}
+void SoftwareDesignRequirementsDesignDecisionsForm::setRefs(const std::string& value) {
+  doc().setFormField(path(), "refs", value);
 }
 
 SoftwareLayerEntryComponentsForm::SoftwareLayerEntryComponentsForm(som::SpecDocument& doc, std::string path)
@@ -101180,6 +101249,18 @@ std::string StageMigrationRiskEntryIdentityForm::riskDescription() const {
 }
 void StageMigrationRiskEntryIdentityForm::setRiskDescription(const std::string& value) {
   doc().setFormField(path(), "riskDescription", value);
+}
+std::string StageMigrationRiskEntryIdentityForm::keyRiskRef() const {
+  return doc().formField(path(), "keyRiskRef");
+}
+void StageMigrationRiskEntryIdentityForm::setKeyRiskRef(const std::string& value) {
+  doc().setFormField(path(), "keyRiskRef", value);
+}
+std::string StageMigrationRiskEntryIdentityForm::migrationRiskRef() const {
+  return doc().formField(path(), "migrationRiskRef");
+}
+void StageMigrationRiskEntryIdentityForm::setMigrationRiskRef(const std::string& value) {
+  doc().setFormField(path(), "migrationRiskRef", value);
 }
 
 StageMigrationRiskEntryMitigationForm::StageMigrationRiskEntryMitigationForm(som::SpecDocument& doc, std::string path)
@@ -103149,6 +103230,12 @@ std::string StakeholdersAndInterestsContentForm::otherStakeholders() const {
 void StakeholdersAndInterestsContentForm::setOtherStakeholders(const std::string& value) {
   doc().setFormField(path(), "otherStakeholders", value);
 }
+std::string StakeholdersAndInterestsContentForm::stakeholderRefs() const {
+  return doc().formField(path(), "stakeholderRefs");
+}
+void StakeholdersAndInterestsContentForm::setStakeholderRefs(const std::string& value) {
+  doc().setFormField(path(), "stakeholderRefs", value);
+}
 
 StepUpAuthenticationPolicyContentForm::StepUpAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -104474,6 +104561,21 @@ std::string SupportedLocaleEntryRolloutForm::localeOwner() const {
 }
 void SupportedLocaleEntryRolloutForm::setLocaleOwner(const std::string& value) {
   doc().setFormField(path(), "localeOwner", value);
+}
+
+SystemArchitectureSpecDecisionsForm::SystemArchitectureSpecDecisionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SystemArchitectureSpecDecisionsForm::content() const {
+  return doc().content(path());
+}
+void SystemArchitectureSpecDecisionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SystemArchitectureSpecDecisionsForm::refs() const {
+  return doc().formField(path(), "refs");
+}
+void SystemArchitectureSpecDecisionsForm::setRefs(const std::string& value) {
+  doc().setFormField(path(), "refs", value);
 }
 
 SystemBusinessCriticalityContentForm::SystemBusinessCriticalityContentForm(som::SpecDocument& doc, std::string path)
@@ -106160,6 +106262,12 @@ std::string SystemMigrationRiskEntryContentForm::owner() const {
 }
 void SystemMigrationRiskEntryContentForm::setOwner(const std::string& value) {
   doc().setFormField(path(), "owner", value);
+}
+std::string SystemMigrationRiskEntryContentForm::keyRiskRef() const {
+  return doc().formField(path(), "keyRiskRef");
+}
+void SystemMigrationRiskEntryContentForm::setKeyRiskRef(const std::string& value) {
+  doc().setFormField(path(), "keyRiskRef", value);
 }
 
 SystemQualityGoalsBaselineForm::SystemQualityGoalsBaselineForm(som::SpecDocument& doc, std::string path)
@@ -109969,6 +110077,12 @@ std::string ThirdPartyCompatibilityEntryContentForm::version() const {
 }
 void ThirdPartyCompatibilityEntryContentForm::setVersion(const std::string& value) {
   doc().setFormField(path(), "version", value);
+}
+std::string ThirdPartyCompatibilityEntryContentForm::libraryRef() const {
+  return doc().formField(path(), "libraryRef");
+}
+void ThirdPartyCompatibilityEntryContentForm::setLibraryRef(const std::string& value) {
+  doc().setFormField(path(), "libraryRef", value);
 }
 
 ThirdPartyCompatibilityEntryIntegrationForm::ThirdPartyCompatibilityEntryIntegrationForm(som::SpecDocument& doc, std::string path)

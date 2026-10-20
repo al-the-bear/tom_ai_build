@@ -26865,11 +26865,6 @@ public final class TomSomV0 {
       return new MoscowEntryValueForm(doc, path + "/MOENVA");
     }
 
-    // Stage assignment.
-    public MoscowEntryStageAssignmentForm stageAssignment() {
-      return new MoscowEntryStageAssignmentForm(doc, path + "/MESA");
-    }
-
     // Traceability and notes.
     public MoscowEntryTraceabilityForm traceability() {
       return new MoscowEntryTraceabilityForm(doc, path + "/MOENTR");
@@ -39345,6 +39340,11 @@ public final class TomSomV0 {
     public ReusableComponentsSection reusableComponents() {
       return new ReusableComponentsSection(doc, path + "/reusableComponents");
     }
+
+    // The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+    public SoftwareDesignRequirementsDesignDecisionsForm designDecisions() {
+      return new SoftwareDesignRequirementsDesignDecisionsForm(doc, path + "/SDR-DECI-REF");
+    }
   }
 
   // Software layer entry — a horizontal layer in the architecture.
@@ -41047,6 +41047,11 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
+    }
+
+    // The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+    public SystemArchitectureSpecDecisionsForm decisions() {
+      return new SystemArchitectureSpecDecisionsForm(doc, path + "/SYARSP-DECI-REF");
     }
   }
 
@@ -50742,6 +50747,15 @@ public final class TomSomV0 {
     public void usageFrequency(String value) {
       doc.setFormField(path, "usageFrequency", value);
     }
+
+    public String userCategoryRef() {
+      String v = doc.formField(path, "userCategoryRef");
+      return v == null ? "" : v;
+    }
+
+    public void userCategoryRef(String value) {
+      doc.setFormField(path, "userCategoryRef", value);
+    }
   }
 
   // Generated section facade for the `support` @Form section: its own content
@@ -52347,6 +52361,15 @@ public final class TomSomV0 {
 
     public void setPriority(ImportanceBand value) {
       doc.setFormField(path, "priority", value == null ? "" : value.token);
+    }
+
+    public String alertRuleRef() {
+      String v = doc.formField(path, "alertRuleRef");
+      return v == null ? "" : v;
+    }
+
+    public void alertRuleRef(String value) {
+      doc.setFormField(path, "alertRuleRef", value);
     }
   }
 
@@ -62101,6 +62124,15 @@ public final class TomSomV0 {
 
     public void maxVersion(String value) {
       doc.setFormField(path, "maxVersion", value);
+    }
+
+    public String browserRef() {
+      String v = doc.formField(path, "browserRef");
+      return v == null ? "" : v;
+    }
+
+    public void browserRef(String value) {
+      doc.setFormField(path, "browserRef", value);
     }
   }
 
@@ -89527,6 +89559,15 @@ public final class TomSomV0 {
     public void maxVersion(String value) {
       doc.setFormField(path, "maxVersion", value);
     }
+
+    public String libraryRef() {
+      String v = doc.formField(path, "libraryRef");
+      return v == null ? "" : v;
+    }
+
+    public void libraryRef(String value) {
+      doc.setFormField(path, "libraryRef", value);
+    }
   }
 
   // Generated section facade for the `features` @Form section: its own content
@@ -94136,6 +94177,15 @@ public final class TomSomV0 {
 
     public void targetEnvironment(String value) {
       doc.setFormField(path, "targetEnvironment", value);
+    }
+
+    public String environmentRef() {
+      String v = doc.formField(path, "environmentRef");
+      return v == null ? "" : v;
+    }
+
+    public void environmentRef(String value) {
+      doc.setFormField(path, "environmentRef", value);
     }
   }
 
@@ -109949,15 +109999,6 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String targetStage() {
-      String v = doc.formField(path, "targetStage");
-      return v == null ? "" : v;
-    }
-
-    public void targetStage(String value) {
-      doc.setFormField(path, "targetStage", value);
-    }
-
     public String stagePhase() {
       String v = doc.formField(path, "stagePhase");
       return v == null ? "" : v;
@@ -109965,15 +110006,6 @@ public final class TomSomV0 {
 
     public void stagePhase(String value) {
       doc.setFormField(path, "stagePhase", value);
-    }
-
-    public String fallbackStage() {
-      String v = doc.formField(path, "fallbackStage");
-      return v == null ? "" : v;
-    }
-
-    public void fallbackStage(String value) {
-      doc.setFormField(path, "fallbackStage", value);
     }
   }
 
@@ -114088,6 +114120,15 @@ public final class TomSomV0 {
     public void riskCategory(String value) {
       doc.setFormField(path, "riskCategory", value);
     }
+
+    public String keyRiskRef() {
+      String v = doc.formField(path, "keyRiskRef");
+      return v == null ? "" : v;
+    }
+
+    public void keyRiskRef(String value) {
+      doc.setFormField(path, "keyRiskRef", value);
+    }
   }
 
   // Generated section facade for the `response` @Form section: its own content
@@ -117186,6 +117227,15 @@ public final class TomSomV0 {
 
     public void performanceProfile(String value) {
       doc.setFormField(path, "performanceProfile", value);
+    }
+
+    public String libraryRef() {
+      String v = doc.formField(path, "libraryRef");
+      return v == null ? "" : v;
+    }
+
+    public void libraryRef(String value) {
+      doc.setFormField(path, "libraryRef", value);
     }
   }
 
@@ -133191,6 +133241,15 @@ public final class TomSomV0 {
     public void affectedStreams(String value) {
       doc.setFormField(path, "affectedStreams", value);
     }
+
+    public String keyRiskRef() {
+      String v = doc.formField(path, "keyRiskRef");
+      return v == null ? "" : v;
+    }
+
+    public void keyRiskRef(String value) {
+      doc.setFormField(path, "keyRiskRef", value);
+    }
   }
 
   // Generated section facade for the `impact` @Form section: its own content
@@ -134351,6 +134410,15 @@ public final class TomSomV0 {
 
     public void maxVersion(String value) {
       doc.setFormField(path, "maxVersion", value);
+    }
+
+    public String platformRef() {
+      String v = doc.formField(path, "platformRef");
+      return v == null ? "" : v;
+    }
+
+    public void platformRef(String value) {
+      doc.setFormField(path, "platformRef", value);
     }
   }
 
@@ -136069,14 +136137,6 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public Priority moscowCategory() {
-      return Priority.parse(doc.formField(path, "moscowCategory"));
-    }
-
-    public void setMoscowCategory(Priority value) {
-      doc.setFormField(path, "moscowCategory", value == null ? "" : value.token);
-    }
-
     public String justification() {
       String v = doc.formField(path, "justification");
       return v == null ? "" : v;
@@ -136123,46 +136183,6 @@ public final class TomSomV0 {
 
     public void featureId(String value) {
       doc.setFormField(path, "featureId", value);
-    }
-  }
-
-  // Generated section facade for the `stageAssignment` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class MoscowEntryStageAssignmentForm extends SomNode {
-    public MoscowEntryStageAssignmentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public String targetStage() {
-      String v = doc.formField(path, "targetStage");
-      return v == null ? "" : v;
-    }
-
-    public void targetStage(String value) {
-      doc.setFormField(path, "targetStage", value);
-    }
-
-    public String earliestPossibleStage() {
-      String v = doc.formField(path, "earliestPossibleStage");
-      return v == null ? "" : v;
-    }
-
-    public void earliestPossibleStage(String value) {
-      doc.setFormField(path, "earliestPossibleStage", value);
     }
   }
 
@@ -143384,6 +143404,15 @@ public final class TomSomV0 {
 
     public void maxVersion(String value) {
       doc.setFormField(path, "maxVersion", value);
+    }
+
+    public String osRef() {
+      String v = doc.formField(path, "osRef");
+      return v == null ? "" : v;
+    }
+
+    public void osRef(String value) {
+      doc.setFormField(path, "osRef", value);
     }
   }
 
@@ -154604,6 +154633,15 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+
+    public String protocolComplianceRef() {
+      String v = doc.formField(path, "protocolComplianceRef");
+      return v == null ? "" : v;
+    }
+
+    public void protocolComplianceRef(String value) {
+      doc.setFormField(path, "protocolComplianceRef", value);
     }
   }
 
@@ -178045,6 +178083,15 @@ public final class TomSomV0 {
     public void trustServiceCriteria(String value) {
       doc.setFormField(path, "trustServiceCriteria", value);
     }
+
+    public String standardRef() {
+      String v = doc.formField(path, "standardRef");
+      return v == null ? "" : v;
+    }
+
+    public void standardRef(String value) {
+      doc.setFormField(path, "standardRef", value);
+    }
   }
 
   // Generated section facade for the `controls` @Form section: its own content
@@ -179458,6 +179505,15 @@ public final class TomSomV0 {
 
     public void purpose(String value) {
       doc.setFormField(path, "purpose", value);
+    }
+
+    public String environmentRef() {
+      String v = doc.formField(path, "environmentRef");
+      return v == null ? "" : v;
+    }
+
+    public void environmentRef(String value) {
+      doc.setFormField(path, "environmentRef", value);
     }
   }
 
@@ -182698,6 +182754,15 @@ public final class TomSomV0 {
     public void version(String value) {
       doc.setFormField(path, "version", value);
     }
+
+    public String componentRef() {
+      String v = doc.formField(path, "componentRef");
+      return v == null ? "" : v;
+    }
+
+    public void componentRef(String value) {
+      doc.setFormField(path, "componentRef", value);
+    }
   }
 
   // Generated section facade for the `description` @Form section: its own content
@@ -183036,6 +183101,15 @@ public final class TomSomV0 {
 
     public void version(String value) {
       doc.setFormField(path, "version", value);
+    }
+
+    public String componentRef() {
+      String v = doc.formField(path, "componentRef");
+      return v == null ? "" : v;
+    }
+
+    public void componentRef(String value) {
+      doc.setFormField(path, "componentRef", value);
     }
   }
 
@@ -184252,6 +184326,37 @@ public final class TomSomV0 {
 
     public void errorBudget(String value) {
       doc.setFormField(path, "errorBudget", value);
+    }
+  }
+
+  // Generated section facade for the `designDecisions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SoftwareDesignRequirementsDesignDecisionsForm extends SomNode {
+    public SoftwareDesignRequirementsDesignDecisionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String refs() {
+      String v = doc.formField(path, "refs");
+      return v == null ? "" : v;
+    }
+
+    public void refs(String value) {
+      doc.setFormField(path, "refs", value);
     }
   }
 
@@ -186655,6 +186760,24 @@ public final class TomSomV0 {
 
     public void riskDescription(String value) {
       doc.setFormField(path, "riskDescription", value);
+    }
+
+    public String keyRiskRef() {
+      String v = doc.formField(path, "keyRiskRef");
+      return v == null ? "" : v;
+    }
+
+    public void keyRiskRef(String value) {
+      doc.setFormField(path, "keyRiskRef", value);
+    }
+
+    public String migrationRiskRef() {
+      String v = doc.formField(path, "migrationRiskRef");
+      return v == null ? "" : v;
+    }
+
+    public void migrationRiskRef(String value) {
+      doc.setFormField(path, "migrationRiskRef", value);
     }
   }
 
@@ -190007,6 +190130,15 @@ public final class TomSomV0 {
     public void otherStakeholders(String value) {
       doc.setFormField(path, "otherStakeholders", value);
     }
+
+    public String stakeholderRefs() {
+      String v = doc.formField(path, "stakeholderRefs");
+      return v == null ? "" : v;
+    }
+
+    public void stakeholderRefs(String value) {
+      doc.setFormField(path, "stakeholderRefs", value);
+    }
   }
 
   // Generated section facade for the `content` @Form section: its own content
@@ -192165,6 +192297,37 @@ public final class TomSomV0 {
 
     public void localeOwner(String value) {
       doc.setFormField(path, "localeOwner", value);
+    }
+  }
+
+  // Generated section facade for the `decisions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SystemArchitectureSpecDecisionsForm extends SomNode {
+    public SystemArchitectureSpecDecisionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String refs() {
+      String v = doc.formField(path, "refs");
+      return v == null ? "" : v;
+    }
+
+    public void refs(String value) {
+      doc.setFormField(path, "refs", value);
     }
   }
 
@@ -195056,6 +195219,15 @@ public final class TomSomV0 {
 
     public void owner(String value) {
       doc.setFormField(path, "owner", value);
+    }
+
+    public String keyRiskRef() {
+      String v = doc.formField(path, "keyRiskRef");
+      return v == null ? "" : v;
+    }
+
+    public void keyRiskRef(String value) {
+      doc.setFormField(path, "keyRiskRef", value);
     }
   }
 
@@ -201630,6 +201802,15 @@ public final class TomSomV0 {
 
     public void version(String value) {
       doc.setFormField(path, "version", value);
+    }
+
+    public String libraryRef() {
+      String v = doc.formField(path, "libraryRef");
+      return v == null ? "" : v;
+    }
+
+    public void libraryRef(String value) {
+      doc.setFormField(path, "libraryRef", value);
     }
   }
 

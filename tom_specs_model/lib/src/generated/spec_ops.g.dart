@@ -25258,12 +25258,6 @@ void registerSpecOps() {
             sectionId: 'MOENVA',
           ),
           SpecSlot.node(
-            () => n.stageAssignment,
-            (v) => n.stageAssignment = v as DocSpecsSection?,
-            label: 'stageAssignment',
-            sectionId: 'MESA',
-          ),
-          SpecSlot.node(
             () => n.traceability,
             (v) => n.traceability = v as DocSpecsSection?,
             label: 'traceability',
@@ -25277,7 +25271,6 @@ void registerSpecOps() {
           ..content = n.content
           ..classification = n.classification
           ..value = n.value
-          ..stageAssignment = n.stageAssignment
           ..traceability = n.traceability;
       },
       yamlScalar: (o) => (o as MoscowEntry).content,
@@ -37699,6 +37692,12 @@ void registerSpecOps() {
             label: 'reusableComponents',
             sectionId: 'RCS',
           ),
+          SpecSlot.node(
+            () => n.designDecisions,
+            (v) => n.designDecisions = v as DocSpecsSection?,
+            label: 'designDecisions',
+            sectionId: 'SDR-DECI-REF',
+          ),
         ];
       },
       cloneShallow: (o) {
@@ -37707,7 +37706,8 @@ void registerSpecOps() {
           ..content = n.content
           ..layeringAndModuleStructure = n.layeringAndModuleStructure
           ..developmentEnvironment = n.developmentEnvironment
-          ..reusableComponents = n.reusableComponents;
+          ..reusableComponents = n.reusableComponents
+          ..designDecisions = n.designDecisions;
       },
       yamlScalar: (o) => (o as SoftwareDesignRequirements).content,
     ),
@@ -39481,10 +39481,22 @@ void registerSpecOps() {
   SpecRegistry.register(
     SystemArchitectureSpec,
     SpecClassOps(
-      slots: (o) => const [],
+      slots: (o) {
+        final n = o as SystemArchitectureSpec;
+        return [
+          SpecSlot.node(
+            () => n.decisions,
+            (v) => n.decisions = v as DocSpecsSection?,
+            label: 'decisions',
+            sectionId: 'SYARSP-DECI-REF',
+          ),
+        ];
+      },
       cloneShallow: (o) {
         final n = o as SystemArchitectureSpec;
-        return SystemArchitectureSpec()..content = n.content;
+        return SystemArchitectureSpec()
+          ..content = n.content
+          ..decisions = n.decisions;
       },
       yamlScalar: (o) => (o as SystemArchitectureSpec).content,
     ),

@@ -1996,7 +1996,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("domainKnowledge", "String", "Domain Knowledge — expertise level required", false, "Describe the business/domain expertise the actor needs", 0),
             new SomFormFieldMeta("technicalSkills", "String", "Technical Skills — IT proficiency", false, "Rate the actor’s general IT and tooling proficiency", 1),
             new SomFormFieldMeta("trainingRequired", "String", "Training Required — onboarding needs", false, "List onboarding or training the actor requires", 2),
-            new SomFormFieldMeta("usageFrequency", "String", "Usage Frequency — daily, weekly, monthly, occasional", false, "State how often the actor uses the system", 3)));
+            new SomFormFieldMeta("usageFrequency", "String", "Usage Frequency — daily, weekly, monthly, occasional", false, "State how often the actor uses the system", 3),
+            new SomFormFieldMeta("userCategoryRef", "String", "User Category", false, "The user category (UCE-…) this actor is; its characteristics are described there, not restated here", 4, java.util.List.of(), java.util.List.of("UCE.@sectionId"))));
         out.add(n);
       }
       {
@@ -2871,7 +2872,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert means", 0),
             new SomFormFieldMeta("severity", "AlertSeverity", "Severity", false, "How fast someone has to act.", 1, java.util.List.of("critical", "warning", "info")),
-            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "How much the alert matters relative to others.", 2, java.util.List.of("critical", "high", "medium", "low"))));
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "How much the alert matters relative to others.", 2, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("alertRuleRef", "String", "Alert Rule", false, "The alert rule (ALERUL-ALER-…) that raises this alert; its condition and routing are defined there", 3, java.util.List.of(), java.util.List.of("ALERUL.@sectionId"))));
         out.add(n);
       }
       {
@@ -8915,7 +8917,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2),
+            new SomFormFieldMeta("browserRef", "String", "Browser", false, "The browser of the client requirements (BROREQ browserName) this entry is about", 3, java.util.List.of(), java.util.List.of("BROREQ.browserName"))));
         out.add(n);
       }
       {
@@ -27961,7 +27964,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("classificationLevels", "String", "Classification Levels", true, "Public, Internal, Confidential, Restricted, Top Secret", 0),
+            new SomFormFieldMeta("classificationLevels", "String", "Classification Levels", true, "The data classification levels (DCLSE-ITEM-…) that apply, comma-separated — defined in the data classification", 0, java.util.List.of(), java.util.List.of("DCLSE.@sectionId")),
             new SomFormFieldMeta("personalDataCategories", "String", "Personal Data Categories", true, "Basic identity, contact, financial, health, biometric, genetic", 1),
             new SomFormFieldMeta("sensitiveDataCategories", "String", "Sensitive Data Categories", false, "Special categories Art. 9 GDPR: race, religion, health, sexual orientation, political opinion", 2),
             new SomFormFieldMeta("classificationResponsibility", "String", "Classification Responsibility", false, "Who is responsible for classifying data", 3)));
@@ -29159,7 +29162,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("databaseType", "String", "Type", false, "RDBMS, Document, Key-Value, Graph", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2),
+            new SomFormFieldMeta("libraryRef", "String", "Database Product", false, "The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", 3, java.util.List.of(), java.util.List.of("FRREEN.@sectionId", "THPALI.@sectionId"))));
         out.add(n);
       }
       {
@@ -31739,7 +31743,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetCategory", "String", "Category", false, "Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", 0),
-            new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 1)));
+            new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 1),
+            new SomFormFieldMeta("environmentRef", "String", "Environment", false, "The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register", 2, java.util.List.of(), java.util.List.of("ENVEN.@sectionId"))));
         out.add(n);
       }
       {
@@ -42273,9 +42278,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Stage assignment details.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("targetStage", "String", "Target Stage", true, "Stage in which this feature will be delivered", 0, java.util.List.of(), java.util.List.of("STAGE.@sectionId")),
-            new SomFormFieldMeta("stagePhase", "String", "Stage Phase", false, "Sub-phase within the stage — Alpha / Beta / GA / Full rollout", 1),
-            new SomFormFieldMeta("fallbackStage", "String", "Fallback Stage", false, "Stage to which this feature moves if cut from target stage", 2, java.util.List.of(), java.util.List.of("STAGE.@sectionId"))));
+            new SomFormFieldMeta("stagePhase", "String", "Stage Phase", false, "Sub-phase within the stage — Alpha / Beta / GA / Full rollout", 0)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"), "connotation", "Captures the target stage, stage phase, and fallback stage assigned to a feature.")));
         out.add(n);
       }
@@ -44924,7 +44927,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("description", "String", "Description", false, "What the risk is and how it could materialize", 0),
-            new SomFormFieldMeta("riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 1)));
+            new SomFormFieldMeta("riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 1),
+            new SomFormFieldMeta("keyRiskRef", "String", "Key Risk", false, "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", 2, java.util.List.of(), java.util.List.of("RISENT.@sectionId"))));
         out.add(n);
       }
       {
@@ -46872,7 +46876,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("implementationLibrary", "String", "Implementation Library", false, "Library used for implementation", 0),
             new SomFormFieldMeta("implementationNotes", "String", "Implementation Notes", false, "Specific implementation details", 1),
-            new SomFormFieldMeta("performanceProfile", "String", "Performance Profile", false, "Expected performance characteristics", 2)));
+            new SomFormFieldMeta("performanceProfile", "String", "Performance Profile", false, "Expected performance characteristics", 2),
+            new SomFormFieldMeta("libraryRef", "String", "Implementing Library", false, "The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", 3, java.util.List.of(), java.util.List.of("FRREEN.@sectionId", "THPALI.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("HL7 / FHIR / ISO 20022 — industry data-exchange standards", "ISO 9001 — quality management systems"), "connotation", "Captures the implementation library and performance profile for a protocol.")));
         out.add(n);
       }
@@ -56227,7 +56232,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseDescription", "String", "Phase Description", false, "Detailed description of what this phase migrates", 0),
             new SomFormFieldMeta("phaseObjective", "String", "Phase Objective", false, "Primary goal of this migration phase", 1),
-            new SomFormFieldMeta("linkedProjectStage", "String", "Linked Project Stage", false, "Which system stage this phase supports", 2)));
+            new SomFormFieldMeta("linkedProjectStage", "String", "Linked Project Stage", false, "The project stage (STAGE-…) or migration milestone (MGMLS-MILE-…) this phase belongs to", 2, java.util.List.of(), java.util.List.of("STAGE.@sectionId", "MGMLS.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DAMA-DMBOK2 2017 — the data management body of knowledge defines data migration planning, execution, and validation practices", "ISO 21502:2020 — the guidance on project management defines project life-cycle phases, stage gates, and phase reviews"), "connotation", "Captures the descriptive identity, objective, and linked project stage of an individual migration phase.")));
         out.add(n);
       }
@@ -56676,7 +56681,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("identificationMethod", "String", "Identification Method", false, "Workshop, review, incident, expert judgment", 5),
             new SomFormFieldMeta("affectedSystems", "String", "Affected Systems", false, "List of systems impacted", 6),
             new SomFormFieldMeta("affectedPhases", "String", "Affected Phases", false, "Migration phases where risk applies", 7),
-            new SomFormFieldMeta("affectedStreams", "String", "Affected Workstreams", false, "Data, application, infrastructure, etc.", 8)));
+            new SomFormFieldMeta("affectedStreams", "String", "Affected Workstreams", false, "Data, application, infrastructure, etc.", 8),
+            new SomFormFieldMeta("keyRiskRef", "String", "Key Risk", false, "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", 9, java.util.List.of(), java.util.List.of("RISENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"), "connotation", "Captures how a migration risk was identified — its description, category, source, and the systems, phases, and workstreams it affects.")));
         out.add(n);
       }
@@ -57328,7 +57334,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("platform", "String", "Platform", true, "iOS, Android, Cross-platform", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum OS version", 1),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2),
+            new SomFormFieldMeta("platformRef", "String", "Mobile Platform", false, "The mobile platform of the client requirements (MODERE platform) this entry is about", 3, java.util.List.of(), java.util.List.of("MODERE.platform"))));
         out.add(n);
       }
       {
@@ -58440,9 +58447,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "MoSCoW classification details.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("moscowCategory", "Priority", "MoSCoW Category", true, "MoSCoW scoping band for this item.", 0, java.util.List.of("must", "should", "could", "wontThisTime")),
-            new SomFormFieldMeta("justification", "String", "Justification", true, "Why this feature has this classification — business rationale, regulatory need, user demand", 1),
-            new SomFormFieldMeta("reclassificationRisk", "ImportanceBand", "Reclassification Risk", false, "Likelihood the category will change before delivery.", 2, java.util.List.of("critical", "high", "medium", "low"))));
+            new SomFormFieldMeta("justification", "String", "Justification", true, "Why this feature has this classification — business rationale, regulatory need, user demand", 0),
+            new SomFormFieldMeta("reclassificationRisk", "ImportanceBand", "Reclassification Risk", false, "Likelihood the category will change before delivery.", 1, java.util.List.of("critical", "high", "medium", "low"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"), "connotation", "Captures the MoSCoW category, justification, and reclassification risk for a single feature.")));
         out.add(n);
       }
@@ -58461,21 +58467,9 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("MoscowEntry", SomMetaKind.FORM, "String");
-        n.memberName = "stageAssignment";
-        n.sectionId = "MESA";
-        n.serializationOrder = 3;
-        n.docComment = "Stage assignment.";
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("targetStage", "String", "Target Stage", true, "Stage in which this feature is planned for delivery", 0, java.util.List.of(), java.util.List.of("STAGE.@sectionId")),
-            new SomFormFieldMeta("earliestPossibleStage", "String", "Earliest Possible Stage", false, "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved", 1)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"), "connotation", "Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature.")));
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("MoscowEntry", SomMetaKind.FORM, "String");
         n.memberName = "traceability";
         n.sectionId = "MOENTR";
-        n.serializationOrder = 4;
+        n.serializationOrder = 3;
         n.docComment = "Traceability and notes.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
@@ -58498,10 +58492,6 @@ public final class TomSomV0Meta {
 
     public SomMetaRef value() {
       return new SomMetaRef(tree, path + "/MOENVA");
-    }
-
-    public SomMetaRef stageAssignment() {
-      return new SomMetaRef(tree, path + "/MESA");
     }
 
     public SomMetaRef traceability() {
@@ -63339,7 +63329,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("osFamily", "String", "OS Family", false, "Windows, Unix, Mobile", 0),
             new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2),
+            new SomFormFieldMeta("osRef", "String", "Operating System", false, "The desktop operating system of the client requirements (DEOSRE osName) this entry is about", 3, java.util.List.of(), java.util.List.of("DEOSRE.osName"))));
         out.add(n);
       }
       {
@@ -70529,7 +70520,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("protocolVersion", "String", "Protocol Version", false, "HTTP/2, MQTT 5.0, gRPC 1.x", 1),
             new SomFormFieldMeta("transportLayer", "String", "Transport Layer", false, "TCP, UDP, QUIC", 2),
             new SomFormFieldMeta("directionality", "String", "Directionality", false, "Client-to-server, bidirectional, server-push", 3),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional protocol notes", 4)));
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional protocol notes", 4),
+            new SomFormFieldMeta("protocolComplianceRef", "String", "Protocol Compliance", false, "The industry-protocol entry (INPRCO-…) that states this protocol's compliance", 5, java.util.List.of(), java.util.List.of("INPRCO.@sectionId"))));
         out.add(n);
       }
       return out;
@@ -85037,7 +85029,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Benchmark", 0),
             new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 1),
-            new SomFormFieldMeta("trustServiceCriteria", "String", "Trust Service Criteria", false, "For SOC 2: Security, Availability, etc.", 2)));
+            new SomFormFieldMeta("trustServiceCriteria", "String", "Trust Service Criteria", false, "For SOC 2: Security, Availability, etc.", 2),
+            new SomFormFieldMeta("standardRef", "String", "Security Standard", false, "The security standard (SSE-STAN-…) whose compliance this entry tracks; the standard is described there", 3, java.util.List.of(), java.util.List.of("SSE.@sectionId"))));
         out.add(n);
       }
       {
@@ -85673,7 +85666,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development, QA, UAT, Staging, Production, DR", 0),
             new SomFormFieldMeta("environmentCode", "String", "Environment Code", false, "dev, stg, prod, dr", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Primary purpose of this environment", 2)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Primary purpose of this environment", 2),
+            new SomFormFieldMeta("environmentRef", "String", "Environment", false, "The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register", 3, java.util.List.of(), java.util.List.of("ENVEN.@sectionId"))));
         out.add(n);
       }
       {
@@ -87602,7 +87596,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentType", "String", "Component Type", false, "Core, Utility, Domain, Integration, Extension", 0),
-            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1)));
+            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1),
+            new SomFormFieldMeta("componentRef", "String", "Component", false, "The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue", 2, java.util.List.of(), java.util.List.of("CMPNT.@sectionId"))));
         out.add(n);
       }
       {
@@ -87707,7 +87702,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("libraryType", "String", "Library Type", false, "Utility, Domain, Infrastructure, UI", 0),
-            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1)));
+            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1),
+            new SomFormFieldMeta("componentRef", "String", "Component", false, "The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue", 2, java.util.List.of(), java.util.List.of("CMPNT.@sectionId"))));
         out.add(n);
       }
       {
@@ -88413,6 +88409,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      {
+        SomMetaNode n = new SomMetaNode("SoftwareDesignRequirements", SomMetaKind.FORM, "String");
+        n.memberName = "designDecisions";
+        n.sectionId = "SDR-DECI-REF";
+        n.serializationOrder = 4;
+        n.docComment = "The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("refs", "String", "Design Decisions", false, "Section ids of the architecture decision records (`ARDE`), comma-separated", 0, java.util.List.of(), java.util.List.of("ARDE.@sectionId"))));
+        n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Design Decisions")));
+        out.add(n);
+      }
       return out;
     }
 
@@ -88430,6 +88437,10 @@ public final class TomSomV0Meta {
 
     public ReusableComponentsSectionNav reusableComponents() {
       return new ReusableComponentsSectionNav(tree, path + "/reusableComponents");
+    }
+
+    public SomMetaRef designDecisions() {
+      return new SomMetaRef(tree, path + "/SDR-DECI-REF");
     }
   }
 
@@ -89653,7 +89664,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Risk identity and description.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskDescription", "String", "Risk Description", true, "Detailed description of the risk scenario", 0)));
+            new SomFormFieldMeta("riskDescription", "String", "Risk Description", true, "Detailed description of the risk scenario", 0),
+            new SomFormFieldMeta("keyRiskRef", "String", "Key Risk", false, "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", 1, java.util.List.of(), java.util.List.of("RISENT.@sectionId")),
+            new SomFormFieldMeta("migrationRiskRef", "String", "Migration Risk", false, "The migration risk (MGRSK-ITEM-…) this stage-level entry tracks; the risk itself is described there", 2, java.util.List.of(), java.util.List.of("MGRSK.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidance defines risk identification and description of risk scenarios"), "connotation", "Captures the detailed description of an individual migration risk scenario.")));
         out.add(n);
       }
@@ -91326,7 +91339,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("regulatorInterest", "String", "Regulator Interest — compliance needs", false, "Compliance or legal interests to satisfy", 2),
             new SomFormFieldMeta("operationsInterest", "String", "Operations Interest — operational needs", false, "Operational concerns such as monitoring or SLAs", 3),
             new SomFormFieldMeta("supportStaffInterest", "String", "Support Staff Interest — support needs", false, "What support staff need to diagnose and assist", 4),
-            new SomFormFieldMeta("otherStakeholders", "String", "Other Stakeholders — additional interested parties", false, "Any further parties and their interests", 5)));
+            new SomFormFieldMeta("otherStakeholders", "String", "Other Stakeholders — additional interested parties", false, "Any further parties and their interests", 5),
+            new SomFormFieldMeta("stakeholderRefs", "String", "Stakeholders", false, "The stakeholders (STKRE-STAK-… / STKNT-…) with an interest in this interaction, comma-separated; described in the stakeholder register", 6, java.util.List.of(), java.util.List.of("STKRE.@sectionId", "STKNT.@sectionId"))));
         out.add(n);
       }
       return out;
@@ -92828,11 +92842,26 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("SystemArchitectureSpec", SomMetaKind.FORM, "String");
+        n.memberName = "decisions";
+        n.sectionId = "SYARSP-DECI-REF";
+        n.serializationOrder = 1;
+        n.docComment = "The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("refs", "String", "Architecture Decisions", false, "Section ids of the architecture decision records (`ARDE`), comma-separated", 0, java.util.List.of(), java.util.List.of("ARDE.@sectionId"))));
+        n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Architecture Decisions")));
+        out.add(n);
+      }
       return out;
     }
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef decisions() {
+      return new SomMetaRef(tree, path + "/SYARSP-DECI-REF");
     }
   }
 
@@ -94792,7 +94821,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Combined probability/impact score — probability × impact, each counted by its band (1-5)", 3),
             new SomFormFieldMeta("mitigation", "String", "Mitigation Strategy", false, "How the risk will be reduced", 4),
             new SomFormFieldMeta("contingency", "String", "Contingency Plan", false, "Fallback if the risk materializes", 5),
-            new SomFormFieldMeta("owner", "String", "Risk Owner", false, "Person accountable for the risk", 6)));
+            new SomFormFieldMeta("owner", "String", "Risk Owner", false, "Person accountable for the risk", 6),
+            new SomFormFieldMeta("keyRiskRef", "String", "Key Risk", false, "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register", 7, java.util.List.of(), java.util.List.of("RISENT.@sectionId"))));
         out.add(n);
       }
       return out;
@@ -99910,7 +99940,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("softwareName", "String", "Software Name", true, "Third-party software name", 0),
             new SomFormFieldMeta("vendor", "String", "Vendor", false, "Software vendor", 1),
             new SomFormFieldMeta("category", "String", "Category", false, "Antivirus, Firewall, MDM, Office", 2),
-            new SomFormFieldMeta("version", "String", "Version", false, "Supported versions", 3)));
+            new SomFormFieldMeta("version", "String", "Version", false, "Supported versions", 3),
+            new SomFormFieldMeta("libraryRef", "String", "Library", false, "The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", 4, java.util.List.of(), java.util.List.of("FRREEN.@sectionId", "THPALI.@sectionId"))));
         out.add(n);
       }
       {
@@ -113547,6 +113578,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP");
     }
 
+    public SomMetaRef SDR_DECI_REF() {
+      return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/SDR-DECI-REF");
+    }
+
     public SomListMetaRef<OsCompatibilityEntryId> OCE_OSCO_LST() {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
     }
@@ -115409,6 +115444,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<SecurityAuditEntryId> SAE_AUDI_LST() {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
+    }
+
+    public SomMetaRef SYARSP_DECI_REF() {
+      return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemArchitecture/SYARSP-DECI-REF");
     }
 
     public SomMetaRef CSVND() {
@@ -118183,6 +118222,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/softwareDesignRequirements/reusableComponents/registry/COREUP");
     }
 
+    public SomMetaRef SDR_DECI_REF() {
+      return new SomMetaRef(tree, path + "/softwareDesignRequirements/SDR-DECI-REF");
+    }
+
     public SomListMetaRef<OsCompatibilityEntryId> OCE_OSCO_LST() {
       return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
     }
@@ -120045,6 +120088,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<SecurityAuditEntryId> SAE_AUDI_LST() {
       return new SomListMetaRef<>(tree, path + "/technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
+    }
+
+    public SomMetaRef SYARSP_DECI_REF() {
+      return new SomMetaRef(tree, path + "/systemArchitecture/SYARSP-DECI-REF");
     }
 
     public SomMetaRef CSVND() {
@@ -122361,6 +122408,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREUP");
     }
 
+    public SomMetaRef SDR_DECI_REF() {
+      return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/SDR-DECI-REF");
+    }
+
     public SomListMetaRef<OsCompatibilityEntryId> OCE_OSCO_LST() {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
     }
@@ -124223,6 +124274,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<SecurityAuditEntryId> SAE_AUDI_LST() {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
+    }
+
+    public SomMetaRef SYARSP_DECI_REF() {
+      return new SomMetaRef(tree, path + "/technicalFramework/systemArchitecture/SYARSP-DECI-REF");
     }
 
     public SomListMetaRef<UserCategoryDefinitionId> USCDF_ITEM_LST() {
@@ -128111,10 +128166,6 @@ public final class TomSomV0Meta {
 
     public SomMetaRef MOENVA() {
       return new SomMetaRef(tree, path + "/MOENVA");
-    }
-
-    public SomMetaRef MESA() {
-      return new SomMetaRef(tree, path + "/MESA");
     }
 
     public SomMetaRef MOENTR() {

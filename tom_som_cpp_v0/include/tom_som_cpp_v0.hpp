@@ -4020,7 +4020,6 @@ class MonitoringMonitoringOverviewForm;
 class MoscowAnalysisContentForm;
 class MoscowEntryClassificationForm;
 class MoscowEntryContentForm;
-class MoscowEntryStageAssignmentForm;
 class MoscowEntryTraceabilityForm;
 class MoscowEntryValueForm;
 class MultiChannelExperienceMultiChannelConfigurationForm;
@@ -4820,6 +4819,7 @@ class SlaMonitoringRequirementsReportingForm;
 class SloEntryContentForm;
 class SloEntryOperationsForm;
 class SloEntryTargetForm;
+class SoftwareDesignRequirementsDesignDecisionsForm;
 class SoftwareLayerEntryComponentsForm;
 class SoftwareLayerEntryContentForm;
 class SoftwareLayerEntryDependenciesForm;
@@ -4940,6 +4940,7 @@ class SupportAccessTicketsForm;
 class SupportedLocaleEntryContentForm;
 class SupportedLocaleEntryFormattingForm;
 class SupportedLocaleEntryRolloutForm;
+class SystemArchitectureSpecDecisionsForm;
 class SystemBusinessCriticalityContentForm;
 class SystemBusinessCriticalityGovernanceForm;
 class SystemBusinessCriticalityOperationsForm;
@@ -20279,8 +20280,6 @@ class MoscowEntry : public som::SomNode {
   MoscowEntryClassificationForm classification() const;
   // Value and effort estimates.
   MoscowEntryValueForm value() const;
-  // Stage assignment.
-  MoscowEntryStageAssignmentForm stageAssignment() const;
   // Traceability and notes.
   MoscowEntryTraceabilityForm traceability() const;
 };
@@ -27913,6 +27912,8 @@ class SoftwareDesignRequirements : public som::SomNode {
   DevelopmentEnvironment developmentEnvironment() const;
   // 8.2.3. Reusable Components.
   ReusableComponentsSection reusableComponents() const;
+  // The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+  SoftwareDesignRequirementsDesignDecisionsForm designDecisions() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -28921,6 +28922,8 @@ class SystemArchitectureSpec : public som::SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   std::string content() const;
   void setContent(const std::string& value);
+  // The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+  SystemArchitectureSpecDecisionsForm decisions() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -33852,6 +33855,8 @@ class ActorCharacteristicsContentForm : public som::SomNode {
   void setTrainingRequired(const std::string& value);
   std::string usageFrequency() const;
   void setUsageFrequency(const std::string& value);
+  std::string userCategoryRef() const;
+  void setUserCategoryRef(const std::string& value);
 };
 
 // Generated section facade for the `support` @Form section: its own `content` text followed by one typed member per form field.
@@ -34324,6 +34329,8 @@ class AlertDefinitionEntryContentForm : public som::SomNode {
   void setSeverity(const std::string& value);
   std::string priority() const;
   void setPriority(const std::string& value);
+  std::string alertRuleRef() const;
+  void setAlertRuleRef(const std::string& value);
 };
 
 // Generated section facade for the `notification` @Form section: its own `content` text followed by one typed member per form field.
@@ -37284,6 +37291,8 @@ class BrowserCompatibilityEntryContentForm : public som::SomNode {
   void setMinVersion(const std::string& value);
   std::string maxVersion() const;
   void setMaxVersion(const std::string& value);
+  std::string browserRef() const;
+  void setBrowserRef(const std::string& value);
 };
 
 // Generated section facade for the `features` @Form section: its own `content` text followed by one typed member per form field.
@@ -45760,6 +45769,8 @@ class DatabaseCompatibilityEntryContentForm : public som::SomNode {
   void setMinVersion(const std::string& value);
   std::string maxVersion() const;
   void setMaxVersion(const std::string& value);
+  std::string libraryRef() const;
+  void setLibraryRef(const std::string& value);
 };
 
 // Generated section facade for the `features` @Form section: its own `content` text followed by one typed member per form field.
@@ -47216,6 +47227,8 @@ class DeploymentTargetEntryContentForm : public som::SomNode {
   void setTargetCategory(const std::string& value);
   std::string targetEnvironment() const;
   void setTargetEnvironment(const std::string& value);
+  std::string environmentRef() const;
+  void setEnvironmentRef(const std::string& value);
 };
 
 // Generated section facade for the `platform` @Form section: its own `content` text followed by one typed member per form field.
@@ -52126,12 +52139,8 @@ class FeatureStageMappingAssignmentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string targetStage() const;
-  void setTargetStage(const std::string& value);
   std::string stagePhase() const;
   void setStagePhase(const std::string& value);
-  std::string fallbackStage() const;
-  void setFallbackStage(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -53378,6 +53387,8 @@ class GoalRiskEntryContentForm : public som::SomNode {
   void setDescription(const std::string& value);
   std::string riskCategory() const;
   void setRiskCategory(const std::string& value);
+  std::string keyRiskRef() const;
+  void setKeyRiskRef(const std::string& value);
 };
 
 // Generated section facade for the `response` @Form section: its own `content` text followed by one typed member per form field.
@@ -54360,6 +54371,8 @@ class IndustryProtocolComplianceEntryImplementationForm : public som::SomNode {
   void setImplementationNotes(const std::string& value);
   std::string performanceProfile() const;
   void setPerformanceProfile(const std::string& value);
+  std::string libraryRef() const;
+  void setLibraryRef(const std::string& value);
 };
 
 // Generated section facade for the `interoperability` @Form section: its own `content` text followed by one typed member per form field.
@@ -59260,6 +59273,8 @@ class MigrationRiskEntryIdentificationForm : public som::SomNode {
   void setAffectedPhases(const std::string& value);
   std::string affectedStreams() const;
   void setAffectedStreams(const std::string& value);
+  std::string keyRiskRef() const;
+  void setKeyRiskRef(const std::string& value);
 };
 
 // Generated section facade for the `impact` @Form section: its own `content` text followed by one typed member per form field.
@@ -59604,6 +59619,8 @@ class MobileCompatibilityEntryContentForm : public som::SomNode {
   void setMinVersion(const std::string& value);
   std::string maxVersion() const;
   void setMaxVersion(const std::string& value);
+  std::string platformRef() const;
+  void setPlatformRef(const std::string& value);
 };
 
 // Generated section facade for the `devices` @Form section: its own `content` text followed by one typed member per form field.
@@ -60136,8 +60153,6 @@ class MoscowEntryClassificationForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string moscowCategory() const;
-  void setMoscowCategory(const std::string& value);
   std::string justification() const;
   void setJustification(const std::string& value);
   std::string reclassificationRisk() const;
@@ -60154,20 +60169,6 @@ class MoscowEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string featureId() const;
   void setFeatureId(const std::string& value);
-};
-
-// Generated section facade for the `stageAssignment` @Form section: its own `content` text followed by one typed member per form field.
-class MoscowEntryStageAssignmentForm : public som::SomNode {
- public:
-  MoscowEntryStageAssignmentForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string targetStage() const;
-  void setTargetStage(const std::string& value);
-  std::string earliestPossibleStage() const;
-  void setEarliestPossibleStage(const std::string& value);
 };
 
 // Generated section facade for the `traceability` @Form section: its own `content` text followed by one typed member per form field.
@@ -62370,6 +62371,8 @@ class OsCompatibilityEntryContentForm : public som::SomNode {
   void setMinVersion(const std::string& value);
   std::string maxVersion() const;
   void setMaxVersion(const std::string& value);
+  std::string osRef() const;
+  void setOsRef(const std::string& value);
 };
 
 // Generated section facade for the `lifecycle` @Form section: its own `content` text followed by one typed member per form field.
@@ -65742,6 +65745,8 @@ class ProtocolEntryContentForm : public som::SomNode {
   void setDirectionality(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+  std::string protocolComplianceRef() const;
+  void setProtocolComplianceRef(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -73008,6 +73013,8 @@ class SecurityStandardComplianceEntryContentForm : public som::SomNode {
   void setVersion(const std::string& value);
   std::string trustServiceCriteria() const;
   void setTrustServiceCriteria(const std::string& value);
+  std::string standardRef() const;
+  void setStandardRef(const std::string& value);
 };
 
 // Generated section facade for the `controls` @Form section: its own `content` text followed by one typed member per form field.
@@ -73450,6 +73457,8 @@ class ServerEnvironmentEntryContentForm : public som::SomNode {
   void setEnvironmentCode(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
+  std::string environmentRef() const;
+  void setEnvironmentRef(const std::string& value);
 };
 
 // Generated section facade for the `lifecycle` @Form section: its own `content` text followed by one typed member per form field.
@@ -74418,6 +74427,8 @@ class SharedLibraryComponentEntryContentForm : public som::SomNode {
   void setComponentType(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
+  std::string componentRef() const;
+  void setComponentRef(const std::string& value);
 };
 
 // Generated section facade for the `description` @Form section: its own `content` text followed by one typed member per form field.
@@ -74524,6 +74535,8 @@ class SharedLibraryEntryContentForm : public som::SomNode {
   void setLibraryType(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
+  std::string componentRef() const;
+  void setComponentRef(const std::string& value);
 };
 
 // Generated section facade for the `description` @Form section: its own `content` text followed by one typed member per form field.
@@ -74906,6 +74919,18 @@ class SloEntryTargetForm : public som::SomNode {
   void setSloWindow(const std::string& value);
   std::string errorBudget() const;
   void setErrorBudget(const std::string& value);
+};
+
+// Generated section facade for the `designDecisions` @Form section: its own `content` text followed by one typed member per form field.
+class SoftwareDesignRequirementsDesignDecisionsForm : public som::SomNode {
+ public:
+  SoftwareDesignRequirementsDesignDecisionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string refs() const;
+  void setRefs(const std::string& value);
 };
 
 // Generated section facade for the `components` @Form section: its own `content` text followed by one typed member per form field.
@@ -75644,6 +75669,10 @@ class StageMigrationRiskEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskDescription() const;
   void setRiskDescription(const std::string& value);
+  std::string keyRiskRef() const;
+  void setKeyRiskRef(const std::string& value);
+  std::string migrationRiskRef() const;
+  void setMigrationRiskRef(const std::string& value);
 };
 
 // Generated section facade for the `mitigation` @Form section: its own `content` text followed by one typed member per form field.
@@ -76646,6 +76675,8 @@ class StakeholdersAndInterestsContentForm : public som::SomNode {
   void setSupportStaffInterest(const std::string& value);
   std::string otherStakeholders() const;
   void setOtherStakeholders(const std::string& value);
+  std::string stakeholderRefs() const;
+  void setStakeholderRefs(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -77270,6 +77301,18 @@ class SupportedLocaleEntryRolloutForm : public som::SomNode {
   void setTranslationCoverage(const std::string& value);
   std::string localeOwner() const;
   void setLocaleOwner(const std::string& value);
+};
+
+// Generated section facade for the `decisions` @Form section: its own `content` text followed by one typed member per form field.
+class SystemArchitectureSpecDecisionsForm : public som::SomNode {
+ public:
+  SystemArchitectureSpecDecisionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string refs() const;
+  void setRefs(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -78162,6 +78205,8 @@ class SystemMigrationRiskEntryContentForm : public som::SomNode {
   void setContingency(const std::string& value);
   std::string owner() const;
   void setOwner(const std::string& value);
+  std::string keyRiskRef() const;
+  void setKeyRiskRef(const std::string& value);
 };
 
 // Generated section facade for the `baseline` @Form section: its own `content` text followed by one typed member per form field.
@@ -80184,6 +80229,8 @@ class ThirdPartyCompatibilityEntryContentForm : public som::SomNode {
   void setCategory(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
+  std::string libraryRef() const;
+  void setLibraryRef(const std::string& value);
 };
 
 // Generated section facade for the `integration` @Form section: its own `content` text followed by one typed member per form field.

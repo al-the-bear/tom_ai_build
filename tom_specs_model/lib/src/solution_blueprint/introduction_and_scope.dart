@@ -6610,6 +6610,14 @@ class GoalRiskEntry extends DocSpecsSection {
           'Regulatory, External)',
       hint: 'e.g., Market, Operational, Technical, Resource, Regulatory',
     ),
+    Field(
+      'keyRiskRef',
+      String,
+      'Key Risk',
+      hint:
+          'The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register',
+      refersTo: ['RISENT.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -13383,6 +13391,14 @@ class SystemMigrationRiskEntry extends DocSpecsSection {
       'Risk Owner',
       hint: 'Person accountable for the risk',
     ),
+    Field(
+      'keyRiskRef',
+      String,
+      'Key Risk',
+      hint:
+          'The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register',
+      refersTo: ['RISENT.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -14217,6 +14233,14 @@ class MigrationRiskEntry extends DocSpecsSection {
       String,
       'Affected Workstreams',
       hint: 'Data, application, infrastructure, etc.',
+    ),
+    Field(
+      'keyRiskRef',
+      String,
+      'Key Risk',
+      hint:
+          'The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register',
+      refersTo: ['RISENT.@sectionId'],
     ),
   ])
   @SerializationOrder(1)

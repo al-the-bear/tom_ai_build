@@ -920,6 +920,43 @@ The Solution Blueprint declares `productOf` on every risk score whose inputs
 sit in the same entry (`RIAN`, `CREA`, `GREA`, `SYMIRI`, `SMRPI`, `MIRIQU`) and
 `rankOf` on the key-risk ranking (`RIAN`).
 
+#### 6.2.5 One home per fact
+
+A fact the model offers several places for is written several times, and the
+copies drift: a document either repeats it or picks one place arbitrarily. The
+rule is that **each fact has one home**. Another section that needs the fact
+names it with a reference field (§6.2) rather than restating it, and a place
+that would only hold a copy of a value the same document already holds is not
+modelled at all.
+
+When a new member would restate something the model already holds, add a
+reference to the home instead. The homes, and the places that point at them:
+
+| Fact | Home | Places that refer to it |
+| --- | --- | --- |
+| A risk | the key-risk register (`RISENT`) | goal risks, migration risks, system-migration risks and stage-migration risks (`keyRiskRef`); a stage-migration risk also names its migration risk (`SMRI.migrationRiskRef` → `MGRSK`) |
+| An actor's user category | the user categories (`UCE`) | an actor's characteristics (`ACTCHA.userCategoryRef`) |
+| A stakeholder | the stakeholder register (`STKRE`, `STKNT`) | an interaction's stakeholders (`STANIN.stakeholderRefs`) |
+| A standard-software product | frameworks (`FRREEN`) and third-party libraries (`THPALI`) | component vendor (`CMPVD.libraryRef`), third-party and database compatibility (`THPACO`, `DATCOM` `libraryRef`), a protocol's implementing library (`IPCEI.libraryRef`) |
+| A shared library | the component catalogue (`CMPNT`) | both shared-library lists (`SHLIEN`, `SHLCP` `componentRef`) |
+| A protocol's compliance | industry-protocol compliance (`INPRCO`) | protocol entries (`PE.protocolComplianceRef`) |
+| An environment | the environment register (`ENVEN`) | server environments (`SEE.environmentRef`), deployment targets (`DEPTAR.environmentRef`) |
+| A supported client platform | the client requirements (`BROREQ`, `DEOSRE`, `MODERE`) | browser, OS and mobile compatibility (`BROCOM.browserRef`, `OCE.osRef`, `MOBCOM.platformRef`), a client application's `platformTargets` |
+| A data classification level | the data classification (`DCLSE`) | data-protection classification (`DAPRCL.classificationLevels`), an attribute's sensitivity (`DAATT-SECU`) |
+| A security standard | the IT security standards (`SSE`) | standards compliance (`SESTCO.standardRef`) |
+| An alert | the alert rules of system operation (`ALERUL`) | the operations requirements' alert definitions (`ALEDEF.alertRuleRef`), a job's `failureAlert` |
+| A design decision | the architecture decision records (`ARDE`) | software design (`SDR-DECI-REF`), the architecture specification (`SYARSP-DECI-REF`) |
+| A feature's MoSCoW tier and stage | the feature priority register (`FPE.moscowTier`, `FESTAS`) | the MoSCoW analysis and the feature-stage matrix name the feature (`featureId`) and hold no tier or stage of their own |
+| A migration phase's stage | the stages (`STAGE`) and migration milestones (`MGMLS`) | `MIPHID.linkedProjectStage` |
+
+Where two sections describe one *policy* — API versioning (`APVEST`), coding
+standards (`CSE`), documentation standards (`DOST`) — the named section is the
+home and the others describe only the aspect their own section is about,
+pointing at the home in their text. Monitoring is split by ownership: the
+operations requirements (`OPRE > MAAS`) state what must be observable, system
+operation (`SOAM > MONITO`) how it is, and an alert is defined once, as an
+alert rule.
+
 ### 6.3 Form decomposition
 
 `@Form` sections target **3–10 fields**. Larger forms are decomposed so the

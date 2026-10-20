@@ -3087,13 +3087,6 @@ class MoscowEntry extends DocSpecsSection {
   )
   @Form([
     Field(
-      'moscowCategory',
-      Priority,
-      'MoSCoW Category',
-      hint: 'MoSCoW scoping band for this item.',
-      required: true,
-    ),
-    Field(
       'justification',
       String,
       'Justification',
@@ -3145,37 +3138,6 @@ class MoscowEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? value;
 
-  /// Stage assignment.
-  @SectionId('MESA')
-  @StandardReferences(
-    [
-      'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
-      'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management',
-    ],
-    'Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature.',
-  )
-  @Form([
-    Field(
-      'targetStage',
-      String,
-      'Target Stage',
-      hint: 'Stage in which this feature is planned for delivery',
-      required: true,
-      refersTo: ['STAGE.@sectionId'],
-    ),
-    Field(
-      'earliestPossibleStage',
-      String,
-      'Earliest Possible Stage',
-      hint:
-          'The earliest stage and what it waits for, as prose (e.g. '
-          "'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); "
-          'not resolved',
-    ),
-  ])
-  @SerializationOrder(3)
-  DocSpecsSection? stageAssignment;
-
   /// Traceability and notes.
   @SectionId('MOENTR')
   @StandardReferences(
@@ -3221,7 +3183,7 @@ class MoscowEntry extends DocSpecsSection {
     ),
     Field('notes', String, 'Notes', hint: 'Additional notes or caveats'),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(3)
   DocSpecsSection? traceability;
 }
 
@@ -3350,25 +3312,10 @@ class FeatureStageMapping extends DocSpecsSection {
   )
   @Form([
     Field(
-      'targetStage',
-      String,
-      'Target Stage',
-      hint: 'Stage in which this feature will be delivered',
-      required: true,
-      refersTo: ['STAGE.@sectionId'],
-    ),
-    Field(
       'stagePhase',
       String,
       'Stage Phase',
       hint: 'Sub-phase within the stage — Alpha / Beta / GA / Full rollout',
-    ),
-    Field(
-      'fallbackStage',
-      String,
-      'Fallback Stage',
-      hint: 'Stage to which this feature moves if cut from target stage',
-      refersTo: ['STAGE.@sectionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -5149,7 +5096,9 @@ class MigrationPhaseEntry extends DocSpecsSection {
       'linkedProjectStage',
       String,
       'Linked Project Stage',
-      hint: 'Which system stage this phase supports',
+      hint:
+          'The project stage (STAGE-…) or migration milestone (MGMLS-MILE-…) this phase belongs to',
+      refersTo: ['STAGE.@sectionId', 'MGMLS.@sectionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -5839,6 +5788,22 @@ class StageMigrationRiskEntry extends DocSpecsSection {
       'Risk Description',
       hint: 'Detailed description of the risk scenario',
       required: true,
+    ),
+    Field(
+      'keyRiskRef',
+      String,
+      'Key Risk',
+      hint:
+          'The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register',
+      refersTo: ['RISENT.@sectionId'],
+    ),
+    Field(
+      'migrationRiskRef',
+      String,
+      'Migration Risk',
+      hint:
+          'The migration risk (MGRSK-ITEM-…) this stage-level entry tracks; the risk itself is described there',
+      refersTo: ['MGRSK.@sectionId'],
     ),
   ])
   @SerializationOrder(1)

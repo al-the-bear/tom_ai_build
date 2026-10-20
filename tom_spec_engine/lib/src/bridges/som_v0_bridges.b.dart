@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-20T02:21:14.774195 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T03:04:34.731104 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2779,7 +2779,6 @@ class SomV0Bridge {
       _createMoscowAnalysisContentFormBridge(),
       _createMoscowEntryClassificationFormBridge(),
       _createMoscowEntryContentFormBridge(),
-      _createMoscowEntryStageAssignmentFormBridge(),
       _createMoscowEntryTraceabilityFormBridge(),
       _createMoscowEntryValueFormBridge(),
       _createMultiChannelExperienceMultiChannelConfigurationFormBridge(),
@@ -3579,6 +3578,7 @@ class SomV0Bridge {
       _createSloEntryContentFormBridge(),
       _createSloEntryOperationsFormBridge(),
       _createSloEntryTargetFormBridge(),
+      _createSoftwareDesignRequirementsDesignDecisionsFormBridge(),
       _createSoftwareLayerEntryComponentsFormBridge(),
       _createSoftwareLayerEntryContentFormBridge(),
       _createSoftwareLayerEntryDependenciesFormBridge(),
@@ -3699,6 +3699,7 @@ class SomV0Bridge {
       _createSupportedLocaleEntryContentFormBridge(),
       _createSupportedLocaleEntryFormattingFormBridge(),
       _createSupportedLocaleEntryRolloutFormBridge(),
+      _createSystemArchitectureSpecDecisionsFormBridge(),
       _createSystemBusinessCriticalityContentFormBridge(),
       _createSystemBusinessCriticalityGovernanceFormBridge(),
       _createSystemBusinessCriticalityOperationsFormBridge(),
@@ -10065,8 +10066,6 @@ class SomV0Bridge {
       'MoscowEntryClassificationForm':
           _createMoscowEntryClassificationFormBridge,
       'MoscowEntryContentForm': _createMoscowEntryContentFormBridge,
-      'MoscowEntryStageAssignmentForm':
-          _createMoscowEntryStageAssignmentFormBridge,
       'MoscowEntryTraceabilityForm': _createMoscowEntryTraceabilityFormBridge,
       'MoscowEntryValueForm': _createMoscowEntryValueFormBridge,
       'MultiChannelExperienceMultiChannelConfigurationForm':
@@ -11486,6 +11485,8 @@ class SomV0Bridge {
       'SloEntryContentForm': _createSloEntryContentFormBridge,
       'SloEntryOperationsForm': _createSloEntryOperationsFormBridge,
       'SloEntryTargetForm': _createSloEntryTargetFormBridge,
+      'SoftwareDesignRequirementsDesignDecisionsForm':
+          _createSoftwareDesignRequirementsDesignDecisionsFormBridge,
       'SoftwareLayerEntryComponentsForm':
           _createSoftwareLayerEntryComponentsFormBridge,
       'SoftwareLayerEntryContentForm':
@@ -11669,6 +11670,8 @@ class SomV0Bridge {
           _createSupportedLocaleEntryFormattingFormBridge,
       'SupportedLocaleEntryRolloutForm':
           _createSupportedLocaleEntryRolloutFormBridge,
+      'SystemArchitectureSpecDecisionsForm':
+          _createSystemArchitectureSpecDecisionsFormBridge,
       'SystemBusinessCriticalityContentForm':
           _createSystemBusinessCriticalityContentFormBridge,
       'SystemBusinessCriticalityGovernanceForm':
@@ -19145,8 +19148,6 @@ class SomV0Bridge {
       'MoscowEntryClassificationForm':
           $tom_som_dart_v0_1.MoscowEntryClassificationForm,
       'MoscowEntryContentForm': $tom_som_dart_v0_1.MoscowEntryContentForm,
-      'MoscowEntryStageAssignmentForm':
-          $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm,
       'MoscowEntryTraceabilityForm':
           $tom_som_dart_v0_1.MoscowEntryTraceabilityForm,
       'MoscowEntryValueForm': $tom_som_dart_v0_1.MoscowEntryValueForm,
@@ -20679,6 +20680,8 @@ class SomV0Bridge {
       'SloEntryContentForm': $tom_som_dart_v0_1.SloEntryContentForm,
       'SloEntryOperationsForm': $tom_som_dart_v0_1.SloEntryOperationsForm,
       'SloEntryTargetForm': $tom_som_dart_v0_1.SloEntryTargetForm,
+      'SoftwareDesignRequirementsDesignDecisionsForm':
+          $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm,
       'SoftwareLayerEntryComponentsForm':
           $tom_som_dart_v0_1.SoftwareLayerEntryComponentsForm,
       'SoftwareLayerEntryContentForm':
@@ -20889,6 +20892,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.SupportedLocaleEntryFormattingForm,
       'SupportedLocaleEntryRolloutForm':
           $tom_som_dart_v0_1.SupportedLocaleEntryRolloutForm,
+      'SystemArchitectureSpecDecisionsForm':
+          $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm,
       'SystemBusinessCriticalityContentForm':
           $tom_som_dart_v0_1.SystemBusinessCriticalityContentForm,
       'SystemBusinessCriticalityGovernanceForm':
@@ -28960,8 +28965,6 @@ class SomV0Bridge {
       'MoscowEntryClassificationForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'MoscowEntryContentForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
-      'MoscowEntryStageAssignmentForm':
-          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'MoscowEntryTraceabilityForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'MoscowEntryValueForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -30527,6 +30530,8 @@ class SomV0Bridge {
       'SloEntryContentForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SloEntryOperationsForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SloEntryTargetForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SoftwareDesignRequirementsDesignDecisionsForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SoftwareLayerEntryComponentsForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SoftwareLayerEntryContentForm':
@@ -30753,6 +30758,8 @@ class SomV0Bridge {
       'SupportedLocaleEntryFormattingForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SupportedLocaleEntryRolloutForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SystemArchitectureSpecDecisionsForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemBusinessCriticalityContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -37778,7 +37785,6 @@ class SomV0Bridge {
       'MoscowAnalysisContentForm': ['SomNode'],
       'MoscowEntryClassificationForm': ['SomNode'],
       'MoscowEntryContentForm': ['SomNode'],
-      'MoscowEntryStageAssignmentForm': ['SomNode'],
       'MoscowEntryTraceabilityForm': ['SomNode'],
       'MoscowEntryValueForm': ['SomNode'],
       'MultiChannelExperienceMultiChannelConfigurationForm': ['SomNode'],
@@ -38580,6 +38586,7 @@ class SomV0Bridge {
       'SloEntryContentForm': ['SomNode'],
       'SloEntryOperationsForm': ['SomNode'],
       'SloEntryTargetForm': ['SomNode'],
+      'SoftwareDesignRequirementsDesignDecisionsForm': ['SomNode'],
       'SoftwareLayerEntryComponentsForm': ['SomNode'],
       'SoftwareLayerEntryContentForm': ['SomNode'],
       'SoftwareLayerEntryDependenciesForm': ['SomNode'],
@@ -38700,6 +38707,7 @@ class SomV0Bridge {
       'SupportedLocaleEntryContentForm': ['SomNode'],
       'SupportedLocaleEntryFormattingForm': ['SomNode'],
       'SupportedLocaleEntryRolloutForm': ['SomNode'],
+      'SystemArchitectureSpecDecisionsForm': ['SomNode'],
       'SystemBusinessCriticalityContentForm': ['SomNode'],
       'SystemBusinessCriticalityGovernanceForm': ['SomNode'],
       'SystemBusinessCriticalityOperationsForm': ['SomNode'],
@@ -143998,9 +144006,6 @@ BridgedClass _createMoscowEntryBridge() {
       'value': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.MoscowEntry>(target, 'MoscowEntry')
           .value,
-      'stageAssignment': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntry>(target, 'MoscowEntry')
-          .stageAssignment,
       'traceability': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.MoscowEntry>(target, 'MoscowEntry')
           .traceability,
@@ -144063,7 +144068,6 @@ BridgedClass _createMoscowEntryBridge() {
       'content': 'MoscowEntryContentForm get content',
       'classification': 'MoscowEntryClassificationForm get classification',
       'value': 'MoscowEntryValueForm get value',
-      'stageAssignment': 'MoscowEntryStageAssignmentForm get stageAssignment',
       'traceability': 'MoscowEntryTraceabilityForm get traceability',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -199677,6 +199681,12 @@ BridgedClass _createSoftwareDesignRequirementsBridge() {
             'SoftwareDesignRequirements',
           )
           .reusableComponents,
+      'designDecisions': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SoftwareDesignRequirements>(
+            target,
+            'SoftwareDesignRequirements',
+          )
+          .designDecisions,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.SoftwareDesignRequirements>(
             target,
@@ -199767,6 +199777,8 @@ BridgedClass _createSoftwareDesignRequirementsBridge() {
       'developmentEnvironment':
           'DevelopmentEnvironment get developmentEnvironment',
       'reusableComponents': 'ReusableComponentsSection get reusableComponents',
+      'designDecisions':
+          'SoftwareDesignRequirementsDesignDecisionsForm get designDecisions',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -206849,6 +206861,12 @@ BridgedClass _createSystemArchitectureSpecBridge() {
             'SystemArchitectureSpec',
           )
           .content,
+      'decisions': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemArchitectureSpec>(
+            target,
+            'SystemArchitectureSpec',
+          )
+          .decisions,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.SystemArchitectureSpec>(
             target,
@@ -206934,6 +206952,7 @@ BridgedClass _createSystemArchitectureSpecBridge() {
     getterSignatures: {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
+      'decisions': 'SystemArchitectureSpecDecisionsForm get decisions',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -245565,6 +245584,12 @@ BridgedClass _createActorCharacteristicsContentFormBridge() {
             'ActorCharacteristicsContentForm',
           )
           .usageFrequency,
+      'userCategoryRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ActorCharacteristicsContentForm>(
+            target,
+            'ActorCharacteristicsContentForm',
+          )
+          .userCategoryRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ActorCharacteristicsContentForm>(
             target,
@@ -245648,6 +245673,15 @@ BridgedClass _createActorCharacteristicsContentFormBridge() {
             value,
             'usageFrequency',
           ),
+      'userCategoryRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ActorCharacteristicsContentForm
+              >(target, 'ActorCharacteristicsContentForm')
+              .userCategoryRef = D4.extractBridgedArg<String>(
+            value,
+            'userCategoryRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -245686,6 +245720,7 @@ BridgedClass _createActorCharacteristicsContentFormBridge() {
       'technicalSkills': 'String get technicalSkills',
       'trainingRequired': 'String get trainingRequired',
       'usageFrequency': 'String get usageFrequency',
+      'userCategoryRef': 'String get userCategoryRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -245699,6 +245734,7 @@ BridgedClass _createActorCharacteristicsContentFormBridge() {
       'technicalSkills': 'set technicalSkills(String value)',
       'trainingRequired': 'set trainingRequired(String value)',
       'usageFrequency': 'set usageFrequency(String value)',
+      'userCategoryRef': 'set userCategoryRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -250936,6 +250972,12 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
             'AlertDefinitionEntryContentForm',
           )
           .priority,
+      'alertRuleRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AlertDefinitionEntryContentForm>(
+            target,
+            'AlertDefinitionEntryContentForm',
+          )
+          .alertRuleRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.AlertDefinitionEntryContentForm>(
             target,
@@ -251012,6 +251054,15 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
                 value,
                 'priority',
               ),
+      'alertRuleRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AlertDefinitionEntryContentForm
+              >(target, 'AlertDefinitionEntryContentForm')
+              .alertRuleRef = D4.extractBridgedArg<String>(
+            value,
+            'alertRuleRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -251049,6 +251100,7 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
       'alertDescription': 'String get alertDescription',
       'severity': 'AlertSeverity? get severity',
       'priority': 'ImportanceBand? get priority',
+      'alertRuleRef': 'String get alertRuleRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -251061,6 +251113,7 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
       'alertDescription': 'set alertDescription(String value)',
       'severity': 'set severity(AlertSeverity? value)',
       'priority': 'set priority(ImportanceBand? value)',
+      'alertRuleRef': 'set alertRuleRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -284433,6 +284486,11 @@ BridgedClass _createBrowserCompatibilityEntryContentFormBridge() {
             $tom_som_dart_v0_1.BrowserCompatibilityEntryContentForm
           >(target, 'BrowserCompatibilityEntryContentForm')
           .maxVersion,
+      'browserRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BrowserCompatibilityEntryContentForm
+          >(target, 'BrowserCompatibilityEntryContentForm')
+          .browserRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.BrowserCompatibilityEntryContentForm
@@ -284501,6 +284559,15 @@ BridgedClass _createBrowserCompatibilityEntryContentFormBridge() {
             value,
             'maxVersion',
           ),
+      'browserRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BrowserCompatibilityEntryContentForm
+              >(target, 'BrowserCompatibilityEntryContentForm')
+              .browserRef = D4.extractBridgedArg<String>(
+            value,
+            'browserRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -284538,6 +284605,7 @@ BridgedClass _createBrowserCompatibilityEntryContentFormBridge() {
       'browserEngine': 'String get browserEngine',
       'minVersion': 'String get minVersion',
       'maxVersion': 'String get maxVersion',
+      'browserRef': 'String get browserRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -284550,6 +284618,7 @@ BridgedClass _createBrowserCompatibilityEntryContentFormBridge() {
       'browserEngine': 'set browserEngine(String value)',
       'minVersion': 'set minVersion(String value)',
       'maxVersion': 'set maxVersion(String value)',
+      'browserRef': 'set browserRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -380907,6 +380976,11 @@ BridgedClass _createDatabaseCompatibilityEntryContentFormBridge() {
             $tom_som_dart_v0_1.DatabaseCompatibilityEntryContentForm
           >(target, 'DatabaseCompatibilityEntryContentForm')
           .maxVersion,
+      'libraryRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DatabaseCompatibilityEntryContentForm
+          >(target, 'DatabaseCompatibilityEntryContentForm')
+          .libraryRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.DatabaseCompatibilityEntryContentForm
@@ -380975,6 +381049,15 @@ BridgedClass _createDatabaseCompatibilityEntryContentFormBridge() {
             value,
             'maxVersion',
           ),
+      'libraryRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DatabaseCompatibilityEntryContentForm
+              >(target, 'DatabaseCompatibilityEntryContentForm')
+              .libraryRef = D4.extractBridgedArg<String>(
+            value,
+            'libraryRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -381012,6 +381095,7 @@ BridgedClass _createDatabaseCompatibilityEntryContentFormBridge() {
       'databaseType': 'String get databaseType',
       'minVersion': 'String get minVersion',
       'maxVersion': 'String get maxVersion',
+      'libraryRef': 'String get libraryRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -381024,6 +381108,7 @@ BridgedClass _createDatabaseCompatibilityEntryContentFormBridge() {
       'databaseType': 'set databaseType(String value)',
       'minVersion': 'set minVersion(String value)',
       'maxVersion': 'set maxVersion(String value)',
+      'libraryRef': 'set libraryRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -397761,6 +397846,12 @@ BridgedClass _createDeploymentTargetEntryContentFormBridge() {
             'DeploymentTargetEntryContentForm',
           )
           .targetEnvironment,
+      'environmentRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DeploymentTargetEntryContentForm>(
+            target,
+            'DeploymentTargetEntryContentForm',
+          )
+          .environmentRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.DeploymentTargetEntryContentForm>(
             target,
@@ -397826,6 +397917,15 @@ BridgedClass _createDeploymentTargetEntryContentFormBridge() {
             value,
             'targetEnvironment',
           ),
+      'environmentRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DeploymentTargetEntryContentForm
+              >(target, 'DeploymentTargetEntryContentForm')
+              .environmentRef = D4.extractBridgedArg<String>(
+            value,
+            'environmentRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -397862,6 +397962,7 @@ BridgedClass _createDeploymentTargetEntryContentFormBridge() {
       'content': 'String get content',
       'targetCategory': 'String get targetCategory',
       'targetEnvironment': 'String get targetEnvironment',
+      'environmentRef': 'String get environmentRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -397873,6 +397974,7 @@ BridgedClass _createDeploymentTargetEntryContentFormBridge() {
       'content': 'set content(String value)',
       'targetCategory': 'set targetCategory(String value)',
       'targetEnvironment': 'set targetEnvironment(String value)',
+      'environmentRef': 'set environmentRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -454175,24 +454277,12 @@ BridgedClass _createFeatureStageMappingAssignmentFormBridge() {
             'FeatureStageMappingAssignmentForm',
           )
           .content,
-      'targetStage': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.FeatureStageMappingAssignmentForm>(
-            target,
-            'FeatureStageMappingAssignmentForm',
-          )
-          .targetStage,
       'stagePhase': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.FeatureStageMappingAssignmentForm>(
             target,
             'FeatureStageMappingAssignmentForm',
           )
           .stagePhase,
-      'fallbackStage': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.FeatureStageMappingAssignmentForm>(
-            target,
-            'FeatureStageMappingAssignmentForm',
-          )
-          .fallbackStage,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.FeatureStageMappingAssignmentForm>(
             target,
@@ -454240,15 +454330,6 @@ BridgedClass _createFeatureStageMappingAssignmentFormBridge() {
             value,
             'content',
           ),
-      'targetStage': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.FeatureStageMappingAssignmentForm
-              >(target, 'FeatureStageMappingAssignmentForm')
-              .targetStage = D4.extractBridgedArg<String>(
-            value,
-            'targetStage',
-          ),
       'stagePhase': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -454257,15 +454338,6 @@ BridgedClass _createFeatureStageMappingAssignmentFormBridge() {
               .stagePhase = D4.extractBridgedArg<String>(
             value,
             'stagePhase',
-          ),
-      'fallbackStage': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.FeatureStageMappingAssignmentForm
-              >(target, 'FeatureStageMappingAssignmentForm')
-              .fallbackStage = D4.extractBridgedArg<String>(
-            value,
-            'fallbackStage',
           ),
       '\$sectionId': (visitor, target, value) =>
           D4
@@ -454301,9 +454373,7 @@ BridgedClass _createFeatureStageMappingAssignmentFormBridge() {
     getterSignatures: {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
-      'targetStage': 'String get targetStage',
       'stagePhase': 'String get stagePhase',
-      'fallbackStage': 'String get fallbackStage',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -454313,9 +454383,7 @@ BridgedClass _createFeatureStageMappingAssignmentFormBridge() {
     },
     setterSignatures: {
       'content': 'set content(String value)',
-      'targetStage': 'set targetStage(String value)',
       'stagePhase': 'set stagePhase(String value)',
-      'fallbackStage': 'set fallbackStage(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -468347,6 +468415,12 @@ BridgedClass _createGoalRiskEntryContentFormBridge() {
             'GoalRiskEntryContentForm',
           )
           .riskCategory,
+      'keyRiskRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.GoalRiskEntryContentForm>(
+            target,
+            'GoalRiskEntryContentForm',
+          )
+          .keyRiskRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.GoalRiskEntryContentForm>(
             target,
@@ -468415,6 +468489,16 @@ BridgedClass _createGoalRiskEntryContentFormBridge() {
             value,
             'riskCategory',
           ),
+      'keyRiskRef': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.GoalRiskEntryContentForm>(
+                target,
+                'GoalRiskEntryContentForm',
+              )
+              .keyRiskRef = D4.extractBridgedArg<String>(
+            value,
+            'keyRiskRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.GoalRiskEntryContentForm>(
@@ -468454,6 +468538,7 @@ BridgedClass _createGoalRiskEntryContentFormBridge() {
       'content': 'String get content',
       'description': 'String get description',
       'riskCategory': 'String get riskCategory',
+      'keyRiskRef': 'String get keyRiskRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -468465,6 +468550,7 @@ BridgedClass _createGoalRiskEntryContentFormBridge() {
       'content': 'set content(String value)',
       'description': 'set description(String value)',
       'riskCategory': 'set riskCategory(String value)',
+      'keyRiskRef': 'set keyRiskRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -479695,6 +479781,11 @@ BridgedClass _createIndustryProtocolComplianceEntryImplementationFormBridge() {
             $tom_som_dart_v0_1.IndustryProtocolComplianceEntryImplementationForm
           >(target, 'IndustryProtocolComplianceEntryImplementationForm')
           .performanceProfile,
+      'libraryRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.IndustryProtocolComplianceEntryImplementationForm
+          >(target, 'IndustryProtocolComplianceEntryImplementationForm')
+          .libraryRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.IndustryProtocolComplianceEntryImplementationForm
@@ -479763,6 +479854,15 @@ BridgedClass _createIndustryProtocolComplianceEntryImplementationFormBridge() {
             value,
             'performanceProfile',
           ),
+      'libraryRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.IndustryProtocolComplianceEntryImplementationForm
+              >(target, 'IndustryProtocolComplianceEntryImplementationForm')
+              .libraryRef = D4.extractBridgedArg<String>(
+            value,
+            'libraryRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -479800,6 +479900,7 @@ BridgedClass _createIndustryProtocolComplianceEntryImplementationFormBridge() {
       'implementationLibrary': 'String get implementationLibrary',
       'implementationNotes': 'String get implementationNotes',
       'performanceProfile': 'String get performanceProfile',
+      'libraryRef': 'String get libraryRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -479812,6 +479913,7 @@ BridgedClass _createIndustryProtocolComplianceEntryImplementationFormBridge() {
       'implementationLibrary': 'set implementationLibrary(String value)',
       'implementationNotes': 'set implementationNotes(String value)',
       'performanceProfile': 'set performanceProfile(String value)',
+      'libraryRef': 'set libraryRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -535132,6 +535234,11 @@ BridgedClass _createMigrationRiskEntryIdentificationFormBridge() {
             $tom_som_dart_v0_1.MigrationRiskEntryIdentificationForm
           >(target, 'MigrationRiskEntryIdentificationForm')
           .affectedStreams,
+      'keyRiskRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.MigrationRiskEntryIdentificationForm
+          >(target, 'MigrationRiskEntryIdentificationForm')
+          .keyRiskRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.MigrationRiskEntryIdentificationForm
@@ -535254,6 +535361,15 @@ BridgedClass _createMigrationRiskEntryIdentificationFormBridge() {
             value,
             'affectedStreams',
           ),
+      'keyRiskRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.MigrationRiskEntryIdentificationForm
+              >(target, 'MigrationRiskEntryIdentificationForm')
+              .keyRiskRef = D4.extractBridgedArg<String>(
+            value,
+            'keyRiskRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -535297,6 +535413,7 @@ BridgedClass _createMigrationRiskEntryIdentificationFormBridge() {
       'affectedSystems': 'String get affectedSystems',
       'affectedPhases': 'String get affectedPhases',
       'affectedStreams': 'String get affectedStreams',
+      'keyRiskRef': 'String get keyRiskRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -535315,6 +535432,7 @@ BridgedClass _createMigrationRiskEntryIdentificationFormBridge() {
       'affectedSystems': 'set affectedSystems(String value)',
       'affectedPhases': 'set affectedPhases(String value)',
       'affectedStreams': 'set affectedStreams(String value)',
+      'keyRiskRef': 'set keyRiskRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -539060,6 +539178,11 @@ BridgedClass _createMobileCompatibilityEntryContentFormBridge() {
             $tom_som_dart_v0_1.MobileCompatibilityEntryContentForm
           >(target, 'MobileCompatibilityEntryContentForm')
           .maxVersion,
+      'platformRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.MobileCompatibilityEntryContentForm
+          >(target, 'MobileCompatibilityEntryContentForm')
+          .platformRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.MobileCompatibilityEntryContentForm
@@ -539128,6 +539251,15 @@ BridgedClass _createMobileCompatibilityEntryContentFormBridge() {
             value,
             'maxVersion',
           ),
+      'platformRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.MobileCompatibilityEntryContentForm
+              >(target, 'MobileCompatibilityEntryContentForm')
+              .platformRef = D4.extractBridgedArg<String>(
+            value,
+            'platformRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -539165,6 +539297,7 @@ BridgedClass _createMobileCompatibilityEntryContentFormBridge() {
       'platform': 'String get platform',
       'minVersion': 'String get minVersion',
       'maxVersion': 'String get maxVersion',
+      'platformRef': 'String get platformRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -539177,6 +539310,7 @@ BridgedClass _createMobileCompatibilityEntryContentFormBridge() {
       'platform': 'set platform(String value)',
       'minVersion': 'set minVersion(String value)',
       'maxVersion': 'set maxVersion(String value)',
+      'platformRef': 'set platformRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -545190,12 +545324,6 @@ BridgedClass _createMoscowEntryClassificationFormBridge() {
             'MoscowEntryClassificationForm',
           )
           .content,
-      'moscowCategory': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryClassificationForm>(
-            target,
-            'MoscowEntryClassificationForm',
-          )
-          .moscowCategory,
       'justification': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.MoscowEntryClassificationForm>(
             target,
@@ -545256,17 +545384,6 @@ BridgedClass _createMoscowEntryClassificationFormBridge() {
             value,
             'content',
           ),
-      'moscowCategory': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.MoscowEntryClassificationForm>(
-                target,
-                'MoscowEntryClassificationForm',
-              )
-              .moscowCategory = D4
-              .extractBridgedArgOrNull<$tom_som_dart_v0_1.Priority>(
-                value,
-                'moscowCategory',
-              ),
       'justification': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.MoscowEntryClassificationForm>(
@@ -545325,7 +545442,6 @@ BridgedClass _createMoscowEntryClassificationFormBridge() {
     getterSignatures: {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
-      'moscowCategory': 'Priority? get moscowCategory',
       'justification': 'String get justification',
       'reclassificationRisk': 'ImportanceBand? get reclassificationRisk',
       'doc': 'SpecDocument get doc',
@@ -545337,7 +545453,6 @@ BridgedClass _createMoscowEntryClassificationFormBridge() {
     },
     setterSignatures: {
       'content': 'set content(String value)',
-      'moscowCategory': 'set moscowCategory(Priority? value)',
       'justification': 'set justification(String value)',
       'reclassificationRisk': 'set reclassificationRisk(ImportanceBand? value)',
       '\$sectionId': 'set \$sectionId(String value)',
@@ -545500,178 +545615,6 @@ BridgedClass _createMoscowEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'featureId': 'set featureId(String value)',
-      '\$sectionId': 'set \$sectionId(String value)',
-      '\$headline': 'set \$headline(String? value)',
-      '\$codeSpec': 'set \$codeSpec(String? value)',
-    },
-  );
-}
-
-// =============================================================================
-// MoscowEntryStageAssignmentForm Bridge
-// =============================================================================
-
-BridgedClass _createMoscowEntryStageAssignmentFormBridge() {
-  return BridgedClass(
-    nativeType: $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm,
-    name: 'MoscowEntryStageAssignmentForm',
-    isAssignable: (v) => v is $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm,
-    hierarchyDepth: 1,
-    constructors: {
-      '': (visitor, positional, named) {
-        D4.requireMinArgs(positional, 2, 'MoscowEntryStageAssignmentForm');
-        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
-          positional,
-          0,
-          'doc',
-          'MoscowEntryStageAssignmentForm',
-        );
-        final path = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'path',
-          'MoscowEntryStageAssignmentForm',
-        );
-        return $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm(doc, path);
-      },
-    },
-    getters: {
-      'canHaveContent': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .canHaveContent,
-      'content': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .content,
-      'targetStage': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .targetStage,
-      'earliestPossibleStage': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .earliestPossibleStage,
-      'doc': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .doc,
-      'path': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .path,
-      'isEmpty': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .isEmpty,
-      '\$sectionId': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .$sectionId,
-      '\$headline': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .$headline,
-      '\$codeSpec': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_1.MoscowEntryStageAssignmentForm>(
-            target,
-            'MoscowEntryStageAssignmentForm',
-          )
-          .$codeSpec,
-    },
-    setters: {
-      'content': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm
-              >(target, 'MoscowEntryStageAssignmentForm')
-              .content = D4.extractBridgedArg<String>(
-            value,
-            'content',
-          ),
-      'targetStage': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm
-              >(target, 'MoscowEntryStageAssignmentForm')
-              .targetStage = D4.extractBridgedArg<String>(
-            value,
-            'targetStage',
-          ),
-      'earliestPossibleStage': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm
-              >(target, 'MoscowEntryStageAssignmentForm')
-              .earliestPossibleStage = D4.extractBridgedArg<String>(
-            value,
-            'earliestPossibleStage',
-          ),
-      '\$sectionId': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm
-              >(target, 'MoscowEntryStageAssignmentForm')
-              .$sectionId = D4.extractBridgedArg<String>(
-            value,
-            '\$sectionId',
-          ),
-      '\$headline': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm
-              >(target, 'MoscowEntryStageAssignmentForm')
-              .$headline = D4.extractBridgedArgOrNull<String>(
-            value,
-            '\$headline',
-          ),
-      '\$codeSpec': (visitor, target, value) =>
-          D4
-              .validateTarget<
-                $tom_som_dart_v0_1.MoscowEntryStageAssignmentForm
-              >(target, 'MoscowEntryStageAssignmentForm')
-              .$codeSpec = D4.extractBridgedArgOrNull<String>(
-            value,
-            '\$codeSpec',
-          ),
-    },
-    constructorSignatures: {
-      '': 'MoscowEntryStageAssignmentForm(SpecDocument doc, String path)',
-    },
-    getterSignatures: {
-      'canHaveContent': 'bool get canHaveContent',
-      'content': 'String get content',
-      'targetStage': 'String get targetStage',
-      'earliestPossibleStage': 'String get earliestPossibleStage',
-      'doc': 'SpecDocument get doc',
-      'path': 'String get path',
-      'isEmpty': 'bool get isEmpty',
-      '\$sectionId': 'String? get \$sectionId',
-      '\$headline': 'String? get \$headline',
-      '\$codeSpec': 'String? get \$codeSpec',
-    },
-    setterSignatures: {
-      'content': 'set content(String value)',
-      'targetStage': 'set targetStage(String value)',
-      'earliestPossibleStage': 'set earliestPossibleStage(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -570440,6 +570383,12 @@ BridgedClass _createOsCompatibilityEntryContentFormBridge() {
             'OsCompatibilityEntryContentForm',
           )
           .maxVersion,
+      'osRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OsCompatibilityEntryContentForm>(
+            target,
+            'OsCompatibilityEntryContentForm',
+          )
+          .osRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.OsCompatibilityEntryContentForm>(
             target,
@@ -570514,6 +570463,15 @@ BridgedClass _createOsCompatibilityEntryContentFormBridge() {
             value,
             'maxVersion',
           ),
+      'osRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OsCompatibilityEntryContentForm
+              >(target, 'OsCompatibilityEntryContentForm')
+              .osRef = D4.extractBridgedArg<String>(
+            value,
+            'osRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -570551,6 +570509,7 @@ BridgedClass _createOsCompatibilityEntryContentFormBridge() {
       'osFamily': 'String get osFamily',
       'minVersion': 'String get minVersion',
       'maxVersion': 'String get maxVersion',
+      'osRef': 'String get osRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -570563,6 +570522,7 @@ BridgedClass _createOsCompatibilityEntryContentFormBridge() {
       'osFamily': 'set osFamily(String value)',
       'minVersion': 'set minVersion(String value)',
       'maxVersion': 'set maxVersion(String value)',
+      'osRef': 'set osRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -608402,6 +608362,12 @@ BridgedClass _createProtocolEntryContentFormBridge() {
             'ProtocolEntryContentForm',
           )
           .notes,
+      'protocolComplianceRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolEntryContentForm>(
+            target,
+            'ProtocolEntryContentForm',
+          )
+          .protocolComplianceRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ProtocolEntryContentForm>(
             target,
@@ -608500,6 +608466,16 @@ BridgedClass _createProtocolEntryContentFormBridge() {
             value,
             'notes',
           ),
+      'protocolComplianceRef': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ProtocolEntryContentForm>(
+                target,
+                'ProtocolEntryContentForm',
+              )
+              .protocolComplianceRef = D4.extractBridgedArg<String>(
+            value,
+            'protocolComplianceRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.ProtocolEntryContentForm>(
@@ -608542,6 +608518,7 @@ BridgedClass _createProtocolEntryContentFormBridge() {
       'transportLayer': 'String get transportLayer',
       'directionality': 'String get directionality',
       'notes': 'String get notes',
+      'protocolComplianceRef': 'String get protocolComplianceRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -608556,6 +608533,7 @@ BridgedClass _createProtocolEntryContentFormBridge() {
       'transportLayer': 'set transportLayer(String value)',
       'directionality': 'set directionality(String value)',
       'notes': 'set notes(String value)',
+      'protocolComplianceRef': 'set protocolComplianceRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -691944,6 +691922,11 @@ BridgedClass _createSecurityStandardComplianceEntryContentFormBridge() {
             $tom_som_dart_v0_1.SecurityStandardComplianceEntryContentForm
           >(target, 'SecurityStandardComplianceEntryContentForm')
           .trustServiceCriteria,
+      'standardRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SecurityStandardComplianceEntryContentForm
+          >(target, 'SecurityStandardComplianceEntryContentForm')
+          .standardRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.SecurityStandardComplianceEntryContentForm
@@ -692012,6 +691995,15 @@ BridgedClass _createSecurityStandardComplianceEntryContentFormBridge() {
             value,
             'trustServiceCriteria',
           ),
+      'standardRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SecurityStandardComplianceEntryContentForm
+              >(target, 'SecurityStandardComplianceEntryContentForm')
+              .standardRef = D4.extractBridgedArg<String>(
+            value,
+            'standardRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -692049,6 +692041,7 @@ BridgedClass _createSecurityStandardComplianceEntryContentFormBridge() {
       'standardType': 'String get standardType',
       'version': 'String get version',
       'trustServiceCriteria': 'String get trustServiceCriteria',
+      'standardRef': 'String get standardRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -692061,6 +692054,7 @@ BridgedClass _createSecurityStandardComplianceEntryContentFormBridge() {
       'standardType': 'set standardType(String value)',
       'version': 'set version(String value)',
       'trustServiceCriteria': 'set trustServiceCriteria(String value)',
+      'standardRef': 'set standardRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -696964,6 +696958,12 @@ BridgedClass _createServerEnvironmentEntryContentFormBridge() {
             'ServerEnvironmentEntryContentForm',
           )
           .purpose,
+      'environmentRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ServerEnvironmentEntryContentForm>(
+            target,
+            'ServerEnvironmentEntryContentForm',
+          )
+          .environmentRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ServerEnvironmentEntryContentForm>(
             target,
@@ -697038,6 +697038,15 @@ BridgedClass _createServerEnvironmentEntryContentFormBridge() {
             value,
             'purpose',
           ),
+      'environmentRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ServerEnvironmentEntryContentForm
+              >(target, 'ServerEnvironmentEntryContentForm')
+              .environmentRef = D4.extractBridgedArg<String>(
+            value,
+            'environmentRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -697075,6 +697084,7 @@ BridgedClass _createServerEnvironmentEntryContentFormBridge() {
       'environmentType': 'String get environmentType',
       'environmentCode': 'String get environmentCode',
       'purpose': 'String get purpose',
+      'environmentRef': 'String get environmentRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -697087,6 +697097,7 @@ BridgedClass _createServerEnvironmentEntryContentFormBridge() {
       'environmentType': 'set environmentType(String value)',
       'environmentCode': 'set environmentCode(String value)',
       'purpose': 'set purpose(String value)',
+      'environmentRef': 'set environmentRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -707784,6 +707795,11 @@ BridgedClass _createSharedLibraryComponentEntryContentFormBridge() {
             $tom_som_dart_v0_1.SharedLibraryComponentEntryContentForm
           >(target, 'SharedLibraryComponentEntryContentForm')
           .version,
+      'componentRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SharedLibraryComponentEntryContentForm
+          >(target, 'SharedLibraryComponentEntryContentForm')
+          .componentRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.SharedLibraryComponentEntryContentForm
@@ -707843,6 +707859,15 @@ BridgedClass _createSharedLibraryComponentEntryContentFormBridge() {
             value,
             'version',
           ),
+      'componentRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SharedLibraryComponentEntryContentForm
+              >(target, 'SharedLibraryComponentEntryContentForm')
+              .componentRef = D4.extractBridgedArg<String>(
+            value,
+            'componentRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -707879,6 +707904,7 @@ BridgedClass _createSharedLibraryComponentEntryContentFormBridge() {
       'content': 'String get content',
       'componentType': 'String get componentType',
       'version': 'String get version',
+      'componentRef': 'String get componentRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -707890,6 +707916,7 @@ BridgedClass _createSharedLibraryComponentEntryContentFormBridge() {
       'content': 'set content(String value)',
       'componentType': 'set componentType(String value)',
       'version': 'set version(String value)',
+      'componentRef': 'set componentRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -708986,6 +709013,12 @@ BridgedClass _createSharedLibraryEntryContentFormBridge() {
             'SharedLibraryEntryContentForm',
           )
           .version,
+      'componentRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SharedLibraryEntryContentForm>(
+            target,
+            'SharedLibraryEntryContentForm',
+          )
+          .componentRef,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.SharedLibraryEntryContentForm>(
             target,
@@ -709054,6 +709087,16 @@ BridgedClass _createSharedLibraryEntryContentFormBridge() {
             value,
             'version',
           ),
+      'componentRef': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.SharedLibraryEntryContentForm>(
+                target,
+                'SharedLibraryEntryContentForm',
+              )
+              .componentRef = D4.extractBridgedArg<String>(
+            value,
+            'componentRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.SharedLibraryEntryContentForm>(
@@ -709093,6 +709136,7 @@ BridgedClass _createSharedLibraryEntryContentFormBridge() {
       'content': 'String get content',
       'libraryType': 'String get libraryType',
       'version': 'String get version',
+      'componentRef': 'String get componentRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -709104,6 +709148,7 @@ BridgedClass _createSharedLibraryEntryContentFormBridge() {
       'content': 'set content(String value)',
       'libraryType': 'set libraryType(String value)',
       'version': 'set version(String value)',
+      'componentRef': 'set componentRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -713582,6 +713627,161 @@ BridgedClass _createSloEntryTargetFormBridge() {
       'sloTarget': 'set sloTarget(String value)',
       'sloWindow': 'set sloWindow(String value)',
       'errorBudget': 'set errorBudget(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// SoftwareDesignRequirementsDesignDecisionsForm Bridge
+// =============================================================================
+
+BridgedClass _createSoftwareDesignRequirementsDesignDecisionsFormBridge() {
+  return BridgedClass(
+    nativeType:
+        $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm,
+    name: 'SoftwareDesignRequirementsDesignDecisionsForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'SoftwareDesignRequirementsDesignDecisionsForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SoftwareDesignRequirementsDesignDecisionsForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SoftwareDesignRequirementsDesignDecisionsForm',
+        );
+        return $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .content,
+      'refs': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .refs,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+          >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+              >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'refs': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+              >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+              .refs = D4.extractBridgedArg<String>(
+            value,
+            'refs',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+              >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+              >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SoftwareDesignRequirementsDesignDecisionsForm
+              >(target, 'SoftwareDesignRequirementsDesignDecisionsForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SoftwareDesignRequirementsDesignDecisionsForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'refs': 'String get refs',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'refs': 'set refs(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -722069,6 +722269,16 @@ BridgedClass _createStageMigrationRiskEntryIdentityFormBridge() {
             $tom_som_dart_v0_1.StageMigrationRiskEntryIdentityForm
           >(target, 'StageMigrationRiskEntryIdentityForm')
           .riskDescription,
+      'keyRiskRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.StageMigrationRiskEntryIdentityForm
+          >(target, 'StageMigrationRiskEntryIdentityForm')
+          .keyRiskRef,
+      'migrationRiskRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.StageMigrationRiskEntryIdentityForm
+          >(target, 'StageMigrationRiskEntryIdentityForm')
+          .migrationRiskRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.StageMigrationRiskEntryIdentityForm
@@ -722119,6 +722329,24 @@ BridgedClass _createStageMigrationRiskEntryIdentityFormBridge() {
             value,
             'riskDescription',
           ),
+      'keyRiskRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.StageMigrationRiskEntryIdentityForm
+              >(target, 'StageMigrationRiskEntryIdentityForm')
+              .keyRiskRef = D4.extractBridgedArg<String>(
+            value,
+            'keyRiskRef',
+          ),
+      'migrationRiskRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.StageMigrationRiskEntryIdentityForm
+              >(target, 'StageMigrationRiskEntryIdentityForm')
+              .migrationRiskRef = D4.extractBridgedArg<String>(
+            value,
+            'migrationRiskRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -722154,6 +722382,8 @@ BridgedClass _createStageMigrationRiskEntryIdentityFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'riskDescription': 'String get riskDescription',
+      'keyRiskRef': 'String get keyRiskRef',
+      'migrationRiskRef': 'String get migrationRiskRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -722164,6 +722394,8 @@ BridgedClass _createStageMigrationRiskEntryIdentityFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'riskDescription': 'set riskDescription(String value)',
+      'keyRiskRef': 'set keyRiskRef(String value)',
+      'migrationRiskRef': 'set migrationRiskRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -733379,6 +733611,11 @@ BridgedClass _createStakeholdersAndInterestsContentFormBridge() {
             $tom_som_dart_v0_1.StakeholdersAndInterestsContentForm
           >(target, 'StakeholdersAndInterestsContentForm')
           .otherStakeholders,
+      'stakeholderRefs': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.StakeholdersAndInterestsContentForm
+          >(target, 'StakeholdersAndInterestsContentForm')
+          .stakeholderRefs,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.StakeholdersAndInterestsContentForm
@@ -733474,6 +733711,15 @@ BridgedClass _createStakeholdersAndInterestsContentFormBridge() {
             value,
             'otherStakeholders',
           ),
+      'stakeholderRefs': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.StakeholdersAndInterestsContentForm
+              >(target, 'StakeholdersAndInterestsContentForm')
+              .stakeholderRefs = D4.extractBridgedArg<String>(
+            value,
+            'stakeholderRefs',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -733514,6 +733760,7 @@ BridgedClass _createStakeholdersAndInterestsContentFormBridge() {
       'operationsInterest': 'String get operationsInterest',
       'supportStaffInterest': 'String get supportStaffInterest',
       'otherStakeholders': 'String get otherStakeholders',
+      'stakeholderRefs': 'String get stakeholderRefs',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -733529,6 +733776,7 @@ BridgedClass _createStakeholdersAndInterestsContentFormBridge() {
       'operationsInterest': 'set operationsInterest(String value)',
       'supportStaffInterest': 'set supportStaffInterest(String value)',
       'otherStakeholders': 'set otherStakeholders(String value)',
+      'stakeholderRefs': 'set stakeholderRefs(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -740460,6 +740708,156 @@ BridgedClass _createSupportedLocaleEntryRolloutFormBridge() {
       'launchPhase': 'set launchPhase(String value)',
       'translationCoverage': 'set translationCoverage(String value)',
       'localeOwner': 'set localeOwner(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// SystemArchitectureSpecDecisionsForm Bridge
+// =============================================================================
+
+BridgedClass _createSystemArchitectureSpecDecisionsFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm,
+    name: 'SystemArchitectureSpecDecisionsForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'SystemArchitectureSpecDecisionsForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SystemArchitectureSpecDecisionsForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SystemArchitectureSpecDecisionsForm',
+        );
+        return $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .content,
+      'refs': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .refs,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+          >(target, 'SystemArchitectureSpecDecisionsForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+              >(target, 'SystemArchitectureSpecDecisionsForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'refs': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+              >(target, 'SystemArchitectureSpecDecisionsForm')
+              .refs = D4.extractBridgedArg<String>(
+            value,
+            'refs',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+              >(target, 'SystemArchitectureSpecDecisionsForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+              >(target, 'SystemArchitectureSpecDecisionsForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemArchitectureSpecDecisionsForm
+              >(target, 'SystemArchitectureSpecDecisionsForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SystemArchitectureSpecDecisionsForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'refs': 'String get refs',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'refs': 'set refs(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -750397,6 +750795,11 @@ BridgedClass _createSystemMigrationRiskEntryContentFormBridge() {
             $tom_som_dart_v0_1.SystemMigrationRiskEntryContentForm
           >(target, 'SystemMigrationRiskEntryContentForm')
           .owner,
+      'keyRiskRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemMigrationRiskEntryContentForm
+          >(target, 'SystemMigrationRiskEntryContentForm')
+          .keyRiskRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.SystemMigrationRiskEntryContentForm
@@ -750502,6 +750905,15 @@ BridgedClass _createSystemMigrationRiskEntryContentFormBridge() {
             value,
             'owner',
           ),
+      'keyRiskRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemMigrationRiskEntryContentForm
+              >(target, 'SystemMigrationRiskEntryContentForm')
+              .keyRiskRef = D4.extractBridgedArg<String>(
+            value,
+            'keyRiskRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -750543,6 +750955,7 @@ BridgedClass _createSystemMigrationRiskEntryContentFormBridge() {
       'mitigation': 'String get mitigation',
       'contingency': 'String get contingency',
       'owner': 'String get owner',
+      'keyRiskRef': 'String get keyRiskRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -750559,6 +750972,7 @@ BridgedClass _createSystemMigrationRiskEntryContentFormBridge() {
       'mitigation': 'set mitigation(String value)',
       'contingency': 'set contingency(String value)',
       'owner': 'set owner(String value)',
+      'keyRiskRef': 'set keyRiskRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -773488,6 +773902,11 @@ BridgedClass _createThirdPartyCompatibilityEntryContentFormBridge() {
             $tom_som_dart_v0_1.ThirdPartyCompatibilityEntryContentForm
           >(target, 'ThirdPartyCompatibilityEntryContentForm')
           .version,
+      'libraryRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ThirdPartyCompatibilityEntryContentForm
+          >(target, 'ThirdPartyCompatibilityEntryContentForm')
+          .libraryRef,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.ThirdPartyCompatibilityEntryContentForm
@@ -773565,6 +773984,15 @@ BridgedClass _createThirdPartyCompatibilityEntryContentFormBridge() {
             value,
             'version',
           ),
+      'libraryRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ThirdPartyCompatibilityEntryContentForm
+              >(target, 'ThirdPartyCompatibilityEntryContentForm')
+              .libraryRef = D4.extractBridgedArg<String>(
+            value,
+            'libraryRef',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -773603,6 +774031,7 @@ BridgedClass _createThirdPartyCompatibilityEntryContentFormBridge() {
       'vendor': 'String get vendor',
       'category': 'String get category',
       'version': 'String get version',
+      'libraryRef': 'String get libraryRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -773616,6 +774045,7 @@ BridgedClass _createThirdPartyCompatibilityEntryContentFormBridge() {
       'vendor': 'set vendor(String value)',
       'category': 'set category(String value)',
       'version': 'set version(String value)',
+      'libraryRef': 'set libraryRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -887979,12 +888409,6 @@ BridgedClass _createMoscowEntry$NavBridge() {
             'MoscowEntry\$Nav',
           )
           .value,
-      'stageAssignment': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_2.MoscowEntry$Nav>(
-            target,
-            'MoscowEntry\$Nav',
-          )
-          .stageAssignment,
       'traceability': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.MoscowEntry$Nav>(
             target,
@@ -888017,7 +888441,6 @@ BridgedClass _createMoscowEntry$NavBridge() {
       'content': 'SomMetaRef get content',
       'classification': 'SomMetaRef get classification',
       'value': 'SomMetaRef get value',
-      'stageAssignment': 'SomMetaRef get stageAssignment',
       'traceability': 'SomMetaRef get traceability',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
@@ -919502,6 +919925,12 @@ BridgedClass _createSoftwareDesignRequirements$NavBridge() {
             'SoftwareDesignRequirements\$Nav',
           )
           .reusableComponents,
+      'designDecisions': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.SoftwareDesignRequirements$Nav>(
+            target,
+            'SoftwareDesignRequirements\$Nav',
+          )
+          .designDecisions,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.SoftwareDesignRequirements$Nav>(
             target,
@@ -919532,6 +919961,7 @@ BridgedClass _createSoftwareDesignRequirements$NavBridge() {
           'DevelopmentEnvironment\$Nav get developmentEnvironment',
       'reusableComponents':
           'ReusableComponentsSection\$Nav get reusableComponents',
+      'designDecisions': 'SomMetaRef get designDecisions',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -923695,6 +924125,12 @@ BridgedClass _createSystemArchitectureSpec$NavBridge() {
             'SystemArchitectureSpec\$Nav',
           )
           .content,
+      'decisions': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.SystemArchitectureSpec$Nav>(
+            target,
+            'SystemArchitectureSpec\$Nav',
+          )
+          .decisions,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.SystemArchitectureSpec$Nav>(
             target,
@@ -923719,6 +924155,7 @@ BridgedClass _createSystemArchitectureSpec$NavBridge() {
     },
     getterSignatures: {
       'content': 'SomMetaRef get content',
+      'decisions': 'SomMetaRef get decisions',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -950879,6 +951316,12 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .COREUP,
+      'SDR_DECI_REF': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
+            target,
+            'D00SolutionBlueprint\$Id',
+          )
+          .SDR_DECI_REF,
       'OCE_OSCO_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -953675,6 +954118,12 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .SAE_AUDI_LST,
+      'SYARSP_DECI_REF': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
+            target,
+            'D00SolutionBlueprint\$Id',
+          )
+          .SYARSP_DECI_REF,
       'CSVND': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -956669,6 +957118,7 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
       'COREDI': 'SomMetaRef get COREDI',
       'COREDO': 'SomMetaRef get COREDO',
       'COREUP': 'SomMetaRef get COREUP',
+      'SDR_DECI_REF': 'SomMetaRef get SDR_DECI_REF',
       'OCE_OSCO_LST':
           'SomListMetaRef<OsCompatibilityEntry\$Id> get OCE_OSCO_LST',
       'BROCOM_BROW_LST':
@@ -957170,6 +957620,7 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
       'STAS': 'SomMetaRef get STAS',
       'STAG': 'SomMetaRef get STAG',
       'SAE_AUDI_LST': 'SomListMetaRef<SecurityAuditEntry\$Id> get SAE_AUDI_LST',
+      'SYARSP_DECI_REF': 'SomMetaRef get SYARSP_DECI_REF',
       'CSVND': 'SomMetaRef get CSVND',
       'CSGOV': 'SomMetaRef get CSGOV',
       'CSPRT': 'SomMetaRef get CSPRT',
@@ -959728,6 +960179,11 @@ BridgedClass _createD06ArchitectureTechnologySpecification$IdBridge() {
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
           >(target, 'D06ArchitectureTechnologySpecification\$Id')
           .COREUP,
+      'SDR_DECI_REF': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
+          >(target, 'D06ArchitectureTechnologySpecification\$Id')
+          .SDR_DECI_REF,
       'OCE_OSCO_LST': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
@@ -962058,6 +962514,11 @@ BridgedClass _createD06ArchitectureTechnologySpecification$IdBridge() {
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
           >(target, 'D06ArchitectureTechnologySpecification\$Id')
           .SAE_AUDI_LST,
+      'SYARSP_DECI_REF': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
+          >(target, 'D06ArchitectureTechnologySpecification\$Id')
+          .SYARSP_DECI_REF,
       'CSVND': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
@@ -962388,6 +962849,7 @@ BridgedClass _createD06ArchitectureTechnologySpecification$IdBridge() {
       'COREDI': 'SomMetaRef get COREDI',
       'COREDO': 'SomMetaRef get COREDO',
       'COREUP': 'SomMetaRef get COREUP',
+      'SDR_DECI_REF': 'SomMetaRef get SDR_DECI_REF',
       'OCE_OSCO_LST':
           'SomListMetaRef<OsCompatibilityEntry\$Id> get OCE_OSCO_LST',
       'BROCOM_BROW_LST':
@@ -962889,6 +963351,7 @@ BridgedClass _createD06ArchitectureTechnologySpecification$IdBridge() {
       'STAS': 'SomMetaRef get STAS',
       'STAG': 'SomMetaRef get STAG',
       'SAE_AUDI_LST': 'SomListMetaRef<SecurityAuditEntry\$Id> get SAE_AUDI_LST',
+      'SYARSP_DECI_REF': 'SomMetaRef get SYARSP_DECI_REF',
       'CSVND': 'SomMetaRef get CSVND',
       'CSGOV': 'SomMetaRef get CSGOV',
       'CSPRT': 'SomMetaRef get CSPRT',
@@ -966834,6 +967297,12 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
             'D13CodeSpecsProjection\$Id',
           )
           .COREUP,
+      'SDR_DECI_REF': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
+            target,
+            'D13CodeSpecsProjection\$Id',
+          )
+          .SDR_DECI_REF,
       'OCE_OSCO_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
             target,
@@ -969630,6 +970099,12 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
             'D13CodeSpecsProjection\$Id',
           )
           .SAE_AUDI_LST,
+      'SYARSP_DECI_REF': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
+            target,
+            'D13CodeSpecsProjection\$Id',
+          )
+          .SYARSP_DECI_REF,
       'USCDF_ITEM_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
             target,
@@ -970591,6 +971066,7 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
       'COREDI': 'SomMetaRef get COREDI',
       'COREDO': 'SomMetaRef get COREDO',
       'COREUP': 'SomMetaRef get COREUP',
+      'SDR_DECI_REF': 'SomMetaRef get SDR_DECI_REF',
       'OCE_OSCO_LST':
           'SomListMetaRef<OsCompatibilityEntry\$Id> get OCE_OSCO_LST',
       'BROCOM_BROW_LST':
@@ -971092,6 +971568,7 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
       'STAS': 'SomMetaRef get STAS',
       'STAG': 'SomMetaRef get STAG',
       'SAE_AUDI_LST': 'SomListMetaRef<SecurityAuditEntry\$Id> get SAE_AUDI_LST',
+      'SYARSP_DECI_REF': 'SomMetaRef get SYARSP_DECI_REF',
       'USCDF_ITEM_LST':
           'SomListMetaRef<UserCategoryDefinition\$Id> get USCDF_ITEM_LST',
       'ULTRE_ITEM_LST':
@@ -984048,12 +984525,6 @@ BridgedClass _createMoscowEntry$IdBridge() {
             'MoscowEntry\$Id',
           )
           .MOENVA,
-      'MESA': (visitor, target) => D4
-          .validateTarget<$tom_som_dart_v0_2.MoscowEntry$Id>(
-            target,
-            'MoscowEntry\$Id',
-          )
-          .MESA,
       'MOENTR': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.MoscowEntry$Id>(
             target,
@@ -984085,7 +984556,6 @@ BridgedClass _createMoscowEntry$IdBridge() {
     getterSignatures: {
       'MOENCL': 'SomMetaRef get MOENCL',
       'MOENVA': 'SomMetaRef get MOENVA',
-      'MESA': 'SomMetaRef get MESA',
       'MOENTR': 'SomMetaRef get MOENTR',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',

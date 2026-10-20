@@ -1129,6 +1129,10 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per supported locale.
+  syarsp-deci-ref:
+    prefix: SYARSP_DECI_REF
+    format: syarsp-deci-ref-form
+    description: "The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here."
   sybupr-supp-lst:
     prefix: SYBUPR_SUPP_LST
     subsection-types:
@@ -5705,6 +5709,10 @@ section-types:
       pattern: ^SCTREN-TRAN-.+$
       error-message: IDs of this section must match SCTREN-TRAN-xxx
     description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
+  sdr-deci-ref:
+    prefix: SDR_DECI_REF
+    format: sdr-deci-ref-form
+    description: "The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here."
   secoen-cont:
     prefix: SECOEN_CONT_
     subsection-types:
@@ -11660,8 +11668,6 @@ section-types:
         max-count: 1
       moenva:
         max-count: 1
-      mesa:
-        max-count: 1
       moentr:
         max-count: 1
     pattern-check-id:
@@ -16166,6 +16172,9 @@ section-types:
     description: Verification.
   syarsp:
     prefix: SYARSP
+    subsection-types:
+      syarsp-deci-ref:
+        max-count: 1
     description: 8.9. System Architecture..
   sybucr:
     prefix: SYBUCR
@@ -22589,10 +22598,6 @@ section-types:
     prefix: MDSU
     format: mdsu-form
     description: MDM maturity and status summary.
-  mesa:
-    prefix: MESA
-    format: mesa-form
-    description: Stage assignment.
   mfsc:
     prefix: MFSC
     format: mfsc-form
@@ -26281,6 +26286,8 @@ section-types:
         max-count: 1
       rcs:
         max-count: 1
+      sdr-deci-ref:
+        max-count: 1
     description: |
       Define software architecture, development environment, and component
       reusability requirements. These decisions shape developer experience,
@@ -28672,6 +28679,8 @@ form-types:
         description: Migration phases where risk applies
       - fieldname: affectedStreams
         description: "Data, application, infrastructure, etc."
+      - fieldname: keyRiskRef
+        description: "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register"
   miripr-form:
     fields:
       - fieldname: probabilityRating
@@ -35756,6 +35765,10 @@ form-types:
         description: Migration documentation
       - fieldname: notes
         description: Additional registry notes
+  sdr-deci-ref-form:
+    fields:
+      - fieldname: refs
+        description: "Section ids of the architecture decision records (`ARDE`), comma-separated"
   oces-form:
     fields:
       - fieldname: supportLevel
@@ -36178,6 +36191,8 @@ form-types:
         description: Specific implementation details
       - fieldname: performanceProfile
         description: Expected performance characteristics
+      - fieldname: libraryRef
+        description: "The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there"
   ipcet-form:
     fields:
       - fieldname: conformanceTest
@@ -40630,6 +40645,10 @@ form-types:
         description: Team or individual responsible for coordinating the audit
       - fieldname: notes
         description: Additional audit requirement notes
+  syarsp-deci-ref-form:
+    fields:
+      - fieldname: refs
+        description: "Section ids of the architecture decision records (`ARDE`), comma-separated"
   csvnd-form:
     fields:
       - fieldname: preferredVendors
@@ -47749,9 +47768,6 @@ form-types:
         description: Brief log of priority/stage changes
   moencl-form:
     fields:
-      - fieldname: moscowCategory
-        required: true
-        description: MoSCoW scoping band for this item.
       - fieldname: justification
         required: true
         description: "Why this feature has this classification — business rationale, regulatory need, user demand"
@@ -47765,13 +47781,6 @@ form-types:
         description: "Relative effort — story points, T-shirt size, or person-days"
       - fieldname: costOfDelay
         description: "Impact of not delivering on time — revenue loss, penalty, competitive risk"
-  mesa-form:
-    fields:
-      - fieldname: targetStage
-        required: true
-        description: Stage in which this feature is planned for delivery
-      - fieldname: earliestPossibleStage
-        description: "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved"
   moentr-form:
     fields:
       - fieldname: linkedRequirements
@@ -47784,13 +47793,8 @@ form-types:
         description: Additional notes or caveats
   fsma-form:
     fields:
-      - fieldname: targetStage
-        required: true
-        description: Stage in which this feature will be delivered
       - fieldname: stagePhase
         description: Sub-phase within the stage — Alpha / Beta / GA / Full rollout
-      - fieldname: fallbackStage
-        description: Stage to which this feature moves if cut from target stage
   fsmr-form:
     fields:
       - fieldname: readinessStatus
@@ -47944,7 +47948,7 @@ form-types:
       - fieldname: phaseObjective
         description: Primary goal of this migration phase
       - fieldname: linkedProjectStage
-        description: Which system stage this phase supports
+        description: The project stage (STAGE-…) or migration milestone (MGMLS-MILE-…) this phase belongs to
   mpds-form:
     fields:
       - fieldname: sourceSystems
@@ -48075,6 +48079,10 @@ form-types:
       - fieldname: riskDescription
         required: true
         description: Detailed description of the risk scenario
+      - fieldname: keyRiskRef
+        description: "The key risk this risk is, or rolls up into — a key-risk section id (RISENT-KEYR-…); empty when it stays local to this register"
+      - fieldname: migrationRiskRef
+        description: The migration risk (MGRSK-ITEM-…) this stage-level entry tracks; the risk itself is described there
   smrpi-form:
     fields:
       - fieldname: probability

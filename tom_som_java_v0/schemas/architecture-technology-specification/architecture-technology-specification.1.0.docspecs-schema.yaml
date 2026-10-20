@@ -243,6 +243,10 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per shared library.
+  syarsp-deci-ref:
+    prefix: SYARSP_DECI_REF
+    format: syarsp-deci-ref-form
+    description: "The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here."
   teenne-devo-lst:
     prefix: TEENNE_DEVO_LST
     subsection-types:
@@ -994,6 +998,10 @@ section-types:
       pattern: ^SCJOST-WORK-.+$
       error-message: IDs of this section must match SCJOST-WORK-xxx
     description: "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone."
+  sdr-deci-ref:
+    prefix: SDR_DECI_REF
+    format: sdr-deci-ref-form
+    description: "The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here."
   see-envi-lst:
     prefix: SEE_ENVI_LST
     subsection-types:
@@ -4048,6 +4056,9 @@ section-types:
       - Third-party security assessments
   syarsp:
     prefix: SYARSP
+    subsection-types:
+      syarsp-deci-ref:
+        max-count: 1
     description: System architecture (new in Phase A).
   sycoma:
     prefix: SYCOMA
@@ -8291,6 +8302,8 @@ section-types:
         max-count: 1
       rcs:
         max-count: 1
+      sdr-deci-ref:
+        max-count: 1
     description: |
       Define software architecture, development environment, and component
       reusability requirements. These decisions shape developer experience,
@@ -10693,6 +10706,10 @@ form-types:
         description: Migration documentation
       - fieldname: notes
         description: Additional registry notes
+  sdr-deci-ref-form:
+    fields:
+      - fieldname: refs
+        description: "Section ids of the architecture decision records (`ARDE`), comma-separated"
   oces-form:
     fields:
       - fieldname: supportLevel
@@ -11115,6 +11132,8 @@ form-types:
         description: Specific implementation details
       - fieldname: performanceProfile
         description: Expected performance characteristics
+      - fieldname: libraryRef
+        description: "The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there"
   ipcet-form:
     fields:
       - fieldname: conformanceTest
@@ -15567,6 +15586,10 @@ form-types:
         description: Team or individual responsible for coordinating the audit
       - fieldname: notes
         description: Additional audit requirement notes
+  syarsp-deci-ref-form:
+    fields:
+      - fieldname: refs
+        description: "Section ids of the architecture decision records (`ARDE`), comma-separated"
   csvnd-form:
     fields:
       - fieldname: preferredVendors

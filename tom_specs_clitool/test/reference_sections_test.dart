@@ -39,7 +39,13 @@ const _references = {
   'AFFN-FUNC-REF': ['FUNCT'],
   'RQDEP-RELA-REF': ['FRE', 'TERQ', 'SECRQ', 'ORRQ'],
   'RQTSC-RELA-REF': ['ACE'],
+  // uamtc12: design decisions are architecture decision records.
+  'SDR-DECI-REF': ['ARDE'],
+  'SYARSP-DECI-REF': ['ARDE'],
 };
+
+/// Reference sections holding several ids, in a `refs` field.
+const _multiRefs = {'WAE-PART-REF', 'SDR-DECI-REF', 'SYARSP-DECI-REF'};
 
 void main() {
   final model = SpecModel.fromJson(
@@ -98,7 +104,7 @@ void main() {
       final doc = sample();
       final paths = pathsOf(doc, referenceId);
       expect(paths, isNotEmpty, reason: 'no $referenceId in the sample');
-      final field = referenceId == 'WAE-PART-REF' ? 'refs' : 'ref';
+      final field = _multiRefs.contains(referenceId) ? 'refs' : 'ref';
       final id = firstId(doc, target);
 
       for (final path in paths) {
@@ -165,6 +171,29 @@ void main() {
     ('SCJOB-FAIL', 'failureAlert'): ['ALERUL', 'ALEDEF'],
     ('PFE', 'featureId'): ['FPE', 'FRE'],
     ('FLDHP', 'fieldId'): ['SCREL.elementId', 'DAATT'],
+    // uamtc12: one home per fact; the other places refer to it.
+    ('GOLRS', 'keyRiskRef'): ['RISENT'],
+    ('SYMIRI', 'keyRiskRef'): ['RISENT'],
+    ('MIRIID', 'keyRiskRef'): ['RISENT'],
+    ('SMRI', 'keyRiskRef'): ['RISENT'],
+    ('SMRI', 'migrationRiskRef'): ['MGRSK'],
+    ('MIPHID', 'linkedProjectStage'): ['STAGE', 'MGMLS'],
+    ('ACTCHA', 'userCategoryRef'): ['UCE'],
+    ('STANIN', 'stakeholderRefs'): ['STKRE', 'STKNT'],
+    ('THPACO', 'libraryRef'): ['FRREEN', 'THPALI'],
+    ('DATCOM', 'libraryRef'): ['FRREEN', 'THPALI'],
+    ('IPCEI', 'libraryRef'): ['FRREEN', 'THPALI'],
+    ('SHLIEN', 'componentRef'): ['CMPNT'],
+    ('SHLCP', 'componentRef'): ['CMPNT'],
+    ('PE', 'protocolComplianceRef'): ['INPRCO'],
+    ('SEE', 'environmentRef'): ['ENVEN'],
+    ('DEPTAR', 'environmentRef'): ['ENVEN'],
+    ('BROCOM', 'browserRef'): ['BROREQ.browserName'],
+    ('OCE', 'osRef'): ['DEOSRE.osName'],
+    ('MOBCOM', 'platformRef'): ['MODERE.platform'],
+    ('DAPRCL', 'classificationLevels'): ['DCLSE'],
+    ('SESTCO', 'standardRef'): ['SSE'],
+    ('ALEDEF', 'alertRuleRef'): ['ALERUL'],
   };
 
   String? formKey(String path) {

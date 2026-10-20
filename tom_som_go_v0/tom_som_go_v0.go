@@ -29024,11 +29024,6 @@ func (x *MoscowEntry) Value() *MoscowEntryValueForm {
 	return NewMoscowEntryValueForm(x.Doc(), x.Path()+"/MOENVA")
 }
 
-// Stage assignment.
-func (x *MoscowEntry) StageAssignment() *MoscowEntryStageAssignmentForm {
-	return NewMoscowEntryStageAssignmentForm(x.Doc(), x.Path()+"/MESA")
-}
-
 // Traceability and notes.
 func (x *MoscowEntry) Traceability() *MoscowEntryTraceabilityForm {
 	return NewMoscowEntryTraceabilityForm(x.Doc(), x.Path()+"/MOENTR")
@@ -42930,6 +42925,11 @@ func (x *SoftwareDesignRequirements) ReusableComponents() *ReusableComponentsSec
 	return NewReusableComponentsSection(x.Doc(), x.Path()+"/reusableComponents")
 }
 
+// The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+func (x *SoftwareDesignRequirements) DesignDecisions() *SoftwareDesignRequirementsDesignDecisionsForm {
+	return NewSoftwareDesignRequirementsDesignDecisionsForm(x.Doc(), x.Path()+"/SDR-DECI-REF")
+}
+
 // Software layer entry — a horizontal layer in the architecture.
 type SoftwareLayerEntry struct {
 	som.SomNode
@@ -44820,6 +44820,11 @@ func (x *SystemArchitectureSpec) Content() string {
 
 func (x *SystemArchitectureSpec) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+func (x *SystemArchitectureSpec) Decisions() *SystemArchitectureSpecDecisionsForm {
+	return NewSystemArchitectureSpecDecisionsForm(x.Doc(), x.Path()+"/SYARSP-DECI-REF")
 }
 
 // 4.5. System Boundaries. Seeds → IIS.
@@ -55405,6 +55410,14 @@ func (x *ActorCharacteristicsContentForm) SetUsageFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "usageFrequency", value)
 }
 
+func (x *ActorCharacteristicsContentForm) UserCategoryRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "userCategoryRef")
+}
+
+func (x *ActorCharacteristicsContentForm) SetUserCategoryRef(value string) {
+	x.Doc().SetFormField(x.Path(), "userCategoryRef", value)
+}
+
 // ActorCharacteristicsSupportForm is the generated section facade for the `support` @Form section: its own
 // content text followed by one typed member per form field.
 type ActorCharacteristicsSupportForm struct {
@@ -57159,6 +57172,14 @@ func (x *AlertDefinitionEntryContentForm) Priority() ImportanceBand {
 
 func (x *AlertDefinitionEntryContentForm) SetPriority(value ImportanceBand) {
 	x.Doc().SetFormField(x.Path(), "priority", string(value))
+}
+
+func (x *AlertDefinitionEntryContentForm) AlertRuleRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertRuleRef")
+}
+
+func (x *AlertDefinitionEntryContentForm) SetAlertRuleRef(value string) {
+	x.Doc().SetFormField(x.Path(), "alertRuleRef", value)
 }
 
 // AlertDefinitionEntryNotificationForm is the generated section facade for the `notification` @Form section: its own
@@ -68067,6 +68088,14 @@ func (x *BrowserCompatibilityEntryContentForm) MaxVersion() string {
 
 func (x *BrowserCompatibilityEntryContentForm) SetMaxVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "maxVersion", value)
+}
+
+func (x *BrowserCompatibilityEntryContentForm) BrowserRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "browserRef")
+}
+
+func (x *BrowserCompatibilityEntryContentForm) SetBrowserRef(value string) {
+	x.Doc().SetFormField(x.Path(), "browserRef", value)
 }
 
 // BrowserCompatibilityEntryFeaturesForm is the generated section facade for the `features` @Form section: its own
@@ -97071,6 +97100,14 @@ func (x *DatabaseCompatibilityEntryContentForm) SetMaxVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "maxVersion", value)
 }
 
+func (x *DatabaseCompatibilityEntryContentForm) LibraryRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "libraryRef")
+}
+
+func (x *DatabaseCompatibilityEntryContentForm) SetLibraryRef(value string) {
+	x.Doc().SetFormField(x.Path(), "libraryRef", value)
+}
+
 // DatabaseCompatibilityEntryFeaturesForm is the generated section facade for the `features` @Form section: its own
 // content text followed by one typed member per form field.
 type DatabaseCompatibilityEntryFeaturesForm struct {
@@ -101924,6 +101961,14 @@ func (x *DeploymentTargetEntryContentForm) TargetEnvironment() string {
 
 func (x *DeploymentTargetEntryContentForm) SetTargetEnvironment(value string) {
 	x.Doc().SetFormField(x.Path(), "targetEnvironment", value)
+}
+
+func (x *DeploymentTargetEntryContentForm) EnvironmentRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "environmentRef")
+}
+
+func (x *DeploymentTargetEntryContentForm) SetEnvironmentRef(value string) {
+	x.Doc().SetFormField(x.Path(), "environmentRef", value)
 }
 
 // DeploymentTargetEntryPlatformForm is the generated section facade for the `platform` @Form section: its own
@@ -118671,28 +118716,12 @@ func (x *FeatureStageMappingAssignmentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FeatureStageMappingAssignmentForm) TargetStage() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetStage")
-}
-
-func (x *FeatureStageMappingAssignmentForm) SetTargetStage(value string) {
-	x.Doc().SetFormField(x.Path(), "targetStage", value)
-}
-
 func (x *FeatureStageMappingAssignmentForm) StagePhase() string {
 	return x.Doc().FormFieldOr(x.Path(), "stagePhase")
 }
 
 func (x *FeatureStageMappingAssignmentForm) SetStagePhase(value string) {
 	x.Doc().SetFormField(x.Path(), "stagePhase", value)
-}
-
-func (x *FeatureStageMappingAssignmentForm) FallbackStage() string {
-	return x.Doc().FormFieldOr(x.Path(), "fallbackStage")
-}
-
-func (x *FeatureStageMappingAssignmentForm) SetFallbackStage(value string) {
-	x.Doc().SetFormField(x.Path(), "fallbackStage", value)
 }
 
 // FeatureStageMappingContentForm is the generated section facade for the `content` @Form section: its own
@@ -123206,6 +123235,14 @@ func (x *GoalRiskEntryContentForm) SetRiskCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "riskCategory", value)
 }
 
+func (x *GoalRiskEntryContentForm) KeyRiskRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRiskRef")
+}
+
+func (x *GoalRiskEntryContentForm) SetKeyRiskRef(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRiskRef", value)
+}
+
 // GoalRiskEntryResponseForm is the generated section facade for the `response` @Form section: its own
 // content text followed by one typed member per form field.
 type GoalRiskEntryResponseForm struct {
@@ -126522,6 +126559,14 @@ func (x *IndustryProtocolComplianceEntryImplementationForm) PerformanceProfile()
 
 func (x *IndustryProtocolComplianceEntryImplementationForm) SetPerformanceProfile(value string) {
 	x.Doc().SetFormField(x.Path(), "performanceProfile", value)
+}
+
+func (x *IndustryProtocolComplianceEntryImplementationForm) LibraryRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "libraryRef")
+}
+
+func (x *IndustryProtocolComplianceEntryImplementationForm) SetLibraryRef(value string) {
+	x.Doc().SetFormField(x.Path(), "libraryRef", value)
 }
 
 // IndustryProtocolComplianceEntryInteroperabilityForm is the generated section facade for the `interoperability` @Form section: its own
@@ -143695,6 +143740,14 @@ func (x *MigrationRiskEntryIdentificationForm) SetAffectedStreams(value string) 
 	x.Doc().SetFormField(x.Path(), "affectedStreams", value)
 }
 
+func (x *MigrationRiskEntryIdentificationForm) KeyRiskRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRiskRef")
+}
+
+func (x *MigrationRiskEntryIdentificationForm) SetKeyRiskRef(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRiskRef", value)
+}
+
 // MigrationRiskEntryImpactForm is the generated section facade for the `impact` @Form section: its own
 // content text followed by one typed member per form field.
 type MigrationRiskEntryImpactForm struct {
@@ -144915,6 +144968,14 @@ func (x *MobileCompatibilityEntryContentForm) MaxVersion() string {
 
 func (x *MobileCompatibilityEntryContentForm) SetMaxVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "maxVersion", value)
+}
+
+func (x *MobileCompatibilityEntryContentForm) PlatformRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "platformRef")
+}
+
+func (x *MobileCompatibilityEntryContentForm) SetPlatformRef(value string) {
+	x.Doc().SetFormField(x.Path(), "platformRef", value)
 }
 
 // MobileCompatibilityEntryDevicesForm is the generated section facade for the `devices` @Form section: its own
@@ -146780,14 +146841,6 @@ func (x *MoscowEntryClassificationForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MoscowEntryClassificationForm) MoscowCategory() Priority {
-	return parsePriority(x.Doc().FormFieldOr(x.Path(), "moscowCategory"))
-}
-
-func (x *MoscowEntryClassificationForm) SetMoscowCategory(value Priority) {
-	x.Doc().SetFormField(x.Path(), "moscowCategory", string(value))
-}
-
 func (x *MoscowEntryClassificationForm) Justification() string {
 	return x.Doc().FormFieldOr(x.Path(), "justification")
 }
@@ -146836,48 +146889,6 @@ func (x *MoscowEntryContentForm) FeatureId() string {
 
 func (x *MoscowEntryContentForm) SetFeatureId(value string) {
 	x.Doc().SetFormField(x.Path(), "featureId", value)
-}
-
-// MoscowEntryStageAssignmentForm is the generated section facade for the `stageAssignment` @Form section: its own
-// content text followed by one typed member per form field.
-type MoscowEntryStageAssignmentForm struct {
-	som.SomNode
-}
-
-// NewMoscowEntryStageAssignmentForm binds a MoscowEntryStageAssignmentForm facade to a document and a path.
-func NewMoscowEntryStageAssignmentForm(doc *som.SpecDocument, path string) *MoscowEntryStageAssignmentForm {
-	return &MoscowEntryStageAssignmentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *MoscowEntryStageAssignmentForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *MoscowEntryStageAssignmentForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *MoscowEntryStageAssignmentForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *MoscowEntryStageAssignmentForm) TargetStage() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetStage")
-}
-
-func (x *MoscowEntryStageAssignmentForm) SetTargetStage(value string) {
-	x.Doc().SetFormField(x.Path(), "targetStage", value)
-}
-
-func (x *MoscowEntryStageAssignmentForm) EarliestPossibleStage() string {
-	return x.Doc().FormFieldOr(x.Path(), "earliestPossibleStage")
-}
-
-func (x *MoscowEntryStageAssignmentForm) SetEarliestPossibleStage(value string) {
-	x.Doc().SetFormField(x.Path(), "earliestPossibleStage", value)
 }
 
 // MoscowEntryTraceabilityForm is the generated section facade for the `traceability` @Form section: its own
@@ -154515,6 +154526,14 @@ func (x *OsCompatibilityEntryContentForm) MaxVersion() string {
 
 func (x *OsCompatibilityEntryContentForm) SetMaxVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "maxVersion", value)
+}
+
+func (x *OsCompatibilityEntryContentForm) OsRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "osRef")
+}
+
+func (x *OsCompatibilityEntryContentForm) SetOsRef(value string) {
+	x.Doc().SetFormField(x.Path(), "osRef", value)
 }
 
 // OsCompatibilityEntryLifecycleForm is the generated section facade for the `lifecycle` @Form section: its own
@@ -166291,6 +166310,14 @@ func (x *ProtocolEntryContentForm) Notes() string {
 
 func (x *ProtocolEntryContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+func (x *ProtocolEntryContentForm) ProtocolComplianceRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "protocolComplianceRef")
+}
+
+func (x *ProtocolEntryContentForm) SetProtocolComplianceRef(value string) {
+	x.Doc().SetFormField(x.Path(), "protocolComplianceRef", value)
 }
 
 // ProtocolFeatureEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -190911,6 +190938,14 @@ func (x *SecurityStandardComplianceEntryContentForm) SetTrustServiceCriteria(val
 	x.Doc().SetFormField(x.Path(), "trustServiceCriteria", value)
 }
 
+func (x *SecurityStandardComplianceEntryContentForm) StandardRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "standardRef")
+}
+
+func (x *SecurityStandardComplianceEntryContentForm) SetStandardRef(value string) {
+	x.Doc().SetFormField(x.Path(), "standardRef", value)
+}
+
 // SecurityStandardComplianceEntryControlsForm is the generated section facade for the `controls` @Form section: its own
 // content text followed by one typed member per form field.
 type SecurityStandardComplianceEntryControlsForm struct {
@@ -192366,6 +192401,14 @@ func (x *ServerEnvironmentEntryContentForm) Purpose() string {
 
 func (x *ServerEnvironmentEntryContentForm) SetPurpose(value string) {
 	x.Doc().SetFormField(x.Path(), "purpose", value)
+}
+
+func (x *ServerEnvironmentEntryContentForm) EnvironmentRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "environmentRef")
+}
+
+func (x *ServerEnvironmentEntryContentForm) SetEnvironmentRef(value string) {
+	x.Doc().SetFormField(x.Path(), "environmentRef", value)
 }
 
 // ServerEnvironmentEntryLifecycleForm is the generated section facade for the `lifecycle` @Form section: its own
@@ -195703,6 +195746,14 @@ func (x *SharedLibraryComponentEntryContentForm) SetVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "version", value)
 }
 
+func (x *SharedLibraryComponentEntryContentForm) ComponentRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "componentRef")
+}
+
+func (x *SharedLibraryComponentEntryContentForm) SetComponentRef(value string) {
+	x.Doc().SetFormField(x.Path(), "componentRef", value)
+}
+
 // SharedLibraryComponentEntryDescriptionForm is the generated section facade for the `description` @Form section: its own
 // content text followed by one typed member per form field.
 type SharedLibraryComponentEntryDescriptionForm struct {
@@ -196041,6 +196092,14 @@ func (x *SharedLibraryEntryContentForm) Version() string {
 
 func (x *SharedLibraryEntryContentForm) SetVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "version", value)
+}
+
+func (x *SharedLibraryEntryContentForm) ComponentRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "componentRef")
+}
+
+func (x *SharedLibraryEntryContentForm) SetComponentRef(value string) {
+	x.Doc().SetFormField(x.Path(), "componentRef", value)
 }
 
 // SharedLibraryEntryDescriptionForm is the generated section facade for the `description` @Form section: its own
@@ -197300,6 +197359,40 @@ func (x *SloEntryTargetForm) ErrorBudget() string {
 
 func (x *SloEntryTargetForm) SetErrorBudget(value string) {
 	x.Doc().SetFormField(x.Path(), "errorBudget", value)
+}
+
+// SoftwareDesignRequirementsDesignDecisionsForm is the generated section facade for the `designDecisions` @Form section: its own
+// content text followed by one typed member per form field.
+type SoftwareDesignRequirementsDesignDecisionsForm struct {
+	som.SomNode
+}
+
+// NewSoftwareDesignRequirementsDesignDecisionsForm binds a SoftwareDesignRequirementsDesignDecisionsForm facade to a document and a path.
+func NewSoftwareDesignRequirementsDesignDecisionsForm(doc *som.SpecDocument, path string) *SoftwareDesignRequirementsDesignDecisionsForm {
+	return &SoftwareDesignRequirementsDesignDecisionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SoftwareDesignRequirementsDesignDecisionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SoftwareDesignRequirementsDesignDecisionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SoftwareDesignRequirementsDesignDecisionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SoftwareDesignRequirementsDesignDecisionsForm) Refs() string {
+	return x.Doc().FormFieldOr(x.Path(), "refs")
+}
+
+func (x *SoftwareDesignRequirementsDesignDecisionsForm) SetRefs(value string) {
+	x.Doc().SetFormField(x.Path(), "refs", value)
 }
 
 // SoftwareLayerEntryComponentsForm is the generated section facade for the `components` @Form section: its own
@@ -199728,6 +199821,22 @@ func (x *StageMigrationRiskEntryIdentityForm) RiskDescription() string {
 
 func (x *StageMigrationRiskEntryIdentityForm) SetRiskDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "riskDescription", value)
+}
+
+func (x *StageMigrationRiskEntryIdentityForm) KeyRiskRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRiskRef")
+}
+
+func (x *StageMigrationRiskEntryIdentityForm) SetKeyRiskRef(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRiskRef", value)
+}
+
+func (x *StageMigrationRiskEntryIdentityForm) MigrationRiskRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "migrationRiskRef")
+}
+
+func (x *StageMigrationRiskEntryIdentityForm) SetMigrationRiskRef(value string) {
+	x.Doc().SetFormField(x.Path(), "migrationRiskRef", value)
 }
 
 // StageMigrationRiskEntryMitigationForm is the generated section facade for the `mitigation` @Form section: its own
@@ -203110,6 +203219,14 @@ func (x *StakeholdersAndInterestsContentForm) SetOtherStakeholders(value string)
 	x.Doc().SetFormField(x.Path(), "otherStakeholders", value)
 }
 
+func (x *StakeholdersAndInterestsContentForm) StakeholderRefs() string {
+	return x.Doc().FormFieldOr(x.Path(), "stakeholderRefs")
+}
+
+func (x *StakeholdersAndInterestsContentForm) SetStakeholderRefs(value string) {
+	x.Doc().SetFormField(x.Path(), "stakeholderRefs", value)
+}
+
 // StepUpAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type StepUpAuthenticationPolicyContentForm struct {
@@ -205717,6 +205834,40 @@ func (x *SupportedLocaleEntryRolloutForm) LocaleOwner() string {
 
 func (x *SupportedLocaleEntryRolloutForm) SetLocaleOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "localeOwner", value)
+}
+
+// SystemArchitectureSpecDecisionsForm is the generated section facade for the `decisions` @Form section: its own
+// content text followed by one typed member per form field.
+type SystemArchitectureSpecDecisionsForm struct {
+	som.SomNode
+}
+
+// NewSystemArchitectureSpecDecisionsForm binds a SystemArchitectureSpecDecisionsForm facade to a document and a path.
+func NewSystemArchitectureSpecDecisionsForm(doc *som.SpecDocument, path string) *SystemArchitectureSpecDecisionsForm {
+	return &SystemArchitectureSpecDecisionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemArchitectureSpecDecisionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SystemArchitectureSpecDecisionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SystemArchitectureSpecDecisionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SystemArchitectureSpecDecisionsForm) Refs() string {
+	return x.Doc().FormFieldOr(x.Path(), "refs")
+}
+
+func (x *SystemArchitectureSpecDecisionsForm) SetRefs(value string) {
+	x.Doc().SetFormField(x.Path(), "refs", value)
 }
 
 // SystemBusinessCriticalityContentForm is the generated section facade for the `content` @Form section: its own
@@ -208968,6 +209119,14 @@ func (x *SystemMigrationRiskEntryContentForm) Owner() string {
 
 func (x *SystemMigrationRiskEntryContentForm) SetOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "owner", value)
+}
+
+func (x *SystemMigrationRiskEntryContentForm) KeyRiskRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRiskRef")
+}
+
+func (x *SystemMigrationRiskEntryContentForm) SetKeyRiskRef(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRiskRef", value)
 }
 
 // SystemQualityGoalsBaselineForm is the generated section facade for the `baseline` @Form section: its own
@@ -215961,6 +216120,14 @@ func (x *ThirdPartyCompatibilityEntryContentForm) Version() string {
 
 func (x *ThirdPartyCompatibilityEntryContentForm) SetVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "version", value)
+}
+
+func (x *ThirdPartyCompatibilityEntryContentForm) LibraryRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "libraryRef")
+}
+
+func (x *ThirdPartyCompatibilityEntryContentForm) SetLibraryRef(value string) {
+	x.Doc().SetFormField(x.Path(), "libraryRef", value)
 }
 
 // ThirdPartyCompatibilityEntryIntegrationForm is the generated section facade for the `integration` @Form section: its own

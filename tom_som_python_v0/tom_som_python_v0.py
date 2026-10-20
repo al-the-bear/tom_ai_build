@@ -24969,11 +24969,6 @@ class MoscowEntry(SomNode):
     def value(self):
         return MoscowEntryValueForm(self.doc, f"{self.path}/MOENVA")
 
-    # Stage assignment.
-    @property
-    def stageAssignment(self):
-        return MoscowEntryStageAssignmentForm(self.doc, f"{self.path}/MESA")
-
     # Traceability and notes.
     @property
     def traceability(self):
@@ -36812,6 +36807,11 @@ class SoftwareDesignRequirements(SomNode):
     def reusableComponents(self):
         return ReusableComponentsSection(self.doc, f"{self.path}/reusableComponents")
 
+    # The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+    @property
+    def designDecisions(self):
+        return SoftwareDesignRequirementsDesignDecisionsForm(self.doc, f"{self.path}/SDR-DECI-REF")
+
 class SoftwareLayerEntry(SomNode):
     """Software layer entry — a horizontal layer in the architecture."""
     def __init__(self, doc, path):
@@ -38447,6 +38447,11 @@ class SystemArchitectureSpec(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
+
+    # The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+    @property
+    def decisions(self):
+        return SystemArchitectureSpecDecisionsForm(self.doc, f"{self.path}/SYARSP-DECI-REF")
 
 class SystemBoundaries(SomNode):
     """4.5. System Boundaries. Seeds → IIS.
@@ -47401,6 +47406,14 @@ class ActorCharacteristicsContentForm(SomNode):
     def usageFrequency(self, value):
         self.doc.set_form_field(self.path, "usageFrequency", value)
 
+    @property
+    def userCategoryRef(self) -> str:
+        return self.doc.form_field(self.path, "userCategoryRef") or ""
+
+    @userCategoryRef.setter
+    def userCategoryRef(self, value):
+        self.doc.set_form_field(self.path, "userCategoryRef", value)
+
 class ActorCharacteristicsSupportForm(SomNode):
     """Generated section facade for the `support` @Form section: its own content text followed by one typed member per form field."""
 
@@ -48799,6 +48812,14 @@ class AlertDefinitionEntryContentForm(SomNode):
     @priority.setter
     def priority(self, value):
         self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
+
+    @property
+    def alertRuleRef(self) -> str:
+        return self.doc.form_field(self.path, "alertRuleRef") or ""
+
+    @alertRuleRef.setter
+    def alertRuleRef(self, value):
+        self.doc.set_form_field(self.path, "alertRuleRef", value)
 
 class AlertDefinitionEntryNotificationForm(SomNode):
     """Generated section facade for the `notification` @Form section: its own content text followed by one typed member per form field."""
@@ -57112,6 +57133,14 @@ class BrowserCompatibilityEntryContentForm(SomNode):
     @maxVersion.setter
     def maxVersion(self, value):
         self.doc.set_form_field(self.path, "maxVersion", value)
+
+    @property
+    def browserRef(self) -> str:
+        return self.doc.form_field(self.path, "browserRef") or ""
+
+    @browserRef.setter
+    def browserRef(self, value):
+        self.doc.set_form_field(self.path, "browserRef", value)
 
 class BrowserCompatibilityEntryFeaturesForm(SomNode):
     """Generated section facade for the `features` @Form section: its own content text followed by one typed member per form field."""
@@ -80502,6 +80531,14 @@ class DatabaseCompatibilityEntryContentForm(SomNode):
     def maxVersion(self, value):
         self.doc.set_form_field(self.path, "maxVersion", value)
 
+    @property
+    def libraryRef(self) -> str:
+        return self.doc.form_field(self.path, "libraryRef") or ""
+
+    @libraryRef.setter
+    def libraryRef(self, value):
+        self.doc.set_form_field(self.path, "libraryRef", value)
+
 class DatabaseCompatibilityEntryFeaturesForm(SomNode):
     """Generated section facade for the `features` @Form section: its own content text followed by one typed member per form field."""
 
@@ -84387,6 +84424,14 @@ class DeploymentTargetEntryContentForm(SomNode):
     @targetEnvironment.setter
     def targetEnvironment(self, value):
         self.doc.set_form_field(self.path, "targetEnvironment", value)
+
+    @property
+    def environmentRef(self) -> str:
+        return self.doc.form_field(self.path, "environmentRef") or ""
+
+    @environmentRef.setter
+    def environmentRef(self, value):
+        self.doc.set_form_field(self.path, "environmentRef", value)
 
 class DeploymentTargetEntryPlatformForm(SomNode):
     """Generated section facade for the `platform` @Form section: its own content text followed by one typed member per form field."""
@@ -97852,28 +97897,12 @@ class FeatureStageMappingAssignmentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def targetStage(self) -> str:
-        return self.doc.form_field(self.path, "targetStage") or ""
-
-    @targetStage.setter
-    def targetStage(self, value):
-        self.doc.set_form_field(self.path, "targetStage", value)
-
-    @property
     def stagePhase(self) -> str:
         return self.doc.form_field(self.path, "stagePhase") or ""
 
     @stagePhase.setter
     def stagePhase(self, value):
         self.doc.set_form_field(self.path, "stagePhase", value)
-
-    @property
-    def fallbackStage(self) -> str:
-        return self.doc.form_field(self.path, "fallbackStage") or ""
-
-    @fallbackStage.setter
-    def fallbackStage(self, value):
-        self.doc.set_form_field(self.path, "fallbackStage", value)
 
 class FeatureStageMappingContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -101396,6 +101425,14 @@ class GoalRiskEntryContentForm(SomNode):
     def riskCategory(self, value):
         self.doc.set_form_field(self.path, "riskCategory", value)
 
+    @property
+    def keyRiskRef(self) -> str:
+        return self.doc.form_field(self.path, "keyRiskRef") or ""
+
+    @keyRiskRef.setter
+    def keyRiskRef(self, value):
+        self.doc.set_form_field(self.path, "keyRiskRef", value)
+
 class GoalRiskEntryResponseForm(SomNode):
     """Generated section facade for the `response` @Form section: its own content text followed by one typed member per form field."""
 
@@ -104035,6 +104072,14 @@ class IndustryProtocolComplianceEntryImplementationForm(SomNode):
     @performanceProfile.setter
     def performanceProfile(self, value):
         self.doc.set_form_field(self.path, "performanceProfile", value)
+
+    @property
+    def libraryRef(self) -> str:
+        return self.doc.form_field(self.path, "libraryRef") or ""
+
+    @libraryRef.setter
+    def libraryRef(self, value):
+        self.doc.set_form_field(self.path, "libraryRef", value)
 
 class IndustryProtocolComplianceEntryInteroperabilityForm(SomNode):
     """Generated section facade for the `interoperability` @Form section: its own content text followed by one typed member per form field."""
@@ -117682,6 +117727,14 @@ class MigrationRiskEntryIdentificationForm(SomNode):
     def affectedStreams(self, value):
         self.doc.set_form_field(self.path, "affectedStreams", value)
 
+    @property
+    def keyRiskRef(self) -> str:
+        return self.doc.form_field(self.path, "keyRiskRef") or ""
+
+    @keyRiskRef.setter
+    def keyRiskRef(self, value):
+        self.doc.set_form_field(self.path, "keyRiskRef", value)
+
 class MigrationRiskEntryImpactForm(SomNode):
     """Generated section facade for the `impact` @Form section: its own content text followed by one typed member per form field."""
 
@@ -118708,6 +118761,14 @@ class MobileCompatibilityEntryContentForm(SomNode):
     @maxVersion.setter
     def maxVersion(self, value):
         self.doc.set_form_field(self.path, "maxVersion", value)
+
+    @property
+    def platformRef(self) -> str:
+        return self.doc.form_field(self.path, "platformRef") or ""
+
+    @platformRef.setter
+    def platformRef(self, value):
+        self.doc.set_form_field(self.path, "platformRef", value)
 
 class MobileCompatibilityEntryDevicesForm(SomNode):
     """Generated section facade for the `devices` @Form section: its own content text followed by one typed member per form field."""
@@ -120165,14 +120226,6 @@ class MoscowEntryClassificationForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def moscowCategory(self) -> "Priority | None":
-        return _parse_Priority(self.doc.form_field(self.path, "moscowCategory"))
-
-    @moscowCategory.setter
-    def moscowCategory(self, value):
-        self.doc.set_form_field(self.path, "moscowCategory", "" if value is None else value.value)
-
-    @property
     def justification(self) -> str:
         return self.doc.form_field(self.path, "justification") or ""
 
@@ -120212,39 +120265,6 @@ class MoscowEntryContentForm(SomNode):
     @featureId.setter
     def featureId(self, value):
         self.doc.set_form_field(self.path, "featureId", value)
-
-class MoscowEntryStageAssignmentForm(SomNode):
-    """Generated section facade for the `stageAssignment` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def targetStage(self) -> str:
-        return self.doc.form_field(self.path, "targetStage") or ""
-
-    @targetStage.setter
-    def targetStage(self, value):
-        self.doc.set_form_field(self.path, "targetStage", value)
-
-    @property
-    def earliestPossibleStage(self) -> str:
-        return self.doc.form_field(self.path, "earliestPossibleStage") or ""
-
-    @earliestPossibleStage.setter
-    def earliestPossibleStage(self, value):
-        self.doc.set_form_field(self.path, "earliestPossibleStage", value)
 
 class MoscowEntryTraceabilityForm(SomNode):
     """Generated section facade for the `traceability` @Form section: its own content text followed by one typed member per form field."""
@@ -126442,6 +126462,14 @@ class OsCompatibilityEntryContentForm(SomNode):
     @maxVersion.setter
     def maxVersion(self, value):
         self.doc.set_form_field(self.path, "maxVersion", value)
+
+    @property
+    def osRef(self) -> str:
+        return self.doc.form_field(self.path, "osRef") or ""
+
+    @osRef.setter
+    def osRef(self, value):
+        self.doc.set_form_field(self.path, "osRef", value)
 
 class OsCompatibilityEntryLifecycleForm(SomNode):
     """Generated section facade for the `lifecycle` @Form section: its own content text followed by one typed member per form field."""
@@ -136136,6 +136164,14 @@ class ProtocolEntryContentForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+    @property
+    def protocolComplianceRef(self) -> str:
+        return self.doc.form_field(self.path, "protocolComplianceRef") or ""
+
+    @protocolComplianceRef.setter
+    def protocolComplianceRef(self, value):
+        self.doc.set_form_field(self.path, "protocolComplianceRef", value)
 
 class ProtocolFeatureEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -156234,6 +156270,14 @@ class SecurityStandardComplianceEntryContentForm(SomNode):
     def trustServiceCriteria(self, value):
         self.doc.set_form_field(self.path, "trustServiceCriteria", value)
 
+    @property
+    def standardRef(self) -> str:
+        return self.doc.form_field(self.path, "standardRef") or ""
+
+    @standardRef.setter
+    def standardRef(self, value):
+        self.doc.set_form_field(self.path, "standardRef", value)
+
 class SecurityStandardComplianceEntryControlsForm(SomNode):
     """Generated section facade for the `controls` @Form section: its own content text followed by one typed member per form field."""
 
@@ -157429,6 +157473,14 @@ class ServerEnvironmentEntryContentForm(SomNode):
     @purpose.setter
     def purpose(self, value):
         self.doc.set_form_field(self.path, "purpose", value)
+
+    @property
+    def environmentRef(self) -> str:
+        return self.doc.form_field(self.path, "environmentRef") or ""
+
+    @environmentRef.setter
+    def environmentRef(self, value):
+        self.doc.set_form_field(self.path, "environmentRef", value)
 
 class ServerEnvironmentEntryLifecycleForm(SomNode):
     """Generated section facade for the `lifecycle` @Form section: its own content text followed by one typed member per form field."""
@@ -160222,6 +160274,14 @@ class SharedLibraryComponentEntryContentForm(SomNode):
     def version(self, value):
         self.doc.set_form_field(self.path, "version", value)
 
+    @property
+    def componentRef(self) -> str:
+        return self.doc.form_field(self.path, "componentRef") or ""
+
+    @componentRef.setter
+    def componentRef(self, value):
+        self.doc.set_form_field(self.path, "componentRef", value)
+
 class SharedLibraryComponentEntryDescriptionForm(SomNode):
     """Generated section facade for the `description` @Form section: its own content text followed by one typed member per form field."""
 
@@ -160507,6 +160567,14 @@ class SharedLibraryEntryContentForm(SomNode):
     @version.setter
     def version(self, value):
         self.doc.set_form_field(self.path, "version", value)
+
+    @property
+    def componentRef(self) -> str:
+        return self.doc.form_field(self.path, "componentRef") or ""
+
+    @componentRef.setter
+    def componentRef(self, value):
+        self.doc.set_form_field(self.path, "componentRef", value)
 
 class SharedLibraryEntryDescriptionForm(SomNode):
     """Generated section facade for the `description` @Form section: its own content text followed by one typed member per form field."""
@@ -161532,6 +161600,31 @@ class SloEntryTargetForm(SomNode):
     @errorBudget.setter
     def errorBudget(self, value):
         self.doc.set_form_field(self.path, "errorBudget", value)
+
+class SoftwareDesignRequirementsDesignDecisionsForm(SomNode):
+    """Generated section facade for the `designDecisions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def refs(self) -> str:
+        return self.doc.form_field(self.path, "refs") or ""
+
+    @refs.setter
+    def refs(self, value):
+        self.doc.set_form_field(self.path, "refs", value)
 
 class SoftwareLayerEntryComponentsForm(SomNode):
     """Generated section facade for the `components` @Form section: its own content text followed by one typed member per form field."""
@@ -163582,6 +163675,22 @@ class StageMigrationRiskEntryIdentityForm(SomNode):
     @riskDescription.setter
     def riskDescription(self, value):
         self.doc.set_form_field(self.path, "riskDescription", value)
+
+    @property
+    def keyRiskRef(self) -> str:
+        return self.doc.form_field(self.path, "keyRiskRef") or ""
+
+    @keyRiskRef.setter
+    def keyRiskRef(self, value):
+        self.doc.set_form_field(self.path, "keyRiskRef", value)
+
+    @property
+    def migrationRiskRef(self) -> str:
+        return self.doc.form_field(self.path, "migrationRiskRef") or ""
+
+    @migrationRiskRef.setter
+    def migrationRiskRef(self, value):
+        self.doc.set_form_field(self.path, "migrationRiskRef", value)
 
 class StageMigrationRiskEntryMitigationForm(SomNode):
     """Generated section facade for the `mitigation` @Form section: its own content text followed by one typed member per form field."""
@@ -166477,6 +166586,14 @@ class StakeholdersAndInterestsContentForm(SomNode):
     def otherStakeholders(self, value):
         self.doc.set_form_field(self.path, "otherStakeholders", value)
 
+    @property
+    def stakeholderRefs(self) -> str:
+        return self.doc.form_field(self.path, "stakeholderRefs") or ""
+
+    @stakeholderRefs.setter
+    def stakeholderRefs(self, value):
+        self.doc.set_form_field(self.path, "stakeholderRefs", value)
+
 class StepUpAuthenticationPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -168389,6 +168506,31 @@ class SupportedLocaleEntryRolloutForm(SomNode):
     @localeOwner.setter
     def localeOwner(self, value):
         self.doc.set_form_field(self.path, "localeOwner", value)
+
+class SystemArchitectureSpecDecisionsForm(SomNode):
+    """Generated section facade for the `decisions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def refs(self) -> str:
+        return self.doc.form_field(self.path, "refs") or ""
+
+    @refs.setter
+    def refs(self, value):
+        self.doc.set_form_field(self.path, "refs", value)
 
 class SystemBusinessCriticalityContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -170872,6 +171014,14 @@ class SystemMigrationRiskEntryContentForm(SomNode):
     @owner.setter
     def owner(self, value):
         self.doc.set_form_field(self.path, "owner", value)
+
+    @property
+    def keyRiskRef(self) -> str:
+        return self.doc.form_field(self.path, "keyRiskRef") or ""
+
+    @keyRiskRef.setter
+    def keyRiskRef(self, value):
+        self.doc.set_form_field(self.path, "keyRiskRef", value)
 
 class SystemQualityGoalsBaselineForm(SomNode):
     """Generated section facade for the `baseline` @Form section: its own content text followed by one typed member per form field."""
@@ -176554,6 +176704,14 @@ class ThirdPartyCompatibilityEntryContentForm(SomNode):
     @version.setter
     def version(self, value):
         self.doc.set_form_field(self.path, "version", value)
+
+    @property
+    def libraryRef(self) -> str:
+        return self.doc.form_field(self.path, "libraryRef") or ""
+
+    @libraryRef.setter
+    def libraryRef(self, value):
+        self.doc.set_form_field(self.path, "libraryRef", value)
 
 class ThirdPartyCompatibilityEntryIntegrationForm(SomNode):
     """Generated section facade for the `integration` @Form section: its own content text followed by one typed member per form field."""

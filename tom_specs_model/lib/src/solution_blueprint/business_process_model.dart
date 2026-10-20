@@ -3659,6 +3659,14 @@ class ActorCharacteristics extends DocSpecsSection {
       'Usage Frequency — daily, weekly, monthly, occasional',
       hint: 'State how often the actor uses the system',
     ),
+    Field(
+      'userCategoryRef',
+      String,
+      'User Category',
+      hint:
+          'The user category (UCE-…) this actor is; its characteristics are described there, not restated here',
+      refersTo: ['UCE.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -4555,6 +4563,14 @@ class StakeholdersAndInterests extends DocSpecsSection {
       String,
       'Other Stakeholders — additional interested parties',
       hint: 'Any further parties and their interests',
+    ),
+    Field(
+      'stakeholderRefs',
+      String,
+      'Stakeholders',
+      hint:
+          'The stakeholders (STKRE-STAK-… / STKNT-…) with an interest in this interaction, comma-separated; described in the stakeholder register',
+      refersTo: ['STKRE.@sectionId', 'STKNT.@sectionId'],
     ),
   ])
   @override

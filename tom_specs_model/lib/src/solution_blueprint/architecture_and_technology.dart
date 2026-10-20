@@ -1137,6 +1137,14 @@ class DeploymentTargetEntry extends DocSpecsSection {
       'Environment',
       hint: 'Development, Staging, Production',
     ),
+    Field(
+      'environmentRef',
+      String,
+      'Environment',
+      hint:
+          'The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register',
+      refersTo: ['ENVEN.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -5153,6 +5161,23 @@ Provide an overview of software design approach and key decisions.
   /// 8.2.3. Reusable Components.
   @SerializationOrder(3)
   ReusableComponentsSection reusableComponents = ReusableComponentsSection();
+
+  /// The design decisions this section rests on. A decision is recorded once, as an architecture decision record under the architecture style (`ARDE`), and named here.
+  @SectionId('SDR-DECI-REF')
+  @Reference('Design Decisions')
+  @Form([
+    Field(
+      'refs',
+      String,
+      'Design Decisions',
+      hint:
+          'Section ids of the architecture decision records (`ARDE`), '
+          'comma-separated',
+      refersTo: ['ARDE.@sectionId'],
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? designDecisions;
 }
 
 // =============================================================================
@@ -6157,6 +6182,14 @@ class SharedLibraryEntry extends DocSpecsSection {
       hint: 'Utility, Domain, Infrastructure, UI',
     ),
     Field('version', String, 'Version', hint: 'Current version'),
+    Field(
+      'componentRef',
+      String,
+      'Component',
+      hint:
+          'The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue',
+      refersTo: ['CMPNT.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -9383,6 +9416,14 @@ class SharedLibraryComponentEntry extends DocSpecsSection {
       hint: 'Core, Utility, Domain, Integration, Extension',
     ),
     Field('version', String, 'Version', hint: 'Current version'),
+    Field(
+      'componentRef',
+      String,
+      'Component',
+      hint:
+          'The component (CMPNT-COMP-…) this shared library is; the package is described once, in the component catalogue',
+      refersTo: ['CMPNT.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -10837,6 +10878,14 @@ class OsCompatibilityEntry extends DocSpecsSection {
       'Maximum Version',
       hint: 'Maximum tested version',
     ),
+    Field(
+      'osRef',
+      String,
+      'Operating System',
+      hint:
+          'The desktop operating system of the client requirements (DEOSRE osName) this entry is about',
+      refersTo: ['DEOSRE.osName'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -10986,6 +11035,14 @@ class BrowserCompatibilityEntry extends DocSpecsSection {
       String,
       'Maximum Version',
       hint: 'Maximum tested version',
+    ),
+    Field(
+      'browserRef',
+      String,
+      'Browser',
+      hint:
+          'The browser of the client requirements (BROREQ browserName) this entry is about',
+      refersTo: ['BROREQ.browserName'],
     ),
   ])
   @override
@@ -11146,6 +11203,14 @@ class DatabaseCompatibilityEntry extends DocSpecsSection {
       String,
       'Maximum Version',
       hint: 'Maximum tested version',
+    ),
+    Field(
+      'libraryRef',
+      String,
+      'Database Product',
+      hint:
+          'The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there',
+      refersTo: ['FRREEN.@sectionId', 'THPALI.@sectionId'],
     ),
   ])
   @override
@@ -11744,6 +11809,14 @@ class MobileCompatibilityEntry extends DocSpecsSection {
       'Maximum Version',
       hint: 'Maximum tested version',
     ),
+    Field(
+      'platformRef',
+      String,
+      'Mobile Platform',
+      hint:
+          'The mobile platform of the client requirements (MODERE platform) this entry is about',
+      refersTo: ['MODERE.platform'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -11900,6 +11973,14 @@ class ThirdPartyCompatibilityEntry extends DocSpecsSection {
       hint: 'Antivirus, Firewall, MDM, Office',
     ),
     Field('version', String, 'Version', hint: 'Supported versions'),
+    Field(
+      'libraryRef',
+      String,
+      'Library',
+      hint:
+          'The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there',
+      refersTo: ['FRREEN.@sectionId', 'THPALI.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -12924,6 +13005,14 @@ class IndustryProtocolComplianceEntry extends DocSpecsSection {
       'Performance Profile',
       hint: 'Expected performance characteristics',
     ),
+    Field(
+      'libraryRef',
+      String,
+      'Implementing Library',
+      hint:
+          'The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there',
+      refersTo: ['FRREEN.@sectionId', 'THPALI.@sectionId'],
+    ),
   ])
   @SerializationOrder(2)
   DocSpecsSection? implementation;
@@ -13300,6 +13389,14 @@ class SecurityStandardComplianceEntry extends DocSpecsSection {
       String,
       'Trust Service Criteria',
       hint: 'For SOC 2: Security, Availability, etc.',
+    ),
+    Field(
+      'standardRef',
+      String,
+      'Security Standard',
+      hint:
+          'The security standard (SSE-STAN-…) whose compliance this entry tracks; the standard is described there',
+      refersTo: ['SSE.@sectionId'],
     ),
   ])
   @override
@@ -14533,6 +14630,14 @@ class ServerEnvironmentEntry extends DocSpecsSection {
       String,
       'Purpose',
       hint: 'Primary purpose of this environment',
+    ),
+    Field(
+      'environmentRef',
+      String,
+      'Environment',
+      hint:
+          'The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register',
+      refersTo: ['ENVEN.@sectionId'],
     ),
   ])
   @override
@@ -23459,6 +23564,14 @@ class AlertDefinitionEntry extends DocSpecsSection {
       'Priority',
       hint: 'How much the alert matters relative to others.',
     ),
+    Field(
+      'alertRuleRef',
+      String,
+      'Alert Rule',
+      hint:
+          'The alert rule (ALERUL-ALER-…) that raises this alert; its condition and routing are defined there',
+      refersTo: ['ALERUL.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -25270,6 +25383,14 @@ class ProtocolEntry extends DocSpecsSection {
       hint: 'Client-to-server, bidirectional, server-push',
     ),
     Field('notes', String, 'Notes', hint: 'Additional protocol notes'),
+    Field(
+      'protocolComplianceRef',
+      String,
+      'Protocol Compliance',
+      hint:
+          'The industry-protocol entry (INPRCO-…) that states this protocol\'s compliance',
+      refersTo: ['INPRCO.@sectionId'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -35402,7 +35523,9 @@ class DataProtectionClassification extends DocSpecsSection {
       String,
       'Classification Levels',
       required: true,
-      hint: 'Public, Internal, Confidential, Restricted, Top Secret',
+      hint:
+          'The data classification levels (DCLSE-ITEM-…) that apply, comma-separated — defined in the data classification',
+      refersTo: ['DCLSE.@sectionId'],
     ),
     Field(
       'personalDataCategories',
@@ -36870,4 +36993,21 @@ drivers / trade-offs.
   @override
   @SerializationOrder(0)
   String? content;
+
+  /// The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
+  @SectionId('SYARSP-DECI-REF')
+  @Reference('Architecture Decisions')
+  @Form([
+    Field(
+      'refs',
+      String,
+      'Architecture Decisions',
+      hint:
+          'Section ids of the architecture decision records (`ARDE`), '
+          'comma-separated',
+      refersTo: ['ARDE.@sectionId'],
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? decisions;
 }
