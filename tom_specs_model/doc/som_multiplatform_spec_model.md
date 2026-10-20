@@ -1555,7 +1555,8 @@ single form asks one question:
 ```
 
 - **Header.** `**❓ <ID> — <topic>:**`, with an em dash (U+2014) between the id
-  and the topic. A `★` in front of the topic marks a question that blocks the
+  and the topic, all on the header's first line: a topic wrapped onto the
+  next line is a malformed header. A `★` in front of the topic marks a question that blocks the
   phase gate or settles an architecture decision: `**❓ BQ-02 — ★ Tenancy
   model:**`.
 - **Id.** `<PREFIX>-<n>`. The upper-case prefix is chosen per project, and the
