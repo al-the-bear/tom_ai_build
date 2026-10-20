@@ -1085,6 +1085,90 @@ it can contribute to its phase gate:
 
 **The phase gate cannot pass until every required document is ACCEPTED.**
 
+### PF-ITR-REV Review Rounds: Comments, Questions and Marks
+
+Human review and the agent's clarification happen **inside the specification
+document**, in the annotation notation of `som_multiplatform_spec_model.md`
+§11.9. There are three kinds of annotation:
+
+- comment blocks (`> ⬆️ **C-12** (Alexis): …`);
+- question blocks (`> **❓ BQ-81 — topic:** …` with `**Answer:**`);
+- CriticMarkup inline marks (`{~~ old ~> new ~~}`, `{++ … ++}`, `{-- … --}`,
+  `{>> … <<}`).
+
+A side file may *index* the questions, but it never *holds* them. The position
+of a question or comment in the text is its context.
+
+**A review round** — a questions round, a structural or requirements pass, or
+a human review of the per-deliverable loop (PF-ITR-DEL) — runs in four steps:
+
+1. **Annotate.** The reviewer writes comments, inline marks and answers into
+   the document of record (the `*.docspecs.yaml`) or into its Markdown
+   rendition. Answers written into the rendition are imported back into the
+   YAML before the next validation run overwrites the rendition. The runtime
+   API gives every comment without an id its `C-<n>` on import or save.
+2. **Apply one item at a time.** The agent takes each answered question, each
+   comment and each inline mark on its own:
+   - it changes the text so that the item is satisfied;
+   - when it cannot apply a comment as written, it adds a question block
+     directly after the comment block instead, and the comment stays;
+   - an answered question changes the text that carried its working
+     assumption, and every `(<ID>)` reference to it in the text.
+3. **Record.** For every applied item, the agent writes an entry into the
+   project's decision/comment log (for tom_uam's Blueprint,
+   `decisions.sbp.md`). The entry holds:
+   - the question with its answer, or the comment (with its author), or the
+     mark;
+   - the date;
+   - what changed and where.
+
+   Inside its own document's log, a comment is cited bare (`C-12`). Anywhere
+   else it is cited with the document in front (`SBP C-12`).
+4. **Remove.** Only once the item is applied and recorded does the agent
+   remove its block or mark. An inline mark is removed by accepting or
+   rejecting it (annot4). A comment or question it could not apply stays,
+   together with its new question, for the next round.
+
+**Never strip in bulk.** Annotations are never removed all at once before the
+text has been reworked: removing them first loses where each one applied, and
+an item removed without its log entry is lost without trace. The "strip"
+operation of the annotation API produces a clean rendition **for reading**. It
+is not a step of the round and is never written back.
+
+**A worked item:**
+
+```markdown
+Sessions expire after 30 minutes of inactivity.
+
+> ⬆️ **C-12** (Alexis): Too long for shared kiosk devices.
+```
+
+The agent cannot tell whether every device should get the shorter timeout, so
+it adds a question after the comment:
+
+```markdown
+> ⬆️ **C-12** (Alexis): Too long for shared kiosk devices.
+
+> **❓ BQ-90 — C-12 kiosk timeout:** a shorter timeout for kiosk devices only,
+> or for every device?
+> - (a) kiosk devices only, 5 minutes
+> - (b) every device, 15 minutes
+>
+> *Recommendation:* (a). *Working assumption until answered:* (a).
+>
+> **Answer:** (a)
+```
+
+Once the answer is in, the agent changes the text to
+`Sessions expire after 30 minutes of inactivity, and after 5 minutes on shared
+kiosk devices.` It logs C-12 and BQ-90, each with the date and the change, and
+then removes both blocks.
+
+**At the gate.** A document submitted to a phase gate holds no comment block
+and no inline mark. Questions still open are listed in the gate report with
+their working assumptions. The gate's checklist decides whether an open `★`
+question blocks the gate.
+
 ### PF-ITR-DEP Dependency-Driven Iteration
 
 Deliverables depend on each other, and the dependency is not one-way in

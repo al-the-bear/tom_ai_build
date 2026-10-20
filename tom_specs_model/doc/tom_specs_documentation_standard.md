@@ -314,6 +314,36 @@ Two closure rules, both checkable by reading:
 
 ---
 
+### 3.5 Review annotations in authored text
+
+Authored text, both in specification documents and in the hand-written
+documentation of this standard, is reviewed in place. The notation is
+`som_multiplatform_spec_model.md` §11.9:
+
+- comment blocks (`> ⬆️ **C-12** (Alexis): …`);
+- question blocks (`> **❓ <ID> — topic:** …` with `**Answer:**`);
+- CriticMarkup inline marks (`{++ … ++}`, `{-- … --}`, `{~~ old ~> new ~~}`,
+  `{== … ==}{>> … <<}`).
+
+A specification document holds them as text of the section they sit in, and
+the review round of `tom_specs_project_flow.md` PF-ITR-REV applies, records
+and removes them one by one.
+
+In a package's README or `doc/` files, the same notation may be used while a
+review is under way, with three rules:
+
+- **They are gone at acceptance.** A file that still holds a comment block, a
+  question block or an inline mark does not pass §8. A `>` blockquote that is
+  not an annotation, such as the cross-references blockquote of §2.2, is
+  ordinary text.
+- **Examples are written as code.** A document that shows the notation, as
+  this one does, writes it inside inline code or a fenced block. Annotations
+  are not recognised inside code, so the example is never mistaken for an open
+  item.
+- **The record outlives the mark.** What a comment changed is recorded where
+  the package records its changes (its `CHANGELOG.md`, or the commit message),
+  never in a leftover block.
+
 ## 4 The nine language planes
 
 Each SOM language is a **pair**: a hand-written `tom_som_<lang>_runtime` and a
@@ -669,6 +699,7 @@ noted as not applicable.
 - [ ] Every code example complete, runnable, with expected output; no non-deterministic values
 - [ ] Nothing restates a subject-matter document — each such fact is a citation (§1.2)
 - [ ] Every `§` citation resolves; `check_section_citations.dart` passes
+- [ ] No review annotation left — no comment block, question block or inline mark outside code (§3.5)
 - [ ] `doc/api/api_summary_<module>.md` present per module
 
 **API reference and dartdoc**

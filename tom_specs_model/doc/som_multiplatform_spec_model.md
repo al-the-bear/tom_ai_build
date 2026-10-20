@@ -1448,6 +1448,282 @@ ApprovedBy: Programme Sponsor
 ReviewCount: 3
 ```
 
+### 11.9 Annotations in content
+
+Review happens **inside the document**. A reviewer's comments, the agent's
+questions with their answers, and inline suggestions are written into the text
+they concern. They are **annotations**: text inside content values, in a fixed
+notation that the runtime API can list and edit, and that the validator can
+check. The notation adds no section, no form field and no model construct:
+
+- the YAML codec stores an annotation as part of the text value that holds it;
+- the Markdown codec writes it where that value goes;
+- the conversion in either direction keeps it byte for byte.
+
+A reader that knows nothing of annotations still reads a valid document, with
+the annotations as ordinary text.
+
+There are three kinds:
+
+- **comment blocks**, written by a reviewer;
+- **question blocks**, written by the agent and answered by the reviewer;
+- **inline marks**, CriticMarkup suggestions inside a sentence, written by
+  either.
+
+All three are recognised only outside fenced code blocks and inline code
+spans. Inside code the same characters are literal.
+
+#### 11.9.1 Comment blocks
+
+A comment block is a blockquote: a run of lines whose first non-blank character
+is `>`. It is a comment block when the text after the first line's `>` begins
+with the upward-arrow marker `⬆️`. The marker is U+2B06, with or without the
+variation selector U+FE0F. The comment id and the author are optional, and the
+colon is required only after an author:
+
+```markdown
+> ⬆️ **C-12** (Alexis): The retention period should be per tenant, not global.
+
+> ⬆️ (Alexis): Is "principal" the right word for a service account here?
+
+> ⬆️ Too long — split into two requirements.
+```
+
+Header grammar of the first line:
+`> ⬆️ [**C-<n>**] [(<author>)[:]] <text>`, where:
+
+- `<n>` is a decimal number without leading zeros;
+- `<author>` contains no `)`;
+- the text may continue on further `>` lines.
+
+The block holds the reviewer's comment and nothing else. It ends at the first
+line that does not start with `>`, and two blocks are separated by a blank
+line.
+
+A reply never goes into the comment block. When the agent has to ask about a
+comment, it writes a question block (§11.9.2) **directly after** the comment
+block, one blank line between them. The question's topic begins with the
+comment id:
+
+```markdown
+> ⬆️ **C-12** (Alexis): The retention period should be per tenant, not global.
+
+> **❓ BQ-90 — C-12 retention per tenant:** should a tenant be able to *raise*
+> the retention above the platform default, or only lower it?
+> - (a) lower only — the platform default is the legal maximum
+> - (b) both, within a platform-wide ceiling
+>
+> *Recommendation:* (a).
+> *Working assumption until answered:* (a).
+>
+> **Answer:**
+```
+
+**Comment ids.** Ids have the form `C-<n>` and are numbered **per document**.
+When fragments are assembled (§12.9), the document is the assembled whole. A
+comment written without an id gets one from the runtime API on import or save
+(annot2). The API writes `**C-<n>**` directly after the marker and changes
+nothing else, so the operation is byte-stable apart from the inserted id.
+`<n>` is the highest number already used in the document plus one, and bare
+comments are numbered in document order.
+
+A caller may pass a floor, which is the highest number its comment log already
+holds. A number freed by a comment that was applied and removed is then not
+handed out a second time. Without a floor, the document alone decides.
+
+**Citation.** Inside its own document and in that document's own log, a
+comment is cited bare: `C-12`. Anywhere else it is cited with the document in
+front, either the document root's section id or the file's name without its
+format suffix: `SBP C-12`, `tom_uam.sbp C-12`. The qualified form is unique
+because the ids are unique within one document.
+
+#### 11.9.2 Question blocks
+
+A question block is a blockquote whose first line begins with `**❓`. The
+single form asks one question:
+
+```markdown
+> **❓ BQ-81 — Explain for the principal:** must `explain` also be open to the
+> principal asking about their own rights?
+> - (a) administrators only — the current text
+> - (b) also the principal itself, for its own rights
+>
+> *Recommendation:* (b) — self-service transparency costs nothing extra.
+> *Working assumption until answered:* (a).
+>
+> **Answer:**
+```
+
+- **Header.** `**❓ <ID> — <topic>:**`, with an em dash (U+2014) between the id
+  and the topic. A `★` in front of the topic marks a question that blocks the
+  phase gate or settles an architecture decision: `**❓ BQ-02 — ★ Tenancy
+  model:**`.
+- **Id.** `<PREFIX>-<n>`. The upper-case prefix is chosen per project, and the
+  project states it where it states its other conventions. tom_uam uses `BQ-`
+  for Blueprint questions and `PR-` for first-draft proposals. Unlike comment
+  ids, question ids are unique **per project**, so they are cited bare
+  everywhere.
+- **Body.** The question text. Option lines `- (a) …` are optional, and so are
+  `*Recommendation:*` and `*Working assumption until answered:*`. A question
+  without options states the working assumption all the same.
+- **Answer.** The line `**Answer:**`, followed by the answer on the same line
+  and on any further `>` lines up to the next `**❓` header or the end of the
+  block. An empty answer means the question is **open**. `**Answer:**` stays
+  bold, so §11.4 rule 3 never reads `Answer:` as a field label.
+- **Merged.** A question that asks the same decision as another shrinks to a
+  pointer in the same shape. Its id stays findable:
+
+  ```markdown
+  > **❓ BQ-88 — Audit retention:** merged into BQ-41 (same decision).
+  > **Answer:** see BQ-41.
+  ```
+
+- **Working assumption in the text.** Text that rests on an open question
+  carries `(<ID>)` at the point where the assumption applies:
+  `… administrators only (BQ-81).`
+
+**Combined form.** All questions about the fields of one form go into **one**
+block, which opens with `**❓ Open questions on these fields**`. It then repeats
+header, body and `**Answer:**` per question, with the field name as the topic:
+
+```markdown
+> **❓ Open questions on these fields**
+>
+> **❓ BQ-83 — DistributionChannel:** is the private registry the only channel?
+> *Recommendation:* yes. *Working assumption until answered:* yes.
+>
+> **Answer:**
+>
+> **❓ BQ-84 — SigningRequirements:** must release artefacts be signed?
+> *Recommendation:* yes, with the platform key.
+>
+> **Answer:** yes — and the key is rotated yearly.
+```
+
+#### 11.9.3 Inline marks
+
+Inline marks are the five [CriticMarkup](https://criticmarkup.com) forms:
+
+| Mark | Meaning |
+|------|---------|
+| `{>> comment <<}` | A comment at this point |
+| `{== text ==}{>> comment <<}` | A comment on the highlighted text (`{== text ==}` alone is a highlight) |
+| `{++ added ++}` | Suggested insertion |
+| `{-- removed --}` | Suggested deletion |
+| `{~~ old ~> new ~~}` | Suggested replacement |
+
+Example: `Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on
+shared devices ++}.`
+
+Marks do not nest and do not span a blank line. An opening delimiter without
+its closing one in the same paragraph is a finding. Marks may stand anywhere in
+prose: in narrative text, in a form's preamble, inside a form field's value,
+and inside annotation blocks. In a field value they are part of the value.
+annot4 fixes what accepting and rejecting each kind produces, and annot5
+specifies how the API writes them.
+
+#### 11.9.4 Placement
+
+| The annotation concerns | Where it goes |
+|-------------------------|---------------|
+| A narrative section | In that section's content, after the paragraph it concerns, or at the end |
+| Fields of a form | In the form's **preamble** (§11.4 rule 7), above the first field. Questions go into one combined block, and comment blocks go beside it |
+| Fields of two or more forms | In the preamble or text of the nearest section that holds all of them |
+| The entries of a list | In the owning section's text or form preamble. A list container has no body (§13 rule 3) |
+| One word or phrase | An inline mark, at that word |
+
+**Between or below form fields**, a comment block or a question block is a
+finding. In Markdown, a block after a field label would be read as part of that
+field's value. In YAML it sits inside a field value. Either way, a field value
+never takes in a block. Inline marks are the one annotation allowed inside a
+field value.
+
+In a preamble, every line carries the §11.4 rule-3 escape space in Markdown, a
+`>` line as much as any other. Parse strips it, so the block reaches the YAML
+unchanged.
+
+#### 11.9.5 Schema tier, instance tier and findings
+
+The DocSpecs schema tier (§13, §14) treats every annotation as **text of the
+section it sits in**, never as structure:
+
+- a blockquote is not a heading, a subsection or a form field;
+- annotation lines count toward `min-text-length` / `max-text-length`, like any
+  other text. A block placed in a list container's always-empty body therefore
+  violates `max-text-length: 0`, which is correct, because it is misplaced
+  there.
+
+The instance tier (`validateDocument`) reports malformed or misplaced
+annotations as findings (annot2, annot3). They never cause a parse rejection.
+The rest of the document still validates and imports.
+
+| Code | When |
+|------|------|
+| `annotationMisplaced` | A comment or question block inside a form field's value, i.e. between or below the form's fields |
+| `annotationMalformed` | An unclosed or nested inline mark; a comment header whose id is not `C-<n>`; a `**❓` header or an `**Answer:**` line inside a comment block |
+| `duplicateAnnotationId` | One comment id, or one question id, used twice in the same document. A merged pointer is not a second use of the surviving id |
+
+Annotations are review state, not specification content. A document submitted
+to a gate holds no comment block and no inline mark. Questions still open there
+are listed in the gate report with their working assumptions, and the gate's
+checklist decides whether a `★` question blocks it. The removal is the review
+round's last step (`tom_specs_project_flow.md`, PF-ITR-REV).
+
+#### 11.9.6 Conformance cases
+
+The API todos add these cases to the shared corpus, as
+`corpus/annotation_cases.json`, run by every one of the nine drivers.
+
+**Annotation API (annot2):**
+
+1. **List.** A document holding a comment block in each of the three header
+   forms, a single question block, a combined form block and each of the five
+   inline marks lists all of them with:
+   - kind;
+   - id (or none);
+   - author (or none);
+   - answer (or empty);
+   - document path and position in the value.
+
+   Marks inside a fenced block or an inline code span are not listed.
+2. **Assign ids.** Two bare comments in a document whose highest id is `C-3`
+   become `C-4` and `C-5` in document order. Every other byte is unchanged, and
+   a second run changes nothing. With a floor of 9, the first becomes `C-10`.
+   The next free id is reported without writing anything.
+3. **Insert.** A comment block inserted after a given paragraph, and a question
+   block inserted directly after a given comment block, appear at that place,
+   with one blank line on each side.
+4. **Edit.** Setting a question's answer and editing a comment's text change
+   only that text.
+5. **Resolve.** Removing one annotation by id removes the block and one
+   separating blank line. Every other byte is unchanged.
+6. **Strip and counts.** The stripped rendition holds no annotation. The counts
+   report open questions, answered questions, comments and inline marks.
+7. **Qualified id.** A comment listed with the document's qualifier reads
+   `SBP C-12`.
+8. **Round trip.** Annotations in narrative content, in a form's preamble and
+   (inline marks) in a field value survive YAML → Markdown → YAML byte for
+   byte.
+9. **Findings.** A duplicate comment id, an unclosed inline mark, a comment
+   header `**C-x**`, and an `**Answer:**` line inside a comment block each
+   produce their §11.9.5 code at the value's path.
+
+**Form fields (annot3):**
+
+1. A form whose preamble holds a combined question block and a comment block
+   parses to the same field values as the same form without them, in the SOM
+   Markdown codec and in `tom_doc_scanner`.
+2. A comment block after the last field, and a question block between two
+   fields, are each an `annotationMisplaced` finding at the form's path.
+3. An inline mark inside a field value is carried as part of the value.
+4. Schema tier: a section whose text is only an annotation block has no
+   inferred subsection or field. A block in a list container's body is a
+   `max-text-length` violation.
+
+annot4 (accepting and rejecting inline marks), annot5 (writing changes as
+marks) and annot6 (extracting answers into a step folder) carry their own cases
+on top of these.
+
 ## 12. The hierarchical `*.docspecs.yaml` format
 
 One nested YAML tree whose indentation mirrors the document structure.
