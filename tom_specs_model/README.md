@@ -268,8 +268,8 @@ this package's own [`doc/`](doc) folder and the two CodeSpecs documents in
 | [doc/som_generator_config.md](doc/som_generator_config.md) | The `tom-spec-object-model` generator config block |
 | [doc/som_toolchains.md](doc/som_toolchains.md) | Per-language build and verify toolchains for the generated runtimes |
 | [doc/tom_specs_project_flow.md](doc/tom_specs_project_flow.md) | The creation process — phases, quality gates, iteration rules, roles |
-| [codespecs_mapping.md](../../core/tom_core_codespecs/doc/codespecs_mapping.md) | Which SOM section feeds which CodeSpecs part — the grounding document |
-| [codespecs_derivation_contract.md](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md) | What code comes out of Phase 4, per marker, and the validator checks |
+| [codespecs_mapping.md](../tom_core_codespecs/doc/codespecs_mapping.md) | Which SOM section feeds which CodeSpecs part — the grounding document |
+| [codespecs_derivation_contract.md](../tom_core_codespecs/doc/codespecs_derivation_contract.md) | What code comes out of Phase 4, per marker, and the validator checks |
 | [doc/codespecs_prompt.md](doc/codespecs_prompt.md) | When a Phase-4 run may begin at all — the starting prompt and its gate |
 | [doc/tom_specs_editor_specification.md](doc/tom_specs_editor_specification.md) | The spec authoring application |
 | [doc/tom_specs_reviewer_specification.md](doc/tom_specs_reviewer_specification.md) | The object-model review application |

@@ -295,7 +295,7 @@ const defaultCitedReadmes = [
   // convention rather than restating it, so it is gated like any other
   // citing README.
   'tom_ai/ai_build/tom_specs_samples/README.md',
-  'tom_ai/core/tom_core_codespecs/README.md',
+  'tom_ai/ai_build/tom_core_codespecs/README.md',
   'tom_forge/tom_specs_editor/README.md',
   // The eighteen SOM language packages. The nine `_v0` READMEs are
   // **generated** by `packaging.dart`'s `renderFacadeReadme`, which is why they
@@ -331,8 +331,8 @@ const defaultCitedReadmes = [
 /// citation of them resolves against — and scans their own citations as
 /// documents of the set rather than as citing files outside it.
 const defaultCorpusDocuments = [
-  'tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md',
-  'tom_ai/core/tom_core_codespecs/doc/codespecs_derivation_contract.md',
+  'tom_ai/ai_build/tom_core_codespecs/doc/codespecs_mapping.md',
+  'tom_ai/ai_build/tom_core_codespecs/doc/codespecs_derivation_contract.md',
 ];
 
 /// The **package-tier `doc/` folders** that cite the doc set,
@@ -366,7 +366,7 @@ const defaultCitedDocFolders = [
   'tom_ai/ai_build/tom_specs_model/doc/api',
   'tom_ai/ai_build/tom_specs_model/doc/package',
   'tom_ai/ai_build/tom_specs_reviewer/doc',
-  'tom_ai/core/tom_core_codespecs/doc',
+  'tom_ai/ai_build/tom_core_codespecs/doc',
   'tom_ai/ai_build/tom_som_dart_runtime/doc',
   'tom_ai/ai_build/tom_som_dart_v0/doc',
   'tom_ai/ai_build/tom_som_python_runtime/doc',
@@ -470,8 +470,8 @@ const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_specs_model/test',
   'tom_ai/ai_build/tom_specs_reviewer/lib',
   'tom_ai/ai_build/tom_specs_reviewer/test',
-  'tom_ai/core/tom_core_codespecs/lib',
-  'tom_ai/core/tom_core_codespecs/test',
+  'tom_ai/ai_build/tom_core_codespecs/lib',
+  'tom_ai/ai_build/tom_core_codespecs/test',
   'tom_forge/tom_specs_editor/lib',
   // The eight non-Dart planes' `tool/golden_log.*`, emitted by
   // `packaging.dart` — see the generated-tree paragraph above.

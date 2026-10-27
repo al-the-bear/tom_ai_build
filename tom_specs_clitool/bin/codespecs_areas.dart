@@ -20,7 +20,7 @@ Future<void> main(List<String> arguments) async {
       'mapping',
       help:
           'The mapping document to transcribe. Default: '
-          'tom_ai/core/tom_core_codespecs/doc/codespecs_mapping.md.',
+          'tom_ai/ai_build/tom_core_codespecs/doc/codespecs_mapping.md.',
     )
     ..addOption(
       'prompt',

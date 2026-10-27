@@ -31,7 +31,7 @@ const List<String> defaultPackages = [
   'tom_ai/ai_build/tom_code_specs',
   'tom_ai/ai_build/tom_doc_scanner',
   'tom_ai/ai_build/tom_doc_specs',
-  'tom_ai/core/tom_core_codespecs',
+  'tom_ai/ai_build/tom_core_codespecs',
 ];
 
 void main(List<String> arguments) {

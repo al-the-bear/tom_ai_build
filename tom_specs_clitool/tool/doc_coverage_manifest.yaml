@@ -70,7 +70,7 @@ packages:
   tom_ai/ai_build/tom_doc_specs:
     floor: 100
     target: 95
-  tom_ai/core/tom_core_codespecs:
+  tom_ai/ai_build/tom_core_codespecs:
     floor: 100
     target: 95
   tom_ai/ai_build/tom_specs_reviewer:

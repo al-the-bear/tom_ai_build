@@ -81,7 +81,7 @@ packages:
   - tom_ai/ai_build/tom_doc_scanner
   - tom_ai/ai_build/tom_doc_specs
   - tom_ai/ai_build/tom_specs_reviewer
-  - tom_ai/core/tom_core_codespecs
+  - tom_ai/ai_build/tom_core_codespecs
   # The quest's own Dart beyond the ten libraries: the conformance harness's
   # drivers and the four sample projects. Small, hand-written, and ours — a gate
   # whose subject is "the quest's Dart" is easier to keep true than one whose

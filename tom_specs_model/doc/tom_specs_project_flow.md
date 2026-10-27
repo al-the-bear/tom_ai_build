@@ -41,7 +41,7 @@ the upgrade cycle.
 - The **DocSpecs document format** itself — see
   [`doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md).
 - The **CodeSpecs annotation framework and part catalogue** — see
-  [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md).
+  [`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md).
 - **Language-level coding standards** — see `_copilot_guidelines/dart/`.
 
 ### PF-DOC-BAS Basis
@@ -161,7 +161,7 @@ root of the specification object model with a three-letter section ID.
 
 `CGP` is not authored: it is a **projection** over the other roots that routes
 each section to its CodeSpecs part and deployment locus. See
-[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §9.
+[`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md) §9.
 
 ### PF-FLW-SBP The Solution Blueprint as the Expansion Point
 
@@ -308,7 +308,7 @@ class, marked with `Cs*` annotations. There is no separate CodeSpecs document
 model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 `tom_core_kernel` / `tom_core_flutter` / `tom_core_server` / `tom_core_d4rt` /
 `tom_flutter_ui`, with `tom_core_codespecs` filling only the genuine gaps. See
-[`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1.
+[`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md) §1.1.
 
 **What is specified.**
 
@@ -327,13 +327,13 @@ model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 
 **How the code is produced.** Phase 4 is neither a compiler pass nor free
 authoring. It runs in **two passes with a fixed boundary** between them
-([`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1, §1.1.1 — pillar (e) and
+([`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md) §1.1, §1.1.1 — pillar (e) and
 the production contract it fixes):
 
 | Pass | Performed by | Produces |
 |------|--------------|----------|
 | **1 · Extract** | The **extract generator** — a `spec_codespecs_extract` surface present in all nine SOM runtimes, so Phase 4 is not a Dart-only phase | One bounded, cited **extract** per CodeSpecs area, holding every SOM field the section's `@CodeSpecKind` routes there, verbatim and with its provenance: `<CE-CODE>.extract.yaml` (the artifact of record) plus a rendered `.extract.md`, under `<spec-root>/generated-doc/codespecs_extracts/` |
-| **2 · Author** | The **authoring agent** — one prompt pass per **authoring step**, working from that step's extract(s) alone and walking the thirty-one steps in [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §4.4.6's order, so nothing is written before what it cites | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](../../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md), which is normative for it |
+| **2 · Author** | The **authoring agent** — one prompt pass per **authoring step**, working from that step's extract(s) alone and walking the thirty-one steps in [`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md) §4.4.6's order, so nothing is written before what it cites | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](../../tom_core_codespecs/doc/codespecs_derivation_contract.md), which is normative for it |
 
 The generator may copy and index; it may not summarise, rephrase, compose a
 sentence out of field values, or choose a name. The agent makes every judgement
@@ -362,7 +362,7 @@ scaffolding, per authoring step, per specification element — and the open ques
 first and to exhaustion, which is the mechanism by which an underspecified
 project stops Phase 4 instead of being guessed through. Each level's generation
 rule, and the criteria under which a generated todo is born blocked rather than
-runnable, are [`codespecs_mapping.md`](../../../core/tom_core_codespecs/doc/codespecs_mapping.md) §1.1.3's; the run
+runnable, are [`codespecs_mapping.md`](../../tom_core_codespecs/doc/codespecs_mapping.md) §1.1.3's; the run
 procedure that instantiates them is §1.1.2 of `codespecs_mapping.md`.
 
 **Output — three generated projects**, split by deployment locus:
@@ -1445,7 +1445,7 @@ on that model.
 | `tom_specs_clitool` | `tom_ai/ai_build/tom_specs_clitool` | Model outliner, structural validator, the JSON export the editor consumes, the spec-document validator (`bin/validate_spec.dart`: decode, DocSpecs schema and instance tier over one document or its assembled fragments), and the Phase-4 CodeSpecs validator (`bin/validate_codespecs.dart`, with `--json` and a back-link index) behind Gate G4 |
 | `tom_specs_reviewer` | `tom_ai/ai_build/tom_specs_reviewer` | Structural review of the object model itself — a methodology tool, not a project tool |
 | `tom_code_specs` | `tom_ai/ai_build/tom_code_specs` | The CodeSpecs annotation framework — the `Cs*` family plus the `@DocSpec` back-trace |
-| `tom_core_codespecs` | `tom_ai/core/tom_core_codespecs` | Gap-filler classes CodeSpecs needs that `tom_core` does not yet provide |
+| `tom_core_codespecs` | `tom_ai/ai_build/tom_core_codespecs` | Gap-filler classes CodeSpecs needs that `tom_core` does not yet provide |
 | **Extract generator** (`spec_codespecs_extract`) | The nine `tom_som_*_v0` runtimes | Phase 4's first pass: routes each specification section by `@CodeSpecKind` into the per-area extract the authoring agent works from. A surface of every runtime, not a Dart tool, so a project specified in TomSpecs is not thereby a Dart project |
 | `tom_doc_specs` / `tom_doc_scanner` | `tom_ai/ai_build/` | DocSpecs schema assets and the markdown parser behind import/export |
 | `testkit` | `tom_ai/devops/tom_test_kit` | Test execution and baseline tracking for Phases 5–7 |

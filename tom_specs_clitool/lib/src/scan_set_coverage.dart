@@ -185,7 +185,7 @@ const tomSpecsPackageRoots = [
   'tom_ai/ai_build/tom_specs_core',
   'tom_ai/ai_build/tom_specs_model',
   'tom_ai/ai_build/tom_specs_reviewer',
-  'tom_ai/core/tom_core_codespecs',
+  'tom_ai/ai_build/tom_core_codespecs',
   'tom_forge/tom_specs_editor',
   'tom_ai/ai_build/tom_som_c_runtime',
   'tom_ai/ai_build/tom_som_c_v0',

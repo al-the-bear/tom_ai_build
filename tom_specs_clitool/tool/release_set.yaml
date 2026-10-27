@@ -19,7 +19,7 @@ release_set:
   tom_specs_model: tom_ai/ai_build/tom_specs_model
   tom_specs_clitool: tom_ai/ai_build/tom_specs_clitool
   tom_code_specs: tom_ai/ai_build/tom_code_specs
-  tom_core_codespecs: tom_ai/core/tom_core_codespecs
+  tom_core_codespecs: tom_ai/ai_build/tom_core_codespecs
 
 # Non-Dart members: no Dart dependency graph, held to existence so a renamed
 # or dropped directory fails the same gate.
@@ -98,6 +98,19 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_model: >-
+    Documentation only since 1.6.20: the editor specification names where
+    cancellation, the config writer and the core extensions now live, and the
+    links into tom_core_codespecs's documents were re-pointed when that package
+    moved from tom_core to this repository. Ships with the next release.
+  tom_code_specs: >-
+    Documentation only since 0.16.0: the links into tom_core_codespecs's
+    documents were re-pointed when that package moved from tom_core to this
+    repository. Ships with the next release.
+  tom_specs_core: >-
+    Documentation only since 0.4.0: the links into tom_core_codespecs's
+    documents were re-pointed when that package moved from tom_core to this
+    repository. Ships with the next release.
   tom_specs_clitool: >-
     README only since 0.11.0: the quest refresh of 2026-10-20 corrected the
     stale Status line (version and test count). Ships with the next release.

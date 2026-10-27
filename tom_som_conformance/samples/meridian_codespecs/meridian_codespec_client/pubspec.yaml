@@ -12,7 +12,7 @@ dependencies:
   tom_code_specs:
     path: ../../../../tom_code_specs
   tom_core_codespecs:
-    path: ../../../../../core/tom_core_codespecs
+    path: ../../../../tom_core_codespecs
 
 dev_dependencies:
   lints: ^6.0.0

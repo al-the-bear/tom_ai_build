@@ -46,7 +46,7 @@ void main() {
       expect(sources, contains('pubspec.yaml'));
       expect(
         sources,
-        contains('../../core/tom_core_codespecs/doc/codespecs_mapping.md'),
+        contains('../tom_core_codespecs/doc/codespecs_mapping.md'),
       );
       expect(
         sources,
