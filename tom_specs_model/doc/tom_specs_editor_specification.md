@@ -44,7 +44,7 @@ the design *is* and the constraint it answers to. A history-phrasing sweep
 | # | Decision |
 | --- | --- |
 | Q1 | The editor is its own project, `tom_forge/tom_specs_editor`, separate from `tom_specs_reviewer`. The tree renderer + review feature are **rendered separately** in each app and styled to their host; the model readers and the *display semantics* of the annotations are shared through `tom_som_dart_runtime`, and a shared fixture guards the two renderings against drift (§4.4). |
-| Q2 | Shared agent code → **`tom_core_agentic`** (`tom_ai/core/tom_core_agentic`, exists, v1.5.0). |
+| Q2 | Shared agent code → **`tom_core_agentic`** (`tom_ai/core_extension/tom_core_agentic`, exists, v1.5.0). |
 | Q3 | Placeholder engine ported/reimplemented in Dart — reuse `tom_core_agentic`'s `PlaceholderResolver`; **no JS** (`${{…}}` expression evaluator left unwired). |
 | Q4 | Assume a running VS Code CLI server. Port configurable; **scan 19900–19909 on startup**, show each live server's workspace, let user pick. Tests assume `19900`. |
 | Q5 | Agent may change the document freely; every change is logged; each is reviewable in a **three-way view** (last-saved section content · this edit · current content). |
@@ -155,7 +155,7 @@ Seven webview editors, all reloading from disk and all exposing an **"open raw f
 
 ### 3.6 Shared agent layer — `tom_core_agentic` (requirement *Q2*)
 
-- `tom_ai/core/tom_core_agentic/`, pkg `tom_core_agentic` **v1.8.0**, "Generic building blocks for agentic systems". It **already depends on `tom_vscode_scripting_api` (`>=1.1.0`)** for the bridge provider implementation, alongside `tom_basics`, `yaml`, `yaml_edit`, `crypto`, `path`.
+- `tom_ai/core_extension/tom_core_agentic/`, pkg `tom_core_agentic` **v1.8.0**, "Generic building blocks for agentic systems". It **already depends on `tom_vscode_scripting_api` (`>=1.1.0`)** for the bridge provider implementation, alongside `tom_basics`, `yaml`, `yaml_edit`, `crypto`, `path`.
 - **The generic provider/model API lives here now.** `tom_core_agentic/lib/src/llm/` defines the generic **`LlmProvider`** interface (`String get id`; `Future<LlmCallReport> complete(WirePrompt, LlmOptions)`; `Stream<LlmStreamEvent> completeStream(WirePrompt, LlmOptions)`), the Agent-SDK-over-bridge implementation **`AgentSdkLlmProvider`** (built on `AgentSdkClient` + `VSCodeBridgeAgentSdkTransport` from `tom_vscode_scripting_api`), and the session-lifecycle types **`AgentSdkSessionStrategy`** (interface, default `NoSessionStrategy`) + **`AgentSdkSessionStore`**. `promptSha256` is defined here (`lib/src/prompt_sha256.dart`).
 - The HTTP/stub providers — `OllamaLlmProvider`, `OpenAiPassthroughProvider`, `StubLlmProvider` — remain in **`tom_brain_substrate`** (they extend a local `HttpLlmProviderBase`); `tom_brain_substrate`/`tom_brain_run` re-export `LlmProvider`/`AgentSdkLlmProvider` from `tom_core_agentic` for back-compat, so there is one source of truth (§4.3).
 - Also reusable: **`PlaceholderResolver`** (forms `${name}`, `${name?}`, `${{ expr }}`, `${env:NAME}`; recursive; strict/lenient; async/sync; pluggable `PlaceholderExpressions`), `PlaceholderStack`, `PlaceholderError`; `YamlConfigReader`; `TtlCache`, `TokenBucket`, `Deadline`, `AsyncShutdownCoordinator`; `mcp_auth/BearerAuthContract`; `ToolCallTextParser`; `DedupById`, `TextPreview`. Cooperative cancellation (`TomCancellationToken`) and the AST-preserving config writer (`TomYamlConfigWriter`) are `tom_basics`' (`package:tom_basics/utilities.dart`).
