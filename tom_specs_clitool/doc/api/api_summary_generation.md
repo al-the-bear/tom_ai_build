@@ -187,6 +187,7 @@ const MetaFormField({
   required this.order,
   this.enumValues = const [],
   this.refersTo = const [],
+  this.code = false,
 });
 ```
 
@@ -265,6 +266,7 @@ const MetaNode({
   required this.className,
   this.memberName,
   this.sectionId,
+  this.classSectionId,
   this.sectionIdPattern,
   required this.kind,
   required this.typeName,
@@ -378,8 +380,7 @@ Generates a standalone JSON Schema (Draft-07) for the on-disk `*.docspecs.yaml` 
 
 #### Constructors
 ```dart
-DocspecsYamlSchemaGenerator({int? formatVersion})
-    : formatVersion = formatVersion ?? SpecDocumentYaml.formatVersion;
+DocspecsYamlSchemaGenerator({int? formatVersion});
 ```
 
 #### Properties

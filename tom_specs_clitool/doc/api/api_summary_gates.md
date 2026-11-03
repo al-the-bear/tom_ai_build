@@ -141,8 +141,7 @@ Every document a citation may resolve against.
 
 #### Constructors
 ```dart
-SectionCorpus(Iterable<DocumentSections> documents)
-    : _byName = {for (final d in documents) d.name: d};
+SectionCorpus(Iterable<DocumentSections> documents);
 ```
 
 #### Methods

@@ -76,8 +76,7 @@ A named, reusable bridged-library building block.
 
 #### Constructors
 ```dart
-const BridgedLibrary(this.name, LibraryRegistrar registrar)
-    : _registrar = registrar;
+const BridgedLibrary(this.name, LibraryRegistrar registrar);
 ```
 
 #### Properties

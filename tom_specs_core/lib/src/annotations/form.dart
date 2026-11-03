@@ -100,7 +100,7 @@ class Field {
   /// Each element is `<SECTIONID>` — every list entry of the class carrying
   /// that `@SectionId` in this document — or `<SECTIONID>.<formField>=<value>`,
   /// only the entries one of whose own forms (a form member of the entry
-  /// class) holds [value] in that form field. The count is the **sum** over
+  /// class) holds `<value>` in that form field. The count is the **sum** over
   /// the elements, so `['TERQ', 'SECRQ']` counts technical and security
   /// requirements together. A target written `./<SECTIONID>…` counts only the
   /// entries beneath the section that holds this form — a use case's own

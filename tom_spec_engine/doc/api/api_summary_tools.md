@@ -149,13 +149,8 @@ ScriptEntrypoint({
   required this.requiredPositional,
   required this.maxPositional,
   required List<String> namedParameters,
-}) : namedParameters = List.unmodifiable(namedParameters);
-const ScriptEntrypoint.absent()
-    : exists = false,
-      isAsync = false,
-      requiredPositional = 0,
-      maxPositional = 0,
-      namedParameters = const [];
+});
+const ScriptEntrypoint.absent();
 ```
 
 #### Properties
@@ -427,16 +422,7 @@ const DocReflection({
   this.annotations = const [],
   this.allowedChildren = const [],
 });
-const DocReflection.unresolved(this.path)
-    : resolved = false,
-      kind = null,
-      classId = null,
-      sectionId = null,
-      mapsTo = null,
-      detailedIn = null,
-      headline = null,
-      annotations = const [],
-      allowedChildren = const [];
+const DocReflection.unresolved(this.path);
 ```
 
 #### Properties

@@ -1,8 +1,9 @@
 # TomSpecs CLI Tool — The Gates
 
-Six checks in `bin/` guard properties that decay silently: citations that stop
-resolving, a release set that acquires a dependency, a generated CodeSpecs trio
-that drifts from its contract. This guide covers running each, reading its
+The checks in `bin/` guard properties that decay silently: citations that stop
+resolving, a release set that acquires a dependency, an API summary that quotes
+a signature the code no longer has, a generated CodeSpecs trio that drifts from
+its contract. This guide covers running each, reading its
 report, and what a failure actually means. What each gate *enforces* is decided
 elsewhere — `index.md`'s citation convention, the release-set manifest,
 [`codespecs_derivation_contract.md`](../../tom_core_codespecs/doc/codespecs_derivation_contract.md)
@@ -15,6 +16,8 @@ elsewhere — `index.md`'s citation convention, the release-set manifest,
 - [Core Components](#core-components)
   - [The three citation gates](#the-three-citation-gates)
   - [The release-closure gate](#the-release-closure-gate)
+  - [The API-signature gate](#the-api-signature-gate)
+  - [The documentation-build gate](#the-documentation-build-gate)
   - [The CodeSpecs validator](#the-codespecs-validator)
 - [Reading a citation failure](#reading-a-citation-failure)
 - [Scan sets are closed](#scan-sets-are-closed)
@@ -35,6 +38,8 @@ every offender when it is not.
 | `pub_archive_ignores_test.dart` (no command) | Does every release member's pub archive carry every file git tracks that no `.pubignore` excludes? | yes |
 | `check_doc_coverage.dart` | Is every measured package at or above its ratchet floor? | yes |
 | `check_format.dart` | Is every governed package what `dart format` would write? | yes |
+| `check_api_signatures.dart` | Does every signature a governed API summary quotes agree with the code? | yes |
+| `check_dartdoc_build.dart` | Does every governed package's `dart doc` build print nothing, and link only where its author chose? | yes |
 | `validate_codespecs.dart` | Does a generated CodeSpecs trio satisfy the `codespecs_derivation_contract.md` §6 checks? | no — needs a trio |
 
 The ones that run in the suite are those with a fixed subject. The CodeSpecs
@@ -141,6 +146,66 @@ Every edge must stay inside the set, cross at an approved published package, or
 land on third-party pub — and must **never** reach the excluded plane, which is
 red even when allowlisted. Approving a crossing does not approve what sits
 behind it: the walk continues through the crossing's own manifest.
+
+### The API-signature gate
+
+`check_api_signatures.dart` holds the packages in `tool/api_signature_set.yaml`:
+
+```
+tom_ai/ai_build/tom_core_codespecs: 25 fence(s), 0 usage sample(s), 25 member(s) compared, 0 disagree
+tom_ai/ai_build/tom_code_specs: 61 fence(s), 0 usage sample(s), 61 member(s) compared, 0 disagree
+...
+```
+
+An API summary is what a reader consults *instead of* the source, and every
+stale signature in one still parses — a renamed parameter, a positional
+argument that became named, a constructor that gained three parameters. So the
+gate resolves the package with the analyzer and compares each quoted member
+with its element: existence, `const` / `factory` / `static`, return type, and
+each parameter's kind, type and default. A fault names the document, the line
+of the fence, the member and what differs:
+
+```
+tom_ai/ai_build/tom_specs_core/doc/api/api_summary_annotations.md:293  Field(): omits `countOf`
+```
+
+`omits` means the code has a parameter the quote lacks; `has no named parameter`
+the reverse. `is not a type the package exports` means the documented type is
+reachable from no public library — export it, or stop documenting it as API.
+`does not parse as a signature` usually means the quote carries an initializer
+list, a private constructor or a cut-off parameter list: a summary quotes the
+signature, never the implementation.
+
+`members compared` is the number to watch on a new package: a package whose
+fences all read as usage samples would pass having compared nothing, so the
+command refuses a run that compared none. Survey a package with `--package
+tom_ai/ai_build/<package>` and add it to the set once it reads zero.
+
+### The documentation-build gate
+
+`check_dartdoc_build.dart` builds each package in `tool/dartdoc_build_set.yaml`
+and reads what `dart doc` said and what it rendered:
+
+```
+tom_ai/ai_build/tom_specs_clitool: 0 warning(s), 0 error(s), 0 stray link(s)
+```
+
+**Every warning counts.** The common one is `unresolved doc reference [x]`: a
+bracketed name that renders as literal brackets, which no reader can tell from
+intended text. Write the name in backticks when it is not a link, or name what
+it should resolve to.
+
+**A stray link** is the case `dart doc` does not warn about: it binds an
+unresolvable name to whichever package answers. `[file]` in a
+`DocCoverageManifest` comment had become a live link into the `file` package,
+which `tom_specs_clitool` does not depend on. A doc-prose link may land in the
+writing package, the SDK, a direct dependency, or a package one of those
+re-exports; anything else is reported as `<page>: [text] -> <package>`.
+
+A build that fails without a verdict line, or pages that carry no doc prose for
+the link scan to read, end the run with exit `2` rather than a pass.
+`tom_som_dart_v0` is not in the set yet: its warnings are text the generator
+copies out of the model, and the fix is a model change (see the set's header).
 
 ### The CodeSpecs validator
 

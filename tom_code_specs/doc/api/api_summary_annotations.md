@@ -688,6 +688,8 @@ const CsJob({
   this.cron,
   this.calendar,
   this.event,
+  this.interval,
+  this.intervalAnchor,
   this.maxRetries = 0,
   this.backoff,
   this.timeout,
@@ -705,6 +707,8 @@ const CsJob({
 | `cron` | `String?` | `cron`: the cron expression, verbatim. |
 | `calendar` | `String?` | `calendar`: the calendar date/time rule, verbatim. |
 | `event` | `String?` | `event`: the system event name, verbatim. |
+| `interval` | `Duration?` | `interval`: the period, lowered onto `TomIntervalSchedule.period`. |
+| `intervalAnchor` | `String?` | `interval`: the anchor instant the period is counted from, as the ISO 8601 date-time the specification states, verbatim; `null` is the Unix epoch. |
 | `maxRetries` | `int` | How many times a failed run is retried. |
 | `backoff` | `Duration?` | The delay before the first retry. |
 | `timeout` | `Duration?` | How long a single run may take before it is abandoned. |

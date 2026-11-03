@@ -121,7 +121,13 @@ FormFieldInfo({
   this.required = false,
   this.hint = '',
   this.enumValues = const [],
+  this.enumValueDocs = const {},
   this.refersTo = const [],
+  this.countOf = const [],
+  this.multiple = false,
+  this.productOf = const [],
+  this.rankOf = '',
+  this.code = false,
 });
 ```
 
@@ -150,6 +156,7 @@ ModelField({
   this.isNullable = false,
   this.isEnum = false,
   this.enumValues = const [],
+  this.enumValueDocs = const {},
   this.annotations = const [],
   this.listElementTypeName,
   this.listElementIsComplex = false,
@@ -314,9 +321,7 @@ The version stamp a `spec_model.json` export is written with.
 #### Constructors
 ```dart
 const ModelJsonStamp(this.version, this.label);
-ModelJsonStamp.from(ModelVersionStamp versioner)
-    : version = versioner.majorVersion,
-      label = versioner.label;
+ModelJsonStamp.from(ModelVersionStamp versioner);
 ```
 
 #### Properties
@@ -370,6 +375,8 @@ const ModelSurface({
   required this.fileCount,
   required this.declarationCount,
   required this.packages,
+  this.modelHash,
+  this.modelVersion,
 });
 ```
 

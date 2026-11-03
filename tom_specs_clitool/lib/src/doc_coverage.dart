@@ -84,8 +84,9 @@ class DocCoverageEntry {
   /// The ratchet floor: measured coverage may not fall below this.
   ///
   /// Seeded at the value measured when the entry was added and raised as
-  /// sweeps land. It never falls — [DocCoverageReport.ratchetViolations]
-  /// reports an attempt to lower one as a manifest defect, not a coverage one.
+  /// sweeps land. It never falls: `bin/check_doc_coverage.dart --raise` only
+  /// winds it forward, and a measurement below it is one of
+  /// [DocCoverageReport.violations].
   final int floor;
 
   /// The `tom_specs_documentation_standard.md` §5 bar this entry climbs to.
@@ -120,7 +121,7 @@ class DocCoverageManifest {
   /// standing debt, and this is a decision, not a debt.
   final List<String> excluded;
 
-  /// Reads the manifest from [file].
+  /// Reads the manifest from its YAML text, [yaml].
   ///
   /// Throws [FormatException] on a malformed one rather than defaulting —
   /// a gate that silently measures nothing is worse than no gate.

@@ -1,0 +1,20 @@
+# The packages whose API summaries (doc/api/api_summary_*.md) are held to the
+# code by bin/check_api_signatures.dart and test/api_signatures_test.dart.
+#
+# A package joins only once it reads zero: adding one with a backlog would pin
+# the backlog rather than fix it. Survey a candidate first with
+#   dart run bin/check_api_signatures.dart --package tom_ai/ai_build/<package>
+#
+# Paths are container-root-relative. An entry is a bare path (summaries in
+# doc/api) or `path: summary-folder`.
+#
+# Not here, and why: the tom_som_* packages, tom_doc_scanner and tom_doc_specs
+# hold only the generated reference under doc/api/reference/ and no fenced
+# summary, so there is nothing to compare.
+packages:
+  - tom_ai/ai_build/tom_core_codespecs
+  - tom_ai/ai_build/tom_code_specs
+  - tom_ai/ai_build/tom_spec_engine
+  - tom_ai/ai_build/tom_specs_clitool
+  - tom_ai/ai_build/tom_specs_core
+  - tom_ai/ai_build/tom_specs_model

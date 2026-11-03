@@ -461,11 +461,7 @@ const SpecReindexResult({
   required this.changedPaths,
   required this.removedPaths,
 });
-const SpecReindexResult.empty()
-    : tier1 = const IndexUpdateStats(),
-      tier2 = null,
-      changedPaths = const <String>{},
-      removedPaths = const <String>{};
+const SpecReindexResult.empty();
 ```
 
 #### Properties

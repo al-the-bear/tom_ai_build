@@ -12,7 +12,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
-import 'package:tom_specs_clitool/src/release_closure.dart';
+import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 void main() {
   final clitoolRoot = Directory.current.path;

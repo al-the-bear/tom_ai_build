@@ -1,0 +1,26 @@
+# The packages whose `dart doc` build must be silent, and whose doc-comment
+# links must land in packages they chose: bin/check_dartdoc_build.dart and
+# test/dartdoc_build_test.dart.
+#
+# A package joins only once it builds silent: adding one with a backlog would
+# pin the backlog rather than fix it. Survey a candidate first with
+#   dart run bin/check_dartdoc_build.dart --package tom_ai/ai_build/<package>
+#
+# Paths are container-root-relative.
+#
+# Not here, and why: tom_som_dart_v0 reports 1268 unresolved references, all
+# from doc text the generator copies out of the model (1261 of them one
+# `[form]` in tom_specs_core's DocSpecsSection.content). Fixing them changes
+# the model's content hash and regenerates every language's facade, a SOM
+# model change that waits for a decision (todo wonecmpd3). The other SOM
+# packages are not Dart.
+packages:
+  - tom_ai/ai_build/tom_core_codespecs
+  - tom_ai/ai_build/tom_code_specs
+  - tom_ai/ai_build/tom_doc_scanner
+  - tom_ai/ai_build/tom_doc_specs
+  - tom_ai/ai_build/tom_som_dart_runtime
+  - tom_ai/ai_build/tom_spec_engine
+  - tom_ai/ai_build/tom_specs_clitool
+  - tom_ai/ai_build/tom_specs_core
+  - tom_ai/ai_build/tom_specs_model

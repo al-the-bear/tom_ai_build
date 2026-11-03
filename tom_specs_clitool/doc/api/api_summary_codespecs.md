@@ -918,7 +918,8 @@ CodeSpecsValidationInput({
   this.enumMirrors = const [],
   this.regeneration,
   CsExtractSet? extracts,
-}) : extracts = extracts ?? CsExtractSet.empty;
+  this.featureCatalogue,
+});
 ```
 
 #### Properties
@@ -951,6 +952,8 @@ const CodeSpecsViolation({
   required this.definedIn,
   required this.message,
   this.location,
+  this.token,
+  this.area,
 });
 ```
 

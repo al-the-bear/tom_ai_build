@@ -298,6 +298,11 @@ const Field(
   bool required = false,
   String? hint,
   List<String> refersTo = const [],
+  List<String> countOf = const [],
+  bool multiple = false,
+  List<String> productOf = const [],
+  String? rankOf,
+  bool code = false,
 });
 ```
 
@@ -311,6 +316,11 @@ const Field(
 | `required` | `bool` | Whether this field is required (non-empty). |
 | `hint` | `String?` | Optional hint text providing guidance on valid values, formats, or allowed options. |
 | `refersTo` | `List<String>` | The registry key(s) this field's value is an **id drawn from**, each written `<SECTIONID>.<slot>` — e.g. |
+| `countOf` | `List<String>` | The list entries this field's number counts — `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, summed; the instance tier holds the stated count to the document. |
+| `multiple` | `bool` | Whether this reference field holds several ids, comma-separated; only meaningful with `refersTo`. |
+| `productOf` | `List<String>` | The fields whose product this field's value is (a numeric operand by its number, an enum by its 1-based position); checked as `derivedValueMismatch`. |
+| `rankOf` | `String?` | The field of the same form this field ranks by, highest first, over every instance of the form in the document. |
+| `code` | `bool` | Whether the value is code rather than prose, so the markdown rendition writes it as an inline code span. |
 
 #### ContentHelp
 

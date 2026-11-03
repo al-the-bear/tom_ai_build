@@ -12,7 +12,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
-import 'package:tom_specs_clitool/src/release_closure.dart';
+import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()

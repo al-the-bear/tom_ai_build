@@ -266,12 +266,7 @@ BrainAgentSubstrate({
   required MemoryScope scope,
   AgentProcedure? procedure,
   String scopeName = agentScopeName,
-})  : _envelope = envelope,
-      _scope = scope,
-      _procedure = procedure ?? AgentProcedure.searchRecallEditVerify,
-      _scopeName = scopeName,
-      _registry = ScopeRegistry()
-        ..register(agentScope(tools, name: scopeName));
+});
 ```
 
 #### Properties
@@ -348,18 +343,11 @@ A driver's decision for one turn: either **stop** the conversation, or **run** t
 
 #### Constructors
 ```dart
-const ConversationalDecision._({
-  required this.stop,
-  this.reason,
-  this.goal,
-  this.inputs = const <String, Object?>{},
-});
 const ConversationalDecision.run({
   Map<String, Object?> inputs = const <String, Object?>{},
   String? goal,
-}) : this._(stop: false, inputs: inputs, goal: goal);
-const ConversationalDecision.stop({String? reason})
-    : this._(stop: true, reason: reason);
+});
+const ConversationalDecision.stop({String? reason});
 ```
 
 #### Properties
@@ -379,8 +367,7 @@ A host-independent [ConversationalDriver] that replays a scripted list of [Conve
 
 #### Constructors
 ```dart
-RecordingConversationalDriver(List<ConversationalDecision> decisions)
-    : _decisions = List.of(decisions);
+RecordingConversationalDriver(List<ConversationalDecision> decisions);
 ```
 
 #### Properties
@@ -454,10 +441,7 @@ DirectAgentSubstrate({
   required AgentToolsApi tools,
   AgentProcedure? procedure,
   String scopeName = agentScopeName,
-})  : _procedure = procedure ?? AgentProcedure.searchRecallEditVerify,
-      _scopeName = scopeName,
-      _registry = ScopeRegistry()
-        ..register(agentScope(tools, name: scopeName));
+});
 ```
 
 #### Properties

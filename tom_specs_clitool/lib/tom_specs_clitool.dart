@@ -2,6 +2,20 @@
 library;
 
 export 'src/analyzer_bootstrap.dart' show createAnalysisDriver;
+export 'src/dartdoc_build.dart'
+    show
+        DartdocBuildReport,
+        DartdocBuildSet,
+        allowedDoclinkPackages,
+        buildDartdoc,
+        dartdocBuildSetPath,
+        strayDoclinks;
+export 'src/api_signatures.dart'
+    show
+        ApiSignatureReport,
+        ApiSignatureSet,
+        apiSignatureSetPath,
+        checkApiSignatures;
 export 'src/model_reader.dart'
     show
         ModelReader,
@@ -225,7 +239,7 @@ export 'src/som_c_generator.dart'
     show generateSomCProject, writeSomCProject, SomCGenerationResult;
 export 'src/som_cpp_generator.dart'
     show generateSomCppProject, writeSomCppProject, SomCppGenerationResult;
-export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
+export 'src/spec_ops_generator.dart' show SbpPath, SpecOpsGenerator;
 export 'src/spec_ops_build.dart'
     show
         specOpsPathSegments,
@@ -302,6 +316,47 @@ export 'src/codespecs/cs_checks.dart'
     show
         CodeSpecsCheck,
         CodeSpecsViolation,
+        CsIdentifierCollisionCheck,
+        CsReferenceResolutionCheck,
+        CsMissingNameCheck,
+        CsMissingAuthoredKeyCheck,
+        CsEmptyExplicationCheck,
+        CsFabricatedValueCheck,
+        CsBackLinkAgreementCheck,
+        CsSlotExclusivityCheck,
+        CsMirroredCatalogueCheck,
+        CsErrorCopyCategoryCheck,
+        CsLocusArrowCheck,
+        CsOperationAgreementCheck,
+        CsMigrationConvergenceCheck,
+        CsComposeTokenCheck,
+        CsOverridableScopeCheck,
+        CsSecretInitialiserCheck,
+        CsFallbackChannelCheck,
+        CsDrillThroughRouteCheck,
+        CsSecretIsDeclaredCheck,
+        CsSettingKeyCollisionCheck,
+        CsGradedDepthCheck,
+        CsColumnNotObservableCheck,
+        CsCollaboratorCallResolutionCheck,
+        CsCollaboratorShapeCheck,
+        CsMethodCommentCheck,
+        CsNoInBodyCommentCheck,
+        CsDocCommentShapeCheck,
+        CsBodyStatementShapeCheck,
+        CsBranchConditionCheck,
+        CsCollaboratorSignatureCheck,
+        CsDeterminismCheck,
+        CsCommentSourceCheck,
+        CsGroupedHolderCommentCheck,
+        CsCommentFidelityCheck,
+        CsExtractCoverageCheck,
+        CsBackLinkExtractedCheck,
+        CsReflectionWrittenNotFinalCheck,
+        CsBindingOperationCheck,
+        CsBindingRouteCheck,
+        CsFeatureHookCompletenessCheck,
+        CsReservedProtocolPathCheck,
         codeSpecsChecks,
         csMirroredEnumPairs,
         csBindingMethods,
@@ -348,6 +403,7 @@ export 'src/codespecs/cs_check_table.dart'
 // runtimes.
 // The release-drift gate — which release-set packages have moved since the
 // commit that set their current version, and which of those say why.
+export 'src/release_closure.dart';
 export 'src/release_drift.dart'
     show
         PackageDrift,
