@@ -123,9 +123,9 @@ the design *is* and the constraint it answers to. A history-phrasing sweep
 
 - `ForgeTextContext` (`tom_forge_ui/lib/src/components/forge_component.dart`): `bool isDirty`, `bool canUndo`, `bool canRedo`, `Stream<ForgeTextContext> onContextChanged`.
 - `ShellEditorIntegration` (`…/integrations/shell_editor_integration.dart`): editor calls `registerAction(StandardEditingActions.undoActionId, handler, isEnabled: …)` and `…redoActionId`; the shell routes global **Cmd/Ctrl+Z / Cmd/Ctrl+Shift+Z** to the focused editor's handlers.
-- Shell-level history `DefaultUndoManager` (`tom_forge_core/lib/src/defaults/default_undo_manager.dart`): `push(UndoEntry(undo, redo, label))`, `beginUndoGroup/endUndoGroup` → `CompositeUndoEntry`. Editors call `notifyTextEdit(label)` to register a bridge entry that delegates to the editor's own `undo()/redo()`.
+- Shell-level history `DefaultUndoManager` (`tom_forge_core/lib/src/defaults/default_undo_manager.dart`): `push(UndoEntry(undo, redo, label))`, `beginUndoGroup/endUndoGroup` → `CompositeUndoEntry`. It holds shell actions only; no editor pushes into it, and `Edit > Undo/Redo` run the active editor's `forge.edit.undo/redo`.
 - Editors implement **local** history (e.g. `tom_md_editor`'s `UndoHistory<MdEditOperation>`, maxDepth 100) and expose it through the contract. Dirty = current-content ≠ last-saved-content (computed).
-- **Our binding:** snapshot-based local stack (Q7), exposed via `ShellEditorIntegration.registerAction` + `notifyTextEdit`. Agent edits use `beginUndoGroup`/`endUndoGroup` so one agent *turn* is one undo step (see §10).
+- **Our binding:** snapshot-based local stack (Q7), exposed via `ShellEditorIntegration.registerAction`. Agent edits use `beginUndoGroup`/`endUndoGroup` so one agent *turn* is one undo step (see §10).
 
 ### 3.3 Claude Code via the bridge (`tom_vscode_scripting_api`, `tom_vscode_bridge`, extension `agent-sdk-bridge.ts`)
 
