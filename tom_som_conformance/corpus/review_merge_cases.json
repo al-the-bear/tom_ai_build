@@ -1422,6 +1422,470 @@
       "expect": {
         "error": true
       }
+    },
+    {
+      "name": "votes and an own change in one unit",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes{++ on kiosks ++}."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 30 minutes."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@agent +alice -bob} minutes{++ on kiosks ++}{@alice}."
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [
+            {
+              "path": "DEMO/SUM",
+              "field": null,
+              "markup": "{~~ 30 ~> 15 ~~}{@agent +alice -bob}",
+              "votes": [
+                {
+                  "member": "alice",
+                  "vote": "accept"
+                },
+                {
+                  "member": "bob",
+                  "vote": "reject"
+                }
+              ]
+            }
+          ],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "an item moved",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "alpha card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "beta card"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA",
+              "DEMO/CARD-LST-2": "CARD-BETA"
+            }
+          }
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "alpha card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "beta card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA",
+                  "DEMO/CARD-LST-2": "CARD-BETA"
+                }
+              }
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "beta card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "alpha card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-BETA",
+                  "DEMO/CARD-LST-2": "CARD-ALPHA"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/CARD-LST-1/content": "> ⚖️ **X-1 — Item moved:** DEMO/CARD-LST-1\n> - (base) position 1\n> - (a) **carol:** moved to position 2\n>\n> **Decision:**"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "alpha card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "beta card"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 2,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-BETA"
+              }
+            }
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [
+            {
+              "id": "X-1",
+              "path": "DEMO/CARD-LST-1",
+              "field": null,
+              "paragraph": null,
+              "members": [
+                "carol"
+              ]
+            }
+          ],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "a typed value changed",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Summary.",
+          "DEMO/PRI": "high"
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Summary.",
+              "DEMO/PRI": "low"
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Summary.",
+              "DEMO/PRI": "low"
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/PRI": "high",
+            "DEMO/SUM": "Summary.",
+            "DEMO/TTL": "> ⚖️ **X-1 — Value changed:** DEMO/PRI\n> - (base) high\n> - (a) **alice, bob:** low\n>\n> **Decision:**"
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            }
+          ],
+          "conflicts": [
+            {
+              "id": "X-1",
+              "path": "DEMO/PRI",
+              "field": null,
+              "paragraph": null,
+              "members": [
+                "alice",
+                "bob"
+              ]
+            }
+          ],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "a whole-value conflict",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Line one.\n\nLine two."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Line one.\n\nLine two.\n\nAlice three."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Line one.\n\nBob two.\n\nBob three."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Line one.\n\nLine two.\n\n> ⚖️ **X-1 — Conflicting changes:** DEMO/SUM\n> - (base) Line one.\n>   \n>   Line two.\n> - (a) **alice:** Line one.\n>   \n>   Line two.\n>   \n>   Alice three.\n> - (b) **bob:** Line one.\n>   \n>   Bob two.\n>   \n>   Bob three.\n>\n> **Decision:**"
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            }
+          ],
+          "conflicts": [
+            {
+              "id": "X-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "paragraph": null,
+              "members": [
+                "alice",
+                "bob"
+              ]
+            }
+          ],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
     }
   ]
 }

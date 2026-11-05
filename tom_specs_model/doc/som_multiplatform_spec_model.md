@@ -2146,7 +2146,7 @@ A **typed value** (a scalar or enum leaf, or a form field whose type is not
 change a copy made is a conflict with the topic `Value changed` and the text
 `<path>[ <field>]`, one alternative per distinct value, even when only one copy
 changed it. A form field's goes to the end of the form's preamble, a leaf's to
-the end of its nearest ancestor's own content value (below, "Structure").
+the end of its nearest ancestor's content (below, "Structure").
 
 **What a copy did to a unit.** For base unit `b` and copy unit `c`:
 
@@ -2243,7 +2243,9 @@ unit.
   the end of the first content value at or below the item, in document order;
   when there is none yet, of the first node at or below it that holds content
   (a content leaf or a form's preamble), in model order; otherwise of its
-  nearest ancestor's own content value.
+  nearest ancestor's content: the ancestor's own value when it holds one, else
+  the first content leaf or form preamble among the ancestor's members, in
+  model order (for a leaf of the DEMO root, its title).
 
 **Guests.** A guest's changes and answers are attributed like a member's, and
 the merged document carries a question proposing the guest for the team of

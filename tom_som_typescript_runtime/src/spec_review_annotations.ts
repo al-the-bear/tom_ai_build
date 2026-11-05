@@ -3476,12 +3476,21 @@ export function transplantEdits(x: string, y: string, b: string): string | null 
   return out.join('');
 }
 
-/** The b-token range an x-token range `[x0, x1)` lands on, or null when it is not one. */
+/**
+ * The b-token range an x-token range `[x0, x1)` lands on, or null when it is not one.
+ *
+ * A replaced range lands where its tokens are in b, which must be contiguous
+ * there; its neighbours are not consulted, because the token diff may align a
+ * neighbouring space with another space of b (beside a decided mark) without
+ * the range touching that mark. A pure insertion (`x0 === x1`) has no tokens
+ * of its own, so both neighbours must sit next to each other in b.
+ */
 function _landing(toB: number[], x0: number, x1: number, bLength: number): [number, number] | null {
   for (let k = x0; k < x1; k++) {
     if (toB[k] < 0 || (k > x0 && toB[k] !== toB[k - 1] + 1)) return null;
   }
-  // The neighbours must sit next to the range in b too.
+  if (x1 > x0) return [toB[x0], toB[x1 - 1] + 1];
+  // The neighbours must sit next to the insertion point in b too.
   const left = x0 === 0 ? -1 : toB[x0 - 1];
   const right = x1 === toB.length ? bLength : toB[x1];
   if ((x0 > 0 && left < 0) || (x1 < toB.length && right < 0)) return null;

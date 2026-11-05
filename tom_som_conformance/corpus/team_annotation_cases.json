@@ -894,6 +894,65 @@
           }
         }
       }
+    },
+    {
+      "name": "remove all applies a form-field conflict and a whole-value conflict",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/DET": "Contacts.\n\n> ⚖️ **X-1 — Conflicting changes:** DEMO/DET contact\n> - (base) bob@example.com\n> - (a) **alice:** bob@corp.example.com\n> - (b) **carol:** support@example.com\n>\n> **Decision:** (b)",
+          "DEMO/SUM": "Line one.\n\nLine two.\n\n> ⚖️ **X-2 — Conflicting changes:** DEMO/SUM\n> - (base) Line one.\n>   \n>   Line two.\n> - (a) **alice:** Line one.\n>   \n>   Line two.\n>   \n>   Alice three.\n> - (b) **bob:** Line one.\n>   \n>   Bob two.\n>\n> **Decision:** (a)"
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "removeAll"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [],
+            "malformed": [],
+            "conflicts": [
+              {
+                "id": "X-1",
+                "path": "DEMO/DET",
+                "field": null,
+                "line": 2,
+                "decision": "(b)",
+                "result": "support@example.com"
+              },
+              {
+                "id": "X-2",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 4,
+                "decision": "(a)",
+                "result": "Line one.\n\nLine two.\n\nAlice three."
+              }
+            ]
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "Contacts.",
+            "DEMO/SUM": "Line one.\n\nLine two.\n\nAlice three."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "support@example.com",
+              "owner": "Bob"
+            }
+          }
+        }
+      }
     }
   ],
   "validationCases": [
