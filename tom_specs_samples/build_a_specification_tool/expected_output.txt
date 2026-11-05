@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.6.19+26.779b9741
-  generatedAt       = 2026-10-20T10:48:37.925194Z
+  modelVersionLabel = 1.7.0+28.9d5ddca9
+  generatedAt       = 2026-11-05T21:30:26.801766Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -30,7 +30,7 @@ build label for humans — never branch on it.
 
 SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
   age                 : 3 days (aged: false)
-  classes  declared/actual : 1266/1266  disagrees: false
+  classes  declared/actual : 1270/1270  disagrees: false
   roots    declared/actual : 14/14  disagrees: false
   Declared-vs-actual is not redundant: the declared value is what
   the exporter recorded, the actual value is what survived to the
@@ -38,7 +38,7 @@ SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
 
 SHAPE:
   document roots : 14
-  classes        : 1266
+  classes        : 1270
   container root : DocSpecsProject — the one true tree root, which is not itself a document
 
 FIELDS of D00SolutionBlueprint (15 total, first 4):
@@ -135,7 +135,7 @@ a JSON-Schema validator will not find one, because the artifact the
 schema governs is not JSON.
 
   root section id : SBP
-  section types   : 3942
+  section types   : 3951
 
   That count is large because a Solution Blueprint SEEDS the twelve
   Phase-3 documents: its own section classes ARE those documents'
@@ -210,7 +210,7 @@ and answering it means walking the model and asking the document.
   SBP.1 Document Control (header + revi…     0 /    11    0%
   SBP.2 Introduction & Scope                 1 /   417    0%
   SBP.3 Glossary & Abbreviations             0 /     2    0%
-  SBP.4 Stakeholders & Governance            0 /   201    0%
+  SBP.4 Stakeholders & Governance            0 /   204    0%
   SBP.5 Current Landscape                    2 /   222    1%
   SBP.6 Assumptions, Constraints & Depe…     0 /     5    0%
   SBP.7 Target Operating Model concept       0 /   247    0%
@@ -222,7 +222,7 @@ and answering it means walking the model and asking the document.
   SBP.14 Quality & Acceptance Model          0 /   518    0%
   SBP.15 Delivery, Transition & Rollout      0 /   372    0%
   -------------------------------------- -------------------
-  TOTAL                                      4 /  6211    0%
+  TOTAL                                      4 /  6214    0%
 
   SBP.11 offers 2529 positions because a Solution Blueprint SEEDS
   the twelve Phase-3 documents: its section classes ARE those
@@ -233,6 +233,6 @@ and answering it means walking the model and asking the document.
 
   Required-and-missing, from the schema tier, for contrast:
     1 missing required field(s) — the only gaps a validator
-    will name, out of 6207 unwritten positions.
+    will name, out of 6210 unwritten positions.
 
 That gap between the two numbers is the tool's reason to exist.

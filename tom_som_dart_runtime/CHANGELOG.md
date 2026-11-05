@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.0
+
+- No runtime change. The chain moves with `tom_specs_model` 1.7.0, which adds
+  review teams and the reviewers of a revision (additive; 1.6 documents stay
+  valid).
+
 ## 1.6.20
 
 - `SpecReviewAnnotations.paragraphs(path:, field:)` lists a value's

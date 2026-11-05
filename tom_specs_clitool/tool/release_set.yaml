@@ -98,11 +98,10 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_specs_model: >-
-    Documentation only since 1.6.20: the editor specification names where
-    cancellation, the config writer and the core extensions now live, and the
-    links into tom_core_codespecs's documents were re-pointed when that package
-    moved from tom_core to this repository. Ships with the next release.
+  tom_som_dart_runtime: >-
+    CHANGELOG only since 1.7.0: its 1.7.0 entry (no runtime change; the chain
+    moves with tom_specs_model 1.7.0) was written after the upload. Ships with
+    the next release.
   tom_code_specs: >-
     Documentation only since 0.16.0: the links into tom_core_codespecs's
     documents were re-pointed when that package moved from tom_core to this
@@ -112,8 +111,11 @@ unpublished_drift:
     documents were re-pointed when that package moved from tom_core to this
     repository. Ships with the next release.
   tom_specs_clitool: >-
-    README only since 0.11.0: the quest refresh of 2026-10-20 corrected the
-    stale Status line (version and test count). Ships with the next release.
+    Development tooling since 0.11.0, not part of a consumer's surface: the
+    README Status line, and for tom_specs_model 1.7.0 the spec-ops generator
+    keeping a document's own review team and revision history out of the
+    projection connect pass, the regenerated model stamp, and the gate tests
+    that follow the model. Ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the
