@@ -2030,9 +2030,10 @@ headline) into the owning section's text, as §11.9.4 places any block:
 - **Alternatives.** `- (base) …` first: the base text. Then one lettered
   alternative per distinct change, `- (a) **<ids>:** …`, naming its members
   with the separator of individual answers; members who made the same change
-  share one alternative. A conflict has at least two lettered alternatives. An
-  alternative's text may continue on lines indented under it, exactly like a
-  question option.
+  share one alternative. A conflict has at least one lettered alternative: a
+  paragraph conflict has two or more, a structural one (§11.9.9) may have one.
+  An alternative's text may continue on lines indented under it, exactly like
+  a question option.
 - **Decision.** `**Decision:**` takes a letter (`(b)`), `(base)`, or the
   rewritten text, on the same line and on further `>` lines, like an answer.
   An empty decision means the conflict is **open**.
@@ -2066,14 +2067,176 @@ also count as answered), `conflicts` and `openConflicts` (empty decisions).
 
 | Code | When |
 |------|------|
-| `annotationMalformed` | A `{@` token that is empty, names an id not of the member-id form, names a member twice or as author and voter, carries a vote after a highlight or comment mark, or does not follow a mark directly; an `**Answer (…):**` line naming a member already answered in the same question, or one inside a comment block; a conflict header that is not `⚖️ **X-<n> — <topic>:**`, a conflict without its `(base)` line or with fewer than two lettered alternatives |
+| `annotationMalformed` | A `{@` token that is empty, names an id not of the member-id form, names a member twice or as author and voter, carries a vote after a highlight or comment mark, or does not follow a mark directly; an `**Answer (…):**` line naming a member already answered in the same question, or one inside a comment block; a conflict header that is not `⚖️ **X-<n> — <topic>:**`, a conflict without its `(base)` line or without a lettered alternative |
 | `annotationMisplaced` | A conflict block inside a form field's value |
 | `duplicateAnnotationId` | One conflict id used twice in the same document |
 
 Cases: `corpus/team_annotation_cases.json` (listing, counts, decisions, team
 answers, conflicts, `open:`) and its `validationCases` (the findings). A
 runtime's `doc/review_annotations.md` says whether its driver runs them. The
-merge of reviewed copies, which writes these notations, has cases of its own.
+merge of reviewed copies, which writes these notations, is §11.9.9.
+
+#### 11.9.9 Merging reviewed copies
+
+A review round hands each member a copy of the base document and takes the
+copies back. `mergeReviews(base, copies, options)` merges them into one
+document in the notation of §11.9.8 and returns it with a **merge report**. It
+never writes the copies or the base. The same operation merges a SOM document
+by model path and a plain annotated Markdown file by heading path; the rules
+below are the same for both except where a part says otherwise.
+
+**Inputs.**
+
+- `base`: the document as it was handed out.
+- `copies`: one per returned copy, in round order, each with the reviewer's
+  `memberId`, `displayName`, `role` and the copy's document.
+- `options.team`: the members the round started with (`memberId`,
+  `displayName`, `role`), in team order. A copy whose member is not in it is a
+  **guest**.
+- `options.date`: the round's date (ISO 8601), used for the revision entry and
+  for every list-item id the merge generates.
+- `options.author`: the revision entry's author.
+- `options.questionPrefix`: the id prefix of questions the merge writes
+  (default `RQ`).
+
+A copy whose structure does not fit the base is refused (the round's check
+step reports it before the merge): for SOM, a path the base model does not
+resolve; for plain Markdown, a heading sequence different from the base's.
+List items are matched by section id, never by position.
+
+**Units.** The merge works on **values**: SOM content values and form-field
+values, and in plain Markdown the text under each heading (the text before the
+first heading being the value of the empty heading path; the report writes a
+heading path as its heading texts joined by ` > `). A value's
+paragraphs (§11.9.1) are split into annotation blocks and **text paragraphs**.
+When a copy has as many text paragraphs as the base, each text paragraph is a
+**unit**, paired with the base's by position; otherwise the copy's whole text
+is one unit against the base's whole text. A form-field value is always one
+unit.
+
+**What a copy did to a unit.** For base unit `b` and copy unit `c`:
+
+1. **Own marks.** Marks in `c` that are not among `b`'s marks are the
+   reviewer's own.
+2. **Votes.** `c′` is `c` with its own marks rejected. Each of `b`'s marks
+   was left, accepted or rejected: the merge tries every combination, each mark
+   taking leave, accept, reject in that order and the first mark varying
+   slowest, applies it to `b` by the rules of §11.9.3, and takes the first
+   whose result is `c′`. An accepted or rejected mark is that member's vote.
+3. **Change.** `t`, the reviewer's text, is `c` with each voted mark's
+   result (the text its decision left in `c′`) replaced by the mark as written
+   in `b`, and the own marks accepted. An own mark that overlaps such a result
+   makes the unit a case of step 4. When `t` equals `b`, the copy did not
+   change the unit. Otherwise the change is written as the own marks as the
+   reviewer wrote them, or, when the reviewer edited plain text, as
+   `markChangeText` of `b` against `t` (§11.9.3).
+4. **No combination fits** (the reviewer edited text that holds base marks
+   without marks): the copy casts no votes on that unit, and its change is
+   `markChangeText` of `b` with its marks rejected against `c` with every mark
+   accepted.
+
+**Combining the copies, per unit.**
+
+- **No copy changed it:** the base text, with votes added (below).
+- **One change:** copies whose `t` is identical made the same change. When
+  only one `t` occurs, the unit is that change as the first such copy wrote
+  it, each of its marks attributed to every member with that `t`:
+  `{~~ 30 ~> 15 ~~}{@alice,bob}`.
+- **Different changes:** when two or more different `t` occur, the unit keeps
+  the base text and a conflict block (§11.9.8) follows it, with the topic
+  `Conflicting changes` and the text `<path>[ <field>], paragraph <n>` (the
+  unit's index among the text paragraphs; omitted for a whole-value unit). Its
+  alternatives are the distinct `t`, lettered in order of first appearance,
+  each naming its members. A form field's conflict goes to the end of the
+  form's preamble, with the field name in its text.
+
+**Votes on base marks.** A base mark every copy decided the same way is
+**unanimous**: the merge applies it (accept) or drops it (reject) and lists it
+in the report. Any other base mark that received a vote stays, its token
+carrying the votes in round order; a base mark without a token gets the author
+`agent`: `{-- very --}{@agent -bob -carol}`. A mark no copy decided stays as
+it is.
+
+**Answers.** For each question of the base, a copy whose team answer differs
+from the base's has answered it: the answer is written as that member's
+individual answer by the rules of `setAnswer` with an `author` (§11.9.8), the
+copies in round order. The team answer stays as in the base.
+
+**Comments and questions.** A comment block in a copy whose id is not in the
+base, or which has no id, is new. It keeps its author, and gets the member id
+when it has none, and goes after the unit it followed in the copy (at the
+start when it preceded every text paragraph; at the end of the value for a
+whole-value unit). New comments are renumbered `C-<n>` above the highest
+comment id of the base, in merged document order. A question block whose id
+is not in the base is kept as written. A copy's edit of a base comment is not
+merged.
+
+**Order inside a value.** After each unit come its conflict block, then the
+base's annotation blocks that followed it, then the new comments placed after
+it, in round order.
+
+**Structure (SOM).**
+
+- **An item added** by a copy is added at the position after the base item
+  that precedes it in the copy (at the start when none does), with the copy's
+  section id. Its text values are written as attributed insertions, one per
+  paragraph (`{++ text ++}{@bob}`); its headline, scalar and enum values are
+  copied as they are. Copies adding an item with the same id and the same values add it once,
+  attributed to all of them.
+- **An item removed, moved, or a headline changed** is a structural conflict:
+  a conflict block with the topic `Item removed`, `Item moved` or `Headline
+  changed` and the item's path as text. Its `(base)` line is the base state
+  (`kept`, the base position, the base headline) and each alternative a
+  member's (`removed`, `moved to position <n>`, the new headline). It goes to
+  the end of the first content value at or below the item, in document order,
+  or of its nearest ancestor that has one.
+
+**Guests.** A guest's changes and answers are attributed like a member's, and
+the merged document carries a question proposing the guest for the team of
+the next round, numbered above the highest question id with the prefix:
+
+```markdown
+> **❓ RQ-1 — Guest dave:** add dave (Dave Smith, Security) to the review team?
+> - **(a)** yes, from the next round on
+> - (b) no, this round only
+>
+> **Answer:**
+```
+
+It goes to the end of the root's `content` value (SOM) or of the first
+heading's value (plain Markdown); a SOM root without a `content` member lists
+it in the report only.
+
+**Revision entry (SOM).** When the root has a revision history, the merge
+appends a draft entry, its id generated from the list's pattern with
+`options.date`:
+
+- `version`: the next minor of the header's `version` (`1.2.0` → `1.3.0`,
+  `1.2` → `1.3`); `0.1.0` when the header has none or it is not a number
+  pair or triple;
+- `date` and `author` from the options, `summary` empty;
+- `reviewTeam`: `options.team`, each written out (`memberId`, `displayName`,
+  `role`);
+- `reviewers`: every copy's member, written out, guests with `guest: true`.
+
+Consolidation completes it. Plain Markdown has no revision entry.
+
+**Report.** The merge report lists, in merged document order:
+
+- `reviewers` (`memberId`, `displayName`, `role`, `guest`);
+- `conflicts` (`id`, `path`, `field`, `paragraph` or none, `members`);
+- `votes`: base marks left with votes (`path`, `field`, `markup` as merged,
+  `votes`);
+- `unanimous`: base marks the merge applied or dropped (`path`, `field`,
+  `markup`, `decision`, `result`);
+- `answers` (`questionId`, `members`);
+- `comments`: the new comments (`id`, `author`, `path`, `field`);
+- `additions`: items added (`path`, `members`);
+- `guestQuestions` (`id`, `memberId`, `path` or none);
+- `revision`: the draft entry's `path` and `version`, or none.
+
+Cases: `corpus/review_merge_cases.json`. A runtime's `doc/review_annotations.md`
+says whether its driver runs them.
 
 ## 12. The hierarchical `*.docspecs.yaml` format
 

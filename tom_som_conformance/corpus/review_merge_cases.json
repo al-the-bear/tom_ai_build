@@ -1,0 +1,1427 @@
+{
+  "cases": [
+    {
+      "name": "one reviewer's change becomes a mark attributed to them",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes.\n\nKiosks lock after 5 minutes."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 30 minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 30 minutes.\n\nKiosks lock after 2 minutes."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice} minutes.\n\nKiosks lock after {~~ 5 ~> 2 ~~}{@carol} minutes."
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "the same change by several reviewers is one mark naming them all",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes.\n\nKiosks lock after 5 minutes."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after {~~30~>15~~} minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob,carol} minutes.\n\nKiosks lock after 5 minutes."
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "different changes to one paragraph are a conflict",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes.\n\nKiosks lock after 5 minutes."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 20 minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 30 minutes.\n\nKiosks lock after 5 minutes."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 30 minutes.\n\n> ⚖️ **X-1 — Conflicting changes:** DEMO/SUM, paragraph 0\n> - (base) Sessions expire after 30 minutes.\n> - (a) **alice:** Sessions expire after 15 minutes.\n> - (b) **bob:** Sessions expire after 20 minutes.\n>\n> **Decision:**\n\nKiosks lock after 5 minutes."
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [
+            {
+              "id": "X-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "paragraph": 0,
+              "members": [
+                "alice",
+                "bob"
+              ]
+            }
+          ],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "votes on base marks, and a unanimous decision applied",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes{++ on kiosks ++}.\nA {-- very --} long line."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes on kiosks.\nA {-- very --} long line."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes.\nA very long line."
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes{++ on kiosks ++}.\nA very long line."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 15 minutes{++ on kiosks ++}{@agent +alice -bob}.\nA {-- very --}{@agent -bob -carol} long line."
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [
+            {
+              "path": "DEMO/SUM",
+              "field": null,
+              "markup": "{++ on kiosks ++}{@agent +alice -bob}",
+              "votes": [
+                {
+                  "member": "alice",
+                  "vote": "accept"
+                },
+                {
+                  "member": "bob",
+                  "vote": "reject"
+                }
+              ]
+            },
+            {
+              "path": "DEMO/SUM",
+              "field": null,
+              "markup": "{-- very --}{@agent -bob -carol}",
+              "votes": [
+                {
+                  "member": "bob",
+                  "vote": "reject"
+                },
+                {
+                  "member": "carol",
+                  "vote": "reject"
+                }
+              ]
+            }
+          ],
+          "unanimous": [
+            {
+              "path": "DEMO/SUM",
+              "field": null,
+              "markup": "{~~ 30 ~> 15 ~~}",
+              "decision": "accept",
+              "result": "15"
+            }
+          ],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "answers become individual answers, new comments are renumbered",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Text.\n\n> ⬆️ **C-4** (alice): Earlier comment.\n\n> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:**"
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Text.\n\n> ⬆️ (alice): Too short.\n\n> ⬆️ **C-4** (alice): Earlier comment.\n\n> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:** (a)"
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Text.\n\n> ⬆️ **C-4** (alice): Earlier comment.\n\n> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:** (a)\n\n> ⬆️ **C-5** Needs an example."
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Text.\n\n> ⬆️ **C-4** (alice): Earlier comment.\n\n> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:** (b) — and a mirror"
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Text.\n\n> ⬆️ **C-4** (alice): Earlier comment.\n\n> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (b) — and a mirror\n>\n> **Answer:**\n\n> ⬆️ **C-5** (alice): Too short.\n\n> ⬆️ **C-6** (bob): Needs an example."
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [
+            {
+              "questionId": "BQ-1",
+              "members": [
+                "alice",
+                "bob",
+                "carol"
+              ]
+            }
+          ],
+          "comments": [
+            {
+              "id": "C-5",
+              "author": "alice",
+              "path": "DEMO/SUM",
+              "field": null
+            },
+            {
+              "id": "C-6",
+              "author": "bob",
+              "path": "DEMO/SUM",
+              "field": null
+            }
+          ],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "a form field's change is attributed, its conflict goes to the preamble",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/DET": "Contacts."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/DET": "Contacts."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob",
+                "contact": "bob@corp.example.com"
+              }
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/DET": "Contacts."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob Smith",
+                "contact": "bob@example.com"
+              }
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "content": {
+              "DEMO/DET": "Contacts."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob",
+                "contact": "support@example.com"
+              }
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/DET": "Contacts.\n\n> ⚖️ **X-1 — Conflicting changes:** DEMO/DET contact\n> - (base) bob@example.com\n> - (a) **alice:** bob@corp.example.com\n> - (b) **carol:** support@example.com\n>\n> **Decision:**"
+          },
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob {++ Smith ++}{@bob}",
+              "contact": "bob@example.com"
+            }
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [
+            {
+              "id": "X-1",
+              "path": "DEMO/DET",
+              "field": "contact",
+              "paragraph": null,
+              "members": [
+                "alice",
+                "carol"
+              ]
+            }
+          ],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "a copy with another paragraph count is merged as one unit",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Line one.\n\nLine two."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Line one.\n\nLine two."
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Line one.\n\nLine two.\n\nLine three."
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/SUM": "Line one.\n\nLine two.\n\n{++ Line three. ++}{@bob}"
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "an added item, a removed item and a changed headline",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          },
+          "DEMO/CARD-LST-2/content": {
+            "note": "second card"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 2,
+            "items": [
+              "DEMO/CARD-LST-1",
+              "DEMO/CARD-LST-2"
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-ALPHA",
+              "DEMO/CARD-LST-2": "CARD-BETA"
+            }
+          }
+        },
+        "headlines": {
+          "DEMO/CARD-LST-1": "Alpha Card"
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "first card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "second card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 2,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA",
+                  "DEMO/CARD-LST-2": "CARD-BETA"
+                }
+              }
+            },
+            "headlines": {
+              "DEMO/CARD-LST-1": "Alpha"
+            }
+          }
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": {
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "first card"
+              },
+              "DEMO/CARD-LST-2/content": {
+                "note": "third card"
+              },
+              "DEMO/CARD-LST-3/content": {
+                "note": "second card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 3,
+                "items": [
+                  "DEMO/CARD-LST-1",
+                  "DEMO/CARD-LST-2",
+                  "DEMO/CARD-LST-3"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA",
+                  "DEMO/CARD-LST-2": "CARD-GAMMA",
+                  "DEMO/CARD-LST-3": "CARD-BETA"
+                }
+              }
+            },
+            "headlines": {
+              "DEMO/CARD-LST-1": "Alpha Card",
+              "DEMO/CARD-LST-2": "Gamma Card"
+            }
+          }
+        },
+        {
+          "memberId": "carol",
+          "displayName": "Carol QA",
+          "role": "Tester",
+          "document": {
+            "forms": {
+              "DEMO/CARD-LST-1/content": {
+                "note": "first card"
+              }
+            },
+            "lists": {
+              "DEMO/CARD-LST": {
+                "seq": 1,
+                "items": [
+                  "DEMO/CARD-LST-1"
+                ],
+                "ids": {
+                  "DEMO/CARD-LST-1": "CARD-ALPHA"
+                }
+              }
+            },
+            "headlines": {
+              "DEMO/CARD-LST-1": "Alpha Card"
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "DEMO/CARD-LST-1/content": "> ⚖️ **X-1 — Headline changed:** DEMO/CARD-LST-1\n> - (base) Alpha Card\n> - (a) **alice:** Alpha\n>\n> **Decision:**",
+            "DEMO/CARD-LST-3/content": "> ⚖️ **X-2 — Item removed:** DEMO/CARD-LST-3\n> - (base) kept\n> - (a) **carol:** removed\n>\n> **Decision:**"
+          },
+          "forms": {
+            "DEMO/CARD-LST-1/content": {
+              "note": "first card"
+            },
+            "DEMO/CARD-LST-2/content": {
+              "note": "{++ third card ++}{@bob}"
+            },
+            "DEMO/CARD-LST-3/content": {
+              "note": "second card"
+            }
+          },
+          "lists": {
+            "DEMO/CARD-LST": {
+              "seq": 3,
+              "items": [
+                "DEMO/CARD-LST-1",
+                "DEMO/CARD-LST-2",
+                "DEMO/CARD-LST-3"
+              ],
+              "ids": {
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-GAMMA",
+                "DEMO/CARD-LST-3": "CARD-BETA"
+              }
+            }
+          },
+          "headlines": {
+            "DEMO/CARD-LST-1": "Alpha Card",
+            "DEMO/CARD-LST-2": "Gamma Card"
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            },
+            {
+              "memberId": "carol",
+              "displayName": "Carol QA",
+              "role": "Tester",
+              "guest": false
+            }
+          ],
+          "conflicts": [
+            {
+              "id": "X-1",
+              "path": "DEMO/CARD-LST-1",
+              "field": null,
+              "paragraph": null,
+              "members": [
+                "alice"
+              ]
+            },
+            {
+              "id": "X-2",
+              "path": "DEMO/CARD-LST-3",
+              "field": null,
+              "paragraph": null,
+              "members": [
+                "carol"
+              ]
+            }
+          ],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [
+            {
+              "path": "DEMO/CARD-LST-2",
+              "members": [
+                "bob"
+              ]
+            }
+          ],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "a SOM document: the draft revision entry and a guest",
+      "model": "som",
+      "format": "state",
+      "base": {
+        "content": {
+          "IFM/content": "Overview of the model."
+        },
+        "forms": {
+          "IFM/header/content": {
+            "version": "1.2.0"
+          },
+          "IFM/RVENT-REVS-LST-1/content": {
+            "version": "1.2.0",
+            "date": "2026-01-10",
+            "author": "Alice Owner"
+          }
+        },
+        "lists": {
+          "IFM/RVENT-REVS-LST": {
+            "seq": 1,
+            "items": [
+              "IFM/RVENT-REVS-LST-1"
+            ],
+            "ids": {
+              "IFM/RVENT-REVS-LST-1": "RVENT-REVS-AA1"
+            }
+          }
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "IFM/content": "Overview of the information model."
+            },
+            "forms": {
+              "IFM/header/content": {
+                "version": "1.2.0"
+              },
+              "IFM/RVENT-REVS-LST-1/content": {
+                "version": "1.2.0",
+                "date": "2026-01-10",
+                "author": "Alice Owner"
+              }
+            },
+            "lists": {
+              "IFM/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "IFM/RVENT-REVS-LST-1"
+                ],
+                "ids": {
+                  "IFM/RVENT-REVS-LST-1": "RVENT-REVS-AA1"
+                }
+              }
+            }
+          }
+        },
+        {
+          "memberId": "dave",
+          "displayName": "Dave Smith",
+          "role": "Security",
+          "document": {
+            "content": {
+              "IFM/content": "Overview of the model."
+            },
+            "forms": {
+              "IFM/header/content": {
+                "version": "1.2.0"
+              },
+              "IFM/RVENT-REVS-LST-1/content": {
+                "version": "1.2.0",
+                "date": "2026-01-10",
+                "author": "Alice Owner"
+              }
+            },
+            "lists": {
+              "IFM/RVENT-REVS-LST": {
+                "seq": 1,
+                "items": [
+                  "IFM/RVENT-REVS-LST-1"
+                ],
+                "ids": {
+                  "IFM/RVENT-REVS-LST-1": "RVENT-REVS-AA1"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": {
+          "content": {
+            "IFM/content": "Overview of the {++ information ++}{@alice} model.\n\n> **❓ RQ-1 — Guest dave:** add dave (Dave Smith, Security) to the review team?\n> - **(a)** yes, from the next round on\n> - (b) no, this round only\n>\n> **Answer:**"
+          },
+          "forms": {
+            "IFM/header/content": {
+              "version": "1.2.0"
+            },
+            "IFM/RVENT-REVS-LST-1/content": {
+              "version": "1.2.0",
+              "date": "2026-01-10",
+              "author": "Alice Owner"
+            },
+            "IFM/RVENT-REVS-LST-2/content": {
+              "version": "1.3.0",
+              "date": "2026-11-05",
+              "author": "Alice Owner"
+            },
+            "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST-1/content": {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner"
+            },
+            "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST-2/content": {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer"
+            },
+            "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST-1/content": {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner"
+            },
+            "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST-2/content": {
+              "memberId": "dave",
+              "displayName": "Dave Smith",
+              "role": "Security",
+              "guest": "true"
+            }
+          },
+          "lists": {
+            "IFM/RVENT-REVS-LST": {
+              "seq": 2,
+              "items": [
+                "IFM/RVENT-REVS-LST-1",
+                "IFM/RVENT-REVS-LST-2"
+              ],
+              "ids": {
+                "IFM/RVENT-REVS-LST-1": "RVENT-REVS-AA1",
+                "IFM/RVENT-REVS-LST-2": "RVENT-REVS-KE1"
+              }
+            },
+            "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST": {
+              "seq": 2,
+              "items": [
+                "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST-1",
+                "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST-2"
+              ],
+              "ids": {
+                "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST-1": "RVWER-TEAM-KE1",
+                "IFM/RVENT-REVS-LST-2/RVWER-TEAM-LST-2": "RVWER-TEAM-KE2"
+              }
+            },
+            "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST": {
+              "seq": 2,
+              "items": [
+                "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST-1",
+                "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST-2"
+              ],
+              "ids": {
+                "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST-1": "RVWER-RETN-KE1",
+                "IFM/RVENT-REVS-LST-2/RVWER-RETN-LST-2": "RVWER-RETN-KE2"
+              }
+            }
+          }
+        },
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "dave",
+              "displayName": "Dave Smith",
+              "role": "Security",
+              "guest": true
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [
+            {
+              "id": "RQ-1",
+              "memberId": "dave",
+              "path": "IFM/content"
+            }
+          ],
+          "revision": {
+            "path": "IFM/RVENT-REVS-LST-2",
+            "version": "1.3.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "plain Markdown is merged by heading path, a guest included",
+      "model": null,
+      "format": "markdown",
+      "base": "# Payment review\n\nIntro paragraph.\n\n## Limits\n\nThe limit is 100 EUR.\n\n> **❓ Q-1 — Currency:** EUR only?\n> - **(a)** yes\n> - (b) also CHF\n>\n> **Answer:**\n",
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": "# Payment review\n\nIntro paragraph.\n\n## Limits\n\nThe limit is 200 EUR.\n\n> **❓ Q-1 — Currency:** EUR only?\n> - **(a)** yes\n> - (b) also CHF\n>\n> **Answer:** (a)\n"
+        },
+        {
+          "memberId": "erin",
+          "displayName": "Erin Ops",
+          "role": "Operations",
+          "document": "# Payment review\n\nIntro paragraph.\n\n## Limits\n\nThe limit is 100 EUR.\n\n> **❓ Q-1 — Currency:** EUR only?\n> - **(a)** yes\n> - (b) also CHF\n>\n> **Answer:** (b) — Swiss customers\n"
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": "# Payment review\n\nIntro paragraph.\n\n> **❓ RQ-1 — Guest erin:** add erin (Erin Ops, Operations) to the review team?\n> - **(a)** yes, from the next round on\n> - (b) no, this round only\n>\n> **Answer:**\n\n## Limits\n\nThe limit is {~~ 100 ~> 200 ~~}{@alice} EUR.\n\n> **❓ Q-1 — Currency:** EUR only?\n> - **(a)** yes\n> - (b) also CHF\n>\n> **Answer (alice):** (a)\n> **Answer (erin):** (b) — Swiss customers\n>\n> **Answer:**\n",
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "erin",
+              "displayName": "Erin Ops",
+              "role": "Operations",
+              "guest": true
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [
+            {
+              "questionId": "Q-1",
+              "members": [
+                "alice",
+                "erin"
+              ]
+            }
+          ],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [
+            {
+              "id": "RQ-1",
+              "memberId": "erin",
+              "path": "Payment review"
+            }
+          ],
+          "revision": null
+        }
+      }
+    },
+    {
+      "name": "a SOM copy with a path the base model does not resolve is refused",
+      "model": "demo",
+      "format": "state",
+      "base": {
+        "content": {
+          "DEMO/SUM": "Text."
+        }
+      },
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": {
+            "content": {
+              "DEMO/SUM": "Text.",
+              "DEMO/NOPE": "stray"
+            }
+          }
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "name": "a Markdown copy with other headings is refused",
+      "model": null,
+      "format": "markdown",
+      "base": "# A\n\nText.\n",
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": "# B\n\nText.\n"
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

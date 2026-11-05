@@ -973,7 +973,7 @@
       "name": "conflictMalformed",
       "state": {
         "content": {
-          "DEMO/SUM": "Base.\n\n> ⚖️ **X-1 - Conflicting changes:** a hyphen, not an em dash\n> - (base) Base.\n> - (a) **alice:** A.\n> - (b) **bob:** B.\n>\n> **Decision:**\n\n> ⚖️ **X-2 — Conflicting changes:** no base line\n> - (a) **alice:** A.\n> - (b) **bob:** B.\n>\n> **Decision:**\n\n> ⚖️ **X-3 — Conflicting changes:** one alternative\n> - (base) Base.\n> - (a) **alice:** A.\n>\n> **Decision:**"
+          "DEMO/SUM": "Base.\n\n> ⚖️ **X-1 - Conflicting changes:** a hyphen, not an em dash\n> - (base) Base.\n> - (a) **alice:** A.\n> - (b) **bob:** B.\n>\n> **Decision:**\n\n> ⚖️ **X-2 — Conflicting changes:** no base line\n> - (a) **alice:** A.\n> - (b) **bob:** B.\n>\n> **Decision:**\n\n> ⚖️ **X-3 — Conflicting changes:** no alternative\n> - (base) Base.\n>\n> **Decision:**"
         }
       },
       "errors": [

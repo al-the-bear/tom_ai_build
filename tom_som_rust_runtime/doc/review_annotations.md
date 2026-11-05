@@ -212,11 +212,14 @@ individual answers (`**Answer (alice, bob):**` before the team's
 `**Answer:**`), conflict blocks (`> ⚖️ **X-3 — topic:** …` with a
 `**Decision:**`) and `open:` answers for items the team leaves unresolved. They
 are `som_multiplatform_spec_model.md` §11.9.8, with their cases in
-`tom_som_conformance/corpus/team_annotation_cases.json`.
+`tom_som_conformance/corpus/team_annotation_cases.json`. The merge of a round's
+returned copies into one document in that notation, `mergeReviews`, is SOM §11.9.9,
+with its cases in `tom_som_conformance/corpus/review_merge_cases.json`.
 
-This runtime does not read them yet. To it a token is text after the mark, an
-individual answer is part of the question's text, and a conflict block is an
-ordinary quote; its conformance driver does not run the team cases.
+This runtime does not read the notation or merge copies yet. To it a token is
+text after the mark, an individual answer is part of the question's text, and a
+conflict block is an ordinary quote; its conformance driver runs neither case
+file.
 
 ## Validation
 
