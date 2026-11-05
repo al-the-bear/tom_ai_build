@@ -14,6 +14,7 @@ was.
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
+- [Team reviews](#team-reviews)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -202,6 +203,20 @@ fs.writeFileSync(
 );
 console.log(x.counts.toJson()); // { answered: 75, open: 269, comments: 0, marks: 0 }
 ```
+
+## Team reviews
+
+A team review adds four notations to a merged document: an attribution token
+after a mark (`{++ text ++}{@alice}`, votes as `{@agent +alice -bob}`),
+individual answers (`**Answer (alice, bob):**` before the team's
+`**Answer:**`), conflict blocks (`> ⚖️ **X-3 — topic:** …` with a
+`**Decision:**`) and `open:` answers for items the team leaves unresolved. They
+are `som_multiplatform_spec_model.md` §11.9.8, with their cases in
+`tom_som_conformance/corpus/team_annotation_cases.json`.
+
+This runtime does not read them yet. To it a token is text after the mark, an
+individual answer is part of the question's text, and a conflict block is an
+ordinary quote; its conformance driver does not run the team cases.
 
 ## Validation
 

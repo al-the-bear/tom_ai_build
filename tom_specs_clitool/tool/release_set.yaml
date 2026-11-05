@@ -99,9 +99,13 @@ workspace_prefixes:
 # no longer drifts the package that holds it.
 unpublished_drift:
   tom_som_dart_runtime: >-
-    CHANGELOG only since 1.7.0: its 1.7.0 entry (no runtime change; the chain
-    moves with tom_specs_model 1.7.0) was written after the upload. Ships with
-    the next release.
+    Documentation only since 1.7.0: the CHANGELOG's 1.7.0 entry, written
+    after the upload, and doc/review_annotations.md's Team reviews section
+    (SOM §11.9.8, not yet read by the runtime). Ships with the next release.
+  tom_specs_model: >-
+    Documentation only since 1.7.0: SOM §11.9.8, the team-review notation
+    (attribution tokens, individual answers, conflict blocks, open: answers).
+    Ships with the next release.
   tom_code_specs: >-
     Documentation only since 0.16.0: the links into tom_core_codespecs's
     documents were re-pointed when that package moved from tom_core to this

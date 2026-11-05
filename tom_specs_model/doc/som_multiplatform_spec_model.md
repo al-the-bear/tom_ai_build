@@ -1470,6 +1470,9 @@ There are three kinds:
 - **inline marks**, CriticMarkup suggestions inside a sentence, written by
   either.
 
+A team review adds four notations on top of these: attribution tokens,
+individual answers, conflict blocks and `open:` answers (§11.9.8).
+
 All three are recognised only outside fenced code blocks and inline code
 spans. Inside code the same characters are literal.
 
@@ -1909,6 +1912,168 @@ extract_answers <doc.md|doc.docspecs.yaml>... -o <step folder>/answers.md [--pat
 
 Cases: `corpus/answer_cases.json`; every driver renders the same file byte for
 byte.
+
+#### 11.9.8 Team reviews
+
+When a team reviews a document, each member reviews a copy, and the copies are
+merged into one document for the owner to consolidate. The merged document says
+**who** proposed, voted for and answered what, and where two members changed the
+same passage differently. Four notations carry that, all built on §11.9.1–11.9.3:
+
+- an **attribution token** after an inline mark (who proposed it, who voted);
+- **individual answers** in a question block, one line per reviewer;
+- a **conflict block** for a paragraph two members changed differently;
+- an **`open:` answer or decision** for an item the team leaves unresolved.
+
+A document with none of them is read exactly as before, and a reader that
+knows only §11.9.1–11.9.3 reads all four as ordinary text.
+
+**Member ids.** Every notation names reviewers by **member id**, the
+`memberId` of a review-team member (lowercase letters, digits and `_`, e.g.
+`alice`), never by display name; a tool shows the display name. A guest is
+named by the id the review round gave it. The id `agent` names the agent's own
+proposals and is never a member id. Whether an id belongs to the round's team
+is the round's question, not the notation's: the notation checks only its form.
+
+**Attribution token.** A token `{@…}` written directly after an inline mark,
+with no space between, belongs to that mark:
+
+```markdown
+{++new text++}{@alice}                    an addition by alice
+{--old text--}{@alice,bob}                a deletion both made
+{~~old~>new~~}{@carol}                    a substitution by carol
+{~~old~>new~~}{@agent +alice +bob -carol} the agent's proposal: alice and bob accept, carol rejects
+```
+
+Grammar: `{@<authors>[ <votes>]}`, where:
+
+- `<authors>` is one or more member ids separated by `,` (a space after a comma
+  is allowed; the API writes none). They proposed the mark.
+- `<votes>` are space-separated `+<id>` (accepts) or `-<id>` (rejects): the
+  votes of reviewers on a mark someone else proposed, typically one already in
+  the base document. The authors may be empty when only votes are recorded:
+  `{@+alice -bob}`.
+- A member appears at most once in a token, and never as author and voter
+  both.
+- Votes are allowed on change marks only (insertion, deletion, substitution).
+  A highlight or comment mark takes authors only; on a highlight with its
+  comment, the token follows the comment: `{==text==}{>>why?<<}{@bob}`.
+
+The token is part of its mark: the mark's markup includes it, a decision
+(§11.9.3 "Accepting and rejecting") removes it with the mark in both
+directions, and the whitespace rules treat mark and token as one unit. Inside
+code it is literal, like a mark. The listing (§11.9.6) reports each mark's
+`authors` and `votes` (`{member, vote}`, `vote` being `accept` or `reject`),
+both empty without a token.
+
+**Individual answers.** In a question block (single or combined form), lines
+`**Answer (<ids>):**` before the team's `**Answer:**` hold the reviewers'
+answers:
+
+```markdown
+> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?
+> - (a) kiosk only
+> - **(b)** every device
+>
+> **Answer (alice, bob):** (a)
+> **Answer (carol):** (a), but only after the pilot
+> **Answer (dave):** **(b)**
+>
+> **Answer:**
+```
+
+- `<ids>` is one or more member ids separated by `, ` (a missing space is
+  read). An individual answer runs to the next `**Answer` line, the next `**❓`
+  header or the end of the block, like the team answer.
+- Members whose answers are identical share one line. An answer that carries
+  anything beyond an option letter (`(a)` or `**(a)**`, optionally followed by
+  exactly that option's text) is a **commented answer** and always gets a line
+  of its own, even when another member chose the same letter. A writer groups
+  by this rule; a reader accepts any grouping.
+- A member answers a question at most once.
+- The unnamed `**Answer:**` is the **team's** answer, and only it decides
+  whether the question is open: a question with individual answers and an
+  empty team answer is open.
+- The question's text ends before the first individual answer. The listing
+  reports the individual answers as `answers` (`{members, answer,
+  answerLetter}`, in the order written) beside the team's `answer`.
+- `setAnswer` with an `author` writes that member's answer instead of the
+  team's: the member is taken out of the line it was on (a line left with no
+  member goes); a non-empty answer that is not commented joins the line whose
+  answer is identical and not commented, if there is one, at its end;
+  otherwise it gets a new line after the last individual answer. The first
+  individual answer opens the run before the team's `**Answer:**`, with a `>`
+  line between the run and the team answer. An empty answer only removes the
+  member, and a run left empty takes its `>` line with it.
+
+**Conflict block.** Where members changed the same paragraph differently, the
+paragraph keeps its base text and a conflict block follows it directly, one
+blank line between them. A conflict concerns one paragraph, or one list item;
+a conflict about a form field's value goes into the form's preamble, and a
+structural conflict about list entries (an entry removed or moved, a changed
+headline) into the owning section's text, as §11.9.4 places any block:
+
+```markdown
+> ⚖️ **X-3 — Conflicting changes:** FR-07, paragraph 2
+> - (base) the paragraph as it was
+> - (a) **alice:** her version
+> - (b) **bob, carol:** their version
+>
+> **Decision:**
+```
+
+- **Header.** `⚖️ **X-<n> — <topic>:** <text>`. The marker is U+2696, with or
+  without U+FE0F; an em dash separates id and topic; the text says what the
+  conflict concerns. `<n>` is numbered per document, like comment ids, and a
+  conflict is cited like a comment: `X-3` in its own document, `SBP X-3`
+  elsewhere.
+- **Alternatives.** `- (base) …` first: the base text. Then one lettered
+  alternative per distinct change, `- (a) **<ids>:** …`, naming its members
+  with the separator of individual answers; members who made the same change
+  share one alternative. A conflict has at least two lettered alternatives. An
+  alternative's text may continue on lines indented under it, exactly like a
+  question option.
+- **Decision.** `**Decision:**` takes a letter (`(b)`), `(base)`, or the
+  rewritten text, on the same line and on further `>` lines, like an answer.
+  An empty decision means the conflict is **open**.
+- The listing reports a conflict with kind `conflict`, its id, qualified id,
+  topic, text, `base`, `alternatives` (`{letter, members, text}`), `decision`,
+  `decisionLetter` (`a`…, `base`, or none for rewritten text), `open` and
+  `unresolved`; the paragraph list (§11.9.1) marks the block `conflict`.
+- **Applying.** A decision replaces the paragraph before the block with the
+  chosen text (the base, an alternative, or the rewritten text) and removes the
+  block. `removeAllAnnotations` applies every written decision and **refuses**,
+  changing nothing, while a conflict is open or unresolved. The stripped
+  rendition keeps the base text and drops the block.
+
+**Unresolved: `open:`.** A team answer or a decision may begin with `open:`
+followed by a summary of the positions:
+
+```markdown
+> **Answer:** open: alice wants ten years, bob seven
+```
+
+The item is then **unresolved**: answered for the purpose of a gate — the
+listing reports `open: false`, `unresolved: true` and no answer letter — and
+handed back with every individual answer to the step that works out a
+proposal (`tom_specs_project_flow.md` PF-ITR-REV). An unresolved conflict
+keeps its block.
+
+**Counts** add `unresolvedQuestions` (team answers beginning `open:`, which
+also count as answered), `conflicts` and `openConflicts` (empty decisions).
+
+**Findings** (§11.9.5) extend as follows:
+
+| Code | When |
+|------|------|
+| `annotationMalformed` | A `{@` token that is empty, names an id not of the member-id form, names a member twice or as author and voter, carries a vote after a highlight or comment mark, or does not follow a mark directly; an `**Answer (…):**` line naming a member already answered in the same question, or one inside a comment block; a conflict header that is not `⚖️ **X-<n> — <topic>:**`, a conflict without its `(base)` line or with fewer than two lettered alternatives |
+| `annotationMisplaced` | A conflict block inside a form field's value |
+| `duplicateAnnotationId` | One conflict id used twice in the same document |
+
+Cases: `corpus/team_annotation_cases.json` (listing, counts, decisions, team
+answers, conflicts, `open:`) and its `validationCases` (the findings). A
+runtime's `doc/review_annotations.md` says whether its driver runs them. The
+merge of reviewed copies, which writes these notations, has cases of its own.
 
 ## 12. The hierarchical `*.docspecs.yaml` format
 

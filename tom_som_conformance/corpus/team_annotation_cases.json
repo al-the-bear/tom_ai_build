@@ -1,0 +1,1029 @@
+{
+  "cases": [
+    {
+      "name": "list attribution tokens, individual answers and conflicts",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
+          "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob{++ Smith ++}{@alice}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "counts"
+        },
+        {
+          "op": "paragraphs",
+          "path": "DEMO/SUM"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "strip"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 0,
+              "id": "C-2",
+              "qualifiedId": "DEMO C-2",
+              "author": "bob",
+              "text": "Check the owner.",
+              "context": ""
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "text": "30",
+              "newText": "15",
+              "comment": null,
+              "authors": [
+                "carol"
+              ],
+              "votes": []
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null,
+              "authors": [
+                "alice",
+                "bob"
+              ],
+              "votes": []
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "text": "very",
+              "newText": null,
+              "comment": null,
+              "authors": [
+                "agent"
+              ],
+              "votes": [
+                {
+                  "member": "alice",
+                  "vote": "accept"
+                },
+                {
+                  "member": "bob",
+                  "vote": "reject"
+                }
+              ]
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "unclear",
+              "authors": [
+                "bob"
+              ],
+              "votes": []
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 3,
+              "id": "BQ-90",
+              "topic": "Kiosk timeout",
+              "starred": false,
+              "combined": false,
+              "text": "kiosk devices only?\n- (a) kiosk only\n- **(b)** every device",
+              "answer": "",
+              "open": true,
+              "unresolved": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "kiosk only",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "every device",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": null,
+              "answers": [
+                {
+                  "members": [
+                    "alice",
+                    "bob"
+                  ],
+                  "answer": "(a)",
+                  "answerLetter": "a"
+                },
+                {
+                  "members": [
+                    "carol"
+                  ],
+                  "answer": "(a), but only after the pilot",
+                  "answerLetter": "a"
+                },
+                {
+                  "members": [
+                    "dave"
+                  ],
+                  "answer": "**(b)**",
+                  "answerLetter": "b"
+                }
+              ]
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 13,
+              "id": "BQ-91",
+              "topic": "Audit retention",
+              "starred": false,
+              "combined": false,
+              "text": "how long?",
+              "answer": "open: alice ten years, bob seven years",
+              "open": false,
+              "unresolved": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null,
+              "answers": [
+                {
+                  "members": [
+                    "alice"
+                  ],
+                  "answer": "ten years",
+                  "answerLetter": null
+                },
+                {
+                  "members": [
+                    "bob"
+                  ],
+                  "answer": "seven years",
+                  "answerLetter": null
+                }
+              ]
+            },
+            {
+              "kind": "conflict",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 22,
+              "id": "X-1",
+              "qualifiedId": "DEMO X-1",
+              "topic": "Conflicting changes",
+              "text": "paragraph 3",
+              "base": "Second paragraph base text.",
+              "alternatives": [
+                {
+                  "letter": "a",
+                  "members": [
+                    "alice"
+                  ],
+                  "text": "Second paragraph, Alice's text."
+                },
+                {
+                  "letter": "b",
+                  "members": [
+                    "bob",
+                    "carol"
+                  ],
+                  "text": "Second paragraph, Bob's text."
+                }
+              ],
+              "decision": "",
+              "decisionLetter": null,
+              "open": true,
+              "unresolved": false
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "insertion",
+              "text": "Smith",
+              "newText": null,
+              "comment": null,
+              "authors": [
+                "alice"
+              ],
+              "votes": []
+            }
+          ],
+          {
+            "questions": 2,
+            "openQuestions": 1,
+            "answeredQuestions": 1,
+            "comments": 1,
+            "marks": 5,
+            "unresolvedQuestions": 1,
+            "conflicts": 1,
+            "openConflicts": 1
+          },
+          [
+            {
+              "index": 0,
+              "startLine": 0,
+              "endLine": 1,
+              "text": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.",
+              "annotation": null
+            },
+            {
+              "index": 1,
+              "startLine": 3,
+              "endLine": 11,
+              "text": "> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**",
+              "annotation": "question"
+            },
+            {
+              "index": 2,
+              "startLine": 13,
+              "endLine": 18,
+              "text": "> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years",
+              "annotation": "question"
+            },
+            {
+              "index": 3,
+              "startLine": 20,
+              "endLine": 20,
+              "text": "Second paragraph base text.",
+              "annotation": null
+            },
+            {
+              "index": 4,
+              "startLine": 22,
+              "endLine": 27,
+              "text": "> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
+              "annotation": "conflict"
+            }
+          ],
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30",
+              "newText": "15",
+              "comment": null,
+              "markup": "{~~ 30 ~> 15 ~~}{@carol}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.",
+              "authors": [
+                "carol"
+              ],
+              "votes": []
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}{@alice,bob}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.",
+              "authors": [
+                "alice",
+                "bob"
+              ],
+              "votes": []
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "oldText": "very",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- very --}{@agent +alice -bob}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.",
+              "authors": [
+                "agent"
+              ],
+              "votes": [
+                {
+                  "member": "alice",
+                  "vote": "accept"
+                },
+                {
+                  "member": "bob",
+                  "vote": "reject"
+                }
+              ]
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "unclear",
+              "markup": "{>> unclear <<}{@bob}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.",
+              "authors": [
+                "bob"
+              ],
+              "votes": []
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "Smith",
+              "comment": null,
+              "markup": "{++ Smith ++}{@alice}",
+              "context": "Bob{++ Smith ++}{@alice}",
+              "authors": [
+                "alice"
+              ],
+              "votes": []
+            }
+          ],
+          {
+            "content": {
+              "DEMO/SUM": "Sessions expire after 15 minutes on kiosks.\nA long line and too, but `{++ x ++}{@alice}` is literal.\n\nSecond paragraph base text."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "contact": "bob@example.com",
+                "owner": "Bob Smith"
+              }
+            }
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
+            "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob{++ Smith ++}{@alice}",
+              "contact": "bob@example.com"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "decisions remove the attribution token with its mark",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
+          "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob{++ Smith ++}{@alice}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "decideMarks",
+          "revision": "@current",
+          "decisions": {
+            "M-1": "accept",
+            "M-2": "reject",
+            "M-3": "accept",
+            "M-4": "accept",
+            "M-5": "reject"
+          }
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 30 ~> 15 ~~}{@carol}",
+                "result": "15"
+              },
+              {
+                "id": "M-2",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ on kiosks ++}{@alice,bob}",
+                "result": ""
+              },
+              {
+                "id": "M-3",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "deletion",
+                "decision": "accept",
+                "markup": "{-- very --}{@agent +alice -bob}",
+                "result": ""
+              },
+              {
+                "id": "M-4",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "comment",
+                "decision": "accept",
+                "markup": "{>> unclear <<}{@bob}",
+                "result": ""
+              },
+              {
+                "id": "M-5",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ Smith ++}{@alice}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          },
+          []
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 15 minutes.\nA long line and too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
+            "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "owner": "Bob",
+              "contact": "bob@example.com"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "individual answers written with setAnswer",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "alice",
+          "answer": "(a)"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "bob",
+          "answer": "(a)"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "carol",
+          "answer": "(b)"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "dave",
+          "answer": "(a), only for internal packages"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "bob",
+          "answer": "(b)"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "alice",
+          "answer": ""
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "answer": "(b)"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "Alice",
+          "answer": "(a)"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-404",
+          "author": "alice",
+          "answer": "(a)"
+        },
+        {
+          "op": "list"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "BQ-1",
+              "topic": "Channel",
+              "starred": false,
+              "combined": false,
+              "text": "which channel?\n- (a) the private registry\n- **(b)** pub.dev as well",
+              "answer": "(b)",
+              "open": false,
+              "unresolved": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "the private registry",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "pub.dev as well",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": "b",
+              "answers": [
+                {
+                  "members": [
+                    "carol",
+                    "bob"
+                  ],
+                  "answer": "(b)",
+                  "answerLetter": "b"
+                },
+                {
+                  "members": [
+                    "dave"
+                  ],
+                  "answer": "(a), only for internal packages",
+                  "answerLetter": "a"
+                }
+              ]
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (carol, bob):** (b)\n> **Answer (dave):** (a), only for internal packages\n>\n> **Answer:** (b)"
+          }
+        }
+      }
+    },
+    {
+      "name": "the first individual answer opens the run before the team answer",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "alice",
+          "answer": "(a)"
+        }
+      ],
+      "expect": {
+        "results": [
+          null
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice):** (a)\n>\n> **Answer:**"
+          }
+        }
+      }
+    },
+    {
+      "name": "removing the last individual answer closes the run",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice):** (a)\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "author": "alice",
+          "answer": ""
+        }
+      ],
+      "expect": {
+        "results": [
+          null
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer:**"
+          }
+        }
+      }
+    },
+    {
+      "name": "remove all refuses while a conflict is open or unresolved",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 0\n> - (base) Base text.\n> - (a) **alice:** Alice's text.\n> - (b) **bob:** Bob's text.\n>\n> **Decision:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "removeAll"
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "error": true
+          },
+          {
+            "questions": 0,
+            "openQuestions": 0,
+            "answeredQuestions": 0,
+            "comments": 0,
+            "marks": 0,
+            "unresolvedQuestions": 0,
+            "conflicts": 1,
+            "openConflicts": 1
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 0\n> - (base) Base text.\n> - (a) **alice:** Alice's text.\n> - (b) **bob:** Bob's text.\n>\n> **Decision:**"
+          }
+        }
+      }
+    },
+    {
+      "name": "an unresolved conflict keeps its block",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 0\n> - (base) Base text.\n> - (a) **alice:** Alice's text.\n> - (b) **bob:** Bob's text.\n>\n> **Decision:** open: alice and bob disagree on the wording"
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "removeAll"
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "conflict",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "id": "X-1",
+              "qualifiedId": "DEMO X-1",
+              "topic": "Conflicting changes",
+              "text": "paragraph 0",
+              "base": "Base text.",
+              "alternatives": [
+                {
+                  "letter": "a",
+                  "members": [
+                    "alice"
+                  ],
+                  "text": "Alice's text."
+                },
+                {
+                  "letter": "b",
+                  "members": [
+                    "bob"
+                  ],
+                  "text": "Bob's text."
+                }
+              ],
+              "decision": "open: alice and bob disagree on the wording",
+              "decisionLetter": null,
+              "open": false,
+              "unresolved": true
+            }
+          ],
+          {
+            "error": true
+          },
+          {
+            "questions": 0,
+            "openQuestions": 0,
+            "answeredQuestions": 0,
+            "comments": 0,
+            "marks": 0,
+            "unresolvedQuestions": 0,
+            "conflicts": 1,
+            "openConflicts": 0
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 0\n> - (base) Base text.\n> - (a) **alice:** Alice's text.\n> - (b) **bob:** Bob's text.\n>\n> **Decision:** open: alice and bob disagree on the wording"
+          }
+        }
+      }
+    },
+    {
+      "name": "remove all applies every written decision",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Intro{++ text ++}{@alice}.\n\nBase one.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 1\n> - (base) Base one.\n> - (a) **alice:** Alice one.\n> - (b) **bob:** Bob one.\n>\n> **Decision:** (b)\n\nBase two.\n\n> ⚖️ **X-2 — Conflicting changes:** paragraph 3\n> - (base) Base two.\n> - (a) **alice:** Alice two.\n> - (b) **carol:** Carol two.\n>\n> **Decision:** A rewritten second paragraph.\n\nBase three.\n\n> ⚖️ **X-3 — Conflicting changes:** paragraph 5\n> - (base) Base three.\n> - (a) **alice:** Alice three.\n> - (b) **bob:** Bob three.\n>\n> **Decision:** (base)"
+        }
+      },
+      "ops": [
+        {
+          "op": "removeAll"
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "accept",
+                "markup": "{++ text ++}{@alice}",
+                "result": "text"
+              }
+            ],
+            "malformed": [],
+            "conflicts": [
+              {
+                "id": "X-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 4,
+                "decision": "(b)",
+                "result": "Bob one."
+              },
+              {
+                "id": "X-2",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 13,
+                "decision": "A rewritten second paragraph.",
+                "result": "A rewritten second paragraph."
+              },
+              {
+                "id": "X-3",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 22,
+                "decision": "(base)",
+                "result": "Base three."
+              }
+            ]
+          },
+          {
+            "questions": 0,
+            "openQuestions": 0,
+            "answeredQuestions": 0,
+            "comments": 0,
+            "marks": 0,
+            "unresolvedQuestions": 0,
+            "conflicts": 0,
+            "openConflicts": 0
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Intro text.\n\nBob one.\n\nA rewritten second paragraph.\n\nBase three."
+          }
+        }
+      }
+    }
+  ],
+  "validationCases": [
+    {
+      "name": "teamAnnotationsWellFormed",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
+          "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob{++ Smith ++}{@alice}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "attributionTokenMalformed",
+      "state": {
+        "content": {
+          "DEMO/SUM": "a {++ x ++}{@} b {++ y ++}{@Alice} c {++ z ++}{@bob,bob} d {++ w ++}{@bob +bob} e {>> n <<}{@+bob} f {@carol} g {++ v ++} {@dave}."
+        }
+      },
+      "errors": [
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        }
+      ]
+    },
+    {
+      "name": "individualAnswersMalformed",
+      "state": {
+        "content": {
+          "DEMO/SUM": "> **❓ BQ-1 — Twice:** which one?\n>\n> **Answer (alice):** (a)\n> **Answer (alice, bob):** (b)\n>\n> **Answer:**\n\n> ⬆️ **C-1** (bob): a comment\n> **Answer (bob):** (a)"
+        }
+      },
+      "errors": [
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        }
+      ]
+    },
+    {
+      "name": "conflictMalformed",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Base.\n\n> ⚖️ **X-1 - Conflicting changes:** a hyphen, not an em dash\n> - (base) Base.\n> - (a) **alice:** A.\n> - (b) **bob:** B.\n>\n> **Decision:**\n\n> ⚖️ **X-2 — Conflicting changes:** no base line\n> - (a) **alice:** A.\n> - (b) **bob:** B.\n>\n> **Decision:**\n\n> ⚖️ **X-3 — Conflicting changes:** one alternative\n> - (base) Base.\n> - (a) **alice:** A.\n>\n> **Decision:**"
+        }
+      },
+      "errors": [
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        },
+        {
+          "path": "DEMO/SUM",
+          "code": "annotationMalformed"
+        }
+      ]
+    },
+    {
+      "name": "conflictMisplaced",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob\n\n> ⚖️ **X-1 — Conflicting changes:** the owner\n> - (base) Bob\n> - (a) **alice:** Alice\n> - (b) **bob:** Robert\n>\n> **Decision:**",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "errors": [
+        {
+          "path": "DEMO/DET",
+          "code": "annotationMisplaced"
+        }
+      ]
+    },
+    {
+      "name": "duplicateConflictId",
+      "state": {
+        "content": {
+          "DEMO/SUM": "A.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 0\n> - (base) A.\n> - (a) **alice:** B.\n> - (b) **bob:** C.\n>\n> **Decision:**\n\nB.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 2\n> - (base) B.\n> - (a) **alice:** B.\n> - (b) **bob:** C.\n>\n> **Decision:**"
+        }
+      },
+      "errors": [
+        {
+          "path": "DEMO/SUM",
+          "code": "duplicateAnnotationId"
+        }
+      ]
+    }
+  ]
+}
