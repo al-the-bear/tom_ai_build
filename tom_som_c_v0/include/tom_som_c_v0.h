@@ -1167,6 +1167,35 @@ char *parse_screen_presentation_mode(const char *token);
 // parse_server_call_role returns the token (owned) when it is a known ServerCallRole value, else "".
 char *parse_server_call_role(const char *token);
 
+// Generated enum tokens for `SpecDocumentType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// `D01CurrentLandscapeAssessment`.
+#define SPEC_DOCUMENT_TYPE_D01_CURRENT_LANDSCAPE_ASSESSMENT "d01CurrentLandscapeAssessment"
+// `D02TargetOperatingModel`.
+#define SPEC_DOCUMENT_TYPE_D02_TARGET_OPERATING_MODEL "d02TargetOperatingModel"
+// `D03InformationModel`.
+#define SPEC_DOCUMENT_TYPE_D03_INFORMATION_MODEL "d03InformationModel"
+// `D04RequirementsSpecification`.
+#define SPEC_DOCUMENT_TYPE_D04_REQUIREMENTS_SPECIFICATION "d04RequirementsSpecification"
+// `D05InteractionScenarios`.
+#define SPEC_DOCUMENT_TYPE_D05_INTERACTION_SCENARIOS "d05InteractionScenarios"
+// `D06ArchitectureTechnologySpecification`.
+#define SPEC_DOCUMENT_TYPE_D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION "d06ArchitectureTechnologySpecification"
+// `D07IntegrationInterfaceSpecification`.
+#define SPEC_DOCUMENT_TYPE_D07_INTEGRATION_INTERFACE_SPECIFICATION "d07IntegrationInterfaceSpecification"
+// `D08SecurityAccessSpecification`.
+#define SPEC_DOCUMENT_TYPE_D08_SECURITY_ACCESS_SPECIFICATION "d08SecurityAccessSpecification"
+// `D09ExperienceDesignSpecification`.
+#define SPEC_DOCUMENT_TYPE_D09_EXPERIENCE_DESIGN_SPECIFICATION "d09ExperienceDesignSpecification"
+// `D10QualityAcceptancePlan`.
+#define SPEC_DOCUMENT_TYPE_D10_QUALITY_ACCEPTANCE_PLAN "d10QualityAcceptancePlan"
+// `D11DeliveryRoadmap`.
+#define SPEC_DOCUMENT_TYPE_D11_DELIVERY_ROADMAP "d11DeliveryRoadmap"
+// `D12TransitionRolloutPlan`.
+#define SPEC_DOCUMENT_TYPE_D12_TRANSITION_ROLLOUT_PLAN "d12TransitionRolloutPlan"
+// parse_spec_document_type returns the token (owned) when it is a known SpecDocumentType value, else "".
+char *parse_spec_document_type(const char *token);
+
 // Generated enum tokens for `Status` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Being authored. The wording may change without notice and nothing
@@ -1224,33 +1253,33 @@ char *parse_translation_review_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.6"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.7"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.6"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.7"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.6"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.7"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.6"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.7"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.6"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.7"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.6"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.7"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.6"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.7"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.6"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.7"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.6"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.7"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.6"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.7"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.6"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.7"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.6"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.7"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.6"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.7"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.6"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.7"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -1626,6 +1655,7 @@ typedef struct { SomNode node; } DocumentControl;
 typedef struct { SomNode node; } DocumentHeader;
 typedef struct { SomNode node; } DocumentRelationships;
 typedef struct { SomNode node; } DocumentRelevantSections;
+typedef struct { SomNode node; } DocumentReviewTeamEntry;
 typedef struct { SomNode node; } DocumentationDeliverables;
 typedef struct { SomNode node; } DocumentationQualityCriteria;
 typedef struct { SomNode node; } DocumentationStandards;
@@ -2159,6 +2189,9 @@ typedef struct { SomNode node; } ReusablePrototype;
 typedef struct { SomNode node; } ReusableUiComponentEntry;
 typedef struct { SomNode node; } ReuseGoalEntry;
 typedef struct { SomNode node; } ReviewCriterionEntry;
+typedef struct { SomNode node; } ReviewTeam;
+typedef struct { SomNode node; } ReviewTeamMember;
+typedef struct { SomNode node; } ReviewerRecord;
 typedef struct { SomNode node; } RevisionEntry;
 typedef struct { SomNode node; } RiskBusinessImpact;
 typedef struct { SomNode node; } RiskEntry;
@@ -3381,6 +3414,7 @@ typedef struct { SomNode node; } DocCorrectnessContentForm;
 typedef struct { SomNode node; } DocCorrectnessVerificationForm;
 typedef struct { SomNode node; } DocumentHeaderContentForm;
 typedef struct { SomNode node; } DocumentRelevantSectionsContentForm;
+typedef struct { SomNode node; } DocumentReviewTeamEntryContentForm;
 typedef struct { SomNode node; } DocumentationQualityCriteriaDocumentationOverviewContentForm;
 typedef struct { SomNode node; } DocumentationStandardsArchitectureForm;
 typedef struct { SomNode node; } DocumentationStandardsCodeDocsForm;
@@ -4530,6 +4564,8 @@ typedef struct { SomNode node; } ReuseGoalEntryMeasurementForm;
 typedef struct { SomNode node; } ReviewCriterionEntryAssessmentForm;
 typedef struct { SomNode node; } ReviewCriterionEntryContentForm;
 typedef struct { SomNode node; } ReviewCriterionEntryResultForm;
+typedef struct { SomNode node; } ReviewTeamMemberContentForm;
+typedef struct { SomNode node; } ReviewerRecordContentForm;
 typedef struct { SomNode node; } RevisionEntryContentForm;
 typedef struct { SomNode node; } RiskBusinessImpactContentForm;
 typedef struct { SomNode node; } RiskBusinessImpactDeliveryForm;
@@ -10633,6 +10669,13 @@ char *d01_current_landscape_assessment_content(const D01CurrentLandscapeAssessme
 void d01_current_landscape_assessment_set_content(D01CurrentLandscapeAssessment *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d01_current_landscape_assessment_header(const D01CurrentLandscapeAssessment *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d01_current_landscape_assessment_review_team(const D01CurrentLandscapeAssessment *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d01_current_landscape_assessment_revision_history(const D01CurrentLandscapeAssessment *self);
 // Existing systems landscape.
 ExistingSystemsLandscape d01_current_landscape_assessment_existing_systems_landscape(const D01CurrentLandscapeAssessment *self);
 // Current business processes.
@@ -10690,6 +10733,13 @@ char *d02_target_operating_model_content(const D02TargetOperatingModel *self);
 void d02_target_operating_model_set_content(D02TargetOperatingModel *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d02_target_operating_model_header(const D02TargetOperatingModel *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d02_target_operating_model_review_team(const D02TargetOperatingModel *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d02_target_operating_model_revision_history(const D02TargetOperatingModel *self);
 // Process vision.
 ProcessVision d02_target_operating_model_process_vision(const D02TargetOperatingModel *self);
 // Design principles.
@@ -10753,6 +10803,13 @@ char *d03_information_model_content(const D03InformationModel *self);
 void d03_information_model_set_content(D03InformationModel *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d03_information_model_header(const D03InformationModel *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d03_information_model_review_team(const D03InformationModel *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d03_information_model_revision_history(const D03InformationModel *self);
 // Entity inventory (list).
 // Returns the list view; element type: DataEntityEntry (construct from item paths).
 SomList d03_information_model_entities(const D03InformationModel *self);
@@ -10859,6 +10916,13 @@ char *d04_requirements_specification_content(const D04RequirementsSpecification 
 void d04_requirements_specification_set_content(D04RequirementsSpecification *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d04_requirements_specification_header(const D04RequirementsSpecification *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d04_requirements_specification_review_team(const D04RequirementsSpecification *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d04_requirements_specification_revision_history(const D04RequirementsSpecification *self);
 // Functional requirements.
 FunctionalRequirements d04_requirements_specification_functional_requirements(const D04RequirementsSpecification *self);
 // Technical (non-functional) requirements.
@@ -10919,6 +10983,13 @@ char *d05_interaction_scenarios_content(const D05InteractionScenarios *self);
 void d05_interaction_scenarios_set_content(D05InteractionScenarios *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d05_interaction_scenarios_header(const D05InteractionScenarios *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d05_interaction_scenarios_review_team(const D05InteractionScenarios *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d05_interaction_scenarios_revision_history(const D05InteractionScenarios *self);
 // Process steps overview.
 ProcessStepsOverview d05_interaction_scenarios_process_steps_overview(const D05InteractionScenarios *self);
 // Actor overview.
@@ -10975,6 +11046,13 @@ char *d06_architecture_technology_specification_content(const D06ArchitectureTec
 void d06_architecture_technology_specification_set_content(D06ArchitectureTechnologySpecification *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d06_architecture_technology_specification_header(const D06ArchitectureTechnologySpecification *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d06_architecture_technology_specification_review_team(const D06ArchitectureTechnologySpecification *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d06_architecture_technology_specification_revision_history(const D06ArchitectureTechnologySpecification *self);
 // Basic technical requirements.
 BasicTechnicalRequirements d06_architecture_technology_specification_basic_technical_requirements(const D06ArchitectureTechnologySpecification *self);
 // Software design requirements.
@@ -11039,6 +11117,13 @@ char *d07_integration_interface_specification_content(const D07IntegrationInterf
 void d07_integration_interface_specification_set_content(D07IntegrationInterfaceSpecification *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d07_integration_interface_specification_header(const D07IntegrationInterfaceSpecification *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d07_integration_interface_specification_review_team(const D07IntegrationInterfaceSpecification *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d07_integration_interface_specification_revision_history(const D07IntegrationInterfaceSpecification *self);
 // External interfaces.
 ExternalInterfaces d07_integration_interface_specification_external_interfaces(const D07IntegrationInterfaceSpecification *self);
 // Out of scope.
@@ -11103,6 +11188,13 @@ char *d08_security_access_specification_content(const D08SecurityAccessSpecifica
 void d08_security_access_specification_set_content(D08SecurityAccessSpecification *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d08_security_access_specification_header(const D08SecurityAccessSpecification *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d08_security_access_specification_review_team(const D08SecurityAccessSpecification *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d08_security_access_specification_revision_history(const D08SecurityAccessSpecification *self);
 // User management.
 UserManagement d08_security_access_specification_user_management(const D08SecurityAccessSpecification *self);
 // Identification and authentication.
@@ -11169,6 +11261,13 @@ char *d09_experience_design_specification_content(const D09ExperienceDesignSpeci
 void d09_experience_design_specification_set_content(D09ExperienceDesignSpecification *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d09_experience_design_specification_header(const D09ExperienceDesignSpecification *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d09_experience_design_specification_review_team(const D09ExperienceDesignSpecification *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d09_experience_design_specification_revision_history(const D09ExperienceDesignSpecification *self);
 // Design vision.
 DesignVision d09_experience_design_specification_design_vision(const D09ExperienceDesignSpecification *self);
 // Screen descriptions.
@@ -11236,6 +11335,13 @@ char *d10_quality_acceptance_plan_content(const D10QualityAcceptancePlan *self);
 void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d10_quality_acceptance_plan_header(const D10QualityAcceptancePlan *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d10_quality_acceptance_plan_review_team(const D10QualityAcceptancePlan *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d10_quality_acceptance_plan_revision_history(const D10QualityAcceptancePlan *self);
 // Quality framework.
 QualityFramework d10_quality_acceptance_plan_quality_framework(const D10QualityAcceptancePlan *self);
 // Functional suitability (ISO/IEC 25010:2023).
@@ -11315,6 +11421,13 @@ char *d11_delivery_roadmap_content(const D11DeliveryRoadmap *self);
 void d11_delivery_roadmap_set_content(D11DeliveryRoadmap *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d11_delivery_roadmap_header(const D11DeliveryRoadmap *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d11_delivery_roadmap_review_team(const D11DeliveryRoadmap *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d11_delivery_roadmap_revision_history(const D11DeliveryRoadmap *self);
 // Staging strategy.
 StagingStrategy d11_delivery_roadmap_staging_strategy(const D11DeliveryRoadmap *self);
 // Stage overview.
@@ -11375,6 +11488,13 @@ char *d12_transition_rollout_plan_content(const D12TransitionRolloutPlan *self);
 void d12_transition_rollout_plan_set_content(D12TransitionRolloutPlan *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d12_transition_rollout_plan_header(const D12TransitionRolloutPlan *self);
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+ReviewTeam d12_transition_rollout_plan_review_team(const D12TransitionRolloutPlan *self);
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList d12_transition_rollout_plan_revision_history(const D12TransitionRolloutPlan *self);
 // Localization process.
 LocalizationProcess d12_transition_rollout_plan_localization_process(const D12TransitionRolloutPlan *self);
 // Translation process.
@@ -14041,6 +14161,20 @@ DocumentRelevantSectionsContentForm document_relevant_sections_content(const Doc
 // Individual relevant section entries.
 // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
 SomList document_relevant_sections_sections(const DocumentRelevantSections *self);
+
+// The Solution Blueprint's review team for one document type (form + members).
+// Binds a DocumentReviewTeamEntry facade to a document and a path (path copied).
+void document_review_team_entry_init(DocumentReviewTeamEntry *self, SpecDocument *doc, const char *path);
+void document_review_team_entry_free(DocumentReviewTeamEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int document_review_team_entry_can_have_content(const DocumentReviewTeamEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+DocumentReviewTeamEntryContentForm document_review_team_entry_content(const DocumentReviewTeamEntry *self);
+// The members of the team.
+// Returns the list view; element type: ReviewTeamMember (construct from item paths).
+SomList document_review_team_entry_members(const DocumentReviewTeamEntry *self);
 
 // 14.1.2. Documentation Deliverables.
 // Binds a DocumentationDeliverables facade to a document and a path (path copied).
@@ -25001,6 +25135,43 @@ ReviewCriterionEntryAssessmentForm review_criterion_entry_assessment(const Revie
 // Post-review result and remediation status.
 ReviewCriterionEntryResultForm review_criterion_entry_result(const ReviewCriterionEntry *self);
 
+// A review team: the members who review a document.
+// Binds a ReviewTeam facade to a document and a path (path copied).
+void review_team_init(ReviewTeam *self, SpecDocument *doc, const char *path);
+void review_team_free(ReviewTeam *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int review_team_can_have_content(const ReviewTeam *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+char *review_team_content(const ReviewTeam *self);
+void review_team_set_content(ReviewTeam *self, const char *value);
+// The members of the team.
+// Returns the list view; element type: ReviewTeamMember (construct from item paths).
+SomList review_team_members(const ReviewTeam *self);
+
+// One member of a review team (form).
+// Binds a ReviewTeamMember facade to a document and a path (path copied).
+void review_team_member_init(ReviewTeamMember *self, SpecDocument *doc, const char *path);
+void review_team_member_free(ReviewTeamMember *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int review_team_member_can_have_content(const ReviewTeamMember *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+ReviewTeamMemberContentForm review_team_member_content(const ReviewTeamMember *self);
+
+// A reviewer recorded in a revision entry (form).
+// Binds a ReviewerRecord facade to a document and a path (path copied).
+void reviewer_record_init(ReviewerRecord *self, SpecDocument *doc, const char *path);
+void reviewer_record_free(ReviewerRecord *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int reviewer_record_can_have_content(const ReviewerRecord *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+ReviewerRecordContentForm reviewer_record_content(const ReviewerRecord *self);
+
 // A single document revision entry (form).
 // Binds a RevisionEntry facade to a document and a path (path copied).
 void revision_entry_init(RevisionEntry *self, SpecDocument *doc, const char *path);
@@ -25011,6 +25182,12 @@ int revision_entry_can_have_content(const RevisionEntry *self);
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
 RevisionEntryContentForm revision_entry_content(const RevisionEntry *self);
+// The review team the round leading to this revision started with.
+// Returns the list view; element type: ReviewerRecord (construct from item paths).
+SomList revision_entry_review_team(const RevisionEntry *self);
+// The reviewers who returned a reviewed copy, guests included.
+// Returns the list view; element type: ReviewerRecord (construct from item paths).
+SomList revision_entry_reviewers(const RevisionEntry *self);
 
 // Business impact assessment for the risk.
 // Binds a RiskBusinessImpact facade to a document and a path (path copied).
@@ -28289,6 +28466,14 @@ LegalAndContractualRequirements stakeholders_and_governance_legal_and_contractua
 // Stakeholder register.
 // Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
 SomList stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self);
+// The default review team: it reviews every document that names no team
+// of its own and has no entry in [documentReviewTeams]. Its owner
+// (`owner: true`) is the specification owner, always a reviewer.
+ReviewTeam stakeholders_and_governance_review_team(const StakeholdersAndGovernance *self);
+// Review teams per document type, each replacing [reviewTeam] for the
+// documents of its type.
+// Returns the list view; element type: DocumentReviewTeamEntry (construct from item paths).
+SomList stakeholders_and_governance_document_review_teams(const StakeholdersAndGovernance *self);
 
 // Stakeholders and interests.
 // Binds a StakeholdersAndInterests facade to a document and a path (path copied).
@@ -45716,6 +45901,15 @@ char *document_relevant_sections_content_form_relevance(const DocumentRelevantSe
 void document_relevant_sections_content_form_set_relevance(DocumentRelevantSectionsContentForm *self, const char *value);
 char *document_relevant_sections_content_form_extract_summary(const DocumentRelevantSectionsContentForm *self);
 void document_relevant_sections_content_form_set_extract_summary(DocumentRelevantSectionsContentForm *self, const char *value);
+
+// DocumentReviewTeamEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void document_review_team_entry_content_form_init(DocumentReviewTeamEntryContentForm *self, SpecDocument *doc, const char *path);
+void document_review_team_entry_content_form_free(DocumentReviewTeamEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *document_review_team_entry_content_form_content(const DocumentReviewTeamEntryContentForm *self);
+void document_review_team_entry_content_form_set_content(DocumentReviewTeamEntryContentForm *self, const char *value);
+char *document_review_team_entry_content_form_document_type(const DocumentReviewTeamEntryContentForm *self);
+void document_review_team_entry_content_form_set_document_type(DocumentReviewTeamEntryContentForm *self, const char *value);
 
 // DocumentationQualityCriteriaDocumentationOverviewContentForm is the generated section facade for the `documentationOverviewContent` @Form section: its own `content` text followed by one typed member per form field.
 void documentation_quality_criteria_documentation_overview_content_form_init(DocumentationQualityCriteriaDocumentationOverviewContentForm *self, SpecDocument *doc, const char *path);
@@ -63467,6 +63661,40 @@ char *review_criterion_entry_result_form_assessment_notes(const ReviewCriterionE
 void review_criterion_entry_result_form_set_assessment_notes(ReviewCriterionEntryResultForm *self, const char *value);
 char *review_criterion_entry_result_form_remediation_required(const ReviewCriterionEntryResultForm *self);
 void review_criterion_entry_result_form_set_remediation_required(ReviewCriterionEntryResultForm *self, const char *value);
+
+// ReviewTeamMemberContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void review_team_member_content_form_init(ReviewTeamMemberContentForm *self, SpecDocument *doc, const char *path);
+void review_team_member_content_form_free(ReviewTeamMemberContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *review_team_member_content_form_content(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_content(ReviewTeamMemberContentForm *self, const char *value);
+char *review_team_member_content_form_member_id(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_member_id(ReviewTeamMemberContentForm *self, const char *value);
+char *review_team_member_content_form_display_name(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_display_name(ReviewTeamMemberContentForm *self, const char *value);
+char *review_team_member_content_form_role(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_role(ReviewTeamMemberContentForm *self, const char *value);
+char *review_team_member_content_form_stakeholder(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_stakeholder(ReviewTeamMemberContentForm *self, const char *value);
+char *review_team_member_content_form_email(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_email(ReviewTeamMemberContentForm *self, const char *value);
+bool review_team_member_content_form_owner(const ReviewTeamMemberContentForm *self);
+void review_team_member_content_form_set_owner(ReviewTeamMemberContentForm *self, bool value);
+
+// ReviewerRecordContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void reviewer_record_content_form_init(ReviewerRecordContentForm *self, SpecDocument *doc, const char *path);
+void reviewer_record_content_form_free(ReviewerRecordContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *reviewer_record_content_form_content(const ReviewerRecordContentForm *self);
+void reviewer_record_content_form_set_content(ReviewerRecordContentForm *self, const char *value);
+char *reviewer_record_content_form_member_id(const ReviewerRecordContentForm *self);
+void reviewer_record_content_form_set_member_id(ReviewerRecordContentForm *self, const char *value);
+char *reviewer_record_content_form_display_name(const ReviewerRecordContentForm *self);
+void reviewer_record_content_form_set_display_name(ReviewerRecordContentForm *self, const char *value);
+char *reviewer_record_content_form_role(const ReviewerRecordContentForm *self);
+void reviewer_record_content_form_set_role(ReviewerRecordContentForm *self, const char *value);
+bool reviewer_record_content_form_guest(const ReviewerRecordContentForm *self);
+void reviewer_record_content_form_set_guest(ReviewerRecordContentForm *self, bool value);
 
 // RevisionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void revision_entry_content_form_init(RevisionEntryContentForm *self, SpecDocument *doc, const char *path);

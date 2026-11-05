@@ -450,3 +450,48 @@ enum TranslationReviewStatus {
   /// Approved for release.
   approved,
 }
+
+/// The type of a Phase 3 specification document — its `@Document` root.
+///
+/// The Solution Blueprint names a per-document review team by this type
+/// (`DocumentReviewTeamEntry`); each constant is its root class name with a
+/// lowercase first letter, so `d03InformationModel` is `D03InformationModel`.
+/// The Solution Blueprint itself and the generated CodeSpecs projection are
+/// not listed: the first has the default team, the second is not reviewed.
+enum SpecDocumentType {
+  /// `D01CurrentLandscapeAssessment`.
+  d01CurrentLandscapeAssessment,
+
+  /// `D02TargetOperatingModel`.
+  d02TargetOperatingModel,
+
+  /// `D03InformationModel`.
+  d03InformationModel,
+
+  /// `D04RequirementsSpecification`.
+  d04RequirementsSpecification,
+
+  /// `D05InteractionScenarios`.
+  d05InteractionScenarios,
+
+  /// `D06ArchitectureTechnologySpecification`.
+  d06ArchitectureTechnologySpecification,
+
+  /// `D07IntegrationInterfaceSpecification`.
+  d07IntegrationInterfaceSpecification,
+
+  /// `D08SecurityAccessSpecification`.
+  d08SecurityAccessSpecification,
+
+  /// `D09ExperienceDesignSpecification`.
+  d09ExperienceDesignSpecification,
+
+  /// `D10QualityAcceptancePlan`.
+  d10QualityAcceptancePlan,
+
+  /// `D11DeliveryRoadmap`.
+  d11DeliveryRoadmap,
+
+  /// `D12TransitionRolloutPlan`.
+  d12TransitionRolloutPlan,
+}

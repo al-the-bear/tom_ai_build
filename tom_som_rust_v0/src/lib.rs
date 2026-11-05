@@ -3741,6 +3741,115 @@ pub fn parse_server_call_role(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `SpecDocumentType` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// `D01CurrentLandscapeAssessment`.
+pub const SPEC_DOCUMENT_TYPE_D01_CURRENT_LANDSCAPE_ASSESSMENT: &str = "d01CurrentLandscapeAssessment";
+/// `D02TargetOperatingModel`.
+pub const SPEC_DOCUMENT_TYPE_D02_TARGET_OPERATING_MODEL: &str = "d02TargetOperatingModel";
+/// `D03InformationModel`.
+pub const SPEC_DOCUMENT_TYPE_D03_INFORMATION_MODEL: &str = "d03InformationModel";
+/// `D04RequirementsSpecification`.
+pub const SPEC_DOCUMENT_TYPE_D04_REQUIREMENTS_SPECIFICATION: &str = "d04RequirementsSpecification";
+/// `D05InteractionScenarios`.
+pub const SPEC_DOCUMENT_TYPE_D05_INTERACTION_SCENARIOS: &str = "d05InteractionScenarios";
+/// `D06ArchitectureTechnologySpecification`.
+pub const SPEC_DOCUMENT_TYPE_D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION: &str = "d06ArchitectureTechnologySpecification";
+/// `D07IntegrationInterfaceSpecification`.
+pub const SPEC_DOCUMENT_TYPE_D07_INTEGRATION_INTERFACE_SPECIFICATION: &str = "d07IntegrationInterfaceSpecification";
+/// `D08SecurityAccessSpecification`.
+pub const SPEC_DOCUMENT_TYPE_D08_SECURITY_ACCESS_SPECIFICATION: &str = "d08SecurityAccessSpecification";
+/// `D09ExperienceDesignSpecification`.
+pub const SPEC_DOCUMENT_TYPE_D09_EXPERIENCE_DESIGN_SPECIFICATION: &str = "d09ExperienceDesignSpecification";
+/// `D10QualityAcceptancePlan`.
+pub const SPEC_DOCUMENT_TYPE_D10_QUALITY_ACCEPTANCE_PLAN: &str = "d10QualityAcceptancePlan";
+/// `D11DeliveryRoadmap`.
+pub const SPEC_DOCUMENT_TYPE_D11_DELIVERY_ROADMAP: &str = "d11DeliveryRoadmap";
+/// `D12TransitionRolloutPlan`.
+pub const SPEC_DOCUMENT_TYPE_D12_TRANSITION_ROLLOUT_PLAN: &str = "d12TransitionRolloutPlan";
+
+/// SpecDocumentType is the generated enum for `SpecDocumentType` values.
+///
+/// The stored token is what [SpecDocumentType::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum SpecDocumentType {
+    /// `D01CurrentLandscapeAssessment`.
+    D01CurrentLandscapeAssessment,
+    /// `D02TargetOperatingModel`.
+    D02TargetOperatingModel,
+    /// `D03InformationModel`.
+    D03InformationModel,
+    /// `D04RequirementsSpecification`.
+    D04RequirementsSpecification,
+    /// `D05InteractionScenarios`.
+    D05InteractionScenarios,
+    /// `D06ArchitectureTechnologySpecification`.
+    D06ArchitectureTechnologySpecification,
+    /// `D07IntegrationInterfaceSpecification`.
+    D07IntegrationInterfaceSpecification,
+    /// `D08SecurityAccessSpecification`.
+    D08SecurityAccessSpecification,
+    /// `D09ExperienceDesignSpecification`.
+    D09ExperienceDesignSpecification,
+    /// `D10QualityAcceptancePlan`.
+    D10QualityAcceptancePlan,
+    /// `D11DeliveryRoadmap`.
+    D11DeliveryRoadmap,
+    /// `D12TransitionRolloutPlan`.
+    D12TransitionRolloutPlan,
+}
+
+impl SpecDocumentType {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            SpecDocumentType::D01CurrentLandscapeAssessment => "d01CurrentLandscapeAssessment",
+            SpecDocumentType::D02TargetOperatingModel => "d02TargetOperatingModel",
+            SpecDocumentType::D03InformationModel => "d03InformationModel",
+            SpecDocumentType::D04RequirementsSpecification => "d04RequirementsSpecification",
+            SpecDocumentType::D05InteractionScenarios => "d05InteractionScenarios",
+            SpecDocumentType::D06ArchitectureTechnologySpecification => "d06ArchitectureTechnologySpecification",
+            SpecDocumentType::D07IntegrationInterfaceSpecification => "d07IntegrationInterfaceSpecification",
+            SpecDocumentType::D08SecurityAccessSpecification => "d08SecurityAccessSpecification",
+            SpecDocumentType::D09ExperienceDesignSpecification => "d09ExperienceDesignSpecification",
+            SpecDocumentType::D10QualityAcceptancePlan => "d10QualityAcceptancePlan",
+            SpecDocumentType::D11DeliveryRoadmap => "d11DeliveryRoadmap",
+            SpecDocumentType::D12TransitionRolloutPlan => "d12TransitionRolloutPlan",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "d01CurrentLandscapeAssessment" => Some(SpecDocumentType::D01CurrentLandscapeAssessment),
+            "d02TargetOperatingModel" => Some(SpecDocumentType::D02TargetOperatingModel),
+            "d03InformationModel" => Some(SpecDocumentType::D03InformationModel),
+            "d04RequirementsSpecification" => Some(SpecDocumentType::D04RequirementsSpecification),
+            "d05InteractionScenarios" => Some(SpecDocumentType::D05InteractionScenarios),
+            "d06ArchitectureTechnologySpecification" => Some(SpecDocumentType::D06ArchitectureTechnologySpecification),
+            "d07IntegrationInterfaceSpecification" => Some(SpecDocumentType::D07IntegrationInterfaceSpecification),
+            "d08SecurityAccessSpecification" => Some(SpecDocumentType::D08SecurityAccessSpecification),
+            "d09ExperienceDesignSpecification" => Some(SpecDocumentType::D09ExperienceDesignSpecification),
+            "d10QualityAcceptancePlan" => Some(SpecDocumentType::D10QualityAcceptancePlan),
+            "d11DeliveryRoadmap" => Some(SpecDocumentType::D11DeliveryRoadmap),
+            "d12TransitionRolloutPlan" => Some(SpecDocumentType::D12TransitionRolloutPlan),
+            _ => None,
+        }
+    }
+}
+
+/// parse_spec_document_type returns token when it is a known SpecDocumentType value, else "".
+pub fn parse_spec_document_type(token: &str) -> String {
+    match token {
+        SPEC_DOCUMENT_TYPE_D01_CURRENT_LANDSCAPE_ASSESSMENT | SPEC_DOCUMENT_TYPE_D02_TARGET_OPERATING_MODEL | SPEC_DOCUMENT_TYPE_D03_INFORMATION_MODEL | SPEC_DOCUMENT_TYPE_D04_REQUIREMENTS_SPECIFICATION | SPEC_DOCUMENT_TYPE_D05_INTERACTION_SCENARIOS | SPEC_DOCUMENT_TYPE_D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION | SPEC_DOCUMENT_TYPE_D07_INTEGRATION_INTERFACE_SPECIFICATION | SPEC_DOCUMENT_TYPE_D08_SECURITY_ACCESS_SPECIFICATION | SPEC_DOCUMENT_TYPE_D09_EXPERIENCE_DESIGN_SPECIFICATION | SPEC_DOCUMENT_TYPE_D10_QUALITY_ACCEPTANCE_PLAN | SPEC_DOCUMENT_TYPE_D11_DELIVERY_ROADMAP | SPEC_DOCUMENT_TYPE_D12_TRANSITION_ROLLOUT_PLAN => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `Status` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Being authored. The wording may change without notice and nothing
@@ -15771,7 +15880,7 @@ pub struct D00SolutionBlueprint {
 }
 
 /// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.6";
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.7";
 
 impl D00SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
@@ -15916,7 +16025,7 @@ pub struct D01CurrentLandscapeAssessment {
 }
 
 /// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.6";
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.7";
 
 impl D01CurrentLandscapeAssessment {
     /// Creates the typed facade at the document root and verifies the
@@ -15985,6 +16094,23 @@ impl D01CurrentLandscapeAssessment {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
     }
 
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
+    }
+
     /// Existing systems landscape.
     pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
         ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
@@ -16041,7 +16167,7 @@ pub struct D02TargetOperatingModel {
 }
 
 /// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.6";
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.7";
 
 impl D02TargetOperatingModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16108,6 +16234,23 @@ impl D02TargetOperatingModel {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// Process vision.
@@ -16182,7 +16325,7 @@ pub struct D03InformationModel {
 }
 
 /// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.6";
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.7";
 
 impl D03InformationModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16249,6 +16392,23 @@ impl D03InformationModel {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// Entity inventory (list).
@@ -16398,7 +16558,7 @@ pub struct D04RequirementsSpecification {
 }
 
 /// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.6";
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.7";
 
 impl D04RequirementsSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16467,6 +16627,23 @@ impl D04RequirementsSpecification {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
     }
 
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
+    }
+
     /// Functional requirements.
     pub fn functional_requirements(&self) -> FunctionalRequirements {
         FunctionalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalRequirements"))
@@ -16527,7 +16704,7 @@ pub struct D05InteractionScenarios {
 }
 
 /// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.6";
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.7";
 
 impl D05InteractionScenarios {
     /// Creates the typed facade at the document root and verifies the
@@ -16596,6 +16773,23 @@ impl D05InteractionScenarios {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
     }
 
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
+    }
+
     /// Process steps overview.
     pub fn process_steps_overview(&self) -> ProcessStepsOverview {
         ProcessStepsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsOverview"))
@@ -16648,7 +16842,7 @@ pub struct D06ArchitectureTechnologySpecification {
 }
 
 /// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.6";
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.7";
 
 impl D06ArchitectureTechnologySpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16715,6 +16909,23 @@ impl D06ArchitectureTechnologySpecification {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// Basic technical requirements.
@@ -16788,7 +16999,7 @@ pub struct D07IntegrationInterfaceSpecification {
 }
 
 /// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.6";
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.7";
 
 impl D07IntegrationInterfaceSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16855,6 +17066,23 @@ impl D07IntegrationInterfaceSpecification {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// External interfaces.
@@ -16934,7 +17162,7 @@ pub struct D08SecurityAccessSpecification {
 }
 
 /// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.6";
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.7";
 
 impl D08SecurityAccessSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17003,6 +17231,23 @@ impl D08SecurityAccessSpecification {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
     }
 
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
+    }
+
     /// User management.
     pub fn user_management(&self) -> UserManagement {
         UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
@@ -17067,7 +17312,7 @@ pub struct D09ExperienceDesignSpecification {
 }
 
 /// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.6";
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.7";
 
 impl D09ExperienceDesignSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17134,6 +17379,23 @@ impl D09ExperienceDesignSpecification {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// Design vision.
@@ -17213,7 +17475,7 @@ pub struct D10QualityAcceptancePlan {
 }
 
 /// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.6";
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.7";
 
 impl D10QualityAcceptancePlan {
     /// Creates the typed facade at the document root and verifies the
@@ -17280,6 +17542,23 @@ impl D10QualityAcceptancePlan {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// Quality framework.
@@ -17389,7 +17668,7 @@ pub struct D11DeliveryRoadmap {
 }
 
 /// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.6";
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.7";
 
 impl D11DeliveryRoadmap {
     /// Creates the typed facade at the document root and verifies the
@@ -17458,6 +17737,23 @@ impl D11DeliveryRoadmap {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
     }
 
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
+    }
+
     /// Staging strategy.
     pub fn staging_strategy(&self) -> StagingStrategy {
         StagingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "stagingStrategy"))
@@ -17520,7 +17816,7 @@ pub struct D12TransitionRolloutPlan {
 }
 
 /// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.6";
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.7";
 
 impl D12TransitionRolloutPlan {
     /// Creates the typed facade at the document root and verifies the
@@ -17587,6 +17883,23 @@ impl D12TransitionRolloutPlan {
     /// Standard TomSpecs document header.
     pub fn header(&self) -> DocumentHeader {
         DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// This document's own review team; when it has members it replaces the
+    /// Solution Blueprint's team for this document type and its default team.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Chronological revision history of this document, with the reviewers of
+    /// each revision.
+    pub fn revision_history(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVENT-REVS-LST"),
+            Box::new(RevisionEntry::new),
+            "RVENT-REVS-xxx".to_string(),
+        )
     }
 
     /// Localization process.
@@ -17671,7 +17984,7 @@ pub struct D13CodeSpecsProjection {
 }
 
 /// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.6";
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.7";
 
 impl D13CodeSpecsProjection {
     /// Creates the typed facade at the document root and verifies the
@@ -23428,6 +23741,42 @@ impl DocumentRelevantSections {
             format!("{}/{}", self.node.path(), "RESEEN-SECT-LST"),
             Box::new(RelevantSectionEntry::new),
             "RESEEN-SECT-xxx".to_string(),
+        )
+    }
+}
+
+/// The Solution Blueprint's review team for one document type (form + members).
+pub struct DocumentReviewTeamEntry {
+    pub node: som::SomNode,
+}
+
+impl DocumentReviewTeamEntry {
+    /// Binds a DocumentReviewTeamEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocumentReviewTeamEntry {
+        DocumentReviewTeamEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> DocumentReviewTeamEntryContentForm {
+        DocumentReviewTeamEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// The members of the team.
+    pub fn members(&self) -> som::SomList<ReviewTeamMember> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVMEM-MEMB-LST"),
+            Box::new(ReviewTeamMember::new),
+            "RVMEM-MEMB-xxx".to_string(),
         )
     }
 }
@@ -48406,6 +48755,99 @@ impl ReviewCriterionEntry {
     }
 }
 
+/// A review team: the members who review a document.
+pub struct ReviewTeam {
+    pub node: som::SomNode,
+}
+
+impl ReviewTeam {
+    /// Binds a ReviewTeam facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReviewTeam {
+        ReviewTeam { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The members of the team.
+    pub fn members(&self) -> som::SomList<ReviewTeamMember> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVMEM-MEMB-LST"),
+            Box::new(ReviewTeamMember::new),
+            "RVMEM-MEMB-xxx".to_string(),
+        )
+    }
+}
+
+/// One member of a review team (form).
+pub struct ReviewTeamMember {
+    pub node: som::SomNode,
+}
+
+impl ReviewTeamMember {
+    /// Binds a ReviewTeamMember facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReviewTeamMember {
+        ReviewTeamMember { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> ReviewTeamMemberContentForm {
+        ReviewTeamMemberContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// A reviewer recorded in a revision entry (form).
+pub struct ReviewerRecord {
+    pub node: som::SomNode,
+}
+
+impl ReviewerRecord {
+    /// Binds a ReviewerRecord facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReviewerRecord {
+        ReviewerRecord { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> ReviewerRecordContentForm {
+        ReviewerRecordContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// A single document revision entry (form).
 pub struct RevisionEntry {
     pub node: som::SomNode,
@@ -48429,6 +48871,26 @@ impl RevisionEntry {
     /// §11.4 rule 7); the field values themselves live in [form].
     pub fn content(&self) -> RevisionEntryContentForm {
         RevisionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// The review team the round leading to this revision started with.
+    pub fn review_team(&self) -> som::SomList<ReviewerRecord> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVWER-TEAM-LST"),
+            Box::new(ReviewerRecord::new),
+            "RVWER-TEAM-xxx".to_string(),
+        )
+    }
+
+    /// The reviewers who returned a reviewed copy, guests included.
+    pub fn reviewers(&self) -> som::SomList<ReviewerRecord> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVWER-RETN-LST"),
+            Box::new(ReviewerRecord::new),
+            "RVWER-RETN-xxx".to_string(),
+        )
     }
 }
 
@@ -55628,6 +56090,24 @@ impl StakeholdersAndGovernance {
             format!("{}/{}", self.node.path(), "STKRE-STAK-LST"),
             Box::new(StakeholderRegisterEntry::new),
             "STKRE-STAK-xxx".to_string(),
+        )
+    }
+
+    /// The default review team: it reviews every document that names no team
+    /// of its own and has no entry in [documentReviewTeams]. Its owner
+    /// (`owner: true`) is the specification owner, always a reviewer.
+    pub fn review_team(&self) -> ReviewTeam {
+        ReviewTeam::new(self.node.doc(), format!("{}/{}", self.node.path(), "reviewTeam"))
+    }
+
+    /// Review teams per document type, each replacing [reviewTeam] for the
+    /// documents of its type.
+    pub fn document_review_teams(&self) -> som::SomList<DocumentReviewTeamEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DCRVTM-DOCR-LST"),
+            Box::new(DocumentReviewTeamEntry::new),
+            "DCRVTM-DOCR-xxx".to_string(),
         )
     }
 }
@@ -123924,6 +124404,46 @@ impl DocumentRelevantSectionsContentForm {
     pub fn set_extract_summary(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "extractSummary", value);
+    }
+}
+
+/// DocumentReviewTeamEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DocumentReviewTeamEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl DocumentReviewTeamEntryContentForm {
+    /// Binds a DocumentReviewTeamEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocumentReviewTeamEntryContentForm {
+        DocumentReviewTeamEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn document_type(&self) -> Option<SpecDocumentType> {
+        SpecDocumentType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "documentType"))
+    }
+
+    pub fn set_document_type(&self, value: Option<SpecDocumentType>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "documentType", text);
     }
 }
 
@@ -202887,6 +203407,160 @@ impl ReviewCriterionEntryResultForm {
     pub fn set_remediation_required(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "remediationRequired", value);
+    }
+}
+
+/// ReviewTeamMemberContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReviewTeamMemberContentForm {
+    pub node: som::SomNode,
+}
+
+impl ReviewTeamMemberContentForm {
+    /// Binds a ReviewTeamMemberContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReviewTeamMemberContentForm {
+        ReviewTeamMemberContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn member_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "memberId")
+    }
+
+    pub fn set_member_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "memberId", value);
+    }
+
+    pub fn display_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "displayName")
+    }
+
+    pub fn set_display_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "displayName", value);
+    }
+
+    pub fn role(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "role")
+    }
+
+    pub fn set_role(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
+    }
+
+    pub fn stakeholder(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stakeholder")
+    }
+
+    pub fn set_stakeholder(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stakeholder", value);
+    }
+
+    pub fn email(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "email")
+    }
+
+    pub fn set_email(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "email", value);
+    }
+
+    pub fn owner(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "owner");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_owner(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "owner", &text);
+    }
+}
+
+/// ReviewerRecordContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ReviewerRecordContentForm {
+    pub node: som::SomNode,
+}
+
+impl ReviewerRecordContentForm {
+    /// Binds a ReviewerRecordContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReviewerRecordContentForm {
+        ReviewerRecordContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn member_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "memberId")
+    }
+
+    pub fn set_member_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "memberId", value);
+    }
+
+    pub fn display_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "displayName")
+    }
+
+    pub fn set_display_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "displayName", value);
+    }
+
+    pub fn role(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "role")
+    }
+
+    pub fn set_role(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
+    }
+
+    pub fn guest(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "guest");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_guest(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "guest", &text);
     }
 }
 

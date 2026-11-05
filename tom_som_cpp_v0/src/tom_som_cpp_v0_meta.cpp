@@ -409,6 +409,7 @@ void buildDocumentControlChildren(som::SomMetaNode& parent, std::vector<std::str
 void buildDocumentHeaderChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDocumentRelationshipsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDocumentRelevantSectionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildDocumentReviewTeamEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDocumentationDeliverablesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDocumentationQualityCriteriaChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildDocumentationStandardsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -942,6 +943,9 @@ void buildReusablePrototypeChildren(som::SomMetaNode& parent, std::vector<std::s
 void buildReusableUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReuseGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReviewCriterionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildReviewTeamChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildReviewTeamMemberChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildReviewerRecordChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskBusinessImpactChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -19969,6 +19973,47 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D01CurrentLandscapeAssessment";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("ExistingSystemsLandscape", stack,
       [](som::SomMetaNode& n) {
         n.className = "ExistingSystemsLandscape";
@@ -19977,7 +20022,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExistingSystemsLandscape";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Existing systems landscape.";
         n.classDocComment = "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -19994,7 +20039,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentBusinessProcesses";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Current business processes.";
         n.classDocComment = "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -20011,7 +20056,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PainPointsAndGaps";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Pain points and gaps.";
         n.classDocComment = "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -20028,7 +20073,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentDataLandscape";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Current data landscape.";
         n.classDocComment = "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -20045,7 +20090,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "CurrentOperationalMetric";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
+    (*ln).serializationOrder = 8;
     (*ln).docComment = "Current operational metrics.";
     ln->elementNode = metaCx("CurrentOperationalMetric", stack,
       [](som::SomMetaNode& n) {
@@ -20069,7 +20114,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentStateRiskAssessment";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Current-state risk assessment.";
         n.classDocComment = "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -20086,7 +20131,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReplacementInventory";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Replacement inventory.";
         n.classDocComment = "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -20103,7 +20148,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MigrationConsiderations";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Migration considerations.";
         n.classDocComment = "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -20144,6 +20189,47 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D02TargetOperatingModel";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("ProcessVision", stack,
       [](som::SomMetaNode& n) {
         n.className = "ProcessVision";
@@ -20152,7 +20238,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessVision";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Process vision.";
         n.classDocComment = "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20169,7 +20255,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessDesignPrinciples";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Design principles.";
         n.classDocComment = "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20186,7 +20272,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessCatalog";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Process catalog.";
         n.classDocComment = "6.1.3. Process Catalog.\n\nContainer for business process definitions.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20203,7 +20289,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessOverviewDiagram";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Process overview diagram.";
         n.classDocComment = "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20220,7 +20306,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessImprovementSummary";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Improvement summary.";
         n.classDocComment = "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20237,7 +20323,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessRelationships";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Process relationships.";
         n.classDocComment = "Process relationships and dependencies (supplementary section).";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20254,7 +20340,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DetailedProcessWorkflow";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
+    (*ln).serializationOrder = 10;
     (*ln).docComment = "Detailed process workflows.";
     ln->elementNode = metaCx("DetailedProcessWorkflow", stack,
       [](som::SomMetaNode& n) {
@@ -20278,7 +20364,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CrossProcessAnalysis";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Cross-process analysis.";
         n.classDocComment = "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20295,7 +20381,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessExceptionHandling";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Process exception handling.";
         n.classDocComment = "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers";
         n.detailedIn = "D02TargetOperatingModel";
@@ -20312,7 +20398,7 @@ void buildD02TargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ProcessMetric";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 11;
+    (*ln).serializationOrder = 13;
     (*ln).docComment = "Process metrics and KPIs.";
     ln->elementNode = metaCx("ProcessMetric", stack,
       [](som::SomMetaNode& n) {
@@ -20360,6 +20446,47 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D03InformationModel";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "D03InformationModel";
     (*ln).memberName = "entities";
@@ -20368,7 +20495,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DataEntityEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
+    (*ln).serializationOrder = 4;
     (*ln).hasMin = true;
     (*ln).min = 1;
     (*ln).docComment = "Entity inventory (list).";
@@ -20393,7 +20520,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "EntityRelationships";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Entity relationships.";
         n.classDocComment = "7.1.2. Entity Relationships.";
         n.detailedIn = "D03InformationModel";
@@ -20408,7 +20535,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).kind = som::kSomMetaKindSection;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 6;
     (*n).contentType = som::SomContentTypeMeta{"mermaid-er", ""};
     (*n).docComment = "Entity-relationship diagram.";
     parent.addChild(std::move(n));
@@ -20422,7 +20549,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataClassification";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Data classification.";
         n.classDocComment = "7.1.4. Data Classification.";
         n.detailedIn = "D03InformationModel";
@@ -20439,7 +20566,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "BusinessObjectEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
+    (*ln).serializationOrder = 8;
     (*ln).hasMin = true;
     (*ln).min = 1;
     (*ln).docComment = "Business object catalog (list).";
@@ -20462,7 +20589,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).kind = som::kSomMetaKindSection;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 7;
+    (*n).serializationOrder = 9;
     (*n).contentType = som::SomContentTypeMeta{"mermaid", ""};
     (*n).docComment = "Business object diagram.";
     parent.addChild(std::move(n));
@@ -20476,7 +20603,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "FunctionEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
+    (*ln).serializationOrder = 10;
     (*ln).docComment = "Function decomposition (list).";
     ln->elementNode = metaCx("FunctionEntry", stack,
       [](som::SomMetaNode& n) {
@@ -20499,7 +20626,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "FunctionDataMatrixEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 9;
+    (*ln).serializationOrder = 11;
     (*ln).docComment = "Function-to-data matrix (list).";
     ln->elementNode = metaCx("FunctionDataMatrixEntry", stack,
       [](som::SomMetaNode& n) {
@@ -20522,7 +20649,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "BusinessRuleEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 10;
+    (*ln).serializationOrder = 12;
     (*ln).hasMin = true;
     (*ln).min = 1;
     (*ln).docComment = "Business rules catalog (list).";
@@ -20547,7 +20674,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataDictionary";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Data dictionary.";
         n.classDocComment = "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..";
         n.detailedIn = "D03InformationModel";
@@ -20564,7 +20691,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ValidationConstraints";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).";
         n.classDocComment = "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.";
         n.detailedIn = "D03InformationModel";
@@ -20581,7 +20708,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "IntegrityConstraints";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).";
         n.classDocComment = "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.";
         n.detailedIn = "D03InformationModel";
@@ -20598,7 +20725,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DomainEnumRegistry";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).";
         n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
@@ -20614,7 +20741,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ErrorCodeRegistry";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 15;
+        n.serializationOrder = 17;
         n.docComment = "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).";
         n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
       },
@@ -20630,7 +20757,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResultEnvelope";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 16;
+        n.serializationOrder = 18;
         n.docComment = "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).";
         n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
       },
@@ -20646,7 +20773,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MessageKeyRegistry";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 17;
+        n.serializationOrder = 19;
         n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).";
         n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
       },
@@ -20662,7 +20789,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ServerOperationRegistry";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 18;
+        n.serializationOrder = 20;
         n.docComment = "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.";
         n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
       },
@@ -20678,7 +20805,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SchemaVersioningAndMigration";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 19;
+        n.serializationOrder = 21;
         n.docComment = "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
       },
@@ -20718,6 +20845,47 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D04RequirementsSpecification";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("FunctionalRequirements", stack,
       [](som::SomMetaNode& n) {
         n.className = "FunctionalRequirements";
@@ -20726,7 +20894,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FunctionalRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Functional requirements.";
         n.classDocComment = "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -20743,7 +20911,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TechnicalRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Technical (non-functional) requirements.";
         n.classDocComment = "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -20760,7 +20928,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SecurityRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Security requirements.";
         n.classDocComment = "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -20777,7 +20945,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "OrganizationalRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Organizational requirements.";
         n.classDocComment = "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -20793,7 +20961,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 6;
+    (*n).serializationOrder = 8;
     (*n).contentType = som::SomContentTypeMeta{"description", "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."};
     (*n).docComment = "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.";
     parent.addChild(std::move(n));
@@ -20807,7 +20975,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "RequirementRelationships";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
+    (*ln).serializationOrder = 9;
     (*ln).docComment = "Requirement relationships.";
     ln->elementNode = metaCx("RequirementRelationships", stack,
       [](som::SomMetaNode& n) {
@@ -20831,7 +20999,7 @@ void buildD04RequirementsSpecificationChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RequirementCoverage";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Requirement coverage.";
         n.classDocComment = "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -20872,6 +21040,47 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D05InteractionScenarios";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("ProcessStepsOverview", stack,
       [](som::SomMetaNode& n) {
         n.className = "ProcessStepsOverview";
@@ -20880,7 +21089,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessStepsOverview";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Process steps overview.";
         n.classDocComment = "6.2. Process Steps Overview.";
         n.detailedIn = "D05InteractionScenarios";
@@ -20897,7 +21106,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ActorOverview";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Actor overview.";
         n.classDocComment = "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.";
         n.detailedIn = "D05InteractionScenarios";
@@ -20914,7 +21123,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InteractionCatalog";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Interaction catalog.";
         n.classDocComment = "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.";
         n.detailedIn = "D05InteractionScenarios";
@@ -20931,7 +21140,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "KeyScenarios";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Key scenarios.";
         n.classDocComment = "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.";
         n.detailedIn = "D05InteractionScenarios";
@@ -20948,7 +21157,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ActorRelationshipDiagram";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Actor relationship diagram.";
         n.classDocComment = "6.2. Actor Relationship Diagram.";
         n.detailedIn = "D05InteractionScenarios";
@@ -20965,7 +21174,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "EndToEndTestScenario";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
+    (*ln).serializationOrder = 9;
     (*ln).docComment = "End-to-end test scenarios.";
     ln->elementNode = metaCx("EndToEndTestScenario", stack,
       [](som::SomMetaNode& n) {
@@ -20989,7 +21198,7 @@ void buildD05InteractionScenariosChildren(som::SomMetaNode& parent, std::vector<
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UseCaseTraceability";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Use case traceability.";
         n.classDocComment = "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.";
         n.detailedIn = "D05InteractionScenarios";
@@ -21030,6 +21239,47 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D06ArchitectureTechnologySpecification";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("BasicTechnicalRequirements", stack,
       [](som::SomMetaNode& n) {
         n.className = "BasicTechnicalRequirements";
@@ -21038,7 +21288,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BasicTechnicalRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Basic technical requirements.";
         n.classDocComment = "8.1. Basic Technical Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21055,7 +21305,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SoftwareDesignRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Software design requirements.";
         n.classDocComment = "8.2. Software Design Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21072,7 +21322,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StandardSoftwareRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Standard application software requirements.";
         n.classDocComment = "8.3. Standard Application Software Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21089,7 +21339,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "HardwareRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Hardware concept requirements.";
         n.classDocComment = "8.4. Hardware Concept Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21106,7 +21356,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "OperationsRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Operations requirements.";
         n.classDocComment = "8.5. Operations Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21123,7 +21373,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CommunicationRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Communication requirements.";
         n.classDocComment = "8.6. Communication Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21140,7 +21390,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemOperationAndMonitoring";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "System operation and monitoring.";
         n.classDocComment = "8.7. System Operation and Monitoring.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21157,7 +21407,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TechnicalSecurityRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Technical security requirements.";
         n.classDocComment = "8.8. Security Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21174,7 +21424,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemArchitectureSpec";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "System architecture (new in Phase A).";
         n.classDocComment = "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -21191,7 +21441,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ComponentsAndDependencies";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Components to use (whole).";
         n.classDocComment = "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.";
         n.mapsTo = "D06ArchitectureTechnologySpecification";
@@ -21209,7 +21459,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TechnicalEnvironment";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Technical framework conditions (whole).";
         n.classDocComment = "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.";
         n.mapsTo = "D06ArchitectureTechnologySpecification";
@@ -21227,7 +21477,7 @@ void buildD06ArchitectureTechnologySpecificationChildren(som::SomMetaNode& paren
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TranslationRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Translation handling requirements (whole).";
         n.classDocComment = "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.";
         n.mapsTo = "D06ArchitectureTechnologySpecification";
@@ -21269,6 +21519,47 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D07IntegrationInterfaceSpecification";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("ExternalInterfaces", stack,
       [](som::SomMetaNode& n) {
         n.className = "ExternalInterfaces";
@@ -21277,7 +21568,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExternalInterfaces";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "External interfaces.";
         n.classDocComment = "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21294,7 +21585,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "OutOfScope";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Out of scope.";
         n.classDocComment = "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21311,7 +21602,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BoundaryAssumptions";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Boundary assumptions.";
         n.classDocComment = "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21328,7 +21619,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemLandscapeInventory";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "System landscape inventory.";
         n.classDocComment = "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21345,7 +21636,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "BoundaryInteractionPatterns";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
+    (*ln).serializationOrder = 8;
     (*ln).docComment = "Boundary interaction patterns.";
     ln->elementNode = metaCx("BoundaryInteractionPatterns", stack,
       [](som::SomMetaNode& n) {
@@ -21369,7 +21660,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InteractionTestingStrategy";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Interaction testing strategy.";
         n.classDocComment = "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21386,7 +21677,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InteractionDependencyAnalysis";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Interaction dependency analysis.";
         n.classDocComment = "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21403,7 +21694,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "MigrationInteractions";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 9;
+    (*ln).serializationOrder = 11;
     (*ln).docComment = "Migration interactions.";
     ln->elementNode = metaCx("MigrationInteractions", stack,
       [](som::SomMetaNode& n) {
@@ -21427,7 +21718,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "CrossBoundaryOperationalConsiderations";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 10;
+    (*ln).serializationOrder = 12;
     (*ln).docComment = "Cross-boundary operational considerations.";
     ln->elementNode = metaCx("CrossBoundaryOperationalConsiderations", stack,
       [](som::SomMetaNode& n) {
@@ -21451,7 +21742,7 @@ void buildD07IntegrationInterfaceSpecificationChildren(som::SomMetaNode& parent,
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CrossBoundaryErrorHandling";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Cross-boundary error handling.";
         n.classDocComment = "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -21492,6 +21783,47 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D08SecurityAccessSpecification";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("UserManagement", stack,
       [](som::SomMetaNode& n) {
         n.className = "UserManagement";
@@ -21500,7 +21832,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserManagement";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "User management.";
         n.classDocComment = "9.1. User Management.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21517,7 +21849,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "IdentificationAndAuthentication";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Identification and authentication.";
         n.classDocComment = "9.2. Identification and Authentication.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21534,7 +21866,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResourceProtection";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Resource protection.";
         n.classDocComment = "9.3. Resource Protection.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21551,7 +21883,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserAuthorization";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "User authorization.";
         n.classDocComment = "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21568,7 +21900,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SensitiveDataEncryption";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Sensitive data encryption.";
         n.classDocComment = "9.5. Sensitive Data Encryption.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21585,7 +21917,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AuditAndLogging";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Audit and logging — the CE-LG / CE-CF declarations.";
         n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21602,7 +21934,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RoleMatrix";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Role matrix.";
         n.classDocComment = "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21619,7 +21951,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ComplianceFramework";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Compliance framework.";
         n.classDocComment = "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -21636,7 +21968,7 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ComplianceReporting";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.";
         n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.";
       },
@@ -21676,6 +22008,47 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D09ExperienceDesignSpecification";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("DesignVision", stack,
       [](som::SomMetaNode& n) {
         n.className = "DesignVision";
@@ -21684,7 +22057,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DesignVision";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Design vision.";
         n.classDocComment = "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21702,7 +22075,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenDescriptions";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Screen descriptions.";
         n.classDocComment = "10.2. Screen Descriptions.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21720,7 +22093,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenFlowStructure";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Screen flow structure.";
         n.classDocComment = "10.3. Screen Flow Structure.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21738,7 +22111,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PrintAndExportLayout";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Print layout.";
         n.classDocComment = "10.4. Print Layout.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21756,7 +22129,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReportDefinitions";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Report definitions — the CE-RP report projections over the domain model.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
       },
@@ -21772,7 +22145,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ErrorHandling";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Error handling concept.";
         n.classDocComment = "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21790,7 +22163,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserAssistance";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Help concept.";
         n.classDocComment = "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21808,7 +22181,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "Accessibility";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Accessibility.";
         n.classDocComment = "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21826,7 +22199,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResponsiveDesign";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Responsive design.";
         n.classDocComment = "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21844,7 +22217,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UiComponents";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "UI components.";
         n.classDocComment = "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21862,7 +22235,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "LanguageCountrySelection";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Language and country selection.";
         n.classDocComment = "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21880,7 +22253,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "Prototype";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Prototype.";
         n.classDocComment = "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21898,7 +22271,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WireframesAndMockups";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.docComment = "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
         n.classDocComment = "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21940,6 +22313,47 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D10QualityAcceptancePlan";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("QualityFramework", stack,
       [](som::SomMetaNode& n) {
         n.className = "QualityFramework";
@@ -21948,7 +22362,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "QualityFramework";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Quality framework.";
         n.classDocComment = "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -21965,7 +22379,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FunctionalSuitabilityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Functional suitability (ISO/IEC 25010:2023).";
         n.classDocComment = "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -21982,7 +22396,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PerformanceEfficiencyCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Performance efficiency (ISO/IEC 25010:2023).";
         n.classDocComment = "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -21999,7 +22413,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CompatibilityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Compatibility (ISO/IEC 25010:2023).";
         n.classDocComment = "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22016,7 +22430,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InteractionCapabilityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Interaction capability (ISO/IEC 25010:2023; formerly Usability).";
         n.classDocComment = "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22033,7 +22447,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReliabilityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Reliability (ISO/IEC 25010:2023).";
         n.classDocComment = "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22050,7 +22464,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SecurityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Security (ISO/IEC 25010:2023).";
         n.classDocComment = "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22067,7 +22481,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MaintainabilityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Maintainability (ISO/IEC 25010:2023).";
         n.classDocComment = "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22084,7 +22498,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FlexibilityCharacteristic";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).";
         n.classDocComment = "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22101,7 +22515,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DocumentationQualityCriteria";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Documentation quality (ISO/IEC 26514 annex).";
         n.classDocComment = "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22118,7 +22532,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "QualityPrioritization";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Quality prioritization.";
         n.classDocComment = "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22135,7 +22549,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AcceptanceCriteriaSummary";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Acceptance criteria summary.";
         n.classDocComment = "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22152,7 +22566,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TestStrategy";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.docComment = "Test strategy (new in Phase A).";
         n.classDocComment = "11.8. Test Strategy.\n\nOverall test strategy for the project..";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22169,7 +22583,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AcceptanceCriteriaList";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 15;
+        n.serializationOrder = 17;
         n.docComment = "Acceptance criteria.";
         n.classDocComment = "14.2.1. Acceptance Criteria.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22186,7 +22600,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AcceptanceProcess";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 16;
+        n.serializationOrder = 18;
         n.docComment = "Acceptance process.";
         n.classDocComment = "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22203,7 +22617,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserAcceptanceTesting";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 17;
+        n.serializationOrder = 19;
         n.docComment = "User acceptance testing.";
         n.classDocComment = "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22220,7 +22634,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DefectResolution";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 18;
+        n.serializationOrder = 20;
         n.docComment = "Defect resolution.";
         n.classDocComment = "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22237,7 +22651,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SignOffProcess";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 19;
+        n.serializationOrder = 21;
         n.docComment = "Sign-off process.";
         n.classDocComment = "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22254,7 +22668,7 @@ void buildD10QualityAcceptancePlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WarrantyTerms";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 20;
+        n.serializationOrder = 22;
         n.docComment = "Warranty terms.";
         n.classDocComment = "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -22295,6 +22709,47 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D11DeliveryRoadmap";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("StagingStrategy", stack,
       [](som::SomMetaNode& n) {
         n.className = "StagingStrategy";
@@ -22303,7 +22758,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StagingStrategy";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Staging strategy.";
         n.classDocComment = "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22320,7 +22775,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StageOverview";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Stage overview.";
         n.classDocComment = "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22337,7 +22792,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "StageEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 4;
+    (*ln).serializationOrder = 6;
     (*ln).hasMin = true;
     (*ln).min = 1;
     (*ln).docComment = "Stages (list).";
@@ -22362,7 +22817,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FeaturePrioritization";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Feature prioritization.";
         n.classDocComment = "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22379,7 +22834,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataMigrationStrategy";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Data migration strategy.";
         n.classDocComment = "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22396,7 +22851,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PhaseGateReviews";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Gate criteria (promoted from GOV).";
         n.classDocComment = "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22413,7 +22868,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DecisionPoints";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Decision processes (promoted from GOV).";
         n.classDocComment = "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22430,7 +22885,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InitialDevelopmentFlow";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Initial development flow.";
         n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22447,7 +22902,7 @@ void buildD11DeliveryRoadmapChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UpgradeCycleFramework";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).";
         n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -22488,6 +22943,47 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "D12TransitionRolloutPlan";
+    (*ln).memberName = "revisionHistory";
+    (*ln).sectionId = "RVENT-REVS-LST";
+    (*ln).sectionIdPattern = "RVENT-REVS-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "RevisionEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 3;
+    (*ln).contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+    (*ln).docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", nullptr)});
+    ln->elementNode = metaCx("RevisionEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "RevisionEntry";
+        n.classSectionId = "RVENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "RevisionEntry";
+        n.docComment = "A single document revision entry (form).";
+        n.classDocComment = "A single document revision entry (form).";
+      },
+      buildRevisionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("LocalizationProcess", stack,
       [](som::SomMetaNode& n) {
         n.className = "LocalizationProcess";
@@ -22496,7 +22992,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "LocalizationProcess";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Localization process.";
         n.classDocComment = "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -22514,7 +23010,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TranslationProcess";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Translation process.";
         n.classDocComment = "10.12.2. Translation Process.\n\nWorkflow for translating content.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -22532,7 +23028,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserDocumentationRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).";
         n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -22550,7 +23046,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TrainingDeliverableRequirements";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).";
         n.classDocComment = "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -22568,7 +23064,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RolloutPlan";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Rollout plan.";
         n.classDocComment = "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22585,7 +23081,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MigrationPlan";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Migration plan.";
         n.classDocComment = "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22602,7 +23098,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserManual";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).";
         n.classDocComment = "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22619,7 +23115,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RolloutTrainingMaterial";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).";
         n.classDocComment = "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22636,7 +23132,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PilotPlan";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Pilot plan.";
         n.classDocComment = "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22653,7 +23149,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CutoverProcedure";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).";
         n.classDocComment = "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22670,7 +23166,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "KnowledgeTransfer";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Knowledge transfer.";
         n.classDocComment = "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -22687,7 +23183,7 @@ void buildD12TransitionRolloutPlanChildren(som::SomMetaNode& parent, std::vector
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WarrantyAndSupport";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Warranty and support.";
         n.classDocComment = "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -31534,6 +32030,46 @@ void buildDocumentRelevantSectionsChildren(som::SomMetaNode& parent, std::vector
         n.classDocComment = "A single relevant section entry within a reference document.";
       },
       buildRelevantSectionEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildDocumentReviewTeamEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DocumentReviewTeamEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"documentType", "SpecDocumentType", "Document Type", true, "The document root type this team reviews; one entry per type.", 0, std::vector<std::string>{"d01CurrentLandscapeAssessment", "d02TargetOperatingModel", "d03InformationModel", "d04RequirementsSpecification", "d05InteractionScenarios", "d06ArchitectureTechnologySpecification", "d07IntegrationInterfaceSpecification", "d08SecurityAccessSpecification", "d09ExperienceDesignSpecification", "d10QualityAcceptancePlan", "d11DeliveryRoadmap", "d12TransitionRolloutPlan"}, std::vector<std::string>{}, false});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "DocumentReviewTeamEntry";
+    (*ln).memberName = "members";
+    (*ln).sectionId = "RVMEM-MEMB-LST";
+    (*ln).sectionIdPattern = "RVMEM-MEMB-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ReviewTeamMember";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per member of this document type's team.";
+    (*ln).docComment = "The members of the team.";
+    ln->elementNode = metaCx("ReviewTeamMember", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeamMember";
+        n.classSectionId = "RVMEM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeamMember";
+        n.docComment = "One member of a review team (form).";
+        n.classDocComment = "One member of a review team (form).";
+      },
+      buildReviewTeamMemberChildren);
     parent.addChild(std::move(ln));
   }
 }
@@ -68750,8 +69286,89 @@ void buildReviewCriterionEntryChildren(som::SomMetaNode& parent, std::vector<std
   }
 }
 
-void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+void buildReviewTeamChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReviewTeam";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindContent;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).contentHelp = "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n";
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ReviewTeam";
+    (*ln).memberName = "members";
+    (*ln).sectionId = "RVMEM-MEMB-LST";
+    (*ln).sectionIdPattern = "RVMEM-MEMB-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ReviewTeamMember";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per member. Mark the specification owner with owner: true in the default team.";
+    (*ln).docComment = "The members of the team.";
+    ln->elementNode = metaCx("ReviewTeamMember", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeamMember";
+        n.classSectionId = "RVMEM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeamMember";
+        n.docComment = "One member of a review team (form).";
+        n.classDocComment = "One member of a review team (form).";
+      },
+      buildReviewTeamMemberChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildReviewTeamMemberChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReviewTeamMember";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"memberId", "String", "Member Id", true, "Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayName", "String", "Display Name", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", true, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholder", "String", "Stakeholder", false, "The stakeholder register entry this member represents.", 3, std::vector<std::string>{}, std::vector<std::string>{"STKRE.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"email", "String", "E-Mail", false, "Stored only; nothing sends mail.", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "bool", "Owner", false, "true for the specification owner, who is always a reviewer.", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildReviewerRecordChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReviewerRecord";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"memberId", "String", "Member Id", true, "The member id, as in the team, or the guest's id.", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayName", "String", "Display Name", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"guest", "bool", "Guest", false, "true for a reviewer who was not on the team the round used.", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RevisionEntry";
@@ -68767,6 +69384,54 @@ void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).form->fields.push_back(som::SomFormFieldMeta{"author", "String", "Author", true, "Person or role who produced the revision.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"summary", "String", "Summary of changes", false, "One or two sentences on what changed and why.", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "RevisionEntry";
+    (*ln).memberName = "reviewTeam";
+    (*ln).sectionId = "RVWER-TEAM-LST";
+    (*ln).sectionIdPattern = "RVWER-TEAM-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ReviewerRecord";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "The members the review round started with, each written out in full.";
+    (*ln).docComment = "The review team the round leading to this revision started with.";
+    ln->elementNode = metaCx("ReviewerRecord", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewerRecord";
+        n.classSectionId = "RVWER";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewerRecord";
+        n.docComment = "A reviewer recorded in a revision entry (form).";
+        n.classDocComment = "A reviewer recorded in a revision entry (form).";
+      },
+      buildReviewerRecordChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "RevisionEntry";
+    (*ln).memberName = "reviewers";
+    (*ln).sectionId = "RVWER-RETN-LST";
+    (*ln).sectionIdPattern = "RVWER-RETN-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ReviewerRecord";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 2;
+    (*ln).contentHelp = "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.";
+    (*ln).docComment = "The reviewers who returned a reviewed copy, guests included.";
+    ln->elementNode = metaCx("ReviewerRecord", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewerRecord";
+        n.classSectionId = "RVWER";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewerRecord";
+        n.docComment = "A reviewer recorded in a revision entry (form).";
+        n.classDocComment = "A reviewer recorded in a revision entry (form).";
+      },
+      buildReviewerRecordChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -79830,6 +80495,46 @@ void buildStakeholdersAndGovernanceChildren(som::SomMetaNode& parent, std::vecto
         n.classDocComment = "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).";
       },
       buildStakeholderRegisterEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
+    auto n = metaCx("ReviewTeam", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReviewTeam";
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReviewTeam";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 9;
+        n.docComment = "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.";
+        n.classDocComment = "A review team: the members who review a document.";
+      },
+      buildReviewTeamChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "StakeholdersAndGovernance";
+    (*ln).memberName = "documentReviewTeams";
+    (*ln).sectionId = "DCRVTM-DOCR-LST";
+    (*ln).sectionIdPattern = "DCRVTM-DOCR-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "DocumentReviewTeamEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 10;
+    (*ln).contentHelp = "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.";
+    (*ln).docComment = "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.";
+    ln->elementNode = metaCx("DocumentReviewTeamEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "DocumentReviewTeamEntry";
+        n.classSectionId = "DCRVTM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "DocumentReviewTeamEntry";
+        n.docComment = "The Solution Blueprint's review team for one document type (form + members).";
+        n.classDocComment = "The Solution Blueprint's review team for one document type (form + members).";
+      },
+      buildDocumentReviewTeamEntryChildren);
     parent.addChild(std::move(ln));
   }
 }
@@ -96197,6 +96902,9 @@ void* metaNavFactoryDistributionRecipientEntry(const som::SomMetaTree* tree, con
 void* metaNavFactoryDistributionRecipientPreferences(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDistributionRecipientPreferences{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryDocumentReviewTeamEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavDocumentReviewTeamEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryDomainBusinessRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavDomainBusinessRuleEntry{som::SomMetaRef(tree, path)};
 }
@@ -96889,6 +97597,12 @@ void* metaNavFactoryReuseGoalEntry(const som::SomMetaTree* tree, const std::stri
 }
 void* metaNavFactoryReviewCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavReviewCriterionEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryReviewTeamMember(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavReviewTeamMember{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryReviewerRecord(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavReviewerRecord{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryRevisionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavRevisionEntry{som::SomMetaRef(tree, path)};
@@ -97745,6 +98459,9 @@ void* metaIdFactoryDistributionRecipientEntry(const som::SomMetaTree* tree, cons
 void* metaIdFactoryDistributionRecipientPreferences(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDistributionRecipientPreferences{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryDocumentReviewTeamEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdDocumentReviewTeamEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryDomainBusinessRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdDomainBusinessRuleEntry{som::SomMetaRef(tree, path)};
 }
@@ -98437,6 +99154,12 @@ void* metaIdFactoryReuseGoalEntry(const som::SomMetaTree* tree, const std::strin
 }
 void* metaIdFactoryReviewCriterionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdReviewCriterionEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryReviewTeamMember(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdReviewTeamMember{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryReviewerRecord(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdReviewerRecord{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryRevisionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdRevisionEntry{som::SomMetaRef(tree, path)};
@@ -102359,6 +103082,12 @@ som::SomMetaRef navD01CurrentLandscapeAssessment_content(NavD01CurrentLandscapeA
 NavDocumentHeader navD01CurrentLandscapeAssessment_header(NavD01CurrentLandscapeAssessment x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
+NavReviewTeam navD01CurrentLandscapeAssessment_reviewTeam(NavD01CurrentLandscapeAssessment x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD01CurrentLandscapeAssessment_revisionHistory(NavD01CurrentLandscapeAssessment x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
+}
 NavExistingSystemsLandscape navD01CurrentLandscapeAssessment_existingSystemsLandscape(NavD01CurrentLandscapeAssessment x) {
   return NavExistingSystemsLandscape{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape"))};
 }
@@ -102388,6 +103117,12 @@ som::SomMetaRef navD02TargetOperatingModel_content(NavD02TargetOperatingModel x)
 }
 NavDocumentHeader navD02TargetOperatingModel_header(NavD02TargetOperatingModel x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
+}
+NavReviewTeam navD02TargetOperatingModel_reviewTeam(NavD02TargetOperatingModel x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD02TargetOperatingModel_revisionHistory(NavD02TargetOperatingModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 NavProcessVision navD02TargetOperatingModel_processVision(NavD02TargetOperatingModel x) {
   return NavProcessVision{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processVision"))};
@@ -102424,6 +103159,12 @@ som::SomMetaRef navD03InformationModel_content(NavD03InformationModel x) {
 }
 NavDocumentHeader navD03InformationModel_header(NavD03InformationModel x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
+}
+NavReviewTeam navD03InformationModel_reviewTeam(NavD03InformationModel x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD03InformationModel_revisionHistory(NavD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 som::SomListMetaRef navD03InformationModel_entities(NavD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAENT-ENTI-LST"), metaNavFactoryDataEntityEntry);
@@ -102485,6 +103226,12 @@ som::SomMetaRef navD04RequirementsSpecification_content(NavD04RequirementsSpecif
 NavDocumentHeader navD04RequirementsSpecification_header(NavD04RequirementsSpecification x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
+NavReviewTeam navD04RequirementsSpecification_reviewTeam(NavD04RequirementsSpecification x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD04RequirementsSpecification_revisionHistory(NavD04RequirementsSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
+}
 NavFunctionalRequirements navD04RequirementsSpecification_functionalRequirements(NavD04RequirementsSpecification x) {
   return NavFunctionalRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionalRequirements"))};
 }
@@ -102512,6 +103259,12 @@ som::SomMetaRef navD05InteractionScenarios_content(NavD05InteractionScenarios x)
 NavDocumentHeader navD05InteractionScenarios_header(NavD05InteractionScenarios x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
+NavReviewTeam navD05InteractionScenarios_reviewTeam(NavD05InteractionScenarios x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD05InteractionScenarios_revisionHistory(NavD05InteractionScenarios x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
+}
 NavProcessStepsOverview navD05InteractionScenarios_processStepsOverview(NavD05InteractionScenarios x) {
   return NavProcessStepsOverview{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processStepsOverview"))};
 }
@@ -102538,6 +103291,12 @@ som::SomMetaRef navD06ArchitectureTechnologySpecification_content(NavD06Architec
 }
 NavDocumentHeader navD06ArchitectureTechnologySpecification_header(NavD06ArchitectureTechnologySpecification x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
+}
+NavReviewTeam navD06ArchitectureTechnologySpecification_reviewTeam(NavD06ArchitectureTechnologySpecification x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD06ArchitectureTechnologySpecification_revisionHistory(NavD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 NavBasicTechnicalRequirements navD06ArchitectureTechnologySpecification_basicTechnicalRequirements(NavD06ArchitectureTechnologySpecification x) {
   return NavBasicTechnicalRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements"))};
@@ -102581,6 +103340,12 @@ som::SomMetaRef navD07IntegrationInterfaceSpecification_content(NavD07Integratio
 NavDocumentHeader navD07IntegrationInterfaceSpecification_header(NavD07IntegrationInterfaceSpecification x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
+NavReviewTeam navD07IntegrationInterfaceSpecification_reviewTeam(NavD07IntegrationInterfaceSpecification x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD07IntegrationInterfaceSpecification_revisionHistory(NavD07IntegrationInterfaceSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
+}
 NavExternalInterfaces navD07IntegrationInterfaceSpecification_externalInterfaces(NavD07IntegrationInterfaceSpecification x) {
   return NavExternalInterfaces{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "externalInterfaces"))};
 }
@@ -102617,6 +103382,12 @@ som::SomMetaRef navD08SecurityAccessSpecification_content(NavD08SecurityAccessSp
 NavDocumentHeader navD08SecurityAccessSpecification_header(NavD08SecurityAccessSpecification x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
+NavReviewTeam navD08SecurityAccessSpecification_reviewTeam(NavD08SecurityAccessSpecification x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD08SecurityAccessSpecification_revisionHistory(NavD08SecurityAccessSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
+}
 NavUserManagement navD08SecurityAccessSpecification_userManagement(NavD08SecurityAccessSpecification x) {
   return NavUserManagement{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userManagement"))};
 }
@@ -102649,6 +103420,12 @@ som::SomMetaRef navD09ExperienceDesignSpecification_content(NavD09ExperienceDesi
 }
 NavDocumentHeader navD09ExperienceDesignSpecification_header(NavD09ExperienceDesignSpecification x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
+}
+NavReviewTeam navD09ExperienceDesignSpecification_reviewTeam(NavD09ExperienceDesignSpecification x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD09ExperienceDesignSpecification_revisionHistory(NavD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 NavDesignVision navD09ExperienceDesignSpecification_designVision(NavD09ExperienceDesignSpecification x) {
   return NavDesignVision{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "designVision"))};
@@ -102694,6 +103471,12 @@ som::SomMetaRef navD10QualityAcceptancePlan_content(NavD10QualityAcceptancePlan 
 }
 NavDocumentHeader navD10QualityAcceptancePlan_header(NavD10QualityAcceptancePlan x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
+}
+NavReviewTeam navD10QualityAcceptancePlan_reviewTeam(NavD10QualityAcceptancePlan x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD10QualityAcceptancePlan_revisionHistory(NavD10QualityAcceptancePlan x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 NavQualityFramework navD10QualityAcceptancePlan_qualityFramework(NavD10QualityAcceptancePlan x) {
   return NavQualityFramework{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityFramework"))};
@@ -102758,6 +103541,12 @@ som::SomMetaRef navD11DeliveryRoadmap_content(NavD11DeliveryRoadmap x) {
 NavDocumentHeader navD11DeliveryRoadmap_header(NavD11DeliveryRoadmap x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
 }
+NavReviewTeam navD11DeliveryRoadmap_reviewTeam(NavD11DeliveryRoadmap x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD11DeliveryRoadmap_revisionHistory(NavD11DeliveryRoadmap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
+}
 NavStagingStrategy navD11DeliveryRoadmap_stagingStrategy(NavD11DeliveryRoadmap x) {
   return NavStagingStrategy{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy"))};
 }
@@ -102790,6 +103579,12 @@ som::SomMetaRef navD12TransitionRolloutPlan_content(NavD12TransitionRolloutPlan 
 }
 NavDocumentHeader navD12TransitionRolloutPlan_header(NavD12TransitionRolloutPlan x) {
   return NavDocumentHeader{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "header"))};
+}
+NavReviewTeam navD12TransitionRolloutPlan_reviewTeam(NavD12TransitionRolloutPlan x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navD12TransitionRolloutPlan_revisionHistory(NavD12TransitionRolloutPlan x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaNavFactoryRevisionEntry);
 }
 NavLocalizationProcess navD12TransitionRolloutPlan_localizationProcess(NavD12TransitionRolloutPlan x) {
   return NavLocalizationProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "localizationProcess"))};
@@ -104290,6 +105085,12 @@ som::SomMetaRef navDocumentRelevantSections_content(NavDocumentRelevantSections 
 }
 som::SomListMetaRef navDocumentRelevantSections_sections(NavDocumentRelevantSections x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESEEN-SECT-LST"), metaNavFactoryRelevantSectionEntry);
+}
+som::SomMetaRef navDocumentReviewTeamEntry_content(NavDocumentReviewTeamEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navDocumentReviewTeamEntry_members(NavDocumentReviewTeamEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVMEM-MEMB-LST"), metaNavFactoryReviewTeamMember);
 }
 som::SomMetaRef navDocumentationDeliverables_content(NavDocumentationDeliverables x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -110372,8 +111173,26 @@ som::SomMetaRef navReviewCriterionEntry_assessment(NavReviewCriterionEntry x) {
 som::SomMetaRef navReviewCriterionEntry_result(NavReviewCriterionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RCER"));
 }
+som::SomMetaRef navReviewTeam_content(NavReviewTeam x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navReviewTeam_members(NavReviewTeam x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVMEM-MEMB-LST"), metaNavFactoryReviewTeamMember);
+}
+som::SomMetaRef navReviewTeamMember_content(NavReviewTeamMember x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navReviewerRecord_content(NavReviewerRecord x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
 som::SomMetaRef navRevisionEntry_content(NavRevisionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navRevisionEntry_reviewTeam(NavRevisionEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVWER-TEAM-LST"), metaNavFactoryReviewerRecord);
+}
+som::SomListMetaRef navRevisionEntry_reviewers(NavRevisionEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVWER-RETN-LST"), metaNavFactoryReviewerRecord);
 }
 som::SomMetaRef navRiskBusinessImpact_content(NavRiskBusinessImpact x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -112174,6 +112993,12 @@ NavLegalAndContractualRequirements navStakeholdersAndGovernance_legalAndContract
 }
 som::SomListMetaRef navStakeholdersAndGovernance_stakeholderRegister(NavStakeholdersAndGovernance x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STKRE-STAK-LST"), metaNavFactoryStakeholderRegisterEntry);
+}
+NavReviewTeam navStakeholdersAndGovernance_reviewTeam(NavStakeholdersAndGovernance x) {
+  return NavReviewTeam{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam"))};
+}
+som::SomListMetaRef navStakeholdersAndGovernance_documentReviewTeams(NavStakeholdersAndGovernance x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DCRVTM-DOCR-LST"), metaNavFactoryDocumentReviewTeamEntry);
 }
 som::SomMetaRef navStakeholdersAndInterests_content(NavStakeholdersAndInterests x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -116064,6 +116889,12 @@ som::SomListMetaRef idD00SolutionBlueprint_OTAGR_OTHE_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_STKRE_STAK_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/STKRE-STAK-LST"), metaIdFactoryStakeholderRegisterEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_RVMEM_MEMB_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD00SolutionBlueprint_DCRVTM_DOCR_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stakeholdersAndGovernance/DCRVTM-DOCR-LST"), metaIdFactoryDocumentReviewTeamEntry);
+}
 som::SomListMetaRef idD00SolutionBlueprint_ESENT_SYST_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST"), metaIdFactoryExistingSystemEntry);
 }
@@ -119583,6 +120414,12 @@ som::SomListMetaRef idD00SolutionBlueprint_TVE_VEND_LST(IdD00SolutionBlueprint x
 som::SomMetaRef idD00SolutionBlueprint_LOCRP(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/LOCRP"));
 }
+som::SomListMetaRef idD01CurrentLandscapeAssessment_RVMEM_MEMB_LST(IdD01CurrentLandscapeAssessment x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD01CurrentLandscapeAssessment_RVENT_REVS_LST(IdD01CurrentLandscapeAssessment x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomListMetaRef idD01CurrentLandscapeAssessment_ESENT_SYST_LST(IdD01CurrentLandscapeAssessment x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "existingSystemsLandscape/systemInventory/ESENT-SYST-LST"), metaIdFactoryExistingSystemEntry);
 }
@@ -119817,6 +120654,12 @@ som::SomListMetaRef idD01CurrentLandscapeAssessment_MGMLS_MILE_LST(IdD01CurrentL
 som::SomListMetaRef idD01CurrentLandscapeAssessment_MIGCON_ESCA_LST(IdD01CurrentLandscapeAssessment x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationConsiderations/MIGCON-ESCA-LST"), metaLeafFactory);
 }
+som::SomListMetaRef idD02TargetOperatingModel_RVMEM_MEMB_LST(IdD02TargetOperatingModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD02TargetOperatingModel_RVENT_REVS_LST(IdD02TargetOperatingModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomMetaRef idD02TargetOperatingModel_PVOVW(IdD02TargetOperatingModel x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processVision/PVOVW"));
 }
@@ -119861,6 +120704,12 @@ som::SomListMetaRef idD02TargetOperatingModel_DEPRWO_DETA_LST(IdD02TargetOperati
 }
 som::SomListMetaRef idD02TargetOperatingModel_PMAK_PROC_LST(IdD02TargetOperatingModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PMAK-PROC-LST"), metaIdFactoryProcessMetric);
+}
+som::SomListMetaRef idD03InformationModel_RVMEM_MEMB_LST(IdD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD03InformationModel_RVENT_REVS_LST(IdD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
 }
 som::SomListMetaRef idD03InformationModel_DAENT_ENTI_LST(IdD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAENT-ENTI-LST"), metaIdFactoryDataEntityEntry);
@@ -119910,6 +120759,12 @@ som::SomListMetaRef idD03InformationModel_MIGTG_TARG_LST(IdD03InformationModel x
 som::SomListMetaRef idD03InformationModel_SCMST_STEP_LST(IdD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "schemaVersioningAndMigration/SCMST-STEP-LST"), metaIdFactorySchemaMigrationStepEntry);
 }
+som::SomListMetaRef idD04RequirementsSpecification_RVMEM_MEMB_LST(IdD04RequirementsSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD04RequirementsSpecification_RVENT_REVS_LST(IdD04RequirementsSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomMetaRef idD04RequirementsSpecification_FR_SUMM(IdD04RequirementsSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "functionalRequirements/FR-SUMM"));
 }
@@ -119940,6 +120795,12 @@ som::SomMetaRef idD04RequirementsSpecification_RSP_TRAC(IdD04RequirementsSpecifi
 som::SomListMetaRef idD04RequirementsSpecification_RERE_REQU_LST(IdD04RequirementsSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RERE-REQU-LST"), metaIdFactoryRequirementRelationships);
 }
+som::SomListMetaRef idD05InteractionScenarios_RVMEM_MEMB_LST(IdD05InteractionScenarios x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD05InteractionScenarios_RVENT_REVS_LST(IdD05InteractionScenarios x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomMetaRef idD05InteractionScenarios_ACOVNA(IdD05InteractionScenarios x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "actorOverview/ACOVNA"));
 }
@@ -119969,6 +120830,12 @@ som::SomMetaRef idD05InteractionScenarios_ACDIOV(IdD05InteractionScenarios x) {
 }
 som::SomListMetaRef idD05InteractionScenarios_ETETS_ENDT_LST(IdD05InteractionScenarios x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ETETS-ENDT-LST"), metaIdFactoryEndToEndTestScenario);
+}
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_RVMEM_MEMB_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_RVENT_REVS_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_TGPLT_TARG_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/TGPLT-TARG-LST"), metaIdFactoryTargetPlatformEntry);
@@ -121929,6 +122796,12 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_TRREVA(IdD06Architectur
 som::SomMetaRef idD06ArchitectureTechnologySpecification_TRRETE(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "translationRequirements/TRRETE"));
 }
+som::SomListMetaRef idD07IntegrationInterfaceSpecification_RVMEM_MEMB_LST(IdD07IntegrationInterfaceSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD07IntegrationInterfaceSpecification_RVENT_REVS_LST(IdD07IntegrationInterfaceSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomListMetaRef idD07IntegrationInterfaceSpecification_EIE_INTE_LST(IdD07IntegrationInterfaceSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "externalInterfaces/EIE-INTE-LST"), metaIdFactoryExternalInterfaceEntry);
 }
@@ -121946,6 +122819,12 @@ som::SomListMetaRef idD07IntegrationInterfaceSpecification_MIIN_MIGR_LST(IdD07In
 }
 som::SomListMetaRef idD07IntegrationInterfaceSpecification_CBOC_OPER_LST(IdD07IntegrationInterfaceSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CBOC-OPER-LST"), metaIdFactoryCrossBoundaryOperationalConsiderations);
+}
+som::SomListMetaRef idD08SecurityAccessSpecification_RVMEM_MEMB_LST(IdD08SecurityAccessSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD08SecurityAccessSpecification_RVENT_REVS_LST(IdD08SecurityAccessSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
 }
 som::SomListMetaRef idD08SecurityAccessSpecification_USCDF_ITEM_LST(IdD08SecurityAccessSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userManagement/userCategories/USCDF-ITEM-LST"), metaIdFactoryUserCategoryDefinition);
@@ -122060,6 +122939,12 @@ som::SomListMetaRef idD08SecurityAccessSpecification_COCHEN_COMM_LST(IdD08Securi
 }
 som::SomListMetaRef idD08SecurityAccessSpecification_SEVT_CUST_LST(IdD08SecurityAccessSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);
+}
+som::SomListMetaRef idD09ExperienceDesignSpecification_RVMEM_MEMB_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD09ExperienceDesignSpecification_RVENT_REVS_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_DGOEN_ITEM_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "designVision/designGoals/DGOEN-ITEM-LST"), metaIdFactoryDesignGoalEntry);
@@ -122469,6 +123354,12 @@ som::SomMetaRef idD09ExperienceDesignSpecification_THPRDI(IdD09ExperienceDesignS
 som::SomMetaRef idD09ExperienceDesignSpecification_THPRVA(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "prototype/prototypeType/throwawayPrototype/THPRVA"));
 }
+som::SomListMetaRef idD10QualityAcceptancePlan_RVMEM_MEMB_LST(IdD10QualityAcceptancePlan x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD10QualityAcceptancePlan_RVENT_REVS_LST(IdD10QualityAcceptancePlan x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomMetaRef idD10QualityAcceptancePlan_QLFWK_FRAM(IdD10QualityAcceptancePlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityFramework/QLFWK-FRAM"));
 }
@@ -122817,6 +123708,12 @@ som::SomMetaRef idD10QualityAcceptancePlan_WATR(IdD10QualityAcceptancePlan x) {
 som::SomMetaRef idD10QualityAcceptancePlan_WAFI(IdD10QualityAcceptancePlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "warranty/WAFI"));
 }
+som::SomListMetaRef idD11DeliveryRoadmap_RVMEM_MEMB_LST(IdD11DeliveryRoadmap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD11DeliveryRoadmap_RVENT_REVS_LST(IdD11DeliveryRoadmap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
+}
 som::SomMetaRef idD11DeliveryRoadmap_STAGAS(IdD11DeliveryRoadmap x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "stagingStrategy/STAGAS"));
 }
@@ -122984,6 +123881,12 @@ som::SomListMetaRef idD11DeliveryRoadmap_PHGREV_ITEM_LST(IdD11DeliveryRoadmap x)
 }
 som::SomListMetaRef idD11DeliveryRoadmap_DPE_ITEM_LST(IdD11DeliveryRoadmap x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "decisionProcesses/DPE-ITEM-LST"), metaIdFactoryDecisionPointEntry);
+}
+som::SomListMetaRef idD12TransitionRolloutPlan_RVMEM_MEMB_LST(IdD12TransitionRolloutPlan x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reviewTeam/RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
+som::SomListMetaRef idD12TransitionRolloutPlan_RVENT_REVS_LST(IdD12TransitionRolloutPlan x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVENT-REVS-LST"), metaIdFactoryRevisionEntry);
 }
 som::SomMetaRef idD12TransitionRolloutPlan_LOPR_LOCA(IdD12TransitionRolloutPlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "localizationProcess/LOPR-LOCA"));
@@ -125661,6 +126564,9 @@ som::SomMetaRef idDistributionRecipientEntry_DIRESU(IdDistributionRecipientEntry
 som::SomMetaRef idDistributionRecipientEntry_DIREBA(IdDistributionRecipientEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DIREBA"));
 }
+som::SomListMetaRef idDocumentReviewTeamEntry_RVMEM_MEMB_LST(IdDocumentReviewTeamEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVMEM-MEMB-LST"), metaIdFactoryReviewTeamMember);
+}
 som::SomMetaRef idDomainBusinessRuleEntry_DBRED(IdDomainBusinessRuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DBRED"));
 }
@@ -127328,6 +128234,12 @@ som::SomMetaRef idReviewCriterionEntry_RCEA(IdReviewCriterionEntry x) {
 }
 som::SomMetaRef idReviewCriterionEntry_RCER(IdReviewCriterionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RCER"));
+}
+som::SomListMetaRef idRevisionEntry_RVWER_TEAM_LST(IdRevisionEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVWER-TEAM-LST"), metaIdFactoryReviewerRecord);
+}
+som::SomListMetaRef idRevisionEntry_RVWER_RETN_LST(IdRevisionEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RVWER-RETN-LST"), metaIdFactoryReviewerRecord);
 }
 som::SomMetaRef idRiskEntry_RIIDSO(IdRiskEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "identification/RIIDSO"));

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T19:27:04.735684Z",
+  "generatedAt": "2026-11-05T21:30:26.801766Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.20+27.dac6a57d",
-  "classCount": 1266,
+  "modelVersionLabel": "1.7.0+28.9d5ddca9",
+  "classCount": 1270,
   "rootCount": 14,
-  "modelHash": "cc8e15de13063030a0867871a36a75d991774531d254b25972bcf62fc38b12ef",
+  "modelHash": "163520fdf1868cc6a8e2b0f2e2bca91a8d3ce5d70fcf854fc0b4946e85a2e45f",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -59762,9 +59762,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "existingSystemsLandscape",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Existing systems landscape.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -59774,14 +59774,50 @@
               }
             }
           ],
-          "type": "ExistingSystemsLandscape"
+          "type": "ReviewTeam"
         },
         {
-          "name": "currentBusinessProcesses",
-          "kind": "complex",
-          "doc": "Current business processes.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -59789,12 +59825,13 @@
               }
             }
           ],
-          "type": "CurrentBusinessProcesses"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "painPointsAndGaps",
+          "name": "existingSystemsLandscape",
           "kind": "complex",
-          "doc": "Pain points and gaps.",
+          "doc": "Existing systems landscape.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -59804,18 +59841,48 @@
               }
             }
           ],
-          "type": "PainPointsAndGaps"
+          "type": "ExistingSystemsLandscape"
         },
         {
-          "name": "currentDataLandscape",
+          "name": "currentBusinessProcesses",
           "kind": "complex",
-          "doc": "Current data landscape.",
+          "doc": "Current business processes.",
           "serializationOrder": 5,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 5
+              }
+            }
+          ],
+          "type": "CurrentBusinessProcesses"
+        },
+        {
+          "name": "painPointsAndGaps",
+          "kind": "complex",
+          "doc": "Pain points and gaps.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "PainPointsAndGaps"
+        },
+        {
+          "name": "currentDataLandscape",
+          "kind": "complex",
+          "doc": "Current data landscape.",
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
               }
             }
           ],
@@ -59827,7 +59894,7 @@
           "doc": "Current operational metrics.",
           "sectionId": "CUOPME-OPER-LST",
           "sectionIdPattern": "CUOPME-OPER-xxx",
-          "serializationOrder": 6,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -59844,7 +59911,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 8
               }
             }
           ],
@@ -59855,12 +59922,12 @@
           "name": "currentStateRisks",
           "kind": "complex",
           "doc": "Current-state risk assessment.",
-          "serializationOrder": 7,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 9
               }
             }
           ],
@@ -59870,12 +59937,12 @@
           "name": "replacementInventory",
           "kind": "complex",
           "doc": "Replacement inventory.",
-          "serializationOrder": 8,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 10
               }
             }
           ],
@@ -59885,12 +59952,12 @@
           "name": "migrationConsiderations",
           "kind": "complex",
           "doc": "Migration considerations.",
-          "serializationOrder": 9,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 11
               }
             }
           ],
@@ -59976,9 +60043,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "processVision",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Process vision.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -59988,14 +60055,50 @@
               }
             }
           ],
-          "type": "ProcessVision"
+          "type": "ReviewTeam"
         },
         {
-          "name": "designPrinciples",
-          "kind": "complex",
-          "doc": "Design principles.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -60003,12 +60106,13 @@
               }
             }
           ],
-          "type": "ProcessDesignPrinciples"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "processCatalog",
+          "name": "processVision",
           "kind": "complex",
-          "doc": "Process catalog.",
+          "doc": "Process vision.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -60018,12 +60122,12 @@
               }
             }
           ],
-          "type": "ProcessCatalog"
+          "type": "ProcessVision"
         },
         {
-          "name": "processOverviewDiagram",
+          "name": "designPrinciples",
           "kind": "complex",
-          "doc": "Process overview diagram.",
+          "doc": "Design principles.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -60033,12 +60137,12 @@
               }
             }
           ],
-          "type": "ProcessOverviewDiagram"
+          "type": "ProcessDesignPrinciples"
         },
         {
-          "name": "improvementSummary",
+          "name": "processCatalog",
           "kind": "complex",
-          "doc": "Improvement summary.",
+          "doc": "Process catalog.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -60048,18 +60152,48 @@
               }
             }
           ],
-          "type": "ProcessImprovementSummary"
+          "type": "ProcessCatalog"
         },
         {
-          "name": "processRelationships",
+          "name": "processOverviewDiagram",
           "kind": "complex",
-          "doc": "Process relationships.",
+          "doc": "Process overview diagram.",
           "serializationOrder": 7,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 7
+              }
+            }
+          ],
+          "type": "ProcessOverviewDiagram"
+        },
+        {
+          "name": "improvementSummary",
+          "kind": "complex",
+          "doc": "Improvement summary.",
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
+              }
+            }
+          ],
+          "type": "ProcessImprovementSummary"
+        },
+        {
+          "name": "processRelationships",
+          "kind": "complex",
+          "doc": "Process relationships.",
+          "serializationOrder": 9,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 9
               }
             }
           ],
@@ -60071,7 +60205,7 @@
           "doc": "Detailed process workflows.",
           "sectionId": "DEPRWO-DETA-LST",
           "sectionIdPattern": "DEPRWO-DETA-xxx",
-          "serializationOrder": 8,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SectionId",
@@ -60088,7 +60222,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 10
               }
             }
           ],
@@ -60099,12 +60233,12 @@
           "name": "crossProcessAnalysis",
           "kind": "complex",
           "doc": "Cross-process analysis.",
-          "serializationOrder": 9,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 11
               }
             }
           ],
@@ -60114,12 +60248,12 @@
           "name": "exceptionHandling",
           "kind": "complex",
           "doc": "Process exception handling.",
-          "serializationOrder": 10,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 12
               }
             }
           ],
@@ -60131,7 +60265,7 @@
           "doc": "Process metrics and KPIs.",
           "sectionId": "PMAK-PROC-LST",
           "sectionIdPattern": "PMAK-PROC-xxx",
-          "serializationOrder": 11,
+          "serializationOrder": 13,
           "annotations": [
             {
               "name": "SectionId",
@@ -60148,7 +60282,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 13
               }
             }
           ],
@@ -60235,12 +60369,79 @@
           "type": "DocumentHeader"
         },
         {
+          "name": "reviewTeam",
+          "kind": "complex",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "type": "ReviewTeam"
+        },
+        {
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
+        },
+        {
           "name": "entities",
           "kind": "list",
           "doc": "Entity inventory (list).",
           "sectionId": "DAENT-ENTI-LST",
           "sectionIdPattern": "DAENT-ENTI-xxx",
-          "serializationOrder": 2,
+          "serializationOrder": 4,
           "annotations": [
             {
               "name": "SectionId",
@@ -60263,7 +60464,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 4
               }
             }
           ],
@@ -60275,12 +60476,12 @@
           "name": "entityRelationships",
           "kind": "complex",
           "doc": "Entity relationships.",
-          "serializationOrder": 3,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 5
               }
             }
           ],
@@ -60290,12 +60491,12 @@
           "name": "erDiagram",
           "kind": "section",
           "doc": "Entity-relationship diagram.",
-          "serializationOrder": 4,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 6
               }
             }
           ],
@@ -60306,12 +60507,12 @@
           "name": "dataClassification",
           "kind": "complex",
           "doc": "Data classification.",
-          "serializationOrder": 5,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 7
               }
             }
           ],
@@ -60323,7 +60524,7 @@
           "doc": "Business object catalog (list).",
           "sectionId": "BJOEN-OBJE-LST",
           "sectionIdPattern": "BJOEN-OBJE-xxx",
-          "serializationOrder": 6,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -60346,7 +60547,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 8
               }
             }
           ],
@@ -60358,12 +60559,12 @@
           "name": "objectDiagram",
           "kind": "section",
           "doc": "Business object diagram.",
-          "serializationOrder": 7,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 9
               }
             }
           ],
@@ -60376,7 +60577,7 @@
           "doc": "Function decomposition (list).",
           "sectionId": "FUNCT-FUNC-LST",
           "sectionIdPattern": "FUNCT-FUNC-xxx",
-          "serializationOrder": 8,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SectionId",
@@ -60393,7 +60594,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 10
               }
             }
           ],
@@ -60406,7 +60607,7 @@
           "doc": "Function-to-data matrix (list).",
           "sectionId": "FNDMX-FUNC-LST",
           "sectionIdPattern": "FNDMX-FUNC-xxx",
-          "serializationOrder": 9,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "SectionId",
@@ -60423,7 +60624,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 11
               }
             }
           ],
@@ -60436,7 +60637,7 @@
           "doc": "Business rules catalog (list).",
           "sectionId": "BIRU-BUSI-LST",
           "sectionIdPattern": "BIRU-BUSI-xxx",
-          "serializationOrder": 10,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "SectionId",
@@ -60459,7 +60660,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 12
               }
             }
           ],
@@ -60471,36 +60672,6 @@
           "name": "dataDictionary",
           "kind": "complex",
           "doc": "Data dictionary.",
-          "serializationOrder": 11,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 11
-              }
-            }
-          ],
-          "type": "DataDictionary"
-        },
-        {
-          "name": "validationConstraints",
-          "kind": "complex",
-          "doc": "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).",
-          "serializationOrder": 12,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 12
-              }
-            }
-          ],
-          "type": "ValidationConstraints"
-        },
-        {
-          "name": "integrityConstraints",
-          "kind": "complex",
-          "doc": "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).",
           "serializationOrder": 13,
           "annotations": [
             {
@@ -60510,12 +60681,12 @@
               }
             }
           ],
-          "type": "IntegrityConstraints"
+          "type": "DataDictionary"
         },
         {
-          "name": "domainEnumRegistry",
+          "name": "validationConstraints",
           "kind": "complex",
-          "doc": "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
+          "doc": "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).",
           "serializationOrder": 14,
           "annotations": [
             {
@@ -60525,12 +60696,12 @@
               }
             }
           ],
-          "type": "DomainEnumRegistry"
+          "type": "ValidationConstraints"
         },
         {
-          "name": "errorCodeRegistry",
+          "name": "integrityConstraints",
           "kind": "complex",
-          "doc": "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
+          "doc": "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).",
           "serializationOrder": 15,
           "annotations": [
             {
@@ -60540,12 +60711,12 @@
               }
             }
           ],
-          "type": "ErrorCodeRegistry"
+          "type": "IntegrityConstraints"
         },
         {
-          "name": "resultEnvelope",
+          "name": "domainEnumRegistry",
           "kind": "complex",
-          "doc": "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).",
+          "doc": "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
           "serializationOrder": 16,
           "annotations": [
             {
@@ -60555,12 +60726,12 @@
               }
             }
           ],
-          "type": "ResultEnvelope"
+          "type": "DomainEnumRegistry"
         },
         {
-          "name": "messageKeyRegistry",
+          "name": "errorCodeRegistry",
           "kind": "complex",
-          "doc": "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
+          "doc": "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
           "serializationOrder": 17,
           "annotations": [
             {
@@ -60570,12 +60741,12 @@
               }
             }
           ],
-          "type": "MessageKeyRegistry"
+          "type": "ErrorCodeRegistry"
         },
         {
-          "name": "serverOperationRegistry",
+          "name": "resultEnvelope",
           "kind": "complex",
-          "doc": "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
+          "doc": "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).",
           "serializationOrder": 18,
           "annotations": [
             {
@@ -60585,18 +60756,48 @@
               }
             }
           ],
-          "type": "ServerOperationRegistry"
+          "type": "ResultEnvelope"
         },
         {
-          "name": "schemaVersioningAndMigration",
+          "name": "messageKeyRegistry",
           "kind": "complex",
-          "doc": "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.",
+          "doc": "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
           "serializationOrder": 19,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 19
+              }
+            }
+          ],
+          "type": "MessageKeyRegistry"
+        },
+        {
+          "name": "serverOperationRegistry",
+          "kind": "complex",
+          "doc": "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
+          "serializationOrder": 20,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 20
+              }
+            }
+          ],
+          "type": "ServerOperationRegistry"
+        },
+        {
+          "name": "schemaVersioningAndMigration",
+          "kind": "complex",
+          "doc": "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.",
+          "serializationOrder": 21,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 21
               }
             }
           ],
@@ -60680,9 +60881,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "functionalRequirements",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Functional requirements.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -60692,14 +60893,50 @@
               }
             }
           ],
-          "type": "FunctionalRequirements"
+          "type": "ReviewTeam"
         },
         {
-          "name": "technicalRequirements",
-          "kind": "complex",
-          "doc": "Technical (non-functional) requirements.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -60707,12 +60944,13 @@
               }
             }
           ],
-          "type": "TechnicalRequirements"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "securityRequirements",
+          "name": "functionalRequirements",
           "kind": "complex",
-          "doc": "Security requirements.",
+          "doc": "Functional requirements.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -60722,18 +60960,48 @@
               }
             }
           ],
-          "type": "SecurityRequirements"
+          "type": "FunctionalRequirements"
         },
         {
-          "name": "organizationalRequirements",
+          "name": "technicalRequirements",
           "kind": "complex",
-          "doc": "Organizational requirements.",
+          "doc": "Technical (non-functional) requirements.",
           "serializationOrder": 5,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 5
+              }
+            }
+          ],
+          "type": "TechnicalRequirements"
+        },
+        {
+          "name": "securityRequirements",
+          "kind": "complex",
+          "doc": "Security requirements.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "SecurityRequirements"
+        },
+        {
+          "name": "organizationalRequirements",
+          "kind": "complex",
+          "doc": "Organizational requirements.",
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
               }
             }
           ],
@@ -60744,7 +61012,7 @@
           "kind": "content",
           "doc": "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.",
           "sectionId": "RSP-TRAC",
-          "serializationOrder": 6,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -60762,7 +61030,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 8
               }
             }
           ],
@@ -60774,7 +61042,7 @@
           "doc": "Requirement relationships.",
           "sectionId": "RERE-REQU-LST",
           "sectionIdPattern": "RERE-REQU-xxx",
-          "serializationOrder": 7,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -60791,7 +61059,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 9
               }
             }
           ],
@@ -60802,12 +61070,12 @@
           "name": "requirementCoverage",
           "kind": "complex",
           "doc": "Requirement coverage.",
-          "serializationOrder": 8,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 10
               }
             }
           ],
@@ -60893,9 +61161,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "processStepsOverview",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Process steps overview.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -60905,14 +61173,50 @@
               }
             }
           ],
-          "type": "ProcessStepsOverview"
+          "type": "ReviewTeam"
         },
         {
-          "name": "actorOverview",
-          "kind": "complex",
-          "doc": "Actor overview.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -60920,12 +61224,13 @@
               }
             }
           ],
-          "type": "ActorOverview"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "interactionCatalog",
+          "name": "processStepsOverview",
           "kind": "complex",
-          "doc": "Interaction catalog.",
+          "doc": "Process steps overview.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -60935,12 +61240,12 @@
               }
             }
           ],
-          "type": "InteractionCatalog"
+          "type": "ProcessStepsOverview"
         },
         {
-          "name": "keyScenarios",
+          "name": "actorOverview",
           "kind": "complex",
-          "doc": "Key scenarios.",
+          "doc": "Actor overview.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -60950,18 +61255,48 @@
               }
             }
           ],
-          "type": "KeyScenarios"
+          "type": "ActorOverview"
         },
         {
-          "name": "actorRelationshipDiagram",
+          "name": "interactionCatalog",
           "kind": "complex",
-          "doc": "Actor relationship diagram.",
+          "doc": "Interaction catalog.",
           "serializationOrder": 6,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 6
+              }
+            }
+          ],
+          "type": "InteractionCatalog"
+        },
+        {
+          "name": "keyScenarios",
+          "kind": "complex",
+          "doc": "Key scenarios.",
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "type": "KeyScenarios"
+        },
+        {
+          "name": "actorRelationshipDiagram",
+          "kind": "complex",
+          "doc": "Actor relationship diagram.",
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
               }
             }
           ],
@@ -60973,7 +61308,7 @@
           "doc": "End-to-end test scenarios.",
           "sectionId": "ETETS-ENDT-LST",
           "sectionIdPattern": "ETETS-ENDT-xxx",
-          "serializationOrder": 7,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -60990,7 +61325,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 9
               }
             }
           ],
@@ -61001,12 +61336,12 @@
           "name": "useCaseTraceability",
           "kind": "complex",
           "doc": "Use case traceability.",
-          "serializationOrder": 8,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 10
               }
             }
           ],
@@ -61092,9 +61427,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "basicTechnicalRequirements",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Basic technical requirements.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -61104,14 +61439,50 @@
               }
             }
           ],
-          "type": "BasicTechnicalRequirements"
+          "type": "ReviewTeam"
         },
         {
-          "name": "softwareDesignRequirements",
-          "kind": "complex",
-          "doc": "Software design requirements.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -61119,12 +61490,13 @@
               }
             }
           ],
-          "type": "SoftwareDesignRequirements"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "standardSoftwareRequirements",
+          "name": "basicTechnicalRequirements",
           "kind": "complex",
-          "doc": "Standard application software requirements.",
+          "doc": "Basic technical requirements.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -61134,12 +61506,12 @@
               }
             }
           ],
-          "type": "StandardSoftwareRequirements"
+          "type": "BasicTechnicalRequirements"
         },
         {
-          "name": "hardwareRequirements",
+          "name": "softwareDesignRequirements",
           "kind": "complex",
-          "doc": "Hardware concept requirements.",
+          "doc": "Software design requirements.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -61149,12 +61521,12 @@
               }
             }
           ],
-          "type": "HardwareRequirements"
+          "type": "SoftwareDesignRequirements"
         },
         {
-          "name": "operationsRequirements",
+          "name": "standardSoftwareRequirements",
           "kind": "complex",
-          "doc": "Operations requirements.",
+          "doc": "Standard application software requirements.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -61164,12 +61536,12 @@
               }
             }
           ],
-          "type": "OperationsRequirements"
+          "type": "StandardSoftwareRequirements"
         },
         {
-          "name": "communicationRequirements",
+          "name": "hardwareRequirements",
           "kind": "complex",
-          "doc": "Communication requirements.",
+          "doc": "Hardware concept requirements.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -61179,12 +61551,12 @@
               }
             }
           ],
-          "type": "CommunicationRequirements"
+          "type": "HardwareRequirements"
         },
         {
-          "name": "systemOperationAndMonitoring",
+          "name": "operationsRequirements",
           "kind": "complex",
-          "doc": "System operation and monitoring.",
+          "doc": "Operations requirements.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -61194,12 +61566,12 @@
               }
             }
           ],
-          "type": "SystemOperationAndMonitoring"
+          "type": "OperationsRequirements"
         },
         {
-          "name": "technicalSecurityRequirements",
+          "name": "communicationRequirements",
           "kind": "complex",
-          "doc": "Technical security requirements.",
+          "doc": "Communication requirements.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -61209,12 +61581,12 @@
               }
             }
           ],
-          "type": "TechnicalSecurityRequirements"
+          "type": "CommunicationRequirements"
         },
         {
-          "name": "systemArchitecture",
+          "name": "systemOperationAndMonitoring",
           "kind": "complex",
-          "doc": "System architecture (new in Phase A).",
+          "doc": "System operation and monitoring.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -61224,12 +61596,12 @@
               }
             }
           ],
-          "type": "SystemArchitectureSpec"
+          "type": "SystemOperationAndMonitoring"
         },
         {
-          "name": "componentsToUse",
+          "name": "technicalSecurityRequirements",
           "kind": "complex",
-          "doc": "Components to use (whole).",
+          "doc": "Technical security requirements.",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -61239,12 +61611,12 @@
               }
             }
           ],
-          "type": "ComponentsAndDependencies"
+          "type": "TechnicalSecurityRequirements"
         },
         {
-          "name": "technicalEnvironment",
+          "name": "systemArchitecture",
           "kind": "complex",
-          "doc": "Technical framework conditions (whole).",
+          "doc": "System architecture (new in Phase A).",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -61254,18 +61626,48 @@
               }
             }
           ],
-          "type": "TechnicalEnvironment"
+          "type": "SystemArchitectureSpec"
         },
         {
-          "name": "translationRequirements",
+          "name": "componentsToUse",
           "kind": "complex",
-          "doc": "Translation handling requirements (whole).",
+          "doc": "Components to use (whole).",
           "serializationOrder": 13,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 13
+              }
+            }
+          ],
+          "type": "ComponentsAndDependencies"
+        },
+        {
+          "name": "technicalEnvironment",
+          "kind": "complex",
+          "doc": "Technical framework conditions (whole).",
+          "serializationOrder": 14,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 14
+              }
+            }
+          ],
+          "type": "TechnicalEnvironment"
+        },
+        {
+          "name": "translationRequirements",
+          "kind": "complex",
+          "doc": "Translation handling requirements (whole).",
+          "serializationOrder": 15,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 15
               }
             }
           ],
@@ -61349,9 +61751,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "externalInterfaces",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "External interfaces.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -61361,14 +61763,50 @@
               }
             }
           ],
-          "type": "ExternalInterfaces"
+          "type": "ReviewTeam"
         },
         {
-          "name": "outOfScope",
-          "kind": "complex",
-          "doc": "Out of scope.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -61376,12 +61814,13 @@
               }
             }
           ],
-          "type": "OutOfScope"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "boundaryAssumptions",
+          "name": "externalInterfaces",
           "kind": "complex",
-          "doc": "Boundary assumptions.",
+          "doc": "External interfaces.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -61391,18 +61830,48 @@
               }
             }
           ],
-          "type": "BoundaryAssumptions"
+          "type": "ExternalInterfaces"
         },
         {
-          "name": "systemInventory",
+          "name": "outOfScope",
           "kind": "complex",
-          "doc": "System landscape inventory.",
+          "doc": "Out of scope.",
           "serializationOrder": 5,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 5
+              }
+            }
+          ],
+          "type": "OutOfScope"
+        },
+        {
+          "name": "boundaryAssumptions",
+          "kind": "complex",
+          "doc": "Boundary assumptions.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "BoundaryAssumptions"
+        },
+        {
+          "name": "systemInventory",
+          "kind": "complex",
+          "doc": "System landscape inventory.",
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
               }
             }
           ],
@@ -61414,7 +61883,7 @@
           "doc": "Boundary interaction patterns.",
           "sectionId": "BOINPA-INTE-LST",
           "sectionIdPattern": "BOINPA-INTE-xxx",
-          "serializationOrder": 6,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "SectionId",
@@ -61431,7 +61900,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 8
               }
             }
           ],
@@ -61442,12 +61911,12 @@
           "name": "testingStrategy",
           "kind": "complex",
           "doc": "Interaction testing strategy.",
-          "serializationOrder": 7,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 9
               }
             }
           ],
@@ -61457,12 +61926,12 @@
           "name": "dependencyAnalysis",
           "kind": "complex",
           "doc": "Interaction dependency analysis.",
-          "serializationOrder": 8,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 10
               }
             }
           ],
@@ -61474,7 +61943,7 @@
           "doc": "Migration interactions.",
           "sectionId": "MIIN-MIGR-LST",
           "sectionIdPattern": "MIIN-MIGR-xxx",
-          "serializationOrder": 9,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "SectionId",
@@ -61491,7 +61960,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 11
               }
             }
           ],
@@ -61504,7 +61973,7 @@
           "doc": "Cross-boundary operational considerations.",
           "sectionId": "CBOC-OPER-LST",
           "sectionIdPattern": "CBOC-OPER-xxx",
-          "serializationOrder": 10,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "SectionId",
@@ -61521,7 +61990,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 12
               }
             }
           ],
@@ -61532,12 +62001,12 @@
           "name": "crossBoundaryErrorHandling",
           "kind": "complex",
           "doc": "Cross-boundary error handling.",
-          "serializationOrder": 11,
+          "serializationOrder": 13,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 13
               }
             }
           ],
@@ -61623,9 +62092,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "userManagement",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "User management.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -61635,14 +62104,50 @@
               }
             }
           ],
-          "type": "UserManagement"
+          "type": "ReviewTeam"
         },
         {
-          "name": "identificationAndAuthentication",
-          "kind": "complex",
-          "doc": "Identification and authentication.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -61650,12 +62155,13 @@
               }
             }
           ],
-          "type": "IdentificationAndAuthentication"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "resourceProtection",
+          "name": "userManagement",
           "kind": "complex",
-          "doc": "Resource protection.",
+          "doc": "User management.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -61665,12 +62171,12 @@
               }
             }
           ],
-          "type": "ResourceProtection"
+          "type": "UserManagement"
         },
         {
-          "name": "userAuthorization",
+          "name": "identificationAndAuthentication",
           "kind": "complex",
-          "doc": "User authorization.",
+          "doc": "Identification and authentication.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -61680,12 +62186,12 @@
               }
             }
           ],
-          "type": "UserAuthorization"
+          "type": "IdentificationAndAuthentication"
         },
         {
-          "name": "sensitiveDataEncryption",
+          "name": "resourceProtection",
           "kind": "complex",
-          "doc": "Sensitive data encryption.",
+          "doc": "Resource protection.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -61695,12 +62201,12 @@
               }
             }
           ],
-          "type": "SensitiveDataEncryption"
+          "type": "ResourceProtection"
         },
         {
-          "name": "auditAndLogging",
+          "name": "userAuthorization",
           "kind": "complex",
-          "doc": "Audit and logging — the CE-LG / CE-CF declarations.",
+          "doc": "User authorization.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -61710,12 +62216,12 @@
               }
             }
           ],
-          "type": "AuditAndLogging"
+          "type": "UserAuthorization"
         },
         {
-          "name": "roleMatrix",
+          "name": "sensitiveDataEncryption",
           "kind": "complex",
-          "doc": "Role matrix.",
+          "doc": "Sensitive data encryption.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -61725,12 +62231,12 @@
               }
             }
           ],
-          "type": "RoleMatrix"
+          "type": "SensitiveDataEncryption"
         },
         {
-          "name": "complianceFramework",
+          "name": "auditAndLogging",
           "kind": "complex",
-          "doc": "Compliance framework.",
+          "doc": "Audit and logging — the CE-LG / CE-CF declarations.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -61740,18 +62246,48 @@
               }
             }
           ],
-          "type": "ComplianceFramework"
+          "type": "AuditAndLogging"
         },
         {
-          "name": "complianceReporting",
+          "name": "roleMatrix",
           "kind": "complex",
-          "doc": "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
+          "doc": "Role matrix.",
           "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 10
+              }
+            }
+          ],
+          "type": "RoleMatrix"
+        },
+        {
+          "name": "complianceFramework",
+          "kind": "complex",
+          "doc": "Compliance framework.",
+          "serializationOrder": 11,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 11
+              }
+            }
+          ],
+          "type": "ComplianceFramework"
+        },
+        {
+          "name": "complianceReporting",
+          "kind": "complex",
+          "doc": "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
+          "serializationOrder": 12,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 12
               }
             }
           ],
@@ -61837,9 +62373,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "designVision",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Design vision.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -61849,14 +62385,50 @@
               }
             }
           ],
-          "type": "DesignVision"
+          "type": "ReviewTeam"
         },
         {
-          "name": "screens",
-          "kind": "complex",
-          "doc": "Screen descriptions.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -61864,12 +62436,13 @@
               }
             }
           ],
-          "type": "ScreenDescriptions"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "screenFlow",
+          "name": "designVision",
           "kind": "complex",
-          "doc": "Screen flow structure.",
+          "doc": "Design vision.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -61879,12 +62452,12 @@
               }
             }
           ],
-          "type": "ScreenFlowStructure"
+          "type": "DesignVision"
         },
         {
-          "name": "printLayout",
+          "name": "screens",
           "kind": "complex",
-          "doc": "Print layout.",
+          "doc": "Screen descriptions.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -61894,12 +62467,12 @@
               }
             }
           ],
-          "type": "PrintAndExportLayout"
+          "type": "ScreenDescriptions"
         },
         {
-          "name": "reportDefinitions",
+          "name": "screenFlow",
           "kind": "complex",
-          "doc": "Report definitions — the CE-RP report projections over the domain model.",
+          "doc": "Screen flow structure.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -61909,12 +62482,12 @@
               }
             }
           ],
-          "type": "ReportDefinitions"
+          "type": "ScreenFlowStructure"
         },
         {
-          "name": "errorHandling",
+          "name": "printLayout",
           "kind": "complex",
-          "doc": "Error handling concept.",
+          "doc": "Print layout.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -61924,12 +62497,12 @@
               }
             }
           ],
-          "type": "ErrorHandling"
+          "type": "PrintAndExportLayout"
         },
         {
-          "name": "userAssistance",
+          "name": "reportDefinitions",
           "kind": "complex",
-          "doc": "Help concept.",
+          "doc": "Report definitions — the CE-RP report projections over the domain model.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -61939,12 +62512,12 @@
               }
             }
           ],
-          "type": "UserAssistance"
+          "type": "ReportDefinitions"
         },
         {
-          "name": "accessibility",
+          "name": "errorHandling",
           "kind": "complex",
-          "doc": "Accessibility.",
+          "doc": "Error handling concept.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -61954,12 +62527,12 @@
               }
             }
           ],
-          "type": "Accessibility"
+          "type": "ErrorHandling"
         },
         {
-          "name": "responsiveDesign",
+          "name": "userAssistance",
           "kind": "complex",
-          "doc": "Responsive design.",
+          "doc": "Help concept.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -61969,12 +62542,12 @@
               }
             }
           ],
-          "type": "ResponsiveDesign"
+          "type": "UserAssistance"
         },
         {
-          "name": "uiComponents",
+          "name": "accessibility",
           "kind": "complex",
-          "doc": "UI components.",
+          "doc": "Accessibility.",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -61984,12 +62557,12 @@
               }
             }
           ],
-          "type": "UiComponents"
+          "type": "Accessibility"
         },
         {
-          "name": "languageCountrySelection",
+          "name": "responsiveDesign",
           "kind": "complex",
-          "doc": "Language and country selection.",
+          "doc": "Responsive design.",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -61999,12 +62572,12 @@
               }
             }
           ],
-          "type": "LanguageCountrySelection"
+          "type": "ResponsiveDesign"
         },
         {
-          "name": "prototype",
+          "name": "uiComponents",
           "kind": "complex",
-          "doc": "Prototype.",
+          "doc": "UI components.",
           "serializationOrder": 13,
           "annotations": [
             {
@@ -62014,18 +62587,48 @@
               }
             }
           ],
-          "type": "Prototype"
+          "type": "UiComponents"
         },
         {
-          "name": "wireframesAndMockups",
+          "name": "languageCountrySelection",
           "kind": "complex",
-          "doc": "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "doc": "Language and country selection.",
           "serializationOrder": 14,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 14
+              }
+            }
+          ],
+          "type": "LanguageCountrySelection"
+        },
+        {
+          "name": "prototype",
+          "kind": "complex",
+          "doc": "Prototype.",
+          "serializationOrder": 15,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 15
+              }
+            }
+          ],
+          "type": "Prototype"
+        },
+        {
+          "name": "wireframesAndMockups",
+          "kind": "complex",
+          "doc": "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "serializationOrder": 16,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 16
               }
             }
           ],
@@ -62111,9 +62714,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "qualityFramework",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Quality framework.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -62123,14 +62726,50 @@
               }
             }
           ],
-          "type": "QualityFramework"
+          "type": "ReviewTeam"
         },
         {
-          "name": "functionalSuitability",
-          "kind": "complex",
-          "doc": "Functional suitability (ISO/IEC 25010:2023).",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -62138,12 +62777,13 @@
               }
             }
           ],
-          "type": "FunctionalSuitabilityCharacteristic"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "performanceEfficiency",
+          "name": "qualityFramework",
           "kind": "complex",
-          "doc": "Performance efficiency (ISO/IEC 25010:2023).",
+          "doc": "Quality framework.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -62153,12 +62793,12 @@
               }
             }
           ],
-          "type": "PerformanceEfficiencyCharacteristic"
+          "type": "QualityFramework"
         },
         {
-          "name": "compatibility",
+          "name": "functionalSuitability",
           "kind": "complex",
-          "doc": "Compatibility (ISO/IEC 25010:2023).",
+          "doc": "Functional suitability (ISO/IEC 25010:2023).",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -62168,12 +62808,12 @@
               }
             }
           ],
-          "type": "CompatibilityCharacteristic"
+          "type": "FunctionalSuitabilityCharacteristic"
         },
         {
-          "name": "interactionCapability",
+          "name": "performanceEfficiency",
           "kind": "complex",
-          "doc": "Interaction capability (ISO/IEC 25010:2023; formerly Usability).",
+          "doc": "Performance efficiency (ISO/IEC 25010:2023).",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -62183,12 +62823,12 @@
               }
             }
           ],
-          "type": "InteractionCapabilityCharacteristic"
+          "type": "PerformanceEfficiencyCharacteristic"
         },
         {
-          "name": "reliability",
+          "name": "compatibility",
           "kind": "complex",
-          "doc": "Reliability (ISO/IEC 25010:2023).",
+          "doc": "Compatibility (ISO/IEC 25010:2023).",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -62198,12 +62838,12 @@
               }
             }
           ],
-          "type": "ReliabilityCharacteristic"
+          "type": "CompatibilityCharacteristic"
         },
         {
-          "name": "security",
+          "name": "interactionCapability",
           "kind": "complex",
-          "doc": "Security (ISO/IEC 25010:2023).",
+          "doc": "Interaction capability (ISO/IEC 25010:2023; formerly Usability).",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -62213,12 +62853,12 @@
               }
             }
           ],
-          "type": "SecurityCharacteristic"
+          "type": "InteractionCapabilityCharacteristic"
         },
         {
-          "name": "maintainability",
+          "name": "reliability",
           "kind": "complex",
-          "doc": "Maintainability (ISO/IEC 25010:2023).",
+          "doc": "Reliability (ISO/IEC 25010:2023).",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -62228,12 +62868,12 @@
               }
             }
           ],
-          "type": "MaintainabilityCharacteristic"
+          "type": "ReliabilityCharacteristic"
         },
         {
-          "name": "flexibility",
+          "name": "security",
           "kind": "complex",
-          "doc": "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
+          "doc": "Security (ISO/IEC 25010:2023).",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -62243,12 +62883,12 @@
               }
             }
           ],
-          "type": "FlexibilityCharacteristic"
+          "type": "SecurityCharacteristic"
         },
         {
-          "name": "documentationQualityCriteria",
+          "name": "maintainability",
           "kind": "complex",
-          "doc": "Documentation quality (ISO/IEC 26514 annex).",
+          "doc": "Maintainability (ISO/IEC 25010:2023).",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -62258,12 +62898,12 @@
               }
             }
           ],
-          "type": "DocumentationQualityCriteria"
+          "type": "MaintainabilityCharacteristic"
         },
         {
-          "name": "qualityPrioritization",
+          "name": "flexibility",
           "kind": "complex",
-          "doc": "Quality prioritization.",
+          "doc": "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -62273,12 +62913,12 @@
               }
             }
           ],
-          "type": "QualityPrioritization"
+          "type": "FlexibilityCharacteristic"
         },
         {
-          "name": "acceptanceCriteriaSummary",
+          "name": "documentationQualityCriteria",
           "kind": "complex",
-          "doc": "Acceptance criteria summary.",
+          "doc": "Documentation quality (ISO/IEC 26514 annex).",
           "serializationOrder": 13,
           "annotations": [
             {
@@ -62288,12 +62928,12 @@
               }
             }
           ],
-          "type": "AcceptanceCriteriaSummary"
+          "type": "DocumentationQualityCriteria"
         },
         {
-          "name": "testStrategy",
+          "name": "qualityPrioritization",
           "kind": "complex",
-          "doc": "Test strategy (new in Phase A).",
+          "doc": "Quality prioritization.",
           "serializationOrder": 14,
           "annotations": [
             {
@@ -62303,12 +62943,12 @@
               }
             }
           ],
-          "type": "TestStrategy"
+          "type": "QualityPrioritization"
         },
         {
-          "name": "acceptanceCriteria",
+          "name": "acceptanceCriteriaSummary",
           "kind": "complex",
-          "doc": "Acceptance criteria.",
+          "doc": "Acceptance criteria summary.",
           "serializationOrder": 15,
           "annotations": [
             {
@@ -62318,12 +62958,12 @@
               }
             }
           ],
-          "type": "AcceptanceCriteriaList"
+          "type": "AcceptanceCriteriaSummary"
         },
         {
-          "name": "acceptanceProcess",
+          "name": "testStrategy",
           "kind": "complex",
-          "doc": "Acceptance process.",
+          "doc": "Test strategy (new in Phase A).",
           "serializationOrder": 16,
           "annotations": [
             {
@@ -62333,12 +62973,12 @@
               }
             }
           ],
-          "type": "AcceptanceProcess"
+          "type": "TestStrategy"
         },
         {
-          "name": "userAcceptanceTesting",
+          "name": "acceptanceCriteria",
           "kind": "complex",
-          "doc": "User acceptance testing.",
+          "doc": "Acceptance criteria.",
           "serializationOrder": 17,
           "annotations": [
             {
@@ -62348,12 +62988,12 @@
               }
             }
           ],
-          "type": "UserAcceptanceTesting"
+          "type": "AcceptanceCriteriaList"
         },
         {
-          "name": "defectResolution",
+          "name": "acceptanceProcess",
           "kind": "complex",
-          "doc": "Defect resolution.",
+          "doc": "Acceptance process.",
           "serializationOrder": 18,
           "annotations": [
             {
@@ -62363,12 +63003,12 @@
               }
             }
           ],
-          "type": "DefectResolution"
+          "type": "AcceptanceProcess"
         },
         {
-          "name": "signOffProcess",
+          "name": "userAcceptanceTesting",
           "kind": "complex",
-          "doc": "Sign-off process.",
+          "doc": "User acceptance testing.",
           "serializationOrder": 19,
           "annotations": [
             {
@@ -62378,18 +63018,48 @@
               }
             }
           ],
-          "type": "SignOffProcess"
+          "type": "UserAcceptanceTesting"
         },
         {
-          "name": "warranty",
+          "name": "defectResolution",
           "kind": "complex",
-          "doc": "Warranty terms.",
+          "doc": "Defect resolution.",
           "serializationOrder": 20,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 20
+              }
+            }
+          ],
+          "type": "DefectResolution"
+        },
+        {
+          "name": "signOffProcess",
+          "kind": "complex",
+          "doc": "Sign-off process.",
+          "serializationOrder": 21,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 21
+              }
+            }
+          ],
+          "type": "SignOffProcess"
+        },
+        {
+          "name": "warranty",
+          "kind": "complex",
+          "doc": "Warranty terms.",
+          "serializationOrder": 22,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 22
               }
             }
           ],
@@ -62475,9 +63145,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "stagingStrategy",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Staging strategy.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -62487,18 +63157,85 @@
               }
             }
           ],
+          "type": "ReviewTeam"
+        },
+        {
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "stagingStrategy",
+          "kind": "complex",
+          "doc": "Staging strategy.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
           "type": "StagingStrategy"
         },
         {
           "name": "stageOverview",
           "kind": "complex",
           "doc": "Stage overview.",
-          "serializationOrder": 3,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 5
               }
             }
           ],
@@ -62510,7 +63247,7 @@
           "doc": "Stages (list).",
           "sectionId": "STAGE-STAG-LST",
           "sectionIdPattern": "STAGE-STAG-xxx",
-          "serializationOrder": 4,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "SectionId",
@@ -62533,7 +63270,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 6
               }
             }
           ],
@@ -62545,36 +63282,6 @@
           "name": "featurePrioritization",
           "kind": "complex",
           "doc": "Feature prioritization.",
-          "serializationOrder": 5,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 5
-              }
-            }
-          ],
-          "type": "FeaturePrioritization"
-        },
-        {
-          "name": "dataMigrationStrategy",
-          "kind": "complex",
-          "doc": "Data migration strategy.",
-          "serializationOrder": 6,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 6
-              }
-            }
-          ],
-          "type": "DataMigrationStrategy"
-        },
-        {
-          "name": "gateCriteria",
-          "kind": "complex",
-          "doc": "Gate criteria (promoted from GOV).",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -62584,12 +63291,12 @@
               }
             }
           ],
-          "type": "PhaseGateReviews"
+          "type": "FeaturePrioritization"
         },
         {
-          "name": "decisionProcesses",
+          "name": "dataMigrationStrategy",
           "kind": "complex",
-          "doc": "Decision processes (promoted from GOV).",
+          "doc": "Data migration strategy.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -62599,12 +63306,12 @@
               }
             }
           ],
-          "type": "DecisionPoints"
+          "type": "DataMigrationStrategy"
         },
         {
-          "name": "initialDevelopmentFlow",
+          "name": "gateCriteria",
           "kind": "complex",
-          "doc": "Initial development flow.",
+          "doc": "Gate criteria (promoted from GOV).",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -62614,18 +63321,48 @@
               }
             }
           ],
-          "type": "InitialDevelopmentFlow"
+          "type": "PhaseGateReviews"
         },
         {
-          "name": "upgradeCycleFramework",
+          "name": "decisionProcesses",
           "kind": "complex",
-          "doc": "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).",
+          "doc": "Decision processes (promoted from GOV).",
           "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 10
+              }
+            }
+          ],
+          "type": "DecisionPoints"
+        },
+        {
+          "name": "initialDevelopmentFlow",
+          "kind": "complex",
+          "doc": "Initial development flow.",
+          "serializationOrder": 11,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 11
+              }
+            }
+          ],
+          "type": "InitialDevelopmentFlow"
+        },
+        {
+          "name": "upgradeCycleFramework",
+          "kind": "complex",
+          "doc": "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).",
+          "serializationOrder": 12,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 12
               }
             }
           ],
@@ -62711,9 +63448,9 @@
           "type": "DocumentHeader"
         },
         {
-          "name": "localizationProcess",
+          "name": "reviewTeam",
           "kind": "complex",
-          "doc": "Localization process.",
+          "doc": "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -62723,14 +63460,50 @@
               }
             }
           ],
-          "type": "LocalizationProcess"
+          "type": "ReviewTeam"
         },
         {
-          "name": "translationProcess",
-          "kind": "complex",
-          "doc": "Translation process.",
+          "name": "revisionHistory",
+          "kind": "list",
+          "doc": "Chronological revision history of this document, with the reviewers of\neach revision.",
+          "help": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+          "sectionId": "RVENT-REVS-LST",
+          "sectionIdPattern": "RVENT-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVENT-REVS-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVENT-REVS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -62738,12 +63511,13 @@
               }
             }
           ],
-          "type": "TranslationProcess"
+          "elementType": "RevisionEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "userDocumentation",
+          "name": "localizationProcess",
           "kind": "complex",
-          "doc": "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
+          "doc": "Localization process.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -62753,12 +63527,12 @@
               }
             }
           ],
-          "type": "UserDocumentationRequirements"
+          "type": "LocalizationProcess"
         },
         {
-          "name": "trainingDeliverables",
+          "name": "translationProcess",
           "kind": "complex",
-          "doc": "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
+          "doc": "Translation process.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -62768,12 +63542,12 @@
               }
             }
           ],
-          "type": "TrainingDeliverableRequirements"
+          "type": "TranslationProcess"
         },
         {
-          "name": "rolloutPlan",
+          "name": "userDocumentation",
           "kind": "complex",
-          "doc": "Rollout plan.",
+          "doc": "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -62783,12 +63557,12 @@
               }
             }
           ],
-          "type": "RolloutPlan"
+          "type": "UserDocumentationRequirements"
         },
         {
-          "name": "migrationPlan",
+          "name": "trainingDeliverables",
           "kind": "complex",
-          "doc": "Migration plan.",
+          "doc": "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -62798,12 +63572,12 @@
               }
             }
           ],
-          "type": "MigrationPlan"
+          "type": "TrainingDeliverableRequirements"
         },
         {
-          "name": "userManuals",
+          "name": "rolloutPlan",
           "kind": "complex",
-          "doc": "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
+          "doc": "Rollout plan.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -62813,12 +63587,12 @@
               }
             }
           ],
-          "type": "UserManual"
+          "type": "RolloutPlan"
         },
         {
-          "name": "trainingMaterials",
+          "name": "migrationPlan",
           "kind": "complex",
-          "doc": "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
+          "doc": "Migration plan.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -62828,12 +63602,12 @@
               }
             }
           ],
-          "type": "RolloutTrainingMaterial"
+          "type": "MigrationPlan"
         },
         {
-          "name": "pilotPlan",
+          "name": "userManuals",
           "kind": "complex",
-          "doc": "Pilot plan.",
+          "doc": "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -62843,12 +63617,12 @@
               }
             }
           ],
-          "type": "PilotPlan"
+          "type": "UserManual"
         },
         {
-          "name": "cutoverProcedures",
+          "name": "trainingMaterials",
           "kind": "complex",
-          "doc": "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
+          "doc": "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -62858,12 +63632,12 @@
               }
             }
           ],
-          "type": "CutoverProcedure"
+          "type": "RolloutTrainingMaterial"
         },
         {
-          "name": "knowledgeTransfer",
+          "name": "pilotPlan",
           "kind": "complex",
-          "doc": "Knowledge transfer.",
+          "doc": "Pilot plan.",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -62873,18 +63647,48 @@
               }
             }
           ],
-          "type": "KnowledgeTransfer"
+          "type": "PilotPlan"
         },
         {
-          "name": "warrantyAndSupport",
+          "name": "cutoverProcedures",
           "kind": "complex",
-          "doc": "Warranty and support.",
+          "doc": "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
           "serializationOrder": 13,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 13
+              }
+            }
+          ],
+          "type": "CutoverProcedure"
+        },
+        {
+          "name": "knowledgeTransfer",
+          "kind": "complex",
+          "doc": "Knowledge transfer.",
+          "serializationOrder": 14,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 14
+              }
+            }
+          ],
+          "type": "KnowledgeTransfer"
+        },
+        {
+          "name": "warrantyAndSupport",
+          "kind": "complex",
+          "doc": "Warranty and support.",
+          "serializationOrder": 15,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 15
               }
             }
           ],
@@ -91967,6 +92771,130 @@
             }
           ],
           "elementType": "RelevantSectionEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "DocumentReviewTeamEntry": {
+      "name": "DocumentReviewTeamEntry",
+      "sectionId": "DCRVTM",
+      "doc": "The Solution Blueprint's review team for one document type (form + members).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (review and approval)"
+        ],
+        "connotation": "The review team of the documents of one root type, replacing the default team for them."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (review and approval)"
+            ],
+            "connotation": "The review team of the documents of one root type, replacing the default team for them."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DCRVTM"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "documentType",
+              "label": "Document Type",
+              "hint": "The document root type this team reviews; one entry per type.",
+              "type": "SpecDocumentType",
+              "required": true,
+              "enumValues": [
+                "d01CurrentLandscapeAssessment",
+                "d02TargetOperatingModel",
+                "d03InformationModel",
+                "d04RequirementsSpecification",
+                "d05InteractionScenarios",
+                "d06ArchitectureTechnologySpecification",
+                "d07IntegrationInterfaceSpecification",
+                "d08SecurityAccessSpecification",
+                "d09ExperienceDesignSpecification",
+                "d10QualityAcceptancePlan",
+                "d11DeliveryRoadmap",
+                "d12TransitionRolloutPlan"
+              ],
+              "enumValueDocs": {
+                "d01CurrentLandscapeAssessment": "`D01CurrentLandscapeAssessment`.",
+                "d02TargetOperatingModel": "`D02TargetOperatingModel`.",
+                "d03InformationModel": "`D03InformationModel`.",
+                "d04RequirementsSpecification": "`D04RequirementsSpecification`.",
+                "d05InteractionScenarios": "`D05InteractionScenarios`.",
+                "d06ArchitectureTechnologySpecification": "`D06ArchitectureTechnologySpecification`.",
+                "d07IntegrationInterfaceSpecification": "`D07IntegrationInterfaceSpecification`.",
+                "d08SecurityAccessSpecification": "`D08SecurityAccessSpecification`.",
+                "d09ExperienceDesignSpecification": "`D09ExperienceDesignSpecification`.",
+                "d10QualityAcceptancePlan": "`D10QualityAcceptancePlan`.",
+                "d11DeliveryRoadmap": "`D11DeliveryRoadmap`.",
+                "d12TransitionRolloutPlan": "`D12TransitionRolloutPlan`."
+              }
+            }
+          ]
+        },
+        {
+          "name": "members",
+          "kind": "list",
+          "doc": "The members of the team.",
+          "help": "Add one entry per member of this document type's team.",
+          "sectionId": "RVMEM-MEMB-LST",
+          "sectionIdPattern": "RVMEM-MEMB-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVMEM-MEMB-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVMEM-MEMB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per member of this document type's team."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ReviewTeamMember",
           "elementIsComplex": true
         }
       ]
@@ -215013,6 +215941,277 @@
         }
       ]
     },
+    "ReviewTeam": {
+      "name": "ReviewTeam",
+      "sectionId": "RVTEAM",
+      "doc": "A review team: the members who review a document.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (review and approval)"
+        ],
+        "connotation": "The people who review a document in a review round: one entry per member, the owner marked."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (review and approval)"
+            ],
+            "connotation": "The people who review a document in a review round: one entry per member, the owner marked."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "document control — it names who reviews the document, not anything the system does. Reached as the SBP default team under StakeholdersAndGovernance and as the own team of each Phase 3 document root"
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RVTEAM"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "members",
+          "kind": "list",
+          "doc": "The members of the team.",
+          "help": "Add one entry per member. Mark the specification owner with owner: true in the default team.",
+          "sectionId": "RVMEM-MEMB-LST",
+          "sectionIdPattern": "RVMEM-MEMB-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVMEM-MEMB-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVMEM-MEMB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per member. Mark the specification owner with owner: true in the default team."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ReviewTeamMember",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "ReviewTeamMember": {
+      "name": "ReviewTeamMember",
+      "sectionId": "RVMEM",
+      "doc": "One member of a review team (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (review and approval)"
+        ],
+        "connotation": "A review team member: the id used in the annotation syntax and in file names, the display name, the role, and the owner flag."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (review and approval)"
+            ],
+            "connotation": "A review team member: the id used in the annotation syntax and in file names, the display name, the role, and the owner flag."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RVMEM"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "memberId",
+              "label": "Member Id",
+              "hint": "Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "displayName",
+              "label": "Display Name",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "role",
+              "label": "Role",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "stakeholder",
+              "label": "Stakeholder",
+              "hint": "The stakeholder register entry this member represents.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "STKRE.@sectionId"
+              ]
+            },
+            {
+              "name": "email",
+              "label": "E-Mail",
+              "hint": "Stored only; nothing sends mail.",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "owner",
+              "label": "Owner",
+              "hint": "true for the specification owner, who is always a reviewer.",
+              "type": "bool",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ReviewerRecord": {
+      "name": "ReviewerRecord",
+      "sectionId": "RVWER",
+      "doc": "A reviewer recorded in a revision entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+        ],
+        "connotation": "A reviewer of one revision, written out in full so that a guest reviewer reads without a team list."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "A reviewer of one revision, written out in full so that a guest reviewer reads without a team list."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RVWER"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "memberId",
+              "label": "Member Id",
+              "hint": "The member id, as in the team, or the guest's id.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "displayName",
+              "label": "Display Name",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "role",
+              "label": "Role",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "guest",
+              "label": "Guest",
+              "hint": "true for a reviewer who was not on the team the round used.",
+              "type": "bool",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "RevisionEntry": {
       "name": "RevisionEntry",
       "sectionId": "RVENT",
@@ -215031,6 +216230,15 @@
               "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
             ],
             "connotation": "A single published revision: its version, date, author, and a summary of what changed."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "front matter — a revision of the document, not of the system. Reached under DocumentControl in the SBP and directly in the revision history of each Phase 3 document root"
           }
         },
         {
@@ -215090,6 +216298,80 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "reviewTeam",
+          "kind": "list",
+          "doc": "The review team the round leading to this revision started with.",
+          "help": "The members the review round started with, each written out in full.",
+          "sectionId": "RVWER-TEAM-LST",
+          "sectionIdPattern": "RVWER-TEAM-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVWER-TEAM-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVWER-TEAM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "The members the review round started with, each written out in full."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ReviewerRecord",
+          "elementIsComplex": true
+        },
+        {
+          "name": "reviewers",
+          "kind": "list",
+          "doc": "The reviewers who returned a reviewed copy, guests included.",
+          "help": "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.",
+          "sectionId": "RVWER-RETN-LST",
+          "sectionIdPattern": "RVWER-RETN-xxx",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RVWER-RETN-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RVWER-RETN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "ReviewerRecord",
+          "elementIsComplex": true
         }
       ]
     },
@@ -253314,6 +254596,58 @@
             }
           ],
           "elementType": "StakeholderRegisterEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "reviewTeam",
+          "kind": "complex",
+          "doc": "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.",
+          "serializationOrder": 9,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 9
+              }
+            }
+          ],
+          "type": "ReviewTeam"
+        },
+        {
+          "name": "documentReviewTeams",
+          "kind": "list",
+          "doc": "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.",
+          "help": "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.",
+          "sectionId": "DCRVTM-DOCR-LST",
+          "sectionIdPattern": "DCRVTM-DOCR-xxx",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DCRVTM-DOCR-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "DCRVTM-DOCR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
+              }
+            }
+          ],
+          "elementType": "DocumentReviewTeamEntry",
           "elementIsComplex": true
         }
       ]

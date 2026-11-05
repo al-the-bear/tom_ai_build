@@ -8,6 +8,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/document_header.dart';
+import '../common/review_team.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
 /// CLA00 Current Landscape Assessment.
@@ -44,43 +45,63 @@ class D01CurrentLandscapeAssessment extends DocSpecsSection {
   @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
+  /// This document's own review team; when it has members it replaces the
+  /// Solution Blueprint's team for this document type and its default team.
+  @SerializationOrder(2)
+  ReviewTeam reviewTeam = ReviewTeam();
+
+  /// Chronological revision history of this document, with the reviewers of
+  /// each revision.
+  @StandardReferences([
+    'ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)',
+  ], 'The ordered set of published revisions of this document.')
+  @SectionId('RVENT-REVS-LST')
+  @SectionIdPattern('RVENT-REVS-xxx')
+  @ContentHelp(
+    'Add one entry per revision, newest last: version, date, author, a short '
+    'summary, the review team the round started with and the reviewers who '
+    'returned a copy.',
+  )
+  @SerializationOrder(3)
+  List<RevisionEntry> revisionHistory = [];
+
   // ─── Current State Analysis ──────────────────────────────────────────────
 
   /// Existing systems landscape.
-  @SerializationOrder(2)
+  @SerializationOrder(4)
   ExistingSystemsLandscape existingSystemsLandscape =
       ExistingSystemsLandscape();
 
   /// Current business processes.
-  @SerializationOrder(3)
+  @SerializationOrder(5)
   CurrentBusinessProcesses currentBusinessProcesses =
       CurrentBusinessProcesses();
 
   /// Pain points and gaps.
-  @SerializationOrder(4)
+  @SerializationOrder(6)
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
 
   /// Current data landscape.
-  @SerializationOrder(5)
+  @SerializationOrder(7)
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
   /// Current operational metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
-  @SerializationOrder(6)
+  @SerializationOrder(8)
   List<CurrentOperationalMetric> operationalMetrics = [];
 
   /// Current-state risk assessment.
-  @SerializationOrder(7)
+  @SerializationOrder(9)
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
 
   // ─── Systems to Replace ──────────────────────────────────────────────────
 
   /// Replacement inventory.
-  @SerializationOrder(8)
+  @SerializationOrder(10)
   ReplacementInventory replacementInventory = ReplacementInventory();
 
   /// Migration considerations.
-  @SerializationOrder(9)
+  @SerializationOrder(11)
   MigrationConsiderations migrationConsiderations = MigrationConsiderations();
 }

@@ -9312,6 +9312,18 @@ void registerSpecOps() {
             sectionId: 'DOCHD',
           ),
           SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
+          ),
+          SpecSlot.node(
             () => n.existingSystemsLandscape,
             (v) => n.existingSystemsLandscape = v as ExistingSystemsLandscape,
             label: 'existingSystemsLandscape',
@@ -9366,6 +9378,8 @@ void registerSpecOps() {
         return D01CurrentLandscapeAssessment()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..existingSystemsLandscape = n.existingSystemsLandscape
           ..currentBusinessProcesses = n.currentBusinessProcesses
           ..painPointsAndGaps = n.painPointsAndGaps
@@ -9405,6 +9419,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.processVision,
@@ -9473,6 +9499,8 @@ void registerSpecOps() {
         return D02TargetOperatingModel()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..processVision = n.processVision
           ..designPrinciples = n.designPrinciples
           ..processCatalog = n.processCatalog
@@ -9552,6 +9580,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.list(
             () => n.entities,
@@ -9667,6 +9707,8 @@ void registerSpecOps() {
         return D03InformationModel()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..entities = n.entities
           ..entityRelationships = n.entityRelationships
           ..erDiagram = n.erDiagram
@@ -9733,6 +9775,18 @@ void registerSpecOps() {
             sectionId: 'DOCHD',
           ),
           SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
+          ),
+          SpecSlot.node(
             () => n.functionalRequirements,
             (v) => n.functionalRequirements = v as FunctionalRequirements,
             label: 'functionalRequirements',
@@ -9783,6 +9837,8 @@ void registerSpecOps() {
         return D04RequirementsSpecification()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..functionalRequirements = n.functionalRequirements
           ..technicalRequirements = n.technicalRequirements
           ..securityRequirements = n.securityRequirements
@@ -9823,6 +9879,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.processStepsOverview,
@@ -9873,6 +9941,8 @@ void registerSpecOps() {
         return D05InteractionScenarios()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..processStepsOverview = n.processStepsOverview
           ..actorOverview = n.actorOverview
           ..interactionCatalog = n.interactionCatalog
@@ -9927,6 +9997,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.basicTechnicalRequirements,
@@ -10012,6 +10094,8 @@ void registerSpecOps() {
         return D06ArchitectureTechnologySpecification()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..basicTechnicalRequirements = n.basicTechnicalRequirements
           ..softwareDesignRequirements = n.softwareDesignRequirements
           ..standardSoftwareRequirements = n.standardSoftwareRequirements
@@ -10086,6 +10170,18 @@ void registerSpecOps() {
             sectionId: 'DOCHD',
           ),
           SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
+          ),
+          SpecSlot.node(
             () => n.externalInterfaces,
             (v) => n.externalInterfaces = v as ExternalInterfaces,
             label: 'externalInterfaces',
@@ -10155,6 +10251,8 @@ void registerSpecOps() {
         return D07IntegrationInterfaceSpecification()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..externalInterfaces = n.externalInterfaces
           ..outOfScope = n.outOfScope
           ..boundaryAssumptions = n.boundaryAssumptions
@@ -10205,6 +10303,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.userManagement,
@@ -10268,6 +10378,8 @@ void registerSpecOps() {
         return D08SecurityAccessSpecification()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..userManagement = n.userManagement
           ..identificationAndAuthentication = n.identificationAndAuthentication
           ..resourceProtection = n.resourceProtection
@@ -10312,6 +10424,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.designVision,
@@ -10398,6 +10522,8 @@ void registerSpecOps() {
         return D09ExperienceDesignSpecification()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..designVision = n.designVision
           ..screens = n.screens
           ..screenFlow = n.screenFlow
@@ -10456,6 +10582,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.qualityFramework,
@@ -10582,6 +10720,8 @@ void registerSpecOps() {
         return D10QualityAcceptancePlan()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..qualityFramework = n.qualityFramework
           ..functionalSuitability = n.functionalSuitability
           ..performanceEfficiency = n.performanceEfficiency
@@ -10683,6 +10823,18 @@ void registerSpecOps() {
             sectionId: 'DOCHD',
           ),
           SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
+          ),
+          SpecSlot.node(
             () => n.stagingStrategy,
             (v) => n.stagingStrategy = v as StagingStrategy,
             label: 'stagingStrategy',
@@ -10743,6 +10895,8 @@ void registerSpecOps() {
         return D11DeliveryRoadmap()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..stagingStrategy = n.stagingStrategy
           ..stageOverview = n.stageOverview
           ..stages = n.stages
@@ -10800,6 +10954,18 @@ void registerSpecOps() {
             (v) => n.header = v as DocumentHeader,
             label: 'header',
             sectionId: 'DOCHD',
+          ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.revisionHistory,
+            (v) => n.revisionHistory = v.cast<RevisionEntry>(),
+            label: 'revisionHistory',
+            sectionId: 'RVENT-REVS-LST',
           ),
           SpecSlot.node(
             () => n.localizationProcess,
@@ -10881,6 +11047,8 @@ void registerSpecOps() {
         return D12TransitionRolloutPlan()
           ..content = n.content
           ..header = n.header
+          ..reviewTeam = n.reviewTeam
+          ..revisionHistory = n.revisionHistory
           ..localizationProcess = n.localizationProcess
           ..translationProcess = n.translationProcess
           ..userDocumentation = n.userDocumentation
@@ -15379,6 +15547,29 @@ void registerSpecOps() {
           ..sections = n.sections;
       },
       yamlScalar: (o) => (o as DocumentRelevantSections).content,
+    ),
+  );
+  SpecRegistry.register(
+    DocumentReviewTeamEntry,
+    SpecClassOps(
+      slots: (o) {
+        final n = o as DocumentReviewTeamEntry;
+        return [
+          SpecSlot.list(
+            () => n.members,
+            (v) => n.members = v.cast<ReviewTeamMember>(),
+            label: 'members',
+            sectionId: 'RVMEM-MEMB-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as DocumentReviewTeamEntry;
+        return DocumentReviewTeamEntry()
+          ..content = n.content
+          ..members = n.members;
+      },
+      yamlScalar: (o) => (o as DocumentReviewTeamEntry).content,
     ),
   );
   SpecRegistry.register(
@@ -33616,12 +33807,76 @@ void registerSpecOps() {
     ),
   );
   SpecRegistry.register(
-    RevisionEntry,
+    ReviewTeam,
+    SpecClassOps(
+      slots: (o) {
+        final n = o as ReviewTeam;
+        return [
+          SpecSlot.list(
+            () => n.members,
+            (v) => n.members = v.cast<ReviewTeamMember>(),
+            label: 'members',
+            sectionId: 'RVMEM-MEMB-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as ReviewTeam;
+        return ReviewTeam()
+          ..content = n.content
+          ..members = n.members;
+      },
+      yamlScalar: (o) => (o as ReviewTeam).content,
+    ),
+  );
+  SpecRegistry.register(
+    ReviewTeamMember,
     SpecClassOps(
       slots: (o) => const [],
       cloneShallow: (o) {
+        final n = o as ReviewTeamMember;
+        return ReviewTeamMember()..content = n.content;
+      },
+      yamlScalar: (o) => (o as ReviewTeamMember).content,
+    ),
+  );
+  SpecRegistry.register(
+    ReviewerRecord,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as ReviewerRecord;
+        return ReviewerRecord()..content = n.content;
+      },
+      yamlScalar: (o) => (o as ReviewerRecord).content,
+    ),
+  );
+  SpecRegistry.register(
+    RevisionEntry,
+    SpecClassOps(
+      slots: (o) {
         final n = o as RevisionEntry;
-        return RevisionEntry()..content = n.content;
+        return [
+          SpecSlot.list(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v.cast<ReviewerRecord>(),
+            label: 'reviewTeam',
+            sectionId: 'RVWER-TEAM-LST',
+          ),
+          SpecSlot.list(
+            () => n.reviewers,
+            (v) => n.reviewers = v.cast<ReviewerRecord>(),
+            label: 'reviewers',
+            sectionId: 'RVWER-RETN-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as RevisionEntry;
+        return RevisionEntry()
+          ..content = n.content
+          ..reviewTeam = n.reviewTeam
+          ..reviewers = n.reviewers;
       },
       yamlScalar: (o) => (o as RevisionEntry).content,
     ),
@@ -38933,6 +39188,18 @@ void registerSpecOps() {
             label: 'stakeholderRegister',
             sectionId: 'STKRE-STAK-LST',
           ),
+          SpecSlot.node(
+            () => n.reviewTeam,
+            (v) => n.reviewTeam = v as ReviewTeam,
+            label: 'reviewTeam',
+            sectionId: 'RVTEAM',
+          ),
+          SpecSlot.list(
+            () => n.documentReviewTeams,
+            (v) => n.documentReviewTeams = v.cast<DocumentReviewTeamEntry>(),
+            label: 'documentReviewTeams',
+            sectionId: 'DCRVTM-DOCR-LST',
+          ),
         ];
       },
       cloneShallow: (o) {
@@ -38946,7 +39213,9 @@ void registerSpecOps() {
           ..distributionList = n.distributionList
           ..changeProcedure = n.changeProcedure
           ..legalAndContractual = n.legalAndContractual
-          ..stakeholderRegister = n.stakeholderRegister;
+          ..stakeholderRegister = n.stakeholderRegister
+          ..reviewTeam = n.reviewTeam
+          ..documentReviewTeams = n.documentReviewTeams;
       },
       yamlScalar: (o) => (o as StakeholdersAndGovernance).content,
     ),

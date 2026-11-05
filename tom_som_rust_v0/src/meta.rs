@@ -3629,24 +3629,36 @@ fn meta_children_d01_current_landscape_assessment(s: &mut HashSet<String>) -> Ve
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("ExistingSystemsLandscape", s, meta_children_existing_systems_landscape, |r, c| som::SomMetaNode {
-            class_name: "ExistingSystemsLandscape".to_string(), member_name: "existingSystemsLandscape".to_string(), class_section_id: "ESLAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemsLandscape".to_string(), serialization_order: Some(2), doc_comment: "Existing systems landscape.".to_string(), class_doc_comment: "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("CurrentBusinessProcesses", s, meta_children_current_business_processes, |r, c| som::SomMetaNode {
-            class_name: "CurrentBusinessProcesses".to_string(), member_name: "currentBusinessProcesses".to_string(), class_section_id: "CUBUPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentBusinessProcesses".to_string(), serialization_order: Some(3), doc_comment: "Current business processes.".to_string(), class_doc_comment: "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("PainPointsAndGaps", s, meta_children_pain_points_and_gaps, |r, c| som::SomMetaNode {
-            class_name: "PainPointsAndGaps".to_string(), member_name: "painPointsAndGaps".to_string(), class_section_id: "PPAG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PainPointsAndGaps".to_string(), serialization_order: Some(4), doc_comment: "Pain points and gaps.".to_string(), class_doc_comment: "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("CurrentDataLandscape", s, meta_children_current_data_landscape, |r, c| som::SomMetaNode {
-            class_name: "CurrentDataLandscape".to_string(), member_name: "currentDataLandscape".to_string(), class_section_id: "CUDALA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentDataLandscape".to_string(), serialization_order: Some(5), doc_comment: "Current data landscape.".to_string(), class_doc_comment: "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D01CurrentLandscapeAssessment".to_string(), member_name: "operationalMetrics".to_string(), section_id: "CUOPME-OPER-LST".to_string(), section_id_pattern: "CUOPME-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CurrentOperationalMetric".to_string(), serialization_order: Some(6), doc_comment: "Current operational metrics.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D01CurrentLandscapeAssessment".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        meta_cx("ExistingSystemsLandscape", s, meta_children_existing_systems_landscape, |r, c| som::SomMetaNode {
+            class_name: "ExistingSystemsLandscape".to_string(), member_name: "existingSystemsLandscape".to_string(), class_section_id: "ESLAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExistingSystemsLandscape".to_string(), serialization_order: Some(4), doc_comment: "Existing systems landscape.".to_string(), class_doc_comment: "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("CurrentBusinessProcesses", s, meta_children_current_business_processes, |r, c| som::SomMetaNode {
+            class_name: "CurrentBusinessProcesses".to_string(), member_name: "currentBusinessProcesses".to_string(), class_section_id: "CUBUPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentBusinessProcesses".to_string(), serialization_order: Some(5), doc_comment: "Current business processes.".to_string(), class_doc_comment: "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("PainPointsAndGaps", s, meta_children_pain_points_and_gaps, |r, c| som::SomMetaNode {
+            class_name: "PainPointsAndGaps".to_string(), member_name: "painPointsAndGaps".to_string(), class_section_id: "PPAG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PainPointsAndGaps".to_string(), serialization_order: Some(6), doc_comment: "Pain points and gaps.".to_string(), class_doc_comment: "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("CurrentDataLandscape", s, meta_children_current_data_landscape, |r, c| som::SomMetaNode {
+            class_name: "CurrentDataLandscape".to_string(), member_name: "currentDataLandscape".to_string(), class_section_id: "CUDALA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentDataLandscape".to_string(), serialization_order: Some(7), doc_comment: "Current data landscape.".to_string(), class_doc_comment: "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D01CurrentLandscapeAssessment".to_string(), member_name: "operationalMetrics".to_string(), section_id: "CUOPME-OPER-LST".to_string(), section_id_pattern: "CUOPME-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CurrentOperationalMetric".to_string(), serialization_order: Some(8), doc_comment: "Current operational metrics.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("CurrentOperationalMetric", s, meta_children_current_operational_metric, |r, c| som::SomMetaNode {
                 class_name: "CurrentOperationalMetric".to_string(), class_section_id: "CUOPME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentOperationalMetric".to_string(), doc_comment: "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.".to_string(), class_doc_comment: "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3654,15 +3666,15 @@ fn meta_children_d01_current_landscape_assessment(s: &mut HashSet<String>) -> Ve
             Rc::new(n)
         },
         meta_cx("CurrentStateRiskAssessment", s, meta_children_current_state_risk_assessment, |r, c| som::SomMetaNode {
-            class_name: "CurrentStateRiskAssessment".to_string(), member_name: "currentStateRisks".to_string(), class_section_id: "CUSTRI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentStateRiskAssessment".to_string(), serialization_order: Some(7), doc_comment: "Current-state risk assessment.".to_string(), class_doc_comment: "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            class_name: "CurrentStateRiskAssessment".to_string(), member_name: "currentStateRisks".to_string(), class_section_id: "CUSTRI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CurrentStateRiskAssessment".to_string(), serialization_order: Some(9), doc_comment: "Current-state risk assessment.".to_string(), class_doc_comment: "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ReplacementInventory", s, meta_children_replacement_inventory, |r, c| som::SomMetaNode {
-            class_name: "ReplacementInventory".to_string(), member_name: "replacementInventory".to_string(), class_section_id: "RI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReplacementInventory".to_string(), serialization_order: Some(8), doc_comment: "Replacement inventory.".to_string(), class_doc_comment: "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            class_name: "ReplacementInventory".to_string(), member_name: "replacementInventory".to_string(), class_section_id: "RI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReplacementInventory".to_string(), serialization_order: Some(10), doc_comment: "Replacement inventory.".to_string(), class_doc_comment: "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("MigrationConsiderations", s, meta_children_migration_considerations, |r, c| som::SomMetaNode {
-            class_name: "MigrationConsiderations".to_string(), member_name: "migrationConsiderations".to_string(), class_section_id: "MIGCON".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationConsiderations".to_string(), serialization_order: Some(9), doc_comment: "Migration considerations.".to_string(), class_doc_comment: "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
+            class_name: "MigrationConsiderations".to_string(), member_name: "migrationConsiderations".to_string(), class_section_id: "MIGCON".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationConsiderations".to_string(), serialization_order: Some(11), doc_comment: "Migration considerations.".to_string(), class_doc_comment: "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.".to_string(), detailed_in: "D01CurrentLandscapeAssessment".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3675,32 +3687,44 @@ fn meta_children_d02_target_operating_model(s: &mut HashSet<String>) -> Vec<Rc<s
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("ProcessVision", s, meta_children_process_vision, |r, c| som::SomMetaNode {
-            class_name: "ProcessVision".to_string(), member_name: "processVision".to_string(), class_section_id: "PRVIZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessVision".to_string(), serialization_order: Some(2), doc_comment: "Process vision.".to_string(), class_doc_comment: "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ProcessDesignPrinciples", s, meta_children_process_design_principles, |r, c| som::SomMetaNode {
-            class_name: "ProcessDesignPrinciples".to_string(), member_name: "designPrinciples".to_string(), class_section_id: "PDPRI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessDesignPrinciples".to_string(), serialization_order: Some(3), doc_comment: "Design principles.".to_string(), class_doc_comment: "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ProcessCatalog", s, meta_children_process_catalog, |r, c| som::SomMetaNode {
-            class_name: "ProcessCatalog".to_string(), member_name: "processCatalog".to_string(), class_section_id: "PRCAT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessCatalog".to_string(), serialization_order: Some(4), doc_comment: "Process catalog.".to_string(), class_doc_comment: "6.1.3. Process Catalog.\n\nContainer for business process definitions.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ProcessOverviewDiagram", s, meta_children_process_overview_diagram, |r, c| som::SomMetaNode {
-            class_name: "ProcessOverviewDiagram".to_string(), member_name: "processOverviewDiagram".to_string(), class_section_id: "PROVDI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessOverviewDiagram".to_string(), serialization_order: Some(5), doc_comment: "Process overview diagram.".to_string(), class_doc_comment: "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ProcessImprovementSummary", s, meta_children_process_improvement_summary, |r, c| som::SomMetaNode {
-            class_name: "ProcessImprovementSummary".to_string(), member_name: "improvementSummary".to_string(), class_section_id: "PRIMSU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessImprovementSummary".to_string(), serialization_order: Some(6), doc_comment: "Improvement summary.".to_string(), class_doc_comment: "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ProcessRelationships", s, meta_children_process_relationships, |r, c| som::SomMetaNode {
-            class_name: "ProcessRelationships".to_string(), member_name: "processRelationships".to_string(), class_section_id: "PR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessRelationships".to_string(), serialization_order: Some(7), doc_comment: "Process relationships.".to_string(), class_doc_comment: "Process relationships and dependencies (supplementary section).".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D02TargetOperatingModel".to_string(), member_name: "detailedWorkflows".to_string(), section_id: "DEPRWO-DETA-LST".to_string(), section_id_pattern: "DEPRWO-DETA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DetailedProcessWorkflow".to_string(), serialization_order: Some(8), doc_comment: "Detailed process workflows.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D02TargetOperatingModel".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        meta_cx("ProcessVision", s, meta_children_process_vision, |r, c| som::SomMetaNode {
+            class_name: "ProcessVision".to_string(), member_name: "processVision".to_string(), class_section_id: "PRVIZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessVision".to_string(), serialization_order: Some(4), doc_comment: "Process vision.".to_string(), class_doc_comment: "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ProcessDesignPrinciples", s, meta_children_process_design_principles, |r, c| som::SomMetaNode {
+            class_name: "ProcessDesignPrinciples".to_string(), member_name: "designPrinciples".to_string(), class_section_id: "PDPRI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessDesignPrinciples".to_string(), serialization_order: Some(5), doc_comment: "Design principles.".to_string(), class_doc_comment: "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ProcessCatalog", s, meta_children_process_catalog, |r, c| som::SomMetaNode {
+            class_name: "ProcessCatalog".to_string(), member_name: "processCatalog".to_string(), class_section_id: "PRCAT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessCatalog".to_string(), serialization_order: Some(6), doc_comment: "Process catalog.".to_string(), class_doc_comment: "6.1.3. Process Catalog.\n\nContainer for business process definitions.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ProcessOverviewDiagram", s, meta_children_process_overview_diagram, |r, c| som::SomMetaNode {
+            class_name: "ProcessOverviewDiagram".to_string(), member_name: "processOverviewDiagram".to_string(), class_section_id: "PROVDI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessOverviewDiagram".to_string(), serialization_order: Some(7), doc_comment: "Process overview diagram.".to_string(), class_doc_comment: "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ProcessImprovementSummary", s, meta_children_process_improvement_summary, |r, c| som::SomMetaNode {
+            class_name: "ProcessImprovementSummary".to_string(), member_name: "improvementSummary".to_string(), class_section_id: "PRIMSU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessImprovementSummary".to_string(), serialization_order: Some(8), doc_comment: "Improvement summary.".to_string(), class_doc_comment: "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ProcessRelationships", s, meta_children_process_relationships, |r, c| som::SomMetaNode {
+            class_name: "ProcessRelationships".to_string(), member_name: "processRelationships".to_string(), class_section_id: "PR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessRelationships".to_string(), serialization_order: Some(9), doc_comment: "Process relationships.".to_string(), class_doc_comment: "Process relationships and dependencies (supplementary section).".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D02TargetOperatingModel".to_string(), member_name: "detailedWorkflows".to_string(), section_id: "DEPRWO-DETA-LST".to_string(), section_id_pattern: "DEPRWO-DETA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DetailedProcessWorkflow".to_string(), serialization_order: Some(10), doc_comment: "Detailed process workflows.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DetailedProcessWorkflow", s, meta_children_detailed_process_workflow, |r, c| som::SomMetaNode {
                 class_name: "DetailedProcessWorkflow".to_string(), class_section_id: "DEPRWO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DetailedProcessWorkflow".to_string(), doc_comment: "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.".to_string(), class_doc_comment: "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3708,15 +3732,15 @@ fn meta_children_d02_target_operating_model(s: &mut HashSet<String>) -> Vec<Rc<s
             Rc::new(n)
         },
         meta_cx("CrossProcessAnalysis", s, meta_children_cross_process_analysis, |r, c| som::SomMetaNode {
-            class_name: "CrossProcessAnalysis".to_string(), member_name: "crossProcessAnalysis".to_string(), class_section_id: "CRPRAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CrossProcessAnalysis".to_string(), serialization_order: Some(9), doc_comment: "Cross-process analysis.".to_string(), class_doc_comment: "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            class_name: "CrossProcessAnalysis".to_string(), member_name: "crossProcessAnalysis".to_string(), class_section_id: "CRPRAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CrossProcessAnalysis".to_string(), serialization_order: Some(11), doc_comment: "Cross-process analysis.".to_string(), class_doc_comment: "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ProcessExceptionHandling", s, meta_children_process_exception_handling, |r, c| som::SomMetaNode {
-            class_name: "ProcessExceptionHandling".to_string(), member_name: "exceptionHandling".to_string(), class_section_id: "PREXHA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessExceptionHandling".to_string(), serialization_order: Some(10), doc_comment: "Process exception handling.".to_string(), class_doc_comment: "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
+            class_name: "ProcessExceptionHandling".to_string(), member_name: "exceptionHandling".to_string(), class_section_id: "PREXHA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessExceptionHandling".to_string(), serialization_order: Some(12), doc_comment: "Process exception handling.".to_string(), class_doc_comment: "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers".to_string(), detailed_in: "D02TargetOperatingModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D02TargetOperatingModel".to_string(), member_name: "processMetricsAndKpis".to_string(), section_id: "PMAK-PROC-LST".to_string(), section_id_pattern: "PMAK-PROC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ProcessMetric".to_string(), serialization_order: Some(11), doc_comment: "Process metrics and KPIs.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D02TargetOperatingModel".to_string(), member_name: "processMetricsAndKpis".to_string(), section_id: "PMAK-PROC-LST".to_string(), section_id_pattern: "PMAK-PROC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ProcessMetric".to_string(), serialization_order: Some(13), doc_comment: "Process metrics and KPIs.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ProcessMetric", s, meta_children_process_metric, |r, c| som::SomMetaNode {
                 class_name: "ProcessMetric".to_string(), class_section_id: "PMAK".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessMetric".to_string(), doc_comment: "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.".to_string(), class_doc_comment: "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.".to_string(), detailed_in: "D02TargetOperatingModel".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3733,8 +3757,20 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
         {
-            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "entities".to_string(), section_id: "DAENT-ENTI-LST".to_string(), section_id_pattern: "DAENT-ENTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataEntityEntry".to_string(), serialization_order: Some(2), min: Some(1), doc_comment: "Entity inventory (list).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "entities".to_string(), section_id: "DAENT-ENTI-LST".to_string(), section_id_pattern: "DAENT-ENTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataEntityEntry".to_string(), serialization_order: Some(4), min: Some(1), doc_comment: "Entity inventory (list).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DataEntityEntry", s, meta_children_data_entity_entry, |r, c| som::SomMetaNode {
                 class_name: "DataEntityEntry".to_string(), class_section_id: "DAENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataEntityEntry".to_string(), doc_comment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.".to_string(), class_doc_comment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3742,25 +3778,25 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             Rc::new(n)
         },
         meta_cx("EntityRelationships", s, meta_children_entity_relationships, |r, c| som::SomMetaNode {
-            class_name: "EntityRelationships".to_string(), member_name: "entityRelationships".to_string(), class_section_id: "ENREL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityRelationships".to_string(), serialization_order: Some(3), doc_comment: "Entity relationships.".to_string(), class_doc_comment: "7.1.2. Entity Relationships.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "EntityRelationships".to_string(), member_name: "entityRelationships".to_string(), class_section_id: "ENREL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityRelationships".to_string(), serialization_order: Some(5), doc_comment: "Entity relationships.".to_string(), class_doc_comment: "7.1.2. Entity Relationships.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "erDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-er".to_string(), description: "".to_string() }), doc_comment: "Entity-relationship diagram.".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "erDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-er".to_string(), description: "".to_string() }), doc_comment: "Entity-relationship diagram.".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("DataClassification", s, meta_children_data_classification, |r, c| som::SomMetaNode {
-            class_name: "DataClassification".to_string(), member_name: "dataClassification".to_string(), class_section_id: "DATCL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataClassification".to_string(), serialization_order: Some(5), doc_comment: "Data classification.".to_string(), class_doc_comment: "7.1.4. Data Classification.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "DataClassification".to_string(), member_name: "dataClassification".to_string(), class_section_id: "DATCL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataClassification".to_string(), serialization_order: Some(7), doc_comment: "Data classification.".to_string(), class_doc_comment: "7.1.4. Data Classification.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "objectCatalog".to_string(), section_id: "BJOEN-OBJE-LST".to_string(), section_id_pattern: "BJOEN-OBJE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BusinessObjectEntry".to_string(), serialization_order: Some(6), min: Some(1), doc_comment: "Business object catalog (list).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "objectCatalog".to_string(), section_id: "BJOEN-OBJE-LST".to_string(), section_id_pattern: "BJOEN-OBJE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BusinessObjectEntry".to_string(), serialization_order: Some(8), min: Some(1), doc_comment: "Business object catalog (list).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BusinessObjectEntry", s, meta_children_business_object_entry, |r, c| som::SomMetaNode {
                 class_name: "BusinessObjectEntry".to_string(), class_section_id: "BJOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BusinessObjectEntry".to_string(), doc_comment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.".to_string(), class_doc_comment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "objectDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_type: Some(som::SomContentTypeMeta { type_: "mermaid".to_string(), description: "".to_string() }), doc_comment: "Business object diagram.".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "objectDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(9), content_type: Some(som::SomContentTypeMeta { type_: "mermaid".to_string(), description: "".to_string() }), doc_comment: "Business object diagram.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "functionDecomposition".to_string(), section_id: "FUNCT-FUNC-LST".to_string(), section_id_pattern: "FUNCT-FUNC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FunctionEntry".to_string(), serialization_order: Some(8), doc_comment: "Function decomposition (list).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "functionDecomposition".to_string(), section_id: "FUNCT-FUNC-LST".to_string(), section_id_pattern: "FUNCT-FUNC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FunctionEntry".to_string(), serialization_order: Some(10), doc_comment: "Function decomposition (list).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FunctionEntry", s, meta_children_function_entry, |r, c| som::SomMetaNode {
                 class_name: "FunctionEntry".to_string(), class_section_id: "FUNCT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionEntry".to_string(), doc_comment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.".to_string(), class_doc_comment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3768,7 +3804,7 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "functionToDataMatrix".to_string(), section_id: "FNDMX-FUNC-LST".to_string(), section_id_pattern: "FNDMX-FUNC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FunctionDataMatrixEntry".to_string(), serialization_order: Some(9), doc_comment: "Function-to-data matrix (list).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "functionToDataMatrix".to_string(), section_id: "FNDMX-FUNC-LST".to_string(), section_id_pattern: "FNDMX-FUNC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FunctionDataMatrixEntry".to_string(), serialization_order: Some(11), doc_comment: "Function-to-data matrix (list).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FunctionDataMatrixEntry", s, meta_children_function_data_matrix_entry, |r, c| som::SomMetaNode {
                 class_name: "FunctionDataMatrixEntry".to_string(), class_section_id: "FNDMX".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionDataMatrixEntry".to_string(), doc_comment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.".to_string(), class_doc_comment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3776,7 +3812,7 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "businessRules".to_string(), section_id: "BIRU-BUSI-LST".to_string(), section_id_pattern: "BIRU-BUSI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BusinessRuleEntry".to_string(), serialization_order: Some(10), min: Some(1), doc_comment: "Business rules catalog (list).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D03InformationModel".to_string(), member_name: "businessRules".to_string(), section_id: "BIRU-BUSI-LST".to_string(), section_id_pattern: "BIRU-BUSI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BusinessRuleEntry".to_string(), serialization_order: Some(12), min: Some(1), doc_comment: "Business rules catalog (list).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BusinessRuleEntry", s, meta_children_business_rule_entry, |r, c| som::SomMetaNode {
                 class_name: "BusinessRuleEntry".to_string(), class_section_id: "BIRU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BusinessRuleEntry".to_string(), doc_comment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.".to_string(), class_doc_comment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3784,39 +3820,39 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
             Rc::new(n)
         },
         meta_cx("DataDictionary", s, meta_children_data_dictionary, |r, c| som::SomMetaNode {
-            class_name: "DataDictionary".to_string(), member_name: "dataDictionary".to_string(), class_section_id: "DADI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataDictionary".to_string(), serialization_order: Some(11), doc_comment: "Data dictionary.".to_string(), class_doc_comment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "DataDictionary".to_string(), member_name: "dataDictionary".to_string(), class_section_id: "DADI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataDictionary".to_string(), serialization_order: Some(13), doc_comment: "Data dictionary.".to_string(), class_doc_comment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ValidationConstraints", s, meta_children_validation_constraints, |r, c| som::SomMetaNode {
-            class_name: "ValidationConstraints".to_string(), member_name: "validationConstraints".to_string(), class_section_id: "VACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ValidationConstraints".to_string(), serialization_order: Some(12), doc_comment: "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "ValidationConstraints".to_string(), member_name: "validationConstraints".to_string(), class_section_id: "VACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ValidationConstraints".to_string(), serialization_order: Some(14), doc_comment: "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("IntegrityConstraints", s, meta_children_integrity_constraints, |r, c| som::SomMetaNode {
-            class_name: "IntegrityConstraints".to_string(), member_name: "integrityConstraints".to_string(), class_section_id: "INCO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrityConstraints".to_string(), serialization_order: Some(13), doc_comment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.".to_string(), detailed_in: "D03InformationModel".to_string(),
+            class_name: "IntegrityConstraints".to_string(), member_name: "integrityConstraints".to_string(), class_section_id: "INCO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrityConstraints".to_string(), serialization_order: Some(15), doc_comment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).".to_string(), class_doc_comment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.".to_string(), detailed_in: "D03InformationModel".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DomainEnumRegistry", s, meta_children_domain_enum_registry, |r, c| som::SomMetaNode {
-            class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(14), doc_comment: "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
+            class_name: "DomainEnumRegistry".to_string(), member_name: "domainEnumRegistry".to_string(), class_section_id: "DOMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainEnumRegistry".to_string(), serialization_order: Some(16), doc_comment: "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).".to_string(), class_doc_comment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ErrorCodeRegistry", s, meta_children_error_code_registry, |r, c| som::SomMetaNode {
-            class_name: "ErrorCodeRegistry".to_string(), member_name: "errorCodeRegistry".to_string(), class_section_id: "ERCRG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorCodeRegistry".to_string(), serialization_order: Some(15), doc_comment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).".to_string(), class_doc_comment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.".to_string(),
+            class_name: "ErrorCodeRegistry".to_string(), member_name: "errorCodeRegistry".to_string(), class_section_id: "ERCRG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorCodeRegistry".to_string(), serialization_order: Some(17), doc_comment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).".to_string(), class_doc_comment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ResultEnvelope", s, meta_children_result_envelope, |r, c| som::SomMetaNode {
-            class_name: "ResultEnvelope".to_string(), member_name: "resultEnvelope".to_string(), class_section_id: "RSLTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResultEnvelope".to_string(), serialization_order: Some(16), doc_comment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).".to_string(), class_doc_comment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.".to_string(),
+            class_name: "ResultEnvelope".to_string(), member_name: "resultEnvelope".to_string(), class_section_id: "RSLTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResultEnvelope".to_string(), serialization_order: Some(18), doc_comment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).".to_string(), class_doc_comment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("MessageKeyRegistry", s, meta_children_message_key_registry, |r, c| som::SomMetaNode {
-            class_name: "MessageKeyRegistry".to_string(), member_name: "messageKeyRegistry".to_string(), class_section_id: "MSGKR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MessageKeyRegistry".to_string(), serialization_order: Some(17), doc_comment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).".to_string(), class_doc_comment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.".to_string(),
+            class_name: "MessageKeyRegistry".to_string(), member_name: "messageKeyRegistry".to_string(), class_section_id: "MSGKR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MessageKeyRegistry".to_string(), serialization_order: Some(19), doc_comment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).".to_string(), class_doc_comment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ServerOperationRegistry", s, meta_children_server_operation_registry, |r, c| som::SomMetaNode {
-            class_name: "ServerOperationRegistry".to_string(), member_name: "serverOperationRegistry".to_string(), class_section_id: "SVOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationRegistry".to_string(), serialization_order: Some(18), doc_comment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.".to_string(), class_doc_comment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).".to_string(),
+            class_name: "ServerOperationRegistry".to_string(), member_name: "serverOperationRegistry".to_string(), class_section_id: "SVOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationRegistry".to_string(), serialization_order: Some(20), doc_comment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.".to_string(), class_doc_comment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SchemaVersioningAndMigration", s, meta_children_schema_versioning_and_migration, |r, c| som::SomMetaNode {
-            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(19), doc_comment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.".to_string(),
+            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(21), doc_comment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3829,25 +3865,37 @@ fn meta_children_d04_requirements_specification(s: &mut HashSet<String>) -> Vec<
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D04RequirementsSpecification".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("FunctionalRequirements", s, meta_children_functional_requirements, |r, c| som::SomMetaNode {
-            class_name: "FunctionalRequirements".to_string(), member_name: "functionalRequirements".to_string(), class_section_id: "FR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionalRequirements".to_string(), serialization_order: Some(2), doc_comment: "Functional requirements.".to_string(), class_doc_comment: "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
+            class_name: "FunctionalRequirements".to_string(), member_name: "functionalRequirements".to_string(), class_section_id: "FR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionalRequirements".to_string(), serialization_order: Some(4), doc_comment: "Functional requirements.".to_string(), class_doc_comment: "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TechnicalRequirements", s, meta_children_technical_requirements, |r, c| som::SomMetaNode {
-            class_name: "TechnicalRequirements".to_string(), member_name: "technicalRequirements".to_string(), class_section_id: "TR1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalRequirements".to_string(), serialization_order: Some(3), doc_comment: "Technical (non-functional) requirements.".to_string(), class_doc_comment: "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
+            class_name: "TechnicalRequirements".to_string(), member_name: "technicalRequirements".to_string(), class_section_id: "TR1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalRequirements".to_string(), serialization_order: Some(5), doc_comment: "Technical (non-functional) requirements.".to_string(), class_doc_comment: "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SecurityRequirements", s, meta_children_security_requirements, |r, c| som::SomMetaNode {
-            class_name: "SecurityRequirements".to_string(), member_name: "securityRequirements".to_string(), class_section_id: "SR1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityRequirements".to_string(), serialization_order: Some(4), doc_comment: "Security requirements.".to_string(), class_doc_comment: "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
+            class_name: "SecurityRequirements".to_string(), member_name: "securityRequirements".to_string(), class_section_id: "SR1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityRequirements".to_string(), serialization_order: Some(6), doc_comment: "Security requirements.".to_string(), class_doc_comment: "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("OrganizationalRequirements", s, meta_children_organizational_requirements, |r, c| som::SomMetaNode {
-            class_name: "OrganizationalRequirements".to_string(), member_name: "organizationalRequirements".to_string(), class_section_id: "OR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OrganizationalRequirements".to_string(), serialization_order: Some(5), doc_comment: "Organizational requirements.".to_string(), class_doc_comment: "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
+            class_name: "OrganizationalRequirements".to_string(), member_name: "organizationalRequirements".to_string(), class_section_id: "OR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OrganizationalRequirements".to_string(), serialization_order: Some(7), doc_comment: "Organizational requirements.".to_string(), class_doc_comment: "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "D04RequirementsSpecification".to_string(), member_name: "traceabilityMatrix".to_string(), section_id: "RSP-TRAC".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests.".to_string() }), doc_comment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "D04RequirementsSpecification".to_string(), member_name: "traceabilityMatrix".to_string(), section_id: "RSP-TRAC".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests.".to_string() }), doc_comment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "D04RequirementsSpecification".to_string(), member_name: "requirementRelationships".to_string(), section_id: "RERE-REQU-LST".to_string(), section_id_pattern: "RERE-REQU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RequirementRelationships".to_string(), serialization_order: Some(7), doc_comment: "Requirement relationships.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D04RequirementsSpecification".to_string(), member_name: "requirementRelationships".to_string(), section_id: "RERE-REQU-LST".to_string(), section_id_pattern: "RERE-REQU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RequirementRelationships".to_string(), serialization_order: Some(9), doc_comment: "Requirement relationships.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("RequirementRelationships", s, meta_children_requirement_relationships, |r, c| som::SomMetaNode {
                 class_name: "RequirementRelationships".to_string(), class_section_id: "RERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RequirementRelationships".to_string(), doc_comment: "4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.".to_string(), class_doc_comment: "4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3855,7 +3903,7 @@ fn meta_children_d04_requirements_specification(s: &mut HashSet<String>) -> Vec<
             Rc::new(n)
         },
         meta_cx("RequirementCoverage", s, meta_children_requirement_coverage, |r, c| som::SomMetaNode {
-            class_name: "RequirementCoverage".to_string(), member_name: "requirementCoverage".to_string(), class_section_id: "REQCOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RequirementCoverage".to_string(), serialization_order: Some(8), doc_comment: "Requirement coverage.".to_string(), class_doc_comment: "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
+            class_name: "RequirementCoverage".to_string(), member_name: "requirementCoverage".to_string(), class_section_id: "REQCOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RequirementCoverage".to_string(), serialization_order: Some(10), doc_comment: "Requirement coverage.".to_string(), class_doc_comment: "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.".to_string(), detailed_in: "D04RequirementsSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3868,28 +3916,40 @@ fn meta_children_d05_interaction_scenarios(s: &mut HashSet<String>) -> Vec<Rc<so
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("ProcessStepsOverview", s, meta_children_process_steps_overview, |r, c| som::SomMetaNode {
-            class_name: "ProcessStepsOverview".to_string(), member_name: "processStepsOverview".to_string(), class_section_id: "PRSTOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsOverview".to_string(), serialization_order: Some(2), doc_comment: "Process steps overview.".to_string(), class_doc_comment: "6.2. Process Steps Overview.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ActorOverview", s, meta_children_actor_overview, |r, c| som::SomMetaNode {
-            class_name: "ActorOverview".to_string(), member_name: "actorOverview".to_string(), class_section_id: "ACOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ActorOverview".to_string(), serialization_order: Some(3), doc_comment: "Actor overview.".to_string(), class_doc_comment: "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("InteractionCatalog", s, meta_children_interaction_catalog, |r, c| som::SomMetaNode {
-            class_name: "InteractionCatalog".to_string(), member_name: "interactionCatalog".to_string(), class_section_id: "INCA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionCatalog".to_string(), serialization_order: Some(4), doc_comment: "Interaction catalog.".to_string(), class_doc_comment: "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("KeyScenarios", s, meta_children_key_scenarios, |r, c| som::SomMetaNode {
-            class_name: "KeyScenarios".to_string(), member_name: "keyScenarios".to_string(), class_section_id: "KESC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KeyScenarios".to_string(), serialization_order: Some(5), doc_comment: "Key scenarios.".to_string(), class_doc_comment: "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ActorRelationshipDiagram", s, meta_children_actor_relationship_diagram, |r, c| som::SomMetaNode {
-            class_name: "ActorRelationshipDiagram".to_string(), member_name: "actorRelationshipDiagram".to_string(), class_section_id: "ACREDI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ActorRelationshipDiagram".to_string(), serialization_order: Some(6), doc_comment: "Actor relationship diagram.".to_string(), class_doc_comment: "6.2. Actor Relationship Diagram.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D05InteractionScenarios".to_string(), member_name: "endToEndTestScenarios".to_string(), section_id: "ETETS-ENDT-LST".to_string(), section_id_pattern: "ETETS-ENDT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EndToEndTestScenario".to_string(), serialization_order: Some(7), doc_comment: "End-to-end test scenarios.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D05InteractionScenarios".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        meta_cx("ProcessStepsOverview", s, meta_children_process_steps_overview, |r, c| som::SomMetaNode {
+            class_name: "ProcessStepsOverview".to_string(), member_name: "processStepsOverview".to_string(), class_section_id: "PRSTOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsOverview".to_string(), serialization_order: Some(4), doc_comment: "Process steps overview.".to_string(), class_doc_comment: "6.2. Process Steps Overview.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ActorOverview", s, meta_children_actor_overview, |r, c| som::SomMetaNode {
+            class_name: "ActorOverview".to_string(), member_name: "actorOverview".to_string(), class_section_id: "ACOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ActorOverview".to_string(), serialization_order: Some(5), doc_comment: "Actor overview.".to_string(), class_doc_comment: "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("InteractionCatalog", s, meta_children_interaction_catalog, |r, c| som::SomMetaNode {
+            class_name: "InteractionCatalog".to_string(), member_name: "interactionCatalog".to_string(), class_section_id: "INCA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionCatalog".to_string(), serialization_order: Some(6), doc_comment: "Interaction catalog.".to_string(), class_doc_comment: "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("KeyScenarios", s, meta_children_key_scenarios, |r, c| som::SomMetaNode {
+            class_name: "KeyScenarios".to_string(), member_name: "keyScenarios".to_string(), class_section_id: "KESC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KeyScenarios".to_string(), serialization_order: Some(7), doc_comment: "Key scenarios.".to_string(), class_doc_comment: "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ActorRelationshipDiagram", s, meta_children_actor_relationship_diagram, |r, c| som::SomMetaNode {
+            class_name: "ActorRelationshipDiagram".to_string(), member_name: "actorRelationshipDiagram".to_string(), class_section_id: "ACREDI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ActorRelationshipDiagram".to_string(), serialization_order: Some(8), doc_comment: "Actor relationship diagram.".to_string(), class_doc_comment: "6.2. Actor Relationship Diagram.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D05InteractionScenarios".to_string(), member_name: "endToEndTestScenarios".to_string(), section_id: "ETETS-ENDT-LST".to_string(), section_id_pattern: "ETETS-ENDT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EndToEndTestScenario".to_string(), serialization_order: Some(9), doc_comment: "End-to-end test scenarios.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("EndToEndTestScenario", s, meta_children_end_to_end_test_scenario, |r, c| som::SomMetaNode {
                 class_name: "EndToEndTestScenario".to_string(), class_section_id: "ETETS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EndToEndTestScenario".to_string(), doc_comment: "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..".to_string(), class_doc_comment: "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..".to_string(), detailed_in: "D05InteractionScenarios".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3897,7 +3957,7 @@ fn meta_children_d05_interaction_scenarios(s: &mut HashSet<String>) -> Vec<Rc<so
             Rc::new(n)
         },
         meta_cx("UseCaseTraceability", s, meta_children_use_case_traceability, |r, c| som::SomMetaNode {
-            class_name: "UseCaseTraceability".to_string(), member_name: "useCaseTraceability".to_string(), class_section_id: "USCATR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UseCaseTraceability".to_string(), serialization_order: Some(8), doc_comment: "Use case traceability.".to_string(), class_doc_comment: "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
+            class_name: "UseCaseTraceability".to_string(), member_name: "useCaseTraceability".to_string(), class_section_id: "USCATR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UseCaseTraceability".to_string(), serialization_order: Some(10), doc_comment: "Use case traceability.".to_string(), class_doc_comment: "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.".to_string(), detailed_in: "D05InteractionScenarios".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3910,52 +3970,64 @@ fn meta_children_d06_architecture_technology_specification(s: &mut HashSet<Strin
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D06ArchitectureTechnologySpecification".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("BasicTechnicalRequirements", s, meta_children_basic_technical_requirements, |r, c| som::SomMetaNode {
-            class_name: "BasicTechnicalRequirements".to_string(), member_name: "basicTechnicalRequirements".to_string(), class_section_id: "BTREQ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BasicTechnicalRequirements".to_string(), serialization_order: Some(2), doc_comment: "Basic technical requirements.".to_string(), class_doc_comment: "8.1. Basic Technical Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "BasicTechnicalRequirements".to_string(), member_name: "basicTechnicalRequirements".to_string(), class_section_id: "BTREQ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BasicTechnicalRequirements".to_string(), serialization_order: Some(4), doc_comment: "Basic technical requirements.".to_string(), class_doc_comment: "8.1. Basic Technical Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SoftwareDesignRequirements", s, meta_children_software_design_requirements, |r, c| som::SomMetaNode {
-            class_name: "SoftwareDesignRequirements".to_string(), member_name: "softwareDesignRequirements".to_string(), class_section_id: "SDR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SoftwareDesignRequirements".to_string(), serialization_order: Some(3), doc_comment: "Software design requirements.".to_string(), class_doc_comment: "8.2. Software Design Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "SoftwareDesignRequirements".to_string(), member_name: "softwareDesignRequirements".to_string(), class_section_id: "SDR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SoftwareDesignRequirements".to_string(), serialization_order: Some(5), doc_comment: "Software design requirements.".to_string(), class_doc_comment: "8.2. Software Design Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("StandardSoftwareRequirements", s, meta_children_standard_software_requirements, |r, c| som::SomMetaNode {
-            class_name: "StandardSoftwareRequirements".to_string(), member_name: "standardSoftwareRequirements".to_string(), class_section_id: "SSR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StandardSoftwareRequirements".to_string(), serialization_order: Some(4), doc_comment: "Standard application software requirements.".to_string(), class_doc_comment: "8.3. Standard Application Software Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "StandardSoftwareRequirements".to_string(), member_name: "standardSoftwareRequirements".to_string(), class_section_id: "SSR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StandardSoftwareRequirements".to_string(), serialization_order: Some(6), doc_comment: "Standard application software requirements.".to_string(), class_doc_comment: "8.3. Standard Application Software Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("HardwareRequirements", s, meta_children_hardware_requirements, |r, c| som::SomMetaNode {
-            class_name: "HardwareRequirements".to_string(), member_name: "hardwareRequirements".to_string(), class_section_id: "HR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "HardwareRequirements".to_string(), serialization_order: Some(5), doc_comment: "Hardware concept requirements.".to_string(), class_doc_comment: "8.4. Hardware Concept Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "HardwareRequirements".to_string(), member_name: "hardwareRequirements".to_string(), class_section_id: "HR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "HardwareRequirements".to_string(), serialization_order: Some(7), doc_comment: "Hardware concept requirements.".to_string(), class_doc_comment: "8.4. Hardware Concept Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("OperationsRequirements", s, meta_children_operations_requirements, |r, c| som::SomMetaNode {
-            class_name: "OperationsRequirements".to_string(), member_name: "operationsRequirements".to_string(), class_section_id: "OPRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OperationsRequirements".to_string(), serialization_order: Some(6), doc_comment: "Operations requirements.".to_string(), class_doc_comment: "8.5. Operations Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "OperationsRequirements".to_string(), member_name: "operationsRequirements".to_string(), class_section_id: "OPRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OperationsRequirements".to_string(), serialization_order: Some(8), doc_comment: "Operations requirements.".to_string(), class_doc_comment: "8.5. Operations Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("CommunicationRequirements", s, meta_children_communication_requirements, |r, c| som::SomMetaNode {
-            class_name: "CommunicationRequirements".to_string(), member_name: "communicationRequirements".to_string(), class_section_id: "COMREQ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CommunicationRequirements".to_string(), serialization_order: Some(7), doc_comment: "Communication requirements.".to_string(), class_doc_comment: "8.6. Communication Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "CommunicationRequirements".to_string(), member_name: "communicationRequirements".to_string(), class_section_id: "COMREQ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CommunicationRequirements".to_string(), serialization_order: Some(9), doc_comment: "Communication requirements.".to_string(), class_doc_comment: "8.6. Communication Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SystemOperationAndMonitoring", s, meta_children_system_operation_and_monitoring, |r, c| som::SomMetaNode {
-            class_name: "SystemOperationAndMonitoring".to_string(), member_name: "systemOperationAndMonitoring".to_string(), class_section_id: "SOAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemOperationAndMonitoring".to_string(), serialization_order: Some(8), doc_comment: "System operation and monitoring.".to_string(), class_doc_comment: "8.7. System Operation and Monitoring.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "SystemOperationAndMonitoring".to_string(), member_name: "systemOperationAndMonitoring".to_string(), class_section_id: "SOAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemOperationAndMonitoring".to_string(), serialization_order: Some(10), doc_comment: "System operation and monitoring.".to_string(), class_doc_comment: "8.7. System Operation and Monitoring.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TechnicalSecurityRequirements", s, meta_children_technical_security_requirements, |r, c| som::SomMetaNode {
-            class_name: "TechnicalSecurityRequirements".to_string(), member_name: "technicalSecurityRequirements".to_string(), class_section_id: "TSR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalSecurityRequirements".to_string(), serialization_order: Some(9), doc_comment: "Technical security requirements.".to_string(), class_doc_comment: "8.8. Security Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "TechnicalSecurityRequirements".to_string(), member_name: "technicalSecurityRequirements".to_string(), class_section_id: "TSR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalSecurityRequirements".to_string(), serialization_order: Some(11), doc_comment: "Technical security requirements.".to_string(), class_doc_comment: "8.8. Security Requirements.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SystemArchitectureSpec", s, meta_children_system_architecture_spec, |r, c| som::SomMetaNode {
-            class_name: "SystemArchitectureSpec".to_string(), member_name: "systemArchitecture".to_string(), class_section_id: "SYARSP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemArchitectureSpec".to_string(), serialization_order: Some(10), doc_comment: "System architecture (new in Phase A).".to_string(), class_doc_comment: "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "SystemArchitectureSpec".to_string(), member_name: "systemArchitecture".to_string(), class_section_id: "SYARSP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemArchitectureSpec".to_string(), serialization_order: Some(12), doc_comment: "System architecture (new in Phase A).".to_string(), class_doc_comment: "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ComponentsAndDependencies", s, meta_children_components_and_dependencies, |r, c| som::SomMetaNode {
-            class_name: "ComponentsAndDependencies".to_string(), member_name: "componentsToUse".to_string(), class_section_id: "COMP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComponentsAndDependencies".to_string(), serialization_order: Some(11), doc_comment: "Components to use (whole).".to_string(), class_doc_comment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "ComponentsAndDependencies".to_string(), member_name: "componentsToUse".to_string(), class_section_id: "COMP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComponentsAndDependencies".to_string(), serialization_order: Some(13), doc_comment: "Components to use (whole).".to_string(), class_doc_comment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TechnicalEnvironment", s, meta_children_technical_environment, |r, c| som::SomMetaNode {
-            class_name: "TechnicalEnvironment".to_string(), member_name: "technicalEnvironment".to_string(), class_section_id: "TEEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalEnvironment".to_string(), serialization_order: Some(12), doc_comment: "Technical framework conditions (whole).".to_string(), class_doc_comment: "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "TechnicalEnvironment".to_string(), member_name: "technicalEnvironment".to_string(), class_section_id: "TEEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalEnvironment".to_string(), serialization_order: Some(14), doc_comment: "Technical framework conditions (whole).".to_string(), class_doc_comment: "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TranslationRequirements", s, meta_children_translation_requirements, |r, c| som::SomMetaNode {
-            class_name: "TranslationRequirements".to_string(), member_name: "translationRequirements".to_string(), class_section_id: "TRAREQ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TranslationRequirements".to_string(), serialization_order: Some(13), doc_comment: "Translation handling requirements (whole).".to_string(), class_doc_comment: "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "TranslationRequirements".to_string(), member_name: "translationRequirements".to_string(), class_section_id: "TRAREQ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TranslationRequirements".to_string(), serialization_order: Some(15), doc_comment: "Translation handling requirements (whole).".to_string(), class_doc_comment: "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(), detailed_in: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3968,24 +4040,36 @@ fn meta_children_d07_integration_interface_specification(s: &mut HashSet<String>
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("ExternalInterfaces", s, meta_children_external_interfaces, |r, c| som::SomMetaNode {
-            class_name: "ExternalInterfaces".to_string(), member_name: "externalInterfaces".to_string(), class_section_id: "EXIN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExternalInterfaces".to_string(), serialization_order: Some(2), doc_comment: "External interfaces.".to_string(), class_doc_comment: "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("OutOfScope", s, meta_children_out_of_scope, |r, c| som::SomMetaNode {
-            class_name: "OutOfScope".to_string(), member_name: "outOfScope".to_string(), class_section_id: "OUOFSC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OutOfScope".to_string(), serialization_order: Some(3), doc_comment: "Out of scope.".to_string(), class_doc_comment: "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("BoundaryAssumptions", s, meta_children_boundary_assumptions, |r, c| som::SomMetaNode {
-            class_name: "BoundaryAssumptions".to_string(), member_name: "boundaryAssumptions".to_string(), class_section_id: "BOAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BoundaryAssumptions".to_string(), serialization_order: Some(4), doc_comment: "Boundary assumptions.".to_string(), class_doc_comment: "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("SystemLandscapeInventory", s, meta_children_system_landscape_inventory, |r, c| som::SomMetaNode {
-            class_name: "SystemLandscapeInventory".to_string(), member_name: "systemInventory".to_string(), class_section_id: "SYLAIN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemLandscapeInventory".to_string(), serialization_order: Some(5), doc_comment: "System landscape inventory.".to_string(), class_doc_comment: "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "interactionPatterns".to_string(), section_id: "BOINPA-INTE-LST".to_string(), section_id_pattern: "BOINPA-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BoundaryInteractionPatterns".to_string(), serialization_order: Some(6), doc_comment: "Boundary interaction patterns.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        meta_cx("ExternalInterfaces", s, meta_children_external_interfaces, |r, c| som::SomMetaNode {
+            class_name: "ExternalInterfaces".to_string(), member_name: "externalInterfaces".to_string(), class_section_id: "EXIN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExternalInterfaces".to_string(), serialization_order: Some(4), doc_comment: "External interfaces.".to_string(), class_doc_comment: "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("OutOfScope", s, meta_children_out_of_scope, |r, c| som::SomMetaNode {
+            class_name: "OutOfScope".to_string(), member_name: "outOfScope".to_string(), class_section_id: "OUOFSC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OutOfScope".to_string(), serialization_order: Some(5), doc_comment: "Out of scope.".to_string(), class_doc_comment: "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("BoundaryAssumptions", s, meta_children_boundary_assumptions, |r, c| som::SomMetaNode {
+            class_name: "BoundaryAssumptions".to_string(), member_name: "boundaryAssumptions".to_string(), class_section_id: "BOAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BoundaryAssumptions".to_string(), serialization_order: Some(6), doc_comment: "Boundary assumptions.".to_string(), class_doc_comment: "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("SystemLandscapeInventory", s, meta_children_system_landscape_inventory, |r, c| som::SomMetaNode {
+            class_name: "SystemLandscapeInventory".to_string(), member_name: "systemInventory".to_string(), class_section_id: "SYLAIN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemLandscapeInventory".to_string(), serialization_order: Some(7), doc_comment: "System landscape inventory.".to_string(), class_doc_comment: "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "interactionPatterns".to_string(), section_id: "BOINPA-INTE-LST".to_string(), section_id_pattern: "BOINPA-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BoundaryInteractionPatterns".to_string(), serialization_order: Some(8), doc_comment: "Boundary interaction patterns.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BoundaryInteractionPatterns", s, meta_children_boundary_interaction_patterns, |r, c| som::SomMetaNode {
                 class_name: "BoundaryInteractionPatterns".to_string(), class_section_id: "BOINPA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BoundaryInteractionPatterns".to_string(), doc_comment: "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.".to_string(), class_doc_comment: "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3993,15 +4077,15 @@ fn meta_children_d07_integration_interface_specification(s: &mut HashSet<String>
             Rc::new(n)
         },
         meta_cx("InteractionTestingStrategy", s, meta_children_interaction_testing_strategy, |r, c| som::SomMetaNode {
-            class_name: "InteractionTestingStrategy".to_string(), member_name: "testingStrategy".to_string(), class_section_id: "INTES1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionTestingStrategy".to_string(), serialization_order: Some(7), doc_comment: "Interaction testing strategy.".to_string(), class_doc_comment: "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            class_name: "InteractionTestingStrategy".to_string(), member_name: "testingStrategy".to_string(), class_section_id: "INTES1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionTestingStrategy".to_string(), serialization_order: Some(9), doc_comment: "Interaction testing strategy.".to_string(), class_doc_comment: "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("InteractionDependencyAnalysis", s, meta_children_interaction_dependency_analysis, |r, c| som::SomMetaNode {
-            class_name: "InteractionDependencyAnalysis".to_string(), member_name: "dependencyAnalysis".to_string(), class_section_id: "INDEAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionDependencyAnalysis".to_string(), serialization_order: Some(8), doc_comment: "Interaction dependency analysis.".to_string(), class_doc_comment: "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            class_name: "InteractionDependencyAnalysis".to_string(), member_name: "dependencyAnalysis".to_string(), class_section_id: "INDEAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionDependencyAnalysis".to_string(), serialization_order: Some(10), doc_comment: "Interaction dependency analysis.".to_string(), class_doc_comment: "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "migrationInteractions".to_string(), section_id: "MIIN-MIGR-LST".to_string(), section_id_pattern: "MIIN-MIGR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MigrationInteractions".to_string(), serialization_order: Some(9), doc_comment: "Migration interactions.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "migrationInteractions".to_string(), section_id: "MIIN-MIGR-LST".to_string(), section_id_pattern: "MIIN-MIGR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MigrationInteractions".to_string(), serialization_order: Some(11), doc_comment: "Migration interactions.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("MigrationInteractions", s, meta_children_migration_interactions, |r, c| som::SomMetaNode {
                 class_name: "MigrationInteractions".to_string(), class_section_id: "MIIN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationInteractions".to_string(), doc_comment: "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.".to_string(), class_doc_comment: "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -4009,7 +4093,7 @@ fn meta_children_d07_integration_interface_specification(s: &mut HashSet<String>
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "operationalConsiderations".to_string(), section_id: "CBOC-OPER-LST".to_string(), section_id_pattern: "CBOC-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CrossBoundaryOperationalConsiderations".to_string(), serialization_order: Some(10), doc_comment: "Cross-boundary operational considerations.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D07IntegrationInterfaceSpecification".to_string(), member_name: "operationalConsiderations".to_string(), section_id: "CBOC-OPER-LST".to_string(), section_id_pattern: "CBOC-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CrossBoundaryOperationalConsiderations".to_string(), serialization_order: Some(12), doc_comment: "Cross-boundary operational considerations.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("CrossBoundaryOperationalConsiderations", s, meta_children_cross_boundary_operational_considerations, |r, c| som::SomMetaNode {
                 class_name: "CrossBoundaryOperationalConsiderations".to_string(), class_section_id: "CBOC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CrossBoundaryOperationalConsiderations".to_string(), doc_comment: "4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.".to_string(), class_doc_comment: "4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -4017,7 +4101,7 @@ fn meta_children_d07_integration_interface_specification(s: &mut HashSet<String>
             Rc::new(n)
         },
         meta_cx("CrossBoundaryErrorHandling", s, meta_children_cross_boundary_error_handling, |r, c| som::SomMetaNode {
-            class_name: "CrossBoundaryErrorHandling".to_string(), member_name: "crossBoundaryErrorHandling".to_string(), class_section_id: "CBEH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CrossBoundaryErrorHandling".to_string(), serialization_order: Some(11), doc_comment: "Cross-boundary error handling.".to_string(), class_doc_comment: "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
+            class_name: "CrossBoundaryErrorHandling".to_string(), member_name: "crossBoundaryErrorHandling".to_string(), class_section_id: "CBEH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CrossBoundaryErrorHandling".to_string(), serialization_order: Some(13), doc_comment: "Cross-boundary error handling.".to_string(), class_doc_comment: "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.".to_string(), detailed_in: "D07IntegrationInterfaceSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4030,40 +4114,52 @@ fn meta_children_d08_security_access_specification(s: &mut HashSet<String>) -> V
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D08SecurityAccessSpecification".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("UserManagement", s, meta_children_user_management, |r, c| som::SomMetaNode {
-            class_name: "UserManagement".to_string(), member_name: "userManagement".to_string(), class_section_id: "USMGT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserManagement".to_string(), serialization_order: Some(2), doc_comment: "User management.".to_string(), class_doc_comment: "9.1. User Management.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "UserManagement".to_string(), member_name: "userManagement".to_string(), class_section_id: "USMGT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserManagement".to_string(), serialization_order: Some(4), doc_comment: "User management.".to_string(), class_doc_comment: "9.1. User Management.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("IdentificationAndAuthentication", s, meta_children_identification_and_authentication, |r, c| som::SomMetaNode {
-            class_name: "IdentificationAndAuthentication".to_string(), member_name: "identificationAndAuthentication".to_string(), class_section_id: "IDAUT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IdentificationAndAuthentication".to_string(), serialization_order: Some(3), doc_comment: "Identification and authentication.".to_string(), class_doc_comment: "9.2. Identification and Authentication.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "IdentificationAndAuthentication".to_string(), member_name: "identificationAndAuthentication".to_string(), class_section_id: "IDAUT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IdentificationAndAuthentication".to_string(), serialization_order: Some(5), doc_comment: "Identification and authentication.".to_string(), class_doc_comment: "9.2. Identification and Authentication.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ResourceProtection", s, meta_children_resource_protection, |r, c| som::SomMetaNode {
-            class_name: "ResourceProtection".to_string(), member_name: "resourceProtection".to_string(), class_section_id: "RESPRO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResourceProtection".to_string(), serialization_order: Some(4), doc_comment: "Resource protection.".to_string(), class_doc_comment: "9.3. Resource Protection.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "ResourceProtection".to_string(), member_name: "resourceProtection".to_string(), class_section_id: "RESPRO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResourceProtection".to_string(), serialization_order: Some(6), doc_comment: "Resource protection.".to_string(), class_doc_comment: "9.3. Resource Protection.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UserAuthorization", s, meta_children_user_authorization, |r, c| som::SomMetaNode {
-            class_name: "UserAuthorization".to_string(), member_name: "userAuthorization".to_string(), class_section_id: "USAU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAuthorization".to_string(), serialization_order: Some(5), doc_comment: "User authorization.".to_string(), class_doc_comment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "UserAuthorization".to_string(), member_name: "userAuthorization".to_string(), class_section_id: "USAU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAuthorization".to_string(), serialization_order: Some(7), doc_comment: "User authorization.".to_string(), class_doc_comment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SensitiveDataEncryption", s, meta_children_sensitive_data_encryption, |r, c| som::SomMetaNode {
-            class_name: "SensitiveDataEncryption".to_string(), member_name: "sensitiveDataEncryption".to_string(), class_section_id: "SEDAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SensitiveDataEncryption".to_string(), serialization_order: Some(6), doc_comment: "Sensitive data encryption.".to_string(), class_doc_comment: "9.5. Sensitive Data Encryption.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "SensitiveDataEncryption".to_string(), member_name: "sensitiveDataEncryption".to_string(), class_section_id: "SEDAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SensitiveDataEncryption".to_string(), serialization_order: Some(8), doc_comment: "Sensitive data encryption.".to_string(), class_doc_comment: "9.5. Sensitive Data Encryption.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
-            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(7), doc_comment: "Audit and logging — the CE-LG / CE-CF declarations.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(9), doc_comment: "Audit and logging — the CE-LG / CE-CF declarations.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("RoleMatrix", s, meta_children_role_matrix, |r, c| som::SomMetaNode {
-            class_name: "RoleMatrix".to_string(), member_name: "roleMatrix".to_string(), class_section_id: "ROMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RoleMatrix".to_string(), serialization_order: Some(8), doc_comment: "Role matrix.".to_string(), class_doc_comment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "RoleMatrix".to_string(), member_name: "roleMatrix".to_string(), class_section_id: "ROMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RoleMatrix".to_string(), serialization_order: Some(10), doc_comment: "Role matrix.".to_string(), class_doc_comment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ComplianceFramework", s, meta_children_compliance_framework, |r, c| som::SomMetaNode {
-            class_name: "ComplianceFramework".to_string(), member_name: "complianceFramework".to_string(), class_section_id: "CF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceFramework".to_string(), serialization_order: Some(9), doc_comment: "Compliance framework.".to_string(), class_doc_comment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "ComplianceFramework".to_string(), member_name: "complianceFramework".to_string(), class_section_id: "CF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceFramework".to_string(), serialization_order: Some(11), doc_comment: "Compliance framework.".to_string(), class_doc_comment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ComplianceReporting", s, meta_children_compliance_reporting, |r, c| som::SomMetaNode {
-            class_name: "ComplianceReporting".to_string(), member_name: "complianceReporting".to_string(), class_section_id: "COMREP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceReporting".to_string(), serialization_order: Some(10), doc_comment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.".to_string(), class_doc_comment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.".to_string(),
+            class_name: "ComplianceReporting".to_string(), member_name: "complianceReporting".to_string(), class_section_id: "COMREP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceReporting".to_string(), serialization_order: Some(12), doc_comment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.".to_string(), class_doc_comment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4076,56 +4172,68 @@ fn meta_children_d09_experience_design_specification(s: &mut HashSet<String>) ->
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D09ExperienceDesignSpecification".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("DesignVision", s, meta_children_design_vision, |r, c| som::SomMetaNode {
-            class_name: "DesignVision".to_string(), member_name: "designVision".to_string(), class_section_id: "DEVIZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DesignVision".to_string(), serialization_order: Some(2), doc_comment: "Design vision.".to_string(), class_doc_comment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "DesignVision".to_string(), member_name: "designVision".to_string(), class_section_id: "DEVIZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DesignVision".to_string(), serialization_order: Some(4), doc_comment: "Design vision.".to_string(), class_doc_comment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ScreenDescriptions", s, meta_children_screen_descriptions, |r, c| som::SomMetaNode {
-            class_name: "ScreenDescriptions".to_string(), member_name: "screens".to_string(), class_section_id: "SCRDZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenDescriptions".to_string(), serialization_order: Some(3), doc_comment: "Screen descriptions.".to_string(), class_doc_comment: "10.2. Screen Descriptions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ScreenDescriptions".to_string(), member_name: "screens".to_string(), class_section_id: "SCRDZ".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenDescriptions".to_string(), serialization_order: Some(5), doc_comment: "Screen descriptions.".to_string(), class_doc_comment: "10.2. Screen Descriptions.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ScreenFlowStructure", s, meta_children_screen_flow_structure, |r, c| som::SomMetaNode {
-            class_name: "ScreenFlowStructure".to_string(), member_name: "screenFlow".to_string(), class_section_id: "SCFLST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenFlowStructure".to_string(), serialization_order: Some(4), doc_comment: "Screen flow structure.".to_string(), class_doc_comment: "10.3. Screen Flow Structure.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ScreenFlowStructure".to_string(), member_name: "screenFlow".to_string(), class_section_id: "SCFLST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenFlowStructure".to_string(), serialization_order: Some(6), doc_comment: "Screen flow structure.".to_string(), class_doc_comment: "10.3. Screen Flow Structure.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("PrintAndExportLayout", s, meta_children_print_and_export_layout, |r, c| som::SomMetaNode {
-            class_name: "PrintAndExportLayout".to_string(), member_name: "printLayout".to_string(), class_section_id: "PRLA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PrintAndExportLayout".to_string(), serialization_order: Some(5), doc_comment: "Print layout.".to_string(), class_doc_comment: "10.4. Print Layout.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "PrintAndExportLayout".to_string(), member_name: "printLayout".to_string(), class_section_id: "PRLA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PrintAndExportLayout".to_string(), serialization_order: Some(7), doc_comment: "Print layout.".to_string(), class_doc_comment: "10.4. Print Layout.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ReportDefinitions", s, meta_children_report_definitions, |r, c| som::SomMetaNode {
-            class_name: "ReportDefinitions".to_string(), member_name: "reportDefinitions".to_string(), class_section_id: "REDF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportDefinitions".to_string(), serialization_order: Some(6), doc_comment: "Report definitions — the CE-RP report projections over the domain model.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).".to_string(),
+            class_name: "ReportDefinitions".to_string(), member_name: "reportDefinitions".to_string(), class_section_id: "REDF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportDefinitions".to_string(), serialization_order: Some(8), doc_comment: "Report definitions — the CE-RP report projections over the domain model.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ErrorHandling", s, meta_children_error_handling, |r, c| som::SomMetaNode {
-            class_name: "ErrorHandling".to_string(), member_name: "errorHandling".to_string(), class_section_id: "ERHACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorHandling".to_string(), serialization_order: Some(7), doc_comment: "Error handling concept.".to_string(), class_doc_comment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ErrorHandling".to_string(), member_name: "errorHandling".to_string(), class_section_id: "ERHACO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ErrorHandling".to_string(), serialization_order: Some(9), doc_comment: "Error handling concept.".to_string(), class_doc_comment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UserAssistance", s, meta_children_user_assistance, |r, c| som::SomMetaNode {
-            class_name: "UserAssistance".to_string(), member_name: "userAssistance".to_string(), class_section_id: "USAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAssistance".to_string(), serialization_order: Some(8), doc_comment: "Help concept.".to_string(), class_doc_comment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "UserAssistance".to_string(), member_name: "userAssistance".to_string(), class_section_id: "USAS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAssistance".to_string(), serialization_order: Some(10), doc_comment: "Help concept.".to_string(), class_doc_comment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("Accessibility", s, meta_children_accessibility, |r, c| som::SomMetaNode {
-            class_name: "Accessibility".to_string(), member_name: "accessibility".to_string(), class_section_id: "ACCESS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Accessibility".to_string(), serialization_order: Some(9), doc_comment: "Accessibility.".to_string(), class_doc_comment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "Accessibility".to_string(), member_name: "accessibility".to_string(), class_section_id: "ACCESS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Accessibility".to_string(), serialization_order: Some(11), doc_comment: "Accessibility.".to_string(), class_doc_comment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ResponsiveDesign", s, meta_children_responsive_design, |r, c| som::SomMetaNode {
-            class_name: "ResponsiveDesign".to_string(), member_name: "responsiveDesign".to_string(), class_section_id: "REDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResponsiveDesign".to_string(), serialization_order: Some(10), doc_comment: "Responsive design.".to_string(), class_doc_comment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "ResponsiveDesign".to_string(), member_name: "responsiveDesign".to_string(), class_section_id: "REDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResponsiveDesign".to_string(), serialization_order: Some(12), doc_comment: "Responsive design.".to_string(), class_doc_comment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UiComponents", s, meta_children_ui_components, |r, c| som::SomMetaNode {
-            class_name: "UiComponents".to_string(), member_name: "uiComponents".to_string(), class_section_id: "UICO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UiComponents".to_string(), serialization_order: Some(11), doc_comment: "UI components.".to_string(), class_doc_comment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "UiComponents".to_string(), member_name: "uiComponents".to_string(), class_section_id: "UICO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UiComponents".to_string(), serialization_order: Some(13), doc_comment: "UI components.".to_string(), class_doc_comment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("LanguageCountrySelection", s, meta_children_language_country_selection, |r, c| som::SomMetaNode {
-            class_name: "LanguageCountrySelection".to_string(), member_name: "languageCountrySelection".to_string(), class_section_id: "LACOSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LanguageCountrySelection".to_string(), serialization_order: Some(12), doc_comment: "Language and country selection.".to_string(), class_doc_comment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "LanguageCountrySelection".to_string(), member_name: "languageCountrySelection".to_string(), class_section_id: "LACOSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LanguageCountrySelection".to_string(), serialization_order: Some(14), doc_comment: "Language and country selection.".to_string(), class_doc_comment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("Prototype", s, meta_children_prototype, |r, c| som::SomMetaNode {
-            class_name: "Prototype".to_string(), member_name: "prototype".to_string(), class_section_id: "PROTOT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Prototype".to_string(), serialization_order: Some(13), doc_comment: "Prototype.".to_string(), class_doc_comment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "Prototype".to_string(), member_name: "prototype".to_string(), class_section_id: "PROTOT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Prototype".to_string(), serialization_order: Some(15), doc_comment: "Prototype.".to_string(), class_doc_comment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("WireframesAndMockups", s, meta_children_wireframes_and_mockups, |r, c| som::SomMetaNode {
-            class_name: "WireframesAndMockups".to_string(), member_name: "wireframesAndMockups".to_string(), class_section_id: "WIANMO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WireframesAndMockups".to_string(), serialization_order: Some(14), doc_comment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).".to_string(), class_doc_comment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "WireframesAndMockups".to_string(), member_name: "wireframesAndMockups".to_string(), class_section_id: "WIANMO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WireframesAndMockups".to_string(), serialization_order: Some(16), doc_comment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).".to_string(), class_doc_comment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4138,80 +4246,92 @@ fn meta_children_d10_quality_acceptance_plan(s: &mut HashSet<String>) -> Vec<Rc<
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D10QualityAcceptancePlan".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("QualityFramework", s, meta_children_quality_framework, |r, c| som::SomMetaNode {
-            class_name: "QualityFramework".to_string(), member_name: "qualityFramework".to_string(), class_section_id: "QLFWK".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "QualityFramework".to_string(), serialization_order: Some(2), doc_comment: "Quality framework.".to_string(), class_doc_comment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "QualityFramework".to_string(), member_name: "qualityFramework".to_string(), class_section_id: "QLFWK".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "QualityFramework".to_string(), serialization_order: Some(4), doc_comment: "Quality framework.".to_string(), class_doc_comment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("FunctionalSuitabilityCharacteristic", s, meta_children_functional_suitability_characteristic, |r, c| som::SomMetaNode {
-            class_name: "FunctionalSuitabilityCharacteristic".to_string(), member_name: "functionalSuitability".to_string(), class_section_id: "FNSU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionalSuitabilityCharacteristic".to_string(), serialization_order: Some(3), doc_comment: "Functional suitability (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "FunctionalSuitabilityCharacteristic".to_string(), member_name: "functionalSuitability".to_string(), class_section_id: "FNSU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FunctionalSuitabilityCharacteristic".to_string(), serialization_order: Some(5), doc_comment: "Functional suitability (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("PerformanceEfficiencyCharacteristic", s, meta_children_performance_efficiency_characteristic, |r, c| som::SomMetaNode {
-            class_name: "PerformanceEfficiencyCharacteristic".to_string(), member_name: "performanceEfficiency".to_string(), class_section_id: "PEEF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PerformanceEfficiencyCharacteristic".to_string(), serialization_order: Some(4), doc_comment: "Performance efficiency (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "PerformanceEfficiencyCharacteristic".to_string(), member_name: "performanceEfficiency".to_string(), class_section_id: "PEEF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PerformanceEfficiencyCharacteristic".to_string(), serialization_order: Some(6), doc_comment: "Performance efficiency (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("CompatibilityCharacteristic", s, meta_children_compatibility_characteristic, |r, c| som::SomMetaNode {
-            class_name: "CompatibilityCharacteristic".to_string(), member_name: "compatibility".to_string(), class_section_id: "CMPT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CompatibilityCharacteristic".to_string(), serialization_order: Some(5), doc_comment: "Compatibility (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "CompatibilityCharacteristic".to_string(), member_name: "compatibility".to_string(), class_section_id: "CMPT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CompatibilityCharacteristic".to_string(), serialization_order: Some(7), doc_comment: "Compatibility (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("InteractionCapabilityCharacteristic", s, meta_children_interaction_capability_characteristic, |r, c| som::SomMetaNode {
-            class_name: "InteractionCapabilityCharacteristic".to_string(), member_name: "interactionCapability".to_string(), class_section_id: "INCP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionCapabilityCharacteristic".to_string(), serialization_order: Some(6), doc_comment: "Interaction capability (ISO/IEC 25010:2023; formerly Usability).".to_string(), class_doc_comment: "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "InteractionCapabilityCharacteristic".to_string(), member_name: "interactionCapability".to_string(), class_section_id: "INCP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InteractionCapabilityCharacteristic".to_string(), serialization_order: Some(8), doc_comment: "Interaction capability (ISO/IEC 25010:2023; formerly Usability).".to_string(), class_doc_comment: "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ReliabilityCharacteristic", s, meta_children_reliability_characteristic, |r, c| som::SomMetaNode {
-            class_name: "ReliabilityCharacteristic".to_string(), member_name: "reliability".to_string(), class_section_id: "RELC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReliabilityCharacteristic".to_string(), serialization_order: Some(7), doc_comment: "Reliability (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "ReliabilityCharacteristic".to_string(), member_name: "reliability".to_string(), class_section_id: "RELC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReliabilityCharacteristic".to_string(), serialization_order: Some(9), doc_comment: "Reliability (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SecurityCharacteristic", s, meta_children_security_characteristic, |r, c| som::SomMetaNode {
-            class_name: "SecurityCharacteristic".to_string(), member_name: "security".to_string(), class_section_id: "SECC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityCharacteristic".to_string(), serialization_order: Some(8), doc_comment: "Security (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "SecurityCharacteristic".to_string(), member_name: "security".to_string(), class_section_id: "SECC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityCharacteristic".to_string(), serialization_order: Some(10), doc_comment: "Security (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("MaintainabilityCharacteristic", s, meta_children_maintainability_characteristic, |r, c| som::SomMetaNode {
-            class_name: "MaintainabilityCharacteristic".to_string(), member_name: "maintainability".to_string(), class_section_id: "MNTC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MaintainabilityCharacteristic".to_string(), serialization_order: Some(9), doc_comment: "Maintainability (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "MaintainabilityCharacteristic".to_string(), member_name: "maintainability".to_string(), class_section_id: "MNTC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MaintainabilityCharacteristic".to_string(), serialization_order: Some(11), doc_comment: "Maintainability (ISO/IEC 25010:2023).".to_string(), class_doc_comment: "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("FlexibilityCharacteristic", s, meta_children_flexibility_characteristic, |r, c| som::SomMetaNode {
-            class_name: "FlexibilityCharacteristic".to_string(), member_name: "flexibility".to_string(), class_section_id: "FLXC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FlexibilityCharacteristic".to_string(), serialization_order: Some(10), doc_comment: "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).".to_string(), class_doc_comment: "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "FlexibilityCharacteristic".to_string(), member_name: "flexibility".to_string(), class_section_id: "FLXC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FlexibilityCharacteristic".to_string(), serialization_order: Some(12), doc_comment: "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).".to_string(), class_doc_comment: "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DocumentationQualityCriteria", s, meta_children_documentation_quality_criteria, |r, c| som::SomMetaNode {
-            class_name: "DocumentationQualityCriteria".to_string(), member_name: "documentationQualityCriteria".to_string(), class_section_id: "DOQUCR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentationQualityCriteria".to_string(), serialization_order: Some(11), doc_comment: "Documentation quality (ISO/IEC 26514 annex).".to_string(), class_doc_comment: "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "DocumentationQualityCriteria".to_string(), member_name: "documentationQualityCriteria".to_string(), class_section_id: "DOQUCR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentationQualityCriteria".to_string(), serialization_order: Some(13), doc_comment: "Documentation quality (ISO/IEC 26514 annex).".to_string(), class_doc_comment: "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("QualityPrioritization", s, meta_children_quality_prioritization, |r, c| som::SomMetaNode {
-            class_name: "QualityPrioritization".to_string(), member_name: "qualityPrioritization".to_string(), class_section_id: "QUPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "QualityPrioritization".to_string(), serialization_order: Some(12), doc_comment: "Quality prioritization.".to_string(), class_doc_comment: "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "QualityPrioritization".to_string(), member_name: "qualityPrioritization".to_string(), class_section_id: "QUPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "QualityPrioritization".to_string(), serialization_order: Some(14), doc_comment: "Quality prioritization.".to_string(), class_doc_comment: "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AcceptanceCriteriaSummary", s, meta_children_acceptance_criteria_summary, |r, c| som::SomMetaNode {
-            class_name: "AcceptanceCriteriaSummary".to_string(), member_name: "acceptanceCriteriaSummary".to_string(), class_section_id: "ACCRSU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceCriteriaSummary".to_string(), serialization_order: Some(13), doc_comment: "Acceptance criteria summary.".to_string(), class_doc_comment: "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "AcceptanceCriteriaSummary".to_string(), member_name: "acceptanceCriteriaSummary".to_string(), class_section_id: "ACCRSU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceCriteriaSummary".to_string(), serialization_order: Some(15), doc_comment: "Acceptance criteria summary.".to_string(), class_doc_comment: "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TestStrategy", s, meta_children_test_strategy, |r, c| som::SomMetaNode {
-            class_name: "TestStrategy".to_string(), member_name: "testStrategy".to_string(), class_section_id: "TEST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TestStrategy".to_string(), serialization_order: Some(14), doc_comment: "Test strategy (new in Phase A).".to_string(), class_doc_comment: "11.8. Test Strategy.\n\nOverall test strategy for the project..".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "TestStrategy".to_string(), member_name: "testStrategy".to_string(), class_section_id: "TEST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TestStrategy".to_string(), serialization_order: Some(16), doc_comment: "Test strategy (new in Phase A).".to_string(), class_doc_comment: "11.8. Test Strategy.\n\nOverall test strategy for the project..".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AcceptanceCriteriaList", s, meta_children_acceptance_criteria_list, |r, c| som::SomMetaNode {
-            class_name: "AcceptanceCriteriaList".to_string(), member_name: "acceptanceCriteria".to_string(), class_section_id: "ACRITL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceCriteriaList".to_string(), serialization_order: Some(15), doc_comment: "Acceptance criteria.".to_string(), class_doc_comment: "14.2.1. Acceptance Criteria.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "AcceptanceCriteriaList".to_string(), member_name: "acceptanceCriteria".to_string(), class_section_id: "ACRITL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceCriteriaList".to_string(), serialization_order: Some(17), doc_comment: "Acceptance criteria.".to_string(), class_doc_comment: "14.2.1. Acceptance Criteria.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AcceptanceProcess", s, meta_children_acceptance_process, |r, c| som::SomMetaNode {
-            class_name: "AcceptanceProcess".to_string(), member_name: "acceptanceProcess".to_string(), class_section_id: "ACPR1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceProcess".to_string(), serialization_order: Some(16), doc_comment: "Acceptance process.".to_string(), class_doc_comment: "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "AcceptanceProcess".to_string(), member_name: "acceptanceProcess".to_string(), class_section_id: "ACPR1".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceProcess".to_string(), serialization_order: Some(18), doc_comment: "Acceptance process.".to_string(), class_doc_comment: "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UserAcceptanceTesting", s, meta_children_user_acceptance_testing, |r, c| som::SomMetaNode {
-            class_name: "UserAcceptanceTesting".to_string(), member_name: "userAcceptanceTesting".to_string(), class_section_id: "USACTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAcceptanceTesting".to_string(), serialization_order: Some(17), doc_comment: "User acceptance testing.".to_string(), class_doc_comment: "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "UserAcceptanceTesting".to_string(), member_name: "userAcceptanceTesting".to_string(), class_section_id: "USACTE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserAcceptanceTesting".to_string(), serialization_order: Some(19), doc_comment: "User acceptance testing.".to_string(), class_doc_comment: "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DefectResolution", s, meta_children_defect_resolution, |r, c| som::SomMetaNode {
-            class_name: "DefectResolution".to_string(), member_name: "defectResolution".to_string(), class_section_id: "DERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DefectResolution".to_string(), serialization_order: Some(18), doc_comment: "Defect resolution.".to_string(), class_doc_comment: "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "DefectResolution".to_string(), member_name: "defectResolution".to_string(), class_section_id: "DERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DefectResolution".to_string(), serialization_order: Some(20), doc_comment: "Defect resolution.".to_string(), class_doc_comment: "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SignOffProcess", s, meta_children_sign_off_process, |r, c| som::SomMetaNode {
-            class_name: "SignOffProcess".to_string(), member_name: "signOffProcess".to_string(), class_section_id: "SIOFPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SignOffProcess".to_string(), serialization_order: Some(19), doc_comment: "Sign-off process.".to_string(), class_doc_comment: "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "SignOffProcess".to_string(), member_name: "signOffProcess".to_string(), class_section_id: "SIOFPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SignOffProcess".to_string(), serialization_order: Some(21), doc_comment: "Sign-off process.".to_string(), class_doc_comment: "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("WarrantyTerms", s, meta_children_warranty_terms, |r, c| som::SomMetaNode {
-            class_name: "WarrantyTerms".to_string(), member_name: "warranty".to_string(), class_section_id: "WATE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WarrantyTerms".to_string(), serialization_order: Some(20), doc_comment: "Warranty terms.".to_string(), class_doc_comment: "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
+            class_name: "WarrantyTerms".to_string(), member_name: "warranty".to_string(), class_section_id: "WATE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WarrantyTerms".to_string(), serialization_order: Some(22), doc_comment: "Warranty terms.".to_string(), class_doc_comment: "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4224,16 +4344,28 @@ fn meta_children_d11_delivery_roadmap(s: &mut HashSet<String>) -> Vec<Rc<som::So
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("StagingStrategy", s, meta_children_staging_strategy, |r, c| som::SomMetaNode {
-            class_name: "StagingStrategy".to_string(), member_name: "stagingStrategy".to_string(), class_section_id: "STAGST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StagingStrategy".to_string(), serialization_order: Some(2), doc_comment: "Staging strategy.".to_string(), class_doc_comment: "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("StageOverview", s, meta_children_stage_overview, |r, c| som::SomMetaNode {
-            class_name: "StageOverview".to_string(), member_name: "stageOverview".to_string(), class_section_id: "STAGOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StageOverview".to_string(), serialization_order: Some(3), doc_comment: "Stage overview.".to_string(), class_doc_comment: "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "D11DeliveryRoadmap".to_string(), member_name: "stages".to_string(), section_id: "STAGE-STAG-LST".to_string(), section_id_pattern: "STAGE-STAG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "StageEntry".to_string(), serialization_order: Some(4), min: Some(1), doc_comment: "Stages (list).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "D11DeliveryRoadmap".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        meta_cx("StagingStrategy", s, meta_children_staging_strategy, |r, c| som::SomMetaNode {
+            class_name: "StagingStrategy".to_string(), member_name: "stagingStrategy".to_string(), class_section_id: "STAGST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StagingStrategy".to_string(), serialization_order: Some(4), doc_comment: "Staging strategy.".to_string(), class_doc_comment: "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("StageOverview", s, meta_children_stage_overview, |r, c| som::SomMetaNode {
+            class_name: "StageOverview".to_string(), member_name: "stageOverview".to_string(), class_section_id: "STAGOV".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StageOverview".to_string(), serialization_order: Some(5), doc_comment: "Stage overview.".to_string(), class_doc_comment: "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D11DeliveryRoadmap".to_string(), member_name: "stages".to_string(), section_id: "STAGE-STAG-LST".to_string(), section_id_pattern: "STAGE-STAG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "StageEntry".to_string(), serialization_order: Some(6), min: Some(1), doc_comment: "Stages (list).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("StageEntry", s, meta_children_stage_entry, |r, c| som::SomMetaNode {
                 class_name: "StageEntry".to_string(), class_section_id: "STAGE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StageEntry".to_string(), doc_comment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.".to_string(), class_doc_comment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -4241,27 +4373,27 @@ fn meta_children_d11_delivery_roadmap(s: &mut HashSet<String>) -> Vec<Rc<som::So
             Rc::new(n)
         },
         meta_cx("FeaturePrioritization", s, meta_children_feature_prioritization, |r, c| som::SomMetaNode {
-            class_name: "FeaturePrioritization".to_string(), member_name: "featurePrioritization".to_string(), class_section_id: "FEPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FeaturePrioritization".to_string(), serialization_order: Some(5), doc_comment: "Feature prioritization.".to_string(), class_doc_comment: "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            class_name: "FeaturePrioritization".to_string(), member_name: "featurePrioritization".to_string(), class_section_id: "FEPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FeaturePrioritization".to_string(), serialization_order: Some(7), doc_comment: "Feature prioritization.".to_string(), class_doc_comment: "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DataMigrationStrategy", s, meta_children_data_migration_strategy, |r, c| som::SomMetaNode {
-            class_name: "DataMigrationStrategy".to_string(), member_name: "dataMigrationStrategy".to_string(), class_section_id: "DAMIST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataMigrationStrategy".to_string(), serialization_order: Some(6), doc_comment: "Data migration strategy.".to_string(), class_doc_comment: "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            class_name: "DataMigrationStrategy".to_string(), member_name: "dataMigrationStrategy".to_string(), class_section_id: "DAMIST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataMigrationStrategy".to_string(), serialization_order: Some(8), doc_comment: "Data migration strategy.".to_string(), class_doc_comment: "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("PhaseGateReviews", s, meta_children_phase_gate_reviews, |r, c| som::SomMetaNode {
-            class_name: "PhaseGateReviews".to_string(), member_name: "gateCriteria".to_string(), class_section_id: "PHGARE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PhaseGateReviews".to_string(), serialization_order: Some(7), doc_comment: "Gate criteria (promoted from GOV).".to_string(), class_doc_comment: "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            class_name: "PhaseGateReviews".to_string(), member_name: "gateCriteria".to_string(), class_section_id: "PHGARE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PhaseGateReviews".to_string(), serialization_order: Some(9), doc_comment: "Gate criteria (promoted from GOV).".to_string(), class_doc_comment: "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DecisionPoints", s, meta_children_decision_points, |r, c| som::SomMetaNode {
-            class_name: "DecisionPoints".to_string(), member_name: "decisionProcesses".to_string(), class_section_id: "DEPO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DecisionPoints".to_string(), serialization_order: Some(8), doc_comment: "Decision processes (promoted from GOV).".to_string(), class_doc_comment: "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            class_name: "DecisionPoints".to_string(), member_name: "decisionProcesses".to_string(), class_section_id: "DEPO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DecisionPoints".to_string(), serialization_order: Some(10), doc_comment: "Decision processes (promoted from GOV).".to_string(), class_doc_comment: "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("InitialDevelopmentFlow", s, meta_children_initial_development_flow, |r, c| som::SomMetaNode {
-            class_name: "InitialDevelopmentFlow".to_string(), member_name: "initialDevelopmentFlow".to_string(), class_section_id: "INDEFL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InitialDevelopmentFlow".to_string(), serialization_order: Some(9), doc_comment: "Initial development flow.".to_string(), class_doc_comment: "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            class_name: "InitialDevelopmentFlow".to_string(), member_name: "initialDevelopmentFlow".to_string(), class_section_id: "INDEFL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InitialDevelopmentFlow".to_string(), serialization_order: Some(11), doc_comment: "Initial development flow.".to_string(), class_doc_comment: "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UpgradeCycleFramework", s, meta_children_upgrade_cycle_framework, |r, c| som::SomMetaNode {
-            class_name: "UpgradeCycleFramework".to_string(), member_name: "upgradeCycleFramework".to_string(), class_section_id: "UPCYFR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UpgradeCycleFramework".to_string(), serialization_order: Some(10), doc_comment: "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).".to_string(), class_doc_comment: "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
+            class_name: "UpgradeCycleFramework".to_string(), member_name: "upgradeCycleFramework".to_string(), class_section_id: "UPCYFR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UpgradeCycleFramework".to_string(), serialization_order: Some(12), doc_comment: "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).".to_string(), class_doc_comment: "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.".to_string(), detailed_in: "D11DeliveryRoadmap".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4274,52 +4406,64 @@ fn meta_children_d12_transition_rollout_plan(s: &mut HashSet<String>) -> Vec<Rc<
             class_name: "DocumentHeader".to_string(), member_name: "header".to_string(), class_section_id: "DOCHD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentHeader".to_string(), serialization_order: Some(1), doc_comment: "Standard TomSpecs document header.".to_string(), class_doc_comment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(2), doc_comment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "D12TransitionRolloutPlan".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.".to_string(), doc_comment: "Chronological revision history of this document, with the reviewers of\neach revision.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
+                class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("LocalizationProcess", s, meta_children_localization_process, |r, c| som::SomMetaNode {
-            class_name: "LocalizationProcess".to_string(), member_name: "localizationProcess".to_string(), class_section_id: "LOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LocalizationProcess".to_string(), serialization_order: Some(2), doc_comment: "Localization process.".to_string(), class_doc_comment: "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "LocalizationProcess".to_string(), member_name: "localizationProcess".to_string(), class_section_id: "LOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LocalizationProcess".to_string(), serialization_order: Some(4), doc_comment: "Localization process.".to_string(), class_doc_comment: "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TranslationProcess", s, meta_children_translation_process, |r, c| som::SomMetaNode {
-            class_name: "TranslationProcess".to_string(), member_name: "translationProcess".to_string(), class_section_id: "TRPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TranslationProcess".to_string(), serialization_order: Some(3), doc_comment: "Translation process.".to_string(), class_doc_comment: "10.12.2. Translation Process.\n\nWorkflow for translating content.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "TranslationProcess".to_string(), member_name: "translationProcess".to_string(), class_section_id: "TRPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TranslationProcess".to_string(), serialization_order: Some(5), doc_comment: "Translation process.".to_string(), class_doc_comment: "10.12.2. Translation Process.\n\nWorkflow for translating content.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UserDocumentationRequirements", s, meta_children_user_documentation_requirements, |r, c| som::SomMetaNode {
-            class_name: "UserDocumentationRequirements".to_string(), member_name: "userDocumentation".to_string(), class_section_id: "DOANTR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserDocumentationRequirements".to_string(), serialization_order: Some(4), doc_comment: "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).".to_string(), class_doc_comment: "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "UserDocumentationRequirements".to_string(), member_name: "userDocumentation".to_string(), class_section_id: "DOANTR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserDocumentationRequirements".to_string(), serialization_order: Some(6), doc_comment: "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).".to_string(), class_doc_comment: "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TrainingDeliverableRequirements", s, meta_children_training_deliverable_requirements, |r, c| som::SomMetaNode {
-            class_name: "TrainingDeliverableRequirements".to_string(), member_name: "trainingDeliverables".to_string(), class_section_id: "TRMAT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TrainingDeliverableRequirements".to_string(), serialization_order: Some(5), doc_comment: "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).".to_string(), class_doc_comment: "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "TrainingDeliverableRequirements".to_string(), member_name: "trainingDeliverables".to_string(), class_section_id: "TRMAT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TrainingDeliverableRequirements".to_string(), serialization_order: Some(7), doc_comment: "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).".to_string(), class_doc_comment: "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.".to_string(), maps_to: "D12TransitionRolloutPlan".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("RolloutPlan", s, meta_children_rollout_plan, |r, c| som::SomMetaNode {
-            class_name: "RolloutPlan".to_string(), member_name: "rolloutPlan".to_string(), class_section_id: "RLTPLN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RolloutPlan".to_string(), serialization_order: Some(6), doc_comment: "Rollout plan.".to_string(), class_doc_comment: "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "RolloutPlan".to_string(), member_name: "rolloutPlan".to_string(), class_section_id: "RLTPLN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RolloutPlan".to_string(), serialization_order: Some(8), doc_comment: "Rollout plan.".to_string(), class_doc_comment: "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("MigrationPlan", s, meta_children_migration_plan, |r, c| som::SomMetaNode {
-            class_name: "MigrationPlan".to_string(), member_name: "migrationPlan".to_string(), class_section_id: "MIGPLN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationPlan".to_string(), serialization_order: Some(7), doc_comment: "Migration plan.".to_string(), class_doc_comment: "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "MigrationPlan".to_string(), member_name: "migrationPlan".to_string(), class_section_id: "MIGPLN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationPlan".to_string(), serialization_order: Some(9), doc_comment: "Migration plan.".to_string(), class_doc_comment: "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("UserManual", s, meta_children_user_manual, |r, c| som::SomMetaNode {
-            class_name: "UserManual".to_string(), member_name: "userManuals".to_string(), class_section_id: "USRMAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserManual".to_string(), serialization_order: Some(8), doc_comment: "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).".to_string(), class_doc_comment: "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "UserManual".to_string(), member_name: "userManuals".to_string(), class_section_id: "USRMAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserManual".to_string(), serialization_order: Some(10), doc_comment: "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).".to_string(), class_doc_comment: "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("RolloutTrainingMaterial", s, meta_children_rollout_training_material, |r, c| som::SomMetaNode {
-            class_name: "RolloutTrainingMaterial".to_string(), member_name: "trainingMaterials".to_string(), class_section_id: "RLTTM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RolloutTrainingMaterial".to_string(), serialization_order: Some(9), doc_comment: "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).".to_string(), class_doc_comment: "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "RolloutTrainingMaterial".to_string(), member_name: "trainingMaterials".to_string(), class_section_id: "RLTTM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RolloutTrainingMaterial".to_string(), serialization_order: Some(11), doc_comment: "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).".to_string(), class_doc_comment: "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("PilotPlan", s, meta_children_pilot_plan, |r, c| som::SomMetaNode {
-            class_name: "PilotPlan".to_string(), member_name: "pilotPlan".to_string(), class_section_id: "PLTPLN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PilotPlan".to_string(), serialization_order: Some(10), doc_comment: "Pilot plan.".to_string(), class_doc_comment: "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "PilotPlan".to_string(), member_name: "pilotPlan".to_string(), class_section_id: "PLTPLN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PilotPlan".to_string(), serialization_order: Some(12), doc_comment: "Pilot plan.".to_string(), class_doc_comment: "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("CutoverProcedure", s, meta_children_cutover_procedure, |r, c| som::SomMetaNode {
-            class_name: "CutoverProcedure".to_string(), member_name: "cutoverProcedures".to_string(), class_section_id: "CUTPRC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CutoverProcedure".to_string(), serialization_order: Some(11), doc_comment: "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).".to_string(), class_doc_comment: "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "CutoverProcedure".to_string(), member_name: "cutoverProcedures".to_string(), class_section_id: "CUTPRC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CutoverProcedure".to_string(), serialization_order: Some(13), doc_comment: "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).".to_string(), class_doc_comment: "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("KnowledgeTransfer", s, meta_children_knowledge_transfer, |r, c| som::SomMetaNode {
-            class_name: "KnowledgeTransfer".to_string(), member_name: "knowledgeTransfer".to_string(), class_section_id: "KNTFR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KnowledgeTransfer".to_string(), serialization_order: Some(12), doc_comment: "Knowledge transfer.".to_string(), class_doc_comment: "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "KnowledgeTransfer".to_string(), member_name: "knowledgeTransfer".to_string(), class_section_id: "KNTFR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KnowledgeTransfer".to_string(), serialization_order: Some(14), doc_comment: "Knowledge transfer.".to_string(), class_doc_comment: "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("WarrantyAndSupport", s, meta_children_warranty_and_support, |r, c| som::SomMetaNode {
-            class_name: "WarrantyAndSupport".to_string(), member_name: "warrantyAndSupport".to_string(), class_section_id: "WRTSP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WarrantyAndSupport".to_string(), serialization_order: Some(13), doc_comment: "Warranty and support.".to_string(), class_doc_comment: "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
+            class_name: "WarrantyAndSupport".to_string(), member_name: "warrantyAndSupport".to_string(), class_section_id: "WRTSP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WarrantyAndSupport".to_string(), serialization_order: Some(15), doc_comment: "Warranty and support.".to_string(), class_doc_comment: "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.".to_string(), detailed_in: "D12TransitionRolloutPlan".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -5982,6 +6126,20 @@ fn meta_children_document_relevant_sections(s: &mut HashSet<String>) -> Vec<Rc<s
             let mut n = som::SomMetaNode { class_name: "DocumentRelevantSections".to_string(), member_name: "sections".to_string(), section_id: "RESEEN-SECT-LST".to_string(), section_id_pattern: "RESEEN-SECT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RelevantSectionEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per chapter or section of the referenced document that the project depends on or must comply with.".to_string(), doc_comment: "Individual relevant section entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of relevant section entries within a referenced document.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("RelevantSectionEntry", s, meta_children_relevant_section_entry, |r, c| som::SomMetaNode {
                 class_name: "RelevantSectionEntry".to_string(), class_section_id: "RESEEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RelevantSectionEntry".to_string(), doc_comment: "A single relevant section entry within a reference document.".to_string(), class_doc_comment: "A single relevant section entry within a reference document.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_document_review_team_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DocumentReviewTeamEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "documentType".to_string(), type_name: "SpecDocumentType".to_string(), description: "Document Type".to_string(), required: true, hint: "The document root type this team reviews; one entry per type.".to_string(), order: 0, enum_values: vec!["d01CurrentLandscapeAssessment".to_string(), "d02TargetOperatingModel".to_string(), "d03InformationModel".to_string(), "d04RequirementsSpecification".to_string(), "d05InteractionScenarios".to_string(), "d06ArchitectureTechnologySpecification".to_string(), "d07IntegrationInterfaceSpecification".to_string(), "d08SecurityAccessSpecification".to_string(), "d09ExperienceDesignSpecification".to_string(), "d10QualityAcceptancePlan".to_string(), "d11DeliveryRoadmap".to_string(), "d12TransitionRolloutPlan".to_string()], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "DocumentReviewTeamEntry".to_string(), member_name: "members".to_string(), section_id: "RVMEM-MEMB-LST".to_string(), section_id_pattern: "RVMEM-MEMB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReviewTeamMember".to_string(), serialization_order: Some(1), content_help: "Add one entry per member of this document type's team.".to_string(), doc_comment: "The members of the team.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ReviewTeamMember", s, meta_children_review_team_member, |r, c| som::SomMetaNode {
+                class_name: "ReviewTeamMember".to_string(), class_section_id: "RVMEM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeamMember".to_string(), doc_comment: "One member of a review team (form).".to_string(), class_doc_comment: "One member of a review team (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -13158,9 +13316,51 @@ fn meta_children_review_criterion_entry(_s: &mut HashSet<String>) -> Vec<Rc<som:
     ]
 }
 
-fn meta_children_revision_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_review_team(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ReviewTeam".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ReviewTeam".to_string(), member_name: "members".to_string(), section_id: "RVMEM-MEMB-LST".to_string(), section_id_pattern: "RVMEM-MEMB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReviewTeamMember".to_string(), serialization_order: Some(1), content_help: "Add one entry per member. Mark the specification owner with owner: true in the default team.".to_string(), doc_comment: "The members of the team.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ReviewTeamMember", s, meta_children_review_team_member, |r, c| som::SomMetaNode {
+                class_name: "ReviewTeamMember".to_string(), class_section_id: "RVMEM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeamMember".to_string(), doc_comment: "One member of a review team (form).".to_string(), class_doc_comment: "One member of a review team (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_review_team_member(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ReviewTeamMember".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "memberId".to_string(), type_name: "String".to_string(), description: "Member Id".to_string(), required: true, hint: "Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "displayName".to_string(), type_name: "String".to_string(), description: "Display Name".to_string(), required: true, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "role".to_string(), type_name: "String".to_string(), description: "Role".to_string(), required: true, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "stakeholder".to_string(), type_name: "String".to_string(), description: "Stakeholder".to_string(), required: false, hint: "The stakeholder register entry this member represents.".to_string(), order: 3, enum_values: vec![], refers_to: vec!["STKRE.@sectionId".to_string()], code: false }, som::SomFormFieldMeta { name: "email".to_string(), type_name: "String".to_string(), description: "E-Mail".to_string(), required: false, hint: "Stored only; nothing sends mail.".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "owner".to_string(), type_name: "bool".to_string(), description: "Owner".to_string(), required: false, hint: "true for the specification owner, who is always a reviewer.".to_string(), order: 5, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_reviewer_record(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ReviewerRecord".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "memberId".to_string(), type_name: "String".to_string(), description: "Member Id".to_string(), required: true, hint: "The member id, as in the team, or the guest's id.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "displayName".to_string(), type_name: "String".to_string(), description: "Display Name".to_string(), required: true, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "role".to_string(), type_name: "String".to_string(), description: "Role".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "guest".to_string(), type_name: "bool".to_string(), description: "Guest".to_string(), required: false, hint: "true for a reviewer who was not on the team the round used.".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_revision_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "RevisionEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "version".to_string(), type_name: "String".to_string(), description: "Version".to_string(), required: true, hint: "Semantic version of this revision, e.g. \"1.2.0\".".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "date".to_string(), type_name: "String".to_string(), description: "Date".to_string(), required: true, hint: "Date the revision was published (ISO 8601).".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "author".to_string(), type_name: "String".to_string(), description: "Author".to_string(), required: true, hint: "Person or role who produced the revision.".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "summary".to_string(), type_name: "String".to_string(), description: "Summary of changes".to_string(), required: false, hint: "One or two sentences on what changed and why.".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "RevisionEntry".to_string(), member_name: "reviewTeam".to_string(), section_id: "RVWER-TEAM-LST".to_string(), section_id_pattern: "RVWER-TEAM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReviewerRecord".to_string(), serialization_order: Some(1), content_help: "The members the review round started with, each written out in full.".to_string(), doc_comment: "The review team the round leading to this revision started with.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ReviewerRecord", s, meta_children_reviewer_record, |r, c| som::SomMetaNode {
+                class_name: "ReviewerRecord".to_string(), class_section_id: "RVWER".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewerRecord".to_string(), doc_comment: "A reviewer recorded in a revision entry (form).".to_string(), class_doc_comment: "A reviewer recorded in a revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "RevisionEntry".to_string(), member_name: "reviewers".to_string(), section_id: "RVWER-RETN-LST".to_string(), section_id_pattern: "RVWER-RETN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReviewerRecord".to_string(), serialization_order: Some(2), content_help: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.".to_string(), doc_comment: "The reviewers who returned a reviewed copy, guests included.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ReviewerRecord", s, meta_children_reviewer_record, |r, c| som::SomMetaNode {
+                class_name: "ReviewerRecord".to_string(), class_section_id: "RVWER".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewerRecord".to_string(), doc_comment: "A reviewer recorded in a revision entry (form).".to_string(), class_doc_comment: "A reviewer recorded in a revision entry (form).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -15153,6 +15353,18 @@ fn meta_children_stakeholders_and_governance(s: &mut HashSet<String>) -> Vec<Rc<
             let mut n = som::SomMetaNode { class_name: "StakeholdersAndGovernance".to_string(), member_name: "stakeholderRegister".to_string(), section_id: "STKRE-STAK-LST".to_string(), section_id_pattern: "STKRE-STAK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "StakeholderRegisterEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per stakeholder or group (STK-NNN).".to_string(), doc_comment: "Stakeholder register.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 — stakeholder analysis (RACI / influence-interest grid)".to_string())])), ("connotation".to_string(), som::Json::Str("The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("StakeholderRegisterEntry", s, meta_children_stakeholder_register_entry, |r, c| som::SomMetaNode {
                 class_name: "StakeholderRegisterEntry".to_string(), class_section_id: "STKRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StakeholderRegisterEntry".to_string(), doc_comment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), class_doc_comment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        meta_cx("ReviewTeam", s, meta_children_review_team, |r, c| som::SomMetaNode {
+            class_name: "ReviewTeam".to_string(), member_name: "reviewTeam".to_string(), class_section_id: "RVTEAM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReviewTeam".to_string(), serialization_order: Some(9), doc_comment: "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.".to_string(), class_doc_comment: "A review team: the members who review a document.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        {
+            let mut n = som::SomMetaNode { class_name: "StakeholdersAndGovernance".to_string(), member_name: "documentReviewTeams".to_string(), section_id: "DCRVTM-DOCR-LST".to_string(), section_id_pattern: "DCRVTM-DOCR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DocumentReviewTeamEntry".to_string(), serialization_order: Some(10), content_help: "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.".to_string(), doc_comment: "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("DocumentReviewTeamEntry", s, meta_children_document_review_team_entry, |r, c| som::SomMetaNode {
+                class_name: "DocumentReviewTeamEntry".to_string(), class_section_id: "DCRVTM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DocumentReviewTeamEntry".to_string(), doc_comment: "The Solution Blueprint's review team for one document type (form + members).".to_string(), class_doc_comment: "The Solution Blueprint's review team for one document type (form + members).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -29033,6 +29245,14 @@ impl<'a> D01CurrentLandscapeAssessmentNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
     }
 
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
+    }
+
     pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscapeNav<'a> {
         ExistingSystemsLandscapeNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape"))
     }
@@ -29098,6 +29318,14 @@ impl<'a> D02TargetOperatingModelNav<'a> {
 
     pub fn header(&self) -> DocumentHeaderNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn process_vision(&self) -> ProcessVisionNav<'a> {
@@ -29173,6 +29401,14 @@ impl<'a> D03InformationModelNav<'a> {
 
     pub fn header(&self) -> DocumentHeaderNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn entities(&self) -> som::SomListMetaRef<'a, DataEntityEntryNav<'a>> {
@@ -29282,6 +29518,14 @@ impl<'a> D04RequirementsSpecificationNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
     }
 
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
+    }
+
     pub fn functional_requirements(&self) -> FunctionalRequirementsNav<'a> {
         FunctionalRequirementsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "functionalRequirements"))
     }
@@ -29345,6 +29589,14 @@ impl<'a> D05InteractionScenariosNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
     }
 
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
+    }
+
     pub fn process_steps_overview(&self) -> ProcessStepsOverviewNav<'a> {
         ProcessStepsOverviewNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processStepsOverview"))
     }
@@ -29406,6 +29658,14 @@ impl<'a> D06ArchitectureTechnologySpecificationNav<'a> {
 
     pub fn header(&self) -> DocumentHeaderNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn basic_technical_requirements(&self) -> BasicTechnicalRequirementsNav<'a> {
@@ -29491,6 +29751,14 @@ impl<'a> D07IntegrationInterfaceSpecificationNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
     }
 
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
+    }
+
     pub fn external_interfaces(&self) -> ExternalInterfacesNav<'a> {
         ExternalInterfacesNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "externalInterfaces"))
     }
@@ -29566,6 +29834,14 @@ impl<'a> D08SecurityAccessSpecificationNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
     }
 
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
+    }
+
     pub fn user_management(&self) -> UserManagementNav<'a> {
         UserManagementNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userManagement"))
     }
@@ -29635,6 +29911,14 @@ impl<'a> D09ExperienceDesignSpecificationNav<'a> {
 
     pub fn header(&self) -> DocumentHeaderNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn design_vision(&self) -> DesignVisionNav<'a> {
@@ -29722,6 +30006,14 @@ impl<'a> D10QualityAcceptancePlanNav<'a> {
 
     pub fn header(&self) -> DocumentHeaderNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn quality_framework(&self) -> QualityFrameworkNav<'a> {
@@ -29835,6 +30127,14 @@ impl<'a> D11DeliveryRoadmapNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
     }
 
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
+    }
+
     pub fn staging_strategy(&self) -> StagingStrategyNav<'a> {
         StagingStrategyNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy"))
     }
@@ -29904,6 +30204,14 @@ impl<'a> D12TransitionRolloutPlanNav<'a> {
 
     pub fn header(&self) -> DocumentHeaderNav<'a> {
         DocumentHeaderNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "header"))
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn localization_process(&self) -> LocalizationProcessNav<'a> {
@@ -35038,6 +35346,41 @@ impl<'a> DocumentRelevantSectionsNav<'a> {
 
     pub fn sections(&self) -> som::SomListMetaRef<'a, RelevantSectionEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESEEN-SECT-LST"), RelevantSectionEntryNav::new)
+    }
+}
+
+/// DocumentReviewTeamEntryNav holds the dot-notation accessors of `DocumentReviewTeamEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DocumentReviewTeamEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DocumentReviewTeamEntryNav<'a> {
+    /// Binds a DocumentReviewTeamEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DocumentReviewTeamEntryNav<'a> {
+        DocumentReviewTeamEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn members(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVMEM-MEMB-LST"), ReviewTeamMemberNav::new)
     }
 }
 
@@ -57540,6 +57883,103 @@ impl<'a> ReviewCriterionEntryNav<'a> {
     }
 }
 
+/// ReviewTeamNav holds the dot-notation accessors of `ReviewTeam` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ReviewTeamNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ReviewTeamNav<'a> {
+    /// Binds a ReviewTeamNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ReviewTeamNav<'a> {
+        ReviewTeamNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn members(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVMEM-MEMB-LST"), ReviewTeamMemberNav::new)
+    }
+}
+
+/// ReviewTeamMemberNav holds the dot-notation accessors of `ReviewTeamMember` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ReviewTeamMemberNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ReviewTeamMemberNav<'a> {
+    /// Binds a ReviewTeamMemberNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ReviewTeamMemberNav<'a> {
+        ReviewTeamMemberNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// ReviewerRecordNav holds the dot-notation accessors of `ReviewerRecord` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ReviewerRecordNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ReviewerRecordNav<'a> {
+    /// Binds a ReviewerRecordNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ReviewerRecordNav<'a> {
+        ReviewerRecordNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// RevisionEntryNav holds the dot-notation accessors of `RevisionEntry` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -57568,6 +58008,14 @@ impl<'a> RevisionEntryNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn review_team(&self) -> som::SomListMetaRef<'a, ReviewerRecordNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVWER-TEAM-LST"), ReviewerRecordNav::new)
+    }
+
+    pub fn reviewers(&self) -> som::SomListMetaRef<'a, ReviewerRecordNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVWER-RETN-LST"), ReviewerRecordNav::new)
     }
 }
 
@@ -63991,6 +64439,14 @@ impl<'a> StakeholdersAndGovernanceNav<'a> {
 
     pub fn stakeholder_register(&self) -> som::SomListMetaRef<'a, StakeholderRegisterEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STKRE-STAK-LST"), StakeholderRegisterEntryNav::new)
+    }
+
+    pub fn review_team(&self) -> ReviewTeamNav<'a> {
+        ReviewTeamNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam"))
+    }
+
+    pub fn document_review_teams(&self) -> som::SomListMetaRef<'a, DocumentReviewTeamEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DCRVTM-DOCR-LST"), DocumentReviewTeamEntryNav::new)
     }
 }
 
@@ -77292,6 +77748,14 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/STKRE-STAK-LST"), StakeholderRegisterEntryId::new)
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn DCRVTM_DOCR_LST(&self) -> som::SomListMetaRef<'a, DocumentReviewTeamEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/DCRVTM-DOCR-LST"), DocumentReviewTeamEntryId::new)
+    }
+
     pub fn ESENT_SYST_LST(&self) -> som::SomListMetaRef<'a, ExistingSystemEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST"), ExistingSystemEntryId::new)
     }
@@ -82010,6 +82474,14 @@ impl<'a> D01CurrentLandscapeAssessmentId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn ESENT_SYST_LST(&self) -> som::SomListMetaRef<'a, ExistingSystemEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/systemInventory/ESENT-SYST-LST"), ExistingSystemEntryId::new)
     }
@@ -82348,6 +82820,14 @@ impl<'a> D02TargetOperatingModelId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn PVOVW(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "processVision/PVOVW"))
     }
@@ -82432,6 +82912,14 @@ impl<'a> D03InformationModelId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
     }
 
     pub fn DAENT_ENTI_LST(&self) -> som::SomListMetaRef<'a, DataEntityEntryId<'a>> {
@@ -82524,6 +83012,14 @@ impl<'a> D04RequirementsSpecificationId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn FR_SUMM(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "functionalRequirements/FR-SUMM"))
     }
@@ -82590,6 +83086,14 @@ impl<'a> D05InteractionScenariosId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn ACOVNA(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "actorOverview/ACOVNA"))
     }
@@ -82654,6 +83158,14 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
     }
 
     pub fn TGPLT_TARG_LST(&self) -> som::SomListMetaRef<'a, TargetPlatformEntryId<'a>> {
@@ -85294,6 +85806,14 @@ impl<'a> D07IntegrationInterfaceSpecificationId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn EIE_INTE_LST(&self) -> som::SomListMetaRef<'a, ExternalInterfaceEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "externalInterfaces/EIE-INTE-LST"), ExternalInterfaceEntryId::new)
     }
@@ -85342,6 +85862,14 @@ impl<'a> D08SecurityAccessSpecificationId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
     }
 
     pub fn USCDF_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserCategoryDefinitionId<'a>> {
@@ -85520,6 +86048,14 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
     }
 
     pub fn DGOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DesignGoalEntryId<'a>> {
@@ -86092,6 +86628,14 @@ impl<'a> D10QualityAcceptancePlanId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn QLFWK_FRAM(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityFramework/QLFWK-FRAM"))
     }
@@ -86582,6 +87126,14 @@ impl<'a> D11DeliveryRoadmapId<'a> {
         self.meta_ref.meta()
     }
 
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
+    }
+
     pub fn STAGAS(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy/STAGAS"))
     }
@@ -86830,6 +87382,14 @@ impl<'a> D12TransitionRolloutPlanId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reviewTeam/RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
+    }
+
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryId::new)
     }
 
     pub fn LOPR_LOCA(&self) -> som::SomMetaRef<'a> {
@@ -91568,6 +92128,36 @@ impl<'a> DistributionRecipientPreferencesId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+}
+
+/// DocumentReviewTeamEntryId holds the ID-tree accessors of `DocumentReviewTeamEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct DocumentReviewTeamEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DocumentReviewTeamEntryId<'a> {
+    /// Binds a DocumentReviewTeamEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DocumentReviewTeamEntryId<'a> {
+        DocumentReviewTeamEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn RVMEM_MEMB_LST(&self) -> som::SomListMetaRef<'a, ReviewTeamMemberId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVMEM-MEMB-LST"), ReviewTeamMemberId::new)
     }
 }
 
@@ -99801,6 +100391,58 @@ impl<'a> ReviewCriterionEntryId<'a> {
     }
 }
 
+/// ReviewTeamMemberId holds the ID-tree accessors of `ReviewTeamMember` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ReviewTeamMemberId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ReviewTeamMemberId<'a> {
+    /// Binds a ReviewTeamMemberId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ReviewTeamMemberId<'a> {
+        ReviewTeamMemberId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// ReviewerRecordId holds the ID-tree accessors of `ReviewerRecord` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ReviewerRecordId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ReviewerRecordId<'a> {
+    /// Binds a ReviewerRecordId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ReviewerRecordId<'a> {
+        ReviewerRecordId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// RevisionEntryId holds the ID-tree accessors of `RevisionEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -99824,6 +100466,14 @@ impl<'a> RevisionEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn RVWER_TEAM_LST(&self) -> som::SomListMetaRef<'a, ReviewerRecordId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVWER-TEAM-LST"), ReviewerRecordId::new)
+    }
+
+    pub fn RVWER_RETN_LST(&self) -> som::SomListMetaRef<'a, ReviewerRecordId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVWER-RETN-LST"), ReviewerRecordId::new)
     }
 }
 

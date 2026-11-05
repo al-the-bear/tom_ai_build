@@ -1278,6 +1278,38 @@ struct ServerCallRole {
   ServerCallRole() = delete;
 };
 
+// Generated enum tokens for `SpecDocumentType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct SpecDocumentType {
+  // `D01CurrentLandscapeAssessment`.
+  static constexpr const char* d01CurrentLandscapeAssessment = "d01CurrentLandscapeAssessment";
+  // `D02TargetOperatingModel`.
+  static constexpr const char* d02TargetOperatingModel = "d02TargetOperatingModel";
+  // `D03InformationModel`.
+  static constexpr const char* d03InformationModel = "d03InformationModel";
+  // `D04RequirementsSpecification`.
+  static constexpr const char* d04RequirementsSpecification = "d04RequirementsSpecification";
+  // `D05InteractionScenarios`.
+  static constexpr const char* d05InteractionScenarios = "d05InteractionScenarios";
+  // `D06ArchitectureTechnologySpecification`.
+  static constexpr const char* d06ArchitectureTechnologySpecification = "d06ArchitectureTechnologySpecification";
+  // `D07IntegrationInterfaceSpecification`.
+  static constexpr const char* d07IntegrationInterfaceSpecification = "d07IntegrationInterfaceSpecification";
+  // `D08SecurityAccessSpecification`.
+  static constexpr const char* d08SecurityAccessSpecification = "d08SecurityAccessSpecification";
+  // `D09ExperienceDesignSpecification`.
+  static constexpr const char* d09ExperienceDesignSpecification = "d09ExperienceDesignSpecification";
+  // `D10QualityAcceptancePlan`.
+  static constexpr const char* d10QualityAcceptancePlan = "d10QualityAcceptancePlan";
+  // `D11DeliveryRoadmap`.
+  static constexpr const char* d11DeliveryRoadmap = "d11DeliveryRoadmap";
+  // `D12TransitionRolloutPlan`.
+  static constexpr const char* d12TransitionRolloutPlan = "d12TransitionRolloutPlan";
+  // Returns the token when it is a known SpecDocumentType value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  SpecDocumentType() = delete;
+};
+
 // Generated enum tokens for `Status` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct Status {
@@ -1717,6 +1749,7 @@ class DocumentControl;
 class DocumentHeader;
 class DocumentRelationships;
 class DocumentRelevantSections;
+class DocumentReviewTeamEntry;
 class DocumentationDeliverables;
 class DocumentationQualityCriteria;
 class DocumentationStandards;
@@ -2250,6 +2283,9 @@ class ReusablePrototype;
 class ReusableUiComponentEntry;
 class ReuseGoalEntry;
 class ReviewCriterionEntry;
+class ReviewTeam;
+class ReviewTeamMember;
+class ReviewerRecord;
 class RevisionEntry;
 class RiskBusinessImpact;
 class RiskEntry;
@@ -3472,6 +3508,7 @@ class DocCorrectnessContentForm;
 class DocCorrectnessVerificationForm;
 class DocumentHeaderContentForm;
 class DocumentRelevantSectionsContentForm;
+class DocumentReviewTeamEntryContentForm;
 class DocumentationQualityCriteriaDocumentationOverviewContentForm;
 class DocumentationStandardsArchitectureForm;
 class DocumentationStandardsCodeDocsForm;
@@ -4621,6 +4658,8 @@ class ReuseGoalEntryMeasurementForm;
 class ReviewCriterionEntryAssessmentForm;
 class ReviewCriterionEntryContentForm;
 class ReviewCriterionEntryResultForm;
+class ReviewTeamMemberContentForm;
+class ReviewerRecordContentForm;
 class RevisionEntryContentForm;
 class RiskBusinessImpactContentForm;
 class RiskBusinessImpactDeliveryForm;
@@ -10672,7 +10711,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10741,7 +10780,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10770,6 +10809,13 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Existing systems landscape.
   ExistingSystemsLandscape existingSystemsLandscape() const;
   // Current business processes.
@@ -10801,7 +10847,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10830,6 +10876,13 @@ class D02TargetOperatingModel : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Process vision.
   ProcessVision processVision() const;
   // Design principles.
@@ -10867,7 +10920,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10896,6 +10949,13 @@ class D03InformationModel : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Entity inventory (list).
   // Returns the list view; element type: DataEntityEntry (construct from item paths).
   som::SomList entities() const;
@@ -10976,7 +11036,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11005,6 +11065,13 @@ class D04RequirementsSpecification : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Functional requirements.
   FunctionalRequirements functionalRequirements() const;
   // Technical (non-functional) requirements.
@@ -11039,7 +11106,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11068,6 +11135,13 @@ class D05InteractionScenarios : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Process steps overview.
   ProcessStepsOverview processStepsOverview() const;
   // Actor overview.
@@ -11098,7 +11172,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11127,6 +11201,13 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Basic technical requirements.
   BasicTechnicalRequirements basicTechnicalRequirements() const;
   // Software design requirements.
@@ -11165,7 +11246,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11194,6 +11275,13 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // External interfaces.
   ExternalInterfaces externalInterfaces() const;
   // Out of scope.
@@ -11232,7 +11320,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11261,6 +11349,13 @@ class D08SecurityAccessSpecification : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // User management.
   UserManagement userManagement() const;
   // Identification and authentication.
@@ -11301,7 +11396,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11330,6 +11425,13 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Design vision.
   DesignVision designVision() const;
   // Screen descriptions.
@@ -11371,7 +11473,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11400,6 +11502,13 @@ class D10QualityAcceptancePlan : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Quality framework.
   QualityFramework qualityFramework() const;
   // Functional suitability (ISO/IEC 25010:2023).
@@ -11453,7 +11562,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11482,6 +11591,13 @@ class D11DeliveryRoadmap : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Staging strategy.
   StagingStrategy stagingStrategy() const;
   // Stage overview.
@@ -11516,7 +11632,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11545,6 +11661,13 @@ class D12TransitionRolloutPlan : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  ReviewTeam reviewTeam() const;
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisionHistory() const;
   // Localization process.
   LocalizationProcess localizationProcess() const;
   // Translation process.
@@ -11594,7 +11717,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
 class D13CodeSpecsProjection : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.6";
+  static constexpr const char* kModelVersion = "1.7";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -14242,6 +14365,19 @@ class DocumentRelevantSections : public som::SomNode {
   // Individual relevant section entries.
   // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
   som::SomList sections() const;
+};
+
+// The Solution Blueprint's review team for one document type (form + members).
+class DocumentReviewTeamEntry : public som::SomNode {
+ public:
+  DocumentReviewTeamEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  DocumentReviewTeamEntryContentForm content() const;
+  // The members of the team.
+  // Returns the list view; element type: ReviewTeamMember (construct from item paths).
+  som::SomList members() const;
 };
 
 // 14.1.2. Documentation Deliverables.
@@ -25402,6 +25538,44 @@ class ReviewCriterionEntry : public som::SomNode {
   ReviewCriterionEntryResultForm result() const;
 };
 
+// A review team: the members who review a document.
+class ReviewTeam : public som::SomNode {
+ public:
+  ReviewTeam(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  std::string content() const;
+  void setContent(const std::string& value);
+  // The members of the team.
+  // Returns the list view; element type: ReviewTeamMember (construct from item paths).
+  som::SomList members() const;
+  // This section type declares the standard `content` text leaf (SOM §21):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// One member of a review team (form).
+class ReviewTeamMember : public som::SomNode {
+ public:
+  ReviewTeamMember(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  ReviewTeamMemberContentForm content() const;
+};
+
+// A reviewer recorded in a revision entry (form).
+class ReviewerRecord : public som::SomNode {
+ public:
+  ReviewerRecord(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  ReviewerRecordContentForm content() const;
+};
+
 // A single document revision entry (form).
 class RevisionEntry : public som::SomNode {
  public:
@@ -25410,6 +25584,12 @@ class RevisionEntry : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
   RevisionEntryContentForm content() const;
+  // The review team the round leading to this revision started with.
+  // Returns the list view; element type: ReviewerRecord (construct from item paths).
+  som::SomList reviewTeam() const;
+  // The reviewers who returned a reviewed copy, guests included.
+  // Returns the list view; element type: ReviewerRecord (construct from item paths).
+  som::SomList reviewers() const;
 };
 
 // Business impact assessment for the risk.
@@ -28695,6 +28875,14 @@ class StakeholdersAndGovernance : public som::SomNode {
   // Stakeholder register.
   // Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
   som::SomList stakeholderRegister() const;
+  // The default review team: it reviews every document that names no team
+  // of its own and has no entry in [documentReviewTeams]. Its owner
+  // (`owner: true`) is the specification owner, always a reviewer.
+  ReviewTeam reviewTeam() const;
+  // Review teams per document type, each replacing [reviewTeam] for the
+  // documents of its type.
+  // Returns the list view; element type: DocumentReviewTeamEntry (construct from item paths).
+  som::SomList documentReviewTeams() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -48830,6 +49018,18 @@ class DocumentRelevantSectionsContentForm : public som::SomNode {
   void setRelevance(const std::string& value);
   std::string extractSummary() const;
   void setExtractSummary(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DocumentReviewTeamEntryContentForm : public som::SomNode {
+ public:
+  DocumentReviewTeamEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string documentType() const;
+  void setDocumentType(const std::string& value);
 };
 
 // Generated section facade for the `documentationOverviewContent` @Form section: its own `content` text followed by one typed member per form field.
@@ -70028,6 +70228,46 @@ class ReviewCriterionEntryResultForm : public som::SomNode {
   void setAssessmentNotes(const std::string& value);
   std::string remediationRequired() const;
   void setRemediationRequired(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ReviewTeamMemberContentForm : public som::SomNode {
+ public:
+  ReviewTeamMemberContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string memberId() const;
+  void setMemberId(const std::string& value);
+  std::string displayName() const;
+  void setDisplayName(const std::string& value);
+  std::string role() const;
+  void setRole(const std::string& value);
+  std::string stakeholder() const;
+  void setStakeholder(const std::string& value);
+  std::string email() const;
+  void setEmail(const std::string& value);
+  std::optional<bool> owner() const;
+  void setOwner(std::optional<bool> value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ReviewerRecordContentForm : public som::SomNode {
+ public:
+  ReviewerRecordContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string memberId() const;
+  void setMemberId(const std::string& value);
+  std::string displayName() const;
+  void setDisplayName(const std::string& value);
+  std::string role() const;
+  void setRole(const std::string& value);
+  std::optional<bool> guest() const;
+  void setGuest(std::optional<bool> value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

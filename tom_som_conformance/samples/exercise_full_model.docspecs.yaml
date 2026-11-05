@@ -22,6 +22,18 @@ document:
             version: "Exercise value."
             date: "Exercise value."
             author: "Exercise value."
+          RVWER-TEAM-LST reviewTeam:
+            RVWER-TEAM-1:
+              content:
+                content: Exercise form preamble.
+                memberId: "Exercise value."
+                displayName: "Exercise value."
+          RVWER-RETN-LST reviewers:
+            RVWER-RETN-1:
+              content:
+                content: Exercise form preamble.
+                memberId: "Exercise value."
+                displayName: "Exercise value."
       APREC-APRV-LST approvals:
         APREC-APRV-1:
           content:
@@ -1935,6 +1947,27 @@ document:
           content:
             content: Exercise form preamble.
             role: "Exercise value."
+      RVTEAM reviewTeam:
+        content: Exercise text.
+        RVMEM-MEMB-LST members:
+          RVMEM-MEMB-1:
+            content:
+              content: Exercise form preamble.
+              memberId: "Exercise value."
+              displayName: "Exercise value."
+              role: "Exercise value."
+      DCRVTM-DOCR-LST documentReviewTeams:
+        DCRVTM-DOCR-1:
+          content:
+            content: Exercise form preamble.
+            documentType: "d01CurrentLandscapeAssessment"
+          RVMEM-MEMB-LST members:
+            RVMEM-MEMB-1:
+              content:
+                content: Exercise form preamble.
+                memberId: "Exercise value."
+                displayName: "Exercise value."
+                role: "Exercise value."
     CULA currentLandscape:
       content: Exercise text.
       ESLAN existingSystemsLandscape:

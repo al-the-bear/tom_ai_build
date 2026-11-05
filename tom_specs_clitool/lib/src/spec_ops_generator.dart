@@ -103,7 +103,17 @@ class SpecOpsGenerator {
   /// re-pointed at the SBP's. It resolves structurally (there is exactly one
   /// `DocumentHeader` under the SBP, at `documentControl.header`), which is why
   /// the exclusion has to be stated rather than derived.
-  static const _documentLocalTypes = {'DocumentHeader'};
+  ///
+  /// `ReviewTeam` and the `RevisionEntry` revision history are document-local
+  /// for the same reason: a document's own review team and its own revisions
+  /// belong to that document. Bound by type they would resolve onto the SBP's
+  /// default team (`stakeholdersAndGovernance.reviewTeam`) and its own revision
+  /// history, and a document's team would silently become the default one.
+  static const _documentLocalTypes = {
+    'DocumentHeader',
+    'ReviewTeam',
+    'List<RevisionEntry>',
+  };
 
   /// Section content leaves defined in `tom_specs_core` (outside the scanned
   /// model package). Each is a `String? content` leaf; registered by hand here

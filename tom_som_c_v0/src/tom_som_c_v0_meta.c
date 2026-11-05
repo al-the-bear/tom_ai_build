@@ -431,6 +431,7 @@ static SomMetaNode **meta_children_document_control(SomStrList *stack, size_t *l
 static SomMetaNode **meta_children_document_header(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_document_relationships(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_document_relevant_sections(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_document_review_team_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_documentation_deliverables(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_documentation_quality_criteria(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_documentation_standards(SomStrList *stack, size_t *len);
@@ -964,6 +965,9 @@ static SomMetaNode **meta_children_reusable_prototype(SomStrList *stack, size_t 
 static SomMetaNode **meta_children_reusable_ui_component_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_reuse_goal_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_review_criterion_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_review_team(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_review_team_member(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_reviewer_record(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_business_impact(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_risk_entry(SomStrList *stack, size_t *len);
@@ -2457,6 +2461,9 @@ static void meta_build_d00_solution_blueprint_quality_and_acceptance_model(SomMe
 static void meta_build_d00_solution_blueprint_delivery_transition_and_rollout(SomMetaNode *n);
 static void meta_build_d01_current_landscape_assessment_content(SomMetaNode *n);
 static void meta_build_d01_current_landscape_assessment_header(SomMetaNode *n);
+static void meta_build_d01_current_landscape_assessment_review_team(SomMetaNode *n);
+static void meta_build_d01_current_landscape_assessment_revision_history(SomMetaNode *n);
+static void meta_build_d01_current_landscape_assessment_revision_history_elem(SomMetaNode *n);
 static void meta_build_d01_current_landscape_assessment_existing_systems_landscape(SomMetaNode *n);
 static void meta_build_d01_current_landscape_assessment_current_business_processes(SomMetaNode *n);
 static void meta_build_d01_current_landscape_assessment_pain_points_and_gaps(SomMetaNode *n);
@@ -2468,6 +2475,9 @@ static void meta_build_d01_current_landscape_assessment_replacement_inventory(So
 static void meta_build_d01_current_landscape_assessment_migration_considerations(SomMetaNode *n);
 static void meta_build_d02_target_operating_model_content(SomMetaNode *n);
 static void meta_build_d02_target_operating_model_header(SomMetaNode *n);
+static void meta_build_d02_target_operating_model_review_team(SomMetaNode *n);
+static void meta_build_d02_target_operating_model_revision_history(SomMetaNode *n);
+static void meta_build_d02_target_operating_model_revision_history_elem(SomMetaNode *n);
 static void meta_build_d02_target_operating_model_process_vision(SomMetaNode *n);
 static void meta_build_d02_target_operating_model_design_principles(SomMetaNode *n);
 static void meta_build_d02_target_operating_model_process_catalog(SomMetaNode *n);
@@ -2482,6 +2492,9 @@ static void meta_build_d02_target_operating_model_process_metrics_and_kpis(SomMe
 static void meta_build_d02_target_operating_model_process_metrics_and_kpis_elem(SomMetaNode *n);
 static void meta_build_d03_information_model_content(SomMetaNode *n);
 static void meta_build_d03_information_model_header(SomMetaNode *n);
+static void meta_build_d03_information_model_review_team(SomMetaNode *n);
+static void meta_build_d03_information_model_revision_history(SomMetaNode *n);
+static void meta_build_d03_information_model_revision_history_elem(SomMetaNode *n);
 static void meta_build_d03_information_model_entities(SomMetaNode *n);
 static void meta_build_d03_information_model_entities_elem(SomMetaNode *n);
 static void meta_build_d03_information_model_entity_relationships(SomMetaNode *n);
@@ -2507,6 +2520,9 @@ static void meta_build_d03_information_model_server_operation_registry(SomMetaNo
 static void meta_build_d03_information_model_schema_versioning_and_migration(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_header(SomMetaNode *n);
+static void meta_build_d04_requirements_specification_review_team(SomMetaNode *n);
+static void meta_build_d04_requirements_specification_revision_history(SomMetaNode *n);
+static void meta_build_d04_requirements_specification_revision_history_elem(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_functional_requirements(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_technical_requirements(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_security_requirements(SomMetaNode *n);
@@ -2517,6 +2533,9 @@ static void meta_build_d04_requirements_specification_requirement_relationships_
 static void meta_build_d04_requirements_specification_requirement_coverage(SomMetaNode *n);
 static void meta_build_d05_interaction_scenarios_content(SomMetaNode *n);
 static void meta_build_d05_interaction_scenarios_header(SomMetaNode *n);
+static void meta_build_d05_interaction_scenarios_review_team(SomMetaNode *n);
+static void meta_build_d05_interaction_scenarios_revision_history(SomMetaNode *n);
+static void meta_build_d05_interaction_scenarios_revision_history_elem(SomMetaNode *n);
 static void meta_build_d05_interaction_scenarios_process_steps_overview(SomMetaNode *n);
 static void meta_build_d05_interaction_scenarios_actor_overview(SomMetaNode *n);
 static void meta_build_d05_interaction_scenarios_interaction_catalog(SomMetaNode *n);
@@ -2527,6 +2546,9 @@ static void meta_build_d05_interaction_scenarios_end_to_end_test_scenarios_elem(
 static void meta_build_d05_interaction_scenarios_use_case_traceability(SomMetaNode *n);
 static void meta_build_d06_architecture_technology_specification_content(SomMetaNode *n);
 static void meta_build_d06_architecture_technology_specification_header(SomMetaNode *n);
+static void meta_build_d06_architecture_technology_specification_review_team(SomMetaNode *n);
+static void meta_build_d06_architecture_technology_specification_revision_history(SomMetaNode *n);
+static void meta_build_d06_architecture_technology_specification_revision_history_elem(SomMetaNode *n);
 static void meta_build_d06_architecture_technology_specification_basic_technical_requirements(SomMetaNode *n);
 static void meta_build_d06_architecture_technology_specification_software_design_requirements(SomMetaNode *n);
 static void meta_build_d06_architecture_technology_specification_standard_software_requirements(SomMetaNode *n);
@@ -2541,6 +2563,9 @@ static void meta_build_d06_architecture_technology_specification_technical_envir
 static void meta_build_d06_architecture_technology_specification_translation_requirements(SomMetaNode *n);
 static void meta_build_d07_integration_interface_specification_content(SomMetaNode *n);
 static void meta_build_d07_integration_interface_specification_header(SomMetaNode *n);
+static void meta_build_d07_integration_interface_specification_review_team(SomMetaNode *n);
+static void meta_build_d07_integration_interface_specification_revision_history(SomMetaNode *n);
+static void meta_build_d07_integration_interface_specification_revision_history_elem(SomMetaNode *n);
 static void meta_build_d07_integration_interface_specification_external_interfaces(SomMetaNode *n);
 static void meta_build_d07_integration_interface_specification_out_of_scope(SomMetaNode *n);
 static void meta_build_d07_integration_interface_specification_boundary_assumptions(SomMetaNode *n);
@@ -2556,6 +2581,9 @@ static void meta_build_d07_integration_interface_specification_operational_consi
 static void meta_build_d07_integration_interface_specification_cross_boundary_error_handling(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_content(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_header(SomMetaNode *n);
+static void meta_build_d08_security_access_specification_review_team(SomMetaNode *n);
+static void meta_build_d08_security_access_specification_revision_history(SomMetaNode *n);
+static void meta_build_d08_security_access_specification_revision_history_elem(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_user_management(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_identification_and_authentication(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_resource_protection(SomMetaNode *n);
@@ -2567,6 +2595,9 @@ static void meta_build_d08_security_access_specification_compliance_framework(So
 static void meta_build_d08_security_access_specification_compliance_reporting(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_content(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_header(SomMetaNode *n);
+static void meta_build_d09_experience_design_specification_review_team(SomMetaNode *n);
+static void meta_build_d09_experience_design_specification_revision_history(SomMetaNode *n);
+static void meta_build_d09_experience_design_specification_revision_history_elem(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_design_vision(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_screens(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_screen_flow(SomMetaNode *n);
@@ -2582,6 +2613,9 @@ static void meta_build_d09_experience_design_specification_prototype(SomMetaNode
 static void meta_build_d09_experience_design_specification_wireframes_and_mockups(SomMetaNode *n);
 static void meta_build_d10_quality_acceptance_plan_content(SomMetaNode *n);
 static void meta_build_d10_quality_acceptance_plan_header(SomMetaNode *n);
+static void meta_build_d10_quality_acceptance_plan_review_team(SomMetaNode *n);
+static void meta_build_d10_quality_acceptance_plan_revision_history(SomMetaNode *n);
+static void meta_build_d10_quality_acceptance_plan_revision_history_elem(SomMetaNode *n);
 static void meta_build_d10_quality_acceptance_plan_quality_framework(SomMetaNode *n);
 static void meta_build_d10_quality_acceptance_plan_functional_suitability(SomMetaNode *n);
 static void meta_build_d10_quality_acceptance_plan_performance_efficiency(SomMetaNode *n);
@@ -2603,6 +2637,9 @@ static void meta_build_d10_quality_acceptance_plan_sign_off_process(SomMetaNode 
 static void meta_build_d10_quality_acceptance_plan_warranty(SomMetaNode *n);
 static void meta_build_d11_delivery_roadmap_content(SomMetaNode *n);
 static void meta_build_d11_delivery_roadmap_header(SomMetaNode *n);
+static void meta_build_d11_delivery_roadmap_review_team(SomMetaNode *n);
+static void meta_build_d11_delivery_roadmap_revision_history(SomMetaNode *n);
+static void meta_build_d11_delivery_roadmap_revision_history_elem(SomMetaNode *n);
 static void meta_build_d11_delivery_roadmap_staging_strategy(SomMetaNode *n);
 static void meta_build_d11_delivery_roadmap_stage_overview(SomMetaNode *n);
 static void meta_build_d11_delivery_roadmap_stages(SomMetaNode *n);
@@ -2615,6 +2652,9 @@ static void meta_build_d11_delivery_roadmap_initial_development_flow(SomMetaNode
 static void meta_build_d11_delivery_roadmap_upgrade_cycle_framework(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_content(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_header(SomMetaNode *n);
+static void meta_build_d12_transition_rollout_plan_review_team(SomMetaNode *n);
+static void meta_build_d12_transition_rollout_plan_revision_history(SomMetaNode *n);
+static void meta_build_d12_transition_rollout_plan_revision_history_elem(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_localization_process(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_translation_process(SomMetaNode *n);
 static void meta_build_d12_transition_rollout_plan_user_documentation(SomMetaNode *n);
@@ -3158,6 +3198,9 @@ static void meta_build_document_relationships_related_documents_elem(SomMetaNode
 static void meta_build_document_relevant_sections_content(SomMetaNode *n);
 static void meta_build_document_relevant_sections_sections(SomMetaNode *n);
 static void meta_build_document_relevant_sections_sections_elem(SomMetaNode *n);
+static void meta_build_document_review_team_entry_content(SomMetaNode *n);
+static void meta_build_document_review_team_entry_members(SomMetaNode *n);
+static void meta_build_document_review_team_entry_members_elem(SomMetaNode *n);
 static void meta_build_documentation_deliverables_content(SomMetaNode *n);
 static void meta_build_documentation_deliverables_items(SomMetaNode *n);
 static void meta_build_documentation_deliverables_items_elem(SomMetaNode *n);
@@ -5418,7 +5461,16 @@ static void meta_build_reuse_goal_entry_enablement(SomMetaNode *n);
 static void meta_build_review_criterion_entry_content(SomMetaNode *n);
 static void meta_build_review_criterion_entry_assessment(SomMetaNode *n);
 static void meta_build_review_criterion_entry_result(SomMetaNode *n);
+static void meta_build_review_team_content(SomMetaNode *n);
+static void meta_build_review_team_members(SomMetaNode *n);
+static void meta_build_review_team_members_elem(SomMetaNode *n);
+static void meta_build_review_team_member_content(SomMetaNode *n);
+static void meta_build_reviewer_record_content(SomMetaNode *n);
 static void meta_build_revision_entry_content(SomMetaNode *n);
+static void meta_build_revision_entry_review_team(SomMetaNode *n);
+static void meta_build_revision_entry_review_team_elem(SomMetaNode *n);
+static void meta_build_revision_entry_reviewers(SomMetaNode *n);
+static void meta_build_revision_entry_reviewers_elem(SomMetaNode *n);
 static void meta_build_risk_business_impact_content(SomMetaNode *n);
 static void meta_build_risk_business_impact_stakeholders(SomMetaNode *n);
 static void meta_build_risk_business_impact_delivery(SomMetaNode *n);
@@ -6079,6 +6131,9 @@ static void meta_build_stakeholders_and_governance_change_procedure(SomMetaNode 
 static void meta_build_stakeholders_and_governance_legal_and_contractual(SomMetaNode *n);
 static void meta_build_stakeholders_and_governance_stakeholder_register(SomMetaNode *n);
 static void meta_build_stakeholders_and_governance_stakeholder_register_elem(SomMetaNode *n);
+static void meta_build_stakeholders_and_governance_review_team(SomMetaNode *n);
+static void meta_build_stakeholders_and_governance_document_review_teams(SomMetaNode *n);
+static void meta_build_stakeholders_and_governance_document_review_teams_elem(SomMetaNode *n);
 static void meta_build_stakeholders_and_interests_content(SomMetaNode *n);
 static void meta_build_standard_software_requirements_content(SomMetaNode *n);
 static void meta_build_standard_software_requirements_compatibility_requirements(SomMetaNode *n);
@@ -7747,6 +7802,11 @@ static void *meta_nav_factory_distribution_recipient_preferences(const SomMetaTr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_document_review_team_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_document_review_team_entry *r = (som_nav_document_review_team_entry *)malloc(sizeof(som_nav_document_review_team_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_domain_business_rule_entry(const SomMetaTree *tree, const char *path) {
   som_nav_domain_business_rule_entry *r = (som_nav_domain_business_rule_entry *)malloc(sizeof(som_nav_domain_business_rule_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8899,6 +8959,16 @@ static void *meta_nav_factory_reuse_goal_entry(const SomMetaTree *tree, const ch
 }
 static void *meta_nav_factory_review_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_nav_review_criterion_entry *r = (som_nav_review_criterion_entry *)malloc(sizeof(som_nav_review_criterion_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_review_team_member(const SomMetaTree *tree, const char *path) {
+  som_nav_review_team_member *r = (som_nav_review_team_member *)malloc(sizeof(som_nav_review_team_member));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_reviewer_record(const SomMetaTree *tree, const char *path) {
+  som_nav_reviewer_record *r = (som_nav_reviewer_record *)malloc(sizeof(som_nav_reviewer_record));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10327,6 +10397,11 @@ static void *meta_id_factory_distribution_recipient_preferences(const SomMetaTre
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_document_review_team_entry(const SomMetaTree *tree, const char *path) {
+  som_id_document_review_team_entry *r = (som_id_document_review_team_entry *)malloc(sizeof(som_id_document_review_team_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_domain_business_rule_entry(const SomMetaTree *tree, const char *path) {
   som_id_domain_business_rule_entry *r = (som_id_domain_business_rule_entry *)malloc(sizeof(som_id_domain_business_rule_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11479,6 +11554,16 @@ static void *meta_id_factory_reuse_goal_entry(const SomMetaTree *tree, const cha
 }
 static void *meta_id_factory_review_criterion_entry(const SomMetaTree *tree, const char *path) {
   som_id_review_criterion_entry *r = (som_id_review_criterion_entry *)malloc(sizeof(som_id_review_criterion_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_review_team_member(const SomMetaTree *tree, const char *path) {
+  som_id_review_team_member *r = (som_id_review_team_member *)malloc(sizeof(som_id_review_team_member));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_reviewer_record(const SomMetaTree *tree, const char *path) {
+  som_id_reviewer_record *r = (som_id_reviewer_record *)malloc(sizeof(som_id_reviewer_record));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -42070,6 +42155,41 @@ static void meta_build_d01_current_landscape_assessment_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d01_current_landscape_assessment_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d01_current_landscape_assessment_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D01CurrentLandscapeAssessment");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d01_current_landscape_assessment_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d01_current_landscape_assessment_existing_systems_landscape(SomMetaNode *n) {
   meta_set(&n->class_name, "ExistingSystemsLandscape");
   meta_set(&n->member_name, "existingSystemsLandscape");
@@ -42077,7 +42197,7 @@ static void meta_build_d01_current_landscape_assessment_existing_systems_landsca
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExistingSystemsLandscape");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Existing systems landscape.");
   meta_set(&n->class_doc_comment, "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42089,7 +42209,7 @@ static void meta_build_d01_current_landscape_assessment_current_business_process
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentBusinessProcesses");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Current business processes.");
   meta_set(&n->class_doc_comment, "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42101,7 +42221,7 @@ static void meta_build_d01_current_landscape_assessment_pain_points_and_gaps(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PainPointsAndGaps");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Pain points and gaps.");
   meta_set(&n->class_doc_comment, "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42113,7 +42233,7 @@ static void meta_build_d01_current_landscape_assessment_current_data_landscape(S
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentDataLandscape");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Current data landscape.");
   meta_set(&n->class_doc_comment, "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42126,7 +42246,7 @@ static void meta_build_d01_current_landscape_assessment_operational_metrics(SomM
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CurrentOperationalMetric");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Current operational metrics.");
 }
 static void meta_build_d01_current_landscape_assessment_operational_metrics_elem(SomMetaNode *n) {
@@ -42145,7 +42265,7 @@ static void meta_build_d01_current_landscape_assessment_current_state_risks(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentStateRiskAssessment");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Current-state risk assessment.");
   meta_set(&n->class_doc_comment, "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42157,7 +42277,7 @@ static void meta_build_d01_current_landscape_assessment_replacement_inventory(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReplacementInventory");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Replacement inventory.");
   meta_set(&n->class_doc_comment, "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42169,7 +42289,7 @@ static void meta_build_d01_current_landscape_assessment_migration_considerations
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationConsiderations");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Migration considerations.");
   meta_set(&n->class_doc_comment, "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -42198,6 +42318,41 @@ static void meta_build_d02_target_operating_model_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d02_target_operating_model_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d02_target_operating_model_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D02TargetOperatingModel");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d02_target_operating_model_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d02_target_operating_model_process_vision(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessVision");
   meta_set(&n->member_name, "processVision");
@@ -42205,7 +42360,7 @@ static void meta_build_d02_target_operating_model_process_vision(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessVision");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Process vision.");
   meta_set(&n->class_doc_comment, "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42217,7 +42372,7 @@ static void meta_build_d02_target_operating_model_design_principles(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessDesignPrinciples");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Design principles.");
   meta_set(&n->class_doc_comment, "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42229,7 +42384,7 @@ static void meta_build_d02_target_operating_model_process_catalog(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessCatalog");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Process catalog.");
   meta_set(&n->class_doc_comment, "6.1.3. Process Catalog.\n\nContainer for business process definitions.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42241,7 +42396,7 @@ static void meta_build_d02_target_operating_model_process_overview_diagram(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessOverviewDiagram");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Process overview diagram.");
   meta_set(&n->class_doc_comment, "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42253,7 +42408,7 @@ static void meta_build_d02_target_operating_model_improvement_summary(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessImprovementSummary");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Improvement summary.");
   meta_set(&n->class_doc_comment, "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42265,7 +42420,7 @@ static void meta_build_d02_target_operating_model_process_relationships(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessRelationships");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Process relationships.");
   meta_set(&n->class_doc_comment, "Process relationships and dependencies (supplementary section).");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42278,7 +42433,7 @@ static void meta_build_d02_target_operating_model_detailed_workflows(SomMetaNode
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DetailedProcessWorkflow");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Detailed process workflows.");
 }
 static void meta_build_d02_target_operating_model_detailed_workflows_elem(SomMetaNode *n) {
@@ -42297,7 +42452,7 @@ static void meta_build_d02_target_operating_model_cross_process_analysis(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CrossProcessAnalysis");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Cross-process analysis.");
   meta_set(&n->class_doc_comment, "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42309,7 +42464,7 @@ static void meta_build_d02_target_operating_model_exception_handling(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessExceptionHandling");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Process exception handling.");
   meta_set(&n->class_doc_comment, "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
@@ -42322,7 +42477,7 @@ static void meta_build_d02_target_operating_model_process_metrics_and_kpis(SomMe
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessMetric");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Process metrics and KPIs.");
 }
 static void meta_build_d02_target_operating_model_process_metrics_and_kpis_elem(SomMetaNode *n) {
@@ -42358,6 +42513,41 @@ static void meta_build_d03_information_model_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d03_information_model_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d03_information_model_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D03InformationModel");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d03_information_model_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d03_information_model_entities(SomMetaNode *n) {
   meta_set(&n->class_name, "D03InformationModel");
   meta_set(&n->member_name, "entities");
@@ -42366,7 +42556,7 @@ static void meta_build_d03_information_model_entities(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataEntityEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->doc_comment, "Entity inventory (list).");
@@ -42386,7 +42576,7 @@ static void meta_build_d03_information_model_entity_relationships(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "EntityRelationships");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Entity relationships.");
   meta_set(&n->class_doc_comment, "7.1.2. Entity Relationships.");
   meta_set(&n->detailed_in, "D03InformationModel");
@@ -42397,7 +42587,7 @@ static void meta_build_d03_information_model_er_diagram(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-er");
   n->content_type->description = som_strdup("");
@@ -42410,7 +42600,7 @@ static void meta_build_d03_information_model_data_classification(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataClassification");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Data classification.");
   meta_set(&n->class_doc_comment, "7.1.4. Data Classification.");
   meta_set(&n->detailed_in, "D03InformationModel");
@@ -42423,7 +42613,7 @@ static void meta_build_d03_information_model_object_catalog(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessObjectEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->doc_comment, "Business object catalog (list).");
@@ -42442,7 +42632,7 @@ static void meta_build_d03_information_model_object_diagram(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -42456,7 +42646,7 @@ static void meta_build_d03_information_model_function_decomposition(SomMetaNode 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FunctionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Function decomposition (list).");
 }
 static void meta_build_d03_information_model_function_decomposition_elem(SomMetaNode *n) {
@@ -42475,7 +42665,7 @@ static void meta_build_d03_information_model_function_to_data_matrix(SomMetaNode
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FunctionDataMatrixEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Function-to-data matrix (list).");
 }
 static void meta_build_d03_information_model_function_to_data_matrix_elem(SomMetaNode *n) {
@@ -42494,7 +42684,7 @@ static void meta_build_d03_information_model_business_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessRuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->doc_comment, "Business rules catalog (list).");
@@ -42514,7 +42704,7 @@ static void meta_build_d03_information_model_data_dictionary(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataDictionary");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Data dictionary.");
   meta_set(&n->class_doc_comment, "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..");
   meta_set(&n->detailed_in, "D03InformationModel");
@@ -42526,7 +42716,7 @@ static void meta_build_d03_information_model_validation_constraints(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ValidationConstraints");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).");
   meta_set(&n->class_doc_comment, "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.");
   meta_set(&n->detailed_in, "D03InformationModel");
@@ -42538,7 +42728,7 @@ static void meta_build_d03_information_model_integrity_constraints(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "IntegrityConstraints");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).");
   meta_set(&n->class_doc_comment, "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.");
   meta_set(&n->detailed_in, "D03InformationModel");
@@ -42550,7 +42740,7 @@ static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DomainEnumRegistry");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 16;
   meta_set(&n->doc_comment, "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).");
   meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
 }
@@ -42561,7 +42751,7 @@ static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ErrorCodeRegistry");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 17;
   meta_set(&n->doc_comment, "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).");
   meta_set(&n->class_doc_comment, "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.");
 }
@@ -42572,7 +42762,7 @@ static void meta_build_d03_information_model_result_envelope(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResultEnvelope");
   n->has_serialization_order = 1;
-  n->serialization_order = 16;
+  n->serialization_order = 18;
   meta_set(&n->doc_comment, "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).");
   meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
 }
@@ -42583,7 +42773,7 @@ static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MessageKeyRegistry");
   n->has_serialization_order = 1;
-  n->serialization_order = 17;
+  n->serialization_order = 19;
   meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).");
   meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.");
 }
@@ -42594,7 +42784,7 @@ static void meta_build_d03_information_model_server_operation_registry(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServerOperationRegistry");
   n->has_serialization_order = 1;
-  n->serialization_order = 18;
+  n->serialization_order = 20;
   meta_set(&n->doc_comment, "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.");
   meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
 }
@@ -42605,7 +42795,7 @@ static void meta_build_d03_information_model_schema_versioning_and_migration(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SchemaVersioningAndMigration");
   n->has_serialization_order = 1;
-  n->serialization_order = 19;
+  n->serialization_order = 21;
   meta_set(&n->doc_comment, "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
 }
@@ -42633,6 +42823,41 @@ static void meta_build_d04_requirements_specification_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d04_requirements_specification_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d04_requirements_specification_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D04RequirementsSpecification");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d04_requirements_specification_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d04_requirements_specification_functional_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalRequirements");
   meta_set(&n->member_name, "functionalRequirements");
@@ -42640,7 +42865,7 @@ static void meta_build_d04_requirements_specification_functional_requirements(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionalRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Functional requirements.");
   meta_set(&n->class_doc_comment, "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.");
   meta_set(&n->detailed_in, "D04RequirementsSpecification");
@@ -42652,7 +42877,7 @@ static void meta_build_d04_requirements_specification_technical_requirements(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Technical (non-functional) requirements.");
   meta_set(&n->class_doc_comment, "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.");
   meta_set(&n->detailed_in, "D04RequirementsSpecification");
@@ -42664,7 +42889,7 @@ static void meta_build_d04_requirements_specification_security_requirements(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SecurityRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Security requirements.");
   meta_set(&n->class_doc_comment, "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.");
   meta_set(&n->detailed_in, "D04RequirementsSpecification");
@@ -42676,7 +42901,7 @@ static void meta_build_d04_requirements_specification_organizational_requirement
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OrganizationalRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Organizational requirements.");
   meta_set(&n->class_doc_comment, "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.");
   meta_set(&n->detailed_in, "D04RequirementsSpecification");
@@ -42688,7 +42913,7 @@ static void meta_build_d04_requirements_specification_traceability_matrix(SomMet
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summary of traceability matrix showing connections between requirements, goals, use cases, and tests.");
@@ -42702,7 +42927,7 @@ static void meta_build_d04_requirements_specification_requirement_relationships(
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RequirementRelationships");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Requirement relationships.");
 }
 static void meta_build_d04_requirements_specification_requirement_relationships_elem(SomMetaNode *n) {
@@ -42721,7 +42946,7 @@ static void meta_build_d04_requirements_specification_requirement_coverage(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RequirementCoverage");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Requirement coverage.");
   meta_set(&n->class_doc_comment, "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.");
   meta_set(&n->detailed_in, "D04RequirementsSpecification");
@@ -42750,6 +42975,41 @@ static void meta_build_d05_interaction_scenarios_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d05_interaction_scenarios_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d05_interaction_scenarios_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D05InteractionScenarios");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d05_interaction_scenarios_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d05_interaction_scenarios_process_steps_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsOverview");
   meta_set(&n->member_name, "processStepsOverview");
@@ -42757,7 +43017,7 @@ static void meta_build_d05_interaction_scenarios_process_steps_overview(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessStepsOverview");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Process steps overview.");
   meta_set(&n->class_doc_comment, "6.2. Process Steps Overview.");
   meta_set(&n->detailed_in, "D05InteractionScenarios");
@@ -42769,7 +43029,7 @@ static void meta_build_d05_interaction_scenarios_actor_overview(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ActorOverview");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Actor overview.");
   meta_set(&n->class_doc_comment, "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.");
   meta_set(&n->detailed_in, "D05InteractionScenarios");
@@ -42781,7 +43041,7 @@ static void meta_build_d05_interaction_scenarios_interaction_catalog(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionCatalog");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Interaction catalog.");
   meta_set(&n->class_doc_comment, "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.");
   meta_set(&n->detailed_in, "D05InteractionScenarios");
@@ -42793,7 +43053,7 @@ static void meta_build_d05_interaction_scenarios_key_scenarios(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "KeyScenarios");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Key scenarios.");
   meta_set(&n->class_doc_comment, "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.");
   meta_set(&n->detailed_in, "D05InteractionScenarios");
@@ -42805,7 +43065,7 @@ static void meta_build_d05_interaction_scenarios_actor_relationship_diagram(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ActorRelationshipDiagram");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Actor relationship diagram.");
   meta_set(&n->class_doc_comment, "6.2. Actor Relationship Diagram.");
   meta_set(&n->detailed_in, "D05InteractionScenarios");
@@ -42818,7 +43078,7 @@ static void meta_build_d05_interaction_scenarios_end_to_end_test_scenarios(SomMe
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "EndToEndTestScenario");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "End-to-end test scenarios.");
 }
 static void meta_build_d05_interaction_scenarios_end_to_end_test_scenarios_elem(SomMetaNode *n) {
@@ -42837,7 +43097,7 @@ static void meta_build_d05_interaction_scenarios_use_case_traceability(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UseCaseTraceability");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Use case traceability.");
   meta_set(&n->class_doc_comment, "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.");
   meta_set(&n->detailed_in, "D05InteractionScenarios");
@@ -42866,6 +43126,41 @@ static void meta_build_d06_architecture_technology_specification_header(SomMetaN
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d06_architecture_technology_specification_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d06_architecture_technology_specification_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D06ArchitectureTechnologySpecification");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d06_architecture_technology_specification_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d06_architecture_technology_specification_basic_technical_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "BasicTechnicalRequirements");
   meta_set(&n->member_name, "basicTechnicalRequirements");
@@ -42873,7 +43168,7 @@ static void meta_build_d06_architecture_technology_specification_basic_technical
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BasicTechnicalRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Basic technical requirements.");
   meta_set(&n->class_doc_comment, "8.1. Basic Technical Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42885,7 +43180,7 @@ static void meta_build_d06_architecture_technology_specification_software_design
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SoftwareDesignRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Software design requirements.");
   meta_set(&n->class_doc_comment, "8.2. Software Design Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42897,7 +43192,7 @@ static void meta_build_d06_architecture_technology_specification_standard_softwa
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StandardSoftwareRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Standard application software requirements.");
   meta_set(&n->class_doc_comment, "8.3. Standard Application Software Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42909,7 +43204,7 @@ static void meta_build_d06_architecture_technology_specification_hardware_requir
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "HardwareRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Hardware concept requirements.");
   meta_set(&n->class_doc_comment, "8.4. Hardware Concept Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42921,7 +43216,7 @@ static void meta_build_d06_architecture_technology_specification_operations_requ
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OperationsRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Operations requirements.");
   meta_set(&n->class_doc_comment, "8.5. Operations Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42933,7 +43228,7 @@ static void meta_build_d06_architecture_technology_specification_communication_r
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CommunicationRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Communication requirements.");
   meta_set(&n->class_doc_comment, "8.6. Communication Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42945,7 +43240,7 @@ static void meta_build_d06_architecture_technology_specification_system_operatio
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemOperationAndMonitoring");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "System operation and monitoring.");
   meta_set(&n->class_doc_comment, "8.7. System Operation and Monitoring.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42957,7 +43252,7 @@ static void meta_build_d06_architecture_technology_specification_technical_secur
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalSecurityRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Technical security requirements.");
   meta_set(&n->class_doc_comment, "8.8. Security Requirements.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42969,7 +43264,7 @@ static void meta_build_d06_architecture_technology_specification_system_architec
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemArchitectureSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "System architecture (new in Phase A).");
   meta_set(&n->class_doc_comment, "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.");
   meta_set(&n->detailed_in, "D06ArchitectureTechnologySpecification");
@@ -42981,7 +43276,7 @@ static void meta_build_d06_architecture_technology_specification_components_to_u
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ComponentsAndDependencies");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Components to use (whole).");
   meta_set(&n->class_doc_comment, "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.");
   meta_set(&n->maps_to, "D06ArchitectureTechnologySpecification");
@@ -42994,7 +43289,7 @@ static void meta_build_d06_architecture_technology_specification_technical_envir
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalEnvironment");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Technical framework conditions (whole).");
   meta_set(&n->class_doc_comment, "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.");
   meta_set(&n->maps_to, "D06ArchitectureTechnologySpecification");
@@ -43007,7 +43302,7 @@ static void meta_build_d06_architecture_technology_specification_translation_req
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TranslationRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "Translation handling requirements (whole).");
   meta_set(&n->class_doc_comment, "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.");
   meta_set(&n->maps_to, "D06ArchitectureTechnologySpecification");
@@ -43037,6 +43332,41 @@ static void meta_build_d07_integration_interface_specification_header(SomMetaNod
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d07_integration_interface_specification_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d07_integration_interface_specification_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D07IntegrationInterfaceSpecification");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d07_integration_interface_specification_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d07_integration_interface_specification_external_interfaces(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalInterfaces");
   meta_set(&n->member_name, "externalInterfaces");
@@ -43044,7 +43374,7 @@ static void meta_build_d07_integration_interface_specification_external_interfac
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExternalInterfaces");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "External interfaces.");
   meta_set(&n->class_doc_comment, "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43056,7 +43386,7 @@ static void meta_build_d07_integration_interface_specification_out_of_scope(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OutOfScope");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Out of scope.");
   meta_set(&n->class_doc_comment, "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43068,7 +43398,7 @@ static void meta_build_d07_integration_interface_specification_boundary_assumpti
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BoundaryAssumptions");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Boundary assumptions.");
   meta_set(&n->class_doc_comment, "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43080,7 +43410,7 @@ static void meta_build_d07_integration_interface_specification_system_inventory(
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemLandscapeInventory");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "System landscape inventory.");
   meta_set(&n->class_doc_comment, "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43093,7 +43423,7 @@ static void meta_build_d07_integration_interface_specification_interaction_patte
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BoundaryInteractionPatterns");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Boundary interaction patterns.");
 }
 static void meta_build_d07_integration_interface_specification_interaction_patterns_elem(SomMetaNode *n) {
@@ -43112,7 +43442,7 @@ static void meta_build_d07_integration_interface_specification_testing_strategy(
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionTestingStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Interaction testing strategy.");
   meta_set(&n->class_doc_comment, "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43124,7 +43454,7 @@ static void meta_build_d07_integration_interface_specification_dependency_analys
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionDependencyAnalysis");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Interaction dependency analysis.");
   meta_set(&n->class_doc_comment, "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43137,7 +43467,7 @@ static void meta_build_d07_integration_interface_specification_migration_interac
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MigrationInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Migration interactions.");
 }
 static void meta_build_d07_integration_interface_specification_migration_interactions_elem(SomMetaNode *n) {
@@ -43157,7 +43487,7 @@ static void meta_build_d07_integration_interface_specification_operational_consi
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CrossBoundaryOperationalConsiderations");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Cross-boundary operational considerations.");
 }
 static void meta_build_d07_integration_interface_specification_operational_considerations_elem(SomMetaNode *n) {
@@ -43176,7 +43506,7 @@ static void meta_build_d07_integration_interface_specification_cross_boundary_er
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CrossBoundaryErrorHandling");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Cross-boundary error handling.");
   meta_set(&n->class_doc_comment, "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -43205,6 +43535,41 @@ static void meta_build_d08_security_access_specification_header(SomMetaNode *n) 
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d08_security_access_specification_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d08_security_access_specification_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D08SecurityAccessSpecification");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d08_security_access_specification_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d08_security_access_specification_user_management(SomMetaNode *n) {
   meta_set(&n->class_name, "UserManagement");
   meta_set(&n->member_name, "userManagement");
@@ -43212,7 +43577,7 @@ static void meta_build_d08_security_access_specification_user_management(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserManagement");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "User management.");
   meta_set(&n->class_doc_comment, "9.1. User Management.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43224,7 +43589,7 @@ static void meta_build_d08_security_access_specification_identification_and_auth
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "IdentificationAndAuthentication");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Identification and authentication.");
   meta_set(&n->class_doc_comment, "9.2. Identification and Authentication.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43236,7 +43601,7 @@ static void meta_build_d08_security_access_specification_resource_protection(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResourceProtection");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Resource protection.");
   meta_set(&n->class_doc_comment, "9.3. Resource Protection.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43248,7 +43613,7 @@ static void meta_build_d08_security_access_specification_user_authorization(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserAuthorization");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "User authorization.");
   meta_set(&n->class_doc_comment, "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43260,7 +43625,7 @@ static void meta_build_d08_security_access_specification_sensitive_data_encrypti
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SensitiveDataEncryption");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Sensitive data encryption.");
   meta_set(&n->class_doc_comment, "9.5. Sensitive Data Encryption.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43272,7 +43637,7 @@ static void meta_build_d08_security_access_specification_audit_and_logging(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AuditAndLogging");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Audit and logging — the CE-LG / CE-CF declarations.");
   meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43284,7 +43649,7 @@ static void meta_build_d08_security_access_specification_role_matrix(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RoleMatrix");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Role matrix.");
   meta_set(&n->class_doc_comment, "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43296,7 +43661,7 @@ static void meta_build_d08_security_access_specification_compliance_framework(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ComplianceFramework");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Compliance framework.");
   meta_set(&n->class_doc_comment, "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
@@ -43308,7 +43673,7 @@ static void meta_build_d08_security_access_specification_compliance_reporting(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ComplianceReporting");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.");
   meta_set(&n->class_doc_comment, "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.");
 }
@@ -43336,6 +43701,41 @@ static void meta_build_d09_experience_design_specification_header(SomMetaNode *n
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d09_experience_design_specification_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d09_experience_design_specification_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D09ExperienceDesignSpecification");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d09_experience_design_specification_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d09_experience_design_specification_design_vision(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignVision");
   meta_set(&n->member_name, "designVision");
@@ -43343,7 +43743,7 @@ static void meta_build_d09_experience_design_specification_design_vision(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DesignVision");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Design vision.");
   meta_set(&n->class_doc_comment, "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43356,7 +43756,7 @@ static void meta_build_d09_experience_design_specification_screens(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenDescriptions");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Screen descriptions.");
   meta_set(&n->class_doc_comment, "10.2. Screen Descriptions.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43369,7 +43769,7 @@ static void meta_build_d09_experience_design_specification_screen_flow(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenFlowStructure");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Screen flow structure.");
   meta_set(&n->class_doc_comment, "10.3. Screen Flow Structure.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43382,7 +43782,7 @@ static void meta_build_d09_experience_design_specification_print_layout(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PrintAndExportLayout");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Print layout.");
   meta_set(&n->class_doc_comment, "10.4. Print Layout.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43395,7 +43795,7 @@ static void meta_build_d09_experience_design_specification_report_definitions(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReportDefinitions");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Report definitions — the CE-RP report projections over the domain model.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
 }
@@ -43406,7 +43806,7 @@ static void meta_build_d09_experience_design_specification_error_handling(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ErrorHandling");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Error handling concept.");
   meta_set(&n->class_doc_comment, "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43419,7 +43819,7 @@ static void meta_build_d09_experience_design_specification_user_assistance(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserAssistance");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Help concept.");
   meta_set(&n->class_doc_comment, "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43432,7 +43832,7 @@ static void meta_build_d09_experience_design_specification_accessibility(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Accessibility");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Accessibility.");
   meta_set(&n->class_doc_comment, "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43445,7 +43845,7 @@ static void meta_build_d09_experience_design_specification_responsive_design(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResponsiveDesign");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Responsive design.");
   meta_set(&n->class_doc_comment, "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43458,7 +43858,7 @@ static void meta_build_d09_experience_design_specification_ui_components(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UiComponents");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "UI components.");
   meta_set(&n->class_doc_comment, "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43471,7 +43871,7 @@ static void meta_build_d09_experience_design_specification_language_country_sele
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "LanguageCountrySelection");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Language and country selection.");
   meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43484,7 +43884,7 @@ static void meta_build_d09_experience_design_specification_prototype(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Prototype");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "Prototype.");
   meta_set(&n->class_doc_comment, "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43497,7 +43897,7 @@ static void meta_build_d09_experience_design_specification_wireframes_and_mockup
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WireframesAndMockups");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 16;
   meta_set(&n->doc_comment, "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).");
   meta_set(&n->class_doc_comment, "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -43527,6 +43927,41 @@ static void meta_build_d10_quality_acceptance_plan_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d10_quality_acceptance_plan_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d10_quality_acceptance_plan_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D10QualityAcceptancePlan");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d10_quality_acceptance_plan_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d10_quality_acceptance_plan_quality_framework(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityFramework");
   meta_set(&n->member_name, "qualityFramework");
@@ -43534,7 +43969,7 @@ static void meta_build_d10_quality_acceptance_plan_quality_framework(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "QualityFramework");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Quality framework.");
   meta_set(&n->class_doc_comment, "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43546,7 +43981,7 @@ static void meta_build_d10_quality_acceptance_plan_functional_suitability(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionalSuitabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Functional suitability (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43558,7 +43993,7 @@ static void meta_build_d10_quality_acceptance_plan_performance_efficiency(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PerformanceEfficiencyCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Performance efficiency (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43570,7 +44005,7 @@ static void meta_build_d10_quality_acceptance_plan_compatibility(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CompatibilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Compatibility (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43582,7 +44017,7 @@ static void meta_build_d10_quality_acceptance_plan_interaction_capability(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionCapabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Interaction capability (ISO/IEC 25010:2023; formerly Usability).");
   meta_set(&n->class_doc_comment, "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43594,7 +44029,7 @@ static void meta_build_d10_quality_acceptance_plan_reliability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReliabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Reliability (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43606,7 +44041,7 @@ static void meta_build_d10_quality_acceptance_plan_security(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SecurityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Security (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43618,7 +44053,7 @@ static void meta_build_d10_quality_acceptance_plan_maintainability(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MaintainabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Maintainability (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43630,7 +44065,7 @@ static void meta_build_d10_quality_acceptance_plan_flexibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FlexibilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).");
   meta_set(&n->class_doc_comment, "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43642,7 +44077,7 @@ static void meta_build_d10_quality_acceptance_plan_documentation_quality_criteri
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DocumentationQualityCriteria");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Documentation quality (ISO/IEC 26514 annex).");
   meta_set(&n->class_doc_comment, "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43654,7 +44089,7 @@ static void meta_build_d10_quality_acceptance_plan_quality_prioritization(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "QualityPrioritization");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Quality prioritization.");
   meta_set(&n->class_doc_comment, "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43666,7 +44101,7 @@ static void meta_build_d10_quality_acceptance_plan_acceptance_criteria_summary(S
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AcceptanceCriteriaSummary");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "Acceptance criteria summary.");
   meta_set(&n->class_doc_comment, "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43678,7 +44113,7 @@ static void meta_build_d10_quality_acceptance_plan_test_strategy(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TestStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 16;
   meta_set(&n->doc_comment, "Test strategy (new in Phase A).");
   meta_set(&n->class_doc_comment, "11.8. Test Strategy.\n\nOverall test strategy for the project..");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43690,7 +44125,7 @@ static void meta_build_d10_quality_acceptance_plan_acceptance_criteria(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AcceptanceCriteriaList");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 17;
   meta_set(&n->doc_comment, "Acceptance criteria.");
   meta_set(&n->class_doc_comment, "14.2.1. Acceptance Criteria.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43702,7 +44137,7 @@ static void meta_build_d10_quality_acceptance_plan_acceptance_process(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AcceptanceProcess");
   n->has_serialization_order = 1;
-  n->serialization_order = 16;
+  n->serialization_order = 18;
   meta_set(&n->doc_comment, "Acceptance process.");
   meta_set(&n->class_doc_comment, "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43714,7 +44149,7 @@ static void meta_build_d10_quality_acceptance_plan_user_acceptance_testing(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserAcceptanceTesting");
   n->has_serialization_order = 1;
-  n->serialization_order = 17;
+  n->serialization_order = 19;
   meta_set(&n->doc_comment, "User acceptance testing.");
   meta_set(&n->class_doc_comment, "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43726,7 +44161,7 @@ static void meta_build_d10_quality_acceptance_plan_defect_resolution(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DefectResolution");
   n->has_serialization_order = 1;
-  n->serialization_order = 18;
+  n->serialization_order = 20;
   meta_set(&n->doc_comment, "Defect resolution.");
   meta_set(&n->class_doc_comment, "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43738,7 +44173,7 @@ static void meta_build_d10_quality_acceptance_plan_sign_off_process(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SignOffProcess");
   n->has_serialization_order = 1;
-  n->serialization_order = 19;
+  n->serialization_order = 21;
   meta_set(&n->doc_comment, "Sign-off process.");
   meta_set(&n->class_doc_comment, "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43750,7 +44185,7 @@ static void meta_build_d10_quality_acceptance_plan_warranty(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WarrantyTerms");
   n->has_serialization_order = 1;
-  n->serialization_order = 20;
+  n->serialization_order = 22;
   meta_set(&n->doc_comment, "Warranty terms.");
   meta_set(&n->class_doc_comment, "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -43779,6 +44214,41 @@ static void meta_build_d11_delivery_roadmap_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d11_delivery_roadmap_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d11_delivery_roadmap_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D11DeliveryRoadmap");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d11_delivery_roadmap_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d11_delivery_roadmap_staging_strategy(SomMetaNode *n) {
   meta_set(&n->class_name, "StagingStrategy");
   meta_set(&n->member_name, "stagingStrategy");
@@ -43786,7 +44256,7 @@ static void meta_build_d11_delivery_roadmap_staging_strategy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StagingStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Staging strategy.");
   meta_set(&n->class_doc_comment, "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43798,7 +44268,7 @@ static void meta_build_d11_delivery_roadmap_stage_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StageOverview");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Stage overview.");
   meta_set(&n->class_doc_comment, "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43811,7 +44281,7 @@ static void meta_build_d11_delivery_roadmap_stages(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "StageEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->doc_comment, "Stages (list).");
@@ -43831,7 +44301,7 @@ static void meta_build_d11_delivery_roadmap_feature_prioritization(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FeaturePrioritization");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Feature prioritization.");
   meta_set(&n->class_doc_comment, "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43843,7 +44313,7 @@ static void meta_build_d11_delivery_roadmap_data_migration_strategy(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataMigrationStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Data migration strategy.");
   meta_set(&n->class_doc_comment, "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43855,7 +44325,7 @@ static void meta_build_d11_delivery_roadmap_gate_criteria(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PhaseGateReviews");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Gate criteria (promoted from GOV).");
   meta_set(&n->class_doc_comment, "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43867,7 +44337,7 @@ static void meta_build_d11_delivery_roadmap_decision_processes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DecisionPoints");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Decision processes (promoted from GOV).");
   meta_set(&n->class_doc_comment, "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43879,7 +44349,7 @@ static void meta_build_d11_delivery_roadmap_initial_development_flow(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InitialDevelopmentFlow");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Initial development flow.");
   meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43891,7 +44361,7 @@ static void meta_build_d11_delivery_roadmap_upgrade_cycle_framework(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UpgradeCycleFramework");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).");
   meta_set(&n->class_doc_comment, "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
@@ -43920,6 +44390,41 @@ static void meta_build_d12_transition_rollout_plan_header(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Standard TomSpecs document header.");
   meta_set(&n->class_doc_comment, "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.");
 }
+static void meta_build_d12_transition_rollout_plan_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_d12_transition_rollout_plan_revision_history(SomMetaNode *n) {
+  meta_set(&n->class_name, "D12TransitionRolloutPlan");
+  meta_set(&n->member_name, "revisionHistory");
+  meta_set(&n->section_id, "RVENT-REVS-LST");
+  meta_set(&n->section_id_pattern, "RVENT-REVS-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RevisionEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.");
+  meta_set(&n->doc_comment, "Chronological revision history of this document, with the reviewers of\neach revision.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)\"],\"connotation\":\"The ordered set of published revisions of this document.\"}", NULL);
+}
+static void meta_build_d12_transition_rollout_plan_revision_history_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->class_section_id, "RVENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RevisionEntry");
+  meta_set(&n->doc_comment, "A single document revision entry (form).");
+  meta_set(&n->class_doc_comment, "A single document revision entry (form).");
+}
 static void meta_build_d12_transition_rollout_plan_localization_process(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
   meta_set(&n->member_name, "localizationProcess");
@@ -43927,7 +44432,7 @@ static void meta_build_d12_transition_rollout_plan_localization_process(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "LocalizationProcess");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Localization process.");
   meta_set(&n->class_doc_comment, "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
@@ -43940,7 +44445,7 @@ static void meta_build_d12_transition_rollout_plan_translation_process(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TranslationProcess");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Translation process.");
   meta_set(&n->class_doc_comment, "10.12.2. Translation Process.\n\nWorkflow for translating content.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
@@ -43953,7 +44458,7 @@ static void meta_build_d12_transition_rollout_plan_user_documentation(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserDocumentationRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).");
   meta_set(&n->class_doc_comment, "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
@@ -43966,7 +44471,7 @@ static void meta_build_d12_transition_rollout_plan_training_deliverables(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TrainingDeliverableRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).");
   meta_set(&n->class_doc_comment, "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
@@ -43979,7 +44484,7 @@ static void meta_build_d12_transition_rollout_plan_rollout_plan(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RolloutPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Rollout plan.");
   meta_set(&n->class_doc_comment, "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -43991,7 +44496,7 @@ static void meta_build_d12_transition_rollout_plan_migration_plan(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Migration plan.");
   meta_set(&n->class_doc_comment, "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44003,7 +44508,7 @@ static void meta_build_d12_transition_rollout_plan_user_manuals(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserManual");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).");
   meta_set(&n->class_doc_comment, "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44015,7 +44520,7 @@ static void meta_build_d12_transition_rollout_plan_training_materials(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RolloutTrainingMaterial");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).");
   meta_set(&n->class_doc_comment, "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44027,7 +44532,7 @@ static void meta_build_d12_transition_rollout_plan_pilot_plan(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PilotPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Pilot plan.");
   meta_set(&n->class_doc_comment, "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44039,7 +44544,7 @@ static void meta_build_d12_transition_rollout_plan_cutover_procedures(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CutoverProcedure");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).");
   meta_set(&n->class_doc_comment, "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44051,7 +44556,7 @@ static void meta_build_d12_transition_rollout_plan_knowledge_transfer(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "KnowledgeTransfer");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Knowledge transfer.");
   meta_set(&n->class_doc_comment, "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -44063,7 +44568,7 @@ static void meta_build_d12_transition_rollout_plan_warranty_and_support(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WarrantyAndSupport");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "Warranty and support.");
   meta_set(&n->class_doc_comment, "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
@@ -58531,6 +59036,58 @@ static void meta_build_document_relevant_sections_sections_elem(SomMetaNode *n) 
   meta_set(&n->type_name, "RelevantSectionEntry");
   meta_set(&n->doc_comment, "A single relevant section entry within a reference document.");
   meta_set(&n->class_doc_comment, "A single relevant section entry within a reference document.");
+}
+static void meta_build_document_review_team_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DocumentReviewTeamEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("documentType");
+  n->form->fields[0].type_name = som_strdup("SpecDocumentType");
+  n->form->fields[0].description = som_strdup("Document Type");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The document root type this team reviews; one entry per type.");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 12;
+  n->form->fields[0].enum_values = (char **)calloc(12, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("d01CurrentLandscapeAssessment");
+  n->form->fields[0].enum_values[1] = som_strdup("d02TargetOperatingModel");
+  n->form->fields[0].enum_values[2] = som_strdup("d03InformationModel");
+  n->form->fields[0].enum_values[3] = som_strdup("d04RequirementsSpecification");
+  n->form->fields[0].enum_values[4] = som_strdup("d05InteractionScenarios");
+  n->form->fields[0].enum_values[5] = som_strdup("d06ArchitectureTechnologySpecification");
+  n->form->fields[0].enum_values[6] = som_strdup("d07IntegrationInterfaceSpecification");
+  n->form->fields[0].enum_values[7] = som_strdup("d08SecurityAccessSpecification");
+  n->form->fields[0].enum_values[8] = som_strdup("d09ExperienceDesignSpecification");
+  n->form->fields[0].enum_values[9] = som_strdup("d10QualityAcceptancePlan");
+  n->form->fields[0].enum_values[10] = som_strdup("d11DeliveryRoadmap");
+  n->form->fields[0].enum_values[11] = som_strdup("d12TransitionRolloutPlan");
+}
+static void meta_build_document_review_team_entry_members(SomMetaNode *n) {
+  meta_set(&n->class_name, "DocumentReviewTeamEntry");
+  meta_set(&n->member_name, "members");
+  meta_set(&n->section_id, "RVMEM-MEMB-LST");
+  meta_set(&n->section_id_pattern, "RVMEM-MEMB-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ReviewTeamMember");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per member of this document type's team.");
+  meta_set(&n->doc_comment, "The members of the team.");
+}
+static void meta_build_document_review_team_entry_members_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeamMember");
+  meta_set(&n->class_section_id, "RVMEM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeamMember");
+  meta_set(&n->doc_comment, "One member of a review team (form).");
+  meta_set(&n->class_doc_comment, "One member of a review team (form).");
 }
 static void meta_build_documentation_deliverables_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentationDeliverables");
@@ -119477,6 +120034,126 @@ static void meta_build_review_criterion_entry_result(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria\",\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes\"],\"connotation\":\"Captures the post-review result for a criterion together with reviewer notes and any required remediation.\"}", NULL);
 }
+static void meta_build_review_team_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+}
+static void meta_build_review_team_members(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "members");
+  meta_set(&n->section_id, "RVMEM-MEMB-LST");
+  meta_set(&n->section_id_pattern, "RVMEM-MEMB-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ReviewTeamMember");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per member. Mark the specification owner with owner: true in the default team.");
+  meta_set(&n->doc_comment, "The members of the team.");
+}
+static void meta_build_review_team_members_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeamMember");
+  meta_set(&n->class_section_id, "RVMEM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeamMember");
+  meta_set(&n->doc_comment, "One member of a review team (form).");
+  meta_set(&n->class_doc_comment, "One member of a review team (form).");
+}
+static void meta_build_review_team_member_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeamMember");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("memberId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Member Id");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("displayName");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Display Name");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("role");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Role");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("stakeholder");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Stakeholder");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The stakeholder register entry this member represents.");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("STKRE.@sectionId");
+  n->form->fields[4].name = som_strdup("email");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("E-Mail");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Stored only; nothing sends mail.");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("owner");
+  n->form->fields[5].type_name = som_strdup("bool");
+  n->form->fields[5].description = som_strdup("Owner");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("true for the specification owner, who is always a reviewer.");
+  n->form->fields[5].order = 5;
+}
+static void meta_build_reviewer_record_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewerRecord");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("memberId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Member Id");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The member id, as in the team, or the guest's id.");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("displayName");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Display Name");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("role");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Role");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("guest");
+  n->form->fields[3].type_name = som_strdup("bool");
+  n->form->fields[3].description = som_strdup("Guest");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("true for a reviewer who was not on the team the round used.");
+  n->form->fields[3].order = 3;
+}
 static void meta_build_revision_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RevisionEntry");
   meta_set(&n->member_name, "content");
@@ -119512,6 +120189,46 @@ static void meta_build_revision_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("One or two sentences on what changed and why.");
   n->form->fields[3].order = 3;
+}
+static void meta_build_revision_entry_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->section_id, "RVWER-TEAM-LST");
+  meta_set(&n->section_id_pattern, "RVWER-TEAM-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ReviewerRecord");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "The members the review round started with, each written out in full.");
+  meta_set(&n->doc_comment, "The review team the round leading to this revision started with.");
+}
+static void meta_build_revision_entry_review_team_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewerRecord");
+  meta_set(&n->class_section_id, "RVWER");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewerRecord");
+  meta_set(&n->doc_comment, "A reviewer recorded in a revision entry (form).");
+  meta_set(&n->class_doc_comment, "A reviewer recorded in a revision entry (form).");
+}
+static void meta_build_revision_entry_reviewers(SomMetaNode *n) {
+  meta_set(&n->class_name, "RevisionEntry");
+  meta_set(&n->member_name, "reviewers");
+  meta_set(&n->section_id, "RVWER-RETN-LST");
+  meta_set(&n->section_id_pattern, "RVWER-RETN-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ReviewerRecord");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->content_help, "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.");
+  meta_set(&n->doc_comment, "The reviewers who returned a reviewed copy, guests included.");
+}
+static void meta_build_revision_entry_reviewers_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewerRecord");
+  meta_set(&n->class_section_id, "RVWER");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewerRecord");
+  meta_set(&n->doc_comment, "A reviewer recorded in a revision entry (form).");
+  meta_set(&n->class_doc_comment, "A reviewer recorded in a revision entry (form).");
 }
 static void meta_build_risk_business_impact_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskBusinessImpact");
@@ -138768,6 +139485,37 @@ static void meta_build_stakeholders_and_governance_stakeholder_register_elem(Som
   meta_set(&n->type_name, "StakeholderRegisterEntry");
   meta_set(&n->doc_comment, "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).");
   meta_set(&n->class_doc_comment, "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).");
+}
+static void meta_build_stakeholders_and_governance_review_team(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReviewTeam");
+  meta_set(&n->member_name, "reviewTeam");
+  meta_set(&n->class_section_id, "RVTEAM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReviewTeam");
+  n->has_serialization_order = 1;
+  n->serialization_order = 9;
+  meta_set(&n->doc_comment, "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.");
+  meta_set(&n->class_doc_comment, "A review team: the members who review a document.");
+}
+static void meta_build_stakeholders_and_governance_document_review_teams(SomMetaNode *n) {
+  meta_set(&n->class_name, "StakeholdersAndGovernance");
+  meta_set(&n->member_name, "documentReviewTeams");
+  meta_set(&n->section_id, "DCRVTM-DOCR-LST");
+  meta_set(&n->section_id_pattern, "DCRVTM-DOCR-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "DocumentReviewTeamEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 10;
+  meta_set(&n->content_help, "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.");
+  meta_set(&n->doc_comment, "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.");
+}
+static void meta_build_stakeholders_and_governance_document_review_teams_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "DocumentReviewTeamEntry");
+  meta_set(&n->class_section_id, "DCRVTM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "DocumentReviewTeamEntry");
+  meta_set(&n->doc_comment, "The Solution Blueprint's review team for one document type (form + members).");
+  meta_set(&n->class_doc_comment, "The Solution Blueprint's review team for one document type (form + members).");
 }
 static void meta_build_stakeholders_and_interests_content(SomMetaNode *n) {
   meta_set(&n->class_name, "StakeholdersAndInterests");
@@ -170603,6 +171351,13 @@ static SomMetaNode **meta_children_d01_current_landscape_assessment(SomStrList *
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d01_current_landscape_assessment_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d01_current_landscape_assessment_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d01_current_landscape_assessment_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d01_current_landscape_assessment_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("ExistingSystemsLandscape", stack, meta_children_existing_systems_landscape, meta_build_d01_current_landscape_assessment_existing_systems_landscape));
   meta_push(&arr, len, &cap, meta_cx("CurrentBusinessProcesses", stack, meta_children_current_business_processes, meta_build_d01_current_landscape_assessment_current_business_processes));
   meta_push(&arr, len, &cap, meta_cx("PainPointsAndGaps", stack, meta_children_pain_points_and_gaps, meta_build_d01_current_landscape_assessment_pain_points_and_gaps));
@@ -170629,6 +171384,13 @@ static SomMetaNode **meta_children_d02_target_operating_model(SomStrList *stack,
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d02_target_operating_model_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d02_target_operating_model_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d02_target_operating_model_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d02_target_operating_model_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("ProcessVision", stack, meta_children_process_vision, meta_build_d02_target_operating_model_process_vision));
   meta_push(&arr, len, &cap, meta_cx("ProcessDesignPrinciples", stack, meta_children_process_design_principles, meta_build_d02_target_operating_model_design_principles));
   meta_push(&arr, len, &cap, meta_cx("ProcessCatalog", stack, meta_children_process_catalog, meta_build_d02_target_operating_model_process_catalog));
@@ -170662,6 +171424,13 @@ static SomMetaNode **meta_children_d03_information_model(SomStrList *stack, size
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d03_information_model_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d03_information_model_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d03_information_model_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d03_information_model_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_d03_information_model_entities(ln);
@@ -170726,6 +171495,13 @@ static SomMetaNode **meta_children_d04_requirements_specification(SomStrList *st
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d04_requirements_specification_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d04_requirements_specification_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d04_requirements_specification_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d04_requirements_specification_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("FunctionalRequirements", stack, meta_children_functional_requirements, meta_build_d04_requirements_specification_functional_requirements));
   meta_push(&arr, len, &cap, meta_cx("TechnicalRequirements", stack, meta_children_technical_requirements, meta_build_d04_requirements_specification_technical_requirements));
   meta_push(&arr, len, &cap, meta_cx("SecurityRequirements", stack, meta_children_security_requirements, meta_build_d04_requirements_specification_security_requirements));
@@ -170755,6 +171531,13 @@ static SomMetaNode **meta_children_d05_interaction_scenarios(SomStrList *stack, 
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d05_interaction_scenarios_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d05_interaction_scenarios_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d05_interaction_scenarios_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d05_interaction_scenarios_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("ProcessStepsOverview", stack, meta_children_process_steps_overview, meta_build_d05_interaction_scenarios_process_steps_overview));
   meta_push(&arr, len, &cap, meta_cx("ActorOverview", stack, meta_children_actor_overview, meta_build_d05_interaction_scenarios_actor_overview));
   meta_push(&arr, len, &cap, meta_cx("InteractionCatalog", stack, meta_children_interaction_catalog, meta_build_d05_interaction_scenarios_interaction_catalog));
@@ -170780,6 +171563,13 @@ static SomMetaNode **meta_children_d06_architecture_technology_specification(Som
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d06_architecture_technology_specification_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d06_architecture_technology_specification_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d06_architecture_technology_specification_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d06_architecture_technology_specification_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("BasicTechnicalRequirements", stack, meta_children_basic_technical_requirements, meta_build_d06_architecture_technology_specification_basic_technical_requirements));
   meta_push(&arr, len, &cap, meta_cx("SoftwareDesignRequirements", stack, meta_children_software_design_requirements, meta_build_d06_architecture_technology_specification_software_design_requirements));
   meta_push(&arr, len, &cap, meta_cx("StandardSoftwareRequirements", stack, meta_children_standard_software_requirements, meta_build_d06_architecture_technology_specification_standard_software_requirements));
@@ -170805,6 +171595,13 @@ static SomMetaNode **meta_children_d07_integration_interface_specification(SomSt
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d07_integration_interface_specification_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d07_integration_interface_specification_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d07_integration_interface_specification_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d07_integration_interface_specification_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("ExternalInterfaces", stack, meta_children_external_interfaces, meta_build_d07_integration_interface_specification_external_interfaces));
   meta_push(&arr, len, &cap, meta_cx("OutOfScope", stack, meta_children_out_of_scope, meta_build_d07_integration_interface_specification_out_of_scope));
   meta_push(&arr, len, &cap, meta_cx("BoundaryAssumptions", stack, meta_children_boundary_assumptions, meta_build_d07_integration_interface_specification_boundary_assumptions));
@@ -170843,6 +171640,13 @@ static SomMetaNode **meta_children_d08_security_access_specification(SomStrList 
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d08_security_access_specification_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d08_security_access_specification_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d08_security_access_specification_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d08_security_access_specification_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("UserManagement", stack, meta_children_user_management, meta_build_d08_security_access_specification_user_management));
   meta_push(&arr, len, &cap, meta_cx("IdentificationAndAuthentication", stack, meta_children_identification_and_authentication, meta_build_d08_security_access_specification_identification_and_authentication));
   meta_push(&arr, len, &cap, meta_cx("ResourceProtection", stack, meta_children_resource_protection, meta_build_d08_security_access_specification_resource_protection));
@@ -170865,6 +171669,13 @@ static SomMetaNode **meta_children_d09_experience_design_specification(SomStrLis
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d09_experience_design_specification_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d09_experience_design_specification_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d09_experience_design_specification_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d09_experience_design_specification_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("DesignVision", stack, meta_children_design_vision, meta_build_d09_experience_design_specification_design_vision));
   meta_push(&arr, len, &cap, meta_cx("ScreenDescriptions", stack, meta_children_screen_descriptions, meta_build_d09_experience_design_specification_screens));
   meta_push(&arr, len, &cap, meta_cx("ScreenFlowStructure", stack, meta_children_screen_flow_structure, meta_build_d09_experience_design_specification_screen_flow));
@@ -170891,6 +171702,13 @@ static SomMetaNode **meta_children_d10_quality_acceptance_plan(SomStrList *stack
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d10_quality_acceptance_plan_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d10_quality_acceptance_plan_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d10_quality_acceptance_plan_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d10_quality_acceptance_plan_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("QualityFramework", stack, meta_children_quality_framework, meta_build_d10_quality_acceptance_plan_quality_framework));
   meta_push(&arr, len, &cap, meta_cx("FunctionalSuitabilityCharacteristic", stack, meta_children_functional_suitability_characteristic, meta_build_d10_quality_acceptance_plan_functional_suitability));
   meta_push(&arr, len, &cap, meta_cx("PerformanceEfficiencyCharacteristic", stack, meta_children_performance_efficiency_characteristic, meta_build_d10_quality_acceptance_plan_performance_efficiency));
@@ -170923,6 +171741,13 @@ static SomMetaNode **meta_children_d11_delivery_roadmap(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d11_delivery_roadmap_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d11_delivery_roadmap_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d11_delivery_roadmap_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d11_delivery_roadmap_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("StagingStrategy", stack, meta_children_staging_strategy, meta_build_d11_delivery_roadmap_staging_strategy));
   meta_push(&arr, len, &cap, meta_cx("StageOverview", stack, meta_children_stage_overview, meta_build_d11_delivery_roadmap_stage_overview));
   {
@@ -170950,6 +171775,13 @@ static SomMetaNode **meta_children_d12_transition_rollout_plan(SomStrList *stack
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("DocumentHeader", stack, meta_children_document_header, meta_build_d12_transition_rollout_plan_header));
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_d12_transition_rollout_plan_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_d12_transition_rollout_plan_revision_history(ln);
+    ln->element_node = meta_cx("RevisionEntry", stack, meta_children_revision_entry, meta_build_d12_transition_rollout_plan_revision_history_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("LocalizationProcess", stack, meta_children_localization_process, meta_build_d12_transition_rollout_plan_localization_process));
   meta_push(&arr, len, &cap, meta_cx("TranslationProcess", stack, meta_children_translation_process, meta_build_d12_transition_rollout_plan_translation_process));
   meta_push(&arr, len, &cap, meta_cx("UserDocumentationRequirements", stack, meta_children_user_documentation_requirements, meta_build_d12_transition_rollout_plan_user_documentation));
@@ -173974,6 +174806,24 @@ static SomMetaNode **meta_children_document_relevant_sections(SomStrList *stack,
     SomMetaNode *ln = som_meta_node_new();
     meta_build_document_relevant_sections_sections(ln);
     ln->element_node = meta_cx("RelevantSectionEntry", stack, meta_children_relevant_section_entry, meta_build_document_relevant_sections_sections_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_document_review_team_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_document_review_team_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_document_review_team_entry_members(ln);
+    ln->element_node = meta_cx("ReviewTeamMember", stack, meta_children_review_team_member, meta_build_document_review_team_entry_members_elem);
     meta_push(&arr, len, &cap, ln);
   }
   return arr;
@@ -187265,8 +188115,51 @@ static SomMetaNode **meta_children_review_criterion_entry(SomStrList *stack, siz
   return arr;
 }
 
-static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len) {
+static SomMetaNode **meta_children_review_team(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_review_team_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_review_team_members(ln);
+    ln->element_node = meta_cx("ReviewTeamMember", stack, meta_children_review_team_member, meta_build_review_team_members_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_review_team_member(SomStrList *stack, size_t *len) {
   (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_review_team_member_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_reviewer_record(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_reviewer_record_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -187274,6 +188167,18 @@ static SomMetaNode **meta_children_revision_entry(SomStrList *stack, size_t *len
     SomMetaNode *n = som_meta_node_new();
     meta_build_revision_entry_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_revision_entry_review_team(ln);
+    ln->element_node = meta_cx("ReviewerRecord", stack, meta_children_reviewer_record, meta_build_revision_entry_review_team_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_revision_entry_reviewers(ln);
+    ln->element_node = meta_cx("ReviewerRecord", stack, meta_children_reviewer_record, meta_build_revision_entry_reviewers_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -191165,6 +192070,13 @@ static SomMetaNode **meta_children_stakeholders_and_governance(SomStrList *stack
     SomMetaNode *ln = som_meta_node_new();
     meta_build_stakeholders_and_governance_stakeholder_register(ln);
     ln->element_node = meta_cx("StakeholderRegisterEntry", stack, meta_children_stakeholder_register_entry, meta_build_stakeholders_and_governance_stakeholder_register_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  meta_push(&arr, len, &cap, meta_cx("ReviewTeam", stack, meta_children_review_team, meta_build_stakeholders_and_governance_review_team));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_stakeholders_and_governance_document_review_teams(ln);
+    ln->element_node = meta_cx("DocumentReviewTeamEntry", stack, meta_children_document_review_team_entry, meta_build_stakeholders_and_governance_document_review_teams_elem);
     meta_push(&arr, len, &cap, ln);
   }
   return arr;
@@ -204453,6 +205365,20 @@ som_nav_document_header d01_current_landscape_assessment_nav_header(som_nav_d01_
   free(path);
   return out;
 }
+som_nav_review_team d01_current_landscape_assessment_nav_review_team(som_nav_d01_current_landscape_assessment x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d01_current_landscape_assessment_nav_revision_history(som_nav_d01_current_landscape_assessment x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
+  free(path);
+  return out;
+}
 som_nav_existing_systems_landscape d01_current_landscape_assessment_nav_existing_systems_landscape(som_nav_d01_current_landscape_assessment x) {
   som_nav_existing_systems_landscape out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape");
@@ -204520,6 +205446,20 @@ som_nav_document_header d02_target_operating_model_nav_header(som_nav_d02_target
   som_nav_document_header out;
   char *path = spec_path_join(x.ref.path, "header");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_review_team d02_target_operating_model_nav_review_team(som_nav_d02_target_operating_model x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d02_target_operating_model_nav_revision_history(som_nav_d02_target_operating_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -204604,6 +205544,20 @@ som_nav_document_header d03_information_model_nav_header(som_nav_d03_information
   som_nav_document_header out;
   char *path = spec_path_join(x.ref.path, "header");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_review_team d03_information_model_nav_review_team(som_nav_d03_information_model x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_nav_revision_history(som_nav_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -204747,6 +205701,20 @@ som_nav_document_header d04_requirements_specification_nav_header(som_nav_d04_re
   free(path);
   return out;
 }
+som_nav_review_team d04_requirements_specification_nav_review_team(som_nav_d04_requirements_specification x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d04_requirements_specification_nav_revision_history(som_nav_d04_requirements_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
+  free(path);
+  return out;
+}
 som_nav_functional_requirements d04_requirements_specification_nav_functional_requirements(som_nav_d04_requirements_specification x) {
   som_nav_functional_requirements out;
   char *path = spec_path_join(x.ref.path, "functionalRequirements");
@@ -204810,6 +205778,20 @@ som_nav_document_header d05_interaction_scenarios_nav_header(som_nav_d05_interac
   free(path);
   return out;
 }
+som_nav_review_team d05_interaction_scenarios_nav_review_team(som_nav_d05_interaction_scenarios x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d05_interaction_scenarios_nav_revision_history(som_nav_d05_interaction_scenarios x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
+  free(path);
+  return out;
+}
 som_nav_process_steps_overview d05_interaction_scenarios_nav_process_steps_overview(som_nav_d05_interaction_scenarios x) {
   som_nav_process_steps_overview out;
   char *path = spec_path_join(x.ref.path, "processStepsOverview");
@@ -204870,6 +205852,20 @@ som_nav_document_header d06_architecture_technology_specification_nav_header(som
   som_nav_document_header out;
   char *path = spec_path_join(x.ref.path, "header");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_review_team d06_architecture_technology_specification_nav_review_team(som_nav_d06_architecture_technology_specification x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_nav_revision_history(som_nav_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -204971,6 +205967,20 @@ som_nav_document_header d07_integration_interface_specification_nav_header(som_n
   free(path);
   return out;
 }
+som_nav_review_team d07_integration_interface_specification_nav_review_team(som_nav_d07_integration_interface_specification x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d07_integration_interface_specification_nav_revision_history(som_nav_d07_integration_interface_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
+  free(path);
+  return out;
+}
 som_nav_external_interfaces d07_integration_interface_specification_nav_external_interfaces(som_nav_d07_integration_interface_specification x) {
   som_nav_external_interfaces out;
   char *path = spec_path_join(x.ref.path, "externalInterfaces");
@@ -205055,6 +206065,20 @@ som_nav_document_header d08_security_access_specification_nav_header(som_nav_d08
   free(path);
   return out;
 }
+som_nav_review_team d08_security_access_specification_nav_review_team(som_nav_d08_security_access_specification x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d08_security_access_specification_nav_revision_history(som_nav_d08_security_access_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
+  free(path);
+  return out;
+}
 som_nav_user_management d08_security_access_specification_nav_user_management(som_nav_d08_security_access_specification x) {
   som_nav_user_management out;
   char *path = spec_path_join(x.ref.path, "userManagement");
@@ -205129,6 +206153,20 @@ som_nav_document_header d09_experience_design_specification_nav_header(som_nav_d
   som_nav_document_header out;
   char *path = spec_path_join(x.ref.path, "header");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_review_team d09_experience_design_specification_nav_review_team(som_nav_d09_experience_design_specification x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d09_experience_design_specification_nav_revision_history(som_nav_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -205234,6 +206272,20 @@ som_nav_document_header d10_quality_acceptance_plan_nav_header(som_nav_d10_quali
   som_nav_document_header out;
   char *path = spec_path_join(x.ref.path, "header");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_review_team d10_quality_acceptance_plan_nav_review_team(som_nav_d10_quality_acceptance_plan x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d10_quality_acceptance_plan_nav_revision_history(som_nav_d10_quality_acceptance_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -205384,6 +206436,20 @@ som_nav_document_header d11_delivery_roadmap_nav_header(som_nav_d11_delivery_roa
   free(path);
   return out;
 }
+som_nav_review_team d11_delivery_roadmap_nav_review_team(som_nav_d11_delivery_roadmap x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d11_delivery_roadmap_nav_revision_history(som_nav_d11_delivery_roadmap x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
+  free(path);
+  return out;
+}
 som_nav_staging_strategy d11_delivery_roadmap_nav_staging_strategy(som_nav_d11_delivery_roadmap x) {
   som_nav_staging_strategy out;
   char *path = spec_path_join(x.ref.path, "stagingStrategy");
@@ -205458,6 +206524,20 @@ som_nav_document_header d12_transition_rollout_plan_nav_header(som_nav_d12_trans
   som_nav_document_header out;
   char *path = spec_path_join(x.ref.path, "header");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_review_team d12_transition_rollout_plan_nav_review_team(som_nav_d12_transition_rollout_plan x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d12_transition_rollout_plan_nav_revision_history(som_nav_d12_transition_rollout_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_revision_entry);
   free(path);
   return out;
 }
@@ -208958,6 +210038,20 @@ SomListMetaRef document_relevant_sections_nav_sections(som_nav_document_relevant
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RESEEN-SECT-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_relevant_section_entry);
+  free(path);
+  return out;
+}
+SomMetaRef document_review_team_entry_nav_content(som_nav_document_review_team_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef document_review_team_entry_nav_members(som_nav_document_review_team_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_review_team_member);
   free(path);
   return out;
 }
@@ -223150,10 +224244,52 @@ SomMetaRef review_criterion_entry_nav_result(som_nav_review_criterion_entry x) {
   free(path);
   return out;
 }
+SomMetaRef review_team_nav_content(som_nav_review_team x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef review_team_nav_members(som_nav_review_team x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomMetaRef review_team_member_nav_content(som_nav_review_team_member x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef reviewer_record_nav_content(som_nav_reviewer_record x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef revision_entry_nav_content(som_nav_revision_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef revision_entry_nav_review_team(som_nav_revision_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVWER-TEAM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_reviewer_record);
+  free(path);
+  return out;
+}
+SomListMetaRef revision_entry_nav_reviewers(som_nav_revision_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVWER-RETN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_reviewer_record);
   free(path);
   return out;
 }
@@ -227354,6 +228490,20 @@ SomListMetaRef stakeholders_and_governance_nav_stakeholder_register(som_nav_stak
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "STKRE-STAK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_stakeholder_register_entry);
+  free(path);
+  return out;
+}
+som_nav_review_team stakeholders_and_governance_nav_review_team(som_nav_stakeholders_and_governance x) {
+  som_nav_review_team out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef stakeholders_and_governance_nav_document_review_teams(som_nav_stakeholders_and_governance x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DCRVTM-DOCR-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_document_review_team_entry);
   free(path);
   return out;
 }
@@ -236430,6 +237580,20 @@ SomListMetaRef d00_solution_blueprint_id_stkre_stak_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_rvmem_memb_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_dcrvtm_docr_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "stakeholdersAndGovernance/DCRVTM-DOCR-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_document_review_team_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_esent_syst_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST");
@@ -244641,6 +245805,20 @@ SomMetaRef d00_solution_blueprint_id_locrp(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomListMetaRef d01_current_landscape_assessment_id_rvmem_memb_lst(som_id_d01_current_landscape_assessment x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d01_current_landscape_assessment_id_rvent_revs_lst(som_id_d01_current_landscape_assessment x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d01_current_landscape_assessment_id_esent_syst_lst(som_id_d01_current_landscape_assessment x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "existingSystemsLandscape/systemInventory/ESENT-SYST-LST");
@@ -245187,6 +246365,20 @@ SomListMetaRef d01_current_landscape_assessment_id_migcon_esca_lst(som_id_d01_cu
   free(path);
   return out;
 }
+SomListMetaRef d02_target_operating_model_id_rvmem_memb_lst(som_id_d02_target_operating_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d02_target_operating_model_id_rvent_revs_lst(som_id_d02_target_operating_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d02_target_operating_model_id_pvovw(som_id_d02_target_operating_model x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "processVision/PVOVW");
@@ -245289,6 +246481,20 @@ SomListMetaRef d02_target_operating_model_id_pmak_proc_lst(som_id_d02_target_ope
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "PMAK-PROC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_process_metric);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_rvmem_memb_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_rvent_revs_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
   free(path);
   return out;
 }
@@ -245404,6 +246610,20 @@ SomListMetaRef d03_information_model_id_scmst_step_lst(som_id_d03_information_mo
   free(path);
   return out;
 }
+SomListMetaRef d04_requirements_specification_id_rvmem_memb_lst(som_id_d04_requirements_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d04_requirements_specification_id_rvent_revs_lst(som_id_d04_requirements_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d04_requirements_specification_id_fr_summ(som_id_d04_requirements_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "functionalRequirements/FR-SUMM");
@@ -245474,6 +246694,20 @@ SomListMetaRef d04_requirements_specification_id_rere_requ_lst(som_id_d04_requir
   free(path);
   return out;
 }
+SomListMetaRef d05_interaction_scenarios_id_rvmem_memb_lst(som_id_d05_interaction_scenarios x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d05_interaction_scenarios_id_rvent_revs_lst(som_id_d05_interaction_scenarios x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d05_interaction_scenarios_id_acovna(som_id_d05_interaction_scenarios x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "actorOverview/ACOVNA");
@@ -245541,6 +246775,20 @@ SomListMetaRef d05_interaction_scenarios_id_etets_endt_lst(som_id_d05_interactio
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ETETS-ENDT-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_end_to_end_test_scenario);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_id_rvmem_memb_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_id_rvent_revs_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
   free(path);
   return out;
 }
@@ -250115,6 +251363,20 @@ SomMetaRef d06_architecture_technology_specification_id_trrete(som_id_d06_archit
   free(path);
   return out;
 }
+SomListMetaRef d07_integration_interface_specification_id_rvmem_memb_lst(som_id_d07_integration_interface_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d07_integration_interface_specification_id_rvent_revs_lst(som_id_d07_integration_interface_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d07_integration_interface_specification_id_eie_inte_lst(som_id_d07_integration_interface_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "externalInterfaces/EIE-INTE-LST");
@@ -250154,6 +251416,20 @@ SomListMetaRef d07_integration_interface_specification_id_cboc_oper_lst(som_id_d
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CBOC-OPER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_cross_boundary_operational_considerations);
+  free(path);
+  return out;
+}
+SomListMetaRef d08_security_access_specification_id_rvmem_memb_lst(som_id_d08_security_access_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d08_security_access_specification_id_rvent_revs_lst(som_id_d08_security_access_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
   free(path);
   return out;
 }
@@ -250420,6 +251696,20 @@ SomListMetaRef d08_security_access_specification_id_sevt_cust_lst(som_id_d08_sec
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_event_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d09_experience_design_specification_id_rvmem_memb_lst(som_id_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d09_experience_design_specification_id_rvent_revs_lst(som_id_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
   free(path);
   return out;
 }
@@ -251375,6 +252665,20 @@ SomMetaRef d09_experience_design_specification_id_thprva(som_id_d09_experience_d
   free(path);
   return out;
 }
+SomListMetaRef d10_quality_acceptance_plan_id_rvmem_memb_lst(som_id_d10_quality_acceptance_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d10_quality_acceptance_plan_id_rvent_revs_lst(som_id_d10_quality_acceptance_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d10_quality_acceptance_plan_id_qlfwk_fram(som_id_d10_quality_acceptance_plan x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityFramework/QLFWK-FRAM");
@@ -252187,6 +253491,20 @@ SomMetaRef d10_quality_acceptance_plan_id_wafi(som_id_d10_quality_acceptance_pla
   free(path);
   return out;
 }
+SomListMetaRef d11_delivery_roadmap_id_rvmem_memb_lst(som_id_d11_delivery_roadmap x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d11_delivery_roadmap_id_rvent_revs_lst(som_id_d11_delivery_roadmap x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d11_delivery_roadmap_id_stagas(som_id_d11_delivery_roadmap x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "stagingStrategy/STAGAS");
@@ -252576,6 +253894,20 @@ SomListMetaRef d11_delivery_roadmap_id_dpe_item_lst(som_id_d11_delivery_roadmap 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "decisionProcesses/DPE-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_decision_point_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d12_transition_rollout_plan_id_rvmem_memb_lst(som_id_d12_transition_rollout_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reviewTeam/RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
+SomListMetaRef d12_transition_rollout_plan_id_rvent_revs_lst(som_id_d12_transition_rollout_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVENT-REVS-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_revision_entry);
   free(path);
   return out;
 }
@@ -258823,6 +260155,13 @@ SomMetaRef distribution_recipient_entry_id_direba(som_id_distribution_recipient_
   free(path);
   return out;
 }
+SomListMetaRef document_review_team_entry_id_rvmem_memb_lst(som_id_document_review_team_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVMEM-MEMB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_review_team_member);
+  free(path);
+  return out;
+}
 SomMetaRef domain_business_rule_entry_id_dbred(som_id_domain_business_rule_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DBRED");
@@ -262712,6 +264051,20 @@ SomMetaRef review_criterion_entry_id_rcer(som_id_review_criterion_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RCER");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef revision_entry_id_rvwer_team_lst(som_id_revision_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVWER-TEAM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_reviewer_record);
+  free(path);
+  return out;
+}
+SomListMetaRef revision_entry_id_rvwer_retn_lst(som_id_revision_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RVWER-RETN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_reviewer_record);
   free(path);
   return out;
 }

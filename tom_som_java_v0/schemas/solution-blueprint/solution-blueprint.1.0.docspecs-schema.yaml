@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: solution-blueprint/1.6
+# Schema: solution-blueprint/1.7
 
 title-format: "# <!--[SBP]--> Solution Blueprint"
 section-types:
@@ -271,6 +271,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
+  dcrvtm-docr-lst:
+    prefix: DCRVTM_DOCR_LST
+    subsection-types:
+      dcrvtm-docr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.
   delnpt-patt-lst:
     prefix: DELNPT_PATT_LST
     subsection-types:
@@ -2672,6 +2680,30 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed."
+  rvmem-memb-lst:
+    prefix: RVMEM_MEMB_LST
+    subsection-types:
+      rvmem-memb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per member of this document type's team.
+  rvwer-retn-lst:
+    prefix: RVWER_RETN_LST
+    subsection-types:
+      rvwer-retn:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+  rvwer-team-lst:
+    prefix: RVWER_TEAM_LST
+    subsection-types:
+      rvwer-team:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "The members the review round started with, each written out in full."
   saclc-serv-lst:
     prefix: SACLC_SERV_LST
     subsection-types:
@@ -4470,6 +4502,15 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per development convention.
+  dcrvtm-docr:
+    prefix: DCRVTM_DOCR_
+    subsection-types:
+      rvmem-memb-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DCRVTM-DOCR-.+$
+      error-message: IDs of this section must match DCRVTM-DOCR-xxx
+    description: Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.
   dee-envi-lst:
     prefix: DEE_ENVI_LST
     subsection-types:
@@ -8017,10 +8058,33 @@ section-types:
     description: Add one entry per review criterion.
   rvent-revs:
     prefix: RVENT_REVS_
+    subsection-types:
+      rvwer-team-lst:
+        max-count: 1
+      rvwer-retn-lst:
+        max-count: 1
     pattern-check-id:
       pattern: ^RVENT-REVS-.+$
       error-message: IDs of this section must match RVENT-REVS-xxx
     description: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed."
+  rvmem-memb:
+    prefix: RVMEM_MEMB_
+    pattern-check-id:
+      pattern: ^RVMEM-MEMB-.+$
+      error-message: IDs of this section must match RVMEM-MEMB-xxx
+    description: Add one entry per member of this document type's team.
+  rvwer-retn:
+    prefix: RVWER_RETN_
+    pattern-check-id:
+      pattern: ^RVWER-RETN-.+$
+      error-message: IDs of this section must match RVWER-RETN-xxx
+    description: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+  rvwer-team:
+    prefix: RVWER_TEAM_
+    pattern-check-id:
+      pattern: ^RVWER-TEAM-.+$
+      error-message: IDs of this section must match RVWER-TEAM-xxx
+    description: "The members the review round started with, each written out in full."
   saclc-serv:
     prefix: SACLC_SERV_
     pattern-check-id:
@@ -15631,6 +15695,12 @@ section-types:
     prefix: RUENVA
     format: ruenva-form
     description: Environment variables.
+  rvteam:
+    prefix: RVTEAM
+    subsection-types:
+      rvmem-memb-lst:
+        max-count: 1
+    description: "The default review team: it reviews every document that names no team"
   scarca:
     prefix: SCARCA
     format: scarca-form
@@ -24971,6 +25041,10 @@ section-types:
       lcr:
         max-count: 1
       stkre-stak-lst:
+        max-count: 1
+      rvteam:
+        max-count: 1
+      dcrvtm-docr-lst:
         max-count: 1
     description: "SBP.4 Stakeholders & Governance."
   stme:

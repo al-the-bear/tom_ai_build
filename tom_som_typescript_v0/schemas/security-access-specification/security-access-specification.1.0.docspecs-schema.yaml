@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: security-access-specification/1.6
+# Schema: security-access-specification/1.7
 
 title-format: "# <!--[SAS]--> Security & Access Specification"
 section-types:
@@ -179,6 +179,38 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per role inheritance relationship.
+  rvent-revs-lst:
+    prefix: RVENT_REVS_LST
+    subsection-types:
+      rvent-revs:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+  rvmem-memb-lst:
+    prefix: RVMEM_MEMB_LST
+    subsection-types:
+      rvmem-memb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per member. Mark the specification owner with owner: true in the default team."
+  rvwer-retn-lst:
+    prefix: RVWER_RETN_LST
+    subsection-types:
+      rvwer-retn:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+  rvwer-team-lst:
+    prefix: RVWER_TEAM_LST
+    subsection-types:
+      rvwer-team:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "The members the review round started with, each written out in full."
   saclc-serv-lst:
     prefix: SACLC_SERV_LST
     subsection-types:
@@ -450,6 +482,35 @@ section-types:
       pattern: ^RLINH-INHE-.+$
       error-message: IDs of this section must match RLINH-INHE-xxx
     description: Add one entry per role inheritance relationship.
+  rvent-revs:
+    prefix: RVENT_REVS_
+    subsection-types:
+      rvwer-team-lst:
+        max-count: 1
+      rvwer-retn-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RVENT-REVS-.+$
+      error-message: IDs of this section must match RVENT-REVS-xxx
+    description: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+  rvmem-memb:
+    prefix: RVMEM_MEMB_
+    pattern-check-id:
+      pattern: ^RVMEM-MEMB-.+$
+      error-message: IDs of this section must match RVMEM-MEMB-xxx
+    description: "Add one entry per member. Mark the specification owner with owner: true in the default team."
+  rvwer-retn:
+    prefix: RVWER_RETN_
+    pattern-check-id:
+      pattern: ^RVWER-RETN-.+$
+      error-message: IDs of this section must match RVWER-RETN-xxx
+    description: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+  rvwer-team:
+    prefix: RVWER_TEAM_
+    pattern-check-id:
+      pattern: ^RVWER-TEAM-.+$
+      error-message: IDs of this section must match RVWER-TEAM-xxx
+    description: "The members the review round started with, each written out in full."
   saclc-serv:
     prefix: SACLC_SERV_
     pattern-check-id:
@@ -803,6 +864,12 @@ section-types:
     prefix: ROHIPO
     format: rohipo-form
     description: Role Hierarchy Policy.
+  rvteam:
+    prefix: RVTEAM
+    subsection-types:
+      rvmem-memb-lst:
+        max-count: 1
+    description: This document's own review team; when it has members it replaces the
   sedaen:
     prefix: SEDAEN
     subsection-types:
@@ -3762,6 +3829,12 @@ document:
   sections:
     dochd:
       section-type: dochd
+      optional: true
+    rvteam:
+      section-type: rvteam
+      optional: true
+    rvent-revs-lst:
+      section-type: rvent-revs-lst
       optional: true
     usmgt:
       section-type: usmgt

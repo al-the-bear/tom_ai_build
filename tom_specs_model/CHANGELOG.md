@@ -1,3 +1,24 @@
+## 1.7.0
+
+- Review teams and the reviewers of a revision (additive minor model version;
+  every new member is optional, so a 1.6 document stays valid without
+  migration).
+  - `ReviewTeam` (`RVTEAM`) with `ReviewTeamMember` entries (`RVMEM`: member
+    id, display name, role, optional stakeholder-register link, optional
+    e-mail, `owner`).
+  - `StakeholdersAndGovernance` gains the default `reviewTeam` and
+    `documentReviewTeams`, one `DocumentReviewTeamEntry` (`DCRVTM`) per
+    document type (`SpecDocumentType`, D01–D12).
+  - Each Phase 3 root (D01–D12) gains its own `reviewTeam` and a
+    `revisionHistory` of `RevisionEntry`; the most specific team that has
+    members replaces the others.
+  - `RevisionEntry` gains `reviewTeam` (the team the round started with) and
+    `reviewers` (who returned a copy, guests included), each a
+    `ReviewerRecord` (`RVWER`: member id, display name, role, `guest`).
+  - A document's own `header`, `reviewTeam` and `revisionHistory` stay
+    document-local: the projection connect pass does not bind them to the
+    Solution Blueprint.
+
 ## 1.6.20
 
 - No model change. The chain moves with the runtimes, which list a value's

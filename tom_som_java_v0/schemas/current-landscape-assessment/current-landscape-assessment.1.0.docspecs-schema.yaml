@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: current-landscape-assessment/1.6
+# Schema: current-landscape-assessment/1.7
 
 title-format: "# <!--[CLA]--> Current Landscape Assessment"
 section-types:
@@ -423,6 +423,38 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
+  rvent-revs-lst:
+    prefix: RVENT_REVS_LST
+    subsection-types:
+      rvent-revs:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+  rvmem-memb-lst:
+    prefix: RVMEM_MEMB_LST
+    subsection-types:
+      rvmem-memb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per member. Mark the specification owner with owner: true in the default team."
+  rvwer-retn-lst:
+    prefix: RVWER_RETN_LST
+    subsection-types:
+      rvwer-retn:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+  rvwer-team-lst:
+    prefix: RVWER_TEAM_LST
+    subsection-types:
+      rvwer-team:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "The members the review round started with, each written out in full."
   shien-item-lst:
     prefix: SHIEN_ITEM_LST
     subsection-types:
@@ -1111,6 +1143,35 @@ section-types:
       pattern: ^REPOL-RETE-.+$
       error-message: IDs of this section must match REPOL-RETE-xxx
     description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
+  rvent-revs:
+    prefix: RVENT_REVS_
+    subsection-types:
+      rvwer-team-lst:
+        max-count: 1
+      rvwer-retn-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RVENT-REVS-.+$
+      error-message: IDs of this section must match RVENT-REVS-xxx
+    description: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy."
+  rvmem-memb:
+    prefix: RVMEM_MEMB_
+    pattern-check-id:
+      pattern: ^RVMEM-MEMB-.+$
+      error-message: IDs of this section must match RVMEM-MEMB-xxx
+    description: "Add one entry per member. Mark the specification owner with owner: true in the default team."
+  rvwer-retn:
+    prefix: RVWER_RETN_
+    pattern-check-id:
+      pattern: ^RVWER-RETN-.+$
+      error-message: IDs of this section must match RVWER-RETN-xxx
+    description: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner."
+  rvwer-team:
+    prefix: RVWER_TEAM_
+    pattern-check-id:
+      pattern: ^RVWER-TEAM-.+$
+      error-message: IDs of this section must match RVWER-TEAM-xxx
+    description: "The members the review round started with, each written out in full."
   shien-item:
     prefix: SHIEN_ITEM_
     subsection-types:
@@ -1835,6 +1896,12 @@ section-types:
     prefix: REPOSU
     format: reposu-form
     description: Retention policy summary.
+  rvteam:
+    prefix: RVTEAM
+    subsection-types:
+      rvmem-memb-lst:
+        max-count: 1
+    description: This document's own review team; when it has members it replaces the
   sybucr:
     prefix: SYBUCR
     subsection-types:
@@ -3817,6 +3884,12 @@ document:
   sections:
     dochd:
       section-type: dochd
+      optional: true
+    rvteam:
+      section-type: rvteam
+      optional: true
+    rvent-revs-lst:
+      section-type: rvent-revs-lst
       optional: true
     eslan:
       section-type: eslan

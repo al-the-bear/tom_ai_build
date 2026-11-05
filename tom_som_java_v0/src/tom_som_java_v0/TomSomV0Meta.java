@@ -21734,11 +21734,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D01CurrentLandscapeAssessment", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("ExistingSystemsLandscape", s, ExistingSystemsLandscapeNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExistingSystemsLandscape", SomMetaKind.COMPLEX, "ExistingSystemsLandscape");
         n.memberName = "existingSystemsLandscape";
         n.classSectionId = "ESLAN";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Existing systems landscape.";
         n.classDocComment = "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21750,7 +21781,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CurrentBusinessProcesses", SomMetaKind.COMPLEX, "CurrentBusinessProcesses");
         n.memberName = "currentBusinessProcesses";
         n.classSectionId = "CUBUPR";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Current business processes.";
         n.classDocComment = "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21762,7 +21793,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PainPointsAndGaps", SomMetaKind.COMPLEX, "PainPointsAndGaps");
         n.memberName = "painPointsAndGaps";
         n.classSectionId = "PPAG";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Pain points and gaps.";
         n.classDocComment = "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21774,7 +21805,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CurrentDataLandscape", SomMetaKind.COMPLEX, "CurrentDataLandscape");
         n.memberName = "currentDataLandscape";
         n.classSectionId = "CUDALA";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Current data landscape.";
         n.classDocComment = "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21787,7 +21818,7 @@ public final class TomSomV0Meta {
         n.memberName = "operationalMetrics";
         n.sectionId = "CUOPME-OPER-LST";
         n.sectionIdPattern = "CUOPME-OPER-xxx";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Current operational metrics.";
         n.elementNode = metaCx("CurrentOperationalMetric", s, CurrentOperationalMetricNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("CurrentOperationalMetric", SomMetaKind.COMPLEX, "CurrentOperationalMetric");
@@ -21805,7 +21836,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CurrentStateRiskAssessment", SomMetaKind.COMPLEX, "CurrentStateRiskAssessment");
         n.memberName = "currentStateRisks";
         n.classSectionId = "CUSTRI";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Current-state risk assessment.";
         n.classDocComment = "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21817,7 +21848,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReplacementInventory", SomMetaKind.COMPLEX, "ReplacementInventory");
         n.memberName = "replacementInventory";
         n.classSectionId = "RI";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Replacement inventory.";
         n.classDocComment = "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21829,7 +21860,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationConsiderations", SomMetaKind.COMPLEX, "MigrationConsiderations");
         n.memberName = "migrationConsiderations";
         n.classSectionId = "MIGCON";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Migration considerations.";
         n.classDocComment = "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.";
         n.detailedIn = "D01CurrentLandscapeAssessment";
@@ -21846,6 +21877,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public ExistingSystemsLandscapeNav existingSystemsLandscape() {
@@ -21914,11 +21953,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D02TargetOperatingModel", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("ProcessVision", s, ProcessVisionNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ProcessVision", SomMetaKind.COMPLEX, "ProcessVision");
         n.memberName = "processVision";
         n.classSectionId = "PRVIZ";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Process vision.";
         n.classDocComment = "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -21930,7 +22000,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessDesignPrinciples", SomMetaKind.COMPLEX, "ProcessDesignPrinciples");
         n.memberName = "designPrinciples";
         n.classSectionId = "PDPRI";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Design principles.";
         n.classDocComment = "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -21942,7 +22012,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessCatalog", SomMetaKind.COMPLEX, "ProcessCatalog");
         n.memberName = "processCatalog";
         n.classSectionId = "PRCAT";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Process catalog.";
         n.classDocComment = "6.1.3. Process Catalog.\n\nContainer for business process definitions.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -21954,7 +22024,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessOverviewDiagram", SomMetaKind.COMPLEX, "ProcessOverviewDiagram");
         n.memberName = "processOverviewDiagram";
         n.classSectionId = "PROVDI";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Process overview diagram.";
         n.classDocComment = "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -21966,7 +22036,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessImprovementSummary", SomMetaKind.COMPLEX, "ProcessImprovementSummary");
         n.memberName = "improvementSummary";
         n.classSectionId = "PRIMSU";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Improvement summary.";
         n.classDocComment = "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -21978,7 +22048,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessRelationships", SomMetaKind.COMPLEX, "ProcessRelationships");
         n.memberName = "processRelationships";
         n.classSectionId = "PR";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Process relationships.";
         n.classDocComment = "Process relationships and dependencies (supplementary section).";
         n.detailedIn = "D02TargetOperatingModel";
@@ -21991,7 +22061,7 @@ public final class TomSomV0Meta {
         n.memberName = "detailedWorkflows";
         n.sectionId = "DEPRWO-DETA-LST";
         n.sectionIdPattern = "DEPRWO-DETA-xxx";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Detailed process workflows.";
         n.elementNode = metaCx("DetailedProcessWorkflow", s, DetailedProcessWorkflowNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("DetailedProcessWorkflow", SomMetaKind.COMPLEX, "DetailedProcessWorkflow");
@@ -22009,7 +22079,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CrossProcessAnalysis", SomMetaKind.COMPLEX, "CrossProcessAnalysis");
         n.memberName = "crossProcessAnalysis";
         n.classSectionId = "CRPRAN";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Cross-process analysis.";
         n.classDocComment = "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.";
         n.detailedIn = "D02TargetOperatingModel";
@@ -22021,7 +22091,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessExceptionHandling", SomMetaKind.COMPLEX, "ProcessExceptionHandling");
         n.memberName = "exceptionHandling";
         n.classSectionId = "PREXHA";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Process exception handling.";
         n.classDocComment = "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers";
         n.detailedIn = "D02TargetOperatingModel";
@@ -22034,7 +22104,7 @@ public final class TomSomV0Meta {
         n.memberName = "processMetricsAndKpis";
         n.sectionId = "PMAK-PROC-LST";
         n.sectionIdPattern = "PMAK-PROC-xxx";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Process metrics and KPIs.";
         n.elementNode = metaCx("ProcessMetric", s, ProcessMetricNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ProcessMetric", SomMetaKind.COMPLEX, "ProcessMetric");
@@ -22057,6 +22127,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public ProcessVisionNav processVision() {
@@ -22133,12 +22211,43 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D03InformationModel", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       {
         SomMetaNode n = new SomMetaNode("D03InformationModel", SomMetaKind.LIST, "DataEntityEntry");
         n.memberName = "entities";
         n.sectionId = "DAENT-ENTI-LST";
         n.sectionIdPattern = "DAENT-ENTI-xxx";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.min = 1;
         n.docComment = "Entity inventory (list).";
         n.elementNode = metaCx("DataEntityEntry", s, DataEntityEntryNav::metaChildren, (r, c) -> {
@@ -22156,7 +22265,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("EntityRelationships", SomMetaKind.COMPLEX, "EntityRelationships");
         n.memberName = "entityRelationships";
         n.classSectionId = "ENREL";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Entity relationships.";
         n.classDocComment = "7.1.2. Entity Relationships.";
         n.detailedIn = "D03InformationModel";
@@ -22167,7 +22276,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("D03InformationModel", SomMetaKind.SECTION, "String");
         n.memberName = "erDiagram";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.contentType = new SomContentTypeMeta("mermaid-er", "");
         n.docComment = "Entity-relationship diagram.";
         out.add(n);
@@ -22176,7 +22285,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataClassification", SomMetaKind.COMPLEX, "DataClassification");
         n.memberName = "dataClassification";
         n.classSectionId = "DATCL";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Data classification.";
         n.classDocComment = "7.1.4. Data Classification.";
         n.detailedIn = "D03InformationModel";
@@ -22189,7 +22298,7 @@ public final class TomSomV0Meta {
         n.memberName = "objectCatalog";
         n.sectionId = "BJOEN-OBJE-LST";
         n.sectionIdPattern = "BJOEN-OBJE-xxx";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.min = 1;
         n.docComment = "Business object catalog (list).";
         n.elementNode = metaCx("BusinessObjectEntry", s, BusinessObjectEntryNav::metaChildren, (r, c) -> {
@@ -22206,7 +22315,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("D03InformationModel", SomMetaKind.SECTION, "String");
         n.memberName = "objectDiagram";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.contentType = new SomContentTypeMeta("mermaid", "");
         n.docComment = "Business object diagram.";
         out.add(n);
@@ -22216,7 +22325,7 @@ public final class TomSomV0Meta {
         n.memberName = "functionDecomposition";
         n.sectionId = "FUNCT-FUNC-LST";
         n.sectionIdPattern = "FUNCT-FUNC-xxx";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Function decomposition (list).";
         n.elementNode = metaCx("FunctionEntry", s, FunctionEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("FunctionEntry", SomMetaKind.COMPLEX, "FunctionEntry");
@@ -22234,7 +22343,7 @@ public final class TomSomV0Meta {
         n.memberName = "functionToDataMatrix";
         n.sectionId = "FNDMX-FUNC-LST";
         n.sectionIdPattern = "FNDMX-FUNC-xxx";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Function-to-data matrix (list).";
         n.elementNode = metaCx("FunctionDataMatrixEntry", s, FunctionDataMatrixEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("FunctionDataMatrixEntry", SomMetaKind.COMPLEX, "FunctionDataMatrixEntry");
@@ -22252,7 +22361,7 @@ public final class TomSomV0Meta {
         n.memberName = "businessRules";
         n.sectionId = "BIRU-BUSI-LST";
         n.sectionIdPattern = "BIRU-BUSI-xxx";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.min = 1;
         n.docComment = "Business rules catalog (list).";
         n.elementNode = metaCx("BusinessRuleEntry", s, BusinessRuleEntryNav::metaChildren, (r, c) -> {
@@ -22270,7 +22379,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataDictionary", SomMetaKind.COMPLEX, "DataDictionary");
         n.memberName = "dataDictionary";
         n.classSectionId = "DADI";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Data dictionary.";
         n.classDocComment = "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..";
         n.detailedIn = "D03InformationModel";
@@ -22282,7 +22391,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ValidationConstraints", SomMetaKind.COMPLEX, "ValidationConstraints");
         n.memberName = "validationConstraints";
         n.classSectionId = "VACO";
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).";
         n.classDocComment = "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.";
         n.detailedIn = "D03InformationModel";
@@ -22294,7 +22403,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IntegrityConstraints", SomMetaKind.COMPLEX, "IntegrityConstraints");
         n.memberName = "integrityConstraints";
         n.classSectionId = "INCO";
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).";
         n.classDocComment = "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.";
         n.detailedIn = "D03InformationModel";
@@ -22306,7 +22415,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DomainEnumRegistry", SomMetaKind.COMPLEX, "DomainEnumRegistry");
         n.memberName = "domainEnumRegistry";
         n.classSectionId = "DOMEN";
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).";
         n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
         n.recursive = r;
@@ -22317,7 +22426,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ErrorCodeRegistry", SomMetaKind.COMPLEX, "ErrorCodeRegistry");
         n.memberName = "errorCodeRegistry";
         n.classSectionId = "ERCRG";
-        n.serializationOrder = 15;
+        n.serializationOrder = 17;
         n.docComment = "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).";
         n.classDocComment = "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.";
         n.recursive = r;
@@ -22328,7 +22437,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResultEnvelope", SomMetaKind.COMPLEX, "ResultEnvelope");
         n.memberName = "resultEnvelope";
         n.classSectionId = "RSLTE";
-        n.serializationOrder = 16;
+        n.serializationOrder = 18;
         n.docComment = "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).";
         n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
         n.recursive = r;
@@ -22339,7 +22448,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MessageKeyRegistry", SomMetaKind.COMPLEX, "MessageKeyRegistry");
         n.memberName = "messageKeyRegistry";
         n.classSectionId = "MSGKR";
-        n.serializationOrder = 17;
+        n.serializationOrder = 19;
         n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).";
         n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
         n.recursive = r;
@@ -22350,7 +22459,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerOperationRegistry", SomMetaKind.COMPLEX, "ServerOperationRegistry");
         n.memberName = "serverOperationRegistry";
         n.classSectionId = "SVOPR";
-        n.serializationOrder = 18;
+        n.serializationOrder = 20;
         n.docComment = "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.";
         n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
         n.recursive = r;
@@ -22361,7 +22470,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SchemaVersioningAndMigration", SomMetaKind.COMPLEX, "SchemaVersioningAndMigration");
         n.memberName = "schemaVersioningAndMigration";
         n.classSectionId = "SCHMG";
-        n.serializationOrder = 19;
+        n.serializationOrder = 21;
         n.docComment = "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
         n.recursive = r;
@@ -22377,6 +22486,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public SomListMetaRef<DataEntityEntryNav> entities() {
@@ -22485,11 +22602,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D04RequirementsSpecification", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("FunctionalRequirements", s, FunctionalRequirementsNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("FunctionalRequirements", SomMetaKind.COMPLEX, "FunctionalRequirements");
         n.memberName = "functionalRequirements";
         n.classSectionId = "FR";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Functional requirements.";
         n.classDocComment = "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -22501,7 +22649,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalRequirements", SomMetaKind.COMPLEX, "TechnicalRequirements");
         n.memberName = "technicalRequirements";
         n.classSectionId = "TR1";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Technical (non-functional) requirements.";
         n.classDocComment = "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -22513,7 +22661,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityRequirements", SomMetaKind.COMPLEX, "SecurityRequirements");
         n.memberName = "securityRequirements";
         n.classSectionId = "SR1";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Security requirements.";
         n.classDocComment = "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -22525,7 +22673,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OrganizationalRequirements", SomMetaKind.COMPLEX, "OrganizationalRequirements");
         n.memberName = "organizationalRequirements";
         n.classSectionId = "OR";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Organizational requirements.";
         n.classDocComment = "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -22537,7 +22685,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("D04RequirementsSpecification", SomMetaKind.CONTENT, "String");
         n.memberName = "traceabilityMatrix";
         n.sectionId = "RSP-TRAC";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.contentType = new SomContentTypeMeta("description", "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests.");
         n.docComment = "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.";
         out.add(n);
@@ -22547,7 +22695,7 @@ public final class TomSomV0Meta {
         n.memberName = "requirementRelationships";
         n.sectionId = "RERE-REQU-LST";
         n.sectionIdPattern = "RERE-REQU-xxx";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Requirement relationships.";
         n.elementNode = metaCx("RequirementRelationships", s, RequirementRelationshipsNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("RequirementRelationships", SomMetaKind.COMPLEX, "RequirementRelationships");
@@ -22565,7 +22713,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RequirementCoverage", SomMetaKind.COMPLEX, "RequirementCoverage");
         n.memberName = "requirementCoverage";
         n.classSectionId = "REQCOV";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Requirement coverage.";
         n.classDocComment = "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.";
         n.detailedIn = "D04RequirementsSpecification";
@@ -22582,6 +22730,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public FunctionalRequirementsNav functionalRequirements() {
@@ -22646,11 +22802,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D05InteractionScenarios", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("ProcessStepsOverview", s, ProcessStepsOverviewNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ProcessStepsOverview", SomMetaKind.COMPLEX, "ProcessStepsOverview");
         n.memberName = "processStepsOverview";
         n.classSectionId = "PRSTOV";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Process steps overview.";
         n.classDocComment = "6.2. Process Steps Overview.";
         n.detailedIn = "D05InteractionScenarios";
@@ -22662,7 +22849,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ActorOverview", SomMetaKind.COMPLEX, "ActorOverview");
         n.memberName = "actorOverview";
         n.classSectionId = "ACOV";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Actor overview.";
         n.classDocComment = "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.";
         n.detailedIn = "D05InteractionScenarios";
@@ -22674,7 +22861,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionCatalog", SomMetaKind.COMPLEX, "InteractionCatalog");
         n.memberName = "interactionCatalog";
         n.classSectionId = "INCA";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Interaction catalog.";
         n.classDocComment = "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.";
         n.detailedIn = "D05InteractionScenarios";
@@ -22686,7 +22873,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KeyScenarios", SomMetaKind.COMPLEX, "KeyScenarios");
         n.memberName = "keyScenarios";
         n.classSectionId = "KESC";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Key scenarios.";
         n.classDocComment = "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.";
         n.detailedIn = "D05InteractionScenarios";
@@ -22698,7 +22885,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ActorRelationshipDiagram", SomMetaKind.COMPLEX, "ActorRelationshipDiagram");
         n.memberName = "actorRelationshipDiagram";
         n.classSectionId = "ACREDI";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Actor relationship diagram.";
         n.classDocComment = "6.2. Actor Relationship Diagram.";
         n.detailedIn = "D05InteractionScenarios";
@@ -22711,7 +22898,7 @@ public final class TomSomV0Meta {
         n.memberName = "endToEndTestScenarios";
         n.sectionId = "ETETS-ENDT-LST";
         n.sectionIdPattern = "ETETS-ENDT-xxx";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "End-to-end test scenarios.";
         n.elementNode = metaCx("EndToEndTestScenario", s, EndToEndTestScenarioNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("EndToEndTestScenario", SomMetaKind.COMPLEX, "EndToEndTestScenario");
@@ -22729,7 +22916,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UseCaseTraceability", SomMetaKind.COMPLEX, "UseCaseTraceability");
         n.memberName = "useCaseTraceability";
         n.classSectionId = "USCATR";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Use case traceability.";
         n.classDocComment = "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.";
         n.detailedIn = "D05InteractionScenarios";
@@ -22746,6 +22933,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public ProcessStepsOverviewNav processStepsOverview() {
@@ -22810,11 +23005,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D06ArchitectureTechnologySpecification", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("BasicTechnicalRequirements", s, BasicTechnicalRequirementsNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("BasicTechnicalRequirements", SomMetaKind.COMPLEX, "BasicTechnicalRequirements");
         n.memberName = "basicTechnicalRequirements";
         n.classSectionId = "BTREQ";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Basic technical requirements.";
         n.classDocComment = "8.1. Basic Technical Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22826,7 +23052,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SoftwareDesignRequirements", SomMetaKind.COMPLEX, "SoftwareDesignRequirements");
         n.memberName = "softwareDesignRequirements";
         n.classSectionId = "SDR";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Software design requirements.";
         n.classDocComment = "8.2. Software Design Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22838,7 +23064,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StandardSoftwareRequirements", SomMetaKind.COMPLEX, "StandardSoftwareRequirements");
         n.memberName = "standardSoftwareRequirements";
         n.classSectionId = "SSR";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Standard application software requirements.";
         n.classDocComment = "8.3. Standard Application Software Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22850,7 +23076,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("HardwareRequirements", SomMetaKind.COMPLEX, "HardwareRequirements");
         n.memberName = "hardwareRequirements";
         n.classSectionId = "HR";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Hardware concept requirements.";
         n.classDocComment = "8.4. Hardware Concept Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22862,7 +23088,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OperationsRequirements", SomMetaKind.COMPLEX, "OperationsRequirements");
         n.memberName = "operationsRequirements";
         n.classSectionId = "OPRE";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Operations requirements.";
         n.classDocComment = "8.5. Operations Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22874,7 +23100,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CommunicationRequirements", SomMetaKind.COMPLEX, "CommunicationRequirements");
         n.memberName = "communicationRequirements";
         n.classSectionId = "COMREQ";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Communication requirements.";
         n.classDocComment = "8.6. Communication Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22886,7 +23112,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemOperationAndMonitoring", SomMetaKind.COMPLEX, "SystemOperationAndMonitoring");
         n.memberName = "systemOperationAndMonitoring";
         n.classSectionId = "SOAM";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "System operation and monitoring.";
         n.classDocComment = "8.7. System Operation and Monitoring.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22898,7 +23124,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalSecurityRequirements", SomMetaKind.COMPLEX, "TechnicalSecurityRequirements");
         n.memberName = "technicalSecurityRequirements";
         n.classSectionId = "TSR";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Technical security requirements.";
         n.classDocComment = "8.8. Security Requirements.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22910,7 +23136,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemArchitectureSpec", SomMetaKind.COMPLEX, "SystemArchitectureSpec");
         n.memberName = "systemArchitecture";
         n.classSectionId = "SYARSP";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "System architecture (new in Phase A).";
         n.classDocComment = "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.";
         n.detailedIn = "D06ArchitectureTechnologySpecification";
@@ -22922,7 +23148,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComponentsAndDependencies", SomMetaKind.COMPLEX, "ComponentsAndDependencies");
         n.memberName = "componentsToUse";
         n.classSectionId = "COMP";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Components to use (whole).";
         n.classDocComment = "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.";
         n.mapsTo = "D06ArchitectureTechnologySpecification";
@@ -22935,7 +23161,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironment", SomMetaKind.COMPLEX, "TechnicalEnvironment");
         n.memberName = "technicalEnvironment";
         n.classSectionId = "TEEN";
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Technical framework conditions (whole).";
         n.classDocComment = "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.";
         n.mapsTo = "D06ArchitectureTechnologySpecification";
@@ -22948,7 +23174,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TranslationRequirements", SomMetaKind.COMPLEX, "TranslationRequirements");
         n.memberName = "translationRequirements";
         n.classSectionId = "TRAREQ";
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Translation handling requirements (whole).";
         n.classDocComment = "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.";
         n.mapsTo = "D06ArchitectureTechnologySpecification";
@@ -22966,6 +23192,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public BasicTechnicalRequirementsNav basicTechnicalRequirements() {
@@ -23050,11 +23284,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D07IntegrationInterfaceSpecification", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("ExternalInterfaces", s, ExternalInterfacesNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExternalInterfaces", SomMetaKind.COMPLEX, "ExternalInterfaces");
         n.memberName = "externalInterfaces";
         n.classSectionId = "EXIN";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "External interfaces.";
         n.classDocComment = "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23066,7 +23331,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("OutOfScope", SomMetaKind.COMPLEX, "OutOfScope");
         n.memberName = "outOfScope";
         n.classSectionId = "OUOFSC";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Out of scope.";
         n.classDocComment = "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23078,7 +23343,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("BoundaryAssumptions", SomMetaKind.COMPLEX, "BoundaryAssumptions");
         n.memberName = "boundaryAssumptions";
         n.classSectionId = "BOAS";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Boundary assumptions.";
         n.classDocComment = "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23090,7 +23355,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SystemLandscapeInventory", SomMetaKind.COMPLEX, "SystemLandscapeInventory");
         n.memberName = "systemInventory";
         n.classSectionId = "SYLAIN";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "System landscape inventory.";
         n.classDocComment = "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23103,7 +23368,7 @@ public final class TomSomV0Meta {
         n.memberName = "interactionPatterns";
         n.sectionId = "BOINPA-INTE-LST";
         n.sectionIdPattern = "BOINPA-INTE-xxx";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Boundary interaction patterns.";
         n.elementNode = metaCx("BoundaryInteractionPatterns", s, BoundaryInteractionPatternsNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("BoundaryInteractionPatterns", SomMetaKind.COMPLEX, "BoundaryInteractionPatterns");
@@ -23121,7 +23386,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionTestingStrategy", SomMetaKind.COMPLEX, "InteractionTestingStrategy");
         n.memberName = "testingStrategy";
         n.classSectionId = "INTES1";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Interaction testing strategy.";
         n.classDocComment = "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23133,7 +23398,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionDependencyAnalysis", SomMetaKind.COMPLEX, "InteractionDependencyAnalysis");
         n.memberName = "dependencyAnalysis";
         n.classSectionId = "INDEAN";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Interaction dependency analysis.";
         n.classDocComment = "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23146,7 +23411,7 @@ public final class TomSomV0Meta {
         n.memberName = "migrationInteractions";
         n.sectionId = "MIIN-MIGR-LST";
         n.sectionIdPattern = "MIIN-MIGR-xxx";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Migration interactions.";
         n.elementNode = metaCx("MigrationInteractions", s, MigrationInteractionsNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("MigrationInteractions", SomMetaKind.COMPLEX, "MigrationInteractions");
@@ -23165,7 +23430,7 @@ public final class TomSomV0Meta {
         n.memberName = "operationalConsiderations";
         n.sectionId = "CBOC-OPER-LST";
         n.sectionIdPattern = "CBOC-OPER-xxx";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Cross-boundary operational considerations.";
         n.elementNode = metaCx("CrossBoundaryOperationalConsiderations", s, CrossBoundaryOperationalConsiderationsNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("CrossBoundaryOperationalConsiderations", SomMetaKind.COMPLEX, "CrossBoundaryOperationalConsiderations");
@@ -23183,7 +23448,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CrossBoundaryErrorHandling", SomMetaKind.COMPLEX, "CrossBoundaryErrorHandling");
         n.memberName = "crossBoundaryErrorHandling";
         n.classSectionId = "CBEH";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Cross-boundary error handling.";
         n.classDocComment = "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.";
         n.detailedIn = "D07IntegrationInterfaceSpecification";
@@ -23200,6 +23465,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public ExternalInterfacesNav externalInterfaces() {
@@ -23276,11 +23549,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D08SecurityAccessSpecification", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("UserManagement", s, UserManagementNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("UserManagement", SomMetaKind.COMPLEX, "UserManagement");
         n.memberName = "userManagement";
         n.classSectionId = "USMGT";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "User management.";
         n.classDocComment = "9.1. User Management.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23292,7 +23596,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("IdentificationAndAuthentication", SomMetaKind.COMPLEX, "IdentificationAndAuthentication");
         n.memberName = "identificationAndAuthentication";
         n.classSectionId = "IDAUT";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Identification and authentication.";
         n.classDocComment = "9.2. Identification and Authentication.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23304,7 +23608,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResourceProtection", SomMetaKind.COMPLEX, "ResourceProtection");
         n.memberName = "resourceProtection";
         n.classSectionId = "RESPRO";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Resource protection.";
         n.classDocComment = "9.3. Resource Protection.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23316,7 +23620,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserAuthorization", SomMetaKind.COMPLEX, "UserAuthorization");
         n.memberName = "userAuthorization";
         n.classSectionId = "USAU";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "User authorization.";
         n.classDocComment = "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23328,7 +23632,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SensitiveDataEncryption", SomMetaKind.COMPLEX, "SensitiveDataEncryption");
         n.memberName = "sensitiveDataEncryption";
         n.classSectionId = "SEDAEN";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Sensitive data encryption.";
         n.classDocComment = "9.5. Sensitive Data Encryption.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23340,7 +23644,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuditAndLogging", SomMetaKind.COMPLEX, "AuditAndLogging");
         n.memberName = "auditAndLogging";
         n.classSectionId = "AUANLO";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Audit and logging — the CE-LG / CE-CF declarations.";
         n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23352,7 +23656,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RoleMatrix", SomMetaKind.COMPLEX, "RoleMatrix");
         n.memberName = "roleMatrix";
         n.classSectionId = "ROMA";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Role matrix.";
         n.classDocComment = "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23364,7 +23668,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComplianceFramework", SomMetaKind.COMPLEX, "ComplianceFramework");
         n.memberName = "complianceFramework";
         n.classSectionId = "CF";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Compliance framework.";
         n.classDocComment = "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.";
         n.detailedIn = "D08SecurityAccessSpecification";
@@ -23376,7 +23680,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ComplianceReporting", SomMetaKind.COMPLEX, "ComplianceReporting");
         n.memberName = "complianceReporting";
         n.classSectionId = "COMREP";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.";
         n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.";
         n.recursive = r;
@@ -23392,6 +23696,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public UserManagementNav userManagement() {
@@ -23464,11 +23776,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D09ExperienceDesignSpecification", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("DesignVision", s, DesignVisionNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("DesignVision", SomMetaKind.COMPLEX, "DesignVision");
         n.memberName = "designVision";
         n.classSectionId = "DEVIZ";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Design vision.";
         n.classDocComment = "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23481,7 +23824,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenDescriptions", SomMetaKind.COMPLEX, "ScreenDescriptions");
         n.memberName = "screens";
         n.classSectionId = "SCRDZ";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Screen descriptions.";
         n.classDocComment = "10.2. Screen Descriptions.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23494,7 +23837,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenFlowStructure", SomMetaKind.COMPLEX, "ScreenFlowStructure");
         n.memberName = "screenFlow";
         n.classSectionId = "SCFLST";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Screen flow structure.";
         n.classDocComment = "10.3. Screen Flow Structure.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23507,7 +23850,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.COMPLEX, "PrintAndExportLayout");
         n.memberName = "printLayout";
         n.classSectionId = "PRLA";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Print layout.";
         n.classDocComment = "10.4. Print Layout.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23520,7 +23863,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.COMPLEX, "ReportDefinitions");
         n.memberName = "reportDefinitions";
         n.classSectionId = "REDF";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Report definitions — the CE-RP report projections over the domain model.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
         n.recursive = r;
@@ -23531,7 +23874,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ErrorHandling", SomMetaKind.COMPLEX, "ErrorHandling");
         n.memberName = "errorHandling";
         n.classSectionId = "ERHACO";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Error handling concept.";
         n.classDocComment = "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23544,7 +23887,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserAssistance", SomMetaKind.COMPLEX, "UserAssistance");
         n.memberName = "userAssistance";
         n.classSectionId = "USAS";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Help concept.";
         n.classDocComment = "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23557,7 +23900,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Accessibility", SomMetaKind.COMPLEX, "Accessibility");
         n.memberName = "accessibility";
         n.classSectionId = "ACCESS";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Accessibility.";
         n.classDocComment = "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23570,7 +23913,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsiveDesign", SomMetaKind.COMPLEX, "ResponsiveDesign");
         n.memberName = "responsiveDesign";
         n.classSectionId = "REDE";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Responsive design.";
         n.classDocComment = "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23583,7 +23926,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UiComponents", SomMetaKind.COMPLEX, "UiComponents");
         n.memberName = "uiComponents";
         n.classSectionId = "UICO";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "UI components.";
         n.classDocComment = "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23596,7 +23939,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LanguageCountrySelection", SomMetaKind.COMPLEX, "LanguageCountrySelection");
         n.memberName = "languageCountrySelection";
         n.classSectionId = "LACOSE";
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Language and country selection.";
         n.classDocComment = "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23609,7 +23952,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Prototype", SomMetaKind.COMPLEX, "Prototype");
         n.memberName = "prototype";
         n.classSectionId = "PROTOT";
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Prototype.";
         n.classDocComment = "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23622,7 +23965,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WireframesAndMockups", SomMetaKind.COMPLEX, "WireframesAndMockups");
         n.memberName = "wireframesAndMockups";
         n.classSectionId = "WIANMO";
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.docComment = "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
         n.classDocComment = "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -23640,6 +23983,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public DesignVisionNav designVision() {
@@ -23728,11 +24079,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D10QualityAcceptancePlan", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("QualityFramework", s, QualityFrameworkNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("QualityFramework", SomMetaKind.COMPLEX, "QualityFramework");
         n.memberName = "qualityFramework";
         n.classSectionId = "QLFWK";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Quality framework.";
         n.classDocComment = "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23744,7 +24126,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FunctionalSuitabilityCharacteristic", SomMetaKind.COMPLEX, "FunctionalSuitabilityCharacteristic");
         n.memberName = "functionalSuitability";
         n.classSectionId = "FNSU";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Functional suitability (ISO/IEC 25010:2023).";
         n.classDocComment = "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23756,7 +24138,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PerformanceEfficiencyCharacteristic", SomMetaKind.COMPLEX, "PerformanceEfficiencyCharacteristic");
         n.memberName = "performanceEfficiency";
         n.classSectionId = "PEEF";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "Performance efficiency (ISO/IEC 25010:2023).";
         n.classDocComment = "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23768,7 +24150,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CompatibilityCharacteristic", SomMetaKind.COMPLEX, "CompatibilityCharacteristic");
         n.memberName = "compatibility";
         n.classSectionId = "CMPT";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Compatibility (ISO/IEC 25010:2023).";
         n.classDocComment = "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23780,7 +24162,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InteractionCapabilityCharacteristic", SomMetaKind.COMPLEX, "InteractionCapabilityCharacteristic");
         n.memberName = "interactionCapability";
         n.classSectionId = "INCP";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Interaction capability (ISO/IEC 25010:2023; formerly Usability).";
         n.classDocComment = "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23792,7 +24174,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReliabilityCharacteristic", SomMetaKind.COMPLEX, "ReliabilityCharacteristic");
         n.memberName = "reliability";
         n.classSectionId = "RELC";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Reliability (ISO/IEC 25010:2023).";
         n.classDocComment = "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23804,7 +24186,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SecurityCharacteristic", SomMetaKind.COMPLEX, "SecurityCharacteristic");
         n.memberName = "security";
         n.classSectionId = "SECC";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Security (ISO/IEC 25010:2023).";
         n.classDocComment = "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23816,7 +24198,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MaintainabilityCharacteristic", SomMetaKind.COMPLEX, "MaintainabilityCharacteristic");
         n.memberName = "maintainability";
         n.classSectionId = "MNTC";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Maintainability (ISO/IEC 25010:2023).";
         n.classDocComment = "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23828,7 +24210,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FlexibilityCharacteristic", SomMetaKind.COMPLEX, "FlexibilityCharacteristic");
         n.memberName = "flexibility";
         n.classSectionId = "FLXC";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).";
         n.classDocComment = "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23840,7 +24222,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DocumentationQualityCriteria", SomMetaKind.COMPLEX, "DocumentationQualityCriteria");
         n.memberName = "documentationQualityCriteria";
         n.classSectionId = "DOQUCR";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Documentation quality (ISO/IEC 26514 annex).";
         n.classDocComment = "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23852,7 +24234,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("QualityPrioritization", SomMetaKind.COMPLEX, "QualityPrioritization");
         n.memberName = "qualityPrioritization";
         n.classSectionId = "QUPR";
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Quality prioritization.";
         n.classDocComment = "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23864,7 +24246,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AcceptanceCriteriaSummary", SomMetaKind.COMPLEX, "AcceptanceCriteriaSummary");
         n.memberName = "acceptanceCriteriaSummary";
         n.classSectionId = "ACCRSU";
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Acceptance criteria summary.";
         n.classDocComment = "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23876,7 +24258,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TestStrategy", SomMetaKind.COMPLEX, "TestStrategy");
         n.memberName = "testStrategy";
         n.classSectionId = "TEST";
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.docComment = "Test strategy (new in Phase A).";
         n.classDocComment = "11.8. Test Strategy.\n\nOverall test strategy for the project..";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23888,7 +24270,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AcceptanceCriteriaList", SomMetaKind.COMPLEX, "AcceptanceCriteriaList");
         n.memberName = "acceptanceCriteria";
         n.classSectionId = "ACRITL";
-        n.serializationOrder = 15;
+        n.serializationOrder = 17;
         n.docComment = "Acceptance criteria.";
         n.classDocComment = "14.2.1. Acceptance Criteria.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23900,7 +24282,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AcceptanceProcess", SomMetaKind.COMPLEX, "AcceptanceProcess");
         n.memberName = "acceptanceProcess";
         n.classSectionId = "ACPR1";
-        n.serializationOrder = 16;
+        n.serializationOrder = 18;
         n.docComment = "Acceptance process.";
         n.classDocComment = "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23912,7 +24294,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserAcceptanceTesting", SomMetaKind.COMPLEX, "UserAcceptanceTesting");
         n.memberName = "userAcceptanceTesting";
         n.classSectionId = "USACTE";
-        n.serializationOrder = 17;
+        n.serializationOrder = 19;
         n.docComment = "User acceptance testing.";
         n.classDocComment = "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23924,7 +24306,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DefectResolution", SomMetaKind.COMPLEX, "DefectResolution");
         n.memberName = "defectResolution";
         n.classSectionId = "DERE";
-        n.serializationOrder = 18;
+        n.serializationOrder = 20;
         n.docComment = "Defect resolution.";
         n.classDocComment = "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23936,7 +24318,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SignOffProcess", SomMetaKind.COMPLEX, "SignOffProcess");
         n.memberName = "signOffProcess";
         n.classSectionId = "SIOFPR";
-        n.serializationOrder = 19;
+        n.serializationOrder = 21;
         n.docComment = "Sign-off process.";
         n.classDocComment = "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23948,7 +24330,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WarrantyTerms", SomMetaKind.COMPLEX, "WarrantyTerms");
         n.memberName = "warranty";
         n.classSectionId = "WATE";
-        n.serializationOrder = 20;
+        n.serializationOrder = 22;
         n.docComment = "Warranty terms.";
         n.classDocComment = "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.";
         n.detailedIn = "D10QualityAcceptancePlan";
@@ -23965,6 +24347,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public QualityFrameworkNav qualityFramework() {
@@ -24077,11 +24467,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D11DeliveryRoadmap", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("StagingStrategy", s, StagingStrategyNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("StagingStrategy", SomMetaKind.COMPLEX, "StagingStrategy");
         n.memberName = "stagingStrategy";
         n.classSectionId = "STAGST";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Staging strategy.";
         n.classDocComment = "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24093,7 +24514,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("StageOverview", SomMetaKind.COMPLEX, "StageOverview");
         n.memberName = "stageOverview";
         n.classSectionId = "STAGOV";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Stage overview.";
         n.classDocComment = "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24106,7 +24527,7 @@ public final class TomSomV0Meta {
         n.memberName = "stages";
         n.sectionId = "STAGE-STAG-LST";
         n.sectionIdPattern = "STAGE-STAG-xxx";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.min = 1;
         n.docComment = "Stages (list).";
         n.elementNode = metaCx("StageEntry", s, StageEntryNav::metaChildren, (r, c) -> {
@@ -24124,7 +24545,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeaturePrioritization", SomMetaKind.COMPLEX, "FeaturePrioritization");
         n.memberName = "featurePrioritization";
         n.classSectionId = "FEPR";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Feature prioritization.";
         n.classDocComment = "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24136,7 +24557,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataMigrationStrategy", SomMetaKind.COMPLEX, "DataMigrationStrategy");
         n.memberName = "dataMigrationStrategy";
         n.classSectionId = "DAMIST";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Data migration strategy.";
         n.classDocComment = "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24148,7 +24569,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PhaseGateReviews", SomMetaKind.COMPLEX, "PhaseGateReviews");
         n.memberName = "gateCriteria";
         n.classSectionId = "PHGARE";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Gate criteria (promoted from GOV).";
         n.classDocComment = "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24160,7 +24581,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DecisionPoints", SomMetaKind.COMPLEX, "DecisionPoints");
         n.memberName = "decisionProcesses";
         n.classSectionId = "DEPO";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "Decision processes (promoted from GOV).";
         n.classDocComment = "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24172,7 +24593,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("InitialDevelopmentFlow", SomMetaKind.COMPLEX, "InitialDevelopmentFlow");
         n.memberName = "initialDevelopmentFlow";
         n.classSectionId = "INDEFL";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Initial development flow.";
         n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24184,7 +24605,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UpgradeCycleFramework", SomMetaKind.COMPLEX, "UpgradeCycleFramework");
         n.memberName = "upgradeCycleFramework";
         n.classSectionId = "UPCYFR";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).";
         n.classDocComment = "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.";
         n.detailedIn = "D11DeliveryRoadmap";
@@ -24201,6 +24622,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public StagingStrategyNav stagingStrategy() {
@@ -24273,11 +24702,42 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 2;
+        n.docComment = "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("D12TransitionRolloutPlan", SomMetaKind.LIST, "RevisionEntry");
+        n.memberName = "revisionHistory";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
+        n.serializationOrder = 3;
+        n.contentHelp = "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.";
+        n.docComment = "Chronological revision history of this document, with the reviewers of\neach revision.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"), "connotation", "The ordered set of published revisions of this document.")));
+        n.elementNode = metaCx("RevisionEntry", s, RevisionEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RevisionEntry", SomMetaKind.COMPLEX, "RevisionEntry");
+          e.classSectionId = "RVENT";
+          e.docComment = "A single document revision entry (form).";
+          e.classDocComment = "A single document revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       out.add(metaCx("LocalizationProcess", s, LocalizationProcessNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("LocalizationProcess", SomMetaKind.COMPLEX, "LocalizationProcess");
         n.memberName = "localizationProcess";
         n.classSectionId = "LOPR";
-        n.serializationOrder = 2;
+        n.serializationOrder = 4;
         n.docComment = "Localization process.";
         n.classDocComment = "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -24290,7 +24750,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TranslationProcess", SomMetaKind.COMPLEX, "TranslationProcess");
         n.memberName = "translationProcess";
         n.classSectionId = "TRPR";
-        n.serializationOrder = 3;
+        n.serializationOrder = 5;
         n.docComment = "Translation process.";
         n.classDocComment = "10.12.2. Translation Process.\n\nWorkflow for translating content.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -24303,7 +24763,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserDocumentationRequirements", SomMetaKind.COMPLEX, "UserDocumentationRequirements");
         n.memberName = "userDocumentation";
         n.classSectionId = "DOANTR";
-        n.serializationOrder = 4;
+        n.serializationOrder = 6;
         n.docComment = "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).";
         n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -24316,7 +24776,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("TrainingDeliverableRequirements", SomMetaKind.COMPLEX, "TrainingDeliverableRequirements");
         n.memberName = "trainingDeliverables";
         n.classSectionId = "TRMAT";
-        n.serializationOrder = 5;
+        n.serializationOrder = 7;
         n.docComment = "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).";
         n.classDocComment = "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.";
         n.mapsTo = "D12TransitionRolloutPlan";
@@ -24329,7 +24789,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RolloutPlan", SomMetaKind.COMPLEX, "RolloutPlan");
         n.memberName = "rolloutPlan";
         n.classSectionId = "RLTPLN";
-        n.serializationOrder = 6;
+        n.serializationOrder = 8;
         n.docComment = "Rollout plan.";
         n.classDocComment = "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24341,7 +24801,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("MigrationPlan", SomMetaKind.COMPLEX, "MigrationPlan");
         n.memberName = "migrationPlan";
         n.classSectionId = "MIGPLN";
-        n.serializationOrder = 7;
+        n.serializationOrder = 9;
         n.docComment = "Migration plan.";
         n.classDocComment = "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24353,7 +24813,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserManual", SomMetaKind.COMPLEX, "UserManual");
         n.memberName = "userManuals";
         n.classSectionId = "USRMAN";
-        n.serializationOrder = 8;
+        n.serializationOrder = 10;
         n.docComment = "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).";
         n.classDocComment = "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24365,7 +24825,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("RolloutTrainingMaterial", SomMetaKind.COMPLEX, "RolloutTrainingMaterial");
         n.memberName = "trainingMaterials";
         n.classSectionId = "RLTTM";
-        n.serializationOrder = 9;
+        n.serializationOrder = 11;
         n.docComment = "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).";
         n.classDocComment = "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24377,7 +24837,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("PilotPlan", SomMetaKind.COMPLEX, "PilotPlan");
         n.memberName = "pilotPlan";
         n.classSectionId = "PLTPLN";
-        n.serializationOrder = 10;
+        n.serializationOrder = 12;
         n.docComment = "Pilot plan.";
         n.classDocComment = "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24389,7 +24849,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("CutoverProcedure", SomMetaKind.COMPLEX, "CutoverProcedure");
         n.memberName = "cutoverProcedures";
         n.classSectionId = "CUTPRC";
-        n.serializationOrder = 11;
+        n.serializationOrder = 13;
         n.docComment = "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).";
         n.classDocComment = "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24401,7 +24861,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("KnowledgeTransfer", SomMetaKind.COMPLEX, "KnowledgeTransfer");
         n.memberName = "knowledgeTransfer";
         n.classSectionId = "KNTFR";
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.docComment = "Knowledge transfer.";
         n.classDocComment = "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24413,7 +24873,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WarrantyAndSupport", SomMetaKind.COMPLEX, "WarrantyAndSupport");
         n.memberName = "warrantyAndSupport";
         n.classSectionId = "WRTSP";
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.docComment = "Warranty and support.";
         n.classDocComment = "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.";
         n.detailedIn = "D12TransitionRolloutPlan";
@@ -24430,6 +24890,14 @@ public final class TomSomV0Meta {
 
     public DocumentHeaderNav header() {
       return new DocumentHeaderNav(tree, path + "/header");
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<RevisionEntryNav> revisionHistory() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public LocalizationProcessNav localizationProcess() {
@@ -34914,6 +35382,59 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<RelevantSectionEntryNav> sections() {
       return new SomListMetaRef<>(tree, path + "/RESEEN-SECT-LST", (t, p) -> new RelevantSectionEntryNav(t, p));
+    }
+  }
+
+  // DocumentReviewTeamEntryNav holds the dot-notation accessors of `DocumentReviewTeamEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class DocumentReviewTeamEntryNav extends SomMetaRef {
+    public DocumentReviewTeamEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `DocumentReviewTeamEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("DocumentReviewTeamEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("documentType", "SpecDocumentType", "Document Type", true, "The document root type this team reviews; one entry per type.", 0, java.util.List.of("d01CurrentLandscapeAssessment", "d02TargetOperatingModel", "d03InformationModel", "d04RequirementsSpecification", "d05InteractionScenarios", "d06ArchitectureTechnologySpecification", "d07IntegrationInterfaceSpecification", "d08SecurityAccessSpecification", "d09ExperienceDesignSpecification", "d10QualityAcceptancePlan", "d11DeliveryRoadmap", "d12TransitionRolloutPlan"))));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("DocumentReviewTeamEntry", SomMetaKind.LIST, "ReviewTeamMember");
+        n.memberName = "members";
+        n.sectionId = "RVMEM-MEMB-LST";
+        n.sectionIdPattern = "RVMEM-MEMB-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per member of this document type's team.";
+        n.docComment = "The members of the team.";
+        n.elementNode = metaCx("ReviewTeamMember", s, ReviewTeamMemberNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ReviewTeamMember", SomMetaKind.COMPLEX, "ReviewTeamMember");
+          e.classSectionId = "RVMEM";
+          e.docComment = "One member of a review team (form).";
+          e.classDocComment = "One member of a review team (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<ReviewTeamMemberNav> members() {
+      return new SomListMetaRef<>(tree, path + "/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberNav(t, p));
     }
   }
 
@@ -78719,6 +79240,127 @@ public final class TomSomV0Meta {
     }
   }
 
+  // ReviewTeamNav holds the dot-notation accessors of `ReviewTeam` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ReviewTeamNav extends SomMetaRef {
+    public ReviewTeamNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ReviewTeam` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.CONTENT, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.LIST, "ReviewTeamMember");
+        n.memberName = "members";
+        n.sectionId = "RVMEM-MEMB-LST";
+        n.sectionIdPattern = "RVMEM-MEMB-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per member. Mark the specification owner with owner: true in the default team.";
+        n.docComment = "The members of the team.";
+        n.elementNode = metaCx("ReviewTeamMember", s, ReviewTeamMemberNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ReviewTeamMember", SomMetaKind.COMPLEX, "ReviewTeamMember");
+          e.classSectionId = "RVMEM";
+          e.docComment = "One member of a review team (form).";
+          e.classDocComment = "One member of a review team (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<ReviewTeamMemberNav> members() {
+      return new SomListMetaRef<>(tree, path + "/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberNav(t, p));
+    }
+  }
+
+  // ReviewTeamMemberNav holds the dot-notation accessors of `ReviewTeamMember` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ReviewTeamMemberNav extends SomMetaRef {
+    public ReviewTeamMemberNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ReviewTeamMember` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ReviewTeamMember", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("memberId", "String", "Member Id", true, "Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.", 0),
+            new SomFormFieldMeta("displayName", "String", "Display Name", true, null, 1),
+            new SomFormFieldMeta("role", "String", "Role", true, null, 2),
+            new SomFormFieldMeta("stakeholder", "String", "Stakeholder", false, "The stakeholder register entry this member represents.", 3, java.util.List.of(), java.util.List.of("STKRE.@sectionId")),
+            new SomFormFieldMeta("email", "String", "E-Mail", false, "Stored only; nothing sends mail.", 4),
+            new SomFormFieldMeta("owner", "bool", "Owner", false, "true for the specification owner, who is always a reviewer.", 5)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // ReviewerRecordNav holds the dot-notation accessors of `ReviewerRecord` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ReviewerRecordNav extends SomMetaRef {
+    public ReviewerRecordNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ReviewerRecord` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ReviewerRecord", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("memberId", "String", "Member Id", true, "The member id, as in the team, or the guest's id.", 0),
+            new SomFormFieldMeta("displayName", "String", "Display Name", true, null, 1),
+            new SomFormFieldMeta("role", "String", "Role", false, null, 2),
+            new SomFormFieldMeta("guest", "bool", "Guest", false, "true for a reviewer who was not on the team the round used.", 3)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // RevisionEntryNav holds the dot-notation accessors of `RevisionEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -78744,11 +79386,57 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("summary", "String", "Summary of changes", false, "One or two sentences on what changed and why.", 3)));
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("RevisionEntry", SomMetaKind.LIST, "ReviewerRecord");
+        n.memberName = "reviewTeam";
+        n.sectionId = "RVWER-TEAM-LST";
+        n.sectionIdPattern = "RVWER-TEAM-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "The members the review round started with, each written out in full.";
+        n.docComment = "The review team the round leading to this revision started with.";
+        n.elementNode = metaCx("ReviewerRecord", s, ReviewerRecordNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ReviewerRecord", SomMetaKind.COMPLEX, "ReviewerRecord");
+          e.classSectionId = "RVWER";
+          e.docComment = "A reviewer recorded in a revision entry (form).";
+          e.classDocComment = "A reviewer recorded in a revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("RevisionEntry", SomMetaKind.LIST, "ReviewerRecord");
+        n.memberName = "reviewers";
+        n.sectionId = "RVWER-RETN-LST";
+        n.sectionIdPattern = "RVWER-RETN-xxx";
+        n.serializationOrder = 2;
+        n.contentHelp = "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.";
+        n.docComment = "The reviewers who returned a reviewed copy, guests included.";
+        n.elementNode = metaCx("ReviewerRecord", s, ReviewerRecordNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ReviewerRecord", SomMetaKind.COMPLEX, "ReviewerRecord");
+          e.classSectionId = "RVWER";
+          e.docComment = "A reviewer recorded in a revision entry (form).";
+          e.classDocComment = "A reviewer recorded in a revision entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<ReviewerRecordNav> reviewTeam() {
+      return new SomListMetaRef<>(tree, path + "/RVWER-TEAM-LST", (t, p) -> new ReviewerRecordNav(t, p));
+    }
+
+    public SomListMetaRef<ReviewerRecordNav> reviewers() {
+      return new SomListMetaRef<>(tree, path + "/RVWER-RETN-LST", (t, p) -> new ReviewerRecordNav(t, p));
     }
   }
 
@@ -91572,6 +92260,36 @@ public final class TomSomV0Meta {
         });
         out.add(n);
       }
+      out.add(metaCx("ReviewTeam", s, ReviewTeamNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReviewTeam", SomMetaKind.COMPLEX, "ReviewTeam");
+        n.memberName = "reviewTeam";
+        n.classSectionId = "RVTEAM";
+        n.serializationOrder = 9;
+        n.docComment = "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.";
+        n.classDocComment = "A review team: the members who review a document.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      {
+        SomMetaNode n = new SomMetaNode("StakeholdersAndGovernance", SomMetaKind.LIST, "DocumentReviewTeamEntry");
+        n.memberName = "documentReviewTeams";
+        n.sectionId = "DCRVTM-DOCR-LST";
+        n.sectionIdPattern = "DCRVTM-DOCR-xxx";
+        n.serializationOrder = 10;
+        n.contentHelp = "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.";
+        n.docComment = "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.";
+        n.elementNode = metaCx("DocumentReviewTeamEntry", s, DocumentReviewTeamEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("DocumentReviewTeamEntry", SomMetaKind.COMPLEX, "DocumentReviewTeamEntry");
+          e.classSectionId = "DCRVTM";
+          e.docComment = "The Solution Blueprint's review team for one document type (form + members).";
+          e.classDocComment = "The Solution Blueprint's review team for one document type (form + members).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -91609,6 +92327,14 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<StakeholderRegisterEntryNav> stakeholderRegister() {
       return new SomListMetaRef<>(tree, path + "/STKRE-STAK-LST", (t, p) -> new StakeholderRegisterEntryNav(t, p));
+    }
+
+    public ReviewTeamNav reviewTeam() {
+      return new ReviewTeamNav(tree, path + "/reviewTeam");
+    }
+
+    public SomListMetaRef<DocumentReviewTeamEntryNav> documentReviewTeams() {
+      return new SomListMetaRef<>(tree, path + "/DCRVTM-DOCR-LST", (t, p) -> new DocumentReviewTeamEntryNav(t, p));
     }
   }
 
@@ -112749,6 +113475,14 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/STKRE-STAK-LST", (t, p) -> new StakeholderRegisterEntryId(t, p));
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<DocumentReviewTeamEntryId> DCRVTM_DOCR_LST() {
+      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/DCRVTM-DOCR-LST", (t, p) -> new DocumentReviewTeamEntryId(t, p));
+    }
+
     public SomListMetaRef<ExistingSystemEntryId> ESENT_SYST_LST() {
       return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", (t, p) -> new ExistingSystemEntryId(t, p));
     }
@@ -117451,6 +118185,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomListMetaRef<ExistingSystemEntryId> ESENT_SYST_LST() {
       return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", (t, p) -> new ExistingSystemEntryId(t, p));
     }
@@ -117773,6 +118515,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomMetaRef PVOVW() {
       return new SomMetaRef(tree, path + "/processVision/PVOVW");
     }
@@ -117841,6 +118591,14 @@ public final class TomSomV0Meta {
   public static final class D03InformationModelId extends SomMetaRef {
     public D03InformationModelId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
     public SomListMetaRef<DataEntityEntryId> DAENT_ENTI_LST() {
@@ -117917,6 +118675,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomMetaRef FR_SUMM() {
       return new SomMetaRef(tree, path + "/functionalRequirements/FR-SUMM");
     }
@@ -117967,6 +118733,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomMetaRef ACOVNA() {
       return new SomMetaRef(tree, path + "/actorOverview/ACOVNA");
     }
@@ -118015,6 +118789,14 @@ public final class TomSomV0Meta {
   public static final class D06ArchitectureTechnologySpecificationId extends SomMetaRef {
     public D06ArchitectureTechnologySpecificationId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
     public SomListMetaRef<TargetPlatformEntryId> TGPLT_TARG_LST() {
@@ -120639,6 +121421,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomListMetaRef<ExternalInterfaceEntryId> EIE_INTE_LST() {
       return new SomListMetaRef<>(tree, path + "/externalInterfaces/EIE-INTE-LST", (t, p) -> new ExternalInterfaceEntryId(t, p));
     }
@@ -120671,6 +121461,14 @@ public final class TomSomV0Meta {
   public static final class D08SecurityAccessSpecificationId extends SomMetaRef {
     public D08SecurityAccessSpecificationId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
     public SomListMetaRef<UserCategoryDefinitionId> USCDF_ITEM_LST() {
@@ -120833,6 +121631,14 @@ public final class TomSomV0Meta {
   public static final class D09ExperienceDesignSpecificationId extends SomMetaRef {
     public D09ExperienceDesignSpecificationId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
     public SomListMetaRef<DesignGoalEntryId> DGOEN_ITEM_LST() {
@@ -121389,6 +122195,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomMetaRef QLFWK_FRAM() {
       return new SomMetaRef(tree, path + "/qualityFramework/QLFWK-FRAM");
     }
@@ -121863,6 +122677,14 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    }
+
     public SomMetaRef STAGAS() {
       return new SomMetaRef(tree, path + "/stagingStrategy/STAGAS");
     }
@@ -122095,6 +122917,14 @@ public final class TomSomV0Meta {
   public static final class D12TransitionRolloutPlanId extends SomMetaRef {
     public D12TransitionRolloutPlanId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/reviewTeam/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
+    }
+
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
     public SomMetaRef LOPR_LOCA() {
@@ -126113,6 +126943,20 @@ public final class TomSomV0Meta {
   public static final class DistributionRecipientPreferencesId extends SomMetaRef {
     public DistributionRecipientPreferencesId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+  }
+
+  // DocumentReviewTeamEntryId holds the ID-tree accessors of `DocumentReviewTeamEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class DocumentReviewTeamEntryId extends SomMetaRef {
+    public DocumentReviewTeamEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewTeamMemberId> RVMEM_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVMEM-MEMB-LST", (t, p) -> new ReviewTeamMemberId(t, p));
     }
   }
 
@@ -130650,6 +131494,26 @@ public final class TomSomV0Meta {
     }
   }
 
+  // ReviewTeamMemberId holds the ID-tree accessors of `ReviewTeamMember` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ReviewTeamMemberId extends SomMetaRef {
+    public ReviewTeamMemberId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
+  // ReviewerRecordId holds the ID-tree accessors of `ReviewerRecord` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ReviewerRecordId extends SomMetaRef {
+    public ReviewerRecordId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // RevisionEntryId holds the ID-tree accessors of `RevisionEntry` (SOM §8): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -130657,6 +131521,14 @@ public final class TomSomV0Meta {
   public static final class RevisionEntryId extends SomMetaRef {
     public RevisionEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomListMetaRef<ReviewerRecordId> RVWER_TEAM_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVWER-TEAM-LST", (t, p) -> new ReviewerRecordId(t, p));
+    }
+
+    public SomListMetaRef<ReviewerRecordId> RVWER_RETN_LST() {
+      return new SomListMetaRef<>(tree, path + "/RVWER-RETN-LST", (t, p) -> new ReviewerRecordId(t, p));
     }
   }
 

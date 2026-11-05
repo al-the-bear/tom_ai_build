@@ -1613,6 +1613,47 @@ function _parseServerCallRole(token) {
   return null;
 }
 
+// Generated enum for `SpecDocumentType` values.
+const SpecDocumentType = Object.freeze({
+  // `D01CurrentLandscapeAssessment`.
+  "d01CurrentLandscapeAssessment": "d01CurrentLandscapeAssessment",
+  // `D02TargetOperatingModel`.
+  "d02TargetOperatingModel": "d02TargetOperatingModel",
+  // `D03InformationModel`.
+  "d03InformationModel": "d03InformationModel",
+  // `D04RequirementsSpecification`.
+  "d04RequirementsSpecification": "d04RequirementsSpecification",
+  // `D05InteractionScenarios`.
+  "d05InteractionScenarios": "d05InteractionScenarios",
+  // `D06ArchitectureTechnologySpecification`.
+  "d06ArchitectureTechnologySpecification": "d06ArchitectureTechnologySpecification",
+  // `D07IntegrationInterfaceSpecification`.
+  "d07IntegrationInterfaceSpecification": "d07IntegrationInterfaceSpecification",
+  // `D08SecurityAccessSpecification`.
+  "d08SecurityAccessSpecification": "d08SecurityAccessSpecification",
+  // `D09ExperienceDesignSpecification`.
+  "d09ExperienceDesignSpecification": "d09ExperienceDesignSpecification",
+  // `D10QualityAcceptancePlan`.
+  "d10QualityAcceptancePlan": "d10QualityAcceptancePlan",
+  // `D11DeliveryRoadmap`.
+  "d11DeliveryRoadmap": "d11DeliveryRoadmap",
+  // `D12TransitionRolloutPlan`.
+  "d12TransitionRolloutPlan": "d12TransitionRolloutPlan",
+});
+
+// Parses a stored token into a SpecDocumentType value, or null.
+function _parseSpecDocumentType(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(SpecDocumentType)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `Status` values.
 const Status = Object.freeze({
   // Being authored. The wording may change without notice and nothing
@@ -10331,7 +10372,7 @@ class CutoverProcedure extends SomNode {
 // per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10461,7 +10502,7 @@ class D00SolutionBlueprint extends SomNode {
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10518,6 +10559,18 @@ class D01CurrentLandscapeAssessment extends SomNode {
     return new DocumentHeader(this.doc, this.path + "/header");
   }
 
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
+  }
+
   // Existing systems landscape.
   get existingSystemsLandscape() {
     return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
@@ -10566,7 +10619,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10621,6 +10674,18 @@ class D02TargetOperatingModel extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Process vision.
@@ -10682,7 +10747,7 @@ class D02TargetOperatingModel extends SomNode {
 // integrity constraints.
 class D03InformationModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10737,6 +10802,18 @@ class D03InformationModel extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Entity inventory (list).
@@ -10862,7 +10939,7 @@ class D03InformationModel extends SomNode {
 // and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10919,6 +10996,18 @@ class D04RequirementsSpecification extends SomNode {
     return new DocumentHeader(this.doc, this.path + "/header");
   }
 
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
+  }
+
   // Functional requirements.
   get functionalRequirements() {
     return new FunctionalRequirements(this.doc, this.path + "/functionalRequirements");
@@ -10970,7 +11059,7 @@ class D04RequirementsSpecification extends SomNode {
 // and traceability.
 class D05InteractionScenarios extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11027,6 +11116,18 @@ class D05InteractionScenarios extends SomNode {
     return new DocumentHeader(this.doc, this.path + "/header");
   }
 
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
+  }
+
   // Process steps overview.
   get processStepsOverview() {
     return new ProcessStepsOverview(this.doc, this.path + "/processStepsOverview");
@@ -11071,7 +11172,7 @@ class D05InteractionScenarios extends SomNode {
 // and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11126,6 +11227,18 @@ class D06ArchitectureTechnologySpecification extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Basic technical requirements.
@@ -11196,7 +11309,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11251,6 +11364,18 @@ class D07IntegrationInterfaceSpecification extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // External interfaces.
@@ -11312,7 +11437,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 // compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11367,6 +11492,18 @@ class D08SecurityAccessSpecification extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // User management.
@@ -11430,7 +11567,7 @@ class D08SecurityAccessSpecification extends SomNode {
 // mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11485,6 +11622,18 @@ class D09ExperienceDesignSpecification extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Design vision.
@@ -11561,7 +11710,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11616,6 +11765,18 @@ class D10QualityAcceptancePlan extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Quality framework.
@@ -11722,7 +11883,7 @@ class D10QualityAcceptancePlan extends SomNode {
 // framework.
 class D11DeliveryRoadmap extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11779,6 +11940,18 @@ class D11DeliveryRoadmap extends SomNode {
     return new DocumentHeader(this.doc, this.path + "/header");
   }
 
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
+  }
+
   // Staging strategy.
   get stagingStrategy() {
     return new StagingStrategy(this.doc, this.path + "/stagingStrategy");
@@ -11833,7 +12006,7 @@ class D11DeliveryRoadmap extends SomNode {
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11888,6 +12061,18 @@ class D12TransitionRolloutPlan extends SomNode {
   // Standard TomSpecs document header.
   get header() {
     return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // This document's own review team; when it has members it replaces the
+  // Solution Blueprint's team for this document type and its default team.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Chronological revision history of this document, with the reviewers of
+  // each revision.
+  get revisionHistory() {
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d, p) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Localization process.
@@ -11969,7 +12154,7 @@ class D12TransitionRolloutPlan extends SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.6";
+  static MODEL_VERSION = "1.7";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -16292,6 +16477,25 @@ class DocumentRelevantSections extends SomNode {
   // Individual relevant section entries.
   get sections() {
     return new SomList(this.doc, this.path + "/RESEEN-SECT-LST", (d, p) => new RelevantSectionEntry(d, p), "RESEEN-SECT-xxx");
+  }
+}
+
+// The Solution Blueprint's review team for one document type (form + members).
+class DocumentReviewTeamEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new DocumentReviewTeamEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // The members of the team.
+  get members() {
+    return new SomList(this.doc, this.path + "/RVMEM-MEMB-LST", (d, p) => new ReviewTeamMember(d, p), "RVMEM-MEMB-xxx");
   }
 }
 
@@ -34424,6 +34628,61 @@ class ReviewCriterionEntry extends SomNode {
   }
 }
 
+// A review team: the members who review a document.
+class ReviewTeam extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The members of the team.
+  get members() {
+    return new SomList(this.doc, this.path + "/RVMEM-MEMB-LST", (d, p) => new ReviewTeamMember(d, p), "RVMEM-MEMB-xxx");
+  }
+}
+
+// One member of a review team (form).
+class ReviewTeamMember extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new ReviewTeamMemberContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// A reviewer recorded in a revision entry (form).
+class ReviewerRecord extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new ReviewerRecordContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A single document revision entry (form).
 class RevisionEntry extends SomNode {
   constructor(doc, path) {
@@ -34435,6 +34694,16 @@ class RevisionEntry extends SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   get content() {
     return new RevisionEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // The review team the round leading to this revision started with.
+  get reviewTeam() {
+    return new SomList(this.doc, this.path + "/RVWER-TEAM-LST", (d, p) => new ReviewerRecord(d, p), "RVWER-TEAM-xxx");
+  }
+
+  // The reviewers who returned a reviewed copy, guests included.
+  get reviewers() {
+    return new SomList(this.doc, this.path + "/RVWER-RETN-LST", (d, p) => new ReviewerRecord(d, p), "RVWER-RETN-xxx");
   }
 }
 
@@ -39733,6 +40002,19 @@ class StakeholdersAndGovernance extends SomNode {
   // Stakeholder register.
   get stakeholderRegister() {
     return new SomList(this.doc, this.path + "/STKRE-STAK-LST", (d, p) => new StakeholderRegisterEntry(d, p), "STKRE-STAK-xxx");
+  }
+
+  // The default review team: it reviews every document that names no team
+  // of its own and has no entry in [documentReviewTeams]. Its owner
+  // (`owner: true`) is the specification owner, always a reviewer.
+  get reviewTeam() {
+    return new ReviewTeam(this.doc, this.path + "/reviewTeam");
+  }
+
+  // Review teams per document type, each replacing [reviewTeam] for the
+  // documents of its type.
+  get documentReviewTeams() {
+    return new SomList(this.doc, this.path + "/DCRVTM-DOCR-LST", (d, p) => new DocumentReviewTeamEntry(d, p), "DCRVTM-DOCR-xxx");
   }
 }
 
@@ -91942,6 +92224,33 @@ class DocumentRelevantSectionsContentForm extends SomNode {
 
   set extractSummary(value) {
     this.doc.setFormField(this.path, "extractSummary", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class DocumentReviewTeamEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get documentType() {
+    return this.doc.formField(this.path, "documentType") || '';
+  }
+
+  set documentType(value) {
+    this.doc.setFormField(this.path, "documentType", value);
   }
 }
 
@@ -152976,6 +153285,126 @@ class ReviewCriterionEntryResultForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ReviewTeamMemberContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get memberId() {
+    return this.doc.formField(this.path, "memberId") || '';
+  }
+
+  set memberId(value) {
+    this.doc.setFormField(this.path, "memberId", value);
+  }
+
+  get displayName() {
+    return this.doc.formField(this.path, "displayName") || '';
+  }
+
+  set displayName(value) {
+    this.doc.setFormField(this.path, "displayName", value);
+  }
+
+  get role() {
+    return this.doc.formField(this.path, "role") || '';
+  }
+
+  set role(value) {
+    this.doc.setFormField(this.path, "role", value);
+  }
+
+  get stakeholder() {
+    return this.doc.formField(this.path, "stakeholder") || '';
+  }
+
+  set stakeholder(value) {
+    this.doc.setFormField(this.path, "stakeholder", value);
+  }
+
+  get email() {
+    return this.doc.formField(this.path, "email") || '';
+  }
+
+  set email(value) {
+    this.doc.setFormField(this.path, "email", value);
+  }
+
+  get owner() {
+    const v = this.doc.formField(this.path, "owner");
+    return v == null ? null : v === 'true';
+  }
+
+  set owner(value) {
+    this.doc.setFormField(this.path, "owner", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ReviewerRecordContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get memberId() {
+    return this.doc.formField(this.path, "memberId") || '';
+  }
+
+  set memberId(value) {
+    this.doc.setFormField(this.path, "memberId", value);
+  }
+
+  get displayName() {
+    return this.doc.formField(this.path, "displayName") || '';
+  }
+
+  set displayName(value) {
+    this.doc.setFormField(this.path, "displayName", value);
+  }
+
+  get role() {
+    return this.doc.formField(this.path, "role") || '';
+  }
+
+  set role(value) {
+    this.doc.setFormField(this.path, "role", value);
+  }
+
+  get guest() {
+    const v = this.doc.formField(this.path, "guest");
+    return v == null ? null : v === 'true';
+  }
+
+  set guest(value) {
+    this.doc.setFormField(this.path, "guest", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class RevisionEntryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -197843,6 +198272,7 @@ module.exports = {
   ScreenFlowOutcome,
   ScreenPresentationMode,
   ServerCallRole,
+  SpecDocumentType,
   Status,
   TranslationReviewStatus,
   UserAttributePlacement,
@@ -198219,6 +198649,7 @@ module.exports = {
   DocumentHeader,
   DocumentRelationships,
   DocumentRelevantSections,
+  DocumentReviewTeamEntry,
   DocumentationDeliverables,
   DocumentationQualityCriteria,
   DocumentationStandards,
@@ -198752,6 +199183,9 @@ module.exports = {
   ReusableUiComponentEntry,
   ReuseGoalEntry,
   ReviewCriterionEntry,
+  ReviewTeam,
+  ReviewTeamMember,
+  ReviewerRecord,
   RevisionEntry,
   RiskBusinessImpact,
   RiskEntry,
@@ -199974,6 +200408,7 @@ module.exports = {
   DocCorrectnessVerificationForm,
   DocumentHeaderContentForm,
   DocumentRelevantSectionsContentForm,
+  DocumentReviewTeamEntryContentForm,
   DocumentationQualityCriteriaDocumentationOverviewContentForm,
   DocumentationStandardsArchitectureForm,
   DocumentationStandardsCodeDocsForm,
@@ -201123,6 +201558,8 @@ module.exports = {
   ReviewCriterionEntryAssessmentForm,
   ReviewCriterionEntryContentForm,
   ReviewCriterionEntryResultForm,
+  ReviewTeamMemberContentForm,
+  ReviewerRecordContentForm,
   RevisionEntryContentForm,
   RiskBusinessImpactContentForm,
   RiskBusinessImpactDeliveryForm,

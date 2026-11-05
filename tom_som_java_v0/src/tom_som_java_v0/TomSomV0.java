@@ -2237,6 +2237,77 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `SpecDocumentType` values.
+  public enum SpecDocumentType {
+    /**
+     * `D01CurrentLandscapeAssessment`.
+     */
+    d01CurrentLandscapeAssessment("d01CurrentLandscapeAssessment"),
+    /**
+     * `D02TargetOperatingModel`.
+     */
+    d02TargetOperatingModel("d02TargetOperatingModel"),
+    /**
+     * `D03InformationModel`.
+     */
+    d03InformationModel("d03InformationModel"),
+    /**
+     * `D04RequirementsSpecification`.
+     */
+    d04RequirementsSpecification("d04RequirementsSpecification"),
+    /**
+     * `D05InteractionScenarios`.
+     */
+    d05InteractionScenarios("d05InteractionScenarios"),
+    /**
+     * `D06ArchitectureTechnologySpecification`.
+     */
+    d06ArchitectureTechnologySpecification("d06ArchitectureTechnologySpecification"),
+    /**
+     * `D07IntegrationInterfaceSpecification`.
+     */
+    d07IntegrationInterfaceSpecification("d07IntegrationInterfaceSpecification"),
+    /**
+     * `D08SecurityAccessSpecification`.
+     */
+    d08SecurityAccessSpecification("d08SecurityAccessSpecification"),
+    /**
+     * `D09ExperienceDesignSpecification`.
+     */
+    d09ExperienceDesignSpecification("d09ExperienceDesignSpecification"),
+    /**
+     * `D10QualityAcceptancePlan`.
+     */
+    d10QualityAcceptancePlan("d10QualityAcceptancePlan"),
+    /**
+     * `D11DeliveryRoadmap`.
+     */
+    d11DeliveryRoadmap("d11DeliveryRoadmap"),
+    /**
+     * `D12TransitionRolloutPlan`.
+     */
+    d12TransitionRolloutPlan("d12TransitionRolloutPlan");
+
+    public final String token;
+
+    SpecDocumentType(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a SpecDocumentType, or null.
+    public static SpecDocumentType parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (SpecDocumentType v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `Status` values.
   public enum Status {
     /**
@@ -11012,7 +11083,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11150,7 +11221,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11215,6 +11286,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // Existing systems landscape.
     public ExistingSystemsLandscape existingSystemsLandscape() {
       return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
@@ -11263,7 +11346,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11328,6 +11411,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // Process vision.
     public ProcessVision processVision() {
       return new ProcessVision(doc, path + "/processVision");
@@ -11387,7 +11482,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11450,6 +11545,18 @@ public final class TomSomV0 {
     // Standard TomSpecs document header.
     public DocumentHeader header() {
       return new DocumentHeader(doc, path + "/header");
+    }
+
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
     }
 
     // Entity inventory (list).
@@ -11571,7 +11678,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11636,6 +11743,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // Functional requirements.
     public FunctionalRequirements functionalRequirements() {
       return new FunctionalRequirements(doc, path + "/functionalRequirements");
@@ -11688,7 +11807,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11753,6 +11872,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // Process steps overview.
     public ProcessStepsOverview processStepsOverview() {
       return new ProcessStepsOverview(doc, path + "/processStepsOverview");
@@ -11797,7 +11928,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11860,6 +11991,18 @@ public final class TomSomV0 {
     // Standard TomSpecs document header.
     public DocumentHeader header() {
       return new DocumentHeader(doc, path + "/header");
+    }
+
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
     }
 
     // Basic technical requirements.
@@ -11930,7 +12073,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11995,6 +12138,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // External interfaces.
     public ExternalInterfaces externalInterfaces() {
       return new ExternalInterfaces(doc, path + "/externalInterfaces");
@@ -12054,7 +12209,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12119,6 +12274,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // User management.
     public UserManagement userManagement() {
       return new UserManagement(doc, path + "/userManagement");
@@ -12180,7 +12347,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12243,6 +12410,18 @@ public final class TomSomV0 {
     // Standard TomSpecs document header.
     public DocumentHeader header() {
       return new DocumentHeader(doc, path + "/header");
+    }
+
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
     }
 
     // Design vision.
@@ -12319,7 +12498,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12382,6 +12561,18 @@ public final class TomSomV0 {
     // Standard TomSpecs document header.
     public DocumentHeader header() {
       return new DocumentHeader(doc, path + "/header");
+    }
+
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
     }
 
     // Quality framework.
@@ -12488,7 +12679,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12553,6 +12744,18 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
+    }
+
     // Staging strategy.
     public StagingStrategy stagingStrategy() {
       return new StagingStrategy(doc, path + "/stagingStrategy");
@@ -12607,7 +12810,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12670,6 +12873,18 @@ public final class TomSomV0 {
     // Standard TomSpecs document header.
     public DocumentHeader header() {
       return new DocumentHeader(doc, path + "/header");
+    }
+
+    // This document's own review team; when it has members it replaces the
+    // Solution Blueprint's team for this document type and its default team.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Chronological revision history of this document, with the reviewers of
+    // each revision.
+    public SomList<RevisionEntry> revisionHistory() {
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
     }
 
     // Localization process.
@@ -12751,7 +12966,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.6";
+    public static final String MODEL_VERSION = "1.7";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -17116,6 +17331,25 @@ public final class TomSomV0 {
     // Individual relevant section entries.
     public SomList<RelevantSectionEntry> sections() {
       return new SomList<>(doc, path + "/RESEEN-SECT-LST", (d, p) -> new RelevantSectionEntry(d, p), "RESEEN-SECT-xxx");
+    }
+  }
+
+  // The Solution Blueprint's review team for one document type (form + members).
+  public static final class DocumentReviewTeamEntry extends SomNode {
+    public DocumentReviewTeamEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public DocumentReviewTeamEntryContentForm content() {
+      return new DocumentReviewTeamEntryContentForm(doc, path + "/content");
+    }
+
+    // The members of the team.
+    public SomList<ReviewTeamMember> members() {
+      return new SomList<>(doc, path + "/RVMEM-MEMB-LST", (d, p) -> new ReviewTeamMember(d, p), "RVMEM-MEMB-xxx");
     }
   }
 
@@ -35352,6 +35586,63 @@ public final class TomSomV0 {
     }
   }
 
+  // A review team: the members who review a document.
+  public static final class ReviewTeam extends SomNode {
+    public ReviewTeam(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // The members of the team.
+    public SomList<ReviewTeamMember> members() {
+      return new SomList<>(doc, path + "/RVMEM-MEMB-LST", (d, p) -> new ReviewTeamMember(d, p), "RVMEM-MEMB-xxx");
+    }
+  }
+
+  // One member of a review team (form).
+  public static final class ReviewTeamMember extends SomNode {
+    public ReviewTeamMember(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public ReviewTeamMemberContentForm content() {
+      return new ReviewTeamMemberContentForm(doc, path + "/content");
+    }
+  }
+
+  // A reviewer recorded in a revision entry (form).
+  public static final class ReviewerRecord extends SomNode {
+    public ReviewerRecord(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public ReviewerRecordContentForm content() {
+      return new ReviewerRecordContentForm(doc, path + "/content");
+    }
+  }
+
   // A single document revision entry (form).
   public static final class RevisionEntry extends SomNode {
     public RevisionEntry(SpecDocument doc, String path) {
@@ -35363,6 +35654,16 @@ public final class TomSomV0 {
     // §11.4 rule 7); the field values themselves live in [form].
     public RevisionEntryContentForm content() {
       return new RevisionEntryContentForm(doc, path + "/content");
+    }
+
+    // The review team the round leading to this revision started with.
+    public SomList<ReviewerRecord> reviewTeam() {
+      return new SomList<>(doc, path + "/RVWER-TEAM-LST", (d, p) -> new ReviewerRecord(d, p), "RVWER-TEAM-xxx");
+    }
+
+    // The reviewers who returned a reviewed copy, guests included.
+    public SomList<ReviewerRecord> reviewers() {
+      return new SomList<>(doc, path + "/RVWER-RETN-LST", (d, p) -> new ReviewerRecord(d, p), "RVWER-RETN-xxx");
     }
   }
 
@@ -40660,6 +40961,19 @@ public final class TomSomV0 {
     // Stakeholder register.
     public SomList<StakeholderRegisterEntry> stakeholderRegister() {
       return new SomList<>(doc, path + "/STKRE-STAK-LST", (d, p) -> new StakeholderRegisterEntry(d, p), "STKRE-STAK-xxx");
+    }
+
+    // The default review team: it reviews every document that names no team
+    // of its own and has no entry in [documentReviewTeams]. Its owner
+    // (`owner: true`) is the specification owner, always a reviewer.
+    public ReviewTeam reviewTeam() {
+      return new ReviewTeam(doc, path + "/reviewTeam");
+    }
+
+    // Review teams per document type, each replacing [reviewTeam] for the
+    // documents of its type.
+    public SomList<DocumentReviewTeamEntry> documentReviewTeams() {
+      return new SomList<>(doc, path + "/DCRVTM-DOCR-LST", (d, p) -> new DocumentReviewTeamEntry(d, p), "DCRVTM-DOCR-xxx");
     }
   }
 
@@ -98979,6 +99293,36 @@ public final class TomSomV0 {
 
     public void extractSummary(String value) {
       doc.setFormField(path, "extractSummary", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DocumentReviewTeamEntryContentForm extends SomNode {
+    public DocumentReviewTeamEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public SpecDocumentType documentType() {
+      return SpecDocumentType.parse(doc.formField(path, "documentType"));
+    }
+
+    public void setDocumentType(SpecDocumentType value) {
+      doc.setFormField(path, "documentType", value == null ? "" : value.token);
     }
   }
 
@@ -168237,6 +168581,142 @@ public final class TomSomV0 {
 
     public void remediationRequired(String value) {
       doc.setFormField(path, "remediationRequired", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReviewTeamMemberContentForm extends SomNode {
+    public ReviewTeamMemberContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String memberId() {
+      String v = doc.formField(path, "memberId");
+      return v == null ? "" : v;
+    }
+
+    public void memberId(String value) {
+      doc.setFormField(path, "memberId", value);
+    }
+
+    public String displayName() {
+      String v = doc.formField(path, "displayName");
+      return v == null ? "" : v;
+    }
+
+    public void displayName(String value) {
+      doc.setFormField(path, "displayName", value);
+    }
+
+    public String role() {
+      String v = doc.formField(path, "role");
+      return v == null ? "" : v;
+    }
+
+    public void role(String value) {
+      doc.setFormField(path, "role", value);
+    }
+
+    public String stakeholder() {
+      String v = doc.formField(path, "stakeholder");
+      return v == null ? "" : v;
+    }
+
+    public void stakeholder(String value) {
+      doc.setFormField(path, "stakeholder", value);
+    }
+
+    public String email() {
+      String v = doc.formField(path, "email");
+      return v == null ? "" : v;
+    }
+
+    public void email(String value) {
+      doc.setFormField(path, "email", value);
+    }
+
+    public Boolean owner() {
+      String v = doc.formField(path, "owner");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void owner(Boolean value) {
+      doc.setFormField(path, "owner", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ReviewerRecordContentForm extends SomNode {
+    public ReviewerRecordContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String memberId() {
+      String v = doc.formField(path, "memberId");
+      return v == null ? "" : v;
+    }
+
+    public void memberId(String value) {
+      doc.setFormField(path, "memberId", value);
+    }
+
+    public String displayName() {
+      String v = doc.formField(path, "displayName");
+      return v == null ? "" : v;
+    }
+
+    public void displayName(String value) {
+      doc.setFormField(path, "displayName", value);
+    }
+
+    public String role() {
+      String v = doc.formField(path, "role");
+      return v == null ? "" : v;
+    }
+
+    public void role(String value) {
+      doc.setFormField(path, "role", value);
+    }
+
+    public Boolean guest() {
+      String v = doc.formField(path, "guest");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void guest(Boolean value) {
+      doc.setFormField(path, "guest", value == null ? "" : (value ? "true" : "false"));
     }
   }
 

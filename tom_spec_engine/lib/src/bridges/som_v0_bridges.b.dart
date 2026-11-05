@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-20T21:34:03.302197 by tom_d4rt_generator 1.52.0
+// Generated: 2026-11-05T22:35:45.792870 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -399,6 +399,7 @@ class SomV0Bridge {
       _createDocumentHeaderBridge(),
       _createDocumentRelationshipsBridge(),
       _createDocumentRelevantSectionsBridge(),
+      _createDocumentReviewTeamEntryBridge(),
       _createDocumentationDeliverablesBridge(),
       _createDocumentationQualityCriteriaBridge(),
       _createDocumentationStandardsBridge(),
@@ -932,6 +933,9 @@ class SomV0Bridge {
       _createReusableUiComponentEntryBridge(),
       _createReuseGoalEntryBridge(),
       _createReviewCriterionEntryBridge(),
+      _createReviewTeamBridge(),
+      _createReviewTeamMemberBridge(),
+      _createReviewerRecordBridge(),
       _createRevisionEntryBridge(),
       _createRiskBusinessImpactBridge(),
       _createRiskEntryBridge(),
@@ -2154,6 +2158,7 @@ class SomV0Bridge {
       _createDocCorrectnessVerificationFormBridge(),
       _createDocumentHeaderContentFormBridge(),
       _createDocumentRelevantSectionsContentFormBridge(),
+      _createDocumentReviewTeamEntryContentFormBridge(),
       _createDocumentationQualityCriteriaDocumentationOverviewContentFormBridge(),
       _createDocumentationStandardsArchitectureFormBridge(),
       _createDocumentationStandardsCodeDocsFormBridge(),
@@ -3303,6 +3308,8 @@ class SomV0Bridge {
       _createReviewCriterionEntryAssessmentFormBridge(),
       _createReviewCriterionEntryContentFormBridge(),
       _createReviewCriterionEntryResultFormBridge(),
+      _createReviewTeamMemberContentFormBridge(),
+      _createReviewerRecordContentFormBridge(),
       _createRevisionEntryContentFormBridge(),
       _createRiskBusinessImpactContentFormBridge(),
       _createRiskBusinessImpactDeliveryFormBridge(),
@@ -4510,6 +4517,7 @@ class SomV0Bridge {
       _createDocumentHeader$NavBridge(),
       _createDocumentRelationships$NavBridge(),
       _createDocumentRelevantSections$NavBridge(),
+      _createDocumentReviewTeamEntry$NavBridge(),
       _createDocumentationDeliverables$NavBridge(),
       _createDocumentationQualityCriteria$NavBridge(),
       _createDocumentationStandards$NavBridge(),
@@ -5043,6 +5051,9 @@ class SomV0Bridge {
       _createReusableUiComponentEntry$NavBridge(),
       _createReuseGoalEntry$NavBridge(),
       _createReviewCriterionEntry$NavBridge(),
+      _createReviewTeam$NavBridge(),
+      _createReviewTeamMember$NavBridge(),
+      _createReviewerRecord$NavBridge(),
       _createRevisionEntry$NavBridge(),
       _createRiskBusinessImpact$NavBridge(),
       _createRiskEntry$NavBridge(),
@@ -5554,6 +5565,7 @@ class SomV0Bridge {
       _createDisplayPropertyEntry$IdBridge(),
       _createDistributionRecipientEntry$IdBridge(),
       _createDistributionRecipientPreferences$IdBridge(),
+      _createDocumentReviewTeamEntry$IdBridge(),
       _createDomainBusinessRuleEntry$IdBridge(),
       _createDomainEnumEntry$IdBridge(),
       _createDomainEnumValueEntry$IdBridge(),
@@ -5785,6 +5797,8 @@ class SomV0Bridge {
       _createReusableUiComponentEntry$IdBridge(),
       _createReuseGoalEntry$IdBridge(),
       _createReviewCriterionEntry$IdBridge(),
+      _createReviewTeamMember$IdBridge(),
+      _createReviewerRecord$IdBridge(),
       _createRevisionEntry$IdBridge(),
       _createRiskEntry$IdBridge(),
       _createRiskRelationships$IdBridge(),
@@ -6348,6 +6362,7 @@ class SomV0Bridge {
       'DocumentHeader': _createDocumentHeaderBridge,
       'DocumentRelationships': _createDocumentRelationshipsBridge,
       'DocumentRelevantSections': _createDocumentRelevantSectionsBridge,
+      'DocumentReviewTeamEntry': _createDocumentReviewTeamEntryBridge,
       'DocumentationDeliverables': _createDocumentationDeliverablesBridge,
       'DocumentationQualityCriteria': _createDocumentationQualityCriteriaBridge,
       'DocumentationStandards': _createDocumentationStandardsBridge,
@@ -6926,6 +6941,9 @@ class SomV0Bridge {
       'ReusableUiComponentEntry': _createReusableUiComponentEntryBridge,
       'ReuseGoalEntry': _createReuseGoalEntryBridge,
       'ReviewCriterionEntry': _createReviewCriterionEntryBridge,
+      'ReviewTeam': _createReviewTeamBridge,
+      'ReviewTeamMember': _createReviewTeamMemberBridge,
+      'ReviewerRecord': _createReviewerRecordBridge,
       'RevisionEntry': _createRevisionEntryBridge,
       'RiskBusinessImpact': _createRiskBusinessImpactBridge,
       'RiskEntry': _createRiskEntryBridge,
@@ -8918,6 +8936,8 @@ class SomV0Bridge {
       'DocumentHeaderContentForm': _createDocumentHeaderContentFormBridge,
       'DocumentRelevantSectionsContentForm':
           _createDocumentRelevantSectionsContentFormBridge,
+      'DocumentReviewTeamEntryContentForm':
+          _createDocumentReviewTeamEntryContentFormBridge,
       'DocumentationQualityCriteriaDocumentationOverviewContentForm':
           _createDocumentationQualityCriteriaDocumentationOverviewContentFormBridge,
       'DocumentationStandardsArchitectureForm':
@@ -11020,6 +11040,8 @@ class SomV0Bridge {
           _createReviewCriterionEntryContentFormBridge,
       'ReviewCriterionEntryResultForm':
           _createReviewCriterionEntryResultFormBridge,
+      'ReviewTeamMemberContentForm': _createReviewTeamMemberContentFormBridge,
+      'ReviewerRecordContentForm': _createReviewerRecordContentFormBridge,
       'RevisionEntryContentForm': _createRevisionEntryContentFormBridge,
       'RiskBusinessImpactContentForm':
           _createRiskBusinessImpactContentFormBridge,
@@ -12976,6 +12998,7 @@ class SomV0Bridge {
       'DocumentRelationships\$Nav': _createDocumentRelationships$NavBridge,
       'DocumentRelevantSections\$Nav':
           _createDocumentRelevantSections$NavBridge,
+      'DocumentReviewTeamEntry\$Nav': _createDocumentReviewTeamEntry$NavBridge,
       'DocumentationDeliverables\$Nav':
           _createDocumentationDeliverables$NavBridge,
       'DocumentationQualityCriteria\$Nav':
@@ -13671,6 +13694,9 @@ class SomV0Bridge {
           _createReusableUiComponentEntry$NavBridge,
       'ReuseGoalEntry\$Nav': _createReuseGoalEntry$NavBridge,
       'ReviewCriterionEntry\$Nav': _createReviewCriterionEntry$NavBridge,
+      'ReviewTeam\$Nav': _createReviewTeam$NavBridge,
+      'ReviewTeamMember\$Nav': _createReviewTeamMember$NavBridge,
+      'ReviewerRecord\$Nav': _createReviewerRecord$NavBridge,
       'RevisionEntry\$Nav': _createRevisionEntry$NavBridge,
       'RiskBusinessImpact\$Nav': _createRiskBusinessImpact$NavBridge,
       'RiskEntry\$Nav': _createRiskEntry$NavBridge,
@@ -14322,6 +14348,7 @@ class SomV0Bridge {
           _createDistributionRecipientEntry$IdBridge,
       'DistributionRecipientPreferences\$Id':
           _createDistributionRecipientPreferences$IdBridge,
+      'DocumentReviewTeamEntry\$Id': _createDocumentReviewTeamEntry$IdBridge,
       'DomainBusinessRuleEntry\$Id': _createDomainBusinessRuleEntry$IdBridge,
       'DomainEnumEntry\$Id': _createDomainEnumEntry$IdBridge,
       'DomainEnumValueEntry\$Id': _createDomainEnumValueEntry$IdBridge,
@@ -14600,6 +14627,8 @@ class SomV0Bridge {
       'ReusableUiComponentEntry\$Id': _createReusableUiComponentEntry$IdBridge,
       'ReuseGoalEntry\$Id': _createReuseGoalEntry$IdBridge,
       'ReviewCriterionEntry\$Id': _createReviewCriterionEntry$IdBridge,
+      'ReviewTeamMember\$Id': _createReviewTeamMember$IdBridge,
+      'ReviewerRecord\$Id': _createReviewerRecord$IdBridge,
       'RevisionEntry\$Id': _createRevisionEntry$IdBridge,
       'RiskEntry\$Id': _createRiskEntry$IdBridge,
       'RiskRelationships\$Id': _createRiskRelationships$IdBridge,
@@ -15237,6 +15266,7 @@ class SomV0Bridge {
       'DocumentHeader': $tom_som_dart_v0_1.DocumentHeader,
       'DocumentRelationships': $tom_som_dart_v0_1.DocumentRelationships,
       'DocumentRelevantSections': $tom_som_dart_v0_1.DocumentRelevantSections,
+      'DocumentReviewTeamEntry': $tom_som_dart_v0_1.DocumentReviewTeamEntry,
       'DocumentationDeliverables': $tom_som_dart_v0_1.DocumentationDeliverables,
       'DocumentationQualityCriteria':
           $tom_som_dart_v0_1.DocumentationQualityCriteria,
@@ -15873,6 +15903,9 @@ class SomV0Bridge {
       'ReusableUiComponentEntry': $tom_som_dart_v0_1.ReusableUiComponentEntry,
       'ReuseGoalEntry': $tom_som_dart_v0_1.ReuseGoalEntry,
       'ReviewCriterionEntry': $tom_som_dart_v0_1.ReviewCriterionEntry,
+      'ReviewTeam': $tom_som_dart_v0_1.ReviewTeam,
+      'ReviewTeamMember': $tom_som_dart_v0_1.ReviewTeamMember,
+      'ReviewerRecord': $tom_som_dart_v0_1.ReviewerRecord,
       'RevisionEntry': $tom_som_dart_v0_1.RevisionEntry,
       'RiskBusinessImpact': $tom_som_dart_v0_1.RiskBusinessImpact,
       'RiskEntry': $tom_som_dart_v0_1.RiskEntry,
@@ -17983,6 +18016,8 @@ class SomV0Bridge {
       'DocumentHeaderContentForm': $tom_som_dart_v0_1.DocumentHeaderContentForm,
       'DocumentRelevantSectionsContentForm':
           $tom_som_dart_v0_1.DocumentRelevantSectionsContentForm,
+      'DocumentReviewTeamEntryContentForm':
+          $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm,
       'DocumentationQualityCriteriaDocumentationOverviewContentForm':
           $tom_som_dart_v0_1
               .DocumentationQualityCriteriaDocumentationOverviewContentForm,
@@ -20216,6 +20251,9 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.ReviewCriterionEntryContentForm,
       'ReviewCriterionEntryResultForm':
           $tom_som_dart_v0_1.ReviewCriterionEntryResultForm,
+      'ReviewTeamMemberContentForm':
+          $tom_som_dart_v0_1.ReviewTeamMemberContentForm,
+      'ReviewerRecordContentForm': $tom_som_dart_v0_1.ReviewerRecordContentForm,
       'RevisionEntryContentForm': $tom_som_dart_v0_1.RevisionEntryContentForm,
       'RiskBusinessImpactContentForm':
           $tom_som_dart_v0_1.RiskBusinessImpactContentForm,
@@ -22378,6 +22416,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.DocumentRelationships$Nav,
       'DocumentRelevantSections\$Nav':
           $tom_som_dart_v0_2.DocumentRelevantSections$Nav,
+      'DocumentReviewTeamEntry\$Nav':
+          $tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav,
       'DocumentationDeliverables\$Nav':
           $tom_som_dart_v0_2.DocumentationDeliverables$Nav,
       'DocumentationQualityCriteria\$Nav':
@@ -23178,6 +23218,9 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.ReusableUiComponentEntry$Nav,
       'ReuseGoalEntry\$Nav': $tom_som_dart_v0_2.ReuseGoalEntry$Nav,
       'ReviewCriterionEntry\$Nav': $tom_som_dart_v0_2.ReviewCriterionEntry$Nav,
+      'ReviewTeam\$Nav': $tom_som_dart_v0_2.ReviewTeam$Nav,
+      'ReviewTeamMember\$Nav': $tom_som_dart_v0_2.ReviewTeamMember$Nav,
+      'ReviewerRecord\$Nav': $tom_som_dart_v0_2.ReviewerRecord$Nav,
       'RevisionEntry\$Nav': $tom_som_dart_v0_2.RevisionEntry$Nav,
       'RiskBusinessImpact\$Nav': $tom_som_dart_v0_2.RiskBusinessImpact$Nav,
       'RiskEntry\$Nav': $tom_som_dart_v0_2.RiskEntry$Nav,
@@ -23928,6 +23971,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.DistributionRecipientEntry$Id,
       'DistributionRecipientPreferences\$Id':
           $tom_som_dart_v0_2.DistributionRecipientPreferences$Id,
+      'DocumentReviewTeamEntry\$Id':
+          $tom_som_dart_v0_2.DocumentReviewTeamEntry$Id,
       'DomainBusinessRuleEntry\$Id':
           $tom_som_dart_v0_2.DomainBusinessRuleEntry$Id,
       'DomainEnumEntry\$Id': $tom_som_dart_v0_2.DomainEnumEntry$Id,
@@ -24251,6 +24296,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.ReusableUiComponentEntry$Id,
       'ReuseGoalEntry\$Id': $tom_som_dart_v0_2.ReuseGoalEntry$Id,
       'ReviewCriterionEntry\$Id': $tom_som_dart_v0_2.ReviewCriterionEntry$Id,
+      'ReviewTeamMember\$Id': $tom_som_dart_v0_2.ReviewTeamMember$Id,
+      'ReviewerRecord\$Id': $tom_som_dart_v0_2.ReviewerRecord$Id,
       'RevisionEntry\$Id': $tom_som_dart_v0_2.RevisionEntry$Id,
       'RiskEntry\$Id': $tom_som_dart_v0_2.RiskEntry$Id,
       'RiskRelationships\$Id': $tom_som_dart_v0_2.RiskRelationships$Id,
@@ -24958,6 +25005,7 @@ class SomV0Bridge {
       'DocumentRelationships': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DocumentRelevantSections':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'DocumentReviewTeamEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DocumentationDeliverables':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DocumentationQualityCriteria':
@@ -25653,6 +25701,9 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ReuseGoalEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ReviewCriterionEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ReviewTeam': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ReviewTeamMember': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ReviewerRecord': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RevisionEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RiskBusinessImpact': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RiskEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -27829,6 +27880,8 @@ class SomV0Bridge {
       'DocumentHeaderContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DocumentRelevantSectionsContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'DocumentReviewTeamEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DocumentationQualityCriteriaDocumentationOverviewContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -30093,6 +30146,10 @@ class SomV0Bridge {
       'ReviewCriterionEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ReviewCriterionEntryResultForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ReviewTeamMemberContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ReviewerRecordContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RevisionEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -32443,6 +32500,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'DocumentRelevantSections\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'DocumentReviewTeamEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'DocumentationDeliverables\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'DocumentationQualityCriteria\$Nav':
@@ -33470,6 +33529,11 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'ReviewCriterionEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ReviewTeam\$Nav': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ReviewTeamMember\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ReviewerRecord\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'RevisionEntry\$Nav': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'RiskBusinessImpact\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
@@ -34445,6 +34509,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'DistributionRecipientPreferences\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'DocumentReviewTeamEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'DomainBusinessRuleEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'DomainEnumEntry\$Id':
@@ -34887,6 +34953,9 @@ class SomV0Bridge {
       'ReuseGoalEntry\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'ReviewCriterionEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ReviewTeamMember\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ReviewerRecord\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'RevisionEntry\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'RiskEntry\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'RiskRelationships\$Id':
@@ -35552,6 +35621,7 @@ class SomV0Bridge {
       'DocumentHeader': ['SomNode'],
       'DocumentRelationships': ['SomNode'],
       'DocumentRelevantSections': ['SomNode'],
+      'DocumentReviewTeamEntry': ['SomNode'],
       'DocumentationDeliverables': ['SomNode'],
       'DocumentationQualityCriteria': ['SomNode'],
       'DocumentationStandards': ['SomNode'],
@@ -36085,6 +36155,9 @@ class SomV0Bridge {
       'ReusableUiComponentEntry': ['SomNode'],
       'ReuseGoalEntry': ['SomNode'],
       'ReviewCriterionEntry': ['SomNode'],
+      'ReviewTeam': ['SomNode'],
+      'ReviewTeamMember': ['SomNode'],
+      'ReviewerRecord': ['SomNode'],
       'RevisionEntry': ['SomNode'],
       'RiskBusinessImpact': ['SomNode'],
       'RiskEntry': ['SomNode'],
@@ -37307,6 +37380,7 @@ class SomV0Bridge {
       'DocCorrectnessVerificationForm': ['SomNode'],
       'DocumentHeaderContentForm': ['SomNode'],
       'DocumentRelevantSectionsContentForm': ['SomNode'],
+      'DocumentReviewTeamEntryContentForm': ['SomNode'],
       'DocumentationQualityCriteriaDocumentationOverviewContentForm': [
         'SomNode',
       ],
@@ -38464,6 +38538,8 @@ class SomV0Bridge {
       'ReviewCriterionEntryAssessmentForm': ['SomNode'],
       'ReviewCriterionEntryContentForm': ['SomNode'],
       'ReviewCriterionEntryResultForm': ['SomNode'],
+      'ReviewTeamMemberContentForm': ['SomNode'],
+      'ReviewerRecordContentForm': ['SomNode'],
       'RevisionEntryContentForm': ['SomNode'],
       'RiskBusinessImpactContentForm': ['SomNode'],
       'RiskBusinessImpactDeliveryForm': ['SomNode'],
@@ -39670,6 +39746,7 @@ class SomV0Bridge {
       'DocumentHeader\$Nav': ['SomMetaRef'],
       'DocumentRelationships\$Nav': ['SomMetaRef'],
       'DocumentRelevantSections\$Nav': ['SomMetaRef'],
+      'DocumentReviewTeamEntry\$Nav': ['SomMetaRef'],
       'DocumentationDeliverables\$Nav': ['SomMetaRef'],
       'DocumentationQualityCriteria\$Nav': ['SomMetaRef'],
       'DocumentationStandards\$Nav': ['SomMetaRef'],
@@ -40203,6 +40280,9 @@ class SomV0Bridge {
       'ReusableUiComponentEntry\$Nav': ['SomMetaRef'],
       'ReuseGoalEntry\$Nav': ['SomMetaRef'],
       'ReviewCriterionEntry\$Nav': ['SomMetaRef'],
+      'ReviewTeam\$Nav': ['SomMetaRef'],
+      'ReviewTeamMember\$Nav': ['SomMetaRef'],
+      'ReviewerRecord\$Nav': ['SomMetaRef'],
       'RevisionEntry\$Nav': ['SomMetaRef'],
       'RiskBusinessImpact\$Nav': ['SomMetaRef'],
       'RiskEntry\$Nav': ['SomMetaRef'],
@@ -40714,6 +40794,7 @@ class SomV0Bridge {
       'DisplayPropertyEntry\$Id': ['SomMetaRef'],
       'DistributionRecipientEntry\$Id': ['SomMetaRef'],
       'DistributionRecipientPreferences\$Id': ['SomMetaRef'],
+      'DocumentReviewTeamEntry\$Id': ['SomMetaRef'],
       'DomainBusinessRuleEntry\$Id': ['SomMetaRef'],
       'DomainEnumEntry\$Id': ['SomMetaRef'],
       'DomainEnumValueEntry\$Id': ['SomMetaRef'],
@@ -40945,6 +41026,8 @@ class SomV0Bridge {
       'ReusableUiComponentEntry\$Id': ['SomMetaRef'],
       'ReuseGoalEntry\$Id': ['SomMetaRef'],
       'ReviewCriterionEntry\$Id': ['SomMetaRef'],
+      'ReviewTeamMember\$Id': ['SomMetaRef'],
+      'ReviewerRecord\$Id': ['SomMetaRef'],
       'RevisionEntry\$Id': ['SomMetaRef'],
       'RiskEntry\$Id': ['SomMetaRef'],
       'RiskRelationships\$Id': ['SomMetaRef'],
@@ -41266,6 +41349,10 @@ class SomV0Bridge {
         name: 'ServerCallRole',
         values: $tom_som_dart_v0_1.ServerCallRole.values,
       ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.SpecDocumentType>(
+        name: 'SpecDocumentType',
+        values: $tom_som_dart_v0_1.SpecDocumentType.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.Status>(
         name: 'Status',
         values: $tom_som_dart_v0_1.Status.values,
@@ -41325,6 +41412,7 @@ class SomV0Bridge {
       'ScreenFlowOutcome': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ScreenPresentationMode': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ServerCallRole': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SpecDocumentType': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Status': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'TranslationReviewStatus': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'UserAttributePlacement': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -41985,6 +42073,7 @@ class SomV0Bridge {
     'ScreenFlowOutcome',
     'ScreenPresentationMode',
     'ServerCallRole',
+    'SpecDocumentType',
     'Status',
     'TranslationReviewStatus',
     'UserAttributePlacement',
@@ -80325,6 +80414,18 @@ BridgedClass _createD01CurrentLandscapeAssessmentBridge() {
             'D01CurrentLandscapeAssessment',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D01CurrentLandscapeAssessment>(
+            target,
+            'D01CurrentLandscapeAssessment',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D01CurrentLandscapeAssessment>(
+            target,
+            'D01CurrentLandscapeAssessment',
+          )
+          .revisionHistory,
       'existingSystemsLandscape': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D01CurrentLandscapeAssessment>(
             target,
@@ -80498,6 +80599,8 @@ BridgedClass _createD01CurrentLandscapeAssessmentBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'existingSystemsLandscape':
           'ExistingSystemsLandscape get existingSystemsLandscape',
       'currentBusinessProcesses':
@@ -80587,6 +80690,18 @@ BridgedClass _createD02TargetOperatingModelBridge() {
             'D02TargetOperatingModel',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D02TargetOperatingModel>(
+            target,
+            'D02TargetOperatingModel',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D02TargetOperatingModel>(
+            target,
+            'D02TargetOperatingModel',
+          )
+          .revisionHistory,
       'processVision': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D02TargetOperatingModel>(
             target,
@@ -80772,6 +80887,8 @@ BridgedClass _createD02TargetOperatingModelBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'processVision': 'ProcessVision get processVision',
       'designPrinciples': 'ProcessDesignPrinciples get designPrinciples',
       'processCatalog': 'ProcessCatalog get processCatalog',
@@ -80862,6 +80979,18 @@ BridgedClass _createD03InformationModelBridge() {
             'D03InformationModel',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D03InformationModel>(
+            target,
+            'D03InformationModel',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D03InformationModel>(
+            target,
+            'D03InformationModel',
+          )
+          .revisionHistory,
       'entities': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D03InformationModel>(
             target,
@@ -81083,6 +81212,8 @@ BridgedClass _createD03InformationModelBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'entities': 'SomList<DataEntityEntry> get entities',
       'entityRelationships': 'EntityRelationships get entityRelationships',
       'dataClassification': 'DataClassification get dataClassification',
@@ -81181,6 +81312,18 @@ BridgedClass _createD04RequirementsSpecificationBridge() {
             'D04RequirementsSpecification',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D04RequirementsSpecification>(
+            target,
+            'D04RequirementsSpecification',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D04RequirementsSpecification>(
+            target,
+            'D04RequirementsSpecification',
+          )
+          .revisionHistory,
       'functionalRequirements': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D04RequirementsSpecification>(
             target,
@@ -81358,6 +81501,8 @@ BridgedClass _createD04RequirementsSpecificationBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'functionalRequirements':
           'FunctionalRequirements get functionalRequirements',
       'technicalRequirements':
@@ -81447,6 +81592,18 @@ BridgedClass _createD05InteractionScenariosBridge() {
             'D05InteractionScenarios',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D05InteractionScenarios>(
+            target,
+            'D05InteractionScenarios',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D05InteractionScenarios>(
+            target,
+            'D05InteractionScenarios',
+          )
+          .revisionHistory,
       'processStepsOverview': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D05InteractionScenarios>(
             target,
@@ -81614,6 +81771,8 @@ BridgedClass _createD05InteractionScenariosBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'processStepsOverview': 'ProcessStepsOverview get processStepsOverview',
       'actorOverview': 'ActorOverview get actorOverview',
       'interactionCatalog': 'InteractionCatalog get interactionCatalog',
@@ -81701,6 +81860,16 @@ BridgedClass _createD06ArchitectureTechnologySpecificationBridge() {
             $tom_som_dart_v0_1.D06ArchitectureTechnologySpecification
           >(target, 'D06ArchitectureTechnologySpecification')
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.D06ArchitectureTechnologySpecification
+          >(target, 'D06ArchitectureTechnologySpecification')
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.D06ArchitectureTechnologySpecification
+          >(target, 'D06ArchitectureTechnologySpecification')
+          .revisionHistory,
       'basicTechnicalRequirements': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.D06ArchitectureTechnologySpecification
@@ -81880,6 +82049,8 @@ BridgedClass _createD06ArchitectureTechnologySpecificationBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'basicTechnicalRequirements':
           'BasicTechnicalRequirements get basicTechnicalRequirements',
       'softwareDesignRequirements':
@@ -81980,6 +82151,16 @@ BridgedClass _createD07IntegrationInterfaceSpecificationBridge() {
             $tom_som_dart_v0_1.D07IntegrationInterfaceSpecification
           >(target, 'D07IntegrationInterfaceSpecification')
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.D07IntegrationInterfaceSpecification
+          >(target, 'D07IntegrationInterfaceSpecification')
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.D07IntegrationInterfaceSpecification
+          >(target, 'D07IntegrationInterfaceSpecification')
+          .revisionHistory,
       'externalInterfaces': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.D07IntegrationInterfaceSpecification
@@ -82150,6 +82331,8 @@ BridgedClass _createD07IntegrationInterfaceSpecificationBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'externalInterfaces': 'ExternalInterfaces get externalInterfaces',
       'outOfScope': 'OutOfScope get outOfScope',
       'boundaryAssumptions': 'BoundaryAssumptions get boundaryAssumptions',
@@ -82242,6 +82425,18 @@ BridgedClass _createD08SecurityAccessSpecificationBridge() {
             'D08SecurityAccessSpecification',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D08SecurityAccessSpecification>(
+            target,
+            'D08SecurityAccessSpecification',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D08SecurityAccessSpecification>(
+            target,
+            'D08SecurityAccessSpecification',
+          )
+          .revisionHistory,
       'userManagement': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D08SecurityAccessSpecification>(
             target,
@@ -82417,6 +82612,8 @@ BridgedClass _createD08SecurityAccessSpecificationBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'userManagement': 'UserManagement get userManagement',
       'identificationAndAuthentication':
           'IdentificationAndAuthentication get identificationAndAuthentication',
@@ -82506,6 +82703,18 @@ BridgedClass _createD09ExperienceDesignSpecificationBridge() {
             'D09ExperienceDesignSpecification',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D09ExperienceDesignSpecification>(
+            target,
+            'D09ExperienceDesignSpecification',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D09ExperienceDesignSpecification>(
+            target,
+            'D09ExperienceDesignSpecification',
+          )
+          .revisionHistory,
       'designVision': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D09ExperienceDesignSpecification>(
             target,
@@ -82708,6 +82917,8 @@ BridgedClass _createD09ExperienceDesignSpecificationBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'designVision': 'DesignVision get designVision',
       'screens': 'ScreenDescriptions get screens',
       'screenFlow': 'ScreenFlowStructure get screenFlow',
@@ -82799,6 +83010,18 @@ BridgedClass _createD10QualityAcceptancePlanBridge() {
             'D10QualityAcceptancePlan',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D10QualityAcceptancePlan>(
+            target,
+            'D10QualityAcceptancePlan',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D10QualityAcceptancePlan>(
+            target,
+            'D10QualityAcceptancePlan',
+          )
+          .revisionHistory,
       'qualityFramework': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D10QualityAcceptancePlan>(
             target,
@@ -83038,6 +83261,8 @@ BridgedClass _createD10QualityAcceptancePlanBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'qualityFramework': 'QualityFramework get qualityFramework',
       'functionalSuitability':
           'FunctionalSuitabilityCharacteristic get functionalSuitability',
@@ -83141,6 +83366,18 @@ BridgedClass _createD11DeliveryRoadmapBridge() {
             'D11DeliveryRoadmap',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D11DeliveryRoadmap>(
+            target,
+            'D11DeliveryRoadmap',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D11DeliveryRoadmap>(
+            target,
+            'D11DeliveryRoadmap',
+          )
+          .revisionHistory,
       'stagingStrategy': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D11DeliveryRoadmap>(
             target,
@@ -83320,6 +83557,8 @@ BridgedClass _createD11DeliveryRoadmapBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'stagingStrategy': 'StagingStrategy get stagingStrategy',
       'stageOverview': 'StageOverview get stageOverview',
       'stages': 'SomList<StageEntry> get stages',
@@ -83410,6 +83649,18 @@ BridgedClass _createD12TransitionRolloutPlanBridge() {
             'D12TransitionRolloutPlan',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D12TransitionRolloutPlan>(
+            target,
+            'D12TransitionRolloutPlan',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.D12TransitionRolloutPlan>(
+            target,
+            'D12TransitionRolloutPlan',
+          )
+          .revisionHistory,
       'localizationProcess': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.D12TransitionRolloutPlan>(
             target,
@@ -83607,6 +83858,8 @@ BridgedClass _createD12TransitionRolloutPlanBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'header': 'DocumentHeader get header',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'revisionHistory': 'SomList<RevisionEntry> get revisionHistory',
       'localizationProcess': 'LocalizationProcess get localizationProcess',
       'translationProcess': 'TranslationProcess get translationProcess',
       'userDocumentation':
@@ -101384,6 +101637,144 @@ BridgedClass _createDocumentRelevantSectionsBridge() {
     getterSignatures: {
       'content': 'DocumentRelevantSectionsContentForm get content',
       'sections': 'SomList<RelevantSectionEntry> get sections',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// DocumentReviewTeamEntry Bridge
+// =============================================================================
+
+BridgedClass _createDocumentReviewTeamEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.DocumentReviewTeamEntry,
+    name: 'DocumentReviewTeamEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.DocumentReviewTeamEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DocumentReviewTeamEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'DocumentReviewTeamEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'DocumentReviewTeamEntry',
+        );
+        return $tom_som_dart_v0_1.DocumentReviewTeamEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .content,
+      'members': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .members,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+            target,
+            'DocumentReviewTeamEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+                target,
+                'DocumentReviewTeamEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+                target,
+                'DocumentReviewTeamEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.DocumentReviewTeamEntry>(
+                target,
+                'DocumentReviewTeamEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'DocumentReviewTeamEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'DocumentReviewTeamEntryContentForm get content',
+      'members': 'SomList<ReviewTeamMember> get members',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -182318,6 +182709,388 @@ BridgedClass _createReviewCriterionEntryBridge() {
 }
 
 // =============================================================================
+// ReviewTeam Bridge
+// =============================================================================
+
+BridgedClass _createReviewTeamBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ReviewTeam,
+    name: 'ReviewTeam',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.ReviewTeam,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewTeam');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ReviewTeam',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewTeam',
+        );
+        return $tom_som_dart_v0_1.ReviewTeam(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .content,
+      'members': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .members,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(target, 'ReviewTeam')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(
+                target,
+                'ReviewTeam',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(
+                target,
+                'ReviewTeam',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(
+                target,
+                'ReviewTeam',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeam>(
+                target,
+                'ReviewTeam',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {'': 'ReviewTeam(SpecDocument doc, String path)'},
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'members': 'SomList<ReviewTeamMember> get members',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// ReviewTeamMember Bridge
+// =============================================================================
+
+BridgedClass _createReviewTeamMemberBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ReviewTeamMember,
+    name: 'ReviewTeamMember',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.ReviewTeamMember,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewTeamMember');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ReviewTeamMember',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewTeamMember',
+        );
+        return $tom_som_dart_v0_1.ReviewTeamMember(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+            target,
+            'ReviewTeamMember',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+                target,
+                'ReviewTeamMember',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+                target,
+                'ReviewTeamMember',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMember>(
+                target,
+                'ReviewTeamMember',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ReviewTeamMember(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'ReviewTeamMemberContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// ReviewerRecord Bridge
+// =============================================================================
+
+BridgedClass _createReviewerRecordBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ReviewerRecord,
+    name: 'ReviewerRecord',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.ReviewerRecord,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewerRecord');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ReviewerRecord',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewerRecord',
+        );
+        return $tom_som_dart_v0_1.ReviewerRecord(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+            target,
+            'ReviewerRecord',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+                target,
+                'ReviewerRecord',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+                target,
+                'ReviewerRecord',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecord>(
+                target,
+                'ReviewerRecord',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ReviewerRecord(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'ReviewerRecordContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // RevisionEntry Bridge
 // =============================================================================
 
@@ -182352,6 +183125,18 @@ BridgedClass _createRevisionEntryBridge() {
             'RevisionEntry',
           )
           .content,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.RevisionEntry>(
+            target,
+            'RevisionEntry',
+          )
+          .reviewTeam,
+      'reviewers': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.RevisionEntry>(
+            target,
+            'RevisionEntry',
+          )
+          .reviewers,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.RevisionEntry>(
             target,
@@ -182430,6 +183215,8 @@ BridgedClass _createRevisionEntryBridge() {
     constructorSignatures: {'': 'RevisionEntry(SpecDocument doc, String path)'},
     getterSignatures: {
       'content': 'RevisionEntryContentForm get content',
+      'reviewTeam': 'SomList<ReviewerRecord> get reviewTeam',
+      'reviewers': 'SomList<ReviewerRecord> get reviewers',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -204849,6 +205636,18 @@ BridgedClass _createStakeholdersAndGovernanceBridge() {
             'StakeholdersAndGovernance',
           )
           .stakeholderRegister,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.StakeholdersAndGovernance>(
+            target,
+            'StakeholdersAndGovernance',
+          )
+          .reviewTeam,
+      'documentReviewTeams': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.StakeholdersAndGovernance>(
+            target,
+            'StakeholdersAndGovernance',
+          )
+          .documentReviewTeams,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.StakeholdersAndGovernance>(
             target,
@@ -204945,6 +205744,9 @@ BridgedClass _createStakeholdersAndGovernanceBridge() {
           'LegalAndContractualRequirements get legalAndContractual',
       'stakeholderRegister':
           'SomList<StakeholderRegisterEntry> get stakeholderRegister',
+      'reviewTeam': 'ReviewTeam get reviewTeam',
+      'documentReviewTeams':
+          'SomList<DocumentReviewTeamEntry> get documentReviewTeams',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -415498,6 +416300,154 @@ BridgedClass _createDocumentRelevantSectionsContentFormBridge() {
       'sectionTitle': 'set sectionTitle(String value)',
       'relevance': 'set relevance(String value)',
       'extractSummary': 'set extractSummary(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// DocumentReviewTeamEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createDocumentReviewTeamEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm,
+    name: 'DocumentReviewTeamEntryContentForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DocumentReviewTeamEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'DocumentReviewTeamEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'DocumentReviewTeamEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .content,
+      'documentType': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .documentType,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+          >(target, 'DocumentReviewTeamEntryContentForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+              >(target, 'DocumentReviewTeamEntryContentForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'documentType': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+              >(target, 'DocumentReviewTeamEntryContentForm')
+              .documentType = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.SpecDocumentType>(
+                value,
+                'documentType',
+              ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+              >(target, 'DocumentReviewTeamEntryContentForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+              >(target, 'DocumentReviewTeamEntryContentForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DocumentReviewTeamEntryContentForm
+              >(target, 'DocumentReviewTeamEntryContentForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'DocumentReviewTeamEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'documentType': 'SpecDocumentType? get documentType',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'documentType': 'set documentType(SpecDocumentType? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -656561,6 +657511,470 @@ BridgedClass _createReviewCriterionEntryResultFormBridge() {
 }
 
 // =============================================================================
+// ReviewTeamMemberContentForm Bridge
+// =============================================================================
+
+BridgedClass _createReviewTeamMemberContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ReviewTeamMemberContentForm,
+    name: 'ReviewTeamMemberContentForm',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.ReviewTeamMemberContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewTeamMemberContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ReviewTeamMemberContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewTeamMemberContentForm',
+        );
+        return $tom_som_dart_v0_1.ReviewTeamMemberContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .content,
+      'memberId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .memberId,
+      'displayName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .displayName,
+      'role': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .role,
+      'stakeholder': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .stakeholder,
+      'email': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .email,
+      'owner': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .owner,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+            target,
+            'ReviewTeamMemberContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'memberId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .memberId = D4.extractBridgedArg<String>(
+            value,
+            'memberId',
+          ),
+      'displayName': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .displayName = D4.extractBridgedArg<String>(
+            value,
+            'displayName',
+          ),
+      'role': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .role = D4.extractBridgedArg<String>(
+            value,
+            'role',
+          ),
+      'stakeholder': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .stakeholder = D4.extractBridgedArg<String>(
+            value,
+            'stakeholder',
+          ),
+      'email': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .email = D4.extractBridgedArg<String>(
+            value,
+            'email',
+          ),
+      'owner': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .owner = D4.extractBridgedArgOrNull<bool>(
+            value,
+            'owner',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewTeamMemberContentForm>(
+                target,
+                'ReviewTeamMemberContentForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ReviewTeamMemberContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'memberId': 'String get memberId',
+      'displayName': 'String get displayName',
+      'role': 'String get role',
+      'stakeholder': 'String get stakeholder',
+      'email': 'String get email',
+      'owner': 'bool? get owner',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'memberId': 'set memberId(String value)',
+      'displayName': 'set displayName(String value)',
+      'role': 'set role(String value)',
+      'stakeholder': 'set stakeholder(String value)',
+      'email': 'set email(String value)',
+      'owner': 'set owner(bool? value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// ReviewerRecordContentForm Bridge
+// =============================================================================
+
+BridgedClass _createReviewerRecordContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ReviewerRecordContentForm,
+    name: 'ReviewerRecordContentForm',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.ReviewerRecordContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewerRecordContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ReviewerRecordContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewerRecordContentForm',
+        );
+        return $tom_som_dart_v0_1.ReviewerRecordContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .content,
+      'memberId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .memberId,
+      'displayName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .displayName,
+      'role': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .role,
+      'guest': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .guest,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+            target,
+            'ReviewerRecordContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'memberId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .memberId = D4.extractBridgedArg<String>(
+            value,
+            'memberId',
+          ),
+      'displayName': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .displayName = D4.extractBridgedArg<String>(
+            value,
+            'displayName',
+          ),
+      'role': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .role = D4.extractBridgedArg<String>(
+            value,
+            'role',
+          ),
+      'guest': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .guest = D4.extractBridgedArgOrNull<bool>(
+            value,
+            'guest',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReviewerRecordContentForm>(
+                target,
+                'ReviewerRecordContentForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ReviewerRecordContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'memberId': 'String get memberId',
+      'displayName': 'String get displayName',
+      'role': 'String get role',
+      'guest': 'bool? get guest',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'memberId': 'set memberId(String value)',
+      'displayName': 'set displayName(String value)',
+      'role': 'set role(String value)',
+      'guest': 'set guest(bool? value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // RevisionEntryContentForm Bridge
 // =============================================================================
 
@@ -855078,6 +856492,18 @@ BridgedClass _createD01CurrentLandscapeAssessment$NavBridge() {
             'D01CurrentLandscapeAssessment\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D01CurrentLandscapeAssessment$Nav>(
+            target,
+            'D01CurrentLandscapeAssessment\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D01CurrentLandscapeAssessment$Nav>(
+            target,
+            'D01CurrentLandscapeAssessment\$Nav',
+          )
+          .revisionHistory,
       'existingSystemsLandscape': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D01CurrentLandscapeAssessment$Nav>(
             target,
@@ -855151,6 +856577,9 @@ BridgedClass _createD01CurrentLandscapeAssessment$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'existingSystemsLandscape':
           'ExistingSystemsLandscape\$Nav get existingSystemsLandscape',
       'currentBusinessProcesses':
@@ -855214,6 +856643,18 @@ BridgedClass _createD02TargetOperatingModel$NavBridge() {
             'D02TargetOperatingModel\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D02TargetOperatingModel$Nav>(
+            target,
+            'D02TargetOperatingModel\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D02TargetOperatingModel$Nav>(
+            target,
+            'D02TargetOperatingModel\$Nav',
+          )
+          .revisionHistory,
       'processVision': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D02TargetOperatingModel$Nav>(
             target,
@@ -855299,6 +856740,9 @@ BridgedClass _createD02TargetOperatingModel$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'processVision': 'ProcessVision\$Nav get processVision',
       'designPrinciples': 'ProcessDesignPrinciples\$Nav get designPrinciples',
       'processCatalog': 'ProcessCatalog\$Nav get processCatalog',
@@ -855364,6 +856808,18 @@ BridgedClass _createD03InformationModel$NavBridge() {
             'D03InformationModel\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Nav>(
+            target,
+            'D03InformationModel\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Nav>(
+            target,
+            'D03InformationModel\$Nav',
+          )
+          .revisionHistory,
       'entities': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Nav>(
             target,
@@ -855497,6 +856953,9 @@ BridgedClass _createD03InformationModel$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'entities': 'SomListMetaRef<DataEntityEntry\$Nav> get entities',
       'entityRelationships': 'EntityRelationships\$Nav get entityRelationships',
       'erDiagram': 'SomMetaRef get erDiagram',
@@ -855572,6 +857031,18 @@ BridgedClass _createD04RequirementsSpecification$NavBridge() {
             'D04RequirementsSpecification\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D04RequirementsSpecification$Nav>(
+            target,
+            'D04RequirementsSpecification\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D04RequirementsSpecification$Nav>(
+            target,
+            'D04RequirementsSpecification\$Nav',
+          )
+          .revisionHistory,
       'functionalRequirements': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D04RequirementsSpecification$Nav>(
             target,
@@ -855639,6 +857110,9 @@ BridgedClass _createD04RequirementsSpecification$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'functionalRequirements':
           'FunctionalRequirements\$Nav get functionalRequirements',
       'technicalRequirements':
@@ -855699,6 +857173,18 @@ BridgedClass _createD05InteractionScenarios$NavBridge() {
             'D05InteractionScenarios\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D05InteractionScenarios$Nav>(
+            target,
+            'D05InteractionScenarios\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D05InteractionScenarios$Nav>(
+            target,
+            'D05InteractionScenarios\$Nav',
+          )
+          .revisionHistory,
       'processStepsOverview': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D05InteractionScenarios$Nav>(
             target,
@@ -855766,6 +857252,9 @@ BridgedClass _createD05InteractionScenarios$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'processStepsOverview':
           'ProcessStepsOverview\$Nav get processStepsOverview',
       'actorOverview': 'ActorOverview\$Nav get actorOverview',
@@ -855830,6 +857319,16 @@ BridgedClass _createD06ArchitectureTechnologySpecification$NavBridge() {
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Nav
           >(target, 'D06ArchitectureTechnologySpecification\$Nav')
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Nav
+          >(target, 'D06ArchitectureTechnologySpecification\$Nav')
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Nav
+          >(target, 'D06ArchitectureTechnologySpecification\$Nav')
+          .revisionHistory,
       'basicTechnicalRequirements': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Nav
@@ -855912,6 +857411,9 @@ BridgedClass _createD06ArchitectureTechnologySpecification$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'basicTechnicalRequirements':
           'BasicTechnicalRequirements\$Nav get basicTechnicalRequirements',
       'softwareDesignRequirements':
@@ -855989,6 +857491,16 @@ BridgedClass _createD07IntegrationInterfaceSpecification$NavBridge() {
             $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Nav
           >(target, 'D07IntegrationInterfaceSpecification\$Nav')
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Nav
+          >(target, 'D07IntegrationInterfaceSpecification\$Nav')
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Nav
+          >(target, 'D07IntegrationInterfaceSpecification\$Nav')
+          .revisionHistory,
       'externalInterfaces': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Nav
@@ -856061,6 +857573,9 @@ BridgedClass _createD07IntegrationInterfaceSpecification$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'externalInterfaces': 'ExternalInterfaces\$Nav get externalInterfaces',
       'outOfScope': 'OutOfScope\$Nav get outOfScope',
       'boundaryAssumptions': 'BoundaryAssumptions\$Nav get boundaryAssumptions',
@@ -856126,6 +857641,16 @@ BridgedClass _createD08SecurityAccessSpecification$NavBridge() {
             $tom_som_dart_v0_2.D08SecurityAccessSpecification$Nav
           >(target, 'D08SecurityAccessSpecification\$Nav')
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D08SecurityAccessSpecification$Nav
+          >(target, 'D08SecurityAccessSpecification\$Nav')
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D08SecurityAccessSpecification$Nav
+          >(target, 'D08SecurityAccessSpecification\$Nav')
+          .revisionHistory,
       'userManagement': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D08SecurityAccessSpecification$Nav
@@ -856193,6 +857718,9 @@ BridgedClass _createD08SecurityAccessSpecification$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'userManagement': 'UserManagement\$Nav get userManagement',
       'identificationAndAuthentication':
           'IdentificationAndAuthentication\$Nav get identificationAndAuthentication',
@@ -856258,6 +857786,16 @@ BridgedClass _createD09ExperienceDesignSpecification$NavBridge() {
             $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Nav
           >(target, 'D09ExperienceDesignSpecification\$Nav')
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Nav
+          >(target, 'D09ExperienceDesignSpecification\$Nav')
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Nav
+          >(target, 'D09ExperienceDesignSpecification\$Nav')
+          .revisionHistory,
       'designVision': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Nav
@@ -856345,6 +857883,9 @@ BridgedClass _createD09ExperienceDesignSpecification$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'designVision': 'DesignVision\$Nav get designVision',
       'screens': 'ScreenDescriptions\$Nav get screens',
       'screenFlow': 'ScreenFlowStructure\$Nav get screenFlow',
@@ -856408,6 +857949,18 @@ BridgedClass _createD10QualityAcceptancePlan$NavBridge() {
             'D10QualityAcceptancePlan\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D10QualityAcceptancePlan$Nav>(
+            target,
+            'D10QualityAcceptancePlan\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D10QualityAcceptancePlan$Nav>(
+            target,
+            'D10QualityAcceptancePlan\$Nav',
+          )
+          .revisionHistory,
       'qualityFramework': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D10QualityAcceptancePlan$Nav>(
             target,
@@ -856547,6 +858100,9 @@ BridgedClass _createD10QualityAcceptancePlan$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'qualityFramework': 'QualityFramework\$Nav get qualityFramework',
       'functionalSuitability':
           'FunctionalSuitabilityCharacteristic\$Nav get functionalSuitability',
@@ -856623,6 +858179,18 @@ BridgedClass _createD11DeliveryRoadmap$NavBridge() {
             'D11DeliveryRoadmap\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D11DeliveryRoadmap$Nav>(
+            target,
+            'D11DeliveryRoadmap\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D11DeliveryRoadmap$Nav>(
+            target,
+            'D11DeliveryRoadmap\$Nav',
+          )
+          .revisionHistory,
       'stagingStrategy': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D11DeliveryRoadmap$Nav>(
             target,
@@ -856702,6 +858270,9 @@ BridgedClass _createD11DeliveryRoadmap$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'stagingStrategy': 'StagingStrategy\$Nav get stagingStrategy',
       'stageOverview': 'StageOverview\$Nav get stageOverview',
       'stages': 'SomListMetaRef<StageEntry\$Nav> get stages',
@@ -856763,6 +858334,18 @@ BridgedClass _createD12TransitionRolloutPlan$NavBridge() {
             'D12TransitionRolloutPlan\$Nav',
           )
           .header,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Nav>(
+            target,
+            'D12TransitionRolloutPlan\$Nav',
+          )
+          .reviewTeam,
+      'revisionHistory': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Nav>(
+            target,
+            'D12TransitionRolloutPlan\$Nav',
+          )
+          .revisionHistory,
       'localizationProcess': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Nav>(
             target,
@@ -856860,6 +858443,9 @@ BridgedClass _createD12TransitionRolloutPlan$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'header': 'DocumentHeader\$Nav get header',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'revisionHistory':
+          'SomListMetaRef<RevisionEntry\$Nav> get revisionHistory',
       'localizationProcess': 'LocalizationProcess\$Nav get localizationProcess',
       'translationProcess': 'TranslationProcess\$Nav get translationProcess',
       'userDocumentation':
@@ -867192,6 +868778,79 @@ BridgedClass _createDocumentRelevantSections$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'sections': 'SomListMetaRef<RelevantSectionEntry\$Nav> get sections',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// DocumentReviewTeamEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createDocumentReviewTeamEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav,
+    name: 'DocumentReviewTeamEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DocumentReviewTeamEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'DocumentReviewTeamEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'DocumentReviewTeamEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav>(
+            target,
+            'DocumentReviewTeamEntry\$Nav',
+          )
+          .content,
+      'members': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav>(
+            target,
+            'DocumentReviewTeamEntry\$Nav',
+          )
+          .members,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav>(
+            target,
+            'DocumentReviewTeamEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav>(
+            target,
+            'DocumentReviewTeamEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Nav>(
+            target,
+            'DocumentReviewTeamEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'DocumentReviewTeamEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'members': 'SomListMetaRef<ReviewTeamMember\$Nav> get members',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -913061,6 +914720,211 @@ BridgedClass _createReviewCriterionEntry$NavBridge() {
 }
 
 // =============================================================================
+// ReviewTeam$Nav Bridge
+// =============================================================================
+
+BridgedClass _createReviewTeam$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ReviewTeam$Nav,
+    name: 'ReviewTeam\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ReviewTeam$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewTeam\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ReviewTeam\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewTeam\$Nav',
+        );
+        return $tom_som_dart_v0_2.ReviewTeam$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeam$Nav>(
+            target,
+            'ReviewTeam\$Nav',
+          )
+          .content,
+      'members': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeam$Nav>(
+            target,
+            'ReviewTeam\$Nav',
+          )
+          .members,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeam$Nav>(
+            target,
+            'ReviewTeam\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeam$Nav>(
+            target,
+            'ReviewTeam\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeam$Nav>(
+            target,
+            'ReviewTeam\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ReviewTeam\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'members': 'SomListMetaRef<ReviewTeamMember\$Nav> get members',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// ReviewTeamMember$Nav Bridge
+// =============================================================================
+
+BridgedClass _createReviewTeamMember$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ReviewTeamMember$Nav,
+    name: 'ReviewTeamMember\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ReviewTeamMember$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewTeamMember\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ReviewTeamMember\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewTeamMember\$Nav',
+        );
+        return $tom_som_dart_v0_2.ReviewTeamMember$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Nav>(
+            target,
+            'ReviewTeamMember\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Nav>(
+            target,
+            'ReviewTeamMember\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Nav>(
+            target,
+            'ReviewTeamMember\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Nav>(
+            target,
+            'ReviewTeamMember\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ReviewTeamMember\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// ReviewerRecord$Nav Bridge
+// =============================================================================
+
+BridgedClass _createReviewerRecord$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ReviewerRecord$Nav,
+    name: 'ReviewerRecord\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ReviewerRecord$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewerRecord\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ReviewerRecord\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewerRecord\$Nav',
+        );
+        return $tom_som_dart_v0_2.ReviewerRecord$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Nav>(
+            target,
+            'ReviewerRecord\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Nav>(
+            target,
+            'ReviewerRecord\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Nav>(
+            target,
+            'ReviewerRecord\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Nav>(
+            target,
+            'ReviewerRecord\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ReviewerRecord\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // RevisionEntry$Nav Bridge
 // =============================================================================
 
@@ -913095,6 +914959,18 @@ BridgedClass _createRevisionEntry$NavBridge() {
             'RevisionEntry\$Nav',
           )
           .content,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.RevisionEntry$Nav>(
+            target,
+            'RevisionEntry\$Nav',
+          )
+          .reviewTeam,
+      'reviewers': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.RevisionEntry$Nav>(
+            target,
+            'RevisionEntry\$Nav',
+          )
+          .reviewers,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.RevisionEntry$Nav>(
             target,
@@ -913119,6 +914995,8 @@ BridgedClass _createRevisionEntry$NavBridge() {
     },
     getterSignatures: {
       'content': 'SomMetaRef get content',
+      'reviewTeam': 'SomListMetaRef<ReviewerRecord\$Nav> get reviewTeam',
+      'reviewers': 'SomListMetaRef<ReviewerRecord\$Nav> get reviewers',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -926142,6 +928020,18 @@ BridgedClass _createStakeholdersAndGovernance$NavBridge() {
             'StakeholdersAndGovernance\$Nav',
           )
           .stakeholderRegister,
+      'reviewTeam': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.StakeholdersAndGovernance$Nav>(
+            target,
+            'StakeholdersAndGovernance\$Nav',
+          )
+          .reviewTeam,
+      'documentReviewTeams': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.StakeholdersAndGovernance$Nav>(
+            target,
+            'StakeholdersAndGovernance\$Nav',
+          )
+          .documentReviewTeams,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.StakeholdersAndGovernance$Nav>(
             target,
@@ -926177,6 +928067,9 @@ BridgedClass _createStakeholdersAndGovernance$NavBridge() {
           'LegalAndContractualRequirements\$Nav get legalAndContractual',
       'stakeholderRegister':
           'SomListMetaRef<StakeholderRegisterEntry\$Nav> get stakeholderRegister',
+      'reviewTeam': 'ReviewTeam\$Nav get reviewTeam',
+      'documentReviewTeams':
+          'SomListMetaRef<DocumentReviewTeamEntry\$Nav> get documentReviewTeams',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -953205,6 +955098,18 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .STKRE_STAK_LST,
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
+            target,
+            'D00SolutionBlueprint\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'DCRVTM_DOCR_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
+            target,
+            'D00SolutionBlueprint\$Id',
+          )
+          .DCRVTM_DOCR_LST,
       'ESENT_SYST_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -960494,6 +962399,10 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
           'SomListMetaRef<OtherAgreementEntry\$Id> get OTAGR_OTHE_LST',
       'STKRE_STAK_LST':
           'SomListMetaRef<StakeholderRegisterEntry\$Id> get STKRE_STAK_LST',
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'DCRVTM_DOCR_LST':
+          'SomListMetaRef<DocumentReviewTeamEntry\$Id> get DCRVTM_DOCR_LST',
       'ESENT_SYST_LST':
           'SomListMetaRef<ExistingSystemEntry\$Id> get ESENT_SYST_LST',
       'CARCH_ARCH': 'SomMetaRef get CARCH_ARCH',
@@ -961908,6 +963817,18 @@ BridgedClass _createD01CurrentLandscapeAssessment$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D01CurrentLandscapeAssessment$Id>(
+            target,
+            'D01CurrentLandscapeAssessment\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D01CurrentLandscapeAssessment$Id>(
+            target,
+            'D01CurrentLandscapeAssessment\$Id',
+          )
+          .RVENT_REVS_LST,
       'ESENT_SYST_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D01CurrentLandscapeAssessment$Id>(
             target,
@@ -962399,6 +964320,9 @@ BridgedClass _createD01CurrentLandscapeAssessment$IdBridge() {
       '': 'D01CurrentLandscapeAssessment\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'ESENT_SYST_LST':
           'SomListMetaRef<ExistingSystemEntry\$Id> get ESENT_SYST_LST',
       'CARCH_ARCH': 'SomMetaRef get CARCH_ARCH',
@@ -962540,6 +964464,18 @@ BridgedClass _createD02TargetOperatingModel$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D02TargetOperatingModel$Id>(
+            target,
+            'D02TargetOperatingModel\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D02TargetOperatingModel$Id>(
+            target,
+            'D02TargetOperatingModel\$Id',
+          )
+          .RVENT_REVS_LST,
       'PVOVW': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D02TargetOperatingModel$Id>(
             target,
@@ -962653,6 +964589,9 @@ BridgedClass _createD02TargetOperatingModel$IdBridge() {
       '': 'D02TargetOperatingModel\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'PVOVW': 'SomMetaRef get PVOVW',
       'EXIPR_EXPE_LST':
           'SomListMetaRef<ExpectedImprovements\$Id> get EXIPR_EXPE_LST',
@@ -962710,6 +964649,18 @@ BridgedClass _createD03InformationModel$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Id>(
+            target,
+            'D03InformationModel\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Id>(
+            target,
+            'D03InformationModel\$Id',
+          )
+          .RVENT_REVS_LST,
       'DAENT_ENTI_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Id>(
             target,
@@ -962829,6 +964780,9 @@ BridgedClass _createD03InformationModel$IdBridge() {
       '': 'D03InformationModel\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'DAENT_ENTI_LST':
           'SomListMetaRef<DataEntityEntry\$Id> get DAENT_ENTI_LST',
       'ENRLE_ITEM_LST':
@@ -962895,6 +964849,18 @@ BridgedClass _createD04RequirementsSpecification$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D04RequirementsSpecification$Id>(
+            target,
+            'D04RequirementsSpecification\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D04RequirementsSpecification$Id>(
+            target,
+            'D04RequirementsSpecification\$Id',
+          )
+          .RVENT_REVS_LST,
       'FR_SUMM': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D04RequirementsSpecification$Id>(
             target,
@@ -962978,6 +964944,9 @@ BridgedClass _createD04RequirementsSpecification$IdBridge() {
       '': 'D04RequirementsSpecification\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'FR_SUMM': 'SomMetaRef get FR_SUMM',
       'FRE_REQU_LST':
           'SomListMetaRef<FunctionalRequirementEntry\$Id> get FRE_REQU_LST',
@@ -963029,6 +964998,18 @@ BridgedClass _createD05InteractionScenarios$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D05InteractionScenarios$Id>(
+            target,
+            'D05InteractionScenarios\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D05InteractionScenarios$Id>(
+            target,
+            'D05InteractionScenarios\$Id',
+          )
+          .RVENT_REVS_LST,
       'ACOVNA': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D05InteractionScenarios$Id>(
             target,
@@ -963112,6 +965093,9 @@ BridgedClass _createD05InteractionScenarios$IdBridge() {
       '': 'D05InteractionScenarios\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'ACOVNA': 'SomMetaRef get ACOVNA',
       'ACEN_ACTO_LST': 'SomListMetaRef<ActorEntry\$Id> get ACEN_ACTO_LST',
       'ACCASU': 'SomMetaRef get ACCASU',
@@ -963167,6 +965151,16 @@ BridgedClass _createD06ArchitectureTechnologySpecification$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
+          >(target, 'D06ArchitectureTechnologySpecification\$Id')
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
+          >(target, 'D06ArchitectureTechnologySpecification\$Id')
+          .RVENT_REVS_LST,
       'TGPLT_TARG_LST': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D06ArchitectureTechnologySpecification$Id
@@ -966452,6 +968446,9 @@ BridgedClass _createD06ArchitectureTechnologySpecification$IdBridge() {
       '': 'D06ArchitectureTechnologySpecification\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'TGPLT_TARG_LST':
           'SomListMetaRef<TargetPlatformEntry\$Id> get TGPLT_TARG_LST',
       'PLGEN_PROG_LST':
@@ -967214,6 +969211,16 @@ BridgedClass _createD07IntegrationInterfaceSpecification$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Id
+          >(target, 'D07IntegrationInterfaceSpecification\$Id')
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Id
+          >(target, 'D07IntegrationInterfaceSpecification\$Id')
+          .RVENT_REVS_LST,
       'EIE_INTE_LST': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D07IntegrationInterfaceSpecification$Id
@@ -967264,6 +969271,9 @@ BridgedClass _createD07IntegrationInterfaceSpecification$IdBridge() {
       '': 'D07IntegrationInterfaceSpecification\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'EIE_INTE_LST':
           'SomListMetaRef<ExternalInterfaceEntry\$Id> get EIE_INTE_LST',
       'OUTSCO_ITEM_LST':
@@ -967313,6 +969323,18 @@ BridgedClass _createD08SecurityAccessSpecification$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D08SecurityAccessSpecification$Id>(
+            target,
+            'D08SecurityAccessSpecification\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D08SecurityAccessSpecification$Id>(
+            target,
+            'D08SecurityAccessSpecification\$Id',
+          )
+          .RVENT_REVS_LST,
       'USCDF_ITEM_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D08SecurityAccessSpecification$Id>(
             target,
@@ -967564,6 +969586,9 @@ BridgedClass _createD08SecurityAccessSpecification$IdBridge() {
       '': 'D08SecurityAccessSpecification\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'USCDF_ITEM_LST':
           'SomListMetaRef<UserCategoryDefinition\$Id> get USCDF_ITEM_LST',
       'ULTRE_ITEM_LST':
@@ -967667,6 +969692,16 @@ BridgedClass _createD09ExperienceDesignSpecification$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Id
+          >(target, 'D09ExperienceDesignSpecification\$Id')
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Id
+          >(target, 'D09ExperienceDesignSpecification\$Id')
+          .RVENT_REVS_LST,
       'DGOEN_ITEM_LST': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Id
@@ -968367,6 +970402,9 @@ BridgedClass _createD09ExperienceDesignSpecification$IdBridge() {
       '': 'D09ExperienceDesignSpecification\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'DGOEN_ITEM_LST':
           'SomListMetaRef<DesignGoalEntry\$Id> get DGOEN_ITEM_LST',
       'DPEN_ITEM_LST':
@@ -968563,6 +970601,18 @@ BridgedClass _createD10QualityAcceptancePlan$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D10QualityAcceptancePlan$Id>(
+            target,
+            'D10QualityAcceptancePlan\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D10QualityAcceptancePlan$Id>(
+            target,
+            'D10QualityAcceptancePlan\$Id',
+          )
+          .RVENT_REVS_LST,
       'QLFWK_FRAM': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D10QualityAcceptancePlan$Id>(
             target,
@@ -969282,6 +971332,9 @@ BridgedClass _createD10QualityAcceptancePlan$IdBridge() {
       '': 'D10QualityAcceptancePlan\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'QLFWK_FRAM': 'SomMetaRef get QLFWK_FRAM',
       'QFOBJ': 'SomMetaRef get QFOBJ',
       'QFTRD': 'SomMetaRef get QFTRD',
@@ -969446,6 +971499,18 @@ BridgedClass _createD11DeliveryRoadmap$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D11DeliveryRoadmap$Id>(
+            target,
+            'D11DeliveryRoadmap\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D11DeliveryRoadmap$Id>(
+            target,
+            'D11DeliveryRoadmap\$Id',
+          )
+          .RVENT_REVS_LST,
       'STAGAS': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D11DeliveryRoadmap$Id>(
             target,
@@ -969805,6 +971870,9 @@ BridgedClass _createD11DeliveryRoadmap$IdBridge() {
       '': 'D11DeliveryRoadmap\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'STAGAS': 'SomMetaRef get STAGAS',
       'STAGRT': 'SomMetaRef get STAGRT',
       'STAGDR_DRIV_LST':
@@ -969909,6 +971977,18 @@ BridgedClass _createD12TransitionRolloutPlan$IdBridge() {
       },
     },
     getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Id>(
+            target,
+            'D12TransitionRolloutPlan\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'RVENT_REVS_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Id>(
+            target,
+            'D12TransitionRolloutPlan\$Id',
+          )
+          .RVENT_REVS_LST,
       'LOPR_LOCA': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D12TransitionRolloutPlan$Id>(
             target,
@@ -970022,6 +972102,9 @@ BridgedClass _createD12TransitionRolloutPlan$IdBridge() {
       '': 'D12TransitionRolloutPlan\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
+      'RVENT_REVS_LST': 'SomListMetaRef<RevisionEntry\$Id> get RVENT_REVS_LST',
       'LOPR_LOCA': 'SomMetaRef get LOPR_LOCA',
       'LOPRR1': 'SomMetaRef get LOPRR1',
       'LOPRFO': 'SomMetaRef get LOPRFO',
@@ -978965,6 +981048,73 @@ BridgedClass _createDistributionRecipientPreferences$IdBridge() {
       '': 'DistributionRecipientPreferences\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// DocumentReviewTeamEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createDocumentReviewTeamEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.DocumentReviewTeamEntry$Id,
+    name: 'DocumentReviewTeamEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.DocumentReviewTeamEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'DocumentReviewTeamEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'DocumentReviewTeamEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'DocumentReviewTeamEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.DocumentReviewTeamEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'RVMEM_MEMB_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Id>(
+            target,
+            'DocumentReviewTeamEntry\$Id',
+          )
+          .RVMEM_MEMB_LST,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Id>(
+            target,
+            'DocumentReviewTeamEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Id>(
+            target,
+            'DocumentReviewTeamEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.DocumentReviewTeamEntry$Id>(
+            target,
+            'DocumentReviewTeamEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'DocumentReviewTeamEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'RVMEM_MEMB_LST':
+          'SomListMetaRef<ReviewTeamMember\$Id> get RVMEM_MEMB_LST',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -996580,6 +998730,124 @@ BridgedClass _createReviewCriterionEntry$IdBridge() {
 }
 
 // =============================================================================
+// ReviewTeamMember$Id Bridge
+// =============================================================================
+
+BridgedClass _createReviewTeamMember$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ReviewTeamMember$Id,
+    name: 'ReviewTeamMember\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ReviewTeamMember$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewTeamMember\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ReviewTeamMember\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewTeamMember\$Id',
+        );
+        return $tom_som_dart_v0_2.ReviewTeamMember$Id(tree, path);
+      },
+    },
+    getters: {
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Id>(
+            target,
+            'ReviewTeamMember\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Id>(
+            target,
+            'ReviewTeamMember\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewTeamMember$Id>(
+            target,
+            'ReviewTeamMember\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ReviewTeamMember\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// ReviewerRecord$Id Bridge
+// =============================================================================
+
+BridgedClass _createReviewerRecord$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ReviewerRecord$Id,
+    name: 'ReviewerRecord\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ReviewerRecord$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ReviewerRecord\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ReviewerRecord\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ReviewerRecord\$Id',
+        );
+        return $tom_som_dart_v0_2.ReviewerRecord$Id(tree, path);
+      },
+    },
+    getters: {
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Id>(
+            target,
+            'ReviewerRecord\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Id>(
+            target,
+            'ReviewerRecord\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ReviewerRecord$Id>(
+            target,
+            'ReviewerRecord\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ReviewerRecord\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // RevisionEntry$Id Bridge
 // =============================================================================
 
@@ -996608,6 +998876,18 @@ BridgedClass _createRevisionEntry$IdBridge() {
       },
     },
     getters: {
+      'RVWER_TEAM_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.RevisionEntry$Id>(
+            target,
+            'RevisionEntry\$Id',
+          )
+          .RVWER_TEAM_LST,
+      'RVWER_RETN_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.RevisionEntry$Id>(
+            target,
+            'RevisionEntry\$Id',
+          )
+          .RVWER_RETN_LST,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.RevisionEntry$Id>(
             target,
@@ -996631,6 +998911,8 @@ BridgedClass _createRevisionEntry$IdBridge() {
       '': 'RevisionEntry\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'RVWER_TEAM_LST': 'SomListMetaRef<ReviewerRecord\$Id> get RVWER_TEAM_LST',
+      'RVWER_RETN_LST': 'SomListMetaRef<ReviewerRecord\$Id> get RVWER_RETN_LST',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',

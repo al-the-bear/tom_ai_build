@@ -434,6 +434,24 @@ char *parse_server_call_role(const char *token) {
   return som_strdup("");
 }
 
+char *parse_spec_document_type(const char *token) {
+  if (strcmp(token, SPEC_DOCUMENT_TYPE_D01_CURRENT_LANDSCAPE_ASSESSMENT) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D02_TARGET_OPERATING_MODEL) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D03_INFORMATION_MODEL) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D04_REQUIREMENTS_SPECIFICATION) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D05_INTERACTION_SCENARIOS) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D07_INTEGRATION_INTERFACE_SPECIFICATION) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D08_SECURITY_ACCESS_SPECIFICATION) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D09_EXPERIENCE_DESIGN_SPECIFICATION) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D10_QUALITY_ACCEPTANCE_PLAN) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D11_DELIVERY_ROADMAP) == 0 ||
+      strcmp(token, SPEC_DOCUMENT_TYPE_D12_TRANSITION_ROLLOUT_PLAN) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_status(const char *token) {
   if (strcmp(token, STATUS_DRAFT) == 0 ||
       strcmp(token, STATUS_PROPOSED) == 0 ||
@@ -10367,6 +10385,20 @@ DocumentHeader d01_current_landscape_assessment_header(const D01CurrentLandscape
   free(path);
   return out;
 }
+ReviewTeam d01_current_landscape_assessment_review_team(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d01_current_landscape_assessment_revision_history(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
+  free(path);
+  return out;
+}
 ExistingSystemsLandscape d01_current_landscape_assessment_existing_systems_landscape(const D01CurrentLandscapeAssessment *self) {
   char *path = spec_path_join(self->node.path, "existingSystemsLandscape");
   ExistingSystemsLandscape out;
@@ -10487,6 +10519,20 @@ DocumentHeader d02_target_operating_model_header(const D02TargetOperatingModel *
   char *path = spec_path_join(self->node.path, "header");
   DocumentHeader out;
   document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReviewTeam d02_target_operating_model_review_team(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d02_target_operating_model_revision_history(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
@@ -10624,6 +10670,20 @@ DocumentHeader d03_information_model_header(const D03InformationModel *self) {
   char *path = spec_path_join(self->node.path, "header");
   DocumentHeader out;
   document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReviewTeam d03_information_model_review_team(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_revision_history(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
@@ -10806,6 +10866,20 @@ DocumentHeader d04_requirements_specification_header(const D04RequirementsSpecif
   free(path);
   return out;
 }
+ReviewTeam d04_requirements_specification_review_team(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d04_requirements_specification_revision_history(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
+  free(path);
+  return out;
+}
 FunctionalRequirements d04_requirements_specification_functional_requirements(const D04RequirementsSpecification *self) {
   char *path = spec_path_join(self->node.path, "functionalRequirements");
   FunctionalRequirements out;
@@ -10927,6 +11001,20 @@ DocumentHeader d05_interaction_scenarios_header(const D05InteractionScenarios *s
   free(path);
   return out;
 }
+ReviewTeam d05_interaction_scenarios_review_team(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d05_interaction_scenarios_revision_history(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
+  free(path);
+  return out;
+}
 ProcessStepsOverview d05_interaction_scenarios_process_steps_overview(const D05InteractionScenarios *self) {
   char *path = spec_path_join(self->node.path, "processStepsOverview");
   ProcessStepsOverview out;
@@ -11040,6 +11128,20 @@ DocumentHeader d06_architecture_technology_specification_header(const D06Archite
   char *path = spec_path_join(self->node.path, "header");
   DocumentHeader out;
   document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReviewTeam d06_architecture_technology_specification_review_team(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d06_architecture_technology_specification_revision_history(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
@@ -11194,6 +11296,20 @@ DocumentHeader d07_integration_interface_specification_header(const D07Integrati
   free(path);
   return out;
 }
+ReviewTeam d07_integration_interface_specification_review_team(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d07_integration_interface_specification_revision_history(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
+  free(path);
+  return out;
+}
 ExternalInterfaces d07_integration_interface_specification_external_interfaces(const D07IntegrationInterfaceSpecification *self) {
   char *path = spec_path_join(self->node.path, "externalInterfaces");
   ExternalInterfaces out;
@@ -11331,6 +11447,20 @@ DocumentHeader d08_security_access_specification_header(const D08SecurityAccessS
   free(path);
   return out;
 }
+ReviewTeam d08_security_access_specification_review_team(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d08_security_access_specification_revision_history(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
+  free(path);
+  return out;
+}
 UserManagement d08_security_access_specification_user_management(const D08SecurityAccessSpecification *self) {
   char *path = spec_path_join(self->node.path, "userManagement");
   UserManagement out;
@@ -11458,6 +11588,20 @@ DocumentHeader d09_experience_design_specification_header(const D09ExperienceDes
   char *path = spec_path_join(self->node.path, "header");
   DocumentHeader out;
   document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReviewTeam d09_experience_design_specification_review_team(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d09_experience_design_specification_revision_history(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
@@ -11616,6 +11760,20 @@ DocumentHeader d10_quality_acceptance_plan_header(const D10QualityAcceptancePlan
   char *path = spec_path_join(self->node.path, "header");
   DocumentHeader out;
   document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReviewTeam d10_quality_acceptance_plan_review_team(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d10_quality_acceptance_plan_revision_history(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
@@ -11819,6 +11977,20 @@ DocumentHeader d11_delivery_roadmap_header(const D11DeliveryRoadmap *self) {
   free(path);
   return out;
 }
+ReviewTeam d11_delivery_roadmap_review_team(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d11_delivery_roadmap_revision_history(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
+  free(path);
+  return out;
+}
 StagingStrategy d11_delivery_roadmap_staging_strategy(const D11DeliveryRoadmap *self) {
   char *path = spec_path_join(self->node.path, "stagingStrategy");
   StagingStrategy out;
@@ -11946,6 +12118,20 @@ DocumentHeader d12_transition_rollout_plan_header(const D12TransitionRolloutPlan
   char *path = spec_path_join(self->node.path, "header");
   DocumentHeader out;
   document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReviewTeam d12_transition_rollout_plan_review_team(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d12_transition_rollout_plan_revision_history(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
@@ -16794,6 +16980,31 @@ SomList document_relevant_sections_sections(const DocumentRelevantSections *self
   char *path = spec_path_join(self->node.path, "RESEEN-SECT-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "RESEEN-SECT-xxx");
+  free(path);
+  return out;
+}
+
+void document_review_team_entry_init(DocumentReviewTeamEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void document_review_team_entry_free(DocumentReviewTeamEntry *self) {
+  som_node_free(&self->node);
+}
+int document_review_team_entry_can_have_content(const DocumentReviewTeamEntry *self) {
+  (void)self;
+  return 0;
+}
+DocumentReviewTeamEntryContentForm document_review_team_entry_content(const DocumentReviewTeamEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  DocumentReviewTeamEntryContentForm out;
+  document_review_team_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList document_review_team_entry_members(const DocumentReviewTeamEntry *self) {
+  char *path = spec_path_join(self->node.path, "RVMEM-MEMB-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVMEM-MEMB-xxx");
   free(path);
   return out;
 }
@@ -36878,6 +37089,72 @@ ReviewCriterionEntryResultForm review_criterion_entry_result(const ReviewCriteri
   return out;
 }
 
+void review_team_init(ReviewTeam *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void review_team_free(ReviewTeam *self) {
+  som_node_free(&self->node);
+}
+int review_team_can_have_content(const ReviewTeam *self) {
+  (void)self;
+  return 1;
+}
+char *review_team_content(const ReviewTeam *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void review_team_set_content(ReviewTeam *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList review_team_members(const ReviewTeam *self) {
+  char *path = spec_path_join(self->node.path, "RVMEM-MEMB-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVMEM-MEMB-xxx");
+  free(path);
+  return out;
+}
+
+void review_team_member_init(ReviewTeamMember *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void review_team_member_free(ReviewTeamMember *self) {
+  som_node_free(&self->node);
+}
+int review_team_member_can_have_content(const ReviewTeamMember *self) {
+  (void)self;
+  return 0;
+}
+ReviewTeamMemberContentForm review_team_member_content(const ReviewTeamMember *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ReviewTeamMemberContentForm out;
+  review_team_member_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void reviewer_record_init(ReviewerRecord *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void reviewer_record_free(ReviewerRecord *self) {
+  som_node_free(&self->node);
+}
+int reviewer_record_can_have_content(const ReviewerRecord *self) {
+  (void)self;
+  return 0;
+}
+ReviewerRecordContentForm reviewer_record_content(const ReviewerRecord *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ReviewerRecordContentForm out;
+  reviewer_record_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void revision_entry_init(RevisionEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -36892,6 +37169,20 @@ RevisionEntryContentForm revision_entry_content(const RevisionEntry *self) {
   char *path = spec_path_join(self->node.path, "content");
   RevisionEntryContentForm out;
   revision_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList revision_entry_review_team(const RevisionEntry *self) {
+  char *path = spec_path_join(self->node.path, "RVWER-TEAM-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVWER-TEAM-xxx");
+  free(path);
+  return out;
+}
+SomList revision_entry_reviewers(const RevisionEntry *self) {
+  char *path = spec_path_join(self->node.path, "RVWER-RETN-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "RVWER-RETN-xxx");
   free(path);
   return out;
 }
@@ -42649,6 +42940,20 @@ SomList stakeholders_and_governance_stakeholder_register(const StakeholdersAndGo
   char *path = spec_path_join(self->node.path, "STKRE-STAK-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "STKRE-STAK-xxx");
+  free(path);
+  return out;
+}
+ReviewTeam stakeholders_and_governance_review_team(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "reviewTeam");
+  ReviewTeam out;
+  review_team_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList stakeholders_and_governance_document_review_teams(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "DCRVTM-DOCR-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "DCRVTM-DOCR-xxx");
   free(path);
   return out;
 }
@@ -87824,6 +88129,27 @@ char *document_relevant_sections_content_form_extract_summary(const DocumentRele
 }
 void document_relevant_sections_content_form_set_extract_summary(DocumentRelevantSectionsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "extractSummary", value);
+}
+
+void document_review_team_entry_content_form_init(DocumentReviewTeamEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void document_review_team_entry_content_form_free(DocumentReviewTeamEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *document_review_team_entry_content_form_content(const DocumentReviewTeamEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void document_review_team_entry_content_form_set_content(DocumentReviewTeamEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *document_review_team_entry_content_form_document_type(const DocumentReviewTeamEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentType");
+  return som_strdup(v != NULL ? v : "");
+}
+void document_review_team_entry_content_form_set_document_type(DocumentReviewTeamEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "documentType", value);
 }
 
 void documentation_quality_criteria_documentation_overview_content_form_init(DocumentationQualityCriteriaDocumentationOverviewContentForm *self, SpecDocument *doc, const char *path) {
@@ -138116,6 +138442,104 @@ char *review_criterion_entry_result_form_remediation_required(const ReviewCriter
 }
 void review_criterion_entry_result_form_set_remediation_required(ReviewCriterionEntryResultForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "remediationRequired", value);
+}
+
+void review_team_member_content_form_init(ReviewTeamMemberContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void review_team_member_content_form_free(ReviewTeamMemberContentForm *self) {
+  som_node_free(&self->node);
+}
+char *review_team_member_content_form_content(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void review_team_member_content_form_set_content(ReviewTeamMemberContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *review_team_member_content_form_member_id(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "memberId");
+  return som_strdup(v != NULL ? v : "");
+}
+void review_team_member_content_form_set_member_id(ReviewTeamMemberContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "memberId", value);
+}
+char *review_team_member_content_form_display_name(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayName");
+  return som_strdup(v != NULL ? v : "");
+}
+void review_team_member_content_form_set_display_name(ReviewTeamMemberContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "displayName", value);
+}
+char *review_team_member_content_form_role(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
+  return som_strdup(v != NULL ? v : "");
+}
+void review_team_member_content_form_set_role(ReviewTeamMemberContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "role", value);
+}
+char *review_team_member_content_form_stakeholder(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholder");
+  return som_strdup(v != NULL ? v : "");
+}
+void review_team_member_content_form_set_stakeholder(ReviewTeamMemberContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "stakeholder", value);
+}
+char *review_team_member_content_form_email(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "email");
+  return som_strdup(v != NULL ? v : "");
+}
+void review_team_member_content_form_set_email(ReviewTeamMemberContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "email", value);
+}
+bool review_team_member_content_form_owner(const ReviewTeamMemberContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "owner");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void review_team_member_content_form_set_owner(ReviewTeamMemberContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "owner", value ? "true" : "false");
+}
+
+void reviewer_record_content_form_init(ReviewerRecordContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void reviewer_record_content_form_free(ReviewerRecordContentForm *self) {
+  som_node_free(&self->node);
+}
+char *reviewer_record_content_form_content(const ReviewerRecordContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void reviewer_record_content_form_set_content(ReviewerRecordContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *reviewer_record_content_form_member_id(const ReviewerRecordContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "memberId");
+  return som_strdup(v != NULL ? v : "");
+}
+void reviewer_record_content_form_set_member_id(ReviewerRecordContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "memberId", value);
+}
+char *reviewer_record_content_form_display_name(const ReviewerRecordContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayName");
+  return som_strdup(v != NULL ? v : "");
+}
+void reviewer_record_content_form_set_display_name(ReviewerRecordContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "displayName", value);
+}
+char *reviewer_record_content_form_role(const ReviewerRecordContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
+  return som_strdup(v != NULL ? v : "");
+}
+void reviewer_record_content_form_set_role(ReviewerRecordContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "role", value);
+}
+bool reviewer_record_content_form_guest(const ReviewerRecordContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "guest");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void reviewer_record_content_form_set_guest(ReviewerRecordContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "guest", value ? "true" : "false");
 }
 
 void revision_entry_content_form_init(RevisionEntryContentForm *self, SpecDocument *doc, const char *path) {

@@ -20,7 +20,7 @@ import 'package:test/test.dart';
 
 /// The one child type that is *meant* to stay unbound: document front matter
 /// belongs to each of the fourteen entry points individually.
-const _documentLocalTypes = {'DocumentHeader'};
+const _documentLocalTypes = {'DocumentHeader', 'ReviewTeam', 'RevisionEntry'};
 
 /// The Solution Blueprint master — the source every projection binds to, and
 /// the one root that is not itself a projection.
@@ -109,16 +109,25 @@ void main() {
       );
     });
 
-    test('the document header is the only deliberate omission', () {
-      // Stated as a test rather than a comment: if a second exclusion is ever
-      // added to the codegen it has to be argued for here too.
+    test('the document-local members are the only deliberate omissions', () {
+      // Stated as a test rather than a comment: if another exclusion is ever
+      // added to the codegen it has to be argued for here too. The header, the
+      // own review team and the own revision history belong to each document;
+      // bound by type, a document's review team would resolve onto the SBP's
+      // default team.
       for (final root in projectionRoots) {
         final bound = bindings[root] ?? const <String, String>{};
-        expect(
-          bound.containsKey('header'),
-          isFalse,
-          reason: '$root.header must stay document-local',
-        );
+        for (final member in const [
+          'header',
+          'reviewTeam',
+          'revisionHistory',
+        ]) {
+          expect(
+            bound.containsKey(member),
+            isFalse,
+            reason: '$root.$member must stay document-local',
+          );
+        }
       }
     });
 
@@ -176,8 +185,8 @@ final RegExp _assignmentPattern = RegExp(r'n\.(\w+)\s*=\s*([^;]+);');
 bool _isChildNode(Map<String, dynamic> field) =>
     const {'section', 'complex', 'list'}.contains(field['kind']);
 
-/// The class a child field holds. A `complex`/`list` field names it under
-/// `type`; a `section` field carries its content-leaf class under
-/// `sectionType`.
+/// The class a child field holds. A `complex` field names it under `type`, a
+/// `list` field its element class under `elementType`, and a `section` field
+/// its content-leaf class under `sectionType`.
 String? _targetType(Map<String, dynamic> field) =>
-    (field['type'] ?? field['sectionType']) as String?;
+    (field['type'] ?? field['elementType'] ?? field['sectionType']) as String?;

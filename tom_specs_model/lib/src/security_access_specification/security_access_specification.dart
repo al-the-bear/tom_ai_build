@@ -7,6 +7,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/document_header.dart';
+import '../common/review_team.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
 /// SAS00 Security & Access Specification.
@@ -41,37 +42,57 @@ class D08SecurityAccessSpecification extends DocSpecsSection {
   @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
-  /// User management.
+  /// This document's own review team; when it has members it replaces the
+  /// Solution Blueprint's team for this document type and its default team.
   @SerializationOrder(2)
+  ReviewTeam reviewTeam = ReviewTeam();
+
+  /// Chronological revision history of this document, with the reviewers of
+  /// each revision.
+  @StandardReferences([
+    'ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)',
+  ], 'The ordered set of published revisions of this document.')
+  @SectionId('RVENT-REVS-LST')
+  @SectionIdPattern('RVENT-REVS-xxx')
+  @ContentHelp(
+    'Add one entry per revision, newest last: version, date, author, a short '
+    'summary, the review team the round started with and the reviewers who '
+    'returned a copy.',
+  )
+  @SerializationOrder(3)
+  List<RevisionEntry> revisionHistory = [];
+
+  /// User management.
+  @SerializationOrder(4)
   UserManagement userManagement = UserManagement();
 
   /// Identification and authentication.
-  @SerializationOrder(3)
+  @SerializationOrder(5)
   IdentificationAndAuthentication identificationAndAuthentication =
       IdentificationAndAuthentication();
 
   /// Resource protection.
-  @SerializationOrder(4)
+  @SerializationOrder(6)
   ResourceProtection resourceProtection = ResourceProtection();
 
   /// User authorization.
-  @SerializationOrder(5)
+  @SerializationOrder(7)
   UserAuthorization userAuthorization = UserAuthorization();
 
   /// Sensitive data encryption.
-  @SerializationOrder(6)
+  @SerializationOrder(8)
   SensitiveDataEncryption sensitiveDataEncryption = SensitiveDataEncryption();
 
   /// Audit and logging — the CE-LG / CE-CF declarations.
-  @SerializationOrder(7)
+  @SerializationOrder(9)
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
   /// Role matrix.
-  @SerializationOrder(8)
+  @SerializationOrder(10)
   RoleMatrix roleMatrix = RoleMatrix();
 
   /// Compliance framework.
-  @SerializationOrder(9)
+  @SerializationOrder(11)
   ComplianceFramework complianceFramework = ComplianceFramework();
 
   /// Compliance reporting — the review / reporting routines run against the
@@ -82,6 +103,6 @@ class D08SecurityAccessSpecification extends DocSpecsSection {
   /// root, which put this follow-up subtree under `SecurityOperationsFollowUp`
   /// (`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches
   /// it here.
-  @SerializationOrder(10)
+  @SerializationOrder(12)
   ComplianceReporting complianceReporting = ComplianceReporting();
 }

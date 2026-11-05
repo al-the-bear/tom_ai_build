@@ -7,6 +7,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/document_header.dart';
+import '../common/review_team.dart';
 
 /// SBP.1 Document Control.
 ///
@@ -77,6 +78,13 @@ class DocumentControl extends DocSpecsSection {
   'A single published revision: its version, date, author, and a summary of '
   'what changed.',
 )
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'front matter — a revision of the document, not of the system. Reached '
+      'under DocumentControl in the SBP and directly in the revision history '
+      'of each Phase 3 document root',
+)
 @SectionId('RVENT')
 class RevisionEntry extends DocSpecsSection {
   @Form([
@@ -111,6 +119,25 @@ class RevisionEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+
+  /// The review team the round leading to this revision started with.
+  @SectionId('RVWER-TEAM-LST')
+  @SectionIdPattern('RVWER-TEAM-xxx')
+  @ContentHelp(
+    'The members the review round started with, each written out in full.',
+  )
+  @SerializationOrder(1)
+  List<ReviewerRecord> reviewTeam = [];
+
+  /// The reviewers who returned a reviewed copy, guests included.
+  @SectionId('RVWER-RETN-LST')
+  @SectionIdPattern('RVWER-RETN-xxx')
+  @ContentHelp(
+    'Everybody who returned a reviewed copy, team members and guests '
+    '(guest: true). There is always at least one: the owner.',
+  )
+  @SerializationOrder(2)
+  List<ReviewerRecord> reviewers = [];
 }
 
 /// A formal approval / sign-off record (form).

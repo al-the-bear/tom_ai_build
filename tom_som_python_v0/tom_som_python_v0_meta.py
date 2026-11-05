@@ -11572,6 +11572,30 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D01CurrentLandscapeAssessment",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("ExistingSystemsLandscape", s, _mc_ExistingSystemsLandscape,
             lambda r, c: SomMetaNode(
                 class_name="ExistingSystemsLandscape",
@@ -11579,7 +11603,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="ESLAN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExistingSystemsLandscape",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Existing systems landscape.",
                 class_doc_comment="1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11592,7 +11616,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="CUBUPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentBusinessProcesses",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Current business processes.",
                 class_doc_comment="1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11605,7 +11629,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="PPAG",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PainPointsAndGaps",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Pain points and gaps.",
                 class_doc_comment="1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11618,7 +11642,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="CUDALA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentDataLandscape",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Current data landscape.",
                 class_doc_comment="1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11631,7 +11655,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
             section_id_pattern="CUOPME-OPER-xxx",
             kind=SomMetaKind.LIST,
             type_name="CurrentOperationalMetric",
-            serialization_order=6,
+            serialization_order=8,
             doc_comment="Current operational metrics.",
             element_node=_cx("CurrentOperationalMetric", s, _mc_CurrentOperationalMetric, lambda r, c: SomMetaNode(class_name="CurrentOperationalMetric", class_section_id="CUOPME", kind=SomMetaKind.COMPLEX, type_name="CurrentOperationalMetric", doc_comment="1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.", class_doc_comment="1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.", detailed_in="D01CurrentLandscapeAssessment", recursive=r, children=c))),
          _cx("CurrentStateRiskAssessment", s, _mc_CurrentStateRiskAssessment,
@@ -11641,7 +11665,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="CUSTRI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentStateRiskAssessment",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Current-state risk assessment.",
                 class_doc_comment="1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11654,7 +11678,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="RI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ReplacementInventory",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Replacement inventory.",
                 class_doc_comment="Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11667,7 +11691,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
                 class_section_id="MIGCON",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MigrationConsiderations",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Migration considerations.",
                 class_doc_comment="4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -11699,6 +11723,30 @@ def _mc_D02TargetOperatingModel(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D02TargetOperatingModel",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("ProcessVision", s, _mc_ProcessVision,
             lambda r, c: SomMetaNode(
                 class_name="ProcessVision",
@@ -11706,7 +11754,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PRVIZ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessVision",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Process vision.",
                 class_doc_comment="6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.",
                 detailed_in="D02TargetOperatingModel",
@@ -11719,7 +11767,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PDPRI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessDesignPrinciples",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Design principles.",
                 class_doc_comment="6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.",
                 detailed_in="D02TargetOperatingModel",
@@ -11732,7 +11780,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PRCAT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessCatalog",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Process catalog.",
                 class_doc_comment="6.1.3. Process Catalog.\n\nContainer for business process definitions.",
                 detailed_in="D02TargetOperatingModel",
@@ -11745,7 +11793,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PROVDI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessOverviewDiagram",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Process overview diagram.",
                 class_doc_comment="6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.",
                 detailed_in="D02TargetOperatingModel",
@@ -11758,7 +11806,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PRIMSU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessImprovementSummary",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Improvement summary.",
                 class_doc_comment="6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.",
                 detailed_in="D02TargetOperatingModel",
@@ -11771,7 +11819,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessRelationships",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Process relationships.",
                 class_doc_comment="Process relationships and dependencies (supplementary section).",
                 detailed_in="D02TargetOperatingModel",
@@ -11784,7 +11832,7 @@ def _mc_D02TargetOperatingModel(s):
             section_id_pattern="DEPRWO-DETA-xxx",
             kind=SomMetaKind.LIST,
             type_name="DetailedProcessWorkflow",
-            serialization_order=8,
+            serialization_order=10,
             doc_comment="Detailed process workflows.",
             element_node=_cx("DetailedProcessWorkflow", s, _mc_DetailedProcessWorkflow, lambda r, c: SomMetaNode(class_name="DetailedProcessWorkflow", class_section_id="DEPRWO", kind=SomMetaKind.COMPLEX, type_name="DetailedProcessWorkflow", doc_comment="6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.", class_doc_comment="6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.", detailed_in="D02TargetOperatingModel", recursive=r, children=c))),
          _cx("CrossProcessAnalysis", s, _mc_CrossProcessAnalysis,
@@ -11794,7 +11842,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="CRPRAN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CrossProcessAnalysis",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Cross-process analysis.",
                 class_doc_comment="6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.",
                 detailed_in="D02TargetOperatingModel",
@@ -11807,7 +11855,7 @@ def _mc_D02TargetOperatingModel(s):
                 class_section_id="PREXHA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessExceptionHandling",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="Process exception handling.",
                 class_doc_comment="6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers",
                 detailed_in="D02TargetOperatingModel",
@@ -11820,7 +11868,7 @@ def _mc_D02TargetOperatingModel(s):
             section_id_pattern="PMAK-PROC-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessMetric",
-            serialization_order=11,
+            serialization_order=13,
             doc_comment="Process metrics and KPIs.",
             element_node=_cx("ProcessMetric", s, _mc_ProcessMetric, lambda r, c: SomMetaNode(class_name="ProcessMetric", class_section_id="PMAK", kind=SomMetaKind.COMPLEX, type_name="ProcessMetric", doc_comment="6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.", class_doc_comment="6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.", detailed_in="D02TargetOperatingModel", recursive=r, children=c))),
     ]
@@ -11849,6 +11897,30 @@ def _mc_D03InformationModel(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D03InformationModel",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          SomMetaNode(
             class_name="D03InformationModel",
             member_name="entities",
@@ -11856,7 +11928,7 @@ def _mc_D03InformationModel(s):
             section_id_pattern="DAENT-ENTI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataEntityEntry",
-            serialization_order=2,
+            serialization_order=4,
             min=1,
             doc_comment="Entity inventory (list).",
             element_node=_cx("DataEntityEntry", s, _mc_DataEntityEntry, lambda r, c: SomMetaNode(class_name="DataEntityEntry", class_section_id="DAENT", kind=SomMetaKind.COMPLEX, type_name="DataEntityEntry", doc_comment="A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", class_doc_comment="A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", recursive=r, children=c))),
@@ -11867,7 +11939,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="ENREL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="EntityRelationships",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Entity relationships.",
                 class_doc_comment="7.1.2. Entity Relationships.",
                 detailed_in="D03InformationModel",
@@ -11878,7 +11950,7 @@ def _mc_D03InformationModel(s):
             member_name="erDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="mermaid-er", description=""),
             doc_comment="Entity-relationship diagram."),
          _cx("DataClassification", s, _mc_DataClassification,
@@ -11888,7 +11960,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="DATCL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DataClassification",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Data classification.",
                 class_doc_comment="7.1.4. Data Classification.",
                 detailed_in="D03InformationModel",
@@ -11901,7 +11973,7 @@ def _mc_D03InformationModel(s):
             section_id_pattern="BJOEN-OBJE-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessObjectEntry",
-            serialization_order=6,
+            serialization_order=8,
             min=1,
             doc_comment="Business object catalog (list).",
             element_node=_cx("BusinessObjectEntry", s, _mc_BusinessObjectEntry, lambda r, c: SomMetaNode(class_name="BusinessObjectEntry", class_section_id="BJOEN", kind=SomMetaKind.COMPLEX, type_name="BusinessObjectEntry", doc_comment="A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", class_doc_comment="A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", recursive=r, children=c))),
@@ -11910,7 +11982,7 @@ def _mc_D03InformationModel(s):
             member_name="objectDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=9,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             doc_comment="Business object diagram."),
          SomMetaNode(
@@ -11920,7 +11992,7 @@ def _mc_D03InformationModel(s):
             section_id_pattern="FUNCT-FUNC-xxx",
             kind=SomMetaKind.LIST,
             type_name="FunctionEntry",
-            serialization_order=8,
+            serialization_order=10,
             doc_comment="Function decomposition (list).",
             element_node=_cx("FunctionEntry", s, _mc_FunctionEntry, lambda r, c: SomMetaNode(class_name="FunctionEntry", class_section_id="FUNCT", kind=SomMetaKind.COMPLEX, type_name="FunctionEntry", doc_comment="A function entry (form).\n\nBusiness function specification in the functional decomposition.", class_doc_comment="A function entry (form).\n\nBusiness function specification in the functional decomposition.", recursive=r, children=c))),
          SomMetaNode(
@@ -11930,7 +12002,7 @@ def _mc_D03InformationModel(s):
             section_id_pattern="FNDMX-FUNC-xxx",
             kind=SomMetaKind.LIST,
             type_name="FunctionDataMatrixEntry",
-            serialization_order=9,
+            serialization_order=11,
             doc_comment="Function-to-data matrix (list).",
             element_node=_cx("FunctionDataMatrixEntry", s, _mc_FunctionDataMatrixEntry, lambda r, c: SomMetaNode(class_name="FunctionDataMatrixEntry", class_section_id="FNDMX", kind=SomMetaKind.COMPLEX, type_name="FunctionDataMatrixEntry", doc_comment="A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", class_doc_comment="A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", recursive=r, children=c))),
          SomMetaNode(
@@ -11940,7 +12012,7 @@ def _mc_D03InformationModel(s):
             section_id_pattern="BIRU-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessRuleEntry",
-            serialization_order=10,
+            serialization_order=12,
             min=1,
             doc_comment="Business rules catalog (list).",
             element_node=_cx("BusinessRuleEntry", s, _mc_BusinessRuleEntry, lambda r, c: SomMetaNode(class_name="BusinessRuleEntry", class_section_id="BIRU", kind=SomMetaKind.COMPLEX, type_name="BusinessRuleEntry", doc_comment="A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", class_doc_comment="A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", recursive=r, children=c))),
@@ -11951,7 +12023,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="DADI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DataDictionary",
-                serialization_order=11,
+                serialization_order=13,
                 doc_comment="Data dictionary.",
                 class_doc_comment="7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..",
                 detailed_in="D03InformationModel",
@@ -11964,7 +12036,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="VACO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ValidationConstraints",
-                serialization_order=12,
+                serialization_order=14,
                 doc_comment="Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).",
                 class_doc_comment="7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.",
                 detailed_in="D03InformationModel",
@@ -11977,7 +12049,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="INCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="IntegrityConstraints",
-                serialization_order=13,
+                serialization_order=15,
                 doc_comment="Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).",
                 class_doc_comment="7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.",
                 detailed_in="D03InformationModel",
@@ -11990,7 +12062,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="DOMEN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DomainEnumRegistry",
-                serialization_order=14,
+                serialization_order=16,
                 doc_comment="Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
                 class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
                 recursive=r,
@@ -12002,7 +12074,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="ERCRG",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ErrorCodeRegistry",
-                serialization_order=15,
+                serialization_order=17,
                 doc_comment="Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
                 class_doc_comment="7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
                 recursive=r,
@@ -12014,7 +12086,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="RSLTE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResultEnvelope",
-                serialization_order=16,
+                serialization_order=18,
                 doc_comment="Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).",
                 class_doc_comment="7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
                 recursive=r,
@@ -12026,7 +12098,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="MSGKR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MessageKeyRegistry",
-                serialization_order=17,
+                serialization_order=19,
                 doc_comment="Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
                 class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.",
                 recursive=r,
@@ -12038,7 +12110,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="SVOPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ServerOperationRegistry",
-                serialization_order=18,
+                serialization_order=20,
                 doc_comment="Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
                 class_doc_comment="7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
                 recursive=r,
@@ -12050,7 +12122,7 @@ def _mc_D03InformationModel(s):
                 class_section_id="SCHMG",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SchemaVersioningAndMigration",
-                serialization_order=19,
+                serialization_order=21,
                 doc_comment="Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.",
                 class_doc_comment="7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
                 recursive=r,
@@ -12081,6 +12153,30 @@ def _mc_D04RequirementsSpecification(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D04RequirementsSpecification",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("FunctionalRequirements", s, _mc_FunctionalRequirements,
             lambda r, c: SomMetaNode(
                 class_name="FunctionalRequirements",
@@ -12088,7 +12184,7 @@ def _mc_D04RequirementsSpecification(s):
                 class_section_id="FR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FunctionalRequirements",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Functional requirements.",
                 class_doc_comment="4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.",
                 detailed_in="D04RequirementsSpecification",
@@ -12101,7 +12197,7 @@ def _mc_D04RequirementsSpecification(s):
                 class_section_id="TR1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalRequirements",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Technical (non-functional) requirements.",
                 class_doc_comment="4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.",
                 detailed_in="D04RequirementsSpecification",
@@ -12114,7 +12210,7 @@ def _mc_D04RequirementsSpecification(s):
                 class_section_id="SR1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SecurityRequirements",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Security requirements.",
                 class_doc_comment="4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.",
                 detailed_in="D04RequirementsSpecification",
@@ -12127,7 +12223,7 @@ def _mc_D04RequirementsSpecification(s):
                 class_section_id="OR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OrganizationalRequirements",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Organizational requirements.",
                 class_doc_comment="4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.",
                 detailed_in="D04RequirementsSpecification",
@@ -12139,7 +12235,7 @@ def _mc_D04RequirementsSpecification(s):
             section_id="RSP-TRAC",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=6,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="description", description="Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."),
             doc_comment="Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side."),
          SomMetaNode(
@@ -12149,7 +12245,7 @@ def _mc_D04RequirementsSpecification(s):
             section_id_pattern="RERE-REQU-xxx",
             kind=SomMetaKind.LIST,
             type_name="RequirementRelationships",
-            serialization_order=7,
+            serialization_order=9,
             doc_comment="Requirement relationships.",
             element_node=_cx("RequirementRelationships", s, _mc_RequirementRelationships, lambda r, c: SomMetaNode(class_name="RequirementRelationships", class_section_id="RERE", kind=SomMetaKind.COMPLEX, type_name="RequirementRelationships", doc_comment="4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.", class_doc_comment="4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.", detailed_in="D04RequirementsSpecification", recursive=r, children=c))),
          _cx("RequirementCoverage", s, _mc_RequirementCoverage,
@@ -12159,7 +12255,7 @@ def _mc_D04RequirementsSpecification(s):
                 class_section_id="REQCOV",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RequirementCoverage",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Requirement coverage.",
                 class_doc_comment="4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.",
                 detailed_in="D04RequirementsSpecification",
@@ -12191,6 +12287,30 @@ def _mc_D05InteractionScenarios(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D05InteractionScenarios",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("ProcessStepsOverview", s, _mc_ProcessStepsOverview,
             lambda r, c: SomMetaNode(
                 class_name="ProcessStepsOverview",
@@ -12198,7 +12318,7 @@ def _mc_D05InteractionScenarios(s):
                 class_section_id="PRSTOV",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessStepsOverview",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Process steps overview.",
                 class_doc_comment="6.2. Process Steps Overview.",
                 detailed_in="D05InteractionScenarios",
@@ -12211,7 +12331,7 @@ def _mc_D05InteractionScenarios(s):
                 class_section_id="ACOV",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ActorOverview",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Actor overview.",
                 class_doc_comment="6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.",
                 detailed_in="D05InteractionScenarios",
@@ -12224,7 +12344,7 @@ def _mc_D05InteractionScenarios(s):
                 class_section_id="INCA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionCatalog",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Interaction catalog.",
                 class_doc_comment="6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.",
                 detailed_in="D05InteractionScenarios",
@@ -12237,7 +12357,7 @@ def _mc_D05InteractionScenarios(s):
                 class_section_id="KESC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="KeyScenarios",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Key scenarios.",
                 class_doc_comment="6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.",
                 detailed_in="D05InteractionScenarios",
@@ -12250,7 +12370,7 @@ def _mc_D05InteractionScenarios(s):
                 class_section_id="ACREDI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ActorRelationshipDiagram",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Actor relationship diagram.",
                 class_doc_comment="6.2. Actor Relationship Diagram.",
                 detailed_in="D05InteractionScenarios",
@@ -12263,7 +12383,7 @@ def _mc_D05InteractionScenarios(s):
             section_id_pattern="ETETS-ENDT-xxx",
             kind=SomMetaKind.LIST,
             type_name="EndToEndTestScenario",
-            serialization_order=7,
+            serialization_order=9,
             doc_comment="End-to-end test scenarios.",
             element_node=_cx("EndToEndTestScenario", s, _mc_EndToEndTestScenario, lambda r, c: SomMetaNode(class_name="EndToEndTestScenario", class_section_id="ETETS", kind=SomMetaKind.COMPLEX, type_name="EndToEndTestScenario", doc_comment="6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..", class_doc_comment="6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..", detailed_in="D05InteractionScenarios", recursive=r, children=c))),
          _cx("UseCaseTraceability", s, _mc_UseCaseTraceability,
@@ -12273,7 +12393,7 @@ def _mc_D05InteractionScenarios(s):
                 class_section_id="USCATR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UseCaseTraceability",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Use case traceability.",
                 class_doc_comment="6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.",
                 detailed_in="D05InteractionScenarios",
@@ -12305,6 +12425,30 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D06ArchitectureTechnologySpecification",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("BasicTechnicalRequirements", s, _mc_BasicTechnicalRequirements,
             lambda r, c: SomMetaNode(
                 class_name="BasicTechnicalRequirements",
@@ -12312,7 +12456,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="BTREQ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="BasicTechnicalRequirements",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Basic technical requirements.",
                 class_doc_comment="8.1. Basic Technical Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12325,7 +12469,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="SDR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SoftwareDesignRequirements",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Software design requirements.",
                 class_doc_comment="8.2. Software Design Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12338,7 +12482,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="SSR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="StandardSoftwareRequirements",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Standard application software requirements.",
                 class_doc_comment="8.3. Standard Application Software Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12351,7 +12495,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="HR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="HardwareRequirements",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Hardware concept requirements.",
                 class_doc_comment="8.4. Hardware Concept Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12364,7 +12508,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="OPRE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OperationsRequirements",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Operations requirements.",
                 class_doc_comment="8.5. Operations Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12377,7 +12521,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="COMREQ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CommunicationRequirements",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Communication requirements.",
                 class_doc_comment="8.6. Communication Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12390,7 +12534,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="SOAM",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemOperationAndMonitoring",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="System operation and monitoring.",
                 class_doc_comment="8.7. System Operation and Monitoring.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12403,7 +12547,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="TSR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalSecurityRequirements",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Technical security requirements.",
                 class_doc_comment="8.8. Security Requirements.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12416,7 +12560,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="SYARSP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemArchitectureSpec",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="System architecture (new in Phase A).",
                 class_doc_comment="8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.",
                 detailed_in="D06ArchitectureTechnologySpecification",
@@ -12429,7 +12573,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="COMP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ComponentsAndDependencies",
-                serialization_order=11,
+                serialization_order=13,
                 doc_comment="Components to use (whole).",
                 class_doc_comment="12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
                 maps_to="D06ArchitectureTechnologySpecification",
@@ -12443,7 +12587,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="TEEN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalEnvironment",
-                serialization_order=12,
+                serialization_order=14,
                 doc_comment="Technical framework conditions (whole).",
                 class_doc_comment="4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
                 maps_to="D06ArchitectureTechnologySpecification",
@@ -12457,7 +12601,7 @@ def _mc_D06ArchitectureTechnologySpecification(s):
                 class_section_id="TRAREQ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TranslationRequirements",
-                serialization_order=13,
+                serialization_order=15,
                 doc_comment="Translation handling requirements (whole).",
                 class_doc_comment="10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.",
                 maps_to="D06ArchitectureTechnologySpecification",
@@ -12490,6 +12634,30 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D07IntegrationInterfaceSpecification",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("ExternalInterfaces", s, _mc_ExternalInterfaces,
             lambda r, c: SomMetaNode(
                 class_name="ExternalInterfaces",
@@ -12497,7 +12665,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="EXIN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExternalInterfaces",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="External interfaces.",
                 class_doc_comment="Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12510,7 +12678,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="OUOFSC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OutOfScope",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Out of scope.",
                 class_doc_comment="4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12523,7 +12691,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="BOAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="BoundaryAssumptions",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Boundary assumptions.",
                 class_doc_comment="4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12536,7 +12704,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="SYLAIN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemLandscapeInventory",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="System landscape inventory.",
                 class_doc_comment="4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12549,7 +12717,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
             section_id_pattern="BOINPA-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="BoundaryInteractionPatterns",
-            serialization_order=6,
+            serialization_order=8,
             doc_comment="Boundary interaction patterns.",
             element_node=_cx("BoundaryInteractionPatterns", s, _mc_BoundaryInteractionPatterns, lambda r, c: SomMetaNode(class_name="BoundaryInteractionPatterns", class_section_id="BOINPA", kind=SomMetaKind.COMPLEX, type_name="BoundaryInteractionPatterns", doc_comment="4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.", class_doc_comment="4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.", detailed_in="D07IntegrationInterfaceSpecification", recursive=r, children=c))),
          _cx("InteractionTestingStrategy", s, _mc_InteractionTestingStrategy,
@@ -12559,7 +12727,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="INTES1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionTestingStrategy",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Interaction testing strategy.",
                 class_doc_comment="4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12572,7 +12740,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="INDEAN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionDependencyAnalysis",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Interaction dependency analysis.",
                 class_doc_comment="4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12585,7 +12753,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
             section_id_pattern="MIIN-MIGR-xxx",
             kind=SomMetaKind.LIST,
             type_name="MigrationInteractions",
-            serialization_order=9,
+            serialization_order=11,
             doc_comment="Migration interactions.",
             element_node=_cx("MigrationInteractions", s, _mc_MigrationInteractions, lambda r, c: SomMetaNode(class_name="MigrationInteractions", class_section_id="MIIN", kind=SomMetaKind.COMPLEX, type_name="MigrationInteractions", doc_comment="4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.", class_doc_comment="4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.", detailed_in="D07IntegrationInterfaceSpecification", recursive=r, children=c))),
          SomMetaNode(
@@ -12595,7 +12763,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
             section_id_pattern="CBOC-OPER-xxx",
             kind=SomMetaKind.LIST,
             type_name="CrossBoundaryOperationalConsiderations",
-            serialization_order=10,
+            serialization_order=12,
             doc_comment="Cross-boundary operational considerations.",
             element_node=_cx("CrossBoundaryOperationalConsiderations", s, _mc_CrossBoundaryOperationalConsiderations, lambda r, c: SomMetaNode(class_name="CrossBoundaryOperationalConsiderations", class_section_id="CBOC", kind=SomMetaKind.COMPLEX, type_name="CrossBoundaryOperationalConsiderations", doc_comment="4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.", class_doc_comment="4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.", detailed_in="D07IntegrationInterfaceSpecification", recursive=r, children=c))),
          _cx("CrossBoundaryErrorHandling", s, _mc_CrossBoundaryErrorHandling,
@@ -12605,7 +12773,7 @@ def _mc_D07IntegrationInterfaceSpecification(s):
                 class_section_id="CBEH",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CrossBoundaryErrorHandling",
-                serialization_order=11,
+                serialization_order=13,
                 doc_comment="Cross-boundary error handling.",
                 class_doc_comment="4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -12637,6 +12805,30 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D08SecurityAccessSpecification",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("UserManagement", s, _mc_UserManagement,
             lambda r, c: SomMetaNode(
                 class_name="UserManagement",
@@ -12644,7 +12836,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="USMGT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserManagement",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="User management.",
                 class_doc_comment="9.1. User Management.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12657,7 +12849,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="IDAUT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="IdentificationAndAuthentication",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Identification and authentication.",
                 class_doc_comment="9.2. Identification and Authentication.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12670,7 +12862,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="RESPRO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResourceProtection",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Resource protection.",
                 class_doc_comment="9.3. Resource Protection.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12683,7 +12875,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="USAU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserAuthorization",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="User authorization.",
                 class_doc_comment="9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12696,7 +12888,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="SEDAEN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SensitiveDataEncryption",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Sensitive data encryption.",
                 class_doc_comment="9.5. Sensitive Data Encryption.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12709,7 +12901,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="AUANLO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AuditAndLogging",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Audit and logging — the CE-LG / CE-CF declarations.",
                 class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12722,7 +12914,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="ROMA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RoleMatrix",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Role matrix.",
                 class_doc_comment="9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12735,7 +12927,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="CF",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ComplianceFramework",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Compliance framework.",
                 class_doc_comment="9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
                 detailed_in="D08SecurityAccessSpecification",
@@ -12748,7 +12940,7 @@ def _mc_D08SecurityAccessSpecification(s):
                 class_section_id="COMREP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ComplianceReporting",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
                 class_doc_comment="9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
                 recursive=r,
@@ -12779,6 +12971,30 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D09ExperienceDesignSpecification",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("DesignVision", s, _mc_DesignVision,
             lambda r, c: SomMetaNode(
                 class_name="DesignVision",
@@ -12786,7 +13002,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="DEVIZ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DesignVision",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Design vision.",
                 class_doc_comment="10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12800,7 +13016,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="SCRDZ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenDescriptions",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Screen descriptions.",
                 class_doc_comment="10.2. Screen Descriptions.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12814,7 +13030,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="SCFLST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenFlowStructure",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Screen flow structure.",
                 class_doc_comment="10.3. Screen Flow Structure.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12828,7 +13044,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="PRLA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PrintAndExportLayout",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Print layout.",
                 class_doc_comment="10.4. Print Layout.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12842,7 +13058,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="REDF",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ReportDefinitions",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Report definitions — the CE-RP report projections over the domain model.",
                 class_doc_comment="SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
                 recursive=r,
@@ -12854,7 +13070,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="ERHACO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ErrorHandling",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Error handling concept.",
                 class_doc_comment="10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12868,7 +13084,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="USAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserAssistance",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Help concept.",
                 class_doc_comment="10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12882,7 +13098,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="ACCESS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Accessibility",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Accessibility.",
                 class_doc_comment="10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12896,7 +13112,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="REDE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResponsiveDesign",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="Responsive design.",
                 class_doc_comment="10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12910,7 +13126,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="UICO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UiComponents",
-                serialization_order=11,
+                serialization_order=13,
                 doc_comment="UI components.",
                 class_doc_comment="10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12924,7 +13140,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="LACOSE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="LanguageCountrySelection",
-                serialization_order=12,
+                serialization_order=14,
                 doc_comment="Language and country selection.",
                 class_doc_comment="10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12938,7 +13154,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="PROTOT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Prototype",
-                serialization_order=13,
+                serialization_order=15,
                 doc_comment="Prototype.",
                 class_doc_comment="10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12952,7 +13168,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="WIANMO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WireframesAndMockups",
-                serialization_order=14,
+                serialization_order=16,
                 doc_comment="Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
                 class_doc_comment="10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12985,6 +13201,30 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D10QualityAcceptancePlan",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("QualityFramework", s, _mc_QualityFramework,
             lambda r, c: SomMetaNode(
                 class_name="QualityFramework",
@@ -12992,7 +13232,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="QLFWK",
                 kind=SomMetaKind.COMPLEX,
                 type_name="QualityFramework",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Quality framework.",
                 class_doc_comment="11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13005,7 +13245,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="FNSU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FunctionalSuitabilityCharacteristic",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Functional suitability (ISO/IEC 25010:2023).",
                 class_doc_comment="11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13018,7 +13258,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="PEEF",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PerformanceEfficiencyCharacteristic",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="Performance efficiency (ISO/IEC 25010:2023).",
                 class_doc_comment="11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13031,7 +13271,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="CMPT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CompatibilityCharacteristic",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Compatibility (ISO/IEC 25010:2023).",
                 class_doc_comment="11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13044,7 +13284,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="INCP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionCapabilityCharacteristic",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Interaction capability (ISO/IEC 25010:2023; formerly Usability).",
                 class_doc_comment="11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13057,7 +13297,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="RELC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ReliabilityCharacteristic",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Reliability (ISO/IEC 25010:2023).",
                 class_doc_comment="11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13070,7 +13310,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="SECC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SecurityCharacteristic",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Security (ISO/IEC 25010:2023).",
                 class_doc_comment="11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13083,7 +13323,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="MNTC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MaintainabilityCharacteristic",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Maintainability (ISO/IEC 25010:2023).",
                 class_doc_comment="11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13096,7 +13336,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="FLXC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FlexibilityCharacteristic",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
                 class_doc_comment="11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13109,7 +13349,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="DOQUCR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DocumentationQualityCriteria",
-                serialization_order=11,
+                serialization_order=13,
                 doc_comment="Documentation quality (ISO/IEC 26514 annex).",
                 class_doc_comment="11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13122,7 +13362,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="QUPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="QualityPrioritization",
-                serialization_order=12,
+                serialization_order=14,
                 doc_comment="Quality prioritization.",
                 class_doc_comment="11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13135,7 +13375,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="ACCRSU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AcceptanceCriteriaSummary",
-                serialization_order=13,
+                serialization_order=15,
                 doc_comment="Acceptance criteria summary.",
                 class_doc_comment="11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13148,7 +13388,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="TEST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TestStrategy",
-                serialization_order=14,
+                serialization_order=16,
                 doc_comment="Test strategy (new in Phase A).",
                 class_doc_comment="11.8. Test Strategy.\n\nOverall test strategy for the project..",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13161,7 +13401,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="ACRITL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AcceptanceCriteriaList",
-                serialization_order=15,
+                serialization_order=17,
                 doc_comment="Acceptance criteria.",
                 class_doc_comment="14.2.1. Acceptance Criteria.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13174,7 +13414,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="ACPR1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AcceptanceProcess",
-                serialization_order=16,
+                serialization_order=18,
                 doc_comment="Acceptance process.",
                 class_doc_comment="14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13187,7 +13427,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="USACTE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserAcceptanceTesting",
-                serialization_order=17,
+                serialization_order=19,
                 doc_comment="User acceptance testing.",
                 class_doc_comment="14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13200,7 +13440,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="DERE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DefectResolution",
-                serialization_order=18,
+                serialization_order=20,
                 doc_comment="Defect resolution.",
                 class_doc_comment="14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13213,7 +13453,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="SIOFPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SignOffProcess",
-                serialization_order=19,
+                serialization_order=21,
                 doc_comment="Sign-off process.",
                 class_doc_comment="14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13226,7 +13466,7 @@ def _mc_D10QualityAcceptancePlan(s):
                 class_section_id="WATE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WarrantyTerms",
-                serialization_order=20,
+                serialization_order=22,
                 doc_comment="Warranty terms.",
                 class_doc_comment="14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -13258,6 +13498,30 @@ def _mc_D11DeliveryRoadmap(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D11DeliveryRoadmap",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("StagingStrategy", s, _mc_StagingStrategy,
             lambda r, c: SomMetaNode(
                 class_name="StagingStrategy",
@@ -13265,7 +13529,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="STAGST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="StagingStrategy",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Staging strategy.",
                 class_doc_comment="13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.",
                 detailed_in="D11DeliveryRoadmap",
@@ -13278,7 +13542,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="STAGOV",
                 kind=SomMetaKind.COMPLEX,
                 type_name="StageOverview",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Stage overview.",
                 class_doc_comment="13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.",
                 detailed_in="D11DeliveryRoadmap",
@@ -13291,7 +13555,7 @@ def _mc_D11DeliveryRoadmap(s):
             section_id_pattern="STAGE-STAG-xxx",
             kind=SomMetaKind.LIST,
             type_name="StageEntry",
-            serialization_order=4,
+            serialization_order=6,
             min=1,
             doc_comment="Stages (list).",
             element_node=_cx("StageEntry", s, _mc_StageEntry, lambda r, c: SomMetaNode(class_name="StageEntry", class_section_id="STAGE", kind=SomMetaKind.COMPLEX, type_name="StageEntry", doc_comment="A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", class_doc_comment="A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", recursive=r, children=c))),
@@ -13302,7 +13566,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="FEPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FeaturePrioritization",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Feature prioritization.",
                 class_doc_comment="13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.",
                 detailed_in="D11DeliveryRoadmap",
@@ -13315,7 +13579,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="DAMIST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DataMigrationStrategy",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Data migration strategy.",
                 class_doc_comment="13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.",
                 detailed_in="D11DeliveryRoadmap",
@@ -13328,7 +13592,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="PHGARE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PhaseGateReviews",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Gate criteria (promoted from GOV).",
                 class_doc_comment="13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).",
                 detailed_in="D11DeliveryRoadmap",
@@ -13341,7 +13605,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="DEPO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DecisionPoints",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="Decision processes (promoted from GOV).",
                 class_doc_comment="13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.",
                 detailed_in="D11DeliveryRoadmap",
@@ -13354,7 +13618,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="INDEFL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InitialDevelopmentFlow",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Initial development flow.",
                 class_doc_comment="13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".",
                 detailed_in="D11DeliveryRoadmap",
@@ -13367,7 +13631,7 @@ def _mc_D11DeliveryRoadmap(s):
                 class_section_id="UPCYFR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UpgradeCycleFramework",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).",
                 class_doc_comment="13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.",
                 detailed_in="D11DeliveryRoadmap",
@@ -13399,6 +13663,30 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_doc_comment="Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
                 recursive=r,
                 children=c)),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=2,
+                doc_comment="This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="D12TransitionRolloutPlan",
+            member_name="revisionHistory",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="RevisionEntry",
+            serialization_order=3,
+            content_help="Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+            doc_comment="Chronological revision history of this document, with the reviewers of\neach revision.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+            element_node=_cx("RevisionEntry", s, _mc_RevisionEntry, lambda r, c: SomMetaNode(class_name="RevisionEntry", class_section_id="RVENT", kind=SomMetaKind.COMPLEX, type_name="RevisionEntry", doc_comment="A single document revision entry (form).", class_doc_comment="A single document revision entry (form).", recursive=r, children=c))),
          _cx("LocalizationProcess", s, _mc_LocalizationProcess,
             lambda r, c: SomMetaNode(
                 class_name="LocalizationProcess",
@@ -13406,7 +13694,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="LOPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="LocalizationProcess",
-                serialization_order=2,
+                serialization_order=4,
                 doc_comment="Localization process.",
                 class_doc_comment="10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.",
                 maps_to="D12TransitionRolloutPlan",
@@ -13420,7 +13708,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="TRPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TranslationProcess",
-                serialization_order=3,
+                serialization_order=5,
                 doc_comment="Translation process.",
                 class_doc_comment="10.12.2. Translation Process.\n\nWorkflow for translating content.",
                 maps_to="D12TransitionRolloutPlan",
@@ -13434,7 +13722,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="DOANTR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserDocumentationRequirements",
-                serialization_order=4,
+                serialization_order=6,
                 doc_comment="User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
                 class_doc_comment="10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.",
                 maps_to="D12TransitionRolloutPlan",
@@ -13448,7 +13736,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="TRMAT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TrainingDeliverableRequirements",
-                serialization_order=5,
+                serialization_order=7,
                 doc_comment="Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
                 class_doc_comment="10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
                 maps_to="D12TransitionRolloutPlan",
@@ -13462,7 +13750,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="RLTPLN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RolloutPlan",
-                serialization_order=6,
+                serialization_order=8,
                 doc_comment="Rollout plan.",
                 class_doc_comment="15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13475,7 +13763,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="MIGPLN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MigrationPlan",
-                serialization_order=7,
+                serialization_order=9,
                 doc_comment="Migration plan.",
                 class_doc_comment="15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13488,7 +13776,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="USRMAN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserManual",
-                serialization_order=8,
+                serialization_order=10,
                 doc_comment="User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
                 class_doc_comment="15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13501,7 +13789,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="RLTTM",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RolloutTrainingMaterial",
-                serialization_order=9,
+                serialization_order=11,
                 doc_comment="Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
                 class_doc_comment="15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13514,7 +13802,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="PLTPLN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PilotPlan",
-                serialization_order=10,
+                serialization_order=12,
                 doc_comment="Pilot plan.",
                 class_doc_comment="15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13527,7 +13815,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="CUTPRC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CutoverProcedure",
-                serialization_order=11,
+                serialization_order=13,
                 doc_comment="Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
                 class_doc_comment="15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13540,7 +13828,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="KNTFR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="KnowledgeTransfer",
-                serialization_order=12,
+                serialization_order=14,
                 doc_comment="Knowledge transfer.",
                 class_doc_comment="15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -13553,7 +13841,7 @@ def _mc_D12TransitionRolloutPlan(s):
                 class_section_id="WRTSP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WarrantyAndSupport",
-                serialization_order=13,
+                serialization_order=15,
                 doc_comment="Warranty and support.",
                 class_doc_comment="15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.",
                 detailed_in="D12TransitionRolloutPlan",
@@ -19221,6 +19509,30 @@ def _mc_DocumentRelevantSections(s):
             doc_comment="Individual relevant section entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"], "connotation": "The set of relevant section entries within a referenced document."})],
             element_node=_cx("RelevantSectionEntry", s, _mc_RelevantSectionEntry, lambda r, c: SomMetaNode(class_name="RelevantSectionEntry", class_section_id="RESEEN", kind=SomMetaKind.COMPLEX, type_name="RelevantSectionEntry", doc_comment="A single relevant section entry within a reference document.", class_doc_comment="A single relevant section entry within a reference document.", recursive=r, children=c))),
+    ]
+
+
+def _mc_DocumentReviewTeamEntry(s):
+    return [
+         SomMetaNode(
+            class_name="DocumentReviewTeamEntry",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="documentType", type_name="SpecDocumentType", description="Document Type", required=True, hint="The document root type this team reviews; one entry per type.", order=0, enum_values=["d01CurrentLandscapeAssessment", "d02TargetOperatingModel", "d03InformationModel", "d04RequirementsSpecification", "d05InteractionScenarios", "d06ArchitectureTechnologySpecification", "d07IntegrationInterfaceSpecification", "d08SecurityAccessSpecification", "d09ExperienceDesignSpecification", "d10QualityAcceptancePlan", "d11DeliveryRoadmap", "d12TransitionRolloutPlan"])])),
+         SomMetaNode(
+            class_name="DocumentReviewTeamEntry",
+            member_name="members",
+            section_id="RVMEM-MEMB-LST",
+            section_id_pattern="RVMEM-MEMB-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="ReviewTeamMember",
+            serialization_order=1,
+            content_help="Add one entry per member of this document type's team.",
+            doc_comment="The members of the team.",
+            element_node=_cx("ReviewTeamMember", s, _mc_ReviewTeamMember, lambda r, c: SomMetaNode(class_name="ReviewTeamMember", class_section_id="RVMEM", kind=SomMetaKind.COMPLEX, type_name="ReviewTeamMember", doc_comment="One member of a review team (form).", class_doc_comment="One member of a review team (form).", recursive=r, children=c))),
     ]
 
 
@@ -42084,6 +42396,57 @@ def _mc_ReviewCriterionEntry(s):
     ]
 
 
+def _mc_ReviewTeam(s):
+    return [
+         SomMetaNode(
+            class_name="ReviewTeam",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n",
+            doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."),
+         SomMetaNode(
+            class_name="ReviewTeam",
+            member_name="members",
+            section_id="RVMEM-MEMB-LST",
+            section_id_pattern="RVMEM-MEMB-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="ReviewTeamMember",
+            serialization_order=1,
+            content_help="Add one entry per member. Mark the specification owner with owner: true in the default team.",
+            doc_comment="The members of the team.",
+            element_node=_cx("ReviewTeamMember", s, _mc_ReviewTeamMember, lambda r, c: SomMetaNode(class_name="ReviewTeamMember", class_section_id="RVMEM", kind=SomMetaKind.COMPLEX, type_name="ReviewTeamMember", doc_comment="One member of a review team (form).", class_doc_comment="One member of a review team (form).", recursive=r, children=c))),
+    ]
+
+
+def _mc_ReviewTeamMember(s):
+    return [
+         SomMetaNode(
+            class_name="ReviewTeamMember",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="memberId", type_name="String", description="Member Id", required=True, hint="Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.", order=0), SomFormFieldMeta(name="displayName", type_name="String", description="Display Name", required=True, order=1), SomFormFieldMeta(name="role", type_name="String", description="Role", required=True, order=2), SomFormFieldMeta(name="stakeholder", type_name="String", description="Stakeholder", hint="The stakeholder register entry this member represents.", order=3, refers_to=["STKRE.@sectionId"]), SomFormFieldMeta(name="email", type_name="String", description="E-Mail", hint="Stored only; nothing sends mail.", order=4), SomFormFieldMeta(name="owner", type_name="bool", description="Owner", hint="true for the specification owner, who is always a reviewer.", order=5)])),
+    ]
+
+
+def _mc_ReviewerRecord(s):
+    return [
+         SomMetaNode(
+            class_name="ReviewerRecord",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="memberId", type_name="String", description="Member Id", required=True, hint="The member id, as in the team, or the guest's id.", order=0), SomFormFieldMeta(name="displayName", type_name="String", description="Display Name", required=True, order=1), SomFormFieldMeta(name="role", type_name="String", description="Role", order=2), SomFormFieldMeta(name="guest", type_name="bool", description="Guest", hint="true for a reviewer who was not on the team the round used.", order=3)])),
+    ]
+
+
 def _mc_RevisionEntry(s):
     return [
          SomMetaNode(
@@ -42094,6 +42457,28 @@ def _mc_RevisionEntry(s):
             serialization_order=0,
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="version", type_name="String", description="Version", required=True, hint="Semantic version of this revision, e.g. \"1.2.0\".", order=0), SomFormFieldMeta(name="date", type_name="String", description="Date", required=True, hint="Date the revision was published (ISO 8601).", order=1), SomFormFieldMeta(name="author", type_name="String", description="Author", required=True, hint="Person or role who produced the revision.", order=2), SomFormFieldMeta(name="summary", type_name="String", description="Summary of changes", hint="One or two sentences on what changed and why.", order=3)])),
+         SomMetaNode(
+            class_name="RevisionEntry",
+            member_name="reviewTeam",
+            section_id="RVWER-TEAM-LST",
+            section_id_pattern="RVWER-TEAM-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="ReviewerRecord",
+            serialization_order=1,
+            content_help="The members the review round started with, each written out in full.",
+            doc_comment="The review team the round leading to this revision started with.",
+            element_node=_cx("ReviewerRecord", s, _mc_ReviewerRecord, lambda r, c: SomMetaNode(class_name="ReviewerRecord", class_section_id="RVWER", kind=SomMetaKind.COMPLEX, type_name="ReviewerRecord", doc_comment="A reviewer recorded in a revision entry (form).", class_doc_comment="A reviewer recorded in a revision entry (form).", recursive=r, children=c))),
+         SomMetaNode(
+            class_name="RevisionEntry",
+            member_name="reviewers",
+            section_id="RVWER-RETN-LST",
+            section_id_pattern="RVWER-RETN-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="ReviewerRecord",
+            serialization_order=2,
+            content_help="Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.",
+            doc_comment="The reviewers who returned a reviewed copy, guests included.",
+            element_node=_cx("ReviewerRecord", s, _mc_ReviewerRecord, lambda r, c: SomMetaNode(class_name="ReviewerRecord", class_section_id="RVWER", kind=SomMetaKind.COMPLEX, type_name="ReviewerRecord", doc_comment="A reviewer recorded in a revision entry (form).", class_doc_comment="A reviewer recorded in a revision entry (form).", recursive=r, children=c))),
     ]
 
 
@@ -48782,6 +49167,29 @@ def _mc_StakeholdersAndGovernance(s):
             doc_comment="Stakeholder register.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"], "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."})],
             element_node=_cx("StakeholderRegisterEntry", s, _mc_StakeholderRegisterEntry, lambda r, c: SomMetaNode(class_name="StakeholderRegisterEntry", class_section_id="STKRE", kind=SomMetaKind.COMPLEX, type_name="StakeholderRegisterEntry", doc_comment="A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", class_doc_comment="A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", recursive=r, children=c))),
+         _cx("ReviewTeam", s, _mc_ReviewTeam,
+            lambda r, c: SomMetaNode(
+                class_name="ReviewTeam",
+                member_name="reviewTeam",
+                class_section_id="RVTEAM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReviewTeam",
+                serialization_order=9,
+                doc_comment="The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.",
+                class_doc_comment="A review team: the members who review a document.",
+                recursive=r,
+                children=c)),
+         SomMetaNode(
+            class_name="StakeholdersAndGovernance",
+            member_name="documentReviewTeams",
+            section_id="DCRVTM-DOCR-LST",
+            section_id_pattern="DCRVTM-DOCR-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="DocumentReviewTeamEntry",
+            serialization_order=10,
+            content_help="Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.",
+            doc_comment="Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.",
+            element_node=_cx("DocumentReviewTeamEntry", s, _mc_DocumentReviewTeamEntry, lambda r, c: SomMetaNode(class_name="DocumentReviewTeamEntry", class_section_id="DCRVTM", kind=SomMetaKind.COMPLEX, type_name="DocumentReviewTeamEntry", doc_comment="The Solution Blueprint's review team for one document type (form + members).", class_doc_comment="The Solution Blueprint's review team for one document type (form + members).", recursive=r, children=c))),
     ]
 
 
@@ -64462,6 +64870,14 @@ class D01CurrentLandscapeAssessmentNav(SomMetaRef):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
 
     @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
+
+    @property
     def existingSystemsLandscape(self):
         return ExistingSystemsLandscapeNav(self.tree, f"{self.path}/existingSystemsLandscape")
 
@@ -64507,6 +64923,14 @@ class D02TargetOperatingModelNav(SomMetaRef):
     @property
     def header(self):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def processVision(self):
@@ -64562,6 +64986,14 @@ class D03InformationModelNav(SomMetaRef):
     @property
     def header(self):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def entities(self):
@@ -64651,6 +65083,14 @@ class D04RequirementsSpecificationNav(SomMetaRef):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
 
     @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
+
+    @property
     def functionalRequirements(self):
         return FunctionalRequirementsNav(self.tree, f"{self.path}/functionalRequirements")
 
@@ -64694,6 +65134,14 @@ class D05InteractionScenariosNav(SomMetaRef):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
 
     @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
+
+    @property
     def processStepsOverview(self):
         return ProcessStepsOverviewNav(self.tree, f"{self.path}/processStepsOverview")
 
@@ -64735,6 +65183,14 @@ class D06ArchitectureTechnologySpecificationNav(SomMetaRef):
     @property
     def header(self):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def basicTechnicalRequirements(self):
@@ -64800,6 +65256,14 @@ class D07IntegrationInterfaceSpecificationNav(SomMetaRef):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
 
     @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
+
+    @property
     def externalInterfaces(self):
         return ExternalInterfacesNav(self.tree, f"{self.path}/externalInterfaces")
 
@@ -64855,6 +65319,14 @@ class D08SecurityAccessSpecificationNav(SomMetaRef):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
 
     @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
+
+    @property
     def userManagement(self):
         return UserManagementNav(self.tree, f"{self.path}/userManagement")
 
@@ -64904,6 +65376,14 @@ class D09ExperienceDesignSpecificationNav(SomMetaRef):
     @property
     def header(self):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def designVision(self):
@@ -64971,6 +65451,14 @@ class D10QualityAcceptancePlanNav(SomMetaRef):
     @property
     def header(self):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def qualityFramework(self):
@@ -65064,6 +65552,14 @@ class D11DeliveryRoadmapNav(SomMetaRef):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
 
     @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
+
+    @property
     def stagingStrategy(self):
         return StagingStrategyNav(self.tree, f"{self.path}/stagingStrategy")
 
@@ -65113,6 +65609,14 @@ class D12TransitionRolloutPlanNav(SomMetaRef):
     @property
     def header(self):
         return DocumentHeaderNav(self.tree, f"{self.path}/header")
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def revisionHistory(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def localizationProcess(self):
@@ -67967,6 +68471,21 @@ class DocumentRelevantSectionsNav(SomMetaRef):
     @property
     def sections(self):
         return SomListMetaRef(self.tree, f"{self.path}/RESEEN-SECT-LST", RelevantSectionEntryNav)
+
+
+class DocumentReviewTeamEntryNav(SomMetaRef):
+    """Dot-notation accessors of ``DocumentReviewTeamEntry`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def members(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVMEM-MEMB-LST", ReviewTeamMemberNav)
 
 
 class DocumentationDeliverablesNav(SomMetaRef):
@@ -79808,6 +80327,43 @@ class ReviewCriterionEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RCER")
 
 
+class ReviewTeamNav(SomMetaRef):
+    """Dot-notation accessors of ``ReviewTeam`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def members(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVMEM-MEMB-LST", ReviewTeamMemberNav)
+
+
+class ReviewTeamMemberNav(SomMetaRef):
+    """Dot-notation accessors of ``ReviewTeamMember`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+
+class ReviewerRecordNav(SomMetaRef):
+    """Dot-notation accessors of ``ReviewerRecord`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+
 class RevisionEntryNav(SomMetaRef):
     """Dot-notation accessors of ``RevisionEntry`` (SOM §8). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -79817,6 +80373,14 @@ class RevisionEntryNav(SomMetaRef):
     @property
     def content(self):
         return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def reviewTeam(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVWER-TEAM-LST", ReviewerRecordNav)
+
+    @property
+    def reviewers(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVWER-RETN-LST", ReviewerRecordNav)
 
 
 class RiskBusinessImpactNav(SomMetaRef):
@@ -83260,6 +83824,14 @@ class StakeholdersAndGovernanceNav(SomMetaRef):
     @property
     def stakeholderRegister(self):
         return SomListMetaRef(self.tree, f"{self.path}/STKRE-STAK-LST", StakeholderRegisterEntryNav)
+
+    @property
+    def reviewTeam(self):
+        return ReviewTeamNav(self.tree, f"{self.path}/reviewTeam")
+
+    @property
+    def documentReviewTeams(self):
+        return SomListMetaRef(self.tree, f"{self.path}/DCRVTM-DOCR-LST", DocumentReviewTeamEntryNav)
 
 
 class StakeholdersAndInterestsNav(SomMetaRef):
@@ -90576,6 +91148,14 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/STKRE-STAK-LST", StakeholderRegisterEntryId)
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def DCRVTM_DOCR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/DCRVTM-DOCR-LST", DocumentReviewTeamEntryId)
+
+    @property
     def ESENT_SYST_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", ExistingSystemEntryId)
 
@@ -95275,6 +95855,14 @@ class D01CurrentLandscapeAssessmentId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def ESENT_SYST_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", ExistingSystemEntryId)
 
@@ -95594,6 +96182,14 @@ class D02TargetOperatingModelId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def PVOVW(self):
         return SomMetaRef(self.tree, f"{self.path}/processVision/PVOVW")
 
@@ -95659,6 +96255,14 @@ class D03InformationModelId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
 
     @property
     def DAENT_ENTI_LST(self):
@@ -95732,6 +96336,14 @@ class D04RequirementsSpecificationId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def FR_SUMM(self):
         return SomMetaRef(self.tree, f"{self.path}/functionalRequirements/FR-SUMM")
 
@@ -95779,6 +96391,14 @@ class D05InteractionScenariosId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def ACOVNA(self):
         return SomMetaRef(self.tree, f"{self.path}/actorOverview/ACOVNA")
 
@@ -95824,6 +96444,14 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
 
     @property
     def TGPLT_TARG_LST(self):
@@ -98445,6 +99073,14 @@ class D07IntegrationInterfaceSpecificationId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def EIE_INTE_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/externalInterfaces/EIE-INTE-LST", ExternalInterfaceEntryId)
 
@@ -98474,6 +99110,14 @@ class D08SecurityAccessSpecificationId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
 
     @property
     def USCDF_ITEM_LST(self):
@@ -98633,6 +99277,14 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
 
     @property
     def DGOEN_ITEM_LST(self):
@@ -99186,6 +99838,14 @@ class D10QualityAcceptancePlanId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def QLFWK_FRAM(self):
         return SomMetaRef(self.tree, f"{self.path}/qualityFramework/QLFWK-FRAM")
 
@@ -99657,6 +100317,14 @@ class D11DeliveryRoadmapId(SomMetaRef):
     dot-notation surface."""
 
     @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
+
+    @property
     def STAGAS(self):
         return SomMetaRef(self.tree, f"{self.path}/stagingStrategy/STAGAS")
 
@@ -99886,6 +100554,14 @@ class D12TransitionRolloutPlanId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reviewTeam/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+    @property
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryId)
 
     @property
     def LOPR_LOCA(self):
@@ -103771,6 +104447,17 @@ class DistributionRecipientPreferencesId(SomMetaRef):
     dot-notation surface."""
 
 
+class DocumentReviewTeamEntryId(SomMetaRef):
+    """ID-tree accessors of ``DocumentReviewTeamEntry`` (SOM §8): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+    @property
+    def RVMEM_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVMEM-MEMB-LST", ReviewTeamMemberId)
+
+
 class DomainBusinessRuleEntryId(SomMetaRef):
     """ID-tree accessors of ``DomainBusinessRuleEntry`` (SOM §8): getters named by
     section id (``-`` → ``_``), hoisted through id-less members so every
@@ -107612,11 +108299,33 @@ class ReviewCriterionEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RCER")
 
 
+class ReviewTeamMemberId(SomMetaRef):
+    """ID-tree accessors of ``ReviewTeamMember`` (SOM §8): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+
+class ReviewerRecordId(SomMetaRef):
+    """ID-tree accessors of ``ReviewerRecord`` (SOM §8): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+
 class RevisionEntryId(SomMetaRef):
     """ID-tree accessors of ``RevisionEntry`` (SOM §8): getters named by
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def RVWER_TEAM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVWER-TEAM-LST", ReviewerRecordId)
+
+    @property
+    def RVWER_RETN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RVWER-RETN-LST", ReviewerRecordId)
 
 
 class RiskEntryId(SomMetaRef):

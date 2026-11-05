@@ -781,6 +781,46 @@ std::optional<std::string> ServerCallRole::parse(const std::string& token) {
   return std::nullopt;
 }
 
+std::optional<std::string> SpecDocumentType::parse(const std::string& token) {
+  if (token == d01CurrentLandscapeAssessment) {
+    return token;
+  }
+  if (token == d02TargetOperatingModel) {
+    return token;
+  }
+  if (token == d03InformationModel) {
+    return token;
+  }
+  if (token == d04RequirementsSpecification) {
+    return token;
+  }
+  if (token == d05InteractionScenarios) {
+    return token;
+  }
+  if (token == d06ArchitectureTechnologySpecification) {
+    return token;
+  }
+  if (token == d07IntegrationInterfaceSpecification) {
+    return token;
+  }
+  if (token == d08SecurityAccessSpecification) {
+    return token;
+  }
+  if (token == d09ExperienceDesignSpecification) {
+    return token;
+  }
+  if (token == d10QualityAcceptancePlan) {
+    return token;
+  }
+  if (token == d11DeliveryRoadmap) {
+    return token;
+  }
+  if (token == d12TransitionRolloutPlan) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> Status::parse(const std::string& token) {
   if (token == draft) {
     return token;
@@ -4748,6 +4788,12 @@ void D01CurrentLandscapeAssessment::setContent(const std::string& value) {
 DocumentHeader D01CurrentLandscapeAssessment::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
+ReviewTeam D01CurrentLandscapeAssessment::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D01CurrentLandscapeAssessment::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
+}
 ExistingSystemsLandscape D01CurrentLandscapeAssessment::existingSystemsLandscape() const {
   return ExistingSystemsLandscape(doc(), som::joinPath(path(), "existingSystemsLandscape"));
 }
@@ -4811,6 +4857,12 @@ void D02TargetOperatingModel::setContent(const std::string& value) {
 }
 DocumentHeader D02TargetOperatingModel::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ReviewTeam D02TargetOperatingModel::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D02TargetOperatingModel::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 ProcessVision D02TargetOperatingModel::processVision() const {
   return ProcessVision(doc(), som::joinPath(path(), "processVision"));
@@ -4881,6 +4933,12 @@ void D03InformationModel::setContent(const std::string& value) {
 }
 DocumentHeader D03InformationModel::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ReviewTeam D03InformationModel::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D03InformationModel::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 som::SomList D03InformationModel::entities() const {
   return som::SomList(doc(), som::joinPath(path(), "DAENT-ENTI-LST"), "DAENT-ENTI-xxx");
@@ -4970,6 +5028,12 @@ void D04RequirementsSpecification::setContent(const std::string& value) {
 DocumentHeader D04RequirementsSpecification::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
+ReviewTeam D04RequirementsSpecification::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D04RequirementsSpecification::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
+}
 FunctionalRequirements D04RequirementsSpecification::functionalRequirements() const {
   return FunctionalRequirements(doc(), som::joinPath(path(), "functionalRequirements"));
 }
@@ -5034,6 +5098,12 @@ void D05InteractionScenarios::setContent(const std::string& value) {
 DocumentHeader D05InteractionScenarios::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
+ReviewTeam D05InteractionScenarios::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D05InteractionScenarios::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
+}
 ProcessStepsOverview D05InteractionScenarios::processStepsOverview() const {
   return ProcessStepsOverview(doc(), som::joinPath(path(), "processStepsOverview"));
 }
@@ -5094,6 +5164,12 @@ void D06ArchitectureTechnologySpecification::setContent(const std::string& value
 }
 DocumentHeader D06ArchitectureTechnologySpecification::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ReviewTeam D06ArchitectureTechnologySpecification::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D06ArchitectureTechnologySpecification::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 BasicTechnicalRequirements D06ArchitectureTechnologySpecification::basicTechnicalRequirements() const {
   return BasicTechnicalRequirements(doc(), som::joinPath(path(), "basicTechnicalRequirements"));
@@ -5171,6 +5247,12 @@ void D07IntegrationInterfaceSpecification::setContent(const std::string& value) 
 DocumentHeader D07IntegrationInterfaceSpecification::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
+ReviewTeam D07IntegrationInterfaceSpecification::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D07IntegrationInterfaceSpecification::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
+}
 ExternalInterfaces D07IntegrationInterfaceSpecification::externalInterfaces() const {
   return ExternalInterfaces(doc(), som::joinPath(path(), "externalInterfaces"));
 }
@@ -5241,6 +5323,12 @@ void D08SecurityAccessSpecification::setContent(const std::string& value) {
 DocumentHeader D08SecurityAccessSpecification::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
+ReviewTeam D08SecurityAccessSpecification::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D08SecurityAccessSpecification::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
+}
 UserManagement D08SecurityAccessSpecification::userManagement() const {
   return UserManagement(doc(), som::joinPath(path(), "userManagement"));
 }
@@ -5307,6 +5395,12 @@ void D09ExperienceDesignSpecification::setContent(const std::string& value) {
 }
 DocumentHeader D09ExperienceDesignSpecification::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ReviewTeam D09ExperienceDesignSpecification::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D09ExperienceDesignSpecification::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 DesignVision D09ExperienceDesignSpecification::designVision() const {
   return DesignVision(doc(), som::joinPath(path(), "designVision"));
@@ -5386,6 +5480,12 @@ void D10QualityAcceptancePlan::setContent(const std::string& value) {
 }
 DocumentHeader D10QualityAcceptancePlan::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ReviewTeam D10QualityAcceptancePlan::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D10QualityAcceptancePlan::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 QualityFramework D10QualityAcceptancePlan::qualityFramework() const {
   return QualityFramework(doc(), som::joinPath(path(), "qualityFramework"));
@@ -5484,6 +5584,12 @@ void D11DeliveryRoadmap::setContent(const std::string& value) {
 DocumentHeader D11DeliveryRoadmap::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
+ReviewTeam D11DeliveryRoadmap::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D11DeliveryRoadmap::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
+}
 StagingStrategy D11DeliveryRoadmap::stagingStrategy() const {
   return StagingStrategy(doc(), som::joinPath(path(), "stagingStrategy"));
 }
@@ -5550,6 +5656,12 @@ void D12TransitionRolloutPlan::setContent(const std::string& value) {
 }
 DocumentHeader D12TransitionRolloutPlan::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ReviewTeam D12TransitionRolloutPlan::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList D12TransitionRolloutPlan::revisionHistory() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 LocalizationProcess D12TransitionRolloutPlan::localizationProcess() const {
   return LocalizationProcess(doc(), som::joinPath(path(), "localizationProcess"));
@@ -7483,6 +7595,15 @@ DocumentRelevantSectionsContentForm DocumentRelevantSections::content() const {
 }
 som::SomList DocumentRelevantSections::sections() const {
   return som::SomList(doc(), som::joinPath(path(), "RESEEN-SECT-LST"), "RESEEN-SECT-xxx");
+}
+
+DocumentReviewTeamEntry::DocumentReviewTeamEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+DocumentReviewTeamEntryContentForm DocumentReviewTeamEntry::content() const {
+  return DocumentReviewTeamEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList DocumentReviewTeamEntry::members() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVMEM-MEMB-LST"), "RVMEM-MEMB-xxx");
 }
 
 DocumentationDeliverables::DocumentationDeliverables(som::SpecDocument& doc, std::string path)
@@ -15351,10 +15472,40 @@ ReviewCriterionEntryResultForm ReviewCriterionEntry::result() const {
   return ReviewCriterionEntryResultForm(doc(), som::joinPath(path(), "RCER"));
 }
 
+ReviewTeam::ReviewTeam(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReviewTeam::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ReviewTeam::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList ReviewTeam::members() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVMEM-MEMB-LST"), "RVMEM-MEMB-xxx");
+}
+
+ReviewTeamMember::ReviewTeamMember(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ReviewTeamMemberContentForm ReviewTeamMember::content() const {
+  return ReviewTeamMemberContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ReviewerRecord::ReviewerRecord(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ReviewerRecordContentForm ReviewerRecord::content() const {
+  return ReviewerRecordContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 RevisionEntry::RevisionEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 RevisionEntryContentForm RevisionEntry::content() const {
   return RevisionEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList RevisionEntry::reviewTeam() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVWER-TEAM-LST"), "RVWER-TEAM-xxx");
+}
+som::SomList RevisionEntry::reviewers() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVWER-RETN-LST"), "RVWER-RETN-xxx");
 }
 
 RiskBusinessImpact::RiskBusinessImpact(som::SpecDocument& doc, std::string path)
@@ -17602,6 +17753,12 @@ LegalAndContractualRequirements StakeholdersAndGovernance::legalAndContractual()
 }
 som::SomList StakeholdersAndGovernance::stakeholderRegister() const {
   return som::SomList(doc(), som::joinPath(path(), "STKRE-STAK-LST"), "STKRE-STAK-xxx");
+}
+ReviewTeam StakeholdersAndGovernance::reviewTeam() const {
+  return ReviewTeam(doc(), som::joinPath(path(), "reviewTeam"));
+}
+som::SomList StakeholdersAndGovernance::documentReviewTeams() const {
+  return som::SomList(doc(), som::joinPath(path(), "DCRVTM-DOCR-LST"), "DCRVTM-DOCR-xxx");
 }
 
 StakeholdersAndInterests::StakeholdersAndInterests(som::SpecDocument& doc, std::string path)
@@ -50340,6 +50497,21 @@ std::string DocumentRelevantSectionsContentForm::extractSummary() const {
 }
 void DocumentRelevantSectionsContentForm::setExtractSummary(const std::string& value) {
   doc().setFormField(path(), "extractSummary", value);
+}
+
+DocumentReviewTeamEntryContentForm::DocumentReviewTeamEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DocumentReviewTeamEntryContentForm::content() const {
+  return doc().content(path());
+}
+void DocumentReviewTeamEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DocumentReviewTeamEntryContentForm::documentType() const {
+  return doc().formField(path(), "documentType");
+}
+void DocumentReviewTeamEntryContentForm::setDocumentType(const std::string& value) {
+  doc().setFormField(path(), "documentType", value);
 }
 
 DocumentationQualityCriteriaDocumentationOverviewContentForm::DocumentationQualityCriteriaDocumentationOverviewContentForm(som::SpecDocument& doc, std::string path)
@@ -90539,6 +90711,88 @@ std::string ReviewCriterionEntryResultForm::remediationRequired() const {
 }
 void ReviewCriterionEntryResultForm::setRemediationRequired(const std::string& value) {
   doc().setFormField(path(), "remediationRequired", value);
+}
+
+ReviewTeamMemberContentForm::ReviewTeamMemberContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReviewTeamMemberContentForm::content() const {
+  return doc().content(path());
+}
+void ReviewTeamMemberContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReviewTeamMemberContentForm::memberId() const {
+  return doc().formField(path(), "memberId");
+}
+void ReviewTeamMemberContentForm::setMemberId(const std::string& value) {
+  doc().setFormField(path(), "memberId", value);
+}
+std::string ReviewTeamMemberContentForm::displayName() const {
+  return doc().formField(path(), "displayName");
+}
+void ReviewTeamMemberContentForm::setDisplayName(const std::string& value) {
+  doc().setFormField(path(), "displayName", value);
+}
+std::string ReviewTeamMemberContentForm::role() const {
+  return doc().formField(path(), "role");
+}
+void ReviewTeamMemberContentForm::setRole(const std::string& value) {
+  doc().setFormField(path(), "role", value);
+}
+std::string ReviewTeamMemberContentForm::stakeholder() const {
+  return doc().formField(path(), "stakeholder");
+}
+void ReviewTeamMemberContentForm::setStakeholder(const std::string& value) {
+  doc().setFormField(path(), "stakeholder", value);
+}
+std::string ReviewTeamMemberContentForm::email() const {
+  return doc().formField(path(), "email");
+}
+void ReviewTeamMemberContentForm::setEmail(const std::string& value) {
+  doc().setFormField(path(), "email", value);
+}
+std::optional<bool> ReviewTeamMemberContentForm::owner() const {
+  const std::string v = doc().formField(path(), "owner");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ReviewTeamMemberContentForm::setOwner(std::optional<bool> value) {
+  doc().setFormField(path(), "owner", value.has_value() ? (*value ? "true" : "false") : "");
+}
+
+ReviewerRecordContentForm::ReviewerRecordContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReviewerRecordContentForm::content() const {
+  return doc().content(path());
+}
+void ReviewerRecordContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ReviewerRecordContentForm::memberId() const {
+  return doc().formField(path(), "memberId");
+}
+void ReviewerRecordContentForm::setMemberId(const std::string& value) {
+  doc().setFormField(path(), "memberId", value);
+}
+std::string ReviewerRecordContentForm::displayName() const {
+  return doc().formField(path(), "displayName");
+}
+void ReviewerRecordContentForm::setDisplayName(const std::string& value) {
+  doc().setFormField(path(), "displayName", value);
+}
+std::string ReviewerRecordContentForm::role() const {
+  return doc().formField(path(), "role");
+}
+void ReviewerRecordContentForm::setRole(const std::string& value) {
+  doc().setFormField(path(), "role", value);
+}
+std::optional<bool> ReviewerRecordContentForm::guest() const {
+  const std::string v = doc().formField(path(), "guest");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ReviewerRecordContentForm::setGuest(std::optional<bool> value) {
+  doc().setFormField(path(), "guest", value.has_value() ? (*value ? "true" : "false") : "");
 }
 
 RevisionEntryContentForm::RevisionEntryContentForm(som::SpecDocument& doc, std::string path)

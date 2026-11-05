@@ -7,6 +7,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/document_header.dart';
+import '../common/review_team.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
 /// ISC00 Interaction Scenarios.
@@ -40,34 +41,54 @@ class D05InteractionScenarios extends DocSpecsSection {
   @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
-  /// Process steps overview.
+  /// This document's own review team; when it has members it replaces the
+  /// Solution Blueprint's team for this document type and its default team.
   @SerializationOrder(2)
+  ReviewTeam reviewTeam = ReviewTeam();
+
+  /// Chronological revision history of this document, with the reviewers of
+  /// each revision.
+  @StandardReferences([
+    'ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)',
+  ], 'The ordered set of published revisions of this document.')
+  @SectionId('RVENT-REVS-LST')
+  @SectionIdPattern('RVENT-REVS-xxx')
+  @ContentHelp(
+    'Add one entry per revision, newest last: version, date, author, a short '
+    'summary, the review team the round started with and the reviewers who '
+    'returned a copy.',
+  )
+  @SerializationOrder(3)
+  List<RevisionEntry> revisionHistory = [];
+
+  /// Process steps overview.
+  @SerializationOrder(4)
   ProcessStepsOverview processStepsOverview = ProcessStepsOverview();
 
   /// Actor overview.
-  @SerializationOrder(3)
+  @SerializationOrder(5)
   ActorOverview actorOverview = ActorOverview();
 
   /// Interaction catalog.
-  @SerializationOrder(4)
+  @SerializationOrder(6)
   InteractionCatalog interactionCatalog = InteractionCatalog();
 
   /// Key scenarios.
-  @SerializationOrder(5)
+  @SerializationOrder(7)
   KeyScenarios keyScenarios = KeyScenarios();
 
   /// Actor relationship diagram.
-  @SerializationOrder(6)
+  @SerializationOrder(8)
   ActorRelationshipDiagram actorRelationshipDiagram =
       ActorRelationshipDiagram();
 
   /// End-to-end test scenarios.
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
-  @SerializationOrder(7)
+  @SerializationOrder(9)
   List<EndToEndTestScenario> endToEndTestScenarios = [];
 
   /// Use case traceability.
-  @SerializationOrder(8)
+  @SerializationOrder(10)
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
 }

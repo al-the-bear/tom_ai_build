@@ -20,7 +20,7 @@ import (
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
-const Version = "v1.6.0"
+const Version = "v1.7.0"
 
 // ActionTriggerKind is the generated named type for `ActionTriggerKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
@@ -1717,6 +1717,50 @@ func parseServerCallRole(token string) ServerCallRole {
 	switch ServerCallRole(token) {
 	case ServerCallRoleAssembleRequest, ServerCallRoleHandleResponse, ServerCallRoleHandleError:
 		return ServerCallRole(token)
+	}
+	return ""
+}
+
+// SpecDocumentType is the generated named type for `SpecDocumentType` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type SpecDocumentType string
+
+const (
+	// `D01CurrentLandscapeAssessment`.
+	SpecDocumentTypeD01CurrentLandscapeAssessment SpecDocumentType = "d01CurrentLandscapeAssessment"
+	// `D02TargetOperatingModel`.
+	SpecDocumentTypeD02TargetOperatingModel SpecDocumentType = "d02TargetOperatingModel"
+	// `D03InformationModel`.
+	SpecDocumentTypeD03InformationModel SpecDocumentType = "d03InformationModel"
+	// `D04RequirementsSpecification`.
+	SpecDocumentTypeD04RequirementsSpecification SpecDocumentType = "d04RequirementsSpecification"
+	// `D05InteractionScenarios`.
+	SpecDocumentTypeD05InteractionScenarios SpecDocumentType = "d05InteractionScenarios"
+	// `D06ArchitectureTechnologySpecification`.
+	SpecDocumentTypeD06ArchitectureTechnologySpecification SpecDocumentType = "d06ArchitectureTechnologySpecification"
+	// `D07IntegrationInterfaceSpecification`.
+	SpecDocumentTypeD07IntegrationInterfaceSpecification SpecDocumentType = "d07IntegrationInterfaceSpecification"
+	// `D08SecurityAccessSpecification`.
+	SpecDocumentTypeD08SecurityAccessSpecification SpecDocumentType = "d08SecurityAccessSpecification"
+	// `D09ExperienceDesignSpecification`.
+	SpecDocumentTypeD09ExperienceDesignSpecification SpecDocumentType = "d09ExperienceDesignSpecification"
+	// `D10QualityAcceptancePlan`.
+	SpecDocumentTypeD10QualityAcceptancePlan SpecDocumentType = "d10QualityAcceptancePlan"
+	// `D11DeliveryRoadmap`.
+	SpecDocumentTypeD11DeliveryRoadmap SpecDocumentType = "d11DeliveryRoadmap"
+	// `D12TransitionRolloutPlan`.
+	SpecDocumentTypeD12TransitionRolloutPlan SpecDocumentType = "d12TransitionRolloutPlan"
+)
+
+// parseSpecDocumentType returns the SpecDocumentType whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseSpecDocumentType(token string) SpecDocumentType {
+	switch SpecDocumentType(token) {
+	case SpecDocumentTypeD01CurrentLandscapeAssessment, SpecDocumentTypeD02TargetOperatingModel, SpecDocumentTypeD03InformationModel, SpecDocumentTypeD04RequirementsSpecification, SpecDocumentTypeD05InteractionScenarios, SpecDocumentTypeD06ArchitectureTechnologySpecification, SpecDocumentTypeD07IntegrationInterfaceSpecification, SpecDocumentTypeD08SecurityAccessSpecification, SpecDocumentTypeD09ExperienceDesignSpecification, SpecDocumentTypeD10QualityAcceptancePlan, SpecDocumentTypeD11DeliveryRoadmap, SpecDocumentTypeD12TransitionRolloutPlan:
+		return SpecDocumentType(token)
 	}
 	return ""
 }
@@ -11421,7 +11465,7 @@ type D00SolutionBlueprint struct {
 
 // D00SolutionBlueprintModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D00SolutionBlueprintModelVersion = "1.6"
+const D00SolutionBlueprintModelVersion = "1.7"
 
 // NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11571,7 +11615,7 @@ type D01CurrentLandscapeAssessment struct {
 
 // D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D01CurrentLandscapeAssessmentModelVersion = "1.6"
+const D01CurrentLandscapeAssessmentModelVersion = "1.7"
 
 // NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11645,6 +11689,20 @@ func (x *D01CurrentLandscapeAssessment) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D01CurrentLandscapeAssessment) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D01CurrentLandscapeAssessment) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // Existing systems landscape.
 func (x *D01CurrentLandscapeAssessment) ExistingSystemsLandscape() *ExistingSystemsLandscape {
 	return NewExistingSystemsLandscape(x.Doc(), x.Path()+"/existingSystemsLandscape")
@@ -11698,7 +11756,7 @@ type D02TargetOperatingModel struct {
 
 // D02TargetOperatingModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D02TargetOperatingModelModelVersion = "1.6"
+const D02TargetOperatingModelModelVersion = "1.7"
 
 // NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11772,6 +11830,20 @@ func (x *D02TargetOperatingModel) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D02TargetOperatingModel) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D02TargetOperatingModel) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // Process vision.
 func (x *D02TargetOperatingModel) ProcessVision() *ProcessVision {
 	return NewProcessVision(x.Doc(), x.Path()+"/processVision")
@@ -11838,7 +11910,7 @@ type D03InformationModel struct {
 
 // D03InformationModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D03InformationModelModelVersion = "1.6"
+const D03InformationModelModelVersion = "1.7"
 
 // NewD03InformationModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11910,6 +11982,20 @@ func (x *D03InformationModel) SetContent(value string) {
 // Standard TomSpecs document header.
 func (x *D03InformationModel) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
+}
+
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D03InformationModel) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D03InformationModel) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
 }
 
 // Entity inventory (list).
@@ -12044,7 +12130,7 @@ type D04RequirementsSpecification struct {
 
 // D04RequirementsSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D04RequirementsSpecificationModelVersion = "1.6"
+const D04RequirementsSpecificationModelVersion = "1.7"
 
 // NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12118,6 +12204,20 @@ func (x *D04RequirementsSpecification) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D04RequirementsSpecification) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D04RequirementsSpecification) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // Functional requirements.
 func (x *D04RequirementsSpecification) FunctionalRequirements() *FunctionalRequirements {
 	return NewFunctionalRequirements(x.Doc(), x.Path()+"/functionalRequirements")
@@ -12174,7 +12274,7 @@ type D05InteractionScenarios struct {
 
 // D05InteractionScenariosModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D05InteractionScenariosModelVersion = "1.6"
+const D05InteractionScenariosModelVersion = "1.7"
 
 // NewD05InteractionScenarios creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12248,6 +12348,20 @@ func (x *D05InteractionScenarios) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D05InteractionScenarios) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D05InteractionScenarios) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // Process steps overview.
 func (x *D05InteractionScenarios) ProcessStepsOverview() *ProcessStepsOverview {
 	return NewProcessStepsOverview(x.Doc(), x.Path()+"/processStepsOverview")
@@ -12297,7 +12411,7 @@ type D06ArchitectureTechnologySpecification struct {
 
 // D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D06ArchitectureTechnologySpecificationModelVersion = "1.6"
+const D06ArchitectureTechnologySpecificationModelVersion = "1.7"
 
 // NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12371,6 +12485,20 @@ func (x *D06ArchitectureTechnologySpecification) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D06ArchitectureTechnologySpecification) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D06ArchitectureTechnologySpecification) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // Basic technical requirements.
 func (x *D06ArchitectureTechnologySpecification) BasicTechnicalRequirements() *BasicTechnicalRequirements {
 	return NewBasicTechnicalRequirements(x.Doc(), x.Path()+"/basicTechnicalRequirements")
@@ -12442,7 +12570,7 @@ type D07IntegrationInterfaceSpecification struct {
 
 // D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D07IntegrationInterfaceSpecificationModelVersion = "1.6"
+const D07IntegrationInterfaceSpecificationModelVersion = "1.7"
 
 // NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12516,6 +12644,20 @@ func (x *D07IntegrationInterfaceSpecification) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D07IntegrationInterfaceSpecification) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D07IntegrationInterfaceSpecification) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // External interfaces.
 func (x *D07IntegrationInterfaceSpecification) ExternalInterfaces() *ExternalInterfaces {
 	return NewExternalInterfaces(x.Doc(), x.Path()+"/externalInterfaces")
@@ -12584,7 +12726,7 @@ type D08SecurityAccessSpecification struct {
 
 // D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D08SecurityAccessSpecificationModelVersion = "1.6"
+const D08SecurityAccessSpecificationModelVersion = "1.7"
 
 // NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12658,6 +12800,20 @@ func (x *D08SecurityAccessSpecification) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D08SecurityAccessSpecification) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D08SecurityAccessSpecification) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // User management.
 func (x *D08SecurityAccessSpecification) UserManagement() *UserManagement {
 	return NewUserManagement(x.Doc(), x.Path()+"/userManagement")
@@ -12722,7 +12878,7 @@ type D09ExperienceDesignSpecification struct {
 
 // D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D09ExperienceDesignSpecificationModelVersion = "1.6"
+const D09ExperienceDesignSpecificationModelVersion = "1.7"
 
 // NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12794,6 +12950,20 @@ func (x *D09ExperienceDesignSpecification) SetContent(value string) {
 // Standard TomSpecs document header.
 func (x *D09ExperienceDesignSpecification) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
+}
+
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D09ExperienceDesignSpecification) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D09ExperienceDesignSpecification) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
 }
 
 // Design vision.
@@ -12873,7 +13043,7 @@ type D10QualityAcceptancePlan struct {
 
 // D10QualityAcceptancePlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D10QualityAcceptancePlanModelVersion = "1.6"
+const D10QualityAcceptancePlanModelVersion = "1.7"
 
 // NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12945,6 +13115,20 @@ func (x *D10QualityAcceptancePlan) SetContent(value string) {
 // Standard TomSpecs document header.
 func (x *D10QualityAcceptancePlan) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
+}
+
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D10QualityAcceptancePlan) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D10QualityAcceptancePlan) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
 }
 
 // Quality framework.
@@ -13054,7 +13238,7 @@ type D11DeliveryRoadmap struct {
 
 // D11DeliveryRoadmapModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D11DeliveryRoadmapModelVersion = "1.6"
+const D11DeliveryRoadmapModelVersion = "1.7"
 
 // NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13128,6 +13312,20 @@ func (x *D11DeliveryRoadmap) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
 }
 
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D11DeliveryRoadmap) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D11DeliveryRoadmap) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
+}
+
 // Staging strategy.
 func (x *D11DeliveryRoadmap) StagingStrategy() *StagingStrategy {
 	return NewStagingStrategy(x.Doc(), x.Path()+"/stagingStrategy")
@@ -13187,7 +13385,7 @@ type D12TransitionRolloutPlan struct {
 
 // D12TransitionRolloutPlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D12TransitionRolloutPlanModelVersion = "1.6"
+const D12TransitionRolloutPlanModelVersion = "1.7"
 
 // NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13259,6 +13457,20 @@ func (x *D12TransitionRolloutPlan) SetContent(value string) {
 // Standard TomSpecs document header.
 func (x *D12TransitionRolloutPlan) Header() *DocumentHeader {
 	return NewDocumentHeader(x.Doc(), x.Path()+"/header")
+}
+
+// This document's own review team; when it has members it replaces the
+// Solution Blueprint's team for this document type and its default team.
+func (x *D12TransitionRolloutPlan) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Chronological revision history of this document, with the reviewers of
+// each revision.
+func (x *D12TransitionRolloutPlan) RevisionHistory() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVENT-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	}, "RVENT-REVS-xxx")
 }
 
 // Localization process.
@@ -13343,7 +13555,7 @@ type D13CodeSpecsProjection struct {
 
 // D13CodeSpecsProjectionModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D13CodeSpecsProjectionModelVersion = "1.6"
+const D13CodeSpecsProjectionModelVersion = "1.7"
 
 // NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -18131,6 +18343,30 @@ func (x *DocumentRelevantSections) Sections() *som.SomList[*RelevantSectionEntry
 	return som.NewSomList(x.Doc(), x.Path()+"/RESEEN-SECT-LST", func(d *som.SpecDocument, p string) *RelevantSectionEntry {
 		return NewRelevantSectionEntry(d, p)
 	}, "RESEEN-SECT-xxx")
+}
+
+// The Solution Blueprint's review team for one document type (form + members).
+type DocumentReviewTeamEntry struct {
+	som.SomNode
+}
+
+// NewDocumentReviewTeamEntry binds a DocumentReviewTeamEntry facade to a document and a path.
+func NewDocumentReviewTeamEntry(doc *som.SpecDocument, path string) *DocumentReviewTeamEntry {
+	return &DocumentReviewTeamEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *DocumentReviewTeamEntry) Content() *DocumentReviewTeamEntryContentForm {
+	return NewDocumentReviewTeamEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// The members of the team.
+func (x *DocumentReviewTeamEntry) Members() *som.SomList[*ReviewTeamMember] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVMEM-MEMB-LST", func(d *som.SpecDocument, p string) *ReviewTeamMember {
+		return NewReviewTeamMember(d, p)
+	}, "RVMEM-MEMB-xxx")
 }
 
 // 14.1.2. Documentation Deliverables.
@@ -38449,6 +38685,74 @@ func (x *ReviewCriterionEntry) Result() *ReviewCriterionEntryResultForm {
 	return NewReviewCriterionEntryResultForm(x.Doc(), x.Path()+"/RCER")
 }
 
+// A review team: the members who review a document.
+type ReviewTeam struct {
+	som.SomNode
+}
+
+// NewReviewTeam binds a ReviewTeam facade to a document and a path.
+func NewReviewTeam(doc *som.SpecDocument, path string) *ReviewTeam {
+	return &ReviewTeam{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReviewTeam) CanHaveContent() bool {
+	return true
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *ReviewTeam) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ReviewTeam) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// The members of the team.
+func (x *ReviewTeam) Members() *som.SomList[*ReviewTeamMember] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVMEM-MEMB-LST", func(d *som.SpecDocument, p string) *ReviewTeamMember {
+		return NewReviewTeamMember(d, p)
+	}, "RVMEM-MEMB-xxx")
+}
+
+// One member of a review team (form).
+type ReviewTeamMember struct {
+	som.SomNode
+}
+
+// NewReviewTeamMember binds a ReviewTeamMember facade to a document and a path.
+func NewReviewTeamMember(doc *som.SpecDocument, path string) *ReviewTeamMember {
+	return &ReviewTeamMember{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *ReviewTeamMember) Content() *ReviewTeamMemberContentForm {
+	return NewReviewTeamMemberContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// A reviewer recorded in a revision entry (form).
+type ReviewerRecord struct {
+	som.SomNode
+}
+
+// NewReviewerRecord binds a ReviewerRecord facade to a document and a path.
+func NewReviewerRecord(doc *som.SpecDocument, path string) *ReviewerRecord {
+	return &ReviewerRecord{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *ReviewerRecord) Content() *ReviewerRecordContentForm {
+	return NewReviewerRecordContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // A single document revision entry (form).
 type RevisionEntry struct {
 	som.SomNode
@@ -38464,6 +38768,20 @@ func NewRevisionEntry(doc *som.SpecDocument, path string) *RevisionEntry {
 // §11.4 rule 7); the field values themselves live in [form].
 func (x *RevisionEntry) Content() *RevisionEntryContentForm {
 	return NewRevisionEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// The review team the round leading to this revision started with.
+func (x *RevisionEntry) ReviewTeam() *som.SomList[*ReviewerRecord] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVWER-TEAM-LST", func(d *som.SpecDocument, p string) *ReviewerRecord {
+		return NewReviewerRecord(d, p)
+	}, "RVWER-TEAM-xxx")
+}
+
+// The reviewers who returned a reviewed copy, guests included.
+func (x *RevisionEntry) Reviewers() *som.SomList[*ReviewerRecord] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RVWER-RETN-LST", func(d *som.SpecDocument, p string) *ReviewerRecord {
+		return NewReviewerRecord(d, p)
+	}, "RVWER-RETN-xxx")
 }
 
 // Business impact assessment for the risk.
@@ -44333,6 +44651,21 @@ func (x *StakeholdersAndGovernance) StakeholderRegister() *som.SomList[*Stakehol
 	return som.NewSomList(x.Doc(), x.Path()+"/STKRE-STAK-LST", func(d *som.SpecDocument, p string) *StakeholderRegisterEntry {
 		return NewStakeholderRegisterEntry(d, p)
 	}, "STKRE-STAK-xxx")
+}
+
+// The default review team: it reviews every document that names no team
+// of its own and has no entry in [documentReviewTeams]. Its owner
+// (`owner: true`) is the specification owner, always a reviewer.
+func (x *StakeholdersAndGovernance) ReviewTeam() *ReviewTeam {
+	return NewReviewTeam(x.Doc(), x.Path()+"/reviewTeam")
+}
+
+// Review teams per document type, each replacing [reviewTeam] for the
+// documents of its type.
+func (x *StakeholdersAndGovernance) DocumentReviewTeams() *som.SomList[*DocumentReviewTeamEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DCRVTM-DOCR-LST", func(d *som.SpecDocument, p string) *DocumentReviewTeamEntry {
+		return NewDocumentReviewTeamEntry(d, p)
+	}, "DCRVTM-DOCR-xxx")
 }
 
 // Stakeholders and interests.
@@ -107047,6 +107380,40 @@ func (x *DocumentRelevantSectionsContentForm) ExtractSummary() string {
 
 func (x *DocumentRelevantSectionsContentForm) SetExtractSummary(value string) {
 	x.Doc().SetFormField(x.Path(), "extractSummary", value)
+}
+
+// DocumentReviewTeamEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DocumentReviewTeamEntryContentForm struct {
+	som.SomNode
+}
+
+// NewDocumentReviewTeamEntryContentForm binds a DocumentReviewTeamEntryContentForm facade to a document and a path.
+func NewDocumentReviewTeamEntryContentForm(doc *som.SpecDocument, path string) *DocumentReviewTeamEntryContentForm {
+	return &DocumentReviewTeamEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DocumentReviewTeamEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DocumentReviewTeamEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DocumentReviewTeamEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DocumentReviewTeamEntryContentForm) DocumentType() SpecDocumentType {
+	return parseSpecDocumentType(x.Doc().FormFieldOr(x.Path(), "documentType"))
+}
+
+func (x *DocumentReviewTeamEntryContentForm) SetDocumentType(value SpecDocumentType) {
+	x.Doc().SetFormField(x.Path(), "documentType", string(value))
 }
 
 // DocumentationQualityCriteriaDocumentationOverviewContentForm is the generated section facade for the `documentationOverviewContent` @Form section: its own
@@ -180410,6 +180777,164 @@ func (x *ReviewCriterionEntryResultForm) RemediationRequired() string {
 
 func (x *ReviewCriterionEntryResultForm) SetRemediationRequired(value string) {
 	x.Doc().SetFormField(x.Path(), "remediationRequired", value)
+}
+
+// ReviewTeamMemberContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ReviewTeamMemberContentForm struct {
+	som.SomNode
+}
+
+// NewReviewTeamMemberContentForm binds a ReviewTeamMemberContentForm facade to a document and a path.
+func NewReviewTeamMemberContentForm(doc *som.SpecDocument, path string) *ReviewTeamMemberContentForm {
+	return &ReviewTeamMemberContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReviewTeamMemberContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReviewTeamMemberContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReviewTeamMemberContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReviewTeamMemberContentForm) MemberId() string {
+	return x.Doc().FormFieldOr(x.Path(), "memberId")
+}
+
+func (x *ReviewTeamMemberContentForm) SetMemberId(value string) {
+	x.Doc().SetFormField(x.Path(), "memberId", value)
+}
+
+func (x *ReviewTeamMemberContentForm) DisplayName() string {
+	return x.Doc().FormFieldOr(x.Path(), "displayName")
+}
+
+func (x *ReviewTeamMemberContentForm) SetDisplayName(value string) {
+	x.Doc().SetFormField(x.Path(), "displayName", value)
+}
+
+func (x *ReviewTeamMemberContentForm) Role() string {
+	return x.Doc().FormFieldOr(x.Path(), "role")
+}
+
+func (x *ReviewTeamMemberContentForm) SetRole(value string) {
+	x.Doc().SetFormField(x.Path(), "role", value)
+}
+
+func (x *ReviewTeamMemberContentForm) Stakeholder() string {
+	return x.Doc().FormFieldOr(x.Path(), "stakeholder")
+}
+
+func (x *ReviewTeamMemberContentForm) SetStakeholder(value string) {
+	x.Doc().SetFormField(x.Path(), "stakeholder", value)
+}
+
+func (x *ReviewTeamMemberContentForm) Email() string {
+	return x.Doc().FormFieldOr(x.Path(), "email")
+}
+
+func (x *ReviewTeamMemberContentForm) SetEmail(value string) {
+	x.Doc().SetFormField(x.Path(), "email", value)
+}
+
+func (x *ReviewTeamMemberContentForm) Owner() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "owner")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ReviewTeamMemberContentForm) SetOwner(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "owner", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "owner", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "owner", "false")
+	}
+}
+
+// ReviewerRecordContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ReviewerRecordContentForm struct {
+	som.SomNode
+}
+
+// NewReviewerRecordContentForm binds a ReviewerRecordContentForm facade to a document and a path.
+func NewReviewerRecordContentForm(doc *som.SpecDocument, path string) *ReviewerRecordContentForm {
+	return &ReviewerRecordContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReviewerRecordContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ReviewerRecordContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ReviewerRecordContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ReviewerRecordContentForm) MemberId() string {
+	return x.Doc().FormFieldOr(x.Path(), "memberId")
+}
+
+func (x *ReviewerRecordContentForm) SetMemberId(value string) {
+	x.Doc().SetFormField(x.Path(), "memberId", value)
+}
+
+func (x *ReviewerRecordContentForm) DisplayName() string {
+	return x.Doc().FormFieldOr(x.Path(), "displayName")
+}
+
+func (x *ReviewerRecordContentForm) SetDisplayName(value string) {
+	x.Doc().SetFormField(x.Path(), "displayName", value)
+}
+
+func (x *ReviewerRecordContentForm) Role() string {
+	return x.Doc().FormFieldOr(x.Path(), "role")
+}
+
+func (x *ReviewerRecordContentForm) SetRole(value string) {
+	x.Doc().SetFormField(x.Path(), "role", value)
+}
+
+func (x *ReviewerRecordContentForm) Guest() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "guest")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ReviewerRecordContentForm) SetGuest(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "guest", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "guest", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "guest", "false")
+	}
 }
 
 // RevisionEntryContentForm is the generated section facade for the `content` @Form section: its own

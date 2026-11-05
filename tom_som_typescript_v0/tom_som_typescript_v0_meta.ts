@@ -11582,6 +11582,30 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D01CurrentLandscapeAssessment",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("ExistingSystemsLandscape", s, _mc_ExistingSystemsLandscape,
       (r, c) => new SomMetaNode({
         className: "ExistingSystemsLandscape",
@@ -11589,7 +11613,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "ESLAN",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExistingSystemsLandscape",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Existing systems landscape.",
         classDocComment: "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11602,7 +11626,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "CUBUPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "CurrentBusinessProcesses",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Current business processes.",
         classDocComment: "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11615,7 +11639,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "PPAG",
         kind: SomMetaKind.COMPLEX,
         typeName: "PainPointsAndGaps",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Pain points and gaps.",
         classDocComment: "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11628,7 +11652,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "CUDALA",
         kind: SomMetaKind.COMPLEX,
         typeName: "CurrentDataLandscape",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Current data landscape.",
         classDocComment: "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11641,7 +11665,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "CUOPME-OPER-xxx",
       kind: SomMetaKind.LIST,
       typeName: "CurrentOperationalMetric",
-      serializationOrder: 6,
+      serializationOrder: 8,
       docComment: "Current operational metrics.",
       elementNode: _cx("CurrentOperationalMetric", s, _mc_CurrentOperationalMetric, (r, c) => new SomMetaNode({className: "CurrentOperationalMetric", classSectionId: "CUOPME", kind: SomMetaKind.COMPLEX, typeName: "CurrentOperationalMetric", docComment: "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.", classDocComment: "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.", detailedIn: "D01CurrentLandscapeAssessment", recursive: r, children: c}))}),
      _cx("CurrentStateRiskAssessment", s, _mc_CurrentStateRiskAssessment,
@@ -11651,7 +11675,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "CUSTRI",
         kind: SomMetaKind.COMPLEX,
         typeName: "CurrentStateRiskAssessment",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Current-state risk assessment.",
         classDocComment: "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11664,7 +11688,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "RI",
         kind: SomMetaKind.COMPLEX,
         typeName: "ReplacementInventory",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Replacement inventory.",
         classDocComment: "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11677,7 +11701,7 @@ function _mc_D01CurrentLandscapeAssessment(s: Set<string>): SomMetaNode[] {
         classSectionId: "MIGCON",
         kind: SomMetaKind.COMPLEX,
         typeName: "MigrationConsiderations",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Migration considerations.",
         classDocComment: "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.",
         detailedIn: "D01CurrentLandscapeAssessment",
@@ -11709,6 +11733,30 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D02TargetOperatingModel",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("ProcessVision", s, _mc_ProcessVision,
       (r, c) => new SomMetaNode({
         className: "ProcessVision",
@@ -11716,7 +11764,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PRVIZ",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessVision",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Process vision.",
         classDocComment: "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.",
         detailedIn: "D02TargetOperatingModel",
@@ -11729,7 +11777,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PDPRI",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessDesignPrinciples",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Design principles.",
         classDocComment: "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.",
         detailedIn: "D02TargetOperatingModel",
@@ -11742,7 +11790,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PRCAT",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessCatalog",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Process catalog.",
         classDocComment: "6.1.3. Process Catalog.\n\nContainer for business process definitions.",
         detailedIn: "D02TargetOperatingModel",
@@ -11755,7 +11803,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PROVDI",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessOverviewDiagram",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Process overview diagram.",
         classDocComment: "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.",
         detailedIn: "D02TargetOperatingModel",
@@ -11768,7 +11816,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PRIMSU",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessImprovementSummary",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Improvement summary.",
         classDocComment: "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.",
         detailedIn: "D02TargetOperatingModel",
@@ -11781,7 +11829,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PR",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessRelationships",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Process relationships.",
         classDocComment: "Process relationships and dependencies (supplementary section).",
         detailedIn: "D02TargetOperatingModel",
@@ -11794,7 +11842,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "DEPRWO-DETA-xxx",
       kind: SomMetaKind.LIST,
       typeName: "DetailedProcessWorkflow",
-      serializationOrder: 8,
+      serializationOrder: 10,
       docComment: "Detailed process workflows.",
       elementNode: _cx("DetailedProcessWorkflow", s, _mc_DetailedProcessWorkflow, (r, c) => new SomMetaNode({className: "DetailedProcessWorkflow", classSectionId: "DEPRWO", kind: SomMetaKind.COMPLEX, typeName: "DetailedProcessWorkflow", docComment: "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.", classDocComment: "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.", detailedIn: "D02TargetOperatingModel", recursive: r, children: c}))}),
      _cx("CrossProcessAnalysis", s, _mc_CrossProcessAnalysis,
@@ -11804,7 +11852,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "CRPRAN",
         kind: SomMetaKind.COMPLEX,
         typeName: "CrossProcessAnalysis",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Cross-process analysis.",
         classDocComment: "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.",
         detailedIn: "D02TargetOperatingModel",
@@ -11817,7 +11865,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "PREXHA",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessExceptionHandling",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "Process exception handling.",
         classDocComment: "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers",
         detailedIn: "D02TargetOperatingModel",
@@ -11830,7 +11878,7 @@ function _mc_D02TargetOperatingModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "PMAK-PROC-xxx",
       kind: SomMetaKind.LIST,
       typeName: "ProcessMetric",
-      serializationOrder: 11,
+      serializationOrder: 13,
       docComment: "Process metrics and KPIs.",
       elementNode: _cx("ProcessMetric", s, _mc_ProcessMetric, (r, c) => new SomMetaNode({className: "ProcessMetric", classSectionId: "PMAK", kind: SomMetaKind.COMPLEX, typeName: "ProcessMetric", docComment: "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.", classDocComment: "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.", detailedIn: "D02TargetOperatingModel", recursive: r, children: c}))}),
   ];
@@ -11859,6 +11907,30 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D03InformationModel",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "D03InformationModel",
       memberName: "entities",
@@ -11866,7 +11938,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "DAENT-ENTI-xxx",
       kind: SomMetaKind.LIST,
       typeName: "DataEntityEntry",
-      serializationOrder: 2,
+      serializationOrder: 4,
       min: 1,
       docComment: "Entity inventory (list).",
       elementNode: _cx("DataEntityEntry", s, _mc_DataEntityEntry, (r, c) => new SomMetaNode({className: "DataEntityEntry", classSectionId: "DAENT", kind: SomMetaKind.COMPLEX, typeName: "DataEntityEntry", docComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", classDocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", recursive: r, children: c}))}),
@@ -11877,7 +11949,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "ENREL",
         kind: SomMetaKind.COMPLEX,
         typeName: "EntityRelationships",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Entity relationships.",
         classDocComment: "7.1.2. Entity Relationships.",
         detailedIn: "D03InformationModel",
@@ -11888,7 +11960,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       memberName: "erDiagram",
       kind: SomMetaKind.SECTION,
       typeName: "String",
-      serializationOrder: 4,
+      serializationOrder: 6,
       contentType: new SomContentTypeMeta("mermaid-er", ""),
       docComment: "Entity-relationship diagram."}),
      _cx("DataClassification", s, _mc_DataClassification,
@@ -11898,7 +11970,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "DATCL",
         kind: SomMetaKind.COMPLEX,
         typeName: "DataClassification",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Data classification.",
         classDocComment: "7.1.4. Data Classification.",
         detailedIn: "D03InformationModel",
@@ -11911,7 +11983,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "BJOEN-OBJE-xxx",
       kind: SomMetaKind.LIST,
       typeName: "BusinessObjectEntry",
-      serializationOrder: 6,
+      serializationOrder: 8,
       min: 1,
       docComment: "Business object catalog (list).",
       elementNode: _cx("BusinessObjectEntry", s, _mc_BusinessObjectEntry, (r, c) => new SomMetaNode({className: "BusinessObjectEntry", classSectionId: "BJOEN", kind: SomMetaKind.COMPLEX, typeName: "BusinessObjectEntry", docComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", classDocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", recursive: r, children: c}))}),
@@ -11920,7 +11992,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       memberName: "objectDiagram",
       kind: SomMetaKind.SECTION,
       typeName: "String",
-      serializationOrder: 7,
+      serializationOrder: 9,
       contentType: new SomContentTypeMeta("mermaid", ""),
       docComment: "Business object diagram."}),
      new SomMetaNode({
@@ -11930,7 +12002,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "FUNCT-FUNC-xxx",
       kind: SomMetaKind.LIST,
       typeName: "FunctionEntry",
-      serializationOrder: 8,
+      serializationOrder: 10,
       docComment: "Function decomposition (list).",
       elementNode: _cx("FunctionEntry", s, _mc_FunctionEntry, (r, c) => new SomMetaNode({className: "FunctionEntry", classSectionId: "FUNCT", kind: SomMetaKind.COMPLEX, typeName: "FunctionEntry", docComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", classDocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", recursive: r, children: c}))}),
      new SomMetaNode({
@@ -11940,7 +12012,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "FNDMX-FUNC-xxx",
       kind: SomMetaKind.LIST,
       typeName: "FunctionDataMatrixEntry",
-      serializationOrder: 9,
+      serializationOrder: 11,
       docComment: "Function-to-data matrix (list).",
       elementNode: _cx("FunctionDataMatrixEntry", s, _mc_FunctionDataMatrixEntry, (r, c) => new SomMetaNode({className: "FunctionDataMatrixEntry", classSectionId: "FNDMX", kind: SomMetaKind.COMPLEX, typeName: "FunctionDataMatrixEntry", docComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", classDocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", recursive: r, children: c}))}),
      new SomMetaNode({
@@ -11950,7 +12022,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "BIRU-BUSI-xxx",
       kind: SomMetaKind.LIST,
       typeName: "BusinessRuleEntry",
-      serializationOrder: 10,
+      serializationOrder: 12,
       min: 1,
       docComment: "Business rules catalog (list).",
       elementNode: _cx("BusinessRuleEntry", s, _mc_BusinessRuleEntry, (r, c) => new SomMetaNode({className: "BusinessRuleEntry", classSectionId: "BIRU", kind: SomMetaKind.COMPLEX, typeName: "BusinessRuleEntry", docComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", classDocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", recursive: r, children: c}))}),
@@ -11961,7 +12033,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "DADI",
         kind: SomMetaKind.COMPLEX,
         typeName: "DataDictionary",
-        serializationOrder: 11,
+        serializationOrder: 13,
         docComment: "Data dictionary.",
         classDocComment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..",
         detailedIn: "D03InformationModel",
@@ -11974,7 +12046,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "VACO",
         kind: SomMetaKind.COMPLEX,
         typeName: "ValidationConstraints",
-        serializationOrder: 12,
+        serializationOrder: 14,
         docComment: "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).",
         classDocComment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.",
         detailedIn: "D03InformationModel",
@@ -11987,7 +12059,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "INCO",
         kind: SomMetaKind.COMPLEX,
         typeName: "IntegrityConstraints",
-        serializationOrder: 13,
+        serializationOrder: 15,
         docComment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).",
         classDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.",
         detailedIn: "D03InformationModel",
@@ -12000,7 +12072,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "DOMEN",
         kind: SomMetaKind.COMPLEX,
         typeName: "DomainEnumRegistry",
-        serializationOrder: 14,
+        serializationOrder: 16,
         docComment: "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
         classDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
         recursive: r,
@@ -12012,7 +12084,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "ERCRG",
         kind: SomMetaKind.COMPLEX,
         typeName: "ErrorCodeRegistry",
-        serializationOrder: 15,
+        serializationOrder: 17,
         docComment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).",
         classDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.",
         recursive: r,
@@ -12024,7 +12096,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "RSLTE",
         kind: SomMetaKind.COMPLEX,
         typeName: "ResultEnvelope",
-        serializationOrder: 16,
+        serializationOrder: 18,
         docComment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).",
         classDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
         recursive: r,
@@ -12036,7 +12108,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "MSGKR",
         kind: SomMetaKind.COMPLEX,
         typeName: "MessageKeyRegistry",
-        serializationOrder: 17,
+        serializationOrder: 19,
         docComment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
         classDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.",
         recursive: r,
@@ -12048,7 +12120,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "SVOPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "ServerOperationRegistry",
-        serializationOrder: 18,
+        serializationOrder: 20,
         docComment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
         classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
         recursive: r,
@@ -12060,7 +12132,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         classSectionId: "SCHMG",
         kind: SomMetaKind.COMPLEX,
         typeName: "SchemaVersioningAndMigration",
-        serializationOrder: 19,
+        serializationOrder: 21,
         docComment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.",
         classDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
         recursive: r,
@@ -12091,6 +12163,30 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D04RequirementsSpecification",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("FunctionalRequirements", s, _mc_FunctionalRequirements,
       (r, c) => new SomMetaNode({
         className: "FunctionalRequirements",
@@ -12098,7 +12194,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "FR",
         kind: SomMetaKind.COMPLEX,
         typeName: "FunctionalRequirements",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Functional requirements.",
         classDocComment: "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.",
         detailedIn: "D04RequirementsSpecification",
@@ -12111,7 +12207,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "TR1",
         kind: SomMetaKind.COMPLEX,
         typeName: "TechnicalRequirements",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Technical (non-functional) requirements.",
         classDocComment: "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.",
         detailedIn: "D04RequirementsSpecification",
@@ -12124,7 +12220,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "SR1",
         kind: SomMetaKind.COMPLEX,
         typeName: "SecurityRequirements",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Security requirements.",
         classDocComment: "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.",
         detailedIn: "D04RequirementsSpecification",
@@ -12137,7 +12233,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "OR",
         kind: SomMetaKind.COMPLEX,
         typeName: "OrganizationalRequirements",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Organizational requirements.",
         classDocComment: "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.",
         detailedIn: "D04RequirementsSpecification",
@@ -12149,7 +12245,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
       sectionId: "RSP-TRAC",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
-      serializationOrder: 6,
+      serializationOrder: 8,
       contentType: new SomContentTypeMeta("description", "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."),
       docComment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side."}),
      new SomMetaNode({
@@ -12159,7 +12255,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "RERE-REQU-xxx",
       kind: SomMetaKind.LIST,
       typeName: "RequirementRelationships",
-      serializationOrder: 7,
+      serializationOrder: 9,
       docComment: "Requirement relationships.",
       elementNode: _cx("RequirementRelationships", s, _mc_RequirementRelationships, (r, c) => new SomMetaNode({className: "RequirementRelationships", classSectionId: "RERE", kind: SomMetaKind.COMPLEX, typeName: "RequirementRelationships", docComment: "4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.", classDocComment: "4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.", detailedIn: "D04RequirementsSpecification", recursive: r, children: c}))}),
      _cx("RequirementCoverage", s, _mc_RequirementCoverage,
@@ -12169,7 +12265,7 @@ function _mc_D04RequirementsSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "REQCOV",
         kind: SomMetaKind.COMPLEX,
         typeName: "RequirementCoverage",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Requirement coverage.",
         classDocComment: "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.",
         detailedIn: "D04RequirementsSpecification",
@@ -12201,6 +12297,30 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D05InteractionScenarios",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("ProcessStepsOverview", s, _mc_ProcessStepsOverview,
       (r, c) => new SomMetaNode({
         className: "ProcessStepsOverview",
@@ -12208,7 +12328,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classSectionId: "PRSTOV",
         kind: SomMetaKind.COMPLEX,
         typeName: "ProcessStepsOverview",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Process steps overview.",
         classDocComment: "6.2. Process Steps Overview.",
         detailedIn: "D05InteractionScenarios",
@@ -12221,7 +12341,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classSectionId: "ACOV",
         kind: SomMetaKind.COMPLEX,
         typeName: "ActorOverview",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Actor overview.",
         classDocComment: "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.",
         detailedIn: "D05InteractionScenarios",
@@ -12234,7 +12354,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classSectionId: "INCA",
         kind: SomMetaKind.COMPLEX,
         typeName: "InteractionCatalog",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Interaction catalog.",
         classDocComment: "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.",
         detailedIn: "D05InteractionScenarios",
@@ -12247,7 +12367,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classSectionId: "KESC",
         kind: SomMetaKind.COMPLEX,
         typeName: "KeyScenarios",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Key scenarios.",
         classDocComment: "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.",
         detailedIn: "D05InteractionScenarios",
@@ -12260,7 +12380,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classSectionId: "ACREDI",
         kind: SomMetaKind.COMPLEX,
         typeName: "ActorRelationshipDiagram",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Actor relationship diagram.",
         classDocComment: "6.2. Actor Relationship Diagram.",
         detailedIn: "D05InteractionScenarios",
@@ -12273,7 +12393,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "ETETS-ENDT-xxx",
       kind: SomMetaKind.LIST,
       typeName: "EndToEndTestScenario",
-      serializationOrder: 7,
+      serializationOrder: 9,
       docComment: "End-to-end test scenarios.",
       elementNode: _cx("EndToEndTestScenario", s, _mc_EndToEndTestScenario, (r, c) => new SomMetaNode({className: "EndToEndTestScenario", classSectionId: "ETETS", kind: SomMetaKind.COMPLEX, typeName: "EndToEndTestScenario", docComment: "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..", classDocComment: "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..", detailedIn: "D05InteractionScenarios", recursive: r, children: c}))}),
      _cx("UseCaseTraceability", s, _mc_UseCaseTraceability,
@@ -12283,7 +12403,7 @@ function _mc_D05InteractionScenarios(s: Set<string>): SomMetaNode[] {
         classSectionId: "USCATR",
         kind: SomMetaKind.COMPLEX,
         typeName: "UseCaseTraceability",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Use case traceability.",
         classDocComment: "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.",
         detailedIn: "D05InteractionScenarios",
@@ -12315,6 +12435,30 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D06ArchitectureTechnologySpecification",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("BasicTechnicalRequirements", s, _mc_BasicTechnicalRequirements,
       (r, c) => new SomMetaNode({
         className: "BasicTechnicalRequirements",
@@ -12322,7 +12466,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "BTREQ",
         kind: SomMetaKind.COMPLEX,
         typeName: "BasicTechnicalRequirements",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Basic technical requirements.",
         classDocComment: "8.1. Basic Technical Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12335,7 +12479,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "SDR",
         kind: SomMetaKind.COMPLEX,
         typeName: "SoftwareDesignRequirements",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Software design requirements.",
         classDocComment: "8.2. Software Design Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12348,7 +12492,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "SSR",
         kind: SomMetaKind.COMPLEX,
         typeName: "StandardSoftwareRequirements",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Standard application software requirements.",
         classDocComment: "8.3. Standard Application Software Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12361,7 +12505,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "HR",
         kind: SomMetaKind.COMPLEX,
         typeName: "HardwareRequirements",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Hardware concept requirements.",
         classDocComment: "8.4. Hardware Concept Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12374,7 +12518,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "OPRE",
         kind: SomMetaKind.COMPLEX,
         typeName: "OperationsRequirements",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Operations requirements.",
         classDocComment: "8.5. Operations Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12387,7 +12531,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "COMREQ",
         kind: SomMetaKind.COMPLEX,
         typeName: "CommunicationRequirements",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Communication requirements.",
         classDocComment: "8.6. Communication Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12400,7 +12544,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "SOAM",
         kind: SomMetaKind.COMPLEX,
         typeName: "SystemOperationAndMonitoring",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "System operation and monitoring.",
         classDocComment: "8.7. System Operation and Monitoring.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12413,7 +12557,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "TSR",
         kind: SomMetaKind.COMPLEX,
         typeName: "TechnicalSecurityRequirements",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Technical security requirements.",
         classDocComment: "8.8. Security Requirements.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12426,7 +12570,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "SYARSP",
         kind: SomMetaKind.COMPLEX,
         typeName: "SystemArchitectureSpec",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "System architecture (new in Phase A).",
         classDocComment: "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.",
         detailedIn: "D06ArchitectureTechnologySpecification",
@@ -12439,7 +12583,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "COMP",
         kind: SomMetaKind.COMPLEX,
         typeName: "ComponentsAndDependencies",
-        serializationOrder: 11,
+        serializationOrder: 13,
         docComment: "Components to use (whole).",
         classDocComment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
         mapsTo: "D06ArchitectureTechnologySpecification",
@@ -12453,7 +12597,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "TEEN",
         kind: SomMetaKind.COMPLEX,
         typeName: "TechnicalEnvironment",
-        serializationOrder: 12,
+        serializationOrder: 14,
         docComment: "Technical framework conditions (whole).",
         classDocComment: "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
         mapsTo: "D06ArchitectureTechnologySpecification",
@@ -12467,7 +12611,7 @@ function _mc_D06ArchitectureTechnologySpecification(s: Set<string>): SomMetaNode
         classSectionId: "TRAREQ",
         kind: SomMetaKind.COMPLEX,
         typeName: "TranslationRequirements",
-        serializationOrder: 13,
+        serializationOrder: 15,
         docComment: "Translation handling requirements (whole).",
         classDocComment: "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.",
         mapsTo: "D06ArchitectureTechnologySpecification",
@@ -12500,6 +12644,30 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D07IntegrationInterfaceSpecification",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("ExternalInterfaces", s, _mc_ExternalInterfaces,
       (r, c) => new SomMetaNode({
         className: "ExternalInterfaces",
@@ -12507,7 +12675,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "EXIN",
         kind: SomMetaKind.COMPLEX,
         typeName: "ExternalInterfaces",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "External interfaces.",
         classDocComment: "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12520,7 +12688,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "OUOFSC",
         kind: SomMetaKind.COMPLEX,
         typeName: "OutOfScope",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Out of scope.",
         classDocComment: "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12533,7 +12701,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "BOAS",
         kind: SomMetaKind.COMPLEX,
         typeName: "BoundaryAssumptions",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Boundary assumptions.",
         classDocComment: "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12546,7 +12714,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "SYLAIN",
         kind: SomMetaKind.COMPLEX,
         typeName: "SystemLandscapeInventory",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "System landscape inventory.",
         classDocComment: "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12559,7 +12727,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
       sectionIdPattern: "BOINPA-INTE-xxx",
       kind: SomMetaKind.LIST,
       typeName: "BoundaryInteractionPatterns",
-      serializationOrder: 6,
+      serializationOrder: 8,
       docComment: "Boundary interaction patterns.",
       elementNode: _cx("BoundaryInteractionPatterns", s, _mc_BoundaryInteractionPatterns, (r, c) => new SomMetaNode({className: "BoundaryInteractionPatterns", classSectionId: "BOINPA", kind: SomMetaKind.COMPLEX, typeName: "BoundaryInteractionPatterns", docComment: "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.", classDocComment: "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.", detailedIn: "D07IntegrationInterfaceSpecification", recursive: r, children: c}))}),
      _cx("InteractionTestingStrategy", s, _mc_InteractionTestingStrategy,
@@ -12569,7 +12737,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "INTES1",
         kind: SomMetaKind.COMPLEX,
         typeName: "InteractionTestingStrategy",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Interaction testing strategy.",
         classDocComment: "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12582,7 +12750,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "INDEAN",
         kind: SomMetaKind.COMPLEX,
         typeName: "InteractionDependencyAnalysis",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Interaction dependency analysis.",
         classDocComment: "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12595,7 +12763,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
       sectionIdPattern: "MIIN-MIGR-xxx",
       kind: SomMetaKind.LIST,
       typeName: "MigrationInteractions",
-      serializationOrder: 9,
+      serializationOrder: 11,
       docComment: "Migration interactions.",
       elementNode: _cx("MigrationInteractions", s, _mc_MigrationInteractions, (r, c) => new SomMetaNode({className: "MigrationInteractions", classSectionId: "MIIN", kind: SomMetaKind.COMPLEX, typeName: "MigrationInteractions", docComment: "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.", classDocComment: "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.", detailedIn: "D07IntegrationInterfaceSpecification", recursive: r, children: c}))}),
      new SomMetaNode({
@@ -12605,7 +12773,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
       sectionIdPattern: "CBOC-OPER-xxx",
       kind: SomMetaKind.LIST,
       typeName: "CrossBoundaryOperationalConsiderations",
-      serializationOrder: 10,
+      serializationOrder: 12,
       docComment: "Cross-boundary operational considerations.",
       elementNode: _cx("CrossBoundaryOperationalConsiderations", s, _mc_CrossBoundaryOperationalConsiderations, (r, c) => new SomMetaNode({className: "CrossBoundaryOperationalConsiderations", classSectionId: "CBOC", kind: SomMetaKind.COMPLEX, typeName: "CrossBoundaryOperationalConsiderations", docComment: "4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.", classDocComment: "4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.", detailedIn: "D07IntegrationInterfaceSpecification", recursive: r, children: c}))}),
      _cx("CrossBoundaryErrorHandling", s, _mc_CrossBoundaryErrorHandling,
@@ -12615,7 +12783,7 @@ function _mc_D07IntegrationInterfaceSpecification(s: Set<string>): SomMetaNode[]
         classSectionId: "CBEH",
         kind: SomMetaKind.COMPLEX,
         typeName: "CrossBoundaryErrorHandling",
-        serializationOrder: 11,
+        serializationOrder: 13,
         docComment: "Cross-boundary error handling.",
         classDocComment: "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.",
         detailedIn: "D07IntegrationInterfaceSpecification",
@@ -12647,6 +12815,30 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D08SecurityAccessSpecification",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("UserManagement", s, _mc_UserManagement,
       (r, c) => new SomMetaNode({
         className: "UserManagement",
@@ -12654,7 +12846,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "USMGT",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserManagement",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "User management.",
         classDocComment: "9.1. User Management.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12667,7 +12859,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "IDAUT",
         kind: SomMetaKind.COMPLEX,
         typeName: "IdentificationAndAuthentication",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Identification and authentication.",
         classDocComment: "9.2. Identification and Authentication.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12680,7 +12872,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "RESPRO",
         kind: SomMetaKind.COMPLEX,
         typeName: "ResourceProtection",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Resource protection.",
         classDocComment: "9.3. Resource Protection.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12693,7 +12885,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "USAU",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserAuthorization",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "User authorization.",
         classDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12706,7 +12898,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "SEDAEN",
         kind: SomMetaKind.COMPLEX,
         typeName: "SensitiveDataEncryption",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Sensitive data encryption.",
         classDocComment: "9.5. Sensitive Data Encryption.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12719,7 +12911,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "AUANLO",
         kind: SomMetaKind.COMPLEX,
         typeName: "AuditAndLogging",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Audit and logging — the CE-LG / CE-CF declarations.",
         classDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12732,7 +12924,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "ROMA",
         kind: SomMetaKind.COMPLEX,
         typeName: "RoleMatrix",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Role matrix.",
         classDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12745,7 +12937,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "CF",
         kind: SomMetaKind.COMPLEX,
         typeName: "ComplianceFramework",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Compliance framework.",
         classDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
         detailedIn: "D08SecurityAccessSpecification",
@@ -12758,7 +12950,7 @@ function _mc_D08SecurityAccessSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "COMREP",
         kind: SomMetaKind.COMPLEX,
         typeName: "ComplianceReporting",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
         classDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
         recursive: r,
@@ -12789,6 +12981,30 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D09ExperienceDesignSpecification",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("DesignVision", s, _mc_DesignVision,
       (r, c) => new SomMetaNode({
         className: "DesignVision",
@@ -12796,7 +13012,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "DEVIZ",
         kind: SomMetaKind.COMPLEX,
         typeName: "DesignVision",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Design vision.",
         classDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12810,7 +13026,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "SCRDZ",
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenDescriptions",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Screen descriptions.",
         classDocComment: "10.2. Screen Descriptions.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12824,7 +13040,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "SCFLST",
         kind: SomMetaKind.COMPLEX,
         typeName: "ScreenFlowStructure",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Screen flow structure.",
         classDocComment: "10.3. Screen Flow Structure.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12838,7 +13054,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "PRLA",
         kind: SomMetaKind.COMPLEX,
         typeName: "PrintAndExportLayout",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Print layout.",
         classDocComment: "10.4. Print Layout.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12852,7 +13068,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "REDF",
         kind: SomMetaKind.COMPLEX,
         typeName: "ReportDefinitions",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Report definitions — the CE-RP report projections over the domain model.",
         classDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
         recursive: r,
@@ -12864,7 +13080,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "ERHACO",
         kind: SomMetaKind.COMPLEX,
         typeName: "ErrorHandling",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Error handling concept.",
         classDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12878,7 +13094,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "USAS",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserAssistance",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Help concept.",
         classDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12892,7 +13108,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "ACCESS",
         kind: SomMetaKind.COMPLEX,
         typeName: "Accessibility",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Accessibility.",
         classDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12906,7 +13122,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "REDE",
         kind: SomMetaKind.COMPLEX,
         typeName: "ResponsiveDesign",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "Responsive design.",
         classDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12920,7 +13136,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "UICO",
         kind: SomMetaKind.COMPLEX,
         typeName: "UiComponents",
-        serializationOrder: 11,
+        serializationOrder: 13,
         docComment: "UI components.",
         classDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12934,7 +13150,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "LACOSE",
         kind: SomMetaKind.COMPLEX,
         typeName: "LanguageCountrySelection",
-        serializationOrder: 12,
+        serializationOrder: 14,
         docComment: "Language and country selection.",
         classDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12948,7 +13164,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "PROTOT",
         kind: SomMetaKind.COMPLEX,
         typeName: "Prototype",
-        serializationOrder: 13,
+        serializationOrder: 15,
         docComment: "Prototype.",
         classDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12962,7 +13178,7 @@ function _mc_D09ExperienceDesignSpecification(s: Set<string>): SomMetaNode[] {
         classSectionId: "WIANMO",
         kind: SomMetaKind.COMPLEX,
         typeName: "WireframesAndMockups",
-        serializationOrder: 14,
+        serializationOrder: 16,
         docComment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
         classDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
         mapsTo: "D09ExperienceDesignSpecification",
@@ -12995,6 +13211,30 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D10QualityAcceptancePlan",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("QualityFramework", s, _mc_QualityFramework,
       (r, c) => new SomMetaNode({
         className: "QualityFramework",
@@ -13002,7 +13242,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "QLFWK",
         kind: SomMetaKind.COMPLEX,
         typeName: "QualityFramework",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Quality framework.",
         classDocComment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13015,7 +13255,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "FNSU",
         kind: SomMetaKind.COMPLEX,
         typeName: "FunctionalSuitabilityCharacteristic",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Functional suitability (ISO/IEC 25010:2023).",
         classDocComment: "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13028,7 +13268,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "PEEF",
         kind: SomMetaKind.COMPLEX,
         typeName: "PerformanceEfficiencyCharacteristic",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "Performance efficiency (ISO/IEC 25010:2023).",
         classDocComment: "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13041,7 +13281,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "CMPT",
         kind: SomMetaKind.COMPLEX,
         typeName: "CompatibilityCharacteristic",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Compatibility (ISO/IEC 25010:2023).",
         classDocComment: "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13054,7 +13294,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "INCP",
         kind: SomMetaKind.COMPLEX,
         typeName: "InteractionCapabilityCharacteristic",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Interaction capability (ISO/IEC 25010:2023; formerly Usability).",
         classDocComment: "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13067,7 +13307,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "RELC",
         kind: SomMetaKind.COMPLEX,
         typeName: "ReliabilityCharacteristic",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Reliability (ISO/IEC 25010:2023).",
         classDocComment: "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13080,7 +13320,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "SECC",
         kind: SomMetaKind.COMPLEX,
         typeName: "SecurityCharacteristic",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Security (ISO/IEC 25010:2023).",
         classDocComment: "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13093,7 +13333,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "MNTC",
         kind: SomMetaKind.COMPLEX,
         typeName: "MaintainabilityCharacteristic",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Maintainability (ISO/IEC 25010:2023).",
         classDocComment: "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13106,7 +13346,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "FLXC",
         kind: SomMetaKind.COMPLEX,
         typeName: "FlexibilityCharacteristic",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
         classDocComment: "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13119,7 +13359,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "DOQUCR",
         kind: SomMetaKind.COMPLEX,
         typeName: "DocumentationQualityCriteria",
-        serializationOrder: 11,
+        serializationOrder: 13,
         docComment: "Documentation quality (ISO/IEC 26514 annex).",
         classDocComment: "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13132,7 +13372,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "QUPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "QualityPrioritization",
-        serializationOrder: 12,
+        serializationOrder: 14,
         docComment: "Quality prioritization.",
         classDocComment: "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13145,7 +13385,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "ACCRSU",
         kind: SomMetaKind.COMPLEX,
         typeName: "AcceptanceCriteriaSummary",
-        serializationOrder: 13,
+        serializationOrder: 15,
         docComment: "Acceptance criteria summary.",
         classDocComment: "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13158,7 +13398,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "TEST",
         kind: SomMetaKind.COMPLEX,
         typeName: "TestStrategy",
-        serializationOrder: 14,
+        serializationOrder: 16,
         docComment: "Test strategy (new in Phase A).",
         classDocComment: "11.8. Test Strategy.\n\nOverall test strategy for the project..",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13171,7 +13411,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "ACRITL",
         kind: SomMetaKind.COMPLEX,
         typeName: "AcceptanceCriteriaList",
-        serializationOrder: 15,
+        serializationOrder: 17,
         docComment: "Acceptance criteria.",
         classDocComment: "14.2.1. Acceptance Criteria.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13184,7 +13424,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "ACPR1",
         kind: SomMetaKind.COMPLEX,
         typeName: "AcceptanceProcess",
-        serializationOrder: 16,
+        serializationOrder: 18,
         docComment: "Acceptance process.",
         classDocComment: "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13197,7 +13437,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "USACTE",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserAcceptanceTesting",
-        serializationOrder: 17,
+        serializationOrder: 19,
         docComment: "User acceptance testing.",
         classDocComment: "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13210,7 +13450,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "DERE",
         kind: SomMetaKind.COMPLEX,
         typeName: "DefectResolution",
-        serializationOrder: 18,
+        serializationOrder: 20,
         docComment: "Defect resolution.",
         classDocComment: "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13223,7 +13463,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "SIOFPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "SignOffProcess",
-        serializationOrder: 19,
+        serializationOrder: 21,
         docComment: "Sign-off process.",
         classDocComment: "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13236,7 +13476,7 @@ function _mc_D10QualityAcceptancePlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "WATE",
         kind: SomMetaKind.COMPLEX,
         typeName: "WarrantyTerms",
-        serializationOrder: 20,
+        serializationOrder: 22,
         docComment: "Warranty terms.",
         classDocComment: "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.",
         detailedIn: "D10QualityAcceptancePlan",
@@ -13268,6 +13508,30 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D11DeliveryRoadmap",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("StagingStrategy", s, _mc_StagingStrategy,
       (r, c) => new SomMetaNode({
         className: "StagingStrategy",
@@ -13275,7 +13539,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "STAGST",
         kind: SomMetaKind.COMPLEX,
         typeName: "StagingStrategy",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Staging strategy.",
         classDocComment: "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.",
         detailedIn: "D11DeliveryRoadmap",
@@ -13288,7 +13552,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "STAGOV",
         kind: SomMetaKind.COMPLEX,
         typeName: "StageOverview",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Stage overview.",
         classDocComment: "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.",
         detailedIn: "D11DeliveryRoadmap",
@@ -13301,7 +13565,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "STAGE-STAG-xxx",
       kind: SomMetaKind.LIST,
       typeName: "StageEntry",
-      serializationOrder: 4,
+      serializationOrder: 6,
       min: 1,
       docComment: "Stages (list).",
       elementNode: _cx("StageEntry", s, _mc_StageEntry, (r, c) => new SomMetaNode({className: "StageEntry", classSectionId: "STAGE", kind: SomMetaKind.COMPLEX, typeName: "StageEntry", docComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", classDocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", recursive: r, children: c}))}),
@@ -13312,7 +13576,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "FEPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "FeaturePrioritization",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Feature prioritization.",
         classDocComment: "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.",
         detailedIn: "D11DeliveryRoadmap",
@@ -13325,7 +13589,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "DAMIST",
         kind: SomMetaKind.COMPLEX,
         typeName: "DataMigrationStrategy",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Data migration strategy.",
         classDocComment: "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.",
         detailedIn: "D11DeliveryRoadmap",
@@ -13338,7 +13602,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "PHGARE",
         kind: SomMetaKind.COMPLEX,
         typeName: "PhaseGateReviews",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Gate criteria (promoted from GOV).",
         classDocComment: "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).",
         detailedIn: "D11DeliveryRoadmap",
@@ -13351,7 +13615,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "DEPO",
         kind: SomMetaKind.COMPLEX,
         typeName: "DecisionPoints",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "Decision processes (promoted from GOV).",
         classDocComment: "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.",
         detailedIn: "D11DeliveryRoadmap",
@@ -13364,7 +13628,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "INDEFL",
         kind: SomMetaKind.COMPLEX,
         typeName: "InitialDevelopmentFlow",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Initial development flow.",
         classDocComment: "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".",
         detailedIn: "D11DeliveryRoadmap",
@@ -13377,7 +13641,7 @@ function _mc_D11DeliveryRoadmap(s: Set<string>): SomMetaNode[] {
         classSectionId: "UPCYFR",
         kind: SomMetaKind.COMPLEX,
         typeName: "UpgradeCycleFramework",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).",
         classDocComment: "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.",
         detailedIn: "D11DeliveryRoadmap",
@@ -13409,6 +13673,30 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.",
         recursive: r,
         children: c})),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 2,
+        docComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "D12TransitionRolloutPlan",
+      memberName: "revisionHistory",
+      sectionId: "RVENT-REVS-LST",
+      sectionIdPattern: "RVENT-REVS-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RevisionEntry",
+      serializationOrder: 3,
+      contentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.",
+      docComment: "Chronological revision history of this document, with the reviewers of\neach revision.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"], "connotation": "The ordered set of published revisions of this document."})],
+      elementNode: _cx("RevisionEntry", s, _mc_RevisionEntry, (r, c) => new SomMetaNode({className: "RevisionEntry", classSectionId: "RVENT", kind: SomMetaKind.COMPLEX, typeName: "RevisionEntry", docComment: "A single document revision entry (form).", classDocComment: "A single document revision entry (form).", recursive: r, children: c}))}),
      _cx("LocalizationProcess", s, _mc_LocalizationProcess,
       (r, c) => new SomMetaNode({
         className: "LocalizationProcess",
@@ -13416,7 +13704,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "LOPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "LocalizationProcess",
-        serializationOrder: 2,
+        serializationOrder: 4,
         docComment: "Localization process.",
         classDocComment: "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.",
         mapsTo: "D12TransitionRolloutPlan",
@@ -13430,7 +13718,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "TRPR",
         kind: SomMetaKind.COMPLEX,
         typeName: "TranslationProcess",
-        serializationOrder: 3,
+        serializationOrder: 5,
         docComment: "Translation process.",
         classDocComment: "10.12.2. Translation Process.\n\nWorkflow for translating content.",
         mapsTo: "D12TransitionRolloutPlan",
@@ -13444,7 +13732,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "DOANTR",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserDocumentationRequirements",
-        serializationOrder: 4,
+        serializationOrder: 6,
         docComment: "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).",
         classDocComment: "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.",
         mapsTo: "D12TransitionRolloutPlan",
@@ -13458,7 +13746,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "TRMAT",
         kind: SomMetaKind.COMPLEX,
         typeName: "TrainingDeliverableRequirements",
-        serializationOrder: 5,
+        serializationOrder: 7,
         docComment: "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).",
         classDocComment: "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.",
         mapsTo: "D12TransitionRolloutPlan",
@@ -13472,7 +13760,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "RLTPLN",
         kind: SomMetaKind.COMPLEX,
         typeName: "RolloutPlan",
-        serializationOrder: 6,
+        serializationOrder: 8,
         docComment: "Rollout plan.",
         classDocComment: "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13485,7 +13773,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "MIGPLN",
         kind: SomMetaKind.COMPLEX,
         typeName: "MigrationPlan",
-        serializationOrder: 7,
+        serializationOrder: 9,
         docComment: "Migration plan.",
         classDocComment: "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13498,7 +13786,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "USRMAN",
         kind: SomMetaKind.COMPLEX,
         typeName: "UserManual",
-        serializationOrder: 8,
+        serializationOrder: 10,
         docComment: "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).",
         classDocComment: "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13511,7 +13799,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "RLTTM",
         kind: SomMetaKind.COMPLEX,
         typeName: "RolloutTrainingMaterial",
-        serializationOrder: 9,
+        serializationOrder: 11,
         docComment: "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).",
         classDocComment: "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13524,7 +13812,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "PLTPLN",
         kind: SomMetaKind.COMPLEX,
         typeName: "PilotPlan",
-        serializationOrder: 10,
+        serializationOrder: 12,
         docComment: "Pilot plan.",
         classDocComment: "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13537,7 +13825,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "CUTPRC",
         kind: SomMetaKind.COMPLEX,
         typeName: "CutoverProcedure",
-        serializationOrder: 11,
+        serializationOrder: 13,
         docComment: "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).",
         classDocComment: "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13550,7 +13838,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "KNTFR",
         kind: SomMetaKind.COMPLEX,
         typeName: "KnowledgeTransfer",
-        serializationOrder: 12,
+        serializationOrder: 14,
         docComment: "Knowledge transfer.",
         classDocComment: "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -13563,7 +13851,7 @@ function _mc_D12TransitionRolloutPlan(s: Set<string>): SomMetaNode[] {
         classSectionId: "WRTSP",
         kind: SomMetaKind.COMPLEX,
         typeName: "WarrantyAndSupport",
-        serializationOrder: 13,
+        serializationOrder: 15,
         docComment: "Warranty and support.",
         classDocComment: "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.",
         detailedIn: "D12TransitionRolloutPlan",
@@ -19231,6 +19519,30 @@ function _mc_DocumentRelevantSections(s: Set<string>): SomMetaNode[] {
       docComment: "Individual relevant section entries.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"], "connotation": "The set of relevant section entries within a referenced document."})],
       elementNode: _cx("RelevantSectionEntry", s, _mc_RelevantSectionEntry, (r, c) => new SomMetaNode({className: "RelevantSectionEntry", classSectionId: "RESEEN", kind: SomMetaKind.COMPLEX, typeName: "RelevantSectionEntry", docComment: "A single relevant section entry within a reference document.", classDocComment: "A single relevant section entry within a reference document.", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_DocumentReviewTeamEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "DocumentReviewTeamEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "documentType", typeName: "SpecDocumentType", description: "Document Type", required: true, hint: "The document root type this team reviews; one entry per type.", order: 0, enumValues: ["d01CurrentLandscapeAssessment", "d02TargetOperatingModel", "d03InformationModel", "d04RequirementsSpecification", "d05InteractionScenarios", "d06ArchitectureTechnologySpecification", "d07IntegrationInterfaceSpecification", "d08SecurityAccessSpecification", "d09ExperienceDesignSpecification", "d10QualityAcceptancePlan", "d11DeliveryRoadmap", "d12TransitionRolloutPlan"]})])}),
+     new SomMetaNode({
+      className: "DocumentReviewTeamEntry",
+      memberName: "members",
+      sectionId: "RVMEM-MEMB-LST",
+      sectionIdPattern: "RVMEM-MEMB-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ReviewTeamMember",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per member of this document type's team.",
+      docComment: "The members of the team.",
+      elementNode: _cx("ReviewTeamMember", s, _mc_ReviewTeamMember, (r, c) => new SomMetaNode({className: "ReviewTeamMember", classSectionId: "RVMEM", kind: SomMetaKind.COMPLEX, typeName: "ReviewTeamMember", docComment: "One member of a review team (form).", classDocComment: "One member of a review team (form).", recursive: r, children: c}))}),
   ];
 }
 
@@ -42094,6 +42406,57 @@ function _mc_ReviewCriterionEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_ReviewTeam(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ReviewTeam",
+      memberName: "content",
+      kind: SomMetaKind.CONTENT,
+      typeName: "String",
+      serializationOrder: 0,
+      contentType: new SomContentTypeMeta("text", ""),
+      contentHelp: "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."}),
+     new SomMetaNode({
+      className: "ReviewTeam",
+      memberName: "members",
+      sectionId: "RVMEM-MEMB-LST",
+      sectionIdPattern: "RVMEM-MEMB-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ReviewTeamMember",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per member. Mark the specification owner with owner: true in the default team.",
+      docComment: "The members of the team.",
+      elementNode: _cx("ReviewTeamMember", s, _mc_ReviewTeamMember, (r, c) => new SomMetaNode({className: "ReviewTeamMember", classSectionId: "RVMEM", kind: SomMetaKind.COMPLEX, typeName: "ReviewTeamMember", docComment: "One member of a review team (form).", classDocComment: "One member of a review team (form).", recursive: r, children: c}))}),
+  ];
+}
+
+function _mc_ReviewTeamMember(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ReviewTeamMember",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "memberId", typeName: "String", description: "Member Id", required: true, hint: "Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.", order: 0}), new SomFormFieldMeta({name: "displayName", typeName: "String", description: "Display Name", required: true, order: 1}), new SomFormFieldMeta({name: "role", typeName: "String", description: "Role", required: true, order: 2}), new SomFormFieldMeta({name: "stakeholder", typeName: "String", description: "Stakeholder", hint: "The stakeholder register entry this member represents.", order: 3, refersTo: ["STKRE.@sectionId"]}), new SomFormFieldMeta({name: "email", typeName: "String", description: "E-Mail", hint: "Stored only; nothing sends mail.", order: 4}), new SomFormFieldMeta({name: "owner", typeName: "bool", description: "Owner", hint: "true for the specification owner, who is always a reviewer.", order: 5})])}),
+  ];
+}
+
+function _mc_ReviewerRecord(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ReviewerRecord",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "memberId", typeName: "String", description: "Member Id", required: true, hint: "The member id, as in the team, or the guest's id.", order: 0}), new SomFormFieldMeta({name: "displayName", typeName: "String", description: "Display Name", required: true, order: 1}), new SomFormFieldMeta({name: "role", typeName: "String", description: "Role", order: 2}), new SomFormFieldMeta({name: "guest", typeName: "bool", description: "Guest", hint: "true for a reviewer who was not on the team the round used.", order: 3})])}),
+  ];
+}
+
 function _mc_RevisionEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -42104,6 +42467,28 @@ function _mc_RevisionEntry(s: Set<string>): SomMetaNode[] {
       serializationOrder: 0,
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
       form: new SomFormMeta([new SomFormFieldMeta({name: "version", typeName: "String", description: "Version", required: true, hint: "Semantic version of this revision, e.g. \"1.2.0\".", order: 0}), new SomFormFieldMeta({name: "date", typeName: "String", description: "Date", required: true, hint: "Date the revision was published (ISO 8601).", order: 1}), new SomFormFieldMeta({name: "author", typeName: "String", description: "Author", required: true, hint: "Person or role who produced the revision.", order: 2}), new SomFormFieldMeta({name: "summary", typeName: "String", description: "Summary of changes", hint: "One or two sentences on what changed and why.", order: 3})])}),
+     new SomMetaNode({
+      className: "RevisionEntry",
+      memberName: "reviewTeam",
+      sectionId: "RVWER-TEAM-LST",
+      sectionIdPattern: "RVWER-TEAM-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ReviewerRecord",
+      serializationOrder: 1,
+      contentHelp: "The members the review round started with, each written out in full.",
+      docComment: "The review team the round leading to this revision started with.",
+      elementNode: _cx("ReviewerRecord", s, _mc_ReviewerRecord, (r, c) => new SomMetaNode({className: "ReviewerRecord", classSectionId: "RVWER", kind: SomMetaKind.COMPLEX, typeName: "ReviewerRecord", docComment: "A reviewer recorded in a revision entry (form).", classDocComment: "A reviewer recorded in a revision entry (form).", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "RevisionEntry",
+      memberName: "reviewers",
+      sectionId: "RVWER-RETN-LST",
+      sectionIdPattern: "RVWER-RETN-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ReviewerRecord",
+      serializationOrder: 2,
+      contentHelp: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.",
+      docComment: "The reviewers who returned a reviewed copy, guests included.",
+      elementNode: _cx("ReviewerRecord", s, _mc_ReviewerRecord, (r, c) => new SomMetaNode({className: "ReviewerRecord", classSectionId: "RVWER", kind: SomMetaKind.COMPLEX, typeName: "ReviewerRecord", docComment: "A reviewer recorded in a revision entry (form).", classDocComment: "A reviewer recorded in a revision entry (form).", recursive: r, children: c}))}),
   ];
 }
 
@@ -48792,6 +49177,29 @@ function _mc_StakeholdersAndGovernance(s: Set<string>): SomMetaNode[] {
       docComment: "Stakeholder register.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"], "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."})],
       elementNode: _cx("StakeholderRegisterEntry", s, _mc_StakeholderRegisterEntry, (r, c) => new SomMetaNode({className: "StakeholderRegisterEntry", classSectionId: "STKRE", kind: SomMetaKind.COMPLEX, typeName: "StakeholderRegisterEntry", docComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", classDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", recursive: r, children: c}))}),
+     _cx("ReviewTeam", s, _mc_ReviewTeam,
+      (r, c) => new SomMetaNode({
+        className: "ReviewTeam",
+        memberName: "reviewTeam",
+        classSectionId: "RVTEAM",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "ReviewTeam",
+        serializationOrder: 9,
+        docComment: "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.",
+        classDocComment: "A review team: the members who review a document.",
+        recursive: r,
+        children: c})),
+     new SomMetaNode({
+      className: "StakeholdersAndGovernance",
+      memberName: "documentReviewTeams",
+      sectionId: "DCRVTM-DOCR-LST",
+      sectionIdPattern: "DCRVTM-DOCR-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "DocumentReviewTeamEntry",
+      serializationOrder: 10,
+      contentHelp: "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.",
+      docComment: "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.",
+      elementNode: _cx("DocumentReviewTeamEntry", s, _mc_DocumentReviewTeamEntry, (r, c) => new SomMetaNode({className: "DocumentReviewTeamEntry", classSectionId: "DCRVTM", kind: SomMetaKind.COMPLEX, typeName: "DocumentReviewTeamEntry", docComment: "The Solution Blueprint's review team for one document type (form + members).", classDocComment: "The Solution Blueprint's review team for one document type (form + members).", recursive: r, children: c}))}),
   ];
 }
 
@@ -64222,6 +64630,14 @@ export class D01CurrentLandscapeAssessment$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
+  }
+
   get existingSystemsLandscape(): ExistingSystemsLandscape$Nav {
     return new ExistingSystemsLandscape$Nav(this.tree, this.path + "/existingSystemsLandscape");
   }
@@ -64266,6 +64682,14 @@ export class D02TargetOperatingModel$Nav extends SomMetaRef {
 
   get header(): DocumentHeader$Nav {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get processVision(): ProcessVision$Nav {
@@ -64320,6 +64744,14 @@ export class D03InformationModel$Nav extends SomMetaRef {
 
   get header(): DocumentHeader$Nav {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get entities(): SomListMetaRef<DataEntityEntry$Nav> {
@@ -64408,6 +64840,14 @@ export class D04RequirementsSpecification$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
+  }
+
   get functionalRequirements(): FunctionalRequirements$Nav {
     return new FunctionalRequirements$Nav(this.tree, this.path + "/functionalRequirements");
   }
@@ -64450,6 +64890,14 @@ export class D05InteractionScenarios$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
+  }
+
   get processStepsOverview(): ProcessStepsOverview$Nav {
     return new ProcessStepsOverview$Nav(this.tree, this.path + "/processStepsOverview");
   }
@@ -64490,6 +64938,14 @@ export class D06ArchitectureTechnologySpecification$Nav extends SomMetaRef {
 
   get header(): DocumentHeader$Nav {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get basicTechnicalRequirements(): BasicTechnicalRequirements$Nav {
@@ -64554,6 +65010,14 @@ export class D07IntegrationInterfaceSpecification$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
+  }
+
   get externalInterfaces(): ExternalInterfaces$Nav {
     return new ExternalInterfaces$Nav(this.tree, this.path + "/externalInterfaces");
   }
@@ -64608,6 +65072,14 @@ export class D08SecurityAccessSpecification$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
+  }
+
   get userManagement(): UserManagement$Nav {
     return new UserManagement$Nav(this.tree, this.path + "/userManagement");
   }
@@ -64656,6 +65128,14 @@ export class D09ExperienceDesignSpecification$Nav extends SomMetaRef {
 
   get header(): DocumentHeader$Nav {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get designVision(): DesignVision$Nav {
@@ -64722,6 +65202,14 @@ export class D10QualityAcceptancePlan$Nav extends SomMetaRef {
 
   get header(): DocumentHeader$Nav {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get qualityFramework(): QualityFramework$Nav {
@@ -64814,6 +65302,14 @@ export class D11DeliveryRoadmap$Nav extends SomMetaRef {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
   }
 
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
+  }
+
   get stagingStrategy(): StagingStrategy$Nav {
     return new StagingStrategy$Nav(this.tree, this.path + "/stagingStrategy");
   }
@@ -64862,6 +65358,14 @@ export class D12TransitionRolloutPlan$Nav extends SomMetaRef {
 
   get header(): DocumentHeader$Nav {
     return new DocumentHeader$Nav(this.tree, this.path + "/header");
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get revisionHistory(): SomListMetaRef<RevisionEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Nav(t, p));
   }
 
   get localizationProcess(): LocalizationProcess$Nav {
@@ -67602,6 +68106,20 @@ export class DocumentRelevantSections$Nav extends SomMetaRef {
 
   get sections(): SomListMetaRef<RelevantSectionEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/RESEEN-SECT-LST", (t: SomMetaTree, p: string) => new RelevantSectionEntry$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `DocumentReviewTeamEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class DocumentReviewTeamEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get members(): SomListMetaRef<ReviewTeamMember$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Nav(t, p));
   }
 }
 
@@ -78911,6 +79429,40 @@ export class ReviewCriterionEntry$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `ReviewTeam` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ReviewTeam$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get members(): SomListMetaRef<ReviewTeamMember$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Nav(t, p));
+  }
+}
+
+// Dot-notation accessors of `ReviewTeamMember` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ReviewTeamMember$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `ReviewerRecord` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ReviewerRecord$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `RevisionEntry` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -78918,6 +79470,14 @@ export class ReviewCriterionEntry$Nav extends SomMetaRef {
 export class RevisionEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get reviewTeam(): SomListMetaRef<ReviewerRecord$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVWER-TEAM-LST", (t: SomMetaTree, p: string) => new ReviewerRecord$Nav(t, p));
+  }
+
+  get reviewers(): SomListMetaRef<ReviewerRecord$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RVWER-RETN-LST", (t: SomMetaTree, p: string) => new ReviewerRecord$Nav(t, p));
   }
 }
 
@@ -82212,6 +82772,14 @@ export class StakeholdersAndGovernance$Nav extends SomMetaRef {
 
   get stakeholderRegister(): SomListMetaRef<StakeholderRegisterEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/STKRE-STAK-LST", (t: SomMetaTree, p: string) => new StakeholderRegisterEntry$Nav(t, p));
+  }
+
+  get reviewTeam(): ReviewTeam$Nav {
+    return new ReviewTeam$Nav(this.tree, this.path + "/reviewTeam");
+  }
+
+  get documentReviewTeams(): SomListMetaRef<DocumentReviewTeamEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/DCRVTM-DOCR-LST", (t: SomMetaTree, p: string) => new DocumentReviewTeamEntry$Nav(t, p));
   }
 }
 
@@ -89169,6 +89737,14 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/STKRE-STAK-LST", (t: SomMetaTree, p: string) => new StakeholderRegisterEntry$Id(t, p));
   }
 
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get DCRVTM_DOCR_LST(): SomListMetaRef<DocumentReviewTeamEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/stakeholdersAndGovernance/DCRVTM-DOCR-LST", (t: SomMetaTree, p: string) => new DocumentReviewTeamEntry$Id(t, p));
+  }
+
   get ESENT_SYST_LST(): SomListMetaRef<ExistingSystemEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", (t: SomMetaTree, p: string) => new ExistingSystemEntry$Id(t, p));
   }
@@ -93866,6 +94442,14 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get ESENT_SYST_LST(): SomListMetaRef<ExistingSystemEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", (t: SomMetaTree, p: string) => new ExistingSystemEntry$Id(t, p));
   }
@@ -94183,6 +94767,14 @@ export class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D02TargetOperatingModel$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get PVOVW(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/processVision/PVOVW");
   }
@@ -94248,6 +94840,14 @@ export class D02TargetOperatingModel$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D03InformationModel$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get DAENT_ENTI_LST(): SomListMetaRef<DataEntityEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/DAENT-ENTI-LST", (t: SomMetaTree, p: string) => new DataEntityEntry$Id(t, p));
   }
@@ -94317,6 +94917,14 @@ export class D03InformationModel$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D04RequirementsSpecification$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get FR_SUMM(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/functionalRequirements/FR-SUMM");
   }
@@ -94362,6 +94970,14 @@ export class D04RequirementsSpecification$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D05InteractionScenarios$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get ACOVNA(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/actorOverview/ACOVNA");
   }
@@ -94407,6 +95023,14 @@ export class D05InteractionScenarios$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get TGPLT_TARG_LST(): SomListMetaRef<TargetPlatformEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/basicTechnicalRequirements/platformAndLanguage/TGPLT-TARG-LST", (t: SomMetaTree, p: string) => new TargetPlatformEntry$Id(t, p));
   }
@@ -97024,6 +97648,14 @@ export class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D07IntegrationInterfaceSpecification$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get EIE_INTE_LST(): SomListMetaRef<ExternalInterfaceEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/externalInterfaces/EIE-INTE-LST", (t: SomMetaTree, p: string) => new ExternalInterfaceEntry$Id(t, p));
   }
@@ -97053,6 +97685,14 @@ export class D07IntegrationInterfaceSpecification$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D08SecurityAccessSpecification$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get USCDF_ITEM_LST(): SomListMetaRef<UserCategoryDefinition$Id> {
     return new SomListMetaRef(this.tree, this.path + "/userManagement/userCategories/USCDF-ITEM-LST", (t: SomMetaTree, p: string) => new UserCategoryDefinition$Id(t, p));
   }
@@ -97210,6 +97850,14 @@ export class D08SecurityAccessSpecification$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D09ExperienceDesignSpecification$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get DGOEN_ITEM_LST(): SomListMetaRef<DesignGoalEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/designVision/designGoals/DGOEN-ITEM-LST", (t: SomMetaTree, p: string) => new DesignGoalEntry$Id(t, p));
   }
@@ -97759,6 +98407,14 @@ export class D09ExperienceDesignSpecification$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D10QualityAcceptancePlan$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get QLFWK_FRAM(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/qualityFramework/QLFWK-FRAM");
   }
@@ -98228,6 +98884,14 @@ export class D10QualityAcceptancePlan$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D11DeliveryRoadmap$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get STAGAS(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/stagingStrategy/STAGAS");
   }
@@ -98457,6 +99121,14 @@ export class D11DeliveryRoadmap$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class D12TransitionRolloutPlan$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/reviewTeam/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+
+  get RVENT_REVS_LST(): SomListMetaRef<RevisionEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVENT-REVS-LST", (t: SomMetaTree, p: string) => new RevisionEntry$Id(t, p));
+  }
+
   get LOPR_LOCA(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/localizationProcess/LOPR-LOCA");
   }
@@ -102271,6 +102943,15 @@ export class DistributionRecipientEntry$Id extends SomMetaRef {
 export class DistributionRecipientPreferences$Id extends SomMetaRef {
 }
 
+// ID-tree accessors of `DocumentReviewTeamEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class DocumentReviewTeamEntry$Id extends SomMetaRef {
+  get RVMEM_MEMB_LST(): SomListMetaRef<ReviewTeamMember$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVMEM-MEMB-LST", (t: SomMetaTree, p: string) => new ReviewTeamMember$Id(t, p));
+  }
+}
+
 // ID-tree accessors of `DomainBusinessRuleEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -105768,10 +106449,29 @@ export class ReviewCriterionEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `ReviewTeamMember` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ReviewTeamMember$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `ReviewerRecord` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ReviewerRecord$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `RevisionEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class RevisionEntry$Id extends SomMetaRef {
+  get RVWER_TEAM_LST(): SomListMetaRef<ReviewerRecord$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVWER-TEAM-LST", (t: SomMetaTree, p: string) => new ReviewerRecord$Id(t, p));
+  }
+
+  get RVWER_RETN_LST(): SomListMetaRef<ReviewerRecord$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/RVWER-RETN-LST", (t: SomMetaTree, p: string) => new ReviewerRecord$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `RiskEntry` (SOM §8): getters named by section id

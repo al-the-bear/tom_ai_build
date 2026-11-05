@@ -12,6 +12,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import 'governance_administration.dart';
 import 'project_process_adjustments.dart';
 import '../common/enums.dart';
+import '../common/review_team.dart';
 
 /// SBP.4 Stakeholders & Governance.
 @StandardReferences(
@@ -146,6 +147,23 @@ from standard organizational project governance procedures.
   @ContentHelp('Add one entry per stakeholder or group (STK-NNN).')
   @SerializationOrder(8)
   List<StakeholderRegisterEntry> stakeholderRegister = [];
+
+  /// The default review team: it reviews every document that names no team
+  /// of its own and has no entry in [documentReviewTeams]. Its owner
+  /// (`owner: true`) is the specification owner, always a reviewer.
+  @SerializationOrder(9)
+  ReviewTeam reviewTeam = ReviewTeam();
+
+  /// Review teams per document type, each replacing [reviewTeam] for the
+  /// documents of its type.
+  @SectionId('DCRVTM-DOCR-LST')
+  @SectionIdPattern('DCRVTM-DOCR-xxx')
+  @ContentHelp(
+    'Add one entry per document type that is reviewed by a team other than '
+    'the default team. A document\'s own review team replaces this one.',
+  )
+  @SerializationOrder(10)
+  List<DocumentReviewTeamEntry> documentReviewTeams = [];
 }
 
 /// A single stakeholder register entry (form).

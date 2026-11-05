@@ -3338,33 +3338,43 @@ func metaChildrenD01CurrentLandscapeAssessment(s map[string]bool) []*som.SomMeta
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
-		metaCx("ExistingSystemsLandscape", s, metaChildrenExistingSystemsLandscape, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExistingSystemsLandscape", MemberName: "existingSystemsLandscape", ClassSectionID: "ESLAN", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemsLandscape", SerializationOrder: metaIntPtr(2), DocComment: "Existing systems landscape.", ClassDocComment: "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
-		}),
-		metaCx("CurrentBusinessProcesses", s, metaChildrenCurrentBusinessProcesses, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CurrentBusinessProcesses", MemberName: "currentBusinessProcesses", ClassSectionID: "CUBUPR", Kind: som.SomMetaKindComplex, TypeName: "CurrentBusinessProcesses", SerializationOrder: metaIntPtr(3), DocComment: "Current business processes.", ClassDocComment: "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
-		}),
-		metaCx("PainPointsAndGaps", s, metaChildrenPainPointsAndGaps, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PainPointsAndGaps", MemberName: "painPointsAndGaps", ClassSectionID: "PPAG", Kind: som.SomMetaKindComplex, TypeName: "PainPointsAndGaps", SerializationOrder: metaIntPtr(4), DocComment: "Pain points and gaps.", ClassDocComment: "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
-		}),
-		metaCx("CurrentDataLandscape", s, metaChildrenCurrentDataLandscape, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CurrentDataLandscape", MemberName: "currentDataLandscape", ClassSectionID: "CUDALA", Kind: som.SomMetaKindComplex, TypeName: "CurrentDataLandscape", SerializationOrder: metaIntPtr(5), DocComment: "Current data landscape.", ClassDocComment: "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D01CurrentLandscapeAssessment", MemberName: "operationalMetrics", SectionID: "CUOPME-OPER-LST", SectionIDPattern: "CUOPME-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "CurrentOperationalMetric", SerializationOrder: metaIntPtr(6), DocComment: "Current operational metrics."}
+			n := &som.SomMetaNode{ClassName: "D01CurrentLandscapeAssessment", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		metaCx("ExistingSystemsLandscape", s, metaChildrenExistingSystemsLandscape, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ExistingSystemsLandscape", MemberName: "existingSystemsLandscape", ClassSectionID: "ESLAN", Kind: som.SomMetaKindComplex, TypeName: "ExistingSystemsLandscape", SerializationOrder: metaIntPtr(4), DocComment: "Existing systems landscape.", ClassDocComment: "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+		}),
+		metaCx("CurrentBusinessProcesses", s, metaChildrenCurrentBusinessProcesses, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "CurrentBusinessProcesses", MemberName: "currentBusinessProcesses", ClassSectionID: "CUBUPR", Kind: som.SomMetaKindComplex, TypeName: "CurrentBusinessProcesses", SerializationOrder: metaIntPtr(5), DocComment: "Current business processes.", ClassDocComment: "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+		}),
+		metaCx("PainPointsAndGaps", s, metaChildrenPainPointsAndGaps, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "PainPointsAndGaps", MemberName: "painPointsAndGaps", ClassSectionID: "PPAG", Kind: som.SomMetaKindComplex, TypeName: "PainPointsAndGaps", SerializationOrder: metaIntPtr(6), DocComment: "Pain points and gaps.", ClassDocComment: "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+		}),
+		metaCx("CurrentDataLandscape", s, metaChildrenCurrentDataLandscape, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "CurrentDataLandscape", MemberName: "currentDataLandscape", ClassSectionID: "CUDALA", Kind: som.SomMetaKindComplex, TypeName: "CurrentDataLandscape", SerializationOrder: metaIntPtr(7), DocComment: "Current data landscape.", ClassDocComment: "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D01CurrentLandscapeAssessment", MemberName: "operationalMetrics", SectionID: "CUOPME-OPER-LST", SectionIDPattern: "CUOPME-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "CurrentOperationalMetric", SerializationOrder: metaIntPtr(8), DocComment: "Current operational metrics."}
 			n.ElementNode = metaCx("CurrentOperationalMetric", s, metaChildrenCurrentOperationalMetric, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "CurrentOperationalMetric", ClassSectionID: "CUOPME", Kind: som.SomMetaKindComplex, TypeName: "CurrentOperationalMetric", DocComment: "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.", ClassDocComment: "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("CurrentStateRiskAssessment", s, metaChildrenCurrentStateRiskAssessment, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CurrentStateRiskAssessment", MemberName: "currentStateRisks", ClassSectionID: "CUSTRI", Kind: som.SomMetaKindComplex, TypeName: "CurrentStateRiskAssessment", SerializationOrder: metaIntPtr(7), DocComment: "Current-state risk assessment.", ClassDocComment: "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CurrentStateRiskAssessment", MemberName: "currentStateRisks", ClassSectionID: "CUSTRI", Kind: som.SomMetaKindComplex, TypeName: "CurrentStateRiskAssessment", SerializationOrder: metaIntPtr(9), DocComment: "Current-state risk assessment.", ClassDocComment: "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
 		}),
 		metaCx("ReplacementInventory", s, metaChildrenReplacementInventory, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ReplacementInventory", MemberName: "replacementInventory", ClassSectionID: "RI", Kind: som.SomMetaKindComplex, TypeName: "ReplacementInventory", SerializationOrder: metaIntPtr(8), DocComment: "Replacement inventory.", ClassDocComment: "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ReplacementInventory", MemberName: "replacementInventory", ClassSectionID: "RI", Kind: som.SomMetaKindComplex, TypeName: "ReplacementInventory", SerializationOrder: metaIntPtr(10), DocComment: "Replacement inventory.", ClassDocComment: "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
 		}),
 		metaCx("MigrationConsiderations", s, metaChildrenMigrationConsiderations, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "MigrationConsiderations", MemberName: "migrationConsiderations", ClassSectionID: "MIGCON", Kind: som.SomMetaKindComplex, TypeName: "MigrationConsiderations", SerializationOrder: metaIntPtr(9), DocComment: "Migration considerations.", ClassDocComment: "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "MigrationConsiderations", MemberName: "migrationConsiderations", ClassSectionID: "MIGCON", Kind: som.SomMetaKindComplex, TypeName: "MigrationConsiderations", SerializationOrder: metaIntPtr(11), DocComment: "Migration considerations.", ClassDocComment: "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.", DetailedIn: "D01CurrentLandscapeAssessment", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3375,39 +3385,49 @@ func metaChildrenD02TargetOperatingModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
-		metaCx("ProcessVision", s, metaChildrenProcessVision, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessVision", MemberName: "processVision", ClassSectionID: "PRVIZ", Kind: som.SomMetaKindComplex, TypeName: "ProcessVision", SerializationOrder: metaIntPtr(2), DocComment: "Process vision.", ClassDocComment: "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
-		}),
-		metaCx("ProcessDesignPrinciples", s, metaChildrenProcessDesignPrinciples, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessDesignPrinciples", MemberName: "designPrinciples", ClassSectionID: "PDPRI", Kind: som.SomMetaKindComplex, TypeName: "ProcessDesignPrinciples", SerializationOrder: metaIntPtr(3), DocComment: "Design principles.", ClassDocComment: "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
-		}),
-		metaCx("ProcessCatalog", s, metaChildrenProcessCatalog, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessCatalog", MemberName: "processCatalog", ClassSectionID: "PRCAT", Kind: som.SomMetaKindComplex, TypeName: "ProcessCatalog", SerializationOrder: metaIntPtr(4), DocComment: "Process catalog.", ClassDocComment: "6.1.3. Process Catalog.\n\nContainer for business process definitions.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
-		}),
-		metaCx("ProcessOverviewDiagram", s, metaChildrenProcessOverviewDiagram, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessOverviewDiagram", MemberName: "processOverviewDiagram", ClassSectionID: "PROVDI", Kind: som.SomMetaKindComplex, TypeName: "ProcessOverviewDiagram", SerializationOrder: metaIntPtr(5), DocComment: "Process overview diagram.", ClassDocComment: "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
-		}),
-		metaCx("ProcessImprovementSummary", s, metaChildrenProcessImprovementSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessImprovementSummary", MemberName: "improvementSummary", ClassSectionID: "PRIMSU", Kind: som.SomMetaKindComplex, TypeName: "ProcessImprovementSummary", SerializationOrder: metaIntPtr(6), DocComment: "Improvement summary.", ClassDocComment: "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
-		}),
-		metaCx("ProcessRelationships", s, metaChildrenProcessRelationships, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessRelationships", MemberName: "processRelationships", ClassSectionID: "PR", Kind: som.SomMetaKindComplex, TypeName: "ProcessRelationships", SerializationOrder: metaIntPtr(7), DocComment: "Process relationships.", ClassDocComment: "Process relationships and dependencies (supplementary section).", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D02TargetOperatingModel", MemberName: "detailedWorkflows", SectionID: "DEPRWO-DETA-LST", SectionIDPattern: "DEPRWO-DETA-xxx", Kind: som.SomMetaKindList, TypeName: "DetailedProcessWorkflow", SerializationOrder: metaIntPtr(8), DocComment: "Detailed process workflows."}
+			n := &som.SomMetaNode{ClassName: "D02TargetOperatingModel", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		metaCx("ProcessVision", s, metaChildrenProcessVision, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessVision", MemberName: "processVision", ClassSectionID: "PRVIZ", Kind: som.SomMetaKindComplex, TypeName: "ProcessVision", SerializationOrder: metaIntPtr(4), DocComment: "Process vision.", ClassDocComment: "6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+		metaCx("ProcessDesignPrinciples", s, metaChildrenProcessDesignPrinciples, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessDesignPrinciples", MemberName: "designPrinciples", ClassSectionID: "PDPRI", Kind: som.SomMetaKindComplex, TypeName: "ProcessDesignPrinciples", SerializationOrder: metaIntPtr(5), DocComment: "Design principles.", ClassDocComment: "6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+		metaCx("ProcessCatalog", s, metaChildrenProcessCatalog, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessCatalog", MemberName: "processCatalog", ClassSectionID: "PRCAT", Kind: som.SomMetaKindComplex, TypeName: "ProcessCatalog", SerializationOrder: metaIntPtr(6), DocComment: "Process catalog.", ClassDocComment: "6.1.3. Process Catalog.\n\nContainer for business process definitions.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+		metaCx("ProcessOverviewDiagram", s, metaChildrenProcessOverviewDiagram, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessOverviewDiagram", MemberName: "processOverviewDiagram", ClassSectionID: "PROVDI", Kind: som.SomMetaKindComplex, TypeName: "ProcessOverviewDiagram", SerializationOrder: metaIntPtr(7), DocComment: "Process overview diagram.", ClassDocComment: "6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+		metaCx("ProcessImprovementSummary", s, metaChildrenProcessImprovementSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessImprovementSummary", MemberName: "improvementSummary", ClassSectionID: "PRIMSU", Kind: som.SomMetaKindComplex, TypeName: "ProcessImprovementSummary", SerializationOrder: metaIntPtr(8), DocComment: "Improvement summary.", ClassDocComment: "6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+		metaCx("ProcessRelationships", s, metaChildrenProcessRelationships, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessRelationships", MemberName: "processRelationships", ClassSectionID: "PR", Kind: som.SomMetaKindComplex, TypeName: "ProcessRelationships", SerializationOrder: metaIntPtr(9), DocComment: "Process relationships.", ClassDocComment: "Process relationships and dependencies (supplementary section).", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D02TargetOperatingModel", MemberName: "detailedWorkflows", SectionID: "DEPRWO-DETA-LST", SectionIDPattern: "DEPRWO-DETA-xxx", Kind: som.SomMetaKindList, TypeName: "DetailedProcessWorkflow", SerializationOrder: metaIntPtr(10), DocComment: "Detailed process workflows."}
 			n.ElementNode = metaCx("DetailedProcessWorkflow", s, metaChildrenDetailedProcessWorkflow, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DetailedProcessWorkflow", ClassSectionID: "DEPRWO", Kind: som.SomMetaKindComplex, TypeName: "DetailedProcessWorkflow", DocComment: "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.", ClassDocComment: "6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("CrossProcessAnalysis", s, metaChildrenCrossProcessAnalysis, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CrossProcessAnalysis", MemberName: "crossProcessAnalysis", ClassSectionID: "CRPRAN", Kind: som.SomMetaKindComplex, TypeName: "CrossProcessAnalysis", SerializationOrder: metaIntPtr(9), DocComment: "Cross-process analysis.", ClassDocComment: "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CrossProcessAnalysis", MemberName: "crossProcessAnalysis", ClassSectionID: "CRPRAN", Kind: som.SomMetaKindComplex, TypeName: "CrossProcessAnalysis", SerializationOrder: metaIntPtr(11), DocComment: "Cross-process analysis.", ClassDocComment: "6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
 		}),
 		metaCx("ProcessExceptionHandling", s, metaChildrenProcessExceptionHandling, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessExceptionHandling", MemberName: "exceptionHandling", ClassSectionID: "PREXHA", Kind: som.SomMetaKindComplex, TypeName: "ProcessExceptionHandling", SerializationOrder: metaIntPtr(10), DocComment: "Process exception handling.", ClassDocComment: "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ProcessExceptionHandling", MemberName: "exceptionHandling", ClassSectionID: "PREXHA", Kind: som.SomMetaKindComplex, TypeName: "ProcessExceptionHandling", SerializationOrder: metaIntPtr(12), DocComment: "Process exception handling.", ClassDocComment: "6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D02TargetOperatingModel", MemberName: "processMetricsAndKpis", SectionID: "PMAK-PROC-LST", SectionIDPattern: "PMAK-PROC-xxx", Kind: som.SomMetaKindList, TypeName: "ProcessMetric", SerializationOrder: metaIntPtr(11), DocComment: "Process metrics and KPIs."}
+			n := &som.SomMetaNode{ClassName: "D02TargetOperatingModel", MemberName: "processMetricsAndKpis", SectionID: "PMAK-PROC-LST", SectionIDPattern: "PMAK-PROC-xxx", Kind: som.SomMetaKindList, TypeName: "ProcessMetric", SerializationOrder: metaIntPtr(13), DocComment: "Process metrics and KPIs."}
 			n.ElementNode = metaCx("ProcessMetric", s, metaChildrenProcessMetric, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ProcessMetric", ClassSectionID: "PMAK", Kind: som.SomMetaKindComplex, TypeName: "ProcessMetric", DocComment: "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.", ClassDocComment: "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.", DetailedIn: "D02TargetOperatingModel", Recursive: r, Children: c}
 			})
@@ -3422,75 +3442,85 @@ func metaChildrenD03InformationModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "entities", SectionID: "DAENT-ENTI-LST", SectionIDPattern: "DAENT-ENTI-xxx", Kind: som.SomMetaKindList, TypeName: "DataEntityEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), DocComment: "Entity inventory (list)."}
+			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "entities", SectionID: "DAENT-ENTI-LST", SectionIDPattern: "DAENT-ENTI-xxx", Kind: som.SomMetaKindList, TypeName: "DataEntityEntry", SerializationOrder: metaIntPtr(4), Min: metaIntPtr(1), DocComment: "Entity inventory (list)."}
 			n.ElementNode = metaCx("DataEntityEntry", s, metaChildrenDataEntityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DataEntityEntry", ClassSectionID: "DAENT", Kind: som.SomMetaKindComplex, TypeName: "DataEntityEntry", DocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", ClassDocComment: "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("EntityRelationships", s, metaChildrenEntityRelationships, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "EntityRelationships", MemberName: "entityRelationships", ClassSectionID: "ENREL", Kind: som.SomMetaKindComplex, TypeName: "EntityRelationships", SerializationOrder: metaIntPtr(3), DocComment: "Entity relationships.", ClassDocComment: "7.1.2. Entity Relationships.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "EntityRelationships", MemberName: "entityRelationships", ClassSectionID: "ENREL", Kind: som.SomMetaKindComplex, TypeName: "EntityRelationships", SerializationOrder: metaIntPtr(5), DocComment: "Entity relationships.", ClassDocComment: "7.1.2. Entity Relationships.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
-		{ClassName: "D03InformationModel", MemberName: "erDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "mermaid-er", Description: ""}, DocComment: "Entity-relationship diagram."},
+		{ClassName: "D03InformationModel", MemberName: "erDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "mermaid-er", Description: ""}, DocComment: "Entity-relationship diagram."},
 		metaCx("DataClassification", s, metaChildrenDataClassification, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataClassification", MemberName: "dataClassification", ClassSectionID: "DATCL", Kind: som.SomMetaKindComplex, TypeName: "DataClassification", SerializationOrder: metaIntPtr(5), DocComment: "Data classification.", ClassDocComment: "7.1.4. Data Classification.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataClassification", MemberName: "dataClassification", ClassSectionID: "DATCL", Kind: som.SomMetaKindComplex, TypeName: "DataClassification", SerializationOrder: metaIntPtr(7), DocComment: "Data classification.", ClassDocComment: "7.1.4. Data Classification.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "objectCatalog", SectionID: "BJOEN-OBJE-LST", SectionIDPattern: "BJOEN-OBJE-xxx", Kind: som.SomMetaKindList, TypeName: "BusinessObjectEntry", SerializationOrder: metaIntPtr(6), Min: metaIntPtr(1), DocComment: "Business object catalog (list)."}
+			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "objectCatalog", SectionID: "BJOEN-OBJE-LST", SectionIDPattern: "BJOEN-OBJE-xxx", Kind: som.SomMetaKindList, TypeName: "BusinessObjectEntry", SerializationOrder: metaIntPtr(8), Min: metaIntPtr(1), DocComment: "Business object catalog (list)."}
 			n.ElementNode = metaCx("BusinessObjectEntry", s, metaChildrenBusinessObjectEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BusinessObjectEntry", ClassSectionID: "BJOEN", Kind: som.SomMetaKindComplex, TypeName: "BusinessObjectEntry", DocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", ClassDocComment: "A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
-		{ClassName: "D03InformationModel", MemberName: "objectDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, DocComment: "Business object diagram."},
+		{ClassName: "D03InformationModel", MemberName: "objectDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(9), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, DocComment: "Business object diagram."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "functionDecomposition", SectionID: "FUNCT-FUNC-LST", SectionIDPattern: "FUNCT-FUNC-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionEntry", SerializationOrder: metaIntPtr(8), DocComment: "Function decomposition (list)."}
+			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "functionDecomposition", SectionID: "FUNCT-FUNC-LST", SectionIDPattern: "FUNCT-FUNC-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionEntry", SerializationOrder: metaIntPtr(10), DocComment: "Function decomposition (list)."}
 			n.ElementNode = metaCx("FunctionEntry", s, metaChildrenFunctionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FunctionEntry", ClassSectionID: "FUNCT", Kind: som.SomMetaKindComplex, TypeName: "FunctionEntry", DocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", ClassDocComment: "A function entry (form).\n\nBusiness function specification in the functional decomposition.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "functionToDataMatrix", SectionID: "FNDMX-FUNC-LST", SectionIDPattern: "FNDMX-FUNC-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionDataMatrixEntry", SerializationOrder: metaIntPtr(9), DocComment: "Function-to-data matrix (list)."}
+			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "functionToDataMatrix", SectionID: "FNDMX-FUNC-LST", SectionIDPattern: "FNDMX-FUNC-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionDataMatrixEntry", SerializationOrder: metaIntPtr(11), DocComment: "Function-to-data matrix (list)."}
 			n.ElementNode = metaCx("FunctionDataMatrixEntry", s, metaChildrenFunctionDataMatrixEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FunctionDataMatrixEntry", ClassSectionID: "FNDMX", Kind: som.SomMetaKindComplex, TypeName: "FunctionDataMatrixEntry", DocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", ClassDocComment: "A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "businessRules", SectionID: "BIRU-BUSI-LST", SectionIDPattern: "BIRU-BUSI-xxx", Kind: som.SomMetaKindList, TypeName: "BusinessRuleEntry", SerializationOrder: metaIntPtr(10), Min: metaIntPtr(1), DocComment: "Business rules catalog (list)."}
+			n := &som.SomMetaNode{ClassName: "D03InformationModel", MemberName: "businessRules", SectionID: "BIRU-BUSI-LST", SectionIDPattern: "BIRU-BUSI-xxx", Kind: som.SomMetaKindList, TypeName: "BusinessRuleEntry", SerializationOrder: metaIntPtr(12), Min: metaIntPtr(1), DocComment: "Business rules catalog (list)."}
 			n.ElementNode = metaCx("BusinessRuleEntry", s, metaChildrenBusinessRuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BusinessRuleEntry", ClassSectionID: "BIRU", Kind: som.SomMetaKindComplex, TypeName: "BusinessRuleEntry", DocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", ClassDocComment: "A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("DataDictionary", s, metaChildrenDataDictionary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataDictionary", MemberName: "dataDictionary", ClassSectionID: "DADI", Kind: som.SomMetaKindComplex, TypeName: "DataDictionary", SerializationOrder: metaIntPtr(11), DocComment: "Data dictionary.", ClassDocComment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataDictionary", MemberName: "dataDictionary", ClassSectionID: "DADI", Kind: som.SomMetaKindComplex, TypeName: "DataDictionary", SerializationOrder: metaIntPtr(13), DocComment: "Data dictionary.", ClassDocComment: "7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("ValidationConstraints", s, metaChildrenValidationConstraints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ValidationConstraints", MemberName: "validationConstraints", ClassSectionID: "VACO", Kind: som.SomMetaKindComplex, TypeName: "ValidationConstraints", SerializationOrder: metaIntPtr(12), DocComment: "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).", ClassDocComment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ValidationConstraints", MemberName: "validationConstraints", ClassSectionID: "VACO", Kind: som.SomMetaKindComplex, TypeName: "ValidationConstraints", SerializationOrder: metaIntPtr(14), DocComment: "Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).", ClassDocComment: "7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("IntegrityConstraints", s, metaChildrenIntegrityConstraints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "IntegrityConstraints", MemberName: "integrityConstraints", ClassSectionID: "INCO", Kind: som.SomMetaKindComplex, TypeName: "IntegrityConstraints", SerializationOrder: metaIntPtr(13), DocComment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "IntegrityConstraints", MemberName: "integrityConstraints", ClassSectionID: "INCO", Kind: som.SomMetaKindComplex, TypeName: "IntegrityConstraints", SerializationOrder: metaIntPtr(15), DocComment: "Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).", ClassDocComment: "7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.", DetailedIn: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(14), DocComment: "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(16), DocComment: "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
 		}),
 		metaCx("ErrorCodeRegistry", s, metaChildrenErrorCodeRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ErrorCodeRegistry", MemberName: "errorCodeRegistry", ClassSectionID: "ERCRG", Kind: som.SomMetaKindComplex, TypeName: "ErrorCodeRegistry", SerializationOrder: metaIntPtr(15), DocComment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).", ClassDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ErrorCodeRegistry", MemberName: "errorCodeRegistry", ClassSectionID: "ERCRG", Kind: som.SomMetaKindComplex, TypeName: "ErrorCodeRegistry", SerializationOrder: metaIntPtr(17), DocComment: "Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).", ClassDocComment: "7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09's `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its \"error code on fail\" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.", Recursive: r, Children: c}
 		}),
 		metaCx("ResultEnvelope", s, metaChildrenResultEnvelope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResultEnvelope", MemberName: "resultEnvelope", ClassSectionID: "RSLTE", Kind: som.SomMetaKindComplex, TypeName: "ResultEnvelope", SerializationOrder: metaIntPtr(16), DocComment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).", ClassDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ResultEnvelope", MemberName: "resultEnvelope", ClassSectionID: "RSLTE", Kind: som.SomMetaKindComplex, TypeName: "ResultEnvelope", SerializationOrder: metaIntPtr(18), DocComment: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).", ClassDocComment: "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.", Recursive: r, Children: c}
 		}),
 		metaCx("MessageKeyRegistry", s, metaChildrenMessageKeyRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "MessageKeyRegistry", MemberName: "messageKeyRegistry", ClassSectionID: "MSGKR", Kind: som.SomMetaKindComplex, TypeName: "MessageKeyRegistry", SerializationOrder: metaIntPtr(17), DocComment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).", ClassDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "MessageKeyRegistry", MemberName: "messageKeyRegistry", ClassSectionID: "MSGKR", Kind: som.SomMetaKindComplex, TypeName: "MessageKeyRegistry", SerializationOrder: metaIntPtr(19), DocComment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).", ClassDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.", Recursive: r, Children: c}
 		}),
 		metaCx("ServerOperationRegistry", s, metaChildrenServerOperationRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ServerOperationRegistry", MemberName: "serverOperationRegistry", ClassSectionID: "SVOPR", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationRegistry", SerializationOrder: metaIntPtr(18), DocComment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.", ClassDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ServerOperationRegistry", MemberName: "serverOperationRegistry", ClassSectionID: "SVOPR", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationRegistry", SerializationOrder: metaIntPtr(20), DocComment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.", ClassDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).", Recursive: r, Children: c}
 		}),
 		metaCx("SchemaVersioningAndMigration", s, metaChildrenSchemaVersioningAndMigration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(19), DocComment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(21), DocComment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3501,28 +3531,38 @@ func metaChildrenD04RequirementsSpecification(s map[string]bool) []*som.SomMetaN
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D04RequirementsSpecification", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("FunctionalRequirements", s, metaChildrenFunctionalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "FunctionalRequirements", MemberName: "functionalRequirements", ClassSectionID: "FR", Kind: som.SomMetaKindComplex, TypeName: "FunctionalRequirements", SerializationOrder: metaIntPtr(2), DocComment: "Functional requirements.", ClassDocComment: "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "FunctionalRequirements", MemberName: "functionalRequirements", ClassSectionID: "FR", Kind: som.SomMetaKindComplex, TypeName: "FunctionalRequirements", SerializationOrder: metaIntPtr(4), DocComment: "Functional requirements.", ClassDocComment: "4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("TechnicalRequirements", s, metaChildrenTechnicalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TechnicalRequirements", MemberName: "technicalRequirements", ClassSectionID: "TR1", Kind: som.SomMetaKindComplex, TypeName: "TechnicalRequirements", SerializationOrder: metaIntPtr(3), DocComment: "Technical (non-functional) requirements.", ClassDocComment: "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TechnicalRequirements", MemberName: "technicalRequirements", ClassSectionID: "TR1", Kind: som.SomMetaKindComplex, TypeName: "TechnicalRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Technical (non-functional) requirements.", ClassDocComment: "4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("SecurityRequirements", s, metaChildrenSecurityRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SecurityRequirements", MemberName: "securityRequirements", ClassSectionID: "SR1", Kind: som.SomMetaKindComplex, TypeName: "SecurityRequirements", SerializationOrder: metaIntPtr(4), DocComment: "Security requirements.", ClassDocComment: "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SecurityRequirements", MemberName: "securityRequirements", ClassSectionID: "SR1", Kind: som.SomMetaKindComplex, TypeName: "SecurityRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Security requirements.", ClassDocComment: "4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("OrganizationalRequirements", s, metaChildrenOrganizationalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "OrganizationalRequirements", MemberName: "organizationalRequirements", ClassSectionID: "OR", Kind: som.SomMetaKindComplex, TypeName: "OrganizationalRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Organizational requirements.", ClassDocComment: "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "OrganizationalRequirements", MemberName: "organizationalRequirements", ClassSectionID: "OR", Kind: som.SomMetaKindComplex, TypeName: "OrganizationalRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Organizational requirements.", ClassDocComment: "4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
-		{ClassName: "D04RequirementsSpecification", MemberName: "traceabilityMatrix", SectionID: "RSP-TRAC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, DocComment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side."},
+		{ClassName: "D04RequirementsSpecification", MemberName: "traceabilityMatrix", SectionID: "RSP-TRAC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, DocComment: "Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D04RequirementsSpecification", MemberName: "requirementRelationships", SectionID: "RERE-REQU-LST", SectionIDPattern: "RERE-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "RequirementRelationships", SerializationOrder: metaIntPtr(7), DocComment: "Requirement relationships."}
+			n := &som.SomMetaNode{ClassName: "D04RequirementsSpecification", MemberName: "requirementRelationships", SectionID: "RERE-REQU-LST", SectionIDPattern: "RERE-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "RequirementRelationships", SerializationOrder: metaIntPtr(9), DocComment: "Requirement relationships."}
 			n.ElementNode = metaCx("RequirementRelationships", s, metaChildrenRequirementRelationships, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "RequirementRelationships", ClassSectionID: "RERE", Kind: som.SomMetaKindComplex, TypeName: "RequirementRelationships", DocComment: "4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.", ClassDocComment: "4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("RequirementCoverage", s, metaChildrenRequirementCoverage, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "RequirementCoverage", MemberName: "requirementCoverage", ClassSectionID: "REQCOV", Kind: som.SomMetaKindComplex, TypeName: "RequirementCoverage", SerializationOrder: metaIntPtr(8), DocComment: "Requirement coverage.", ClassDocComment: "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "RequirementCoverage", MemberName: "requirementCoverage", ClassSectionID: "REQCOV", Kind: som.SomMetaKindComplex, TypeName: "RequirementCoverage", SerializationOrder: metaIntPtr(10), DocComment: "Requirement coverage.", ClassDocComment: "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.", DetailedIn: "D04RequirementsSpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3533,30 +3573,40 @@ func metaChildrenD05InteractionScenarios(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
-		metaCx("ProcessStepsOverview", s, metaChildrenProcessStepsOverview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessStepsOverview", MemberName: "processStepsOverview", ClassSectionID: "PRSTOV", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsOverview", SerializationOrder: metaIntPtr(2), DocComment: "Process steps overview.", ClassDocComment: "6.2. Process Steps Overview.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
-		}),
-		metaCx("ActorOverview", s, metaChildrenActorOverview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ActorOverview", MemberName: "actorOverview", ClassSectionID: "ACOV", Kind: som.SomMetaKindComplex, TypeName: "ActorOverview", SerializationOrder: metaIntPtr(3), DocComment: "Actor overview.", ClassDocComment: "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
-		}),
-		metaCx("InteractionCatalog", s, metaChildrenInteractionCatalog, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "InteractionCatalog", MemberName: "interactionCatalog", ClassSectionID: "INCA", Kind: som.SomMetaKindComplex, TypeName: "InteractionCatalog", SerializationOrder: metaIntPtr(4), DocComment: "Interaction catalog.", ClassDocComment: "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
-		}),
-		metaCx("KeyScenarios", s, metaChildrenKeyScenarios, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "KeyScenarios", MemberName: "keyScenarios", ClassSectionID: "KESC", Kind: som.SomMetaKindComplex, TypeName: "KeyScenarios", SerializationOrder: metaIntPtr(5), DocComment: "Key scenarios.", ClassDocComment: "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
-		}),
-		metaCx("ActorRelationshipDiagram", s, metaChildrenActorRelationshipDiagram, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ActorRelationshipDiagram", MemberName: "actorRelationshipDiagram", ClassSectionID: "ACREDI", Kind: som.SomMetaKindComplex, TypeName: "ActorRelationshipDiagram", SerializationOrder: metaIntPtr(6), DocComment: "Actor relationship diagram.", ClassDocComment: "6.2. Actor Relationship Diagram.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D05InteractionScenarios", MemberName: "endToEndTestScenarios", SectionID: "ETETS-ENDT-LST", SectionIDPattern: "ETETS-ENDT-xxx", Kind: som.SomMetaKindList, TypeName: "EndToEndTestScenario", SerializationOrder: metaIntPtr(7), DocComment: "End-to-end test scenarios."}
+			n := &som.SomMetaNode{ClassName: "D05InteractionScenarios", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		metaCx("ProcessStepsOverview", s, metaChildrenProcessStepsOverview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ProcessStepsOverview", MemberName: "processStepsOverview", ClassSectionID: "PRSTOV", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsOverview", SerializationOrder: metaIntPtr(4), DocComment: "Process steps overview.", ClassDocComment: "6.2. Process Steps Overview.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+		}),
+		metaCx("ActorOverview", s, metaChildrenActorOverview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ActorOverview", MemberName: "actorOverview", ClassSectionID: "ACOV", Kind: som.SomMetaKindComplex, TypeName: "ActorOverview", SerializationOrder: metaIntPtr(5), DocComment: "Actor overview.", ClassDocComment: "6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+		}),
+		metaCx("InteractionCatalog", s, metaChildrenInteractionCatalog, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "InteractionCatalog", MemberName: "interactionCatalog", ClassSectionID: "INCA", Kind: som.SomMetaKindComplex, TypeName: "InteractionCatalog", SerializationOrder: metaIntPtr(6), DocComment: "Interaction catalog.", ClassDocComment: "6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn's fully dressed use case template.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+		}),
+		metaCx("KeyScenarios", s, metaChildrenKeyScenarios, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "KeyScenarios", MemberName: "keyScenarios", ClassSectionID: "KESC", Kind: som.SomMetaKindComplex, TypeName: "KeyScenarios", SerializationOrder: metaIntPtr(7), DocComment: "Key scenarios.", ClassDocComment: "6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+		}),
+		metaCx("ActorRelationshipDiagram", s, metaChildrenActorRelationshipDiagram, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ActorRelationshipDiagram", MemberName: "actorRelationshipDiagram", ClassSectionID: "ACREDI", Kind: som.SomMetaKindComplex, TypeName: "ActorRelationshipDiagram", SerializationOrder: metaIntPtr(8), DocComment: "Actor relationship diagram.", ClassDocComment: "6.2. Actor Relationship Diagram.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D05InteractionScenarios", MemberName: "endToEndTestScenarios", SectionID: "ETETS-ENDT-LST", SectionIDPattern: "ETETS-ENDT-xxx", Kind: som.SomMetaKindList, TypeName: "EndToEndTestScenario", SerializationOrder: metaIntPtr(9), DocComment: "End-to-end test scenarios."}
 			n.ElementNode = metaCx("EndToEndTestScenario", s, metaChildrenEndToEndTestScenario, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "EndToEndTestScenario", ClassSectionID: "ETETS", Kind: som.SomMetaKindComplex, TypeName: "EndToEndTestScenario", DocComment: "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..", ClassDocComment: "6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("UseCaseTraceability", s, metaChildrenUseCaseTraceability, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UseCaseTraceability", MemberName: "useCaseTraceability", ClassSectionID: "USCATR", Kind: som.SomMetaKindComplex, TypeName: "UseCaseTraceability", SerializationOrder: metaIntPtr(8), DocComment: "Use case traceability.", ClassDocComment: "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UseCaseTraceability", MemberName: "useCaseTraceability", ClassSectionID: "USCATR", Kind: som.SomMetaKindComplex, TypeName: "UseCaseTraceability", SerializationOrder: metaIntPtr(10), DocComment: "Use case traceability.", ClassDocComment: "6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.", DetailedIn: "D05InteractionScenarios", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3567,41 +3617,51 @@ func metaChildrenD06ArchitectureTechnologySpecification(s map[string]bool) []*so
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D06ArchitectureTechnologySpecification", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("BasicTechnicalRequirements", s, metaChildrenBasicTechnicalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "BasicTechnicalRequirements", MemberName: "basicTechnicalRequirements", ClassSectionID: "BTREQ", Kind: som.SomMetaKindComplex, TypeName: "BasicTechnicalRequirements", SerializationOrder: metaIntPtr(2), DocComment: "Basic technical requirements.", ClassDocComment: "8.1. Basic Technical Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "BasicTechnicalRequirements", MemberName: "basicTechnicalRequirements", ClassSectionID: "BTREQ", Kind: som.SomMetaKindComplex, TypeName: "BasicTechnicalRequirements", SerializationOrder: metaIntPtr(4), DocComment: "Basic technical requirements.", ClassDocComment: "8.1. Basic Technical Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("SoftwareDesignRequirements", s, metaChildrenSoftwareDesignRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SoftwareDesignRequirements", MemberName: "softwareDesignRequirements", ClassSectionID: "SDR", Kind: som.SomMetaKindComplex, TypeName: "SoftwareDesignRequirements", SerializationOrder: metaIntPtr(3), DocComment: "Software design requirements.", ClassDocComment: "8.2. Software Design Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SoftwareDesignRequirements", MemberName: "softwareDesignRequirements", ClassSectionID: "SDR", Kind: som.SomMetaKindComplex, TypeName: "SoftwareDesignRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Software design requirements.", ClassDocComment: "8.2. Software Design Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("StandardSoftwareRequirements", s, metaChildrenStandardSoftwareRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "StandardSoftwareRequirements", MemberName: "standardSoftwareRequirements", ClassSectionID: "SSR", Kind: som.SomMetaKindComplex, TypeName: "StandardSoftwareRequirements", SerializationOrder: metaIntPtr(4), DocComment: "Standard application software requirements.", ClassDocComment: "8.3. Standard Application Software Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "StandardSoftwareRequirements", MemberName: "standardSoftwareRequirements", ClassSectionID: "SSR", Kind: som.SomMetaKindComplex, TypeName: "StandardSoftwareRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Standard application software requirements.", ClassDocComment: "8.3. Standard Application Software Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("HardwareRequirements", s, metaChildrenHardwareRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "HardwareRequirements", MemberName: "hardwareRequirements", ClassSectionID: "HR", Kind: som.SomMetaKindComplex, TypeName: "HardwareRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Hardware concept requirements.", ClassDocComment: "8.4. Hardware Concept Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "HardwareRequirements", MemberName: "hardwareRequirements", ClassSectionID: "HR", Kind: som.SomMetaKindComplex, TypeName: "HardwareRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Hardware concept requirements.", ClassDocComment: "8.4. Hardware Concept Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("OperationsRequirements", s, metaChildrenOperationsRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "OperationsRequirements", MemberName: "operationsRequirements", ClassSectionID: "OPRE", Kind: som.SomMetaKindComplex, TypeName: "OperationsRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Operations requirements.", ClassDocComment: "8.5. Operations Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "OperationsRequirements", MemberName: "operationsRequirements", ClassSectionID: "OPRE", Kind: som.SomMetaKindComplex, TypeName: "OperationsRequirements", SerializationOrder: metaIntPtr(8), DocComment: "Operations requirements.", ClassDocComment: "8.5. Operations Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("CommunicationRequirements", s, metaChildrenCommunicationRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CommunicationRequirements", MemberName: "communicationRequirements", ClassSectionID: "COMREQ", Kind: som.SomMetaKindComplex, TypeName: "CommunicationRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Communication requirements.", ClassDocComment: "8.6. Communication Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CommunicationRequirements", MemberName: "communicationRequirements", ClassSectionID: "COMREQ", Kind: som.SomMetaKindComplex, TypeName: "CommunicationRequirements", SerializationOrder: metaIntPtr(9), DocComment: "Communication requirements.", ClassDocComment: "8.6. Communication Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("SystemOperationAndMonitoring", s, metaChildrenSystemOperationAndMonitoring, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SystemOperationAndMonitoring", MemberName: "systemOperationAndMonitoring", ClassSectionID: "SOAM", Kind: som.SomMetaKindComplex, TypeName: "SystemOperationAndMonitoring", SerializationOrder: metaIntPtr(8), DocComment: "System operation and monitoring.", ClassDocComment: "8.7. System Operation and Monitoring.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SystemOperationAndMonitoring", MemberName: "systemOperationAndMonitoring", ClassSectionID: "SOAM", Kind: som.SomMetaKindComplex, TypeName: "SystemOperationAndMonitoring", SerializationOrder: metaIntPtr(10), DocComment: "System operation and monitoring.", ClassDocComment: "8.7. System Operation and Monitoring.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("TechnicalSecurityRequirements", s, metaChildrenTechnicalSecurityRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TechnicalSecurityRequirements", MemberName: "technicalSecurityRequirements", ClassSectionID: "TSR", Kind: som.SomMetaKindComplex, TypeName: "TechnicalSecurityRequirements", SerializationOrder: metaIntPtr(9), DocComment: "Technical security requirements.", ClassDocComment: "8.8. Security Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TechnicalSecurityRequirements", MemberName: "technicalSecurityRequirements", ClassSectionID: "TSR", Kind: som.SomMetaKindComplex, TypeName: "TechnicalSecurityRequirements", SerializationOrder: metaIntPtr(11), DocComment: "Technical security requirements.", ClassDocComment: "8.8. Security Requirements.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("SystemArchitectureSpec", s, metaChildrenSystemArchitectureSpec, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SystemArchitectureSpec", MemberName: "systemArchitecture", ClassSectionID: "SYARSP", Kind: som.SomMetaKindComplex, TypeName: "SystemArchitectureSpec", SerializationOrder: metaIntPtr(10), DocComment: "System architecture (new in Phase A).", ClassDocComment: "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SystemArchitectureSpec", MemberName: "systemArchitecture", ClassSectionID: "SYARSP", Kind: som.SomMetaKindComplex, TypeName: "SystemArchitectureSpec", SerializationOrder: metaIntPtr(12), DocComment: "System architecture (new in Phase A).", ClassDocComment: "8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ComponentsAndDependencies", s, metaChildrenComponentsAndDependencies, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ComponentsAndDependencies", MemberName: "componentsToUse", ClassSectionID: "COMP", Kind: som.SomMetaKindComplex, TypeName: "ComponentsAndDependencies", SerializationOrder: metaIntPtr(11), DocComment: "Components to use (whole).", ClassDocComment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ComponentsAndDependencies", MemberName: "componentsToUse", ClassSectionID: "COMP", Kind: som.SomMetaKindComplex, TypeName: "ComponentsAndDependencies", SerializationOrder: metaIntPtr(13), DocComment: "Components to use (whole).", ClassDocComment: "12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("TechnicalEnvironment", s, metaChildrenTechnicalEnvironment, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TechnicalEnvironment", MemberName: "technicalEnvironment", ClassSectionID: "TEEN", Kind: som.SomMetaKindComplex, TypeName: "TechnicalEnvironment", SerializationOrder: metaIntPtr(12), DocComment: "Technical framework conditions (whole).", ClassDocComment: "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TechnicalEnvironment", MemberName: "technicalEnvironment", ClassSectionID: "TEEN", Kind: som.SomMetaKindComplex, TypeName: "TechnicalEnvironment", SerializationOrder: metaIntPtr(14), DocComment: "Technical framework conditions (whole).", ClassDocComment: "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("TranslationRequirements", s, metaChildrenTranslationRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TranslationRequirements", MemberName: "translationRequirements", ClassSectionID: "TRAREQ", Kind: som.SomMetaKindComplex, TypeName: "TranslationRequirements", SerializationOrder: metaIntPtr(13), DocComment: "Translation handling requirements (whole).", ClassDocComment: "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TranslationRequirements", MemberName: "translationRequirements", ClassSectionID: "TRAREQ", Kind: som.SomMetaKindComplex, TypeName: "TranslationRequirements", SerializationOrder: metaIntPtr(15), DocComment: "Translation handling requirements (whole).", ClassDocComment: "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.", MapsTo: "D06ArchitectureTechnologySpecification", DetailedIn: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3612,47 +3672,57 @@ func metaChildrenD07IntegrationInterfaceSpecification(s map[string]bool) []*som.
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
-		metaCx("ExternalInterfaces", s, metaChildrenExternalInterfaces, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExternalInterfaces", MemberName: "externalInterfaces", ClassSectionID: "EXIN", Kind: som.SomMetaKindComplex, TypeName: "ExternalInterfaces", SerializationOrder: metaIntPtr(2), DocComment: "External interfaces.", ClassDocComment: "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("OutOfScope", s, metaChildrenOutOfScope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "OutOfScope", MemberName: "outOfScope", ClassSectionID: "OUOFSC", Kind: som.SomMetaKindComplex, TypeName: "OutOfScope", SerializationOrder: metaIntPtr(3), DocComment: "Out of scope.", ClassDocComment: "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("BoundaryAssumptions", s, metaChildrenBoundaryAssumptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "BoundaryAssumptions", MemberName: "boundaryAssumptions", ClassSectionID: "BOAS", Kind: som.SomMetaKindComplex, TypeName: "BoundaryAssumptions", SerializationOrder: metaIntPtr(4), DocComment: "Boundary assumptions.", ClassDocComment: "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
-		}),
-		metaCx("SystemLandscapeInventory", s, metaChildrenSystemLandscapeInventory, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SystemLandscapeInventory", MemberName: "systemInventory", ClassSectionID: "SYLAIN", Kind: som.SomMetaKindComplex, TypeName: "SystemLandscapeInventory", SerializationOrder: metaIntPtr(5), DocComment: "System landscape inventory.", ClassDocComment: "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "interactionPatterns", SectionID: "BOINPA-INTE-LST", SectionIDPattern: "BOINPA-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "BoundaryInteractionPatterns", SerializationOrder: metaIntPtr(6), DocComment: "Boundary interaction patterns."}
+			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		metaCx("ExternalInterfaces", s, metaChildrenExternalInterfaces, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ExternalInterfaces", MemberName: "externalInterfaces", ClassSectionID: "EXIN", Kind: som.SomMetaKindComplex, TypeName: "ExternalInterfaces", SerializationOrder: metaIntPtr(4), DocComment: "External interfaces.", ClassDocComment: "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("OutOfScope", s, metaChildrenOutOfScope, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "OutOfScope", MemberName: "outOfScope", ClassSectionID: "OUOFSC", Kind: som.SomMetaKindComplex, TypeName: "OutOfScope", SerializationOrder: metaIntPtr(5), DocComment: "Out of scope.", ClassDocComment: "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("BoundaryAssumptions", s, metaChildrenBoundaryAssumptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "BoundaryAssumptions", MemberName: "boundaryAssumptions", ClassSectionID: "BOAS", Kind: som.SomMetaKindComplex, TypeName: "BoundaryAssumptions", SerializationOrder: metaIntPtr(6), DocComment: "Boundary assumptions.", ClassDocComment: "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("SystemLandscapeInventory", s, metaChildrenSystemLandscapeInventory, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SystemLandscapeInventory", MemberName: "systemInventory", ClassSectionID: "SYLAIN", Kind: som.SomMetaKindComplex, TypeName: "SystemLandscapeInventory", SerializationOrder: metaIntPtr(7), DocComment: "System landscape inventory.", ClassDocComment: "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "interactionPatterns", SectionID: "BOINPA-INTE-LST", SectionIDPattern: "BOINPA-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "BoundaryInteractionPatterns", SerializationOrder: metaIntPtr(8), DocComment: "Boundary interaction patterns."}
 			n.ElementNode = metaCx("BoundaryInteractionPatterns", s, metaChildrenBoundaryInteractionPatterns, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BoundaryInteractionPatterns", ClassSectionID: "BOINPA", Kind: som.SomMetaKindComplex, TypeName: "BoundaryInteractionPatterns", DocComment: "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.", ClassDocComment: "4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("InteractionTestingStrategy", s, metaChildrenInteractionTestingStrategy, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "InteractionTestingStrategy", MemberName: "testingStrategy", ClassSectionID: "INTES1", Kind: som.SomMetaKindComplex, TypeName: "InteractionTestingStrategy", SerializationOrder: metaIntPtr(7), DocComment: "Interaction testing strategy.", ClassDocComment: "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "InteractionTestingStrategy", MemberName: "testingStrategy", ClassSectionID: "INTES1", Kind: som.SomMetaKindComplex, TypeName: "InteractionTestingStrategy", SerializationOrder: metaIntPtr(9), DocComment: "Interaction testing strategy.", ClassDocComment: "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("InteractionDependencyAnalysis", s, metaChildrenInteractionDependencyAnalysis, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "InteractionDependencyAnalysis", MemberName: "dependencyAnalysis", ClassSectionID: "INDEAN", Kind: som.SomMetaKindComplex, TypeName: "InteractionDependencyAnalysis", SerializationOrder: metaIntPtr(8), DocComment: "Interaction dependency analysis.", ClassDocComment: "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "InteractionDependencyAnalysis", MemberName: "dependencyAnalysis", ClassSectionID: "INDEAN", Kind: som.SomMetaKindComplex, TypeName: "InteractionDependencyAnalysis", SerializationOrder: metaIntPtr(10), DocComment: "Interaction dependency analysis.", ClassDocComment: "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "migrationInteractions", SectionID: "MIIN-MIGR-LST", SectionIDPattern: "MIIN-MIGR-xxx", Kind: som.SomMetaKindList, TypeName: "MigrationInteractions", SerializationOrder: metaIntPtr(9), DocComment: "Migration interactions."}
+			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "migrationInteractions", SectionID: "MIIN-MIGR-LST", SectionIDPattern: "MIIN-MIGR-xxx", Kind: som.SomMetaKindList, TypeName: "MigrationInteractions", SerializationOrder: metaIntPtr(11), DocComment: "Migration interactions."}
 			n.ElementNode = metaCx("MigrationInteractions", s, metaChildrenMigrationInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "MigrationInteractions", ClassSectionID: "MIIN", Kind: som.SomMetaKindComplex, TypeName: "MigrationInteractions", DocComment: "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.", ClassDocComment: "4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "operationalConsiderations", SectionID: "CBOC-OPER-LST", SectionIDPattern: "CBOC-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "CrossBoundaryOperationalConsiderations", SerializationOrder: metaIntPtr(10), DocComment: "Cross-boundary operational considerations."}
+			n := &som.SomMetaNode{ClassName: "D07IntegrationInterfaceSpecification", MemberName: "operationalConsiderations", SectionID: "CBOC-OPER-LST", SectionIDPattern: "CBOC-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "CrossBoundaryOperationalConsiderations", SerializationOrder: metaIntPtr(12), DocComment: "Cross-boundary operational considerations."}
 			n.ElementNode = metaCx("CrossBoundaryOperationalConsiderations", s, metaChildrenCrossBoundaryOperationalConsiderations, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "CrossBoundaryOperationalConsiderations", ClassSectionID: "CBOC", Kind: som.SomMetaKindComplex, TypeName: "CrossBoundaryOperationalConsiderations", DocComment: "4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.", ClassDocComment: "4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("CrossBoundaryErrorHandling", s, metaChildrenCrossBoundaryErrorHandling, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CrossBoundaryErrorHandling", MemberName: "crossBoundaryErrorHandling", ClassSectionID: "CBEH", Kind: som.SomMetaKindComplex, TypeName: "CrossBoundaryErrorHandling", SerializationOrder: metaIntPtr(11), DocComment: "Cross-boundary error handling.", ClassDocComment: "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CrossBoundaryErrorHandling", MemberName: "crossBoundaryErrorHandling", ClassSectionID: "CBEH", Kind: som.SomMetaKindComplex, TypeName: "CrossBoundaryErrorHandling", SerializationOrder: metaIntPtr(13), DocComment: "Cross-boundary error handling.", ClassDocComment: "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.", DetailedIn: "D07IntegrationInterfaceSpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3663,32 +3733,42 @@ func metaChildrenD08SecurityAccessSpecification(s map[string]bool) []*som.SomMet
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D08SecurityAccessSpecification", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("UserManagement", s, metaChildrenUserManagement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserManagement", MemberName: "userManagement", ClassSectionID: "USMGT", Kind: som.SomMetaKindComplex, TypeName: "UserManagement", SerializationOrder: metaIntPtr(2), DocComment: "User management.", ClassDocComment: "9.1. User Management.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserManagement", MemberName: "userManagement", ClassSectionID: "USMGT", Kind: som.SomMetaKindComplex, TypeName: "UserManagement", SerializationOrder: metaIntPtr(4), DocComment: "User management.", ClassDocComment: "9.1. User Management.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("IdentificationAndAuthentication", s, metaChildrenIdentificationAndAuthentication, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "IdentificationAndAuthentication", MemberName: "identificationAndAuthentication", ClassSectionID: "IDAUT", Kind: som.SomMetaKindComplex, TypeName: "IdentificationAndAuthentication", SerializationOrder: metaIntPtr(3), DocComment: "Identification and authentication.", ClassDocComment: "9.2. Identification and Authentication.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "IdentificationAndAuthentication", MemberName: "identificationAndAuthentication", ClassSectionID: "IDAUT", Kind: som.SomMetaKindComplex, TypeName: "IdentificationAndAuthentication", SerializationOrder: metaIntPtr(5), DocComment: "Identification and authentication.", ClassDocComment: "9.2. Identification and Authentication.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ResourceProtection", s, metaChildrenResourceProtection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResourceProtection", MemberName: "resourceProtection", ClassSectionID: "RESPRO", Kind: som.SomMetaKindComplex, TypeName: "ResourceProtection", SerializationOrder: metaIntPtr(4), DocComment: "Resource protection.", ClassDocComment: "9.3. Resource Protection.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ResourceProtection", MemberName: "resourceProtection", ClassSectionID: "RESPRO", Kind: som.SomMetaKindComplex, TypeName: "ResourceProtection", SerializationOrder: metaIntPtr(6), DocComment: "Resource protection.", ClassDocComment: "9.3. Resource Protection.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UserAuthorization", s, metaChildrenUserAuthorization, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAuthorization", MemberName: "userAuthorization", ClassSectionID: "USAU", Kind: som.SomMetaKindComplex, TypeName: "UserAuthorization", SerializationOrder: metaIntPtr(5), DocComment: "User authorization.", ClassDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserAuthorization", MemberName: "userAuthorization", ClassSectionID: "USAU", Kind: som.SomMetaKindComplex, TypeName: "UserAuthorization", SerializationOrder: metaIntPtr(7), DocComment: "User authorization.", ClassDocComment: "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("SensitiveDataEncryption", s, metaChildrenSensitiveDataEncryption, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "sensitiveDataEncryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(6), DocComment: "Sensitive data encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "sensitiveDataEncryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(8), DocComment: "Sensitive data encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(7), DocComment: "Audit and logging — the CE-LG / CE-CF declarations.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(9), DocComment: "Audit and logging — the CE-LG / CE-CF declarations.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("RoleMatrix", s, metaChildrenRoleMatrix, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "RoleMatrix", MemberName: "roleMatrix", ClassSectionID: "ROMA", Kind: som.SomMetaKindComplex, TypeName: "RoleMatrix", SerializationOrder: metaIntPtr(8), DocComment: "Role matrix.", ClassDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "RoleMatrix", MemberName: "roleMatrix", ClassSectionID: "ROMA", Kind: som.SomMetaKindComplex, TypeName: "RoleMatrix", SerializationOrder: metaIntPtr(10), DocComment: "Role matrix.", ClassDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ComplianceFramework", s, metaChildrenComplianceFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ComplianceFramework", MemberName: "complianceFramework", ClassSectionID: "CF", Kind: som.SomMetaKindComplex, TypeName: "ComplianceFramework", SerializationOrder: metaIntPtr(9), DocComment: "Compliance framework.", ClassDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ComplianceFramework", MemberName: "complianceFramework", ClassSectionID: "CF", Kind: som.SomMetaKindComplex, TypeName: "ComplianceFramework", SerializationOrder: metaIntPtr(11), DocComment: "Compliance framework.", ClassDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ComplianceReporting", s, metaChildrenComplianceReporting, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ComplianceReporting", MemberName: "complianceReporting", ClassSectionID: "COMREP", Kind: som.SomMetaKindComplex, TypeName: "ComplianceReporting", SerializationOrder: metaIntPtr(10), DocComment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.", ClassDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ComplianceReporting", MemberName: "complianceReporting", ClassSectionID: "COMREP", Kind: som.SomMetaKindComplex, TypeName: "ComplianceReporting", SerializationOrder: metaIntPtr(12), DocComment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.", ClassDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3699,44 +3779,54 @@ func metaChildrenD09ExperienceDesignSpecification(s map[string]bool) []*som.SomM
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D09ExperienceDesignSpecification", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("DesignVision", s, metaChildrenDesignVision, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DesignVision", MemberName: "designVision", ClassSectionID: "DEVIZ", Kind: som.SomMetaKindComplex, TypeName: "DesignVision", SerializationOrder: metaIntPtr(2), DocComment: "Design vision.", ClassDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DesignVision", MemberName: "designVision", ClassSectionID: "DEVIZ", Kind: som.SomMetaKindComplex, TypeName: "DesignVision", SerializationOrder: metaIntPtr(4), DocComment: "Design vision.", ClassDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ScreenDescriptions", s, metaChildrenScreenDescriptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ScreenDescriptions", MemberName: "screens", ClassSectionID: "SCRDZ", Kind: som.SomMetaKindComplex, TypeName: "ScreenDescriptions", SerializationOrder: metaIntPtr(3), DocComment: "Screen descriptions.", ClassDocComment: "10.2. Screen Descriptions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ScreenDescriptions", MemberName: "screens", ClassSectionID: "SCRDZ", Kind: som.SomMetaKindComplex, TypeName: "ScreenDescriptions", SerializationOrder: metaIntPtr(5), DocComment: "Screen descriptions.", ClassDocComment: "10.2. Screen Descriptions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ScreenFlowStructure", s, metaChildrenScreenFlowStructure, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ScreenFlowStructure", MemberName: "screenFlow", ClassSectionID: "SCFLST", Kind: som.SomMetaKindComplex, TypeName: "ScreenFlowStructure", SerializationOrder: metaIntPtr(4), DocComment: "Screen flow structure.", ClassDocComment: "10.3. Screen Flow Structure.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ScreenFlowStructure", MemberName: "screenFlow", ClassSectionID: "SCFLST", Kind: som.SomMetaKindComplex, TypeName: "ScreenFlowStructure", SerializationOrder: metaIntPtr(6), DocComment: "Screen flow structure.", ClassDocComment: "10.3. Screen Flow Structure.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("PrintAndExportLayout", s, metaChildrenPrintAndExportLayout, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(5), DocComment: "Print layout.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(7), DocComment: "Print layout.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ReportDefinitions", s, metaChildrenReportDefinitions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reportDefinitions", ClassSectionID: "REDF", Kind: som.SomMetaKindComplex, TypeName: "ReportDefinitions", SerializationOrder: metaIntPtr(6), DocComment: "Report definitions — the CE-RP report projections over the domain model.", ClassDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reportDefinitions", ClassSectionID: "REDF", Kind: som.SomMetaKindComplex, TypeName: "ReportDefinitions", SerializationOrder: metaIntPtr(8), DocComment: "Report definitions — the CE-RP report projections over the domain model.", ClassDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).", Recursive: r, Children: c}
 		}),
 		metaCx("ErrorHandling", s, metaChildrenErrorHandling, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ErrorHandling", MemberName: "errorHandling", ClassSectionID: "ERHACO", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandling", SerializationOrder: metaIntPtr(7), DocComment: "Error handling concept.", ClassDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ErrorHandling", MemberName: "errorHandling", ClassSectionID: "ERHACO", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandling", SerializationOrder: metaIntPtr(9), DocComment: "Error handling concept.", ClassDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UserAssistance", s, metaChildrenUserAssistance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(8), DocComment: "Help concept.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(10), DocComment: "Help concept.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Accessibility", s, metaChildrenAccessibility, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(9), DocComment: "Accessibility.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(11), DocComment: "Accessibility.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ResponsiveDesign", s, metaChildrenResponsiveDesign, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResponsiveDesign", MemberName: "responsiveDesign", ClassSectionID: "REDE", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveDesign", SerializationOrder: metaIntPtr(10), DocComment: "Responsive design.", ClassDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ResponsiveDesign", MemberName: "responsiveDesign", ClassSectionID: "REDE", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveDesign", SerializationOrder: metaIntPtr(12), DocComment: "Responsive design.", ClassDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UiComponents", s, metaChildrenUiComponents, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(11), DocComment: "UI components.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(13), DocComment: "UI components.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("LanguageCountrySelection", s, metaChildrenLanguageCountrySelection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(12), DocComment: "Language and country selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(14), DocComment: "Language and country selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Prototype", s, metaChildrenPrototype, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(13), DocComment: "Prototype.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(15), DocComment: "Prototype.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("WireframesAndMockups", s, metaChildrenWireframesAndMockups, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(14), DocComment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(16), DocComment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3747,62 +3837,72 @@ func metaChildrenD10QualityAcceptancePlan(s map[string]bool) []*som.SomMetaNode 
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D10QualityAcceptancePlan", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("QualityFramework", s, metaChildrenQualityFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "QualityFramework", MemberName: "qualityFramework", ClassSectionID: "QLFWK", Kind: som.SomMetaKindComplex, TypeName: "QualityFramework", SerializationOrder: metaIntPtr(2), DocComment: "Quality framework.", ClassDocComment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "QualityFramework", MemberName: "qualityFramework", ClassSectionID: "QLFWK", Kind: som.SomMetaKindComplex, TypeName: "QualityFramework", SerializationOrder: metaIntPtr(4), DocComment: "Quality framework.", ClassDocComment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("FunctionalSuitabilityCharacteristic", s, metaChildrenFunctionalSuitabilityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "FunctionalSuitabilityCharacteristic", MemberName: "functionalSuitability", ClassSectionID: "FNSU", Kind: som.SomMetaKindComplex, TypeName: "FunctionalSuitabilityCharacteristic", SerializationOrder: metaIntPtr(3), DocComment: "Functional suitability (ISO/IEC 25010:2023).", ClassDocComment: "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "FunctionalSuitabilityCharacteristic", MemberName: "functionalSuitability", ClassSectionID: "FNSU", Kind: som.SomMetaKindComplex, TypeName: "FunctionalSuitabilityCharacteristic", SerializationOrder: metaIntPtr(5), DocComment: "Functional suitability (ISO/IEC 25010:2023).", ClassDocComment: "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("PerformanceEfficiencyCharacteristic", s, metaChildrenPerformanceEfficiencyCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PerformanceEfficiencyCharacteristic", MemberName: "performanceEfficiency", ClassSectionID: "PEEF", Kind: som.SomMetaKindComplex, TypeName: "PerformanceEfficiencyCharacteristic", SerializationOrder: metaIntPtr(4), DocComment: "Performance efficiency (ISO/IEC 25010:2023).", ClassDocComment: "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "PerformanceEfficiencyCharacteristic", MemberName: "performanceEfficiency", ClassSectionID: "PEEF", Kind: som.SomMetaKindComplex, TypeName: "PerformanceEfficiencyCharacteristic", SerializationOrder: metaIntPtr(6), DocComment: "Performance efficiency (ISO/IEC 25010:2023).", ClassDocComment: "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("CompatibilityCharacteristic", s, metaChildrenCompatibilityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CompatibilityCharacteristic", MemberName: "compatibility", ClassSectionID: "CMPT", Kind: som.SomMetaKindComplex, TypeName: "CompatibilityCharacteristic", SerializationOrder: metaIntPtr(5), DocComment: "Compatibility (ISO/IEC 25010:2023).", ClassDocComment: "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CompatibilityCharacteristic", MemberName: "compatibility", ClassSectionID: "CMPT", Kind: som.SomMetaKindComplex, TypeName: "CompatibilityCharacteristic", SerializationOrder: metaIntPtr(7), DocComment: "Compatibility (ISO/IEC 25010:2023).", ClassDocComment: "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("InteractionCapabilityCharacteristic", s, metaChildrenInteractionCapabilityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "InteractionCapabilityCharacteristic", MemberName: "interactionCapability", ClassSectionID: "INCP", Kind: som.SomMetaKindComplex, TypeName: "InteractionCapabilityCharacteristic", SerializationOrder: metaIntPtr(6), DocComment: "Interaction capability (ISO/IEC 25010:2023; formerly Usability).", ClassDocComment: "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "InteractionCapabilityCharacteristic", MemberName: "interactionCapability", ClassSectionID: "INCP", Kind: som.SomMetaKindComplex, TypeName: "InteractionCapabilityCharacteristic", SerializationOrder: metaIntPtr(8), DocComment: "Interaction capability (ISO/IEC 25010:2023; formerly Usability).", ClassDocComment: "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("ReliabilityCharacteristic", s, metaChildrenReliabilityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ReliabilityCharacteristic", MemberName: "reliability", ClassSectionID: "RELC", Kind: som.SomMetaKindComplex, TypeName: "ReliabilityCharacteristic", SerializationOrder: metaIntPtr(7), DocComment: "Reliability (ISO/IEC 25010:2023).", ClassDocComment: "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ReliabilityCharacteristic", MemberName: "reliability", ClassSectionID: "RELC", Kind: som.SomMetaKindComplex, TypeName: "ReliabilityCharacteristic", SerializationOrder: metaIntPtr(9), DocComment: "Reliability (ISO/IEC 25010:2023).", ClassDocComment: "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("SecurityCharacteristic", s, metaChildrenSecurityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SecurityCharacteristic", MemberName: "security", ClassSectionID: "SECC", Kind: som.SomMetaKindComplex, TypeName: "SecurityCharacteristic", SerializationOrder: metaIntPtr(8), DocComment: "Security (ISO/IEC 25010:2023).", ClassDocComment: "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SecurityCharacteristic", MemberName: "security", ClassSectionID: "SECC", Kind: som.SomMetaKindComplex, TypeName: "SecurityCharacteristic", SerializationOrder: metaIntPtr(10), DocComment: "Security (ISO/IEC 25010:2023).", ClassDocComment: "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("MaintainabilityCharacteristic", s, metaChildrenMaintainabilityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "MaintainabilityCharacteristic", MemberName: "maintainability", ClassSectionID: "MNTC", Kind: som.SomMetaKindComplex, TypeName: "MaintainabilityCharacteristic", SerializationOrder: metaIntPtr(9), DocComment: "Maintainability (ISO/IEC 25010:2023).", ClassDocComment: "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "MaintainabilityCharacteristic", MemberName: "maintainability", ClassSectionID: "MNTC", Kind: som.SomMetaKindComplex, TypeName: "MaintainabilityCharacteristic", SerializationOrder: metaIntPtr(11), DocComment: "Maintainability (ISO/IEC 25010:2023).", ClassDocComment: "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("FlexibilityCharacteristic", s, metaChildrenFlexibilityCharacteristic, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "FlexibilityCharacteristic", MemberName: "flexibility", ClassSectionID: "FLXC", Kind: som.SomMetaKindComplex, TypeName: "FlexibilityCharacteristic", SerializationOrder: metaIntPtr(10), DocComment: "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).", ClassDocComment: "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "FlexibilityCharacteristic", MemberName: "flexibility", ClassSectionID: "FLXC", Kind: som.SomMetaKindComplex, TypeName: "FlexibilityCharacteristic", SerializationOrder: metaIntPtr(12), DocComment: "Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).", ClassDocComment: "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("DocumentationQualityCriteria", s, metaChildrenDocumentationQualityCriteria, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DocumentationQualityCriteria", MemberName: "documentationQualityCriteria", ClassSectionID: "DOQUCR", Kind: som.SomMetaKindComplex, TypeName: "DocumentationQualityCriteria", SerializationOrder: metaIntPtr(11), DocComment: "Documentation quality (ISO/IEC 26514 annex).", ClassDocComment: "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DocumentationQualityCriteria", MemberName: "documentationQualityCriteria", ClassSectionID: "DOQUCR", Kind: som.SomMetaKindComplex, TypeName: "DocumentationQualityCriteria", SerializationOrder: metaIntPtr(13), DocComment: "Documentation quality (ISO/IEC 26514 annex).", ClassDocComment: "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("QualityPrioritization", s, metaChildrenQualityPrioritization, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "QualityPrioritization", MemberName: "qualityPrioritization", ClassSectionID: "QUPR", Kind: som.SomMetaKindComplex, TypeName: "QualityPrioritization", SerializationOrder: metaIntPtr(12), DocComment: "Quality prioritization.", ClassDocComment: "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "QualityPrioritization", MemberName: "qualityPrioritization", ClassSectionID: "QUPR", Kind: som.SomMetaKindComplex, TypeName: "QualityPrioritization", SerializationOrder: metaIntPtr(14), DocComment: "Quality prioritization.", ClassDocComment: "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("AcceptanceCriteriaSummary", s, metaChildrenAcceptanceCriteriaSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AcceptanceCriteriaSummary", MemberName: "acceptanceCriteriaSummary", ClassSectionID: "ACCRSU", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceCriteriaSummary", SerializationOrder: metaIntPtr(13), DocComment: "Acceptance criteria summary.", ClassDocComment: "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AcceptanceCriteriaSummary", MemberName: "acceptanceCriteriaSummary", ClassSectionID: "ACCRSU", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceCriteriaSummary", SerializationOrder: metaIntPtr(15), DocComment: "Acceptance criteria summary.", ClassDocComment: "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("TestStrategy", s, metaChildrenTestStrategy, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TestStrategy", MemberName: "testStrategy", ClassSectionID: "TEST", Kind: som.SomMetaKindComplex, TypeName: "TestStrategy", SerializationOrder: metaIntPtr(14), DocComment: "Test strategy (new in Phase A).", ClassDocComment: "11.8. Test Strategy.\n\nOverall test strategy for the project..", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TestStrategy", MemberName: "testStrategy", ClassSectionID: "TEST", Kind: som.SomMetaKindComplex, TypeName: "TestStrategy", SerializationOrder: metaIntPtr(16), DocComment: "Test strategy (new in Phase A).", ClassDocComment: "11.8. Test Strategy.\n\nOverall test strategy for the project..", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("AcceptanceCriteriaList", s, metaChildrenAcceptanceCriteriaList, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AcceptanceCriteriaList", MemberName: "acceptanceCriteria", ClassSectionID: "ACRITL", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceCriteriaList", SerializationOrder: metaIntPtr(15), DocComment: "Acceptance criteria.", ClassDocComment: "14.2.1. Acceptance Criteria.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AcceptanceCriteriaList", MemberName: "acceptanceCriteria", ClassSectionID: "ACRITL", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceCriteriaList", SerializationOrder: metaIntPtr(17), DocComment: "Acceptance criteria.", ClassDocComment: "14.2.1. Acceptance Criteria.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("AcceptanceProcess", s, metaChildrenAcceptanceProcess, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AcceptanceProcess", MemberName: "acceptanceProcess", ClassSectionID: "ACPR1", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceProcess", SerializationOrder: metaIntPtr(16), DocComment: "Acceptance process.", ClassDocComment: "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AcceptanceProcess", MemberName: "acceptanceProcess", ClassSectionID: "ACPR1", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceProcess", SerializationOrder: metaIntPtr(18), DocComment: "Acceptance process.", ClassDocComment: "14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("UserAcceptanceTesting", s, metaChildrenUserAcceptanceTesting, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAcceptanceTesting", MemberName: "userAcceptanceTesting", ClassSectionID: "USACTE", Kind: som.SomMetaKindComplex, TypeName: "UserAcceptanceTesting", SerializationOrder: metaIntPtr(17), DocComment: "User acceptance testing.", ClassDocComment: "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserAcceptanceTesting", MemberName: "userAcceptanceTesting", ClassSectionID: "USACTE", Kind: som.SomMetaKindComplex, TypeName: "UserAcceptanceTesting", SerializationOrder: metaIntPtr(19), DocComment: "User acceptance testing.", ClassDocComment: "14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("DefectResolution", s, metaChildrenDefectResolution, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DefectResolution", MemberName: "defectResolution", ClassSectionID: "DERE", Kind: som.SomMetaKindComplex, TypeName: "DefectResolution", SerializationOrder: metaIntPtr(18), DocComment: "Defect resolution.", ClassDocComment: "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DefectResolution", MemberName: "defectResolution", ClassSectionID: "DERE", Kind: som.SomMetaKindComplex, TypeName: "DefectResolution", SerializationOrder: metaIntPtr(20), DocComment: "Defect resolution.", ClassDocComment: "14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("SignOffProcess", s, metaChildrenSignOffProcess, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SignOffProcess", MemberName: "signOffProcess", ClassSectionID: "SIOFPR", Kind: som.SomMetaKindComplex, TypeName: "SignOffProcess", SerializationOrder: metaIntPtr(19), DocComment: "Sign-off process.", ClassDocComment: "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SignOffProcess", MemberName: "signOffProcess", ClassSectionID: "SIOFPR", Kind: som.SomMetaKindComplex, TypeName: "SignOffProcess", SerializationOrder: metaIntPtr(21), DocComment: "Sign-off process.", ClassDocComment: "14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 		metaCx("WarrantyTerms", s, metaChildrenWarrantyTerms, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WarrantyTerms", MemberName: "warranty", ClassSectionID: "WATE", Kind: som.SomMetaKindComplex, TypeName: "WarrantyTerms", SerializationOrder: metaIntPtr(20), DocComment: "Warranty terms.", ClassDocComment: "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WarrantyTerms", MemberName: "warranty", ClassSectionID: "WATE", Kind: som.SomMetaKindComplex, TypeName: "WarrantyTerms", SerializationOrder: metaIntPtr(22), DocComment: "Warranty terms.", ClassDocComment: "14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3813,36 +3913,46 @@ func metaChildrenD11DeliveryRoadmap(s map[string]bool) []*som.SomMetaNode {
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
-		metaCx("StagingStrategy", s, metaChildrenStagingStrategy, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "StagingStrategy", MemberName: "stagingStrategy", ClassSectionID: "STAGST", Kind: som.SomMetaKindComplex, TypeName: "StagingStrategy", SerializationOrder: metaIntPtr(2), DocComment: "Staging strategy.", ClassDocComment: "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
-		}),
-		metaCx("StageOverview", s, metaChildrenStageOverview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "StageOverview", MemberName: "stageOverview", ClassSectionID: "STAGOV", Kind: som.SomMetaKindComplex, TypeName: "StageOverview", SerializationOrder: metaIntPtr(3), DocComment: "Stage overview.", ClassDocComment: "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "D11DeliveryRoadmap", MemberName: "stages", SectionID: "STAGE-STAG-LST", SectionIDPattern: "STAGE-STAG-xxx", Kind: som.SomMetaKindList, TypeName: "StageEntry", SerializationOrder: metaIntPtr(4), Min: metaIntPtr(1), DocComment: "Stages (list)."}
+			n := &som.SomMetaNode{ClassName: "D11DeliveryRoadmap", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		metaCx("StagingStrategy", s, metaChildrenStagingStrategy, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "StagingStrategy", MemberName: "stagingStrategy", ClassSectionID: "STAGST", Kind: som.SomMetaKindComplex, TypeName: "StagingStrategy", SerializationOrder: metaIntPtr(4), DocComment: "Staging strategy.", ClassDocComment: "13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+		}),
+		metaCx("StageOverview", s, metaChildrenStageOverview, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "StageOverview", MemberName: "stageOverview", ClassSectionID: "STAGOV", Kind: som.SomMetaKindComplex, TypeName: "StageOverview", SerializationOrder: metaIntPtr(5), DocComment: "Stage overview.", ClassDocComment: "13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D11DeliveryRoadmap", MemberName: "stages", SectionID: "STAGE-STAG-LST", SectionIDPattern: "STAGE-STAG-xxx", Kind: som.SomMetaKindList, TypeName: "StageEntry", SerializationOrder: metaIntPtr(6), Min: metaIntPtr(1), DocComment: "Stages (list)."}
 			n.ElementNode = metaCx("StageEntry", s, metaChildrenStageEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "StageEntry", ClassSectionID: "STAGE", Kind: som.SomMetaKindComplex, TypeName: "StageEntry", DocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", ClassDocComment: "A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("FeaturePrioritization", s, metaChildrenFeaturePrioritization, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "FeaturePrioritization", MemberName: "featurePrioritization", ClassSectionID: "FEPR", Kind: som.SomMetaKindComplex, TypeName: "FeaturePrioritization", SerializationOrder: metaIntPtr(5), DocComment: "Feature prioritization.", ClassDocComment: "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "FeaturePrioritization", MemberName: "featurePrioritization", ClassSectionID: "FEPR", Kind: som.SomMetaKindComplex, TypeName: "FeaturePrioritization", SerializationOrder: metaIntPtr(7), DocComment: "Feature prioritization.", ClassDocComment: "13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
 		}),
 		metaCx("DataMigrationStrategy", s, metaChildrenDataMigrationStrategy, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataMigrationStrategy", MemberName: "dataMigrationStrategy", ClassSectionID: "DAMIST", Kind: som.SomMetaKindComplex, TypeName: "DataMigrationStrategy", SerializationOrder: metaIntPtr(6), DocComment: "Data migration strategy.", ClassDocComment: "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataMigrationStrategy", MemberName: "dataMigrationStrategy", ClassSectionID: "DAMIST", Kind: som.SomMetaKindComplex, TypeName: "DataMigrationStrategy", SerializationOrder: metaIntPtr(8), DocComment: "Data migration strategy.", ClassDocComment: "13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
 		}),
 		metaCx("PhaseGateReviews", s, metaChildrenPhaseGateReviews, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PhaseGateReviews", MemberName: "gateCriteria", ClassSectionID: "PHGARE", Kind: som.SomMetaKindComplex, TypeName: "PhaseGateReviews", SerializationOrder: metaIntPtr(7), DocComment: "Gate criteria (promoted from GOV).", ClassDocComment: "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "PhaseGateReviews", MemberName: "gateCriteria", ClassSectionID: "PHGARE", Kind: som.SomMetaKindComplex, TypeName: "PhaseGateReviews", SerializationOrder: metaIntPtr(9), DocComment: "Gate criteria (promoted from GOV).", ClassDocComment: "13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
 		}),
 		metaCx("DecisionPoints", s, metaChildrenDecisionPoints, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DecisionPoints", MemberName: "decisionProcesses", ClassSectionID: "DEPO", Kind: som.SomMetaKindComplex, TypeName: "DecisionPoints", SerializationOrder: metaIntPtr(8), DocComment: "Decision processes (promoted from GOV).", ClassDocComment: "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DecisionPoints", MemberName: "decisionProcesses", ClassSectionID: "DEPO", Kind: som.SomMetaKindComplex, TypeName: "DecisionPoints", SerializationOrder: metaIntPtr(10), DocComment: "Decision processes (promoted from GOV).", ClassDocComment: "13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
 		}),
 		metaCx("InitialDevelopmentFlow", s, metaChildrenInitialDevelopmentFlow, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "InitialDevelopmentFlow", MemberName: "initialDevelopmentFlow", ClassSectionID: "INDEFL", Kind: som.SomMetaKindComplex, TypeName: "InitialDevelopmentFlow", SerializationOrder: metaIntPtr(9), DocComment: "Initial development flow.", ClassDocComment: "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "InitialDevelopmentFlow", MemberName: "initialDevelopmentFlow", ClassSectionID: "INDEFL", Kind: som.SomMetaKindComplex, TypeName: "InitialDevelopmentFlow", SerializationOrder: metaIntPtr(11), DocComment: "Initial development flow.", ClassDocComment: "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
 		}),
 		metaCx("UpgradeCycleFramework", s, metaChildrenUpgradeCycleFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UpgradeCycleFramework", MemberName: "upgradeCycleFramework", ClassSectionID: "UPCYFR", Kind: som.SomMetaKindComplex, TypeName: "UpgradeCycleFramework", SerializationOrder: metaIntPtr(10), DocComment: "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).", ClassDocComment: "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UpgradeCycleFramework", MemberName: "upgradeCycleFramework", ClassSectionID: "UPCYFR", Kind: som.SomMetaKindComplex, TypeName: "UpgradeCycleFramework", SerializationOrder: metaIntPtr(12), DocComment: "Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).", ClassDocComment: "13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.", DetailedIn: "D11DeliveryRoadmap", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3853,41 +3963,51 @@ func metaChildrenD12TransitionRolloutPlan(s map[string]bool) []*som.SomMetaNode 
 		metaCx("DocumentHeader", s, metaChildrenDocumentHeader, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Standard TomSpecs document header.", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(2), DocComment: "This document's own review team; when it has members it replaces the\nSolution Blueprint's team for this document type and its default team.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "D12TransitionRolloutPlan", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.", DocComment: "Chronological revision history of this document, with the reviewers of\neach revision.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("LocalizationProcess", s, metaChildrenLocalizationProcess, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "LocalizationProcess", MemberName: "localizationProcess", ClassSectionID: "LOPR", Kind: som.SomMetaKindComplex, TypeName: "LocalizationProcess", SerializationOrder: metaIntPtr(2), DocComment: "Localization process.", ClassDocComment: "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "LocalizationProcess", MemberName: "localizationProcess", ClassSectionID: "LOPR", Kind: som.SomMetaKindComplex, TypeName: "LocalizationProcess", SerializationOrder: metaIntPtr(4), DocComment: "Localization process.", ClassDocComment: "10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("TranslationProcess", s, metaChildrenTranslationProcess, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TranslationProcess", MemberName: "translationProcess", ClassSectionID: "TRPR", Kind: som.SomMetaKindComplex, TypeName: "TranslationProcess", SerializationOrder: metaIntPtr(3), DocComment: "Translation process.", ClassDocComment: "10.12.2. Translation Process.\n\nWorkflow for translating content.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TranslationProcess", MemberName: "translationProcess", ClassSectionID: "TRPR", Kind: som.SomMetaKindComplex, TypeName: "TranslationProcess", SerializationOrder: metaIntPtr(5), DocComment: "Translation process.", ClassDocComment: "10.12.2. Translation Process.\n\nWorkflow for translating content.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("UserDocumentationRequirements", s, metaChildrenUserDocumentationRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserDocumentationRequirements", MemberName: "userDocumentation", ClassSectionID: "DOANTR", Kind: som.SomMetaKindComplex, TypeName: "UserDocumentationRequirements", SerializationOrder: metaIntPtr(4), DocComment: "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).", ClassDocComment: "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserDocumentationRequirements", MemberName: "userDocumentation", ClassSectionID: "DOANTR", Kind: som.SomMetaKindComplex, TypeName: "UserDocumentationRequirements", SerializationOrder: metaIntPtr(6), DocComment: "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).", ClassDocComment: "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("TrainingDeliverableRequirements", s, metaChildrenTrainingDeliverableRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingDeliverables", ClassSectionID: "TRMAT", Kind: som.SomMetaKindComplex, TypeName: "TrainingDeliverableRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).", ClassDocComment: "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingDeliverables", ClassSectionID: "TRMAT", Kind: som.SomMetaKindComplex, TypeName: "TrainingDeliverableRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).", ClassDocComment: "10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.", MapsTo: "D12TransitionRolloutPlan", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("RolloutPlan", s, metaChildrenRolloutPlan, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "RolloutPlan", MemberName: "rolloutPlan", ClassSectionID: "RLTPLN", Kind: som.SomMetaKindComplex, TypeName: "RolloutPlan", SerializationOrder: metaIntPtr(6), DocComment: "Rollout plan.", ClassDocComment: "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "RolloutPlan", MemberName: "rolloutPlan", ClassSectionID: "RLTPLN", Kind: som.SomMetaKindComplex, TypeName: "RolloutPlan", SerializationOrder: metaIntPtr(8), DocComment: "Rollout plan.", ClassDocComment: "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("MigrationPlan", s, metaChildrenMigrationPlan, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "MigrationPlan", MemberName: "migrationPlan", ClassSectionID: "MIGPLN", Kind: som.SomMetaKindComplex, TypeName: "MigrationPlan", SerializationOrder: metaIntPtr(7), DocComment: "Migration plan.", ClassDocComment: "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "MigrationPlan", MemberName: "migrationPlan", ClassSectionID: "MIGPLN", Kind: som.SomMetaKindComplex, TypeName: "MigrationPlan", SerializationOrder: metaIntPtr(9), DocComment: "Migration plan.", ClassDocComment: "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("UserManual", s, metaChildrenUserManual, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserManual", MemberName: "userManuals", ClassSectionID: "USRMAN", Kind: som.SomMetaKindComplex, TypeName: "UserManual", SerializationOrder: metaIntPtr(8), DocComment: "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).", ClassDocComment: "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserManual", MemberName: "userManuals", ClassSectionID: "USRMAN", Kind: som.SomMetaKindComplex, TypeName: "UserManual", SerializationOrder: metaIntPtr(10), DocComment: "User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).", ClassDocComment: "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("RolloutTrainingMaterial", s, metaChildrenRolloutTrainingMaterial, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "RolloutTrainingMaterial", MemberName: "trainingMaterials", ClassSectionID: "RLTTM", Kind: som.SomMetaKindComplex, TypeName: "RolloutTrainingMaterial", SerializationOrder: metaIntPtr(9), DocComment: "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).", ClassDocComment: "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "RolloutTrainingMaterial", MemberName: "trainingMaterials", ClassSectionID: "RLTTM", Kind: som.SomMetaKindComplex, TypeName: "RolloutTrainingMaterial", SerializationOrder: metaIntPtr(11), DocComment: "Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).", ClassDocComment: "15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("PilotPlan", s, metaChildrenPilotPlan, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PilotPlan", MemberName: "pilotPlan", ClassSectionID: "PLTPLN", Kind: som.SomMetaKindComplex, TypeName: "PilotPlan", SerializationOrder: metaIntPtr(10), DocComment: "Pilot plan.", ClassDocComment: "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "PilotPlan", MemberName: "pilotPlan", ClassSectionID: "PLTPLN", Kind: som.SomMetaKindComplex, TypeName: "PilotPlan", SerializationOrder: metaIntPtr(12), DocComment: "Pilot plan.", ClassDocComment: "15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("CutoverProcedure", s, metaChildrenCutoverProcedure, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CutoverProcedure", MemberName: "cutoverProcedures", ClassSectionID: "CUTPRC", Kind: som.SomMetaKindComplex, TypeName: "CutoverProcedure", SerializationOrder: metaIntPtr(11), DocComment: "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).", ClassDocComment: "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CutoverProcedure", MemberName: "cutoverProcedures", ClassSectionID: "CUTPRC", Kind: som.SomMetaKindComplex, TypeName: "CutoverProcedure", SerializationOrder: metaIntPtr(13), DocComment: "Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).", ClassDocComment: "15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("KnowledgeTransfer", s, metaChildrenKnowledgeTransfer, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "KnowledgeTransfer", MemberName: "knowledgeTransfer", ClassSectionID: "KNTFR", Kind: som.SomMetaKindComplex, TypeName: "KnowledgeTransfer", SerializationOrder: metaIntPtr(12), DocComment: "Knowledge transfer.", ClassDocComment: "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "KnowledgeTransfer", MemberName: "knowledgeTransfer", ClassSectionID: "KNTFR", Kind: som.SomMetaKindComplex, TypeName: "KnowledgeTransfer", SerializationOrder: metaIntPtr(14), DocComment: "Knowledge transfer.", ClassDocComment: "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 		metaCx("WarrantyAndSupport", s, metaChildrenWarrantyAndSupport, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WarrantyAndSupport", MemberName: "warrantyAndSupport", ClassSectionID: "WRTSP", Kind: som.SomMetaKindComplex, TypeName: "WarrantyAndSupport", SerializationOrder: metaIntPtr(13), DocComment: "Warranty and support.", ClassDocComment: "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WarrantyAndSupport", MemberName: "warrantyAndSupport", ClassSectionID: "WRTSP", Kind: som.SomMetaKindComplex, TypeName: "WarrantyAndSupport", SerializationOrder: metaIntPtr(15), DocComment: "Warranty and support.", ClassDocComment: "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.", DetailedIn: "D12TransitionRolloutPlan", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -5410,6 +5530,19 @@ func metaChildrenDocumentRelevantSections(s map[string]bool) []*som.SomMetaNode 
 			n := &som.SomMetaNode{ClassName: "DocumentRelevantSections", MemberName: "sections", SectionID: "RESEEN-SECT-LST", SectionIDPattern: "RESEEN-SECT-xxx", Kind: som.SomMetaKindList, TypeName: "RelevantSectionEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per chapter or section of the referenced document that the project depends on or must comply with.", DocComment: "Individual relevant section entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"}, "connotation": "The set of relevant section entries within a referenced document."}}}}
 			n.ElementNode = metaCx("RelevantSectionEntry", s, metaChildrenRelevantSectionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "RelevantSectionEntry", ClassSectionID: "RESEEN", Kind: som.SomMetaKindComplex, TypeName: "RelevantSectionEntry", DocComment: "A single relevant section entry within a reference document.", ClassDocComment: "A single relevant section entry within a reference document.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenDocumentReviewTeamEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DocumentReviewTeamEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "documentType", TypeName: "SpecDocumentType", Description: "Document Type", Required: true, Hint: "The document root type this team reviews; one entry per type.", Order: 0, EnumValues: []string{"d01CurrentLandscapeAssessment", "d02TargetOperatingModel", "d03InformationModel", "d04RequirementsSpecification", "d05InteractionScenarios", "d06ArchitectureTechnologySpecification", "d07IntegrationInterfaceSpecification", "d08SecurityAccessSpecification", "d09ExperienceDesignSpecification", "d10QualityAcceptancePlan", "d11DeliveryRoadmap", "d12TransitionRolloutPlan"}}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "DocumentReviewTeamEntry", MemberName: "members", SectionID: "RVMEM-MEMB-LST", SectionIDPattern: "RVMEM-MEMB-xxx", Kind: som.SomMetaKindList, TypeName: "ReviewTeamMember", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per member of this document type's team.", DocComment: "The members of the team."}
+			n.ElementNode = metaCx("ReviewTeamMember", s, metaChildrenReviewTeamMember, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ReviewTeamMember", ClassSectionID: "RVMEM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeamMember", DocComment: "One member of a review team (form).", ClassDocComment: "One member of a review team (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -12070,9 +12203,48 @@ func metaChildrenReviewCriterionEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenReviewTeam(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ReviewTeam", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Who reviews this document. The most specific team replaces the others\nentirely: a document's own team, else the Solution Blueprint's team for its\ndocument type, else the Solution Blueprint's default team. A team without\nmembers names no team.\n", DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "members", SectionID: "RVMEM-MEMB-LST", SectionIDPattern: "RVMEM-MEMB-xxx", Kind: som.SomMetaKindList, TypeName: "ReviewTeamMember", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per member. Mark the specification owner with owner: true in the default team.", DocComment: "The members of the team."}
+			n.ElementNode = metaCx("ReviewTeamMember", s, metaChildrenReviewTeamMember, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ReviewTeamMember", ClassSectionID: "RVMEM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeamMember", DocComment: "One member of a review team (form).", ClassDocComment: "One member of a review team (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenReviewTeamMember(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ReviewTeamMember", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "memberId", TypeName: "String", Description: "Member Id", Required: true, Hint: "Short stable id: lowercase letters, digits and \"_\", e.g. \"alice\". Used in {@alice}, \"**Answer (alice):**\" and the copy file name.", Order: 0}, {Name: "displayName", TypeName: "String", Description: "Display Name", Required: true, Order: 1}, {Name: "role", TypeName: "String", Description: "Role", Required: true, Order: 2}, {Name: "stakeholder", TypeName: "String", Description: "Stakeholder", Hint: "The stakeholder register entry this member represents.", Order: 3, RefersTo: []string{"STKRE.@sectionId"}}, {Name: "email", TypeName: "String", Description: "E-Mail", Hint: "Stored only; nothing sends mail.", Order: 4}, {Name: "owner", TypeName: "bool", Description: "Owner", Hint: "true for the specification owner, who is always a reviewer.", Order: 5}}}},
+	}
+}
+
+func metaChildrenReviewerRecord(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ReviewerRecord", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "memberId", TypeName: "String", Description: "Member Id", Required: true, Hint: "The member id, as in the team, or the guest's id.", Order: 0}, {Name: "displayName", TypeName: "String", Description: "Display Name", Required: true, Order: 1}, {Name: "role", TypeName: "String", Description: "Role", Order: 2}, {Name: "guest", TypeName: "bool", Description: "Guest", Hint: "true for a reviewer who was not on the team the round used.", Order: 3}}}},
+	}
+}
+
 func metaChildrenRevisionEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RevisionEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "version", TypeName: "String", Description: "Version", Required: true, Hint: "Semantic version of this revision, e.g. \"1.2.0\".", Order: 0}, {Name: "date", TypeName: "String", Description: "Date", Required: true, Hint: "Date the revision was published (ISO 8601).", Order: 1}, {Name: "author", TypeName: "String", Description: "Author", Required: true, Hint: "Person or role who produced the revision.", Order: 2}, {Name: "summary", TypeName: "String", Description: "Summary of changes", Hint: "One or two sentences on what changed and why.", Order: 3}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "RevisionEntry", MemberName: "reviewTeam", SectionID: "RVWER-TEAM-LST", SectionIDPattern: "RVWER-TEAM-xxx", Kind: som.SomMetaKindList, TypeName: "ReviewerRecord", SerializationOrder: metaIntPtr(1), ContentHelp: "The members the review round started with, each written out in full.", DocComment: "The review team the round leading to this revision started with."}
+			n.ElementNode = metaCx("ReviewerRecord", s, metaChildrenReviewerRecord, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ReviewerRecord", ClassSectionID: "RVWER", Kind: som.SomMetaKindComplex, TypeName: "ReviewerRecord", DocComment: "A reviewer recorded in a revision entry (form).", ClassDocComment: "A reviewer recorded in a revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "RevisionEntry", MemberName: "reviewers", SectionID: "RVWER-RETN-LST", SectionIDPattern: "RVWER-RETN-xxx", Kind: som.SomMetaKindList, TypeName: "ReviewerRecord", SerializationOrder: metaIntPtr(2), ContentHelp: "Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.", DocComment: "The reviewers who returned a reviewed copy, guests included."}
+			n.ElementNode = metaCx("ReviewerRecord", s, metaChildrenReviewerRecord, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ReviewerRecord", ClassSectionID: "RVWER", Kind: som.SomMetaKindComplex, TypeName: "ReviewerRecord", DocComment: "A reviewer recorded in a revision entry (form).", ClassDocComment: "A reviewer recorded in a revision entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -13929,6 +14101,16 @@ func metaChildrenStakeholdersAndGovernance(s map[string]bool) []*som.SomMetaNode
 			n := &som.SomMetaNode{ClassName: "StakeholdersAndGovernance", MemberName: "stakeholderRegister", SectionID: "STKRE-STAK-LST", SectionIDPattern: "STKRE-STAK-xxx", Kind: som.SomMetaKindList, TypeName: "StakeholderRegisterEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per stakeholder or group (STK-NNN).", DocComment: "Stakeholder register.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"}, "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."}}}}
 			n.ElementNode = metaCx("StakeholderRegisterEntry", s, metaChildrenStakeholderRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "StakeholderRegisterEntry", ClassSectionID: "STKRE", Kind: som.SomMetaKindComplex, TypeName: "StakeholderRegisterEntry", DocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", ClassDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		metaCx("ReviewTeam", s, metaChildrenReviewTeam, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReviewTeam", MemberName: "reviewTeam", ClassSectionID: "RVTEAM", Kind: som.SomMetaKindComplex, TypeName: "ReviewTeam", SerializationOrder: metaIntPtr(9), DocComment: "The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.", ClassDocComment: "A review team: the members who review a document.", Recursive: r, Children: c}
+		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "StakeholdersAndGovernance", MemberName: "documentReviewTeams", SectionID: "DCRVTM-DOCR-LST", SectionIDPattern: "DCRVTM-DOCR-xxx", Kind: som.SomMetaKindList, TypeName: "DocumentReviewTeamEntry", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per document type that is reviewed by a team other than the default team. A document's own review team replaces this one.", DocComment: "Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type."}
+			n.ElementNode = metaCx("DocumentReviewTeamEntry", s, metaChildrenDocumentReviewTeamEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "DocumentReviewTeamEntry", ClassSectionID: "DCRVTM", Kind: som.SomMetaKindComplex, TypeName: "DocumentReviewTeamEntry", DocComment: "The Solution Blueprint's review team for one document type (form + members).", ClassDocComment: "The Solution Blueprint's review team for one document type (form + members).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -24552,6 +24734,16 @@ func (x *D01CurrentLandscapeAssessmentNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
+func (x *D01CurrentLandscapeAssessmentNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D01CurrentLandscapeAssessmentNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
+}
+
 func (x *D01CurrentLandscapeAssessmentNav) ExistingSystemsLandscape() *ExistingSystemsLandscapeNav {
 	return newExistingSystemsLandscapeNav(x.Tree, x.Path+"/existingSystemsLandscape")
 }
@@ -24606,6 +24798,16 @@ func (x *D02TargetOperatingModelNav) Content() *som.SomMetaRef {
 
 func (x *D02TargetOperatingModelNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D02TargetOperatingModelNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D02TargetOperatingModelNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *D02TargetOperatingModelNav) ProcessVision() *ProcessVisionNav {
@@ -24672,6 +24874,16 @@ func (x *D03InformationModelNav) Content() *som.SomMetaRef {
 
 func (x *D03InformationModelNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D03InformationModelNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D03InformationModelNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *D03InformationModelNav) Entities() *som.SomListMetaRef[*DataEntityEntryNav] {
@@ -24778,6 +24990,16 @@ func (x *D04RequirementsSpecificationNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
+func (x *D04RequirementsSpecificationNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D04RequirementsSpecificationNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
+}
+
 func (x *D04RequirementsSpecificationNav) FunctionalRequirements() *FunctionalRequirementsNav {
 	return newFunctionalRequirementsNav(x.Tree, x.Path+"/functionalRequirements")
 }
@@ -24830,6 +25052,16 @@ func (x *D05InteractionScenariosNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
+func (x *D05InteractionScenariosNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D05InteractionScenariosNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
+}
+
 func (x *D05InteractionScenariosNav) ProcessStepsOverview() *ProcessStepsOverviewNav {
 	return newProcessStepsOverviewNav(x.Tree, x.Path+"/processStepsOverview")
 }
@@ -24880,6 +25112,16 @@ func (x *D06ArchitectureTechnologySpecificationNav) Content() *som.SomMetaRef {
 
 func (x *D06ArchitectureTechnologySpecificationNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D06ArchitectureTechnologySpecificationNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D06ArchitectureTechnologySpecificationNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *D06ArchitectureTechnologySpecificationNav) BasicTechnicalRequirements() *BasicTechnicalRequirementsNav {
@@ -24952,6 +25194,16 @@ func (x *D07IntegrationInterfaceSpecificationNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
+func (x *D07IntegrationInterfaceSpecificationNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D07IntegrationInterfaceSpecificationNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
+}
+
 func (x *D07IntegrationInterfaceSpecificationNav) ExternalInterfaces() *ExternalInterfacesNav {
 	return newExternalInterfacesNav(x.Tree, x.Path+"/externalInterfaces")
 }
@@ -25020,6 +25272,16 @@ func (x *D08SecurityAccessSpecificationNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
+func (x *D08SecurityAccessSpecificationNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D08SecurityAccessSpecificationNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
+}
+
 func (x *D08SecurityAccessSpecificationNav) UserManagement() *UserManagementNav {
 	return newUserManagementNav(x.Tree, x.Path+"/userManagement")
 }
@@ -25076,6 +25338,16 @@ func (x *D09ExperienceDesignSpecificationNav) Content() *som.SomMetaRef {
 
 func (x *D09ExperienceDesignSpecificationNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D09ExperienceDesignSpecificationNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D09ExperienceDesignSpecificationNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *D09ExperienceDesignSpecificationNav) DesignVision() *DesignVisionNav {
@@ -25150,6 +25422,16 @@ func (x *D10QualityAcceptancePlanNav) Content() *som.SomMetaRef {
 
 func (x *D10QualityAcceptancePlanNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D10QualityAcceptancePlanNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D10QualityAcceptancePlanNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *D10QualityAcceptancePlanNav) QualityFramework() *QualityFrameworkNav {
@@ -25250,6 +25532,16 @@ func (x *D11DeliveryRoadmapNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
 }
 
+func (x *D11DeliveryRoadmapNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D11DeliveryRoadmapNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
+}
+
 func (x *D11DeliveryRoadmapNav) StagingStrategy() *StagingStrategyNav {
 	return newStagingStrategyNav(x.Tree, x.Path+"/stagingStrategy")
 }
@@ -25308,6 +25600,16 @@ func (x *D12TransitionRolloutPlanNav) Content() *som.SomMetaRef {
 
 func (x *D12TransitionRolloutPlanNav) Header() *DocumentHeaderNav {
 	return newDocumentHeaderNav(x.Tree, x.Path+"/header")
+}
+
+func (x *D12TransitionRolloutPlanNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *D12TransitionRolloutPlanNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+		return newRevisionEntryNav(t, p)
+	})
 }
 
 func (x *D12TransitionRolloutPlanNav) LocalizationProcess() *LocalizationProcessNav {
@@ -29045,6 +29347,30 @@ func (x *DocumentRelevantSectionsNav) Content() *som.SomMetaRef {
 func (x *DocumentRelevantSectionsNav) Sections() *som.SomListMetaRef[*RelevantSectionEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESEEN-SECT-LST", func(t *som.SomMetaTree, p string) *RelevantSectionEntryNav {
 		return newRelevantSectionEntryNav(t, p)
+	})
+}
+
+// DocumentReviewTeamEntryNav holds the dot-notation accessors of `DocumentReviewTeamEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DocumentReviewTeamEntryNav struct {
+	som.SomMetaRef
+}
+
+// newDocumentReviewTeamEntryNav binds a DocumentReviewTeamEntryNav accessor to a tree and a path.
+func newDocumentReviewTeamEntryNav(tree *som.SomMetaTree, path string) *DocumentReviewTeamEntryNav {
+	return &DocumentReviewTeamEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DocumentReviewTeamEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *DocumentReviewTeamEntryNav) Members() *som.SomListMetaRef[*ReviewTeamMemberNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberNav {
+		return newReviewTeamMemberNav(t, p)
 	})
 }
 
@@ -45122,6 +45448,66 @@ func (x *ReviewCriterionEntryNav) Result() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RCER"}
 }
 
+// ReviewTeamNav holds the dot-notation accessors of `ReviewTeam` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ReviewTeamNav struct {
+	som.SomMetaRef
+}
+
+// newReviewTeamNav binds a ReviewTeamNav accessor to a tree and a path.
+func newReviewTeamNav(tree *som.SomMetaTree, path string) *ReviewTeamNav {
+	return &ReviewTeamNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ReviewTeamNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ReviewTeamNav) Members() *som.SomListMetaRef[*ReviewTeamMemberNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberNav {
+		return newReviewTeamMemberNav(t, p)
+	})
+}
+
+// ReviewTeamMemberNav holds the dot-notation accessors of `ReviewTeamMember` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ReviewTeamMemberNav struct {
+	som.SomMetaRef
+}
+
+// newReviewTeamMemberNav binds a ReviewTeamMemberNav accessor to a tree and a path.
+func newReviewTeamMemberNav(tree *som.SomMetaTree, path string) *ReviewTeamMemberNav {
+	return &ReviewTeamMemberNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ReviewTeamMemberNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// ReviewerRecordNav holds the dot-notation accessors of `ReviewerRecord` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ReviewerRecordNav struct {
+	som.SomMetaRef
+}
+
+// newReviewerRecordNav binds a ReviewerRecordNav accessor to a tree and a path.
+func newReviewerRecordNav(tree *som.SomMetaTree, path string) *ReviewerRecordNav {
+	return &ReviewerRecordNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ReviewerRecordNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // RevisionEntryNav holds the dot-notation accessors of `RevisionEntry` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -45138,6 +45524,18 @@ func newRevisionEntryNav(tree *som.SomMetaTree, path string) *RevisionEntryNav {
 
 func (x *RevisionEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *RevisionEntryNav) ReviewTeam() *som.SomListMetaRef[*ReviewerRecordNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVWER-TEAM-LST", func(t *som.SomMetaTree, p string) *ReviewerRecordNav {
+		return newReviewerRecordNav(t, p)
+	})
+}
+
+func (x *RevisionEntryNav) Reviewers() *som.SomListMetaRef[*ReviewerRecordNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVWER-RETN-LST", func(t *som.SomMetaTree, p string) *ReviewerRecordNav {
+		return newReviewerRecordNav(t, p)
+	})
 }
 
 // RiskBusinessImpactNav holds the dot-notation accessors of `RiskBusinessImpact` (SOM §8).
@@ -49749,6 +50147,16 @@ func (x *StakeholdersAndGovernanceNav) LegalAndContractual() *LegalAndContractua
 func (x *StakeholdersAndGovernanceNav) StakeholderRegister() *som.SomListMetaRef[*StakeholderRegisterEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/STKRE-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryNav {
 		return newStakeholderRegisterEntryNav(t, p)
+	})
+}
+
+func (x *StakeholdersAndGovernanceNav) ReviewTeam() *ReviewTeamNav {
+	return newReviewTeamNav(x.Tree, x.Path+"/reviewTeam")
+}
+
+func (x *StakeholdersAndGovernanceNav) DocumentReviewTeams() *som.SomListMetaRef[*DocumentReviewTeamEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DCRVTM-DOCR-LST", func(t *som.SomMetaTree, p string) *DocumentReviewTeamEntryNav {
+		return newDocumentReviewTeamEntryNav(t, p)
 	})
 }
 
@@ -59659,6 +60067,18 @@ func (x *D00SolutionBlueprintID) STKRE_STAK_LST() *som.SomListMetaRef[*Stakehold
 	})
 }
 
+func (x *D00SolutionBlueprintID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) DCRVTM_DOCR_LST() *som.SomListMetaRef[*DocumentReviewTeamEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/DCRVTM-DOCR-LST", func(t *som.SomMetaTree, p string) *DocumentReviewTeamEntryID {
+		return newDocumentReviewTeamEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) ESENT_SYST_LST() *som.SomListMetaRef[*ExistingSystemEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", func(t *som.SomMetaTree, p string) *ExistingSystemEntryID {
 		return newExistingSystemEntryID(t, p)
@@ -64874,6 +65294,18 @@ func newD01CurrentLandscapeAssessmentID(tree *som.SomMetaTree, path string) *D01
 	return &D01CurrentLandscapeAssessmentID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D01CurrentLandscapeAssessmentID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D01CurrentLandscapeAssessmentID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D01CurrentLandscapeAssessmentID) ESENT_SYST_LST() *som.SomListMetaRef[*ExistingSystemEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/systemInventory/ESENT-SYST-LST", func(t *som.SomMetaTree, p string) *ExistingSystemEntryID {
 		return newExistingSystemEntryID(t, p)
@@ -65277,6 +65709,18 @@ func newD02TargetOperatingModelID(tree *som.SomMetaTree, path string) *D02Target
 	return &D02TargetOperatingModelID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D02TargetOperatingModelID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D02TargetOperatingModelID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D02TargetOperatingModelID) PVOVW() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/processVision/PVOVW"}
 }
@@ -65362,6 +65806,18 @@ type D03InformationModelID struct {
 // newD03InformationModelID binds a D03InformationModelID accessor to a tree and a path.
 func newD03InformationModelID(tree *som.SomMetaTree, path string) *D03InformationModelID {
 	return &D03InformationModelID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D03InformationModelID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D03InformationModelID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
 }
 
 func (x *D03InformationModelID) DAENT_ENTI_LST() *som.SomListMetaRef[*DataEntityEntryID] {
@@ -65471,6 +65927,18 @@ func newD04RequirementsSpecificationID(tree *som.SomMetaTree, path string) *D04R
 	return &D04RequirementsSpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D04RequirementsSpecificationID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D04RequirementsSpecificationID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D04RequirementsSpecificationID) FR_SUMM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/functionalRequirements/FR-SUMM"}
 }
@@ -65534,6 +66002,18 @@ func newD05InteractionScenariosID(tree *som.SomMetaTree, path string) *D05Intera
 	return &D05InteractionScenariosID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D05InteractionScenariosID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D05InteractionScenariosID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D05InteractionScenariosID) ACOVNA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/actorOverview/ACOVNA"}
 }
@@ -65593,6 +66073,18 @@ type D06ArchitectureTechnologySpecificationID struct {
 // newD06ArchitectureTechnologySpecificationID binds a D06ArchitectureTechnologySpecificationID accessor to a tree and a path.
 func newD06ArchitectureTechnologySpecificationID(tree *som.SomMetaTree, path string) *D06ArchitectureTechnologySpecificationID {
 	return &D06ArchitectureTechnologySpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
 }
 
 func (x *D06ArchitectureTechnologySpecificationID) TGPLT_TARG_LST() *som.SomListMetaRef[*TargetPlatformEntryID] {
@@ -68378,6 +68870,18 @@ func newD07IntegrationInterfaceSpecificationID(tree *som.SomMetaTree, path strin
 	return &D07IntegrationInterfaceSpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D07IntegrationInterfaceSpecificationID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D07IntegrationInterfaceSpecificationID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D07IntegrationInterfaceSpecificationID) EIE_INTE_LST() *som.SomListMetaRef[*ExternalInterfaceEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/externalInterfaces/EIE-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryID {
 		return newExternalInterfaceEntryID(t, p)
@@ -68425,6 +68929,18 @@ type D08SecurityAccessSpecificationID struct {
 // newD08SecurityAccessSpecificationID binds a D08SecurityAccessSpecificationID accessor to a tree and a path.
 func newD08SecurityAccessSpecificationID(tree *som.SomMetaTree, path string) *D08SecurityAccessSpecificationID {
 	return &D08SecurityAccessSpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D08SecurityAccessSpecificationID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D08SecurityAccessSpecificationID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
 }
 
 func (x *D08SecurityAccessSpecificationID) USCDF_ITEM_LST() *som.SomListMetaRef[*UserCategoryDefinitionID] {
@@ -68638,6 +69154,18 @@ type D09ExperienceDesignSpecificationID struct {
 // newD09ExperienceDesignSpecificationID binds a D09ExperienceDesignSpecificationID accessor to a tree and a path.
 func newD09ExperienceDesignSpecificationID(tree *som.SomMetaTree, path string) *D09ExperienceDesignSpecificationID {
 	return &D09ExperienceDesignSpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D09ExperienceDesignSpecificationID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
 }
 
 func (x *D09ExperienceDesignSpecificationID) DGOEN_ITEM_LST() *som.SomListMetaRef[*DesignGoalEntryID] {
@@ -69267,6 +69795,18 @@ func newD10QualityAcceptancePlanID(tree *som.SomMetaTree, path string) *D10Quali
 	return &D10QualityAcceptancePlanID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D10QualityAcceptancePlanID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D10QualityAcceptancePlanID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D10QualityAcceptancePlanID) QLFWK_FRAM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityFramework/QLFWK-FRAM"}
 }
@@ -69772,6 +70312,18 @@ func newD11DeliveryRoadmapID(tree *som.SomMetaTree, path string) *D11DeliveryRoa
 	return &D11DeliveryRoadmapID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+func (x *D11DeliveryRoadmapID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D11DeliveryRoadmapID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
+}
+
 func (x *D11DeliveryRoadmapID) STAGAS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stagingStrategy/STAGAS"}
 }
@@ -70043,6 +70595,18 @@ type D12TransitionRolloutPlanID struct {
 // newD12TransitionRolloutPlanID binds a D12TransitionRolloutPlanID accessor to a tree and a path.
 func newD12TransitionRolloutPlanID(tree *som.SomMetaTree, path string) *D12TransitionRolloutPlanID {
 	return &D12TransitionRolloutPlanID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *D12TransitionRolloutPlanID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reviewTeam/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
+}
+
+func (x *D12TransitionRolloutPlanID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+		return newRevisionEntryID(t, p)
+	})
 }
 
 func (x *D12TransitionRolloutPlanID) LOPR_LOCA() *som.SomMetaRef {
@@ -74496,6 +75060,25 @@ type DistributionRecipientPreferencesID struct {
 // newDistributionRecipientPreferencesID binds a DistributionRecipientPreferencesID accessor to a tree and a path.
 func newDistributionRecipientPreferencesID(tree *som.SomMetaTree, path string) *DistributionRecipientPreferencesID {
 	return &DistributionRecipientPreferencesID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// DocumentReviewTeamEntryID holds the ID-tree accessors of `DocumentReviewTeamEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type DocumentReviewTeamEntryID struct {
+	som.SomMetaRef
+}
+
+// newDocumentReviewTeamEntryID binds a DocumentReviewTeamEntryID accessor to a tree and a path.
+func newDocumentReviewTeamEntryID(tree *som.SomMetaTree, path string) *DocumentReviewTeamEntryID {
+	return &DocumentReviewTeamEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DocumentReviewTeamEntryID) RVMEM_MEMB_LST() *som.SomListMetaRef[*ReviewTeamMemberID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVMEM-MEMB-LST", func(t *som.SomMetaTree, p string) *ReviewTeamMemberID {
+		return newReviewTeamMemberID(t, p)
+	})
 }
 
 // DomainBusinessRuleEntryID holds the ID-tree accessors of `DomainBusinessRuleEntry` (SOM §8): methods
@@ -79899,6 +80482,32 @@ func (x *ReviewCriterionEntryID) RCER() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RCER"}
 }
 
+// ReviewTeamMemberID holds the ID-tree accessors of `ReviewTeamMember` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ReviewTeamMemberID struct {
+	som.SomMetaRef
+}
+
+// newReviewTeamMemberID binds a ReviewTeamMemberID accessor to a tree and a path.
+func newReviewTeamMemberID(tree *som.SomMetaTree, path string) *ReviewTeamMemberID {
+	return &ReviewTeamMemberID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// ReviewerRecordID holds the ID-tree accessors of `ReviewerRecord` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ReviewerRecordID struct {
+	som.SomMetaRef
+}
+
+// newReviewerRecordID binds a ReviewerRecordID accessor to a tree and a path.
+func newReviewerRecordID(tree *som.SomMetaTree, path string) *ReviewerRecordID {
+	return &ReviewerRecordID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
 // RevisionEntryID holds the ID-tree accessors of `RevisionEntry` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -79910,6 +80519,18 @@ type RevisionEntryID struct {
 // newRevisionEntryID binds a RevisionEntryID accessor to a tree and a path.
 func newRevisionEntryID(tree *som.SomMetaTree, path string) *RevisionEntryID {
 	return &RevisionEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *RevisionEntryID) RVWER_TEAM_LST() *som.SomListMetaRef[*ReviewerRecordID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVWER-TEAM-LST", func(t *som.SomMetaTree, p string) *ReviewerRecordID {
+		return newReviewerRecordID(t, p)
+	})
+}
+
+func (x *RevisionEntryID) RVWER_RETN_LST() *som.SomListMetaRef[*ReviewerRecordID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVWER-RETN-LST", func(t *som.SomMetaTree, p string) *ReviewerRecordID {
+		return newReviewerRecordID(t, p)
+	})
 }
 
 // RiskEntryID holds the ID-tree accessors of `RiskEntry` (SOM §8): methods

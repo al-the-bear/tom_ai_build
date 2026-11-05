@@ -10889,13 +10889,36 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D01CurrentLandscapeAssessment',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('ExistingSystemsLandscape', s, _mc$ExistingSystemsLandscape, (r, c) => SomMetaNode(
           className: 'ExistingSystemsLandscape',
           memberName: 'existingSystemsLandscape',
           classSectionId: 'ESLAN',
           kind: SomMetaKind.complex,
           typeName: 'ExistingSystemsLandscape',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Existing systems landscape.',
           classDocComment: '1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -10907,7 +10930,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classSectionId: 'CUBUPR',
           kind: SomMetaKind.complex,
           typeName: 'CurrentBusinessProcesses',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Current business processes.',
           classDocComment: '1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -10919,7 +10942,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classSectionId: 'PPAG',
           kind: SomMetaKind.complex,
           typeName: 'PainPointsAndGaps',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Pain points and gaps.',
           classDocComment: '1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -10931,7 +10954,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classSectionId: 'CUDALA',
           kind: SomMetaKind.complex,
           typeName: 'CurrentDataLandscape',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Current data landscape.',
           classDocComment: '1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -10944,7 +10967,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           sectionIdPattern: 'CUOPME-OPER-xxx',
           kind: SomMetaKind.list,
           typeName: 'CurrentOperationalMetric',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Current operational metrics.',
           elementNode: _cx('CurrentOperationalMetric', s, _mc$CurrentOperationalMetric, (r, c) => SomMetaNode(className: 'CurrentOperationalMetric', classSectionId: 'CUOPME', kind: SomMetaKind.complex, typeName: 'CurrentOperationalMetric', docComment: '1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.', classDocComment: '1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.', detailedIn: 'D01CurrentLandscapeAssessment', recursive: r, children: c))),
        _cx('CurrentStateRiskAssessment', s, _mc$CurrentStateRiskAssessment, (r, c) => SomMetaNode(
@@ -10953,7 +10976,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classSectionId: 'CUSTRI',
           kind: SomMetaKind.complex,
           typeName: 'CurrentStateRiskAssessment',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Current-state risk assessment.',
           classDocComment: '1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -10965,7 +10988,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classSectionId: 'RI',
           kind: SomMetaKind.complex,
           typeName: 'ReplacementInventory',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Replacement inventory.',
           classDocComment: 'Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -10977,7 +11000,7 @@ List<SomMetaNode> _mc$D01CurrentLandscapeAssessment(Set<String> s) => [
           classSectionId: 'MIGCON',
           kind: SomMetaKind.complex,
           typeName: 'MigrationConsiderations',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Migration considerations.',
           classDocComment: '4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.',
           detailedIn: 'D01CurrentLandscapeAssessment',
@@ -11006,13 +11029,36 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D02TargetOperatingModel',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('ProcessVision', s, _mc$ProcessVision, (r, c) => SomMetaNode(
           className: 'ProcessVision',
           memberName: 'processVision',
           classSectionId: 'PRVIZ',
           kind: SomMetaKind.complex,
           typeName: 'ProcessVision',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Process vision.',
           classDocComment: '6.1.1. Process Vision.\n\nThe overall vision for how business processes will work with the new system.',
           detailedIn: 'D02TargetOperatingModel',
@@ -11024,7 +11070,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'PDPRI',
           kind: SomMetaKind.complex,
           typeName: 'ProcessDesignPrinciples',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Design principles.',
           classDocComment: '6.1.2. Design Principles.\n\nPrinciples that guide process design decisions.',
           detailedIn: 'D02TargetOperatingModel',
@@ -11036,7 +11082,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'PRCAT',
           kind: SomMetaKind.complex,
           typeName: 'ProcessCatalog',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Process catalog.',
           classDocComment: '6.1.3. Process Catalog.\n\nContainer for business process definitions.',
           detailedIn: 'D02TargetOperatingModel',
@@ -11048,7 +11094,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'PROVDI',
           kind: SomMetaKind.complex,
           typeName: 'ProcessOverviewDiagram',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Process overview diagram.',
           classDocComment: '6.1.4. Process Overview Diagram.\n\nHigh-level process flow diagram showing main processes and relationships.',
           detailedIn: 'D02TargetOperatingModel',
@@ -11060,7 +11106,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'PRIMSU',
           kind: SomMetaKind.complex,
           typeName: 'ProcessImprovementSummary',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Improvement summary.',
           classDocComment: '6.1.5. Improvement Summary.\n\nSummary of expected improvements over current processes.',
           detailedIn: 'D02TargetOperatingModel',
@@ -11072,7 +11118,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'PR',
           kind: SomMetaKind.complex,
           typeName: 'ProcessRelationships',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Process relationships.',
           classDocComment: 'Process relationships and dependencies (supplementary section).',
           detailedIn: 'D02TargetOperatingModel',
@@ -11085,7 +11131,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           sectionIdPattern: 'DEPRWO-DETA-xxx',
           kind: SomMetaKind.list,
           typeName: 'DetailedProcessWorkflow',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Detailed process workflows.',
           elementNode: _cx('DetailedProcessWorkflow', s, _mc$DetailedProcessWorkflow, (r, c) => SomMetaNode(className: 'DetailedProcessWorkflow', classSectionId: 'DEPRWO', kind: SomMetaKind.complex, typeName: 'DetailedProcessWorkflow', docComment: '6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.', classDocComment: '6.1.7. Detailed Process Workflows.\n\nPer-process workflow detail beyond the catalog overview.\n.', detailedIn: 'D02TargetOperatingModel', recursive: r, children: c))),
        _cx('CrossProcessAnalysis', s, _mc$CrossProcessAnalysis, (r, c) => SomMetaNode(
@@ -11094,7 +11140,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'CRPRAN',
           kind: SomMetaKind.complex,
           typeName: 'CrossProcessAnalysis',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Cross-process analysis.',
           classDocComment: '6.1.8. Cross-Process Analysis.\n\nHand-offs, shared data, and coordination patterns between processes.\n.',
           detailedIn: 'D02TargetOperatingModel',
@@ -11106,7 +11152,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           classSectionId: 'PREXHA',
           kind: SomMetaKind.complex,
           typeName: 'ProcessExceptionHandling',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Process exception handling.',
           classDocComment: '6.1.9. Process Exception Handling.\n\nException flows, escalation paths, and compensation logic. Covers',
           detailedIn: 'D02TargetOperatingModel',
@@ -11119,7 +11165,7 @@ List<SomMetaNode> _mc$D02TargetOperatingModel(Set<String> s) => [
           sectionIdPattern: 'PMAK-PROC-xxx',
           kind: SomMetaKind.list,
           typeName: 'ProcessMetric',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'Process metrics and KPIs.',
           elementNode: _cx('ProcessMetric', s, _mc$ProcessMetric, (r, c) => SomMetaNode(className: 'ProcessMetric', classSectionId: 'PMAK', kind: SomMetaKind.complex, typeName: 'ProcessMetric', docComment: '6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.', classDocComment: '6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.', detailedIn: 'D02TargetOperatingModel', recursive: r, children: c))),
     ];
@@ -11145,6 +11191,29 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D03InformationModel',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        SomMetaNode(
           className: 'D03InformationModel',
           memberName: 'entities',
@@ -11152,7 +11221,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           sectionIdPattern: 'DAENT-ENTI-xxx',
           kind: SomMetaKind.list,
           typeName: 'DataEntityEntry',
-          serializationOrder: 2,
+          serializationOrder: 4,
           min: 1,
           docComment: 'Entity inventory (list).',
           elementNode: _cx('DataEntityEntry', s, _mc$DataEntityEntry, (r, c) => SomMetaNode(className: 'DataEntityEntry', classSectionId: 'DAENT', kind: SomMetaKind.complex, typeName: 'DataEntityEntry', docComment: 'A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so "is this a root?" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.', classDocComment: 'A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so "is this a root?" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.', recursive: r, children: c))),
@@ -11162,7 +11231,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'ENREL',
           kind: SomMetaKind.complex,
           typeName: 'EntityRelationships',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Entity relationships.',
           classDocComment: '7.1.2. Entity Relationships.',
           detailedIn: 'D03InformationModel',
@@ -11173,7 +11242,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           memberName: 'erDiagram',
           kind: SomMetaKind.section,
           typeName: 'String',
-          serializationOrder: 4,
+          serializationOrder: 6,
           contentType: SomContentTypeMeta(type: 'mermaid-er', description: ''),
           docComment: 'Entity-relationship diagram.'),
        _cx('DataClassification', s, _mc$DataClassification, (r, c) => SomMetaNode(
@@ -11182,7 +11251,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'DATCL',
           kind: SomMetaKind.complex,
           typeName: 'DataClassification',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Data classification.',
           classDocComment: '7.1.4. Data Classification.',
           detailedIn: 'D03InformationModel',
@@ -11195,7 +11264,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           sectionIdPattern: 'BJOEN-OBJE-xxx',
           kind: SomMetaKind.list,
           typeName: 'BusinessObjectEntry',
-          serializationOrder: 6,
+          serializationOrder: 8,
           min: 1,
           docComment: 'Business object catalog (list).',
           elementNode: _cx('BusinessObjectEntry', s, _mc$BusinessObjectEntry, (r, c) => SomMetaNode(className: 'BusinessObjectEntry', classSectionId: 'BJOEN', kind: SomMetaKind.complex, typeName: 'BusinessObjectEntry', docComment: 'A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.', classDocComment: 'A business object entry (form).\n\nComprehensive business object specification following domain-driven design\npatterns. Business objects represent key domain concepts with behavior,\nstate, and business rules.', recursive: r, children: c))),
@@ -11204,7 +11273,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           memberName: 'objectDiagram',
           kind: SomMetaKind.section,
           typeName: 'String',
-          serializationOrder: 7,
+          serializationOrder: 9,
           contentType: SomContentTypeMeta(type: 'mermaid', description: ''),
           docComment: 'Business object diagram.'),
        SomMetaNode(
@@ -11214,7 +11283,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           sectionIdPattern: 'FUNCT-FUNC-xxx',
           kind: SomMetaKind.list,
           typeName: 'FunctionEntry',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Function decomposition (list).',
           elementNode: _cx('FunctionEntry', s, _mc$FunctionEntry, (r, c) => SomMetaNode(className: 'FunctionEntry', classSectionId: 'FUNCT', kind: SomMetaKind.complex, typeName: 'FunctionEntry', docComment: 'A function entry (form).\n\nBusiness function specification in the functional decomposition.', classDocComment: 'A function entry (form).\n\nBusiness function specification in the functional decomposition.', recursive: r, children: c))),
        SomMetaNode(
@@ -11224,7 +11293,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           sectionIdPattern: 'FNDMX-FUNC-xxx',
           kind: SomMetaKind.list,
           typeName: 'FunctionDataMatrixEntry',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Function-to-data matrix (list).',
           elementNode: _cx('FunctionDataMatrixEntry', s, _mc$FunctionDataMatrixEntry, (r, c) => SomMetaNode(className: 'FunctionDataMatrixEntry', classSectionId: 'FNDMX', kind: SomMetaKind.complex, typeName: 'FunctionDataMatrixEntry', docComment: 'A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.', classDocComment: 'A function-to-data matrix entry (form).\n\nMaps a function to the data entities it accesses.', recursive: r, children: c))),
        SomMetaNode(
@@ -11234,7 +11303,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           sectionIdPattern: 'BIRU-BUSI-xxx',
           kind: SomMetaKind.list,
           typeName: 'BusinessRuleEntry',
-          serializationOrder: 10,
+          serializationOrder: 12,
           min: 1,
           docComment: 'Business rules catalog (list).',
           elementNode: _cx('BusinessRuleEntry', s, _mc$BusinessRuleEntry, (r, c) => SomMetaNode(className: 'BusinessRuleEntry', classSectionId: 'BIRU', kind: SomMetaKind.complex, typeName: 'BusinessRuleEntry', docComment: 'A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.', classDocComment: 'A business rule entry (form).\n\nComprehensive business rule specification following SBVR-like patterns.', recursive: r, children: c))),
@@ -11244,7 +11313,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'DADI',
           kind: SomMetaKind.complex,
           typeName: 'DataDictionary',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'Data dictionary.',
           classDocComment: '7.1.5. Data Dictionary.\n\nAttribute-level dictionary that complements the entity overview\n..',
           detailedIn: 'D03InformationModel',
@@ -11256,7 +11325,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'VACO',
           kind: SomMetaKind.complex,
           typeName: 'ValidationConstraints',
-          serializationOrder: 12,
+          serializationOrder: 14,
           docComment: 'Validation constraints.\n\nOne whole-catalog content section (mirrors `dataDictionary` and the\ncollapsed SBP source); collapsed from `List<ValidationConstraints>`\n(L34C-12 SR-25).',
           classDocComment: '7.1.6. Validation Constraints.\n\nCross-entity validation policy. Per-field validation lives in entity\nform fields; this section captures rules that span multiple fields or\nentities.',
           detailedIn: 'D03InformationModel',
@@ -11268,7 +11337,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'INCO',
           kind: SomMetaKind.complex,
           typeName: 'IntegrityConstraints',
-          serializationOrder: 13,
+          serializationOrder: 15,
           docComment: 'Integrity constraints.\n\nOne whole-catalog content section; collapsed from\n`List<IntegrityConstraints>` (L34C-12 SR-25).',
           classDocComment: '7.1.7. Integrity Constraints.\n\nCross-entity integrity rules beyond simple referential integrity.',
           detailedIn: 'D03InformationModel',
@@ -11280,7 +11349,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'DOMEN',
           kind: SomMetaKind.complex,
           typeName: 'DomainEnumRegistry',
-          serializationOrder: 14,
+          serializationOrder: 16,
           docComment: 'Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).',
           classDocComment: '7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system\'s **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum\'s name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.',
           recursive: r,
@@ -11291,7 +11360,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'ERCRG',
           kind: SomMetaKind.complex,
           typeName: 'ErrorCodeRegistry',
-          serializationOrder: 15,
+          serializationOrder: 17,
           docComment: 'Error code registry — the shared application error-code vocabulary\nreferenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy\n(csmb5).',
           classDocComment: '7.6. Error Code Registry.\n\nThe single, shared **application error-code vocabulary** — the spine that\nCE-VA (validation), CE-ER (the Result envelope) and CE-TX (error copy) all\nreference so they never invent divergent code strings (csm5 cross-cutting\nfinding #2; `codespecs_mapping.md` §5.21).\n\nThis is distinct from D09\'s `SystemErrorCodeEntry`, which is framed as a\n*system/network/display* error catalogue (HTTP status, presentation,\nrecovery). This registry is the **application-level** error vocabulary a\nsuccess-or-error [ResultEnvelope] carries:\n\n- a CE-VA field/form rule names its "error code on fail" from here rather\n  than minting a literal;\n- a CE-ER [ResultEnvelope] error arm carries one of these codes;\n- CE-TX error copy is keyed by the same code, so client message and server\n  error share one source.',
           recursive: r,
@@ -11302,7 +11371,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'RSLTE',
           kind: SomMetaKind.complex,
           typeName: 'ResultEnvelope',
-          serializationOrder: 16,
+          serializationOrder: 18,
           docComment: 'Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home. Realised per\napplication in `<app>_codespec_shared` — a response envelope is\napplication domain, so no framework type backs it (csmb5).',
           classDocComment: '7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the result/error envelope authored per application in\n`<app>_codespec_shared` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.',
           recursive: r,
@@ -11313,7 +11382,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'MSGKR',
           kind: SomMetaKind.complex,
           typeName: 'MessageKeyRegistry',
-          serializationOrder: 17,
+          serializationOrder: 19,
           docComment: 'Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).',
           classDocComment: '7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the "author once, reference everywhere"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.',
           recursive: r,
@@ -11324,7 +11393,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'SVOPR',
           kind: SomMetaKind.complex,
           typeName: 'ServerOperationRegistry',
-          serializationOrder: 18,
+          serializationOrder: 20,
           docComment: 'Server operation registry — the system\'s own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.',
           classDocComment: '7.9. Server Operation Registry.\n\nThe authoring home for the **application\'s own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system\'s server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application\'s own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation\'s [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).',
           recursive: r,
@@ -11335,7 +11404,7 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           classSectionId: 'SCHMG',
           kind: SomMetaKind.complex,
           typeName: 'SchemaVersioningAndMigration',
-          serializationOrder: 19,
+          serializationOrder: 21,
           docComment: 'Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.',
           classDocComment: '7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema\'s own evolution over releases.',
           recursive: r,
@@ -11363,13 +11432,36 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D04RequirementsSpecification',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('FunctionalRequirements', s, _mc$FunctionalRequirements, (r, c) => SomMetaNode(
           className: 'FunctionalRequirements',
           memberName: 'functionalRequirements',
           classSectionId: 'FR',
           kind: SomMetaKind.complex,
           typeName: 'FunctionalRequirements',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Functional requirements.',
           classDocComment: '4.3.1. Functional Requirements.\n\nContainer for functional requirements. Functional requirements describe\nwhat the system must do — its features, behaviors, processing rules,\nand user interactions. Each requirement is uniquely identified and\ntraceable to business goals and use cases.',
           detailedIn: 'D04RequirementsSpecification',
@@ -11381,7 +11473,7 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           classSectionId: 'TR1',
           kind: SomMetaKind.complex,
           typeName: 'TechnicalRequirements',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Technical (non-functional) requirements.',
           classDocComment: '4.3.2. Technical Requirements.\n\nContainer for technical requirements. Technical requirements describe\nconstraints on how the system is built — platform, performance,\nscalability, reliability, and standards compliance. These requirements\noften drive architectural decisions.',
           detailedIn: 'D04RequirementsSpecification',
@@ -11393,7 +11485,7 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           classSectionId: 'SR1',
           kind: SomMetaKind.complex,
           typeName: 'SecurityRequirements',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Security requirements.',
           classDocComment: '4.3.3. Security Requirements.\n\nContainer for security requirements. Security requirements describe\ninformation protection, access control, authentication, authorization,\naudit, and compliance needs. Based on OWASP, ISO 27001, and common\nsecurity frameworks.',
           detailedIn: 'D04RequirementsSpecification',
@@ -11405,7 +11497,7 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           classSectionId: 'OR',
           kind: SomMetaKind.complex,
           typeName: 'OrganizationalRequirements',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Organizational requirements.',
           classDocComment: '4.3.4. Organizational Requirements.\n\nContainer for organizational requirements. These describe needed changes\nto organization, processes, training, or support that must be fulfilled\nfor the system to succeed. Based on change management and organizational\nreadiness assessment practices.',
           detailedIn: 'D04RequirementsSpecification',
@@ -11417,7 +11509,7 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           sectionId: 'RSP-TRAC',
           kind: SomMetaKind.content,
           typeName: 'String',
-          serializationOrder: 6,
+          serializationOrder: 8,
           contentType: SomContentTypeMeta(type: 'description', description: 'Summary of traceability matrix showing connections between requirements, goals, use cases, and tests.'),
           docComment: 'Traceability matrix overview.\n\nMirrors the flat field on RequirementsOverview so the RC outline\nreaches it directly. The authoritative content lives on the Solution\nBlueprint side.'),
        SomMetaNode(
@@ -11427,7 +11519,7 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           sectionIdPattern: 'RERE-REQU-xxx',
           kind: SomMetaKind.list,
           typeName: 'RequirementRelationships',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Requirement relationships.',
           elementNode: _cx('RequirementRelationships', s, _mc$RequirementRelationships, (r, c) => SomMetaNode(className: 'RequirementRelationships', classSectionId: 'RERE', kind: SomMetaKind.complex, typeName: 'RequirementRelationships', docComment: '4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.', classDocComment: '4.3.5. Requirement Relationships.\n\nCross-requirement dependency and conflict graph.', detailedIn: 'D04RequirementsSpecification', recursive: r, children: c))),
        _cx('RequirementCoverage', s, _mc$RequirementCoverage, (r, c) => SomMetaNode(
@@ -11436,7 +11528,7 @@ List<SomMetaNode> _mc$D04RequirementsSpecification(Set<String> s) => [
           classSectionId: 'REQCOV',
           kind: SomMetaKind.complex,
           typeName: 'RequirementCoverage',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Requirement coverage.',
           classDocComment: '4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.',
           detailedIn: 'D04RequirementsSpecification',
@@ -11465,13 +11557,36 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D05InteractionScenarios',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('ProcessStepsOverview', s, _mc$ProcessStepsOverview, (r, c) => SomMetaNode(
           className: 'ProcessStepsOverview',
           memberName: 'processStepsOverview',
           classSectionId: 'PRSTOV',
           kind: SomMetaKind.complex,
           typeName: 'ProcessStepsOverview',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Process steps overview.',
           classDocComment: '6.2. Process Steps Overview.',
           detailedIn: 'D05InteractionScenarios',
@@ -11483,7 +11598,7 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           classSectionId: 'ACOV',
           kind: SomMetaKind.complex,
           typeName: 'ActorOverview',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Actor overview.',
           classDocComment: '6.2.1. Actor Overview.\n\nActors represent roles that interact with the system. Follows UML actor\nmodeling conventions with Cockburn-style goal and scope annotations.',
           detailedIn: 'D05InteractionScenarios',
@@ -11495,7 +11610,7 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           classSectionId: 'INCA',
           kind: SomMetaKind.complex,
           typeName: 'InteractionCatalog',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Interaction catalog.',
           classDocComment: '6.2.2. Interaction Catalog.\n\nContainer for key interaction descriptions. Each interaction seeds a use\ncase following Cockburn\'s fully dressed use case template.',
           detailedIn: 'D05InteractionScenarios',
@@ -11507,7 +11622,7 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           classSectionId: 'KESC',
           kind: SomMetaKind.complex,
           typeName: 'KeyScenarios',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Key scenarios.',
           classDocComment: '6.2.3. Key Scenarios.\n\nEnd-to-end scenario descriptions showing how users achieve business goals\nthrough sequences of interactions.',
           detailedIn: 'D05InteractionScenarios',
@@ -11519,7 +11634,7 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           classSectionId: 'ACREDI',
           kind: SomMetaKind.complex,
           typeName: 'ActorRelationshipDiagram',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Actor relationship diagram.',
           classDocComment: '6.2. Actor Relationship Diagram.',
           detailedIn: 'D05InteractionScenarios',
@@ -11532,7 +11647,7 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           sectionIdPattern: 'ETETS-ENDT-xxx',
           kind: SomMetaKind.list,
           typeName: 'EndToEndTestScenario',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'End-to-end test scenarios.',
           elementNode: _cx('EndToEndTestScenario', s, _mc$EndToEndTestScenario, (r, c) => SomMetaNode(className: 'EndToEndTestScenario', classSectionId: 'ETETS', kind: SomMetaKind.complex, typeName: 'EndToEndTestScenario', docComment: '6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..', classDocComment: '6.2.4. End-to-End Test Scenarios.\n\nTest scenarios that exercise complete user journeys across processes\nand use cases..', detailedIn: 'D05InteractionScenarios', recursive: r, children: c))),
        _cx('UseCaseTraceability', s, _mc$UseCaseTraceability, (r, c) => SomMetaNode(
@@ -11541,7 +11656,7 @@ List<SomMetaNode> _mc$D05InteractionScenarios(Set<String> s) => [
           classSectionId: 'USCATR',
           kind: SomMetaKind.complex,
           typeName: 'UseCaseTraceability',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Use case traceability.',
           classDocComment: '6.2.5. Use Case Traceability.\n\nUse case ↔ requirement ↔ process ↔ test traceability.',
           detailedIn: 'D05InteractionScenarios',
@@ -11570,13 +11685,36 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D06ArchitectureTechnologySpecification',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('BasicTechnicalRequirements', s, _mc$BasicTechnicalRequirements, (r, c) => SomMetaNode(
           className: 'BasicTechnicalRequirements',
           memberName: 'basicTechnicalRequirements',
           classSectionId: 'BTREQ',
           kind: SomMetaKind.complex,
           typeName: 'BasicTechnicalRequirements',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Basic technical requirements.',
           classDocComment: '8.1. Basic Technical Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11588,7 +11726,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'SDR',
           kind: SomMetaKind.complex,
           typeName: 'SoftwareDesignRequirements',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Software design requirements.',
           classDocComment: '8.2. Software Design Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11600,7 +11738,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'SSR',
           kind: SomMetaKind.complex,
           typeName: 'StandardSoftwareRequirements',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Standard application software requirements.',
           classDocComment: '8.3. Standard Application Software Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11612,7 +11750,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'HR',
           kind: SomMetaKind.complex,
           typeName: 'HardwareRequirements',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Hardware concept requirements.',
           classDocComment: '8.4. Hardware Concept Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11624,7 +11762,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'OPRE',
           kind: SomMetaKind.complex,
           typeName: 'OperationsRequirements',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Operations requirements.',
           classDocComment: '8.5. Operations Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11636,7 +11774,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'COMREQ',
           kind: SomMetaKind.complex,
           typeName: 'CommunicationRequirements',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Communication requirements.',
           classDocComment: '8.6. Communication Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11648,7 +11786,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'SOAM',
           kind: SomMetaKind.complex,
           typeName: 'SystemOperationAndMonitoring',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'System operation and monitoring.',
           classDocComment: '8.7. System Operation and Monitoring.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11660,7 +11798,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'TSR',
           kind: SomMetaKind.complex,
           typeName: 'TechnicalSecurityRequirements',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Technical security requirements.',
           classDocComment: '8.8. Security Requirements.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11672,7 +11810,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'SYARSP',
           kind: SomMetaKind.complex,
           typeName: 'SystemArchitectureSpec',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'System architecture (new in Phase A).',
           classDocComment: '8.9. System Architecture.\n\nDetailed internal architecture (layers, packages, patterns). Covers\n\n\nClass named `SystemArchitectureSpec` to avoid colliding with any other\narchitecture-related identifier in the model.',
           detailedIn: 'D06ArchitectureTechnologySpecification',
@@ -11684,7 +11822,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'COMP',
           kind: SomMetaKind.complex,
           typeName: 'ComponentsAndDependencies',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'Components to use (whole).',
           classDocComment: '12. Components and Dependencies. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.',
           mapsTo: 'D06ArchitectureTechnologySpecification',
@@ -11697,7 +11835,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'TEEN',
           kind: SomMetaKind.complex,
           typeName: 'TechnicalEnvironment',
-          serializationOrder: 12,
+          serializationOrder: 14,
           docComment: 'Technical framework conditions (whole).',
           classDocComment: '4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.',
           mapsTo: 'D06ArchitectureTechnologySpecification',
@@ -11710,7 +11848,7 @@ List<SomMetaNode> _mc$D06ArchitectureTechnologySpecification(Set<String> s) => [
           classSectionId: 'TRAREQ',
           kind: SomMetaKind.complex,
           typeName: 'TranslationRequirements',
-          serializationOrder: 13,
+          serializationOrder: 15,
           docComment: 'Translation handling requirements (whole).',
           classDocComment: '10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.',
           mapsTo: 'D06ArchitectureTechnologySpecification',
@@ -11740,13 +11878,36 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D07IntegrationInterfaceSpecification',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('ExternalInterfaces', s, _mc$ExternalInterfaces, (r, c) => SomMetaNode(
           className: 'ExternalInterfaces',
           memberName: 'externalInterfaces',
           classSectionId: 'EXIN',
           kind: SomMetaKind.complex,
           typeName: 'ExternalInterfaces',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'External interfaces.',
           classDocComment: 'Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11758,7 +11919,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classSectionId: 'OUOFSC',
           kind: SomMetaKind.complex,
           typeName: 'OutOfScope',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Out of scope.',
           classDocComment: '4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11770,7 +11931,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classSectionId: 'BOAS',
           kind: SomMetaKind.complex,
           typeName: 'BoundaryAssumptions',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Boundary assumptions.',
           classDocComment: '4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11782,7 +11943,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classSectionId: 'SYLAIN',
           kind: SomMetaKind.complex,
           typeName: 'SystemLandscapeInventory',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'System landscape inventory.',
           classDocComment: '4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11795,7 +11956,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           sectionIdPattern: 'BOINPA-INTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'BoundaryInteractionPatterns',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Boundary interaction patterns.',
           elementNode: _cx('BoundaryInteractionPatterns', s, _mc$BoundaryInteractionPatterns, (r, c) => SomMetaNode(className: 'BoundaryInteractionPatterns', classSectionId: 'BOINPA', kind: SomMetaKind.complex, typeName: 'BoundaryInteractionPatterns', docComment: '4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.', classDocComment: '4.5.5. Boundary Interaction Patterns.\n\nSync / async / batch interaction-pattern catalog. Covers IIS-PAT.\nNamed `BoundaryInteractionPatterns` to avoid colliding with the\nexisting intra-system `InteractionPatterns` class.', detailedIn: 'D07IntegrationInterfaceSpecification', recursive: r, children: c))),
        _cx('InteractionTestingStrategy', s, _mc$InteractionTestingStrategy, (r, c) => SomMetaNode(
@@ -11804,7 +11965,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classSectionId: 'INTES1',
           kind: SomMetaKind.complex,
           typeName: 'InteractionTestingStrategy',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Interaction testing strategy.',
           classDocComment: '4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11816,7 +11977,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classSectionId: 'INDEAN',
           kind: SomMetaKind.complex,
           typeName: 'InteractionDependencyAnalysis',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Interaction dependency analysis.',
           classDocComment: '4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11829,7 +11990,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           sectionIdPattern: 'MIIN-MIGR-xxx',
           kind: SomMetaKind.list,
           typeName: 'MigrationInteractions',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Migration interactions.',
           elementNode: _cx('MigrationInteractions', s, _mc$MigrationInteractions, (r, c) => SomMetaNode(className: 'MigrationInteractions', classSectionId: 'MIIN', kind: SomMetaKind.complex, typeName: 'MigrationInteractions', docComment: '4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.', classDocComment: '4.5.8. Migration Interactions.\n\nInteractions specific to the migration window — cutover bridges,\nreconciliation endpoints, and temporary shims. Back-refs the\nSystems to Replace inventory. Covers IIS-MIG.', detailedIn: 'D07IntegrationInterfaceSpecification', recursive: r, children: c))),
        SomMetaNode(
@@ -11839,7 +12000,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           sectionIdPattern: 'CBOC-OPER-xxx',
           kind: SomMetaKind.list,
           typeName: 'CrossBoundaryOperationalConsiderations',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Cross-boundary operational considerations.',
           elementNode: _cx('CrossBoundaryOperationalConsiderations', s, _mc$CrossBoundaryOperationalConsiderations, (r, c) => SomMetaNode(className: 'CrossBoundaryOperationalConsiderations', classSectionId: 'CBOC', kind: SomMetaKind.complex, typeName: 'CrossBoundaryOperationalConsiderations', docComment: '4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.', classDocComment: '4.5.9. Cross-Boundary Operational Considerations.\n\nSLA, rate-limit, and change-window considerations applied at system\nboundaries. Distinct from per-interface operational data captured\ninside individual interface entries.', detailedIn: 'D07IntegrationInterfaceSpecification', recursive: r, children: c))),
        _cx('CrossBoundaryErrorHandling', s, _mc$CrossBoundaryErrorHandling, (r, c) => SomMetaNode(
@@ -11848,7 +12009,7 @@ List<SomMetaNode> _mc$D07IntegrationInterfaceSpecification(Set<String> s) => [
           classSectionId: 'CBEH',
           kind: SomMetaKind.complex,
           typeName: 'CrossBoundaryErrorHandling',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'Cross-boundary error handling.',
           classDocComment: '4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.',
           detailedIn: 'D07IntegrationInterfaceSpecification',
@@ -11877,13 +12038,36 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D08SecurityAccessSpecification',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('UserManagement', s, _mc$UserManagement, (r, c) => SomMetaNode(
           className: 'UserManagement',
           memberName: 'userManagement',
           classSectionId: 'USMGT',
           kind: SomMetaKind.complex,
           typeName: 'UserManagement',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'User management.',
           classDocComment: '9.1. User Management.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11895,7 +12079,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'IDAUT',
           kind: SomMetaKind.complex,
           typeName: 'IdentificationAndAuthentication',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Identification and authentication.',
           classDocComment: '9.2. Identification and Authentication.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11907,7 +12091,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'RESPRO',
           kind: SomMetaKind.complex,
           typeName: 'ResourceProtection',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Resource protection.',
           classDocComment: '9.3. Resource Protection.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11919,7 +12103,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'USAU',
           kind: SomMetaKind.complex,
           typeName: 'UserAuthorization',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'User authorization.',
           classDocComment: '9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11931,7 +12115,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'SEDAEN',
           kind: SomMetaKind.complex,
           typeName: 'SensitiveDataEncryption',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Sensitive data encryption.',
           classDocComment: '9.5. Sensitive Data Encryption.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11943,7 +12127,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'AUANLO',
           kind: SomMetaKind.complex,
           typeName: 'AuditAndLogging',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Audit and logging — the CE-LG / CE-CF declarations.',
           classDocComment: '9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11955,7 +12139,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'ROMA',
           kind: SomMetaKind.complex,
           typeName: 'RoleMatrix',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Role matrix.',
           classDocComment: '9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11967,7 +12151,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'CF',
           kind: SomMetaKind.complex,
           typeName: 'ComplianceFramework',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Compliance framework.',
           classDocComment: '9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.',
           detailedIn: 'D08SecurityAccessSpecification',
@@ -11979,7 +12163,7 @@ List<SomMetaNode> _mc$D08SecurityAccessSpecification(Set<String> s) => [
           classSectionId: 'COMREP',
           kind: SomMetaKind.complex,
           typeName: 'ComplianceReporting',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.',
           classDocComment: '9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.',
           recursive: r,
@@ -12007,13 +12191,36 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D09ExperienceDesignSpecification',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('DesignVision', s, _mc$DesignVision, (r, c) => SomMetaNode(
           className: 'DesignVision',
           memberName: 'designVision',
           classSectionId: 'DEVIZ',
           kind: SomMetaKind.complex,
           typeName: 'DesignVision',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Design vision.',
           classDocComment: '10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12026,7 +12233,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'SCRDZ',
           kind: SomMetaKind.complex,
           typeName: 'ScreenDescriptions',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Screen descriptions.',
           classDocComment: '10.2. Screen Descriptions.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12039,7 +12246,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'SCFLST',
           kind: SomMetaKind.complex,
           typeName: 'ScreenFlowStructure',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Screen flow structure.',
           classDocComment: '10.3. Screen Flow Structure.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12052,7 +12259,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'PRLA',
           kind: SomMetaKind.complex,
           typeName: 'PrintAndExportLayout',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Print layout.',
           classDocComment: '10.4. Print Layout.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12065,7 +12272,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'REDF',
           kind: SomMetaKind.complex,
           typeName: 'ReportDefinitions',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Report definitions — the CE-RP report projections over the domain model.',
           classDocComment: 'SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report\'s grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).',
           recursive: r,
@@ -12076,7 +12283,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'ERHACO',
           kind: SomMetaKind.complex,
           typeName: 'ErrorHandling',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Error handling concept.',
           classDocComment: '10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12089,7 +12296,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'USAS',
           kind: SomMetaKind.complex,
           typeName: 'UserAssistance',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Help concept.',
           classDocComment: '10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12102,7 +12309,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'ACCESS',
           kind: SomMetaKind.complex,
           typeName: 'Accessibility',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Accessibility.',
           classDocComment: '10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12115,7 +12322,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'REDE',
           kind: SomMetaKind.complex,
           typeName: 'ResponsiveDesign',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Responsive design.',
           classDocComment: '10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12128,7 +12335,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'UICO',
           kind: SomMetaKind.complex,
           typeName: 'UiComponents',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'UI components.',
           classDocComment: '10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12141,7 +12348,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'LACOSE',
           kind: SomMetaKind.complex,
           typeName: 'LanguageCountrySelection',
-          serializationOrder: 12,
+          serializationOrder: 14,
           docComment: 'Language and country selection.',
           classDocComment: '10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12154,7 +12361,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'PROTOT',
           kind: SomMetaKind.complex,
           typeName: 'Prototype',
-          serializationOrder: 13,
+          serializationOrder: 15,
           docComment: 'Prototype.',
           classDocComment: '10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12167,7 +12374,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           classSectionId: 'WIANMO',
           kind: SomMetaKind.complex,
           typeName: 'WireframesAndMockups',
-          serializationOrder: 14,
+          serializationOrder: 16,
           docComment: 'Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).',
           classDocComment: '10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.',
           mapsTo: 'D09ExperienceDesignSpecification',
@@ -12197,13 +12404,36 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D10QualityAcceptancePlan',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('QualityFramework', s, _mc$QualityFramework, (r, c) => SomMetaNode(
           className: 'QualityFramework',
           memberName: 'qualityFramework',
           classSectionId: 'QLFWK',
           kind: SomMetaKind.complex,
           typeName: 'QualityFramework',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Quality framework.',
           classDocComment: '11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12215,7 +12445,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'FNSU',
           kind: SomMetaKind.complex,
           typeName: 'FunctionalSuitabilityCharacteristic',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Functional suitability (ISO/IEC 25010:2023).',
           classDocComment: '11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12227,7 +12457,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'PEEF',
           kind: SomMetaKind.complex,
           typeName: 'PerformanceEfficiencyCharacteristic',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'Performance efficiency (ISO/IEC 25010:2023).',
           classDocComment: '11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12239,7 +12469,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'CMPT',
           kind: SomMetaKind.complex,
           typeName: 'CompatibilityCharacteristic',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Compatibility (ISO/IEC 25010:2023).',
           classDocComment: '11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12251,7 +12481,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'INCP',
           kind: SomMetaKind.complex,
           typeName: 'InteractionCapabilityCharacteristic',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Interaction capability (ISO/IEC 25010:2023; formerly Usability).',
           classDocComment: '11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12263,7 +12493,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'RELC',
           kind: SomMetaKind.complex,
           typeName: 'ReliabilityCharacteristic',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Reliability (ISO/IEC 25010:2023).',
           classDocComment: '11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12275,7 +12505,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'SECC',
           kind: SomMetaKind.complex,
           typeName: 'SecurityCharacteristic',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Security (ISO/IEC 25010:2023).',
           classDocComment: '11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12287,7 +12517,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'MNTC',
           kind: SomMetaKind.complex,
           typeName: 'MaintainabilityCharacteristic',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Maintainability (ISO/IEC 25010:2023).',
           classDocComment: '11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12299,7 +12529,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'FLXC',
           kind: SomMetaKind.complex,
           typeName: 'FlexibilityCharacteristic',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).',
           classDocComment: '11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12311,7 +12541,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'DOQUCR',
           kind: SomMetaKind.complex,
           typeName: 'DocumentationQualityCriteria',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'Documentation quality (ISO/IEC 26514 annex).',
           classDocComment: '11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12323,7 +12553,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'QUPR',
           kind: SomMetaKind.complex,
           typeName: 'QualityPrioritization',
-          serializationOrder: 12,
+          serializationOrder: 14,
           docComment: 'Quality prioritization.',
           classDocComment: '11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12335,7 +12565,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'ACCRSU',
           kind: SomMetaKind.complex,
           typeName: 'AcceptanceCriteriaSummary',
-          serializationOrder: 13,
+          serializationOrder: 15,
           docComment: 'Acceptance criteria summary.',
           classDocComment: '11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12347,7 +12577,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'TEST',
           kind: SomMetaKind.complex,
           typeName: 'TestStrategy',
-          serializationOrder: 14,
+          serializationOrder: 16,
           docComment: 'Test strategy (new in Phase A).',
           classDocComment: '11.8. Test Strategy.\n\nOverall test strategy for the project..',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12359,7 +12589,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'ACRITL',
           kind: SomMetaKind.complex,
           typeName: 'AcceptanceCriteriaList',
-          serializationOrder: 15,
+          serializationOrder: 17,
           docComment: 'Acceptance criteria.',
           classDocComment: '14.2.1. Acceptance Criteria.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12371,7 +12601,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'ACPR1',
           kind: SomMetaKind.complex,
           typeName: 'AcceptanceProcess',
-          serializationOrder: 16,
+          serializationOrder: 18,
           docComment: 'Acceptance process.',
           classDocComment: '14.2.2. Acceptance Process.\n\nDefines the formal acceptance workflow from test initiation through\nfinal sign-off. Covers roles, responsibilities, timelines, escalation,\nand decision criteria.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12383,7 +12613,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'USACTE',
           kind: SomMetaKind.complex,
           typeName: 'UserAcceptanceTesting',
-          serializationOrder: 17,
+          serializationOrder: 19,
           docComment: 'User acceptance testing.',
           classDocComment: '14.2.3. User Acceptance Testing.\n\nComprehensive UAT planning covering scope, environment, test data,\ngovernance, scheduling, defect management, reporting, non-functional\nacceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119\ntest documentation structure and ISTQB best practices.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12395,7 +12625,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'DERE',
           kind: SomMetaKind.complex,
           typeName: 'DefectResolution',
-          serializationOrder: 18,
+          serializationOrder: 20,
           docComment: 'Defect resolution.',
           classDocComment: '14.2.4. Defect Resolution.\n\nDefines how defects found during acceptance testing are classified,\nmanaged, resolved, and tracked. Covers severity classification,\nresolution timeframes, blocking thresholds, and post-fix verification.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12407,7 +12637,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'SIOFPR',
           kind: SomMetaKind.complex,
           typeName: 'SignOffProcess',
-          serializationOrder: 19,
+          serializationOrder: 21,
           docComment: 'Sign-off process.',
           classDocComment: '14.2.5. Sign-off Process.\n\nFormal sign-off process: who signs off (business acceptance board,\ntechnical acceptance board), what documents are signed, legal and\ncontractual implications, and conditional acceptance handling.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12419,7 +12649,7 @@ List<SomMetaNode> _mc$D10QualityAcceptancePlan(Set<String> s) => [
           classSectionId: 'WATE',
           kind: SomMetaKind.complex,
           typeName: 'WarrantyTerms',
-          serializationOrder: 20,
+          serializationOrder: 22,
           docComment: 'Warranty terms.',
           classDocComment: '14.2.6. Warranty.\n\nPost-acceptance warranty terms: duration, scope, service levels,\nexclusions, and transition to standard support.',
           detailedIn: 'D10QualityAcceptancePlan',
@@ -12448,13 +12678,36 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D11DeliveryRoadmap',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('StagingStrategy', s, _mc$StagingStrategy, (r, c) => SomMetaNode(
           className: 'StagingStrategy',
           memberName: 'stagingStrategy',
           classSectionId: 'STAGST',
           kind: SomMetaKind.complex,
           typeName: 'StagingStrategy',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Staging strategy.',
           classDocComment: '13.1. Staging Strategy.\n\nDocument the rationale behind the chosen staging approach. Consider\nPMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2\nstage boundaries, and organizational change management constraints.\nThe staging strategy addresses how the system will be deployed in\ncontrolled increments, balancing risk mitigation with early value\ndelivery.',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12466,7 +12719,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'STAGOV',
           kind: SomMetaKind.complex,
           typeName: 'StageOverview',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Stage overview.',
           classDocComment: '13.2. Stage Overview.\n\nHigh-level summary across all planned stages including aggregate\nmetrics, critical-path identification, resource allocation patterns,\nbudget distribution, schedule analytics, quality targets, risk\nprofile, and plan health. Draws from PMBOK phase-gate discipline,\nSAFe PI planning cadence, PRINCE2 stage boundary management, and\nTOGAF architecture road-mapping.',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12479,7 +12732,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           sectionIdPattern: 'STAGE-STAG-xxx',
           kind: SomMetaKind.list,
           typeName: 'StageEntry',
-          serializationOrder: 4,
+          serializationOrder: 6,
           min: 1,
           docComment: 'Stages (list).',
           elementNode: _cx('StageEntry', s, _mc$StageEntry, (r, c) => SomMetaNode(className: 'StageEntry', classSectionId: 'STAGE', kind: SomMetaKind.complex, typeName: 'StageEntry', docComment: 'A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.', classDocComment: 'A stage entry (form) with description subsections.\n\nRepresents a single delivery stage — a self-contained increment of the\nsystem that delivers measurable business value. Each stage has clear\nentry/exit criteria, assigned resources, quality gates, and a\ndeployment plan. Draws from PMBOK phase-gate discipline, SAFe PI\nplanning, and PRINCE2 stage boundary management.', recursive: r, children: c))),
@@ -12489,7 +12742,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'FEPR',
           kind: SomMetaKind.complex,
           typeName: 'FeaturePrioritization',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Feature prioritization.',
           classDocComment: '13.4. Feature Prioritization.\n\nComprehensive feature prioritization framework for staged delivery.\nCovers prioritization methodology, MoSCoW analysis, feature-stage\nmapping, individual feature priority scoring, and cross-feature\ndependency tracking. Aligns with SAFe WSJF, PMBOK value-driven\ndelivery, MoSCoW (DSDM), and Kano model classification.',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12501,7 +12754,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'DAMIST',
           kind: SomMetaKind.complex,
           typeName: 'DataMigrationStrategy',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Data migration strategy.',
           classDocComment: '13.5. Data Migration Strategy.\n\nComprehensive data migration strategy covering approach, methodology,\ntooling, environment strategy, data quality governance, cutover\nplanning, rollback mechanisms, compliance requirements (GDPR, HIPAA),\nand stakeholder sign-off. Aligns with DAMA-DMBOK data management\nprinciples, TOGAF migration planning, and PMBOK risk-aware delivery.',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12513,7 +12766,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'PHGARE',
           kind: SomMetaKind.complex,
           typeName: 'PhaseGateReviews',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Gate criteria (promoted from GOV).',
           classDocComment: '13.6.1. Phase Gate Reviews.\n\nDefines the phase gate review process: what is reviewed at each\ngate, who participates, what evidence is required, and what\noutcomes are possible (proceed, rework, cancel, conditional).',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12525,7 +12778,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'DEPO',
           kind: SomMetaKind.complex,
           typeName: 'DecisionPoints',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'Decision processes (promoted from GOV).',
           classDocComment: '13.6.2. Decision Points.\n\nKey decision points in the stage plan including go/no-go\ndecisions, scope adjustments, resource reallocations, and\ntechnology selections. Each decision point has defined timing,\ncriteria, authority, options, and impact analysis.',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12537,7 +12790,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'INDEFL',
           kind: SomMetaKind.complex,
           typeName: 'InitialDevelopmentFlow',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Initial development flow.',
           classDocComment: '13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as "new in DRM".',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12549,7 +12802,7 @@ List<SomMetaNode> _mc$D11DeliveryRoadmap(Set<String> s) => [
           classSectionId: 'UPCYFR',
           kind: SomMetaKind.complex,
           typeName: 'UpgradeCycleFramework',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).',
           classDocComment: '13.8. Upgrade Cycle Framework.\n\nPost-development upgrade cycle framework. Links the upgrade process\ndefined in `tom_ai/ai_build/tom_specs_model/doc/tom_specs_project_flow.md`\n§PF-UPG.',
           detailedIn: 'D11DeliveryRoadmap',
@@ -12578,13 +12831,36 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classDocComment: 'Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document\'s form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.',
           recursive: r,
           children: c)),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 2,
+          docComment: 'This document\'s own review team; when it has members it replaces the\nSolution Blueprint\'s team for this document type and its default team.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'D12TransitionRolloutPlan',
+          memberName: 'revisionHistory',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'RevisionEntry',
+          serializationOrder: 3,
+          contentHelp: 'Add one entry per revision, newest last: version, date, author, a short summary, the review team the round started with and the reviewers who returned a copy.',
+          docComment: 'Chronological revision history of this document, with the reviewers of\neach revision.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)'], 'connotation': 'The ordered set of published revisions of this document.'})],
+          elementNode: _cx('RevisionEntry', s, _mc$RevisionEntry, (r, c) => SomMetaNode(className: 'RevisionEntry', classSectionId: 'RVENT', kind: SomMetaKind.complex, typeName: 'RevisionEntry', docComment: 'A single document revision entry (form).', classDocComment: 'A single document revision entry (form).', recursive: r, children: c))),
        _cx('LocalizationProcess', s, _mc$LocalizationProcess, (r, c) => SomMetaNode(
           className: 'LocalizationProcess',
           memberName: 'localizationProcess',
           classSectionId: 'LOPR',
           kind: SomMetaKind.complex,
           typeName: 'LocalizationProcess',
-          serializationOrder: 2,
+          serializationOrder: 4,
           docComment: 'Localization process.',
           classDocComment: '10.12.1. Localization Process.\n\nWorkflow for identifying and preparing content for localization.',
           mapsTo: 'D12TransitionRolloutPlan',
@@ -12597,7 +12873,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'TRPR',
           kind: SomMetaKind.complex,
           typeName: 'TranslationProcess',
-          serializationOrder: 3,
+          serializationOrder: 5,
           docComment: 'Translation process.',
           classDocComment: '10.12.2. Translation Process.\n\nWorkflow for translating content.',
           mapsTo: 'D12TransitionRolloutPlan',
@@ -12610,7 +12886,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'DOANTR',
           kind: SomMetaKind.complex,
           typeName: 'UserDocumentationRequirements',
-          serializationOrder: 4,
+          serializationOrder: 6,
           docComment: 'User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).',
           classDocComment: '10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.',
           mapsTo: 'D12TransitionRolloutPlan',
@@ -12623,7 +12899,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'TRMAT',
           kind: SomMetaKind.complex,
           typeName: 'TrainingDeliverableRequirements',
-          serializationOrder: 5,
+          serializationOrder: 7,
           docComment: 'Training deliverable requirements (training half of the former DOANTR;\nsplit in L34C-7).',
           classDocComment: '10.12.3b. Training Deliverable Requirements.\n\nEnd-user training materials and module catalogue. The training half of the\nformer `DocumentationAndTraining` (`DOANTR`); split from its documentation\nhalf in L34C-7 (SR-29). Logically re-homed under SBP.9\n`TrainingEnablementRequirements` (`TREQ`) while physically staying in this\nfile. Maps to D12 under the existing training detail subsection `TRP-TRN`\n(shared with SBP.15 `RolloutTrainingMaterial`), grouping all training\ncontent in one D12 subsection rather than fragmenting it across a new id.',
           mapsTo: 'D12TransitionRolloutPlan',
@@ -12636,7 +12912,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'RLTPLN',
           kind: SomMetaKind.complex,
           typeName: 'RolloutPlan',
-          serializationOrder: 6,
+          serializationOrder: 8,
           docComment: 'Rollout plan.',
           classDocComment: '15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12648,7 +12924,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'MIGPLN',
           kind: SomMetaKind.complex,
           typeName: 'MigrationPlan',
-          serializationOrder: 7,
+          serializationOrder: 9,
           docComment: 'Migration plan.',
           classDocComment: '15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.\n\nThis is the rollout/cutover *runbook* (execution). The staged-migration\n*strategy* (phasing, sequencing, data-migration approach) is owned by\n`DataMigrationStrategy` (`DRM`); reference it rather than restating the\nstrategy here.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12660,7 +12936,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'USRMAN',
           kind: SomMetaKind.complex,
           typeName: 'UserManual',
-          serializationOrder: 8,
+          serializationOrder: 10,
           docComment: 'User manuals.\n\nOne whole-catalog content section; collapsed from `List<UserManual>`\n(L34C-12 SR-57).',
           classDocComment: '15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.\n\nThis is the *execution* side of user documentation. The documentation\n*requirements* (deliverables, formats, platforms, versioning,\nlocalization) are owned by SBP.9 `InformationForUseRequirements`\n(`IFUR`); reference them via the shared `TRP-DOC` detail link rather\nthan restating the requirements here.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12672,7 +12948,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'RLTTM',
           kind: SomMetaKind.complex,
           typeName: 'RolloutTrainingMaterial',
-          serializationOrder: 9,
+          serializationOrder: 11,
           docComment: 'Training materials.\n\nOne whole-catalog content section; collapsed from\n`List<RolloutTrainingMaterial>` (L34C-12 SR-57).',
           classDocComment: '15.4. Training Materials.\n\nTraining deliverables covering training-material content.\n\nThis is the *execution* side of training. The training *requirements*\n(audiences, competency outcomes, certification, ongoing enablement) are\nowned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them\nvia the shared `TRP-TRN` detail link rather than restating the\nrequirements here.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12684,7 +12960,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'PLTPLN',
           kind: SomMetaKind.complex,
           typeName: 'PilotPlan',
-          serializationOrder: 10,
+          serializationOrder: 12,
           docComment: 'Pilot plan.',
           classDocComment: '15.5. Pilot Plan.\n\nPilot scope, cohort selection, success criteria, and exit decision rules.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12696,7 +12972,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'CUTPRC',
           kind: SomMetaKind.complex,
           typeName: 'CutoverProcedure',
-          serializationOrder: 11,
+          serializationOrder: 13,
           docComment: 'Cutover procedures.\n\nOne whole-catalog content section; collapsed from `List<CutoverProcedure>`\n(L34C-12 SR-57).',
           classDocComment: '15.6. Cutover Procedures.\n\nDetailed cutover runbook for go-live. Minute-by-minute procedure\ncovering the transition from current operation to the target system.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12708,7 +12984,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'KNTFR',
           kind: SomMetaKind.complex,
           typeName: 'KnowledgeTransfer',
-          serializationOrder: 12,
+          serializationOrder: 14,
           docComment: 'Knowledge transfer.',
           classDocComment: '15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -12720,7 +12996,7 @@ List<SomMetaNode> _mc$D12TransitionRolloutPlan(Set<String> s) => [
           classSectionId: 'WRTSP',
           kind: SomMetaKind.complex,
           typeName: 'WarrantyAndSupport',
-          serializationOrder: 13,
+          serializationOrder: 15,
           docComment: 'Warranty and support.',
           classDocComment: '15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.',
           detailedIn: 'D12TransitionRolloutPlan',
@@ -18063,6 +18339,28 @@ List<SomMetaNode> _mc$DocumentRelevantSections(Set<String> s) => [
           docComment: 'Individual relevant section entries.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)'], 'connotation': 'The set of relevant section entries within a referenced document.'})],
           elementNode: _cx('RelevantSectionEntry', s, _mc$RelevantSectionEntry, (r, c) => SomMetaNode(className: 'RelevantSectionEntry', classSectionId: 'RESEEN', kind: SomMetaKind.complex, typeName: 'RelevantSectionEntry', docComment: 'A single relevant section entry within a reference document.', classDocComment: 'A single relevant section entry within a reference document.', recursive: r, children: c))),
+    ];
+
+List<SomMetaNode> _mc$DocumentReviewTeamEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'DocumentReviewTeamEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'documentType', typeName: 'SpecDocumentType', description: 'Document Type', required: true, hint: 'The document root type this team reviews; one entry per type.', order: 0, enumValues: ['d01CurrentLandscapeAssessment', 'd02TargetOperatingModel', 'd03InformationModel', 'd04RequirementsSpecification', 'd05InteractionScenarios', 'd06ArchitectureTechnologySpecification', 'd07IntegrationInterfaceSpecification', 'd08SecurityAccessSpecification', 'd09ExperienceDesignSpecification', 'd10QualityAcceptancePlan', 'd11DeliveryRoadmap', 'd12TransitionRolloutPlan'])])),
+       SomMetaNode(
+          className: 'DocumentReviewTeamEntry',
+          memberName: 'members',
+          sectionId: 'RVMEM-MEMB-LST',
+          sectionIdPattern: 'RVMEM-MEMB-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ReviewTeamMember',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per member of this document type\'s team.',
+          docComment: 'The members of the team.',
+          elementNode: _cx('ReviewTeamMember', s, _mc$ReviewTeamMember, (r, c) => SomMetaNode(className: 'ReviewTeamMember', classSectionId: 'RVMEM', kind: SomMetaKind.complex, typeName: 'ReviewTeamMember', docComment: 'One member of a review team (form).', classDocComment: 'One member of a review team (form).', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$DocumentationDeliverables(Set<String> s) => [
@@ -39577,6 +39875,51 @@ List<SomMetaNode> _mc$ReviewCriterionEntry(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 25040:2011 — the systems and software quality evaluation process defines review and acceptance criteria', 'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines review and evaluation processes'], 'connotation': 'Captures the post-review result for a criterion together with reviewer notes and any required remediation.'})]),
     ];
 
+List<SomMetaNode> _mc$ReviewTeam(Set<String> s) => [
+       SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'content',
+          kind: SomMetaKind.content,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Who reviews this document. The most specific team replaces the others\nentirely: a document\'s own team, else the Solution Blueprint\'s team for its\ndocument type, else the Solution Blueprint\'s default team. A team without\nmembers names no team.\n',
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].'),
+       SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'members',
+          sectionId: 'RVMEM-MEMB-LST',
+          sectionIdPattern: 'RVMEM-MEMB-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ReviewTeamMember',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per member. Mark the specification owner with owner: true in the default team.',
+          docComment: 'The members of the team.',
+          elementNode: _cx('ReviewTeamMember', s, _mc$ReviewTeamMember, (r, c) => SomMetaNode(className: 'ReviewTeamMember', classSectionId: 'RVMEM', kind: SomMetaKind.complex, typeName: 'ReviewTeamMember', docComment: 'One member of a review team (form).', classDocComment: 'One member of a review team (form).', recursive: r, children: c))),
+    ];
+
+List<SomMetaNode> _mc$ReviewTeamMember(Set<String> s) => [
+       SomMetaNode(
+          className: 'ReviewTeamMember',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'memberId', typeName: 'String', description: 'Member Id', required: true, hint: 'Short stable id: lowercase letters, digits and "_", e.g. "alice". Used in {@alice}, "**Answer (alice):**" and the copy file name.', order: 0), SomFormFieldMeta(name: 'displayName', typeName: 'String', description: 'Display Name', required: true, order: 1), SomFormFieldMeta(name: 'role', typeName: 'String', description: 'Role', required: true, order: 2), SomFormFieldMeta(name: 'stakeholder', typeName: 'String', description: 'Stakeholder', hint: 'The stakeholder register entry this member represents.', order: 3, refersTo: ['STKRE.@sectionId']), SomFormFieldMeta(name: 'email', typeName: 'String', description: 'E-Mail', hint: 'Stored only; nothing sends mail.', order: 4), SomFormFieldMeta(name: 'owner', typeName: 'bool', description: 'Owner', hint: 'true for the specification owner, who is always a reviewer.', order: 5)])),
+    ];
+
+List<SomMetaNode> _mc$ReviewerRecord(Set<String> s) => [
+       SomMetaNode(
+          className: 'ReviewerRecord',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'memberId', typeName: 'String', description: 'Member Id', required: true, hint: 'The member id, as in the team, or the guest\'s id.', order: 0), SomFormFieldMeta(name: 'displayName', typeName: 'String', description: 'Display Name', required: true, order: 1), SomFormFieldMeta(name: 'role', typeName: 'String', description: 'Role', order: 2), SomFormFieldMeta(name: 'guest', typeName: 'bool', description: 'Guest', hint: 'true for a reviewer who was not on the team the round used.', order: 3)])),
+    ];
+
 List<SomMetaNode> _mc$RevisionEntry(Set<String> s) => [
        SomMetaNode(
           className: 'RevisionEntry',
@@ -39586,6 +39929,28 @@ List<SomMetaNode> _mc$RevisionEntry(Set<String> s) => [
           serializationOrder: 0,
           docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'version', typeName: 'String', description: 'Version', required: true, hint: 'Semantic version of this revision, e.g. "1.2.0".', order: 0), SomFormFieldMeta(name: 'date', typeName: 'String', description: 'Date', required: true, hint: 'Date the revision was published (ISO 8601).', order: 1), SomFormFieldMeta(name: 'author', typeName: 'String', description: 'Author', required: true, hint: 'Person or role who produced the revision.', order: 2), SomFormFieldMeta(name: 'summary', typeName: 'String', description: 'Summary of changes', hint: 'One or two sentences on what changed and why.', order: 3)])),
+       SomMetaNode(
+          className: 'RevisionEntry',
+          memberName: 'reviewTeam',
+          sectionId: 'RVWER-TEAM-LST',
+          sectionIdPattern: 'RVWER-TEAM-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ReviewerRecord',
+          serializationOrder: 1,
+          contentHelp: 'The members the review round started with, each written out in full.',
+          docComment: 'The review team the round leading to this revision started with.',
+          elementNode: _cx('ReviewerRecord', s, _mc$ReviewerRecord, (r, c) => SomMetaNode(className: 'ReviewerRecord', classSectionId: 'RVWER', kind: SomMetaKind.complex, typeName: 'ReviewerRecord', docComment: 'A reviewer recorded in a revision entry (form).', classDocComment: 'A reviewer recorded in a revision entry (form).', recursive: r, children: c))),
+       SomMetaNode(
+          className: 'RevisionEntry',
+          memberName: 'reviewers',
+          sectionId: 'RVWER-RETN-LST',
+          sectionIdPattern: 'RVWER-RETN-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ReviewerRecord',
+          serializationOrder: 2,
+          contentHelp: 'Everybody who returned a reviewed copy, team members and guests (guest: true). There is always at least one: the owner.',
+          docComment: 'The reviewers who returned a reviewed copy, guests included.',
+          elementNode: _cx('ReviewerRecord', s, _mc$ReviewerRecord, (r, c) => SomMetaNode(className: 'ReviewerRecord', classSectionId: 'RVWER', kind: SomMetaKind.complex, typeName: 'ReviewerRecord', docComment: 'A reviewer recorded in a revision entry (form).', classDocComment: 'A reviewer recorded in a revision entry (form).', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$RiskBusinessImpact(Set<String> s) => [
@@ -45899,6 +46264,28 @@ List<SomMetaNode> _mc$StakeholdersAndGovernance(Set<String> s) => [
           docComment: 'Stakeholder register.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'], 'connotation': 'The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.'})],
           elementNode: _cx('StakeholderRegisterEntry', s, _mc$StakeholderRegisterEntry, (r, c) => SomMetaNode(className: 'StakeholderRegisterEntry', classSectionId: 'STKRE', kind: SomMetaKind.complex, typeName: 'StakeholderRegisterEntry', docComment: 'A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).', classDocComment: 'A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).', recursive: r, children: c))),
+       _cx('ReviewTeam', s, _mc$ReviewTeam, (r, c) => SomMetaNode(
+          className: 'ReviewTeam',
+          memberName: 'reviewTeam',
+          classSectionId: 'RVTEAM',
+          kind: SomMetaKind.complex,
+          typeName: 'ReviewTeam',
+          serializationOrder: 9,
+          docComment: 'The default review team: it reviews every document that names no team\nof its own and has no entry in [documentReviewTeams]. Its owner\n(`owner: true`) is the specification owner, always a reviewer.',
+          classDocComment: 'A review team: the members who review a document.',
+          recursive: r,
+          children: c)),
+       SomMetaNode(
+          className: 'StakeholdersAndGovernance',
+          memberName: 'documentReviewTeams',
+          sectionId: 'DCRVTM-DOCR-LST',
+          sectionIdPattern: 'DCRVTM-DOCR-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'DocumentReviewTeamEntry',
+          serializationOrder: 10,
+          contentHelp: 'Add one entry per document type that is reviewed by a team other than the default team. A document\'s own review team replaces this one.',
+          docComment: 'Review teams per document type, each replacing [reviewTeam] for the\ndocuments of its type.',
+          elementNode: _cx('DocumentReviewTeamEntry', s, _mc$DocumentReviewTeamEntry, (r, c) => SomMetaNode(className: 'DocumentReviewTeamEntry', classSectionId: 'DCRVTM', kind: SomMetaKind.complex, typeName: 'DocumentReviewTeamEntry', docComment: 'The Solution Blueprint\'s review team for one document type (form + members).', classDocComment: 'The Solution Blueprint\'s review team for one document type (form + members).', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$StakeholdersAndInterests(Set<String> s) => [
@@ -58573,6 +58960,8 @@ class D01CurrentLandscapeAssessment$Nav extends SomMetaRef {
   D01CurrentLandscapeAssessment$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   ExistingSystemsLandscape$Nav get existingSystemsLandscape => ExistingSystemsLandscape$Nav(tree, '$path/existingSystemsLandscape');
   CurrentBusinessProcesses$Nav get currentBusinessProcesses => CurrentBusinessProcesses$Nav(tree, '$path/currentBusinessProcesses');
   PainPointsAndGaps$Nav get painPointsAndGaps => PainPointsAndGaps$Nav(tree, '$path/painPointsAndGaps');
@@ -58591,6 +58980,8 @@ class D02TargetOperatingModel$Nav extends SomMetaRef {
   D02TargetOperatingModel$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   ProcessVision$Nav get processVision => ProcessVision$Nav(tree, '$path/processVision');
   ProcessDesignPrinciples$Nav get designPrinciples => ProcessDesignPrinciples$Nav(tree, '$path/designPrinciples');
   ProcessCatalog$Nav get processCatalog => ProcessCatalog$Nav(tree, '$path/processCatalog');
@@ -58611,6 +59002,8 @@ class D03InformationModel$Nav extends SomMetaRef {
   D03InformationModel$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   SomListMetaRef<DataEntityEntry$Nav> get entities => SomListMetaRef(tree, '$path/DAENT-ENTI-LST', DataEntityEntry$Nav.new);
   EntityRelationships$Nav get entityRelationships => EntityRelationships$Nav(tree, '$path/entityRelationships');
   SomMetaRef get erDiagram => SomMetaRef(tree, '$path/erDiagram');
@@ -58639,6 +59032,8 @@ class D04RequirementsSpecification$Nav extends SomMetaRef {
   D04RequirementsSpecification$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   FunctionalRequirements$Nav get functionalRequirements => FunctionalRequirements$Nav(tree, '$path/functionalRequirements');
   TechnicalRequirements$Nav get technicalRequirements => TechnicalRequirements$Nav(tree, '$path/technicalRequirements');
   SecurityRequirements$Nav get securityRequirements => SecurityRequirements$Nav(tree, '$path/securityRequirements');
@@ -58656,6 +59051,8 @@ class D05InteractionScenarios$Nav extends SomMetaRef {
   D05InteractionScenarios$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   ProcessStepsOverview$Nav get processStepsOverview => ProcessStepsOverview$Nav(tree, '$path/processStepsOverview');
   ActorOverview$Nav get actorOverview => ActorOverview$Nav(tree, '$path/actorOverview');
   InteractionCatalog$Nav get interactionCatalog => InteractionCatalog$Nav(tree, '$path/interactionCatalog');
@@ -58673,6 +59070,8 @@ class D06ArchitectureTechnologySpecification$Nav extends SomMetaRef {
   D06ArchitectureTechnologySpecification$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   BasicTechnicalRequirements$Nav get basicTechnicalRequirements => BasicTechnicalRequirements$Nav(tree, '$path/basicTechnicalRequirements');
   SoftwareDesignRequirements$Nav get softwareDesignRequirements => SoftwareDesignRequirements$Nav(tree, '$path/softwareDesignRequirements');
   StandardSoftwareRequirements$Nav get standardSoftwareRequirements => StandardSoftwareRequirements$Nav(tree, '$path/standardSoftwareRequirements');
@@ -58695,6 +59094,8 @@ class D07IntegrationInterfaceSpecification$Nav extends SomMetaRef {
   D07IntegrationInterfaceSpecification$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   ExternalInterfaces$Nav get externalInterfaces => ExternalInterfaces$Nav(tree, '$path/externalInterfaces');
   OutOfScope$Nav get outOfScope => OutOfScope$Nav(tree, '$path/outOfScope');
   BoundaryAssumptions$Nav get boundaryAssumptions => BoundaryAssumptions$Nav(tree, '$path/boundaryAssumptions');
@@ -58715,6 +59116,8 @@ class D08SecurityAccessSpecification$Nav extends SomMetaRef {
   D08SecurityAccessSpecification$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   UserManagement$Nav get userManagement => UserManagement$Nav(tree, '$path/userManagement');
   IdentificationAndAuthentication$Nav get identificationAndAuthentication => IdentificationAndAuthentication$Nav(tree, '$path/identificationAndAuthentication');
   ResourceProtection$Nav get resourceProtection => ResourceProtection$Nav(tree, '$path/resourceProtection');
@@ -58734,6 +59137,8 @@ class D09ExperienceDesignSpecification$Nav extends SomMetaRef {
   D09ExperienceDesignSpecification$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   DesignVision$Nav get designVision => DesignVision$Nav(tree, '$path/designVision');
   ScreenDescriptions$Nav get screens => ScreenDescriptions$Nav(tree, '$path/screens');
   ScreenFlowStructure$Nav get screenFlow => ScreenFlowStructure$Nav(tree, '$path/screenFlow');
@@ -58757,6 +59162,8 @@ class D10QualityAcceptancePlan$Nav extends SomMetaRef {
   D10QualityAcceptancePlan$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   QualityFramework$Nav get qualityFramework => QualityFramework$Nav(tree, '$path/qualityFramework');
   FunctionalSuitabilityCharacteristic$Nav get functionalSuitability => FunctionalSuitabilityCharacteristic$Nav(tree, '$path/functionalSuitability');
   PerformanceEfficiencyCharacteristic$Nav get performanceEfficiency => PerformanceEfficiencyCharacteristic$Nav(tree, '$path/performanceEfficiency');
@@ -58786,6 +59193,8 @@ class D11DeliveryRoadmap$Nav extends SomMetaRef {
   D11DeliveryRoadmap$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   StagingStrategy$Nav get stagingStrategy => StagingStrategy$Nav(tree, '$path/stagingStrategy');
   StageOverview$Nav get stageOverview => StageOverview$Nav(tree, '$path/stageOverview');
   SomListMetaRef<StageEntry$Nav> get stages => SomListMetaRef(tree, '$path/STAGE-STAG-LST', StageEntry$Nav.new);
@@ -58805,6 +59214,8 @@ class D12TransitionRolloutPlan$Nav extends SomMetaRef {
   D12TransitionRolloutPlan$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
   LocalizationProcess$Nav get localizationProcess => LocalizationProcess$Nav(tree, '$path/localizationProcess');
   TranslationProcess$Nav get translationProcess => TranslationProcess$Nav(tree, '$path/translationProcess');
   UserDocumentationRequirements$Nav get userDocumentation => UserDocumentationRequirements$Nav(tree, '$path/userDocumentation');
@@ -60231,6 +60642,16 @@ class DocumentRelevantSections$Nav extends SomMetaRef {
   DocumentRelevantSections$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomListMetaRef<RelevantSectionEntry$Nav> get sections => SomListMetaRef(tree, '$path/RESEEN-SECT-LST', RelevantSectionEntry$Nav.new);
+}
+
+/// Dot-notation accessors of `DocumentReviewTeamEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class DocumentReviewTeamEntry$Nav extends SomMetaRef {
+  DocumentReviewTeamEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<ReviewTeamMember$Nav> get members => SomListMetaRef(tree, '$path/RVMEM-MEMB-LST', ReviewTeamMember$Nav.new);
 }
 
 /// Dot-notation accessors of `DocumentationDeliverables` (SOM §8). Every getter is one
@@ -66524,6 +66945,34 @@ class ReviewCriterionEntry$Nav extends SomMetaRef {
   SomMetaRef get result => SomMetaRef(tree, '$path/RCER');
 }
 
+/// Dot-notation accessors of `ReviewTeam` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ReviewTeam$Nav extends SomMetaRef {
+  ReviewTeam$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<ReviewTeamMember$Nav> get members => SomListMetaRef(tree, '$path/RVMEM-MEMB-LST', ReviewTeamMember$Nav.new);
+}
+
+/// Dot-notation accessors of `ReviewTeamMember` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ReviewTeamMember$Nav extends SomMetaRef {
+  ReviewTeamMember$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `ReviewerRecord` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ReviewerRecord$Nav extends SomMetaRef {
+  ReviewerRecord$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
 /// Dot-notation accessors of `RevisionEntry` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -66531,6 +66980,8 @@ class ReviewCriterionEntry$Nav extends SomMetaRef {
 class RevisionEntry$Nav extends SomMetaRef {
   RevisionEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<ReviewerRecord$Nav> get reviewTeam => SomListMetaRef(tree, '$path/RVWER-TEAM-LST', ReviewerRecord$Nav.new);
+  SomListMetaRef<ReviewerRecord$Nav> get reviewers => SomListMetaRef(tree, '$path/RVWER-RETN-LST', ReviewerRecord$Nav.new);
 }
 
 /// Dot-notation accessors of `RiskBusinessImpact` (SOM §8). Every getter is one
@@ -68323,6 +68774,8 @@ class StakeholdersAndGovernance$Nav extends SomMetaRef {
   ChangeProcedure$Nav get changeProcedure => ChangeProcedure$Nav(tree, '$path/changeProcedure');
   LegalAndContractualRequirements$Nav get legalAndContractual => LegalAndContractualRequirements$Nav(tree, '$path/legalAndContractual');
   SomListMetaRef<StakeholderRegisterEntry$Nav> get stakeholderRegister => SomListMetaRef(tree, '$path/STKRE-STAK-LST', StakeholderRegisterEntry$Nav.new);
+  ReviewTeam$Nav get reviewTeam => ReviewTeam$Nav(tree, '$path/reviewTeam');
+  SomListMetaRef<DocumentReviewTeamEntry$Nav> get documentReviewTeams => SomListMetaRef(tree, '$path/DCRVTM-DOCR-LST', DocumentReviewTeamEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `StakeholdersAndInterests` (SOM §8). Every getter is one
@@ -71958,6 +72411,8 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<LiabilityLimitations$Id> get LILI_LIAB_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/legalAndContractual/insuranceLiability/LILI-LIAB-LST', LiabilityLimitations$Id.new);
   SomListMetaRef<OtherAgreementEntry$Id> get OTAGR_OTHE_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/legalAndContractual/OTAGR-OTHE-LST', OtherAgreementEntry$Id.new);
   SomListMetaRef<StakeholderRegisterEntry$Id> get STKRE_STAK_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/STKRE-STAK-LST', StakeholderRegisterEntry$Id.new);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<DocumentReviewTeamEntry$Id> get DCRVTM_DOCR_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/DCRVTM-DOCR-LST', DocumentReviewTeamEntry$Id.new);
   SomListMetaRef<ExistingSystemEntry$Id> get ESENT_SYST_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST', ExistingSystemEntry$Id.new);
   SomMetaRef get CARCH_ARCH => SomMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-ARCH');
   SomMetaRef get CARCH_DEPL => SomMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL');
@@ -73138,6 +73593,8 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   D01CurrentLandscapeAssessment$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomListMetaRef<ExistingSystemEntry$Id> get ESENT_SYST_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/systemInventory/ESENT-SYST-LST', ExistingSystemEntry$Id.new);
   SomMetaRef get CARCH_ARCH => SomMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/CARCH-ARCH');
   SomMetaRef get CARCH_DEPL => SomMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/CARCH-DEPL');
@@ -73223,6 +73680,8 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D02TargetOperatingModel$Id extends SomMetaRef {
   D02TargetOperatingModel$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomMetaRef get PVOVW => SomMetaRef(tree, '$path/processVision/PVOVW');
   SomListMetaRef<ExpectedImprovements$Id> get EXIPR_EXPE_LST => SomListMetaRef(tree, '$path/processVision/EXIPR-EXPE-LST', ExpectedImprovements$Id.new);
   SomMetaRef get PRSUC => SomMetaRef(tree, '$path/processVision/PRSUC');
@@ -73245,6 +73704,8 @@ class D02TargetOperatingModel$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D03InformationModel$Id extends SomMetaRef {
   D03InformationModel$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomListMetaRef<DataEntityEntry$Id> get DAENT_ENTI_LST => SomListMetaRef(tree, '$path/DAENT-ENTI-LST', DataEntityEntry$Id.new);
   SomListMetaRef<EntityRelationshipEntry$Id> get ENRLE_ITEM_LST => SomListMetaRef(tree, '$path/entityRelationships/ENRLE-ITEM-LST', EntityRelationshipEntry$Id.new);
   SomMetaRef get DATCL_OVER => SomMetaRef(tree, '$path/dataClassification/DATCL-OVER');
@@ -73268,6 +73729,8 @@ class D03InformationModel$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D04RequirementsSpecification$Id extends SomMetaRef {
   D04RequirementsSpecification$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomMetaRef get FR_SUMM => SomMetaRef(tree, '$path/functionalRequirements/FR-SUMM');
   SomListMetaRef<FunctionalRequirementEntry$Id> get FRE_REQU_LST => SomListMetaRef(tree, '$path/functionalRequirements/FRE-REQU-LST', FunctionalRequirementEntry$Id.new);
   SomMetaRef get TR1_SUMM => SomMetaRef(tree, '$path/technicalRequirements/TR1-SUMM');
@@ -73285,6 +73748,8 @@ class D04RequirementsSpecification$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D05InteractionScenarios$Id extends SomMetaRef {
   D05InteractionScenarios$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomMetaRef get ACOVNA => SomMetaRef(tree, '$path/actorOverview/ACOVNA');
   SomListMetaRef<ActorEntry$Id> get ACEN_ACTO_LST => SomListMetaRef(tree, '$path/actorOverview/ACEN-ACTO-LST', ActorEntry$Id.new);
   SomMetaRef get ACCASU => SomMetaRef(tree, '$path/actorOverview/ACCASU');
@@ -73302,6 +73767,8 @@ class D05InteractionScenarios$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   D06ArchitectureTechnologySpecification$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomListMetaRef<TargetPlatformEntry$Id> get TGPLT_TARG_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/TGPLT-TARG-LST', TargetPlatformEntry$Id.new);
   SomListMetaRef<ProgrammingLanguageEntry$Id> get PLGEN_PROG_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/PLGEN-PROG-LST', ProgrammingLanguageEntry$Id.new);
   SomListMetaRef<FrameworkRequirementEntry$Id> get FRREEN_FRAM_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/FRREEN-FRAM-LST', FrameworkRequirementEntry$Id.new);
@@ -73962,6 +74429,8 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D07IntegrationInterfaceSpecification$Id extends SomMetaRef {
   D07IntegrationInterfaceSpecification$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomListMetaRef<ExternalInterfaceEntry$Id> get EIE_INTE_LST => SomListMetaRef(tree, '$path/externalInterfaces/EIE-INTE-LST', ExternalInterfaceEntry$Id.new);
   SomListMetaRef<OutOfScopeEntry$Id> get OUTSCO_ITEM_LST => SomListMetaRef(tree, '$path/outOfScope/OUTSCO-ITEM-LST', OutOfScopeEntry$Id.new);
   SomListMetaRef<BoundaryAssumptionEntry$Id> get BAE_ITEM_LST => SomListMetaRef(tree, '$path/boundaryAssumptions/BAE-ITEM-LST', BoundaryAssumptionEntry$Id.new);
@@ -73975,6 +74444,8 @@ class D07IntegrationInterfaceSpecification$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D08SecurityAccessSpecification$Id extends SomMetaRef {
   D08SecurityAccessSpecification$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomListMetaRef<UserCategoryDefinition$Id> get USCDF_ITEM_LST => SomListMetaRef(tree, '$path/userManagement/userCategories/USCDF-ITEM-LST', UserCategoryDefinition$Id.new);
   SomListMetaRef<UserLifecycleTransitionEntry$Id> get ULTRE_ITEM_LST => SomListMetaRef(tree, '$path/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST', UserLifecycleTransitionEntry$Id.new);
   SomListMetaRef<ServiceAccountLifecycle$Id> get SACLC_SERV_LST => SomListMetaRef(tree, '$path/userManagement/userLifecycle/SACLC-SERV-LST', ServiceAccountLifecycle$Id.new);
@@ -74020,6 +74491,8 @@ class D08SecurityAccessSpecification$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   D09ExperienceDesignSpecification$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomListMetaRef<DesignGoalEntry$Id> get DGOEN_ITEM_LST => SomListMetaRef(tree, '$path/designVision/designGoals/DGOEN-ITEM-LST', DesignGoalEntry$Id.new);
   SomListMetaRef<DesignPrincipleEntry$Id> get DPEN_ITEM_LST => SomListMetaRef(tree, '$path/designVision/designPrinciples/DPEN-ITEM-LST', DesignPrincipleEntry$Id.new);
   SomListMetaRef<PersonaEntry$Id> get PEREN_ITEM_LST => SomListMetaRef(tree, '$path/designVision/personas/PEREN-ITEM-LST', PersonaEntry$Id.new);
@@ -74163,6 +74636,8 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D10QualityAcceptancePlan$Id extends SomMetaRef {
   D10QualityAcceptancePlan$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomMetaRef get QLFWK_FRAM => SomMetaRef(tree, '$path/qualityFramework/QLFWK-FRAM');
   SomMetaRef get QFOBJ => SomMetaRef(tree, '$path/qualityFramework/QFOBJ');
   SomMetaRef get QFTRD => SomMetaRef(tree, '$path/qualityFramework/QFTRD');
@@ -74286,6 +74761,8 @@ class D10QualityAcceptancePlan$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D11DeliveryRoadmap$Id extends SomMetaRef {
   D11DeliveryRoadmap$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomMetaRef get STAGAS => SomMetaRef(tree, '$path/stagingStrategy/STAGAS');
   SomMetaRef get STAGRT => SomMetaRef(tree, '$path/stagingStrategy/STAGRT');
   SomListMetaRef<StagingDrivers$Id> get STAGDR_DRIV_LST => SomListMetaRef(tree, '$path/stagingStrategy/STAGDR-DRIV-LST', StagingDrivers$Id.new);
@@ -74349,6 +74826,8 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D12TransitionRolloutPlan$Id extends SomMetaRef {
   D12TransitionRolloutPlan$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/reviewTeam/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Id.new);
   SomMetaRef get LOPR_LOCA => SomMetaRef(tree, '$path/localizationProcess/LOPR-LOCA');
   SomMetaRef get LOPRR1 => SomMetaRef(tree, '$path/localizationProcess/LOPRR1');
   SomMetaRef get LOPRFO => SomMetaRef(tree, '$path/localizationProcess/LOPRFO');
@@ -75556,6 +76035,14 @@ class DistributionRecipientEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class DistributionRecipientPreferences$Id extends SomMetaRef {
   DistributionRecipientPreferences$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `DocumentReviewTeamEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class DocumentReviewTeamEntry$Id extends SomMetaRef {
+  DocumentReviewTeamEntry$Id(super.tree, super.path);
+  SomListMetaRef<ReviewTeamMember$Id> get RVMEM_MEMB_LST => SomListMetaRef(tree, '$path/RVMEM-MEMB-LST', ReviewTeamMember$Id.new);
 }
 
 /// ID-tree accessors of `DomainBusinessRuleEntry` (SOM §8): getters named by section
@@ -77731,11 +78218,27 @@ class ReviewCriterionEntry$Id extends SomMetaRef {
   SomMetaRef get RCER => SomMetaRef(tree, '$path/RCER');
 }
 
+/// ID-tree accessors of `ReviewTeamMember` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ReviewTeamMember$Id extends SomMetaRef {
+  ReviewTeamMember$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `ReviewerRecord` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ReviewerRecord$Id extends SomMetaRef {
+  ReviewerRecord$Id(super.tree, super.path);
+}
+
 /// ID-tree accessors of `RevisionEntry` (SOM §8): getters named by section
 /// id (`-` → `_`), hoisted through id-less members so every reachable id is
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class RevisionEntry$Id extends SomMetaRef {
   RevisionEntry$Id(super.tree, super.path);
+  SomListMetaRef<ReviewerRecord$Id> get RVWER_TEAM_LST => SomListMetaRef(tree, '$path/RVWER-TEAM-LST', ReviewerRecord$Id.new);
+  SomListMetaRef<ReviewerRecord$Id> get RVWER_RETN_LST => SomListMetaRef(tree, '$path/RVWER-RETN-LST', ReviewerRecord$Id.new);
 }
 
 /// ID-tree accessors of `RiskEntry` (SOM §8): getters named by section

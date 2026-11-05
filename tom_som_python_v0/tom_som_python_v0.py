@@ -1498,6 +1498,44 @@ def _parse_ServerCallRole(token):
             return v
     return None
 
+class SpecDocumentType(Enum):
+    """Generated enum for `SpecDocumentType` values."""
+
+    # `D01CurrentLandscapeAssessment`.
+    d01CurrentLandscapeAssessment = "d01CurrentLandscapeAssessment"
+    # `D02TargetOperatingModel`.
+    d02TargetOperatingModel = "d02TargetOperatingModel"
+    # `D03InformationModel`.
+    d03InformationModel = "d03InformationModel"
+    # `D04RequirementsSpecification`.
+    d04RequirementsSpecification = "d04RequirementsSpecification"
+    # `D05InteractionScenarios`.
+    d05InteractionScenarios = "d05InteractionScenarios"
+    # `D06ArchitectureTechnologySpecification`.
+    d06ArchitectureTechnologySpecification = "d06ArchitectureTechnologySpecification"
+    # `D07IntegrationInterfaceSpecification`.
+    d07IntegrationInterfaceSpecification = "d07IntegrationInterfaceSpecification"
+    # `D08SecurityAccessSpecification`.
+    d08SecurityAccessSpecification = "d08SecurityAccessSpecification"
+    # `D09ExperienceDesignSpecification`.
+    d09ExperienceDesignSpecification = "d09ExperienceDesignSpecification"
+    # `D10QualityAcceptancePlan`.
+    d10QualityAcceptancePlan = "d10QualityAcceptancePlan"
+    # `D11DeliveryRoadmap`.
+    d11DeliveryRoadmap = "d11DeliveryRoadmap"
+    # `D12TransitionRolloutPlan`.
+    d12TransitionRolloutPlan = "d12TransitionRolloutPlan"
+
+
+def _parse_SpecDocumentType(token):
+    """Parses a stored token into a SpecDocumentType, or None."""
+    if not token:
+        return None
+    for v in SpecDocumentType:
+        if v.value == token:
+            return v
+    return None
+
 class Status(Enum):
     """Generated enum for `Status` values."""
 
@@ -9842,7 +9880,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order of the `@StandardReferences` below.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -9969,7 +10007,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -10023,6 +10061,18 @@ class D01CurrentLandscapeAssessment(SomNode):
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
 
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
+
     # Existing systems landscape.
     @property
     def existingSystemsLandscape(self):
@@ -10071,7 +10121,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -10124,6 +10174,18 @@ class D02TargetOperatingModel(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Process vision.
     @property
@@ -10184,7 +10246,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -10237,6 +10299,18 @@ class D03InformationModel(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Entity inventory (list).
     @property
@@ -10361,7 +10435,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10415,6 +10489,18 @@ class D04RequirementsSpecification(SomNode):
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
 
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
+
     # Functional requirements.
     @property
     def functionalRequirements(self):
@@ -10466,7 +10552,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10520,6 +10606,18 @@ class D05InteractionScenarios(SomNode):
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
 
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
+
     # Process steps overview.
     @property
     def processStepsOverview(self):
@@ -10564,7 +10662,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10617,6 +10715,18 @@ class D06ArchitectureTechnologySpecification(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Basic technical requirements.
     @property
@@ -10686,7 +10796,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10739,6 +10849,18 @@ class D07IntegrationInterfaceSpecification(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # External interfaces.
     @property
@@ -10799,7 +10921,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -10852,6 +10974,18 @@ class D08SecurityAccessSpecification(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # User management.
     @property
@@ -10914,7 +11048,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -10967,6 +11101,18 @@ class D09ExperienceDesignSpecification(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Design vision.
     @property
@@ -11042,7 +11188,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -11095,6 +11241,18 @@ class D10QualityAcceptancePlan(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Quality framework.
     @property
@@ -11200,7 +11358,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -11253,6 +11411,18 @@ class D11DeliveryRoadmap(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Staging strategy.
     @property
@@ -11308,7 +11478,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
@@ -11361,6 +11531,18 @@ class D12TransitionRolloutPlan(SomNode):
     @property
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # This document's own review team; when it has members it replaces the
+    # Solution Blueprint's team for this document type and its default team.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Chronological revision history of this document, with the reviewers of
+    # each revision.
+    @property
+    def revisionHistory(self):
+        return SomList(self.doc, f"{self.path}/RVENT-REVS-LST", lambda d, p: RevisionEntry(d, p), pattern="RVENT-REVS-xxx")
 
     # Localization process.
     @property
@@ -11441,7 +11623,7 @@ class D13CodeSpecsProjection(SomNode):
     models, the process-step interactions, and the client-side experience seed.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.6'
+    model_version = '1.7'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CGP")
@@ -15588,6 +15770,23 @@ class DocumentRelevantSections(SomNode):
     @property
     def sections(self):
         return SomList(self.doc, f"{self.path}/RESEEN-SECT-LST", lambda d, p: RelevantSectionEntry(d, p), pattern="RESEEN-SECT-xxx")
+
+class DocumentReviewTeamEntry(SomNode):
+    """The Solution Blueprint's review team for one document type (form + members)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return DocumentReviewTeamEntryContentForm(self.doc, f"{self.path}/content")
+
+    # The members of the team.
+    @property
+    def members(self):
+        return SomList(self.doc, f"{self.path}/RVMEM-MEMB-LST", lambda d, p: ReviewTeamMember(d, p), pattern="RVMEM-MEMB-xxx")
 
 class DocumentationDeliverables(SomNode):
     """14.1.2. Documentation Deliverables."""
@@ -32918,6 +33117,55 @@ class ReviewCriterionEntry(SomNode):
     def result(self):
         return ReviewCriterionEntryResultForm(self.doc, f"{self.path}/RCER")
 
+class ReviewTeam(SomNode):
+    """A review team: the members who review a document."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # The members of the team.
+    @property
+    def members(self):
+        return SomList(self.doc, f"{self.path}/RVMEM-MEMB-LST", lambda d, p: ReviewTeamMember(d, p), pattern="RVMEM-MEMB-xxx")
+
+class ReviewTeamMember(SomNode):
+    """One member of a review team (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return ReviewTeamMemberContentForm(self.doc, f"{self.path}/content")
+
+class ReviewerRecord(SomNode):
+    """A reviewer recorded in a revision entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return ReviewerRecordContentForm(self.doc, f"{self.path}/content")
+
 class RevisionEntry(SomNode):
     """A single document revision entry (form)."""
     def __init__(self, doc, path):
@@ -32929,6 +33177,16 @@ class RevisionEntry(SomNode):
     @property
     def content(self):
         return RevisionEntryContentForm(self.doc, f"{self.path}/content")
+
+    # The review team the round leading to this revision started with.
+    @property
+    def reviewTeam(self):
+        return SomList(self.doc, f"{self.path}/RVWER-TEAM-LST", lambda d, p: ReviewerRecord(d, p), pattern="RVWER-TEAM-xxx")
+
+    # The reviewers who returned a reviewed copy, guests included.
+    @property
+    def reviewers(self):
+        return SomList(self.doc, f"{self.path}/RVWER-RETN-LST", lambda d, p: ReviewerRecord(d, p), pattern="RVWER-RETN-xxx")
 
 class RiskBusinessImpact(SomNode):
     """Business impact assessment for the risk."""
@@ -38018,6 +38276,19 @@ class StakeholdersAndGovernance(SomNode):
     @property
     def stakeholderRegister(self):
         return SomList(self.doc, f"{self.path}/STKRE-STAK-LST", lambda d, p: StakeholderRegisterEntry(d, p), pattern="STKRE-STAK-xxx")
+
+    # The default review team: it reviews every document that names no team
+    # of its own and has no entry in [documentReviewTeams]. Its owner
+    # (`owner: true`) is the specification owner, always a reviewer.
+    @property
+    def reviewTeam(self):
+        return ReviewTeam(self.doc, f"{self.path}/reviewTeam")
+
+    # Review teams per document type, each replacing [reviewTeam] for the
+    # documents of its type.
+    @property
+    def documentReviewTeams(self):
+        return SomList(self.doc, f"{self.path}/DCRVTM-DOCR-LST", lambda d, p: DocumentReviewTeamEntry(d, p), pattern="DCRVTM-DOCR-xxx")
 
 class StakeholdersAndInterests(SomNode):
     """Stakeholders and interests."""
@@ -88453,6 +88724,31 @@ class DocumentRelevantSectionsContentForm(SomNode):
     @extractSummary.setter
     def extractSummary(self, value):
         self.doc.set_form_field(self.path, "extractSummary", value)
+
+class DocumentReviewTeamEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def documentType(self) -> "SpecDocumentType | None":
+        return _parse_SpecDocumentType(self.doc.form_field(self.path, "documentType"))
+
+    @documentType.setter
+    def documentType(self, value):
+        self.doc.set_form_field(self.path, "documentType", "" if value is None else value.value)
 
 class DocumentationQualityCriteriaDocumentationOverviewContentForm(SomNode):
     """Generated section facade for the `documentationOverviewContent` @Form section: its own content text followed by one typed member per form field."""
@@ -147755,6 +148051,122 @@ class ReviewCriterionEntryResultForm(SomNode):
     @remediationRequired.setter
     def remediationRequired(self, value):
         self.doc.set_form_field(self.path, "remediationRequired", value)
+
+class ReviewTeamMemberContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def memberId(self) -> str:
+        return self.doc.form_field(self.path, "memberId") or ""
+
+    @memberId.setter
+    def memberId(self, value):
+        self.doc.set_form_field(self.path, "memberId", value)
+
+    @property
+    def displayName(self) -> str:
+        return self.doc.form_field(self.path, "displayName") or ""
+
+    @displayName.setter
+    def displayName(self, value):
+        self.doc.set_form_field(self.path, "displayName", value)
+
+    @property
+    def role(self) -> str:
+        return self.doc.form_field(self.path, "role") or ""
+
+    @role.setter
+    def role(self, value):
+        self.doc.set_form_field(self.path, "role", value)
+
+    @property
+    def stakeholder(self) -> str:
+        return self.doc.form_field(self.path, "stakeholder") or ""
+
+    @stakeholder.setter
+    def stakeholder(self, value):
+        self.doc.set_form_field(self.path, "stakeholder", value)
+
+    @property
+    def email(self) -> str:
+        return self.doc.form_field(self.path, "email") or ""
+
+    @email.setter
+    def email(self, value):
+        self.doc.set_form_field(self.path, "email", value)
+
+    @property
+    def owner(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "owner")
+        return None if v is None else (v == "true")
+
+    @owner.setter
+    def owner(self, value):
+        self.doc.set_form_field(self.path, "owner", "" if value is None else ("true" if value else "false"))
+
+class ReviewerRecordContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def memberId(self) -> str:
+        return self.doc.form_field(self.path, "memberId") or ""
+
+    @memberId.setter
+    def memberId(self, value):
+        self.doc.set_form_field(self.path, "memberId", value)
+
+    @property
+    def displayName(self) -> str:
+        return self.doc.form_field(self.path, "displayName") or ""
+
+    @displayName.setter
+    def displayName(self, value):
+        self.doc.set_form_field(self.path, "displayName", value)
+
+    @property
+    def role(self) -> str:
+        return self.doc.form_field(self.path, "role") or ""
+
+    @role.setter
+    def role(self, value):
+        self.doc.set_form_field(self.path, "role", value)
+
+    @property
+    def guest(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "guest")
+        return None if v is None else (v == "true")
+
+    @guest.setter
+    def guest(self, value):
+        self.doc.set_form_field(self.path, "guest", "" if value is None else ("true" if value else "false"))
 
 class RevisionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
