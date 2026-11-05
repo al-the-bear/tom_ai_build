@@ -198,13 +198,42 @@ export {
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,
+  SpecMarkVote,
+  SpecIndividualAnswer,
+  SpecConflictAlternative,
+  SpecConflictOutcome,
+  formatConflictBlock,
+  isReviewMemberId,
 } from './spec_review_annotations';
 export type {
   SpecReviewAnnotationKindValue,
   SpecMarkKindValue,
   SpecMarkDecisionValue,
   SpecReviewAnnotationInit,
+  SpecReviewJsonOptions,
 } from './spec_review_annotations';
+
+// merging the reviewed copies of a team review (SOM §11.9.9)
+export {
+  SpecReviewMergeError,
+  SpecReviewMergeReport,
+  SpecReviewMergeResult,
+  mergeReviews,
+} from './spec_review_merge';
+export type {
+  SpecReviewMember,
+  SpecReviewedCopy,
+  SpecReviewMergeOptions,
+  SpecMergeReviewer,
+  SpecMergeConflict,
+  SpecMergeVotes,
+  SpecMergeUnanimous,
+  SpecMergeAnswers,
+  SpecMergeComment,
+  SpecMergeAddition,
+  SpecMergeGuestQuestion,
+  SpecMergeRevision,
+} from './spec_review_merge';
 
 // answers of a review round for a step folder (SOM §11.9.7)
 export {

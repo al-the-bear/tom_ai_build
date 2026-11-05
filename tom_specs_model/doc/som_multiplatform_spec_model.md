@@ -1988,7 +1988,8 @@ answers:
 - Members whose answers are identical share one line. An answer that carries
   anything beyond an option letter (`(a)` or `**(a)**`, optionally followed by
   exactly that option's text) is a **commented answer** and always gets a line
-  of its own, even when another member chose the same letter. A writer groups
+  of its own, even when another member chose the same letter; so does an answer
+  that starts with no option letter. A writer groups
   by this rule; a reader accepts any grouping.
 - A member answers a question at most once.
 - The unnamed `**Answer:**` is the **team's** answer, and only it decides
@@ -2004,7 +2005,8 @@ answers:
   otherwise it gets a new line after the last individual answer. The first
   individual answer opens the run before the team's `**Answer:**`, with a `>`
   line between the run and the team answer. An empty answer only removes the
-  member, and a run left empty takes its `>` line with it.
+  member, and a run left empty takes its `>` line with it. An `author` that is
+  not of the member-id form is refused.
 
 **Conflict block.** Where members changed the same paragraph differently, the
 paragraph keeps its base text and a conflict block follows it directly, one
@@ -2031,9 +2033,12 @@ headline) into the owning section's text, as §11.9.4 places any block:
   alternative per distinct change, `- (a) **<ids>:** …`, naming its members
   with the separator of individual answers; members who made the same change
   share one alternative. A conflict has at least one lettered alternative: a
-  paragraph conflict has two or more, a structural one (§11.9.9) may have one.
-  An alternative's text may continue on lines indented under it, exactly like
-  a question option.
+  paragraph conflict has two or more, a structural or `Value changed` one
+  (§11.9.9) may have one. An alternative's text, and the `(base)` text, may
+  continue on lines indented under it, like a question option, but its line
+  breaks are kept: a writer indents each further line by two spaces (`>   line`,
+  a blank line of the text as `>   `), and a reader takes a further line with
+  those two spaces removed.
 - **Decision.** `**Decision:**` takes a letter (`(b)`), `(base)`, or the
   rewritten text, on the same line and on further `>` lines, like an answer.
   An empty decision means the conflict is **open**.
@@ -2041,11 +2046,24 @@ headline) into the owning section's text, as §11.9.4 places any block:
   topic, text, `base`, `alternatives` (`{letter, members, text}`), `decision`,
   `decisionLetter` (`a`…, `base`, or none for rewritten text), `open` and
   `unresolved`; the paragraph list (§11.9.1) marks the block `conflict`.
-- **Applying.** A decision replaces the paragraph before the block with the
-  chosen text (the base, an alternative, or the rewritten text) and removes the
-  block. `removeAllAnnotations` applies every written decision and **refuses**,
-  changing nothing, while a conflict is open or unresolved. The stripped
-  rendition keeps the base text and drops the block.
+- **Applying.** A decision chooses a text (the base, an alternative, or the
+  rewritten text), puts it in place and removes the block. Where it goes
+  follows the conflict's text, as the merge (§11.9.9) writes it:
+  - `<path> <field>`, naming a field of the form at `<path>`: that field's value;
+  - `<path>`, the path of the value holding the block (a whole-value unit): the
+    run of text paragraphs directly before the block;
+  - `<path>`, the path of another value (a typed leaf): that value;
+  - anything else, `…, paragraph <n>` included: the text paragraph directly
+    before the block, annotation blocks between them skipped.
+
+  A structural conflict (topic `Item removed`, `Item moved` or `Headline
+  changed`) is not a text: applying it only removes the block and reports the
+  decision; the structural change is the caller's. `removeAllAnnotations`
+  applies every written decision, after accepting the marks, and reports each
+  (`conflicts`: `id`, `path`, `field`, the block's `line` before any change,
+  `decision`, `result`); it **refuses**, changing nothing, while a conflict is
+  open, unresolved or malformed, or its decision names a letter it has no
+  alternative for. The stripped rendition keeps the base text and drops the block.
 
 **Unresolved: `open:`.** A team answer or a decision may begin with `open:`
 followed by a summary of the positions:
@@ -2072,8 +2090,13 @@ also count as answered), `conflicts` and `openConflicts` (empty decisions).
 | `duplicateAnnotationId` | One conflict id used twice in the same document |
 
 Cases: `corpus/team_annotation_cases.json` (listing, counts, decisions, team
-answers, conflicts, `open:`) and its `validationCases` (the findings). A
-runtime's `doc/review_annotations.md` says whether its driver runs them. The
+answers, conflicts, `open:`) and its `validationCases` (the findings). These
+cases pin the **team form** of the results: every mark with `authors` and
+`votes`, every question with `unresolved` and `answers`, the counts with the
+three team counts, and the report of `removeAllAnnotations` with `conflicts`.
+The older case files (§11.9.6) pin the results without these members, so a
+driver renders the team form for this file only. A runtime's
+`doc/review_annotations.md` says whether its driver runs them. The
 merge of reviewed copies, which writes these notations, is §11.9.9.
 
 #### 11.9.9 Merging reviewed copies
@@ -2112,7 +2135,18 @@ paragraphs (§11.9.1) are split into annotation blocks and **text paragraphs**.
 When a copy has as many text paragraphs as the base, each text paragraph is a
 **unit**, paired with the base's by position; otherwise the copy's whole text
 is one unit against the base's whole text. A form-field value is always one
-unit.
+unit. One copy with another text-paragraph count makes the value a
+**whole-value unit for every copy**, so the copies are compared on the same
+unit; a whole text is its text paragraphs joined by one blank line. A value no
+copy changed keeps its bytes; any other merged value is written with its
+paragraphs separated by one blank line.
+
+A **typed value** (a scalar or enum leaf, or a form field whose type is not
+`String` or that is code) cannot hold a mark. It keeps its base value, and any
+change a copy made is a conflict with the topic `Value changed` and the text
+`<path>[ <field>]`, one alternative per distinct value, even when only one copy
+changed it. A form field's goes to the end of the form's preamble, a leaf's to
+the end of its nearest ancestor's own content value (below, "Structure").
 
 **What a copy did to a unit.** For base unit `b` and copy unit `c`:
 
@@ -2123,6 +2157,13 @@ unit.
    taking leave, accept, reject in that order and the first mark varying
    slowest, applies it to `b` by the rules of §11.9.3, and takes the first
    whose result is `c′`. An accepted or rejected mark is that member's vote.
+   `c`'s marks are matched to `b`'s by their markup (the longest common
+   subsequence of the two lists); a matched mark was left. A highlight or
+   comment mark the copy removed counts toward unanimity below, but takes no
+   vote in a token.
+   The search is bounded: when more than 16 of `b`'s marks are missing from
+   `c` as written, no combination is tried and the unit is a case of step 4,
+   so every runtime gives up at the same point.
 3. **Change.** `t`, the reviewer's text, is `c` with each voted mark's
    result (the text its decision left in `c′`) replaced by the mark as written
    in `b`, and the own marks accepted. An own mark that overlaps such a result
@@ -2160,7 +2201,8 @@ it is.
 **Answers.** For each question of the base, a copy whose team answer differs
 from the base's has answered it: the answer is written as that member's
 individual answer by the rules of `setAnswer` with an `author` (§11.9.8), the
-copies in round order. The team answer stays as in the base.
+copies in round order. A copy that emptied the team answer gives no answer. The
+team answer stays as in the base.
 
 **Comments and questions.** A comment block in a copy whose id is not in the
 base, or which has no id, is new. It keeps its author, and gets the member id
@@ -2173,23 +2215,35 @@ merged.
 
 **Order inside a value.** After each unit come its conflict block, then the
 base's annotation blocks that followed it, then the new comments placed after
-it, in round order.
+it, in round order. Blocks before the first text paragraph stay at the start,
+the base's first. In a whole-value unit every other base block follows the
+unit.
 
 **Structure (SOM).**
 
 - **An item added** by a copy is added at the position after the base item
   that precedes it in the copy (at the start when none does), with the copy's
   section id. Its text values are written as attributed insertions, one per
-  paragraph (`{++ text ++}{@bob}`); its headline, scalar and enum values are
-  copied as they are. Copies adding an item with the same id and the same values add it once,
-  attributed to all of them.
+  paragraph (`{++ text ++}{@bob}`; a fenced code paragraph and an annotation
+  block are copied as they are); its headline, scalar, enum and other typed
+  values are copied as they are, its nested lists with their items' ids.
+  Copies adding an item with the same id and the same values add it once,
+  attributed to all of them. A copy adding the same id with other values does
+  not add it again: the first such copy's version is the one added.
 - **An item removed, moved, or a headline changed** is a structural conflict:
   a conflict block with the topic `Item removed`, `Item moved` or `Headline
   changed` and the item's path as text. Its `(base)` line is the base state
   (`kept`, the base position, the base headline) and each alternative a
-  member's (`removed`, `moved to position <n>`, the new headline). It goes to
-  the end of the first content value at or below the item, in document order,
-  or of its nearest ancestor that has one.
+  member's (`removed`, `moved to position <n>`, the new headline). Positions
+  are 1-based within the list, the base one written `position <n>`. An item is
+  moved when it is not in the longest common subsequence of the base order and
+  the copy's order of the base items it kept, so an item shifted only by an
+  addition or a removal is not moved. A headline conflict applies to every node
+  with a stored headline, an empty headline written as empty text. It goes to
+  the end of the first content value at or below the item, in document order;
+  when there is none yet, of the first node at or below it that holds content
+  (a content leaf or a form's preamble), in model order; otherwise of its
+  nearest ancestor's own content value.
 
 **Guests.** A guest's changes and answers are attributed like a member's, and
 the merged document carries a question proposing the guest for the team of
@@ -2205,7 +2259,7 @@ the next round, numbered above the highest question id with the prefix:
 
 It goes to the end of the root's `content` value (SOM) or of the first
 heading's value (plain Markdown); a SOM root without a `content` member lists
-it in the report only.
+it in the report only. A guest without a role is written `(<displayName>)`.
 
 **Revision entry (SOM).** When the root has a revision history, the merge
 appends a draft entry, its id generated from the list's pattern with
