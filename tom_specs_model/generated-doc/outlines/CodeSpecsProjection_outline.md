@@ -22,7 +22,7 @@
     - messageKeys: `MessageKeyEntry`[]
       - content @Form(key, defaultCopy, placeholders, description)
       - localeVariants: `MessageLocaleVariantEntry`[]
-        - content @Form(locale, copy)
+        - content @Form(locale, copy, reviewStatus)
   - `NotificationModel` ← (locus: shared — CE-NT)
     - content @description
     - [1,] channels: `NotificationChannelEntry`[]
@@ -85,7 +85,8 @@
         - buildToolchain: `BuildToolchainEntry`[]
           - content @Form(toolCategory, platform), versions, configuration, profiles, integration, outputs, operations
         - deploymentTargets: `DeploymentTargetEntry`[]
-          - content @Form(targetCategory, targetEnvironment), platform, buildOutput, requirements, process, compliance
+          - content @Form(targetCategory, targetEnvironment, environmentRef), platform, buildOutput, requirements,
+            process, compliance
         - `DependencyManagement`
           - content @Form(primaryPackageManager, secondaryPackageManagers, registryUrls), versioning, security,
             internal, operations
@@ -145,7 +146,7 @@
           - content @Form(unitTestRequired, integrationTestRequired, e2eTestRequired), organization, patterns, quality,
             tooling
     - softwareDesign: `SoftwareDesignRequirements`
-      - content
+      - content, designDecisions
       - `LayeringAndModuleStructure`
         - content, overview @text
         - softwareLayers: `SoftwareLayerEntry`[]
@@ -154,13 +155,15 @@
           - content @Form(communicationDirection, dependencyRule, abstractionPrinciple), interfaces, flow, governance
         - boundedContexts: `BoundedContextEntry`[]
           - content @Form(contextName, domainArea, owningTeam), scope, boundaries, implementation, integration
+          - relationships: `ContextRelationshipEntry`[]
+            - content @Form(neighbourContext, relationshipType, direction)
         - `PackageOrganization`
           - content @Form(namingConvention, prefixStrategy, suffixConventions), structure, types, dependencies,
             documentation
         - modules: `ModuleEntry`[]
           - content @Form(moduleType, version), description, dependencies, ownership, configuration, testing
         - sharedLibraries: `SharedLibraryEntry`[]
-          - content @Form(libraryType, version), description, api, lifecycle
+          - content @Form(libraryType, version, componentRef), description, api, lifecycle
         - dependencyInjection: `DependencyInjectionStructure`
           - content @Form(diFramework, registrationPattern, scopeManagement), registration, binding, configuration,
             troubleshooting
@@ -212,7 +215,7 @@
           - content @Form(reuseFirstPolicy, extractionCriteria, granularityGuidelines), abstraction, quality,
             versioning, ownership
         - sharedLibraries: `SharedLibraryComponentEntry`[]
-          - content @Form(componentType, version), description, technical, quality, ownership
+          - content @Form(componentType, version, componentRef), description, technical, quality, ownership
         - uiComponents: `ReusableUiComponentEntry`[]
           - content @Form(componentCategory, purpose), description, design, interaction, api, implementation
         - businessComponents: `BusinessComponentEntry`[]
@@ -232,11 +235,11 @@
       - compatibilityRequirements: `CompatibilityRequirementsSection`
         - content, overview @text
         - osCompatibility: `OsCompatibilityEntry`[]
-          - content @Form(osFamily, minVersion, maxVersion), support, requirements, testing, lifecycle
+          - content @Form(osFamily, minVersion, maxVersion, osRef), support, requirements, testing, lifecycle
         - browserCompatibility: `BrowserCompatibilityEntry`[]
-          - content @Form(browserEngine, minVersion, maxVersion), support, features, mobile, testing
+          - content @Form(browserEngine, minVersion, maxVersion, browserRef), support, features, mobile, testing
         - databaseCompatibility: `DatabaseCompatibilityEntry`[]
-          - content @Form(databaseType, minVersion, maxVersion), support, features, connection, performance
+          - content @Form(databaseType, minVersion, maxVersion, libraryRef), support, features, connection, performance
         - enterpriseSystemCompatibility: `EnterpriseSystemCompatibilityEntry`[]
           - content @Form(systemType, vendor, version), integration, security, requirements, testing
         - apiCompatibility: `ApiCompatibilityEntry`[]
@@ -244,9 +247,10 @@
         - legacyCompatibility: `LegacyCompatibilityEntry`[]
           - content @Form(systemName, systemAge, technology), integration, constraintsSection, migration, risk
         - mobileCompatibility: `MobileCompatibilityEntry`[]
-          - content @Form(platform, minVersion, maxVersion), devices, hardware, capabilities, distribution
+          - content @Form(platform, minVersion, maxVersion, platformRef), devices, hardware, capabilities, distribution
         - thirdPartyCompatibility: `ThirdPartyCompatibilityEntry`[]
-          - content @Form(softwareName, vendor, category, version), compatibility, integration, testing, support
+          - content @Form(softwareName, vendor, category, version, libraryRef), compatibility, integration, testing,
+            support
         - `DataFormatCompatibility`
           - content @Form(defaultEncoding, supportedEncodings, encodingConversion), formats, dateTime, numbers, locale
         - backwardsCompatibility: `BackwardsCompatibilityRequirements`
@@ -268,7 +272,7 @@
           - content @Form(regulationName, jurisdiction, regulatoryBody, effectiveDate), applicability, requirements,
             penalties, ownership
         - securityStandards: `SecurityStandardComplianceEntry`[]
-          - content @Form(standardType, version, trustServiceCriteria), scope, controls, assessment, status
+          - content @Form(standardType, version, trustServiceCriteria, standardRef), scope, controls, assessment, status
         - accessibilityStandards: `AccessibilityStandardEntry`[]
           - content @Form(version, conformanceLevel, jurisdiction), scope, requirements, testing, documentation
         - qualityStandards: `QualityStandardEntry`[]
@@ -287,9 +291,9 @@
     - hardware: `HardwareRequirements`
       - content
       - serverRequirements: `ServerRequirementsSection`
-        - content, overview @text
+        - content, overview @text, connectionBudget
         - environments: `ServerEnvironmentEntry`[]
-          - content @Form(environmentType, environmentCode, purpose), location, scale, access, lifecycle
+          - content @Form(environmentType, environmentCode, purpose, environmentRef), location, scale, access, lifecycle
         - serverRoles: `ServerRoleEntry`[]
           - content @Form(roleType, roleAbbreviation), software, capacity, storage, networking
         - computeResources: `ComputeResourceRequirements`
@@ -451,7 +455,7 @@
           - content @Form(alertChannels, primaryChannel, secondaryChannel), routing, deduplication, suppression,
             response
         - alertDefinitions: `AlertDefinitionEntry`[]
-          - content @Form(alertDescription, severity, priority), condition, recovery, notification
+          - content @Form(alertDescription, severity, priority, alertRuleRef), condition, recovery, notification
         - dashboards: `DashboardRequirements`
           - content @Form(dashboardPlatform, dashboardAsCode, dashboardLocation), standard, access, features, mobile
         - `OnCallProcedures`
@@ -484,7 +488,7 @@
       - protocolsAndStandards: `ProtocolsAndStandardsSection`
         - content, overview @text
         - protocols: `ProtocolEntry`[]
-          - content @Form(protocolType, protocolVersion, transportLayer, directionality, notes)
+          - content @Form(protocolType, protocolVersion, transportLayer, directionality, notes, protocolComplianceRef)
         - `TlsRequirements`
           - content @Form(minimumTlsVersion, preferredTlsVersion, disabledProtocols), cipherSuites,
             certificateValidation, termination, compliance
@@ -528,7 +532,7 @@
             - content @Form(configurationSource, configurationFormat, centralConfigService), dynamic, environment,
               governance
             - settings: `ServerConfigurationSettingEntry`[]
-              - content @Form(settingKey, valueType, defaultValue, environmentVariable, commandLineOption, secret, overridableBy)
+              - content @Form(settingKey, valueType, allowedValues, defaultValue, environmentVariable, commandLineOption, secret, overridableBy)
           - userProvisioning: `UserProvisioningTools`
             - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
               lifecycle, roleManagement, directoryIntegration
@@ -536,13 +540,14 @@
             - content @Form(timeZoneHandling), workloadShape, execution, monitoring
             - scheduledJobs: `ScheduledJobEntry`[]
               - content @Form(purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
-                calendarTrigger, eventTrigger, workDefinition, failurePolicy
+                calendarTrigger, eventTrigger, intervalTrigger, workDefinition, failurePolicy
               - workSteps: `ScheduledJobStepEntry`[]
                 - content @Form(systemAction, condition)
           - diagnosticTools: `SystemDiagnosticTools`
             - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
               selfService
-        - maintenanceProcedures: `String`[]
+        - maintenanceProcedures: `MaintenanceProcedureEntry`[]
+          - content @Form(frequency, performedBy)
       - `Monitoring`
         - content, monitoringOverview, overviewNarrative @text
         - healthChecksAndDiagnostics: `HealthChecksAndDiagnosticsSection`
@@ -679,8 +684,10 @@
             scanning, governance
         - auditEntries: `SecurityAuditEntry`[]
           - content @Form(auditCategory, auditDescription, frequency), scheduling, execution, followUp
+      - keyManagement: `KeyManagementRequirements`
+        - content @Form(keyTypes, keyStorage, rotationPolicy, keyCustody, backupAndRecovery, destruction)
     - systemArchitecture: `SystemArchitectureSpec`
-      - content
+      - content, decisions
   - accessControl: `AccessControlModel` ← (locus: server — CE-AZ)
     - content @description
     - `UserManagement`
@@ -714,7 +721,7 @@
       - `UserAttributes`
         - content
         - items: `UserAttributeEntry`[]
-          - content @Form(dataType, placement, accessGuard, source, required)
+          - content @Form(dataType, placement, accessGuard, source, required), oidcRelease
     - authentication: `IdentificationAndAuthentication`
       - content
       - `Identification`
@@ -877,7 +884,7 @@
         - dataScopes: `RoleDataScopeEntry`[]
           - content @Form(dataCategory, accessLevel, filterCriteria, maskingRules)
         - mutualExclusions: `RoleExclusionEntry`[]
-          - content @Form(excludedRole, reason, exclusionType, severity)
+          - content @Form(excludedRole, reason, exclusionType, severity, enforcementMode)
         - typicalHolders: `RoleHolderEntry`[]
           - content @Form(holderDescription, department, organizationalUnit, estimatedCount, assignmentBasis)
       - [1,] entitlements: `EntitlementEntry`[]
@@ -893,7 +900,7 @@
         - inheritanceRules: `RoleInheritanceRuleEntry`[]
           - content @Form(parentRole, childRole, inheritanceType, excludedPermissions, additionalConditions, overridable)
         - combinationConstraints: `RoleCombinationConstraintEntry`[]
-          - content @Form(constraintType, roleA, roleB, enforcement, severity, businessReason, exemptionProcess)
+          - content @Form(constraintType, roleA, roleB, enforcement, severity, enforcementMode, businessReason, exemptionProcess)
         - globalExclusions: `GlobalRoleExclusionEntry`[]
           - content @Form(excludedRoleA, excludedRoleB, reason, enforcementLevel, complianceReference)
         - roleCertification: `RoleCertificationPolicy`
@@ -910,6 +917,8 @@
           - content, tenantOnboardingPolicyDetails @text
         - boundaryEnforcement: `TenantBoundaryEnforcementPolicy`
           - content, boundaryEnforcementDetails @text
+      - accessHandlers: `AccessHandlerEntry`[]
+        - content @Form(handlerName, description, inputs)
     - `RoleMatrix`
       - content
   - `AuditAndLogging` ← (locus: server — CE-LG/CE-CF)
@@ -1059,7 +1068,7 @@
   - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
     - content
     - operations: `ServerOperationEntry`[]
-      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes), controls
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
@@ -1091,7 +1100,8 @@
       - [1,] actors: `ActorEntry`[]
         - content, identification, technology, interactions
         - characteristics: `ActorCharacteristics`
-          - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
+          - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency, userCategoryRef), usage,
+            support
         - goals: `ActorGoals`[]
           - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
         - permissions: `ActorPermissions`[]
@@ -1101,7 +1111,7 @@
       - [1,] interactions: `InteractionEntry`[]
         - content, identification, scopeContext, performance, security, traceability
         - stakeholders: `StakeholdersAndInterests`[]
-          - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
+          - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders, stakeholderRefs)
         - preconditions: `PreconditionsAndTriggers`[]
           - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
         - postconditions: `PostconditionsAndGuarantees`[]

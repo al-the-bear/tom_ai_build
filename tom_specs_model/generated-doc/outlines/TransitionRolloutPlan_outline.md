@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `LocalizationProcess`
     - content, localizationProcessContent, review, formatting, deployment, localizationNarrative @text,
       workflowDiagram @mermaid-flow

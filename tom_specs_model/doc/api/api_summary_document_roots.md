@@ -37,18 +37,18 @@ the whole specification by operating on one object.
 | # | Section id | Container member | Root class | Top-level members |
 |---|-----------|------------------|-----------|-------------------|
 | D00 | `SBP` | `solutionBlueprint` | `D00SolutionBlueprint` | 15 |
-| D01 | `CLA` | `currentLandscapeAssessment` | `D01CurrentLandscapeAssessment` | 10 |
-| D02 | `TOM` | `targetOperatingModel` | `D02TargetOperatingModel` | 12 |
-| D03 | `IFM` | `informationModel` | `D03InformationModel` | 20 |
-| D04 | `RSP` | `requirementsSpecification` | `D04RequirementsSpecification` | 9 |
-| D05 | `ISC` | `interactionScenarios` | `D05InteractionScenarios` | 9 |
-| D06 | `ATS` | `architectureTechnologySpecification` | `D06ArchitectureTechnologySpecification` | 14 |
-| D07 | `IIS` | `integrationInterfaceSpecification` | `D07IntegrationInterfaceSpecification` | 12 |
-| D08 | `SAS` | `securityAccessSpecification` | `D08SecurityAccessSpecification` | 11 |
-| D09 | `XDS` | `experienceDesignSpecification` | `D09ExperienceDesignSpecification` | 15 |
-| D10 | `QAP` | `qualityAcceptancePlan` | `D10QualityAcceptancePlan` | 21 |
-| D11 | `DRM` | `deliveryRoadmap` | `D11DeliveryRoadmap` | 11 |
-| D12 | `TRP` | `transitionRolloutPlan` | `D12TransitionRolloutPlan` | 14 |
+| D01 | `CLA` | `currentLandscapeAssessment` | `D01CurrentLandscapeAssessment` | 12 |
+| D02 | `TOM` | `targetOperatingModel` | `D02TargetOperatingModel` | 14 |
+| D03 | `IFM` | `informationModel` | `D03InformationModel` | 22 |
+| D04 | `RSP` | `requirementsSpecification` | `D04RequirementsSpecification` | 11 |
+| D05 | `ISC` | `interactionScenarios` | `D05InteractionScenarios` | 11 |
+| D06 | `ATS` | `architectureTechnologySpecification` | `D06ArchitectureTechnologySpecification` | 16 |
+| D07 | `IIS` | `integrationInterfaceSpecification` | `D07IntegrationInterfaceSpecification` | 14 |
+| D08 | `SAS` | `securityAccessSpecification` | `D08SecurityAccessSpecification` | 13 |
+| D09 | `XDS` | `experienceDesignSpecification` | `D09ExperienceDesignSpecification` | 17 |
+| D10 | `QAP` | `qualityAcceptancePlan` | `D10QualityAcceptancePlan` | 23 |
+| D11 | `DRM` | `deliveryRoadmap` | `D11DeliveryRoadmap` | 13 |
+| D12 | `TRP` | `transitionRolloutPlan` | `D12TransitionRolloutPlan` | 16 |
 | D13 | `CGP` | `codeSpecsProjection` | `D13CodeSpecsProjection` | 18 |
 
 **The per-section classes are not listed here.** There are roughly three thousand
@@ -141,7 +141,7 @@ Current Landscape Assessment.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `CLA`  |  **Container member:** `DocSpecsProject.currentLandscapeAssessment`  |  **Top-level members:** 10
+**Section id:** `CLA`  |  **Container member:** `DocSpecsProject.currentLandscapeAssessment`  |  **Top-level members:** 12
 
 Its sections are catalogued by [`CurrentLandscapeAssessment_outline.md`](../../generated-doc/outlines/CurrentLandscapeAssessment_outline.md).
 
@@ -151,7 +151,7 @@ Target Operating Model.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `TOM`  |  **Container member:** `DocSpecsProject.targetOperatingModel`  |  **Top-level members:** 12
+**Section id:** `TOM`  |  **Container member:** `DocSpecsProject.targetOperatingModel`  |  **Top-level members:** 14
 
 Its sections are catalogued by [`TargetOperatingModel_outline.md`](../../generated-doc/outlines/TargetOperatingModel_outline.md).
 
@@ -161,7 +161,7 @@ Information Model.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `IFM`  |  **Container member:** `DocSpecsProject.informationModel`  |  **Top-level members:** 20
+**Section id:** `IFM`  |  **Container member:** `DocSpecsProject.informationModel`  |  **Top-level members:** 22
 
 Its sections are catalogued by [`InformationModel_outline.md`](../../generated-doc/outlines/InformationModel_outline.md).
 
@@ -171,7 +171,7 @@ Requirements Specification.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `RSP`  |  **Container member:** `DocSpecsProject.requirementsSpecification`  |  **Top-level members:** 9
+**Section id:** `RSP`  |  **Container member:** `DocSpecsProject.requirementsSpecification`  |  **Top-level members:** 11
 
 Its sections are catalogued by [`RequirementsSpecification_outline.md`](../../generated-doc/outlines/RequirementsSpecification_outline.md).
 
@@ -181,7 +181,7 @@ Interaction Scenarios.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `ISC`  |  **Container member:** `DocSpecsProject.interactionScenarios`  |  **Top-level members:** 9
+**Section id:** `ISC`  |  **Container member:** `DocSpecsProject.interactionScenarios`  |  **Top-level members:** 11
 
 Its sections are catalogued by [`InteractionScenarios_outline.md`](../../generated-doc/outlines/InteractionScenarios_outline.md).
 
@@ -191,7 +191,7 @@ Architecture & Technology Specification.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `ATS`  |  **Container member:** `DocSpecsProject.architectureTechnologySpecification`  |  **Top-level members:** 14
+**Section id:** `ATS`  |  **Container member:** `DocSpecsProject.architectureTechnologySpecification`  |  **Top-level members:** 16
 
 Its sections are catalogued by [`ArchitectureTechnologySpecification_outline.md`](../../generated-doc/outlines/ArchitectureTechnologySpecification_outline.md).
 
@@ -201,7 +201,7 @@ Integration & Interface Specification.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `IIS`  |  **Container member:** `DocSpecsProject.integrationInterfaceSpecification`  |  **Top-level members:** 12
+**Section id:** `IIS`  |  **Container member:** `DocSpecsProject.integrationInterfaceSpecification`  |  **Top-level members:** 14
 
 Its sections are catalogued by [`IntegrationInterfaceSpecification_outline.md`](../../generated-doc/outlines/IntegrationInterfaceSpecification_outline.md).
 
@@ -211,7 +211,7 @@ Security & Access Specification.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `SAS`  |  **Container member:** `DocSpecsProject.securityAccessSpecification`  |  **Top-level members:** 11
+**Section id:** `SAS`  |  **Container member:** `DocSpecsProject.securityAccessSpecification`  |  **Top-level members:** 13
 
 Its sections are catalogued by [`SecurityAccessSpecification_outline.md`](../../generated-doc/outlines/SecurityAccessSpecification_outline.md).
 
@@ -221,7 +221,7 @@ Experience Design Specification.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `XDS`  |  **Container member:** `DocSpecsProject.experienceDesignSpecification`  |  **Top-level members:** 15
+**Section id:** `XDS`  |  **Container member:** `DocSpecsProject.experienceDesignSpecification`  |  **Top-level members:** 17
 
 Its sections are catalogued by [`ExperienceDesignSpecification_outline.md`](../../generated-doc/outlines/ExperienceDesignSpecification_outline.md).
 
@@ -231,7 +231,7 @@ Quality & Acceptance Plan.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `QAP`  |  **Container member:** `DocSpecsProject.qualityAcceptancePlan`  |  **Top-level members:** 21
+**Section id:** `QAP`  |  **Container member:** `DocSpecsProject.qualityAcceptancePlan`  |  **Top-level members:** 23
 
 Its sections are catalogued by [`QualityAcceptancePlan_outline.md`](../../generated-doc/outlines/QualityAcceptancePlan_outline.md).
 
@@ -241,7 +241,7 @@ Delivery Roadmap.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `DRM`  |  **Container member:** `DocSpecsProject.deliveryRoadmap`  |  **Top-level members:** 11
+**Section id:** `DRM`  |  **Container member:** `DocSpecsProject.deliveryRoadmap`  |  **Top-level members:** 13
 
 Its sections are catalogued by [`DeliveryRoadmap_outline.md`](../../generated-doc/outlines/DeliveryRoadmap_outline.md).
 
@@ -251,7 +251,7 @@ Transition & Rollout Plan.
 
 **Extends:** `DocSpecsSection`
 
-**Section id:** `TRP`  |  **Container member:** `DocSpecsProject.transitionRolloutPlan`  |  **Top-level members:** 14
+**Section id:** `TRP`  |  **Container member:** `DocSpecsProject.transitionRolloutPlan`  |  **Top-level members:** 16
 
 Its sections are catalogued by [`TransitionRolloutPlan_outline.md`](../../generated-doc/outlines/TransitionRolloutPlan_outline.md).
 

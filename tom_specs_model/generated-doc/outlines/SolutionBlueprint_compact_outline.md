@@ -7,6 +7,10 @@
       - content @Form(documentId, project, version, date, author, status)
     - revisionHistory: `RevisionEntry`[]
       - content @Form(version, date, author, summary)
+      - reviewTeam: `ReviewerRecord`[]
+        - content @Form(memberId, displayName, role, guest)
+      - reviewers: `ReviewerRecord`[]
+        - content @Form(memberId, displayName, role, guest)
     - approvals: `ApprovalRecord`[]
       - content @Form(role, date, status)
     - `ReferenceDocuments`
@@ -191,7 +195,7 @@
           - risks: `GoalRisks`
             - content @description
             - items: `GoalRiskEntry`[]
-              - content @Form(description, riskCategory), assessment, response
+              - content @Form(description, riskCategory, keyRiskRef), assessment, response
           - resources: `GoalResources`
             - content, resourcesForm
             - items: `ResourceAllocationEntry`[]
@@ -442,6 +446,14 @@
         - content @Form(agreementType, parties, effectiveDate, expirationDate, keyTerms, obligations, location)
     - stakeholderRegister: `StakeholderRegisterEntry`[]
       - content @Form(role, interest, influence, concerns, engagementStrategy)
+    - `ReviewTeam`
+      - content
+      - members: `ReviewTeamMember`[]
+        - content @Form(memberId, displayName, role, stakeholder, email, owner)
+    - documentReviewTeams: `DocumentReviewTeamEntry`[]
+      - content @Form(documentType)
+      - members: `ReviewTeamMember`[]
+        - content @Form(memberId, displayName, role, stakeholder, email, owner)
   - `CurrentLandscape`
     - content
     - `ExistingSystemsLandscape` → CLA
@@ -608,6 +620,10 @@
           - supportResources: `WorkplaceSupportResources`
             - content @Form(helpDeskAccess, helpDeskHours, escalationPath, onSiteSupport), channels, selfService,
               incidents
+        - raciMatrix: `RaciEntry`[]
+          - content @Form(activity, responsible, accountable, consulted, informed, relatedProcess)
+        - policyOwnership: `PolicyOwnershipEntry`[]
+          - content @Form(policy, owner, approver, reviewCycle, appliesTo)
       - `BusinessProcessDescriptions` ← (Seeds → TOM)
         - content
         - `ProcessVision` → TOM
@@ -682,7 +698,7 @@
         - subFunctions: `SubFunctionEntry`[]
           - content @Form(description, dataAccess, systemSupport)
       - matrixEntries: `FunctionDataMatrixEntry`[]
-        - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
+        - content @Form(functionRef, entityName, accessType, accessFrequency, isOwner, accessReason)
       - [1,] businessRules: `BusinessRuleEntry`[]
         - content, identity, classification, ruleLogic, implementation, exceptionHandling, governance
         - affectedObjects: `AffectedObjectEntry`[]
@@ -717,11 +733,11 @@
       - messageKeys: `MessageKeyEntry`[]
         - content @Form(key, defaultCopy, placeholders, description)
         - localeVariants: `MessageLocaleVariantEntry`[]
-          - content @Form(locale, copy)
+          - content @Form(locale, copy, reviewStatus)
     - `ServerOperationRegistry`
       - content
       - operations: `ServerOperationEntry`[]
-        - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+        - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes), controls
         - authorization: `AuthorizationRequirementSpec`
           - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
             resourceKeyRequirement, customRequirement

@@ -1,8 +1,9 @@
 # TomSpecs Model API Reference: Common Module
 
 The types shared across more than one TomSpecs document: the document header
-every entry point carries, the authorization-requirement model the security
-sections use, and the quality-characteristic enum.
+every entry point carries, the review teams and the reviewers of a revision,
+the authorization-requirement model the security sections use, and the shared
+enums.
 
 For the rules that place these members, see
 [`tom_specs_model_rules.md`](../tom_specs_model_rules.md).
@@ -13,6 +14,10 @@ For the rules that place these members, see
 - [Class Hierarchy](#class-hierarchy)
 - [Classes](#classes)
   - [DocumentHeader](#documentheader)
+  - [ReviewTeam](#reviewteam)
+  - [ReviewTeamMember](#reviewteammember)
+  - [DocumentReviewTeamEntry](#documentreviewteamentry)
+  - [ReviewerRecord](#reviewerrecord)
   - [AuthorizationRequirementSpec](#authorizationrequirementspec)
   - [GradedAuthorizationRequirement](#gradedauthorizationrequirement)
   - [GradedAccessLevelEntry](#gradedaccesslevelentry)
@@ -26,23 +31,30 @@ For the rules that place these members, see
   - [Probability](#probability)
   - [Impact](#impact)
   - [Iso25010Characteristic](#iso25010characteristic)
+  - [SpecDocumentType](#specdocumenttype)
 - [Global Functions and Constants](#global-functions-and-constants)
 
 ## Overview
 
-The module declares **3 classes** and **9 enums** across three files.
+The module declares **7 classes** across four files; the enums below are the
+ones this page documents.
 
 | File | Holds |
 |------|-------|
 | `document_header.dart` | The document header — `DocumentHeader` |
+| `review_team.dart` | Review teams and the reviewers of a revision — `ReviewTeam`, `ReviewTeamMember`, `DocumentReviewTeamEntry`, `ReviewerRecord` |
 | `authorization_requirement.dart` | Authorization requirements — `AuthorizationRequirementSpec`, `GradedAuthorizationRequirement`, `GradedAccessLevelEntry`, `AuthorizationRequirementKind`, `GradedAccessLevel`, `BasicAuthorizationRequirementKind` |
-| `enums.dart` | Shared enums — `SectionType`, `Priority`, `Status`, `Probability`, `Impact`, `Iso25010Characteristic` |
+| `enums.dart` | Shared enums — among them `SectionType`, `Priority`, `Status`, `Probability`, `Impact`, `Iso25010Characteristic`, `SpecDocumentType` |
 
 ## Class Hierarchy
 
 ```
 DocSpecsSection                          (tom_specs_core)
 ├── DocumentHeader   with SpecNode
+├── ReviewTeam
+├── ReviewTeamMember
+├── DocumentReviewTeamEntry
+├── ReviewerRecord
 ├── AuthorizationRequirementSpec
 ├── GradedAuthorizationRequirement
 ├── GradedAccessLevelEntry
@@ -73,6 +85,68 @@ Standard document header present at the top of every TomSpecs document.
 |--------|-------------|-------------|
 | `cloneShallow()` | `DocumentHeader` | A shallow copy: same scalars, the same child references. Part of the `SpecNode` contract. |
 | `yamlScalar()` | `String?` | This node's own scalar payload — its `content`. Part of the `SpecNode` contract. |
+
+### ReviewTeam
+
+Who reviews a document (`RVTEAM`). Three levels name a team, and the most
+specific one with members replaces the others entirely: a document's own
+`reviewTeam`, the Solution Blueprint's `DocumentReviewTeamEntry` for its
+document type, the Solution Blueprint's default `reviewTeam`
+(`StakeholdersAndGovernance`). A team without members names no team.
+
+**Extends:** `DocSpecsSection`
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `content` | `String?` | The section body. On a form section this is the preamble; the field values live in `form`. |
+| `members` | `List<ReviewTeamMember>` | The members (`RVMEM-MEMB-LST`). |
+
+### ReviewTeamMember
+
+One member of a review team (`RVMEM`), a form: `memberId` (required; lowercase
+letters, digits and `_`, the id the team-review notation of SOM §11.9.8 uses),
+`displayName` and `role` (required), `stakeholder` (refers to a stakeholder
+register entry), `email` (stored only) and `owner` (`true` for the
+specification owner).
+
+**Extends:** `DocSpecsSection`
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `content` | `String?` | The section body. On a form section this is the preamble; the field values live in `form`. |
+
+### DocumentReviewTeamEntry
+
+The Solution Blueprint's review team for one document type (`DCRVTM`): a form
+with the required `documentType` (`SpecDocumentType`), and the members.
+
+**Extends:** `DocSpecsSection`
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `content` | `String?` | The section body. On a form section this is the preamble; the field values live in `form`. |
+| `members` | `List<ReviewTeamMember>` | The members (`RVMEM-MEMB-LST`). |
+
+### ReviewerRecord
+
+A reviewer of one revision (`RVWER`), written out in full so a guest reads
+without a team list: a form with `memberId` and `displayName` (required),
+`role` and `guest`. `RevisionEntry` holds two lists of them: `reviewTeam`, the
+team the round started with, and `reviewers`, who returned a copy.
+
+**Extends:** `DocSpecsSection`
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `content` | `String?` | The section body. On a form section this is the preamble; the field values live in `form`. |
 
 ### AuthorizationRequirementSpec
 
@@ -256,6 +330,28 @@ Section type in DocSpecs annotations.
 | `description` |
 | `form` |
 | `code` |
+
+### SpecDocumentType
+
+The type of a Phase 3 document, by which the Solution Blueprint names a
+per-document review team. Each constant is the root class name with a lowercase
+first letter; the Solution Blueprint and the CodeSpecs projection are not
+listed.
+
+| Value |
+|-------|
+| `d01CurrentLandscapeAssessment` |
+| `d02TargetOperatingModel` |
+| `d03InformationModel` |
+| `d04RequirementsSpecification` |
+| `d05InteractionScenarios` |
+| `d06ArchitectureTechnologySpecification` |
+| `d07IntegrationInterfaceSpecification` |
+| `d08SecurityAccessSpecification` |
+| `d09ExperienceDesignSpecification` |
+| `d10QualityAcceptancePlan` |
+| `d11DeliveryRoadmap` |
+| `d12TransitionRolloutPlan` |
 
 ## Global Functions and Constants
 

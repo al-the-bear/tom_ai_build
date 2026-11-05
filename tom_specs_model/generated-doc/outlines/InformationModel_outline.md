@@ -3,6 +3,16 @@
   - content, erDiagram @mermaid-er, objectDiagram @mermaid
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - [1,] entities: `DataEntityEntry`[]
     - content, identity, classification, lifecyclePolicy, relationshipSummary
     - attributes: `DataAttributeEntry`[]
@@ -58,7 +68,7 @@
     - subFunctions: `SubFunctionEntry`[]
       - content @Form(description, dataAccess, systemSupport)
   - functionToDataMatrix: `FunctionDataMatrixEntry`[]
-    - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
+    - content @Form(functionRef, entityName, accessType, accessFrequency, isOwner, accessReason)
   - [1,] businessRules: `BusinessRuleEntry`[]
     - content, identity, classification, ruleLogic, implementation, exceptionHandling, governance
     - affectedObjects: `AffectedObjectEntry`[]
@@ -92,11 +102,11 @@
     - messageKeys: `MessageKeyEntry`[]
       - content @Form(key, defaultCopy, placeholders, description)
       - localeVariants: `MessageLocaleVariantEntry`[]
-        - content @Form(locale, copy)
+        - content @Form(locale, copy, reviewStatus)
   - `ServerOperationRegistry`
     - content
     - operations: `ServerOperationEntry`[]
-      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes), controls
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement

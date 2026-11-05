@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `ExistingSystemsLandscape`
     - content @description
     - `SystemInventory`
@@ -21,14 +31,12 @@
       - `InternalDependencies` ← (Dependencies between internal systems)
         - content @description
         - items: `SystemDependencyEntry`[]
-          - content @Form(dependencyType, direction), mechanism, dataExchange, reliability, operations
-          - sourceSystem: `ExistingSystemEntry` (ref: Source System)
-          - targetSystem: `ExistingSystemEntry` (ref: Target System)
+          - content @Form(dependencyType, direction), mechanism, dataExchange, reliability, operations, sourceSystem,
+            targetSystem
       - `ExternalServiceDependencies` ← (Dependencies on external/third-party services)
         - content @description
         - items: `ExternalServiceDependencyEntry`[]
-          - content @Form(serviceProvider, serviceType), relationship, operations, risk
-          - primaryDependentSystem: `ExistingSystemEntry` (ref: Primary Dependent System)
+          - content @Form(serviceProvider, serviceType), relationship, operations, risk, primaryDependentSystem
       - `SharedInfrastructureDependencies` ← (Dependencies on shared infrastructure components)
         - content @description
         - items: `SharedInfrastructureEntry`[]
@@ -38,9 +46,7 @@
         - content @description
         - items: `SystemIntegrationEntry`[]
           - content @Form(integrationType, integrationPattern), protocol, dataExchange, errorHandling, throughput,
-            monitoring, ownership
-          - sourceSystem: `ExistingSystemEntry` (ref: Source System)
-          - targetSystem: `ExistingSystemEntry` (ref: Target System)
+            monitoring, ownership, sourceSystem, targetSystem
       - healthSummary: `IntegrationHealthSummary` ← (Overall assessment of integration landscape health)
         - content @Form(overallHealthRating, totalDependencies, criticalDependencies, highRiskDependencies, singlePointsOfFailure, undocumentedIntegrations, technicalDebtSummary, priorityRemediationAreas, impactOnProject)
         - fragilePoints: `String`[]
@@ -59,8 +65,7 @@
     - performanceSummary: `ProcessPerformanceSummary` ← (High-level summary of process performance)
       - content @Form(overallMaturity, automationLevel, manualStepsCount, errorProneStepsCount, bottleneckCount, duplicatedEffortAreas, complianceGaps, estimatedAnnualWaste)
       - keyMetrics: `ProcessMetricEntry`[]
-        - content @Form(metricCategory, currentValue, unit), measurement, targets
-        - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+        - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
     - [1,] processes: `CurrentBusinessProcess`[]
       - content @Form(processOwner, processCategory, processScope, processMaturity), processContext
       - `WorkflowDescriptions`
@@ -88,19 +93,8 @@
             - knownIssues: `WorkflowStepIssue`[]
               - content @Form(issueDescription, frequency, impact, currentWorkaround)
           - actors: `WorkflowActorEntry`[]
-            - content @Form(actorType, role, responsibilities, authorizationLevel, availabilityRequirements, skillRequirements, headcount)
-            - participatingSteps: `WorkflowStepEntry`[]
-              - content @Form(stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
-              - systemsUsed: `WorkflowStepSystem`[]
-                - content, name
-              - inputs: `WorkflowInputEntry`[]
-                - content @Form(inputType, source, format, isRequired, validationRules)
-              - outputs: `WorkflowOutputEntry`[]
-                - content @Form(outputType, destination, format, retentionRequirements)
-              - businessRules: `WorkflowBusinessRule`[]
-                - content @Form(ruleDescription, ruleLogic, ruleSource, exceptions)
-              - knownIssues: `WorkflowStepIssue`[]
-                - content @Form(issueDescription, frequency, impact, currentWorkaround)
+            - content @Form(actorType, role, responsibilities, authorizationLevel, availabilityRequirements, skillRequirements, headcount),
+              participatingSteps
           - inputs: `WorkflowInputEntry`[]
             - content @Form(inputType, source, format, isRequired, validationRules)
           - outputs: `WorkflowOutputEntry`[]
@@ -120,31 +114,25 @@
         - efficiencyMetrics: `ProcessMetricCategory`[] ← (Throughput, cycle times, utilization)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets
-            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
         - qualityMetrics: `ProcessMetricCategory`[] ← (Error rates, defect rates, rework rates)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets
-            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
         - volumeMetrics: `ProcessMetricCategory`[] ← (Transaction counts, throughput volumes)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets
-            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
         - costMetrics: `ProcessMetricCategory`[] ← (Cost per transaction, resource costs)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets
-            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
         - manualInterventionMetrics: `ProcessMetricCategory`[] ← (Manual steps, human intervention frequency)
           - content @description
           - metrics: `ProcessMetricEntry`[]
-            - content @Form(metricCategory, currentValue, unit), measurement, targets
-            - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+            - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
         - items: `ProcessMetricEntry`[]
-          - content @Form(metricCategory, currentValue, unit), measurement, targets
-          - processReference: `CurrentBusinessProcess` (ref: Process Reference)
+          - content @Form(metricCategory, currentValue, unit), measurement, targets, processReference
         - baselineTable: `MetricsBaselineTable` ← (Summary table for baseline tracking)
           - content @description
           - entries: `MetricsBaselineEntry`[]
@@ -275,7 +263,7 @@
         - content @Form(migrationApproach, dataTransformationNeeds, estimatedEffort, teamSize), execution, cutover,
           rollbackStrategy @text, postMigrationValidation @text
         - risks: `SystemMigrationRiskEntry`[]
-          - content @Form(riskDescription, probability, impact, riskScore, mitigation, contingency, owner)
+          - content @Form(riskDescription, probability, impact, riskScore, mitigation, contingency, owner, keyRiskRef)
       - knowledgeTransfer: `SystemKnowledgeTransfer`
         - content @Form(technicalDocStatus, businessDocStatus, dataDocStatus, primarySme, smeAvailability, smeRiskLevel, backupSme, knowledgeCaptureNeeded, captureApproach, captureDeadline),
           knowledgeTransferPlan @text

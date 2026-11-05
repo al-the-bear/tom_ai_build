@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `ExternalInterfaces`
     - content, integrationSummary @text, architectureApproach @text, governanceModel @text
     - interfaces: `ExternalInterfaceEntry`[]
@@ -14,7 +24,7 @@
       - technicalSpec: `InterfaceTechnicalSpec`
         - content @Form(protocol, transportSecurity, messageFormat, encoding), communication, endpoints, webhookSpec
         - operations: `InterfaceOperationEntry`[]
-          - content @Form(operationId, httpMethod, path, purpose, idempotent, requestFormat, responseFormat, paginationSupport, filteringSupport)
+          - content @Form(operationId, serverOperation, httpMethod, path, purpose, idempotent, requestFormat, responseFormat, paginationSupport, filteringSupport)
       - dataSpec: `InterfaceDataSpec`
         - content @Form(dataExchangeSummary, dataDirection, dataSensitivity, dataRetentionExternal, frequency, batchSchedule, volumePerTransaction, dailyVolume, peakVolume, payloadSizeLimit)
         - dataEntities: `InterfaceDataEntityEntry`[]
@@ -29,7 +39,7 @@
           support
         - dependencies: `String`[]
       - errorHandling: `InterfaceErrorHandling`
-        - content @Form(errorFormat, errorCodes, retryableErrors), retry, fallback, timeout
+        - content @Form(errorFormat, errorCodes, protocolErrorCodes, retryableErrors), retry, fallback, timeout
         - errorProcedures: `String`[]
       - governance: `InterfaceGovernance`
         - content @Form(externalOwner, internalOwner, technicalContact, businessContact), contract, lifecycle,

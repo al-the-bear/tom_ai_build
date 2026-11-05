@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `UserManagement`
     - content
     - userCategories: `AccessUserCategories`
@@ -34,7 +44,7 @@
     - `UserAttributes`
       - content
       - items: `UserAttributeEntry`[]
-        - content @Form(dataType, placement, accessGuard, source, required)
+        - content @Form(dataType, placement, accessGuard, source, required), oidcRelease
   - `IdentificationAndAuthentication`
     - content
     - `Identification`
@@ -197,7 +207,7 @@
       - dataScopes: `RoleDataScopeEntry`[]
         - content @Form(dataCategory, accessLevel, filterCriteria, maskingRules)
       - mutualExclusions: `RoleExclusionEntry`[]
-        - content @Form(excludedRole, reason, exclusionType, severity)
+        - content @Form(excludedRole, reason, exclusionType, severity, enforcementMode)
       - typicalHolders: `RoleHolderEntry`[]
         - content @Form(holderDescription, department, organizationalUnit, estimatedCount, assignmentBasis)
     - [1,] entitlements: `EntitlementEntry`[]
@@ -213,7 +223,7 @@
       - inheritanceRules: `RoleInheritanceRuleEntry`[]
         - content @Form(parentRole, childRole, inheritanceType, excludedPermissions, additionalConditions, overridable)
       - combinationConstraints: `RoleCombinationConstraintEntry`[]
-        - content @Form(constraintType, roleA, roleB, enforcement, severity, businessReason, exemptionProcess)
+        - content @Form(constraintType, roleA, roleB, enforcement, severity, enforcementMode, businessReason, exemptionProcess)
       - globalExclusions: `GlobalRoleExclusionEntry`[]
         - content @Form(excludedRoleA, excludedRoleB, reason, enforcementLevel, complianceReference)
       - roleCertification: `RoleCertificationPolicy`
@@ -230,6 +240,8 @@
         - content, tenantOnboardingPolicyDetails @text
       - boundaryEnforcement: `TenantBoundaryEnforcementPolicy`
         - content, boundaryEnforcementDetails @text
+    - accessHandlers: `AccessHandlerEntry`[]
+      - content @Form(handlerName, description, inputs)
   - `SensitiveDataEncryption`
     - content
     - `EncryptionAtRest`

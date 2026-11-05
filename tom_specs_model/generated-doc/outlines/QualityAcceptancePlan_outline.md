@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `QualityFramework`
     - content, frameworkContent, objectives, tradeOffs, verification, qualityObjectivesOverview @text,
       objectivesBreakdown @text
@@ -106,6 +116,8 @@
         - content @Form(criterion, category), definition, verification, traceability, ownership, status
   - `TestStrategy`
     - content
+    - testLevels: `TestLevelEntry`[]
+      - content @Form(level, testTypes, environment, tools, runBy, trigger, exitCriteria)
   - acceptanceCriteria: `AcceptanceCriteriaList`
     - content
     - items: `DeliveryAcceptanceCriterionEntry`[]

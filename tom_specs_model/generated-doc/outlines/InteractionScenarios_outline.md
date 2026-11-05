@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `ProcessStepsOverview`
     - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
   - `ActorOverview`
@@ -10,7 +20,8 @@
     - [1,] actors: `ActorEntry`[]
       - content, identification, technology, interactions
       - characteristics: `ActorCharacteristics`
-        - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
+        - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency, userCategoryRef), usage,
+          support
       - goals: `ActorGoals`[]
         - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
       - permissions: `ActorPermissions`[]
@@ -20,7 +31,7 @@
     - [1,] interactions: `InteractionEntry`[]
       - content, identification, scopeContext, performance, security, traceability
       - stakeholders: `StakeholdersAndInterests`[]
-        - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
+        - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders, stakeholderRefs)
       - preconditions: `PreconditionsAndTriggers`[]
         - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
       - postconditions: `PostconditionsAndGuarantees`[]

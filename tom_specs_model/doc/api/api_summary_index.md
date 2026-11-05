@@ -6,7 +6,7 @@ exported from the single barrel `package:tom_specs_model/tom_specs_model.dart`.
 | Module | Summary | Covers |
 |--------|---------|--------|
 | Document roots | [api_summary_document_roots.md](api_summary_document_roots.md) | `DocSpecsProject` and the fourteen `@Document` entry points |
-| `common` | [api_summary_common.md](api_summary_common.md) | `DocumentHeader`, the authorization-requirement model, and the shared enums |
+| `common` | [api_summary_common.md](api_summary_common.md) | `DocumentHeader`, review teams and the reviewers of a revision, the authorization-requirement model, and the shared enums |
 | `snapshot` | [api_summary_snapshot.md](api_summary_snapshot.md) | `SpecNode`, `SpecClassOps`, `SpecRegistry`, `SpecSlot`, `SpecSnapshotter` |
 | `serialization` | [api_summary_serialization.md](api_summary_serialization.md) | `SpecProjection`, `SpecYaml`, `connectProjection` |
 

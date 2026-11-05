@@ -3,6 +3,16 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
+  - `ReviewTeam`
+    - content
+    - members: `ReviewTeamMember`[]
+      - content @Form(memberId, displayName, role, stakeholder, email, owner)
+  - revisionHistory: `RevisionEntry`[]
+    - content @Form(version, date, author, summary)
+    - reviewTeam: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
+    - reviewers: `ReviewerRecord`[]
+      - content @Form(memberId, displayName, role, guest)
   - `StagingStrategy`
     - content @Form(stagingApproachType, primaryRationale, overallRiskLevel), approachSelection, rationale,
       riskAssessment, complexity, readiness, cutover, successCriteria, communication, frameworkAlignment, governance,
@@ -51,7 +61,7 @@
       - content @Form(mustHaveCount, shouldHaveCount, couldHaveCount, wontHaveCount, mustHaveEffortPercentage, shouldHaveEffortPercentage, classificationRationale, classificationDate, classificationApprovedBy),
         moscowRationale @text
       - items: `MoscowEntry`[]
-        - content @Form(featureId), classification, value, stageAssignment, traceability
+        - content @Form(featureId), classification, value, traceability
     - `FeatureStageMatrix`
       - content @Form(totalMappedFeatures, unmappedFeatures, stageCapacityUtilization, crossStageDependencyCount, matrixLastUpdated, matrixApprovedBy),
         matrixNarrative @text
@@ -61,7 +71,7 @@
       - content @Form(totalDependencyCount, crossStageDependencyCount, criticalPathLength, circularDependenciesDetected, dependencyMapLastUpdated),
         dependencyAnalysis @text
       - items: `FeatureDependencyEntry`[]
-        - content @Form(sourceFeatureId, targetFeatureId, dependencyType, dependencyStrength, impactIfBroken, schedulingImpact, crossStageDependency, mitigationStrategy, resolutionStatus, notes)
+        - content @Form(sourceFeatureId, targetFeatureId, dependencyType, dependencyStrength, impactIfBroken, schedulingImpact, crossStageDependency, crossStageNote, mitigationStrategy, resolutionStatus, notes)
   - `DataMigrationStrategy`
     - content @Form(migrationApproach, migrationMethodology, migrationLead), approach, scope, dataQuality, tooling,
       cutover, rollback, compliance, metrics, schedule, migrationStrategyNarrative @text

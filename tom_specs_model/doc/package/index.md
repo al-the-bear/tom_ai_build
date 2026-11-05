@@ -26,7 +26,7 @@ file belongs to
 |----------|--------|
 | [../api/api_summary_index.md](../api/api_summary_index.md) | The index of the per-module API summaries |
 | [../api/api_summary_document_roots.md](../api/api_summary_document_roots.md) | `DocSpecsProject` and the fourteen roots |
-| [../api/api_summary_common.md](../api/api_summary_common.md) | `DocumentHeader`, authorization requirements, the shared enums |
+| [../api/api_summary_common.md](../api/api_summary_common.md) | `DocumentHeader`, review teams and reviewers, authorization requirements, the shared enums |
 | [../api/api_summary_snapshot.md](../api/api_summary_snapshot.md) | The snapshot contract and the snapshotter |
 | [../api/api_summary_serialization.md](../api/api_summary_serialization.md) | `SpecProjection`, `SpecYaml`, `connectProjection` |
 

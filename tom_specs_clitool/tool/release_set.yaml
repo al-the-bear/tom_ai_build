@@ -106,7 +106,8 @@ unpublished_drift:
   tom_specs_model: >-
     Documentation only since 1.7.0: SOM §11.9.8, the team-review notation
     (attribution tokens, individual answers, conflict blocks, open: answers),
-    and §11.9.9, the merge of reviewed copies. Ships with the next release.
+    and §11.9.9, the merge of reviewed copies; the regenerated outlines and
+    the API summaries of the review-team classes. Ships with the next release.
   tom_code_specs: >-
     Documentation only since 0.16.0: the links into tom_core_codespecs's
     documents were re-pointed when that package moved from tom_core to this
