@@ -26,6 +26,14 @@
 // archive (`.pubignore`), so a guard that walks sibling packages costs a
 // consumer nothing. It skips when the repo root is not reachable.
 //
+// THE CACHE PROVES A VERSION WAS ON HAND, NOT THAT IT WAS ADMISSIBLE. A newer
+// release can require something no lock here can take: tom_analyzer_shared
+// 0.8.0 needs analyzer ^14, while tom_spec_engine reaches it through
+// tom_d4rt_generator, which is on analyzer ^10. Such a range is HELD BACK, with
+// the todo that lifts it, the same mechanism as tom_build's
+// `frozen_lock_guard_test.dart` and tom_d4rt_ast's `heldBackVersions`;
+// F-SCC45-5 fails once a hold no longer holds any lock back.
+//
 // MANY GUARDS, NOT ONE. A single workspace guard would need one exception list
 // spanning a dozen repos with no owner; each repo carries its own copy with its
 // own owner-named list. `_bin/check_frozen_locks.py <repo>` is the same
@@ -57,6 +65,39 @@ const _ownedPrefix = 'tom_';
 /// re-deriving the shape under time pressure is how an exemption gets added
 /// without an owner.
 const Map<String, String> _frozenLockExceptions = <String, String>{};
+
+/// A range of cached versions of one package that no lock here can take.
+class _HeldBack {
+  const _HeldBack({
+    required this.from,
+    required this.owner,
+    required this.reason,
+  });
+
+  /// The first held-back version: it and every later one are ignored.
+  final String from;
+
+  /// The todo whose work lets the locks take them, and deletes this entry.
+  final String owner;
+
+  /// Why no lock here can resolve them.
+  final String reason;
+}
+
+/// Cached versions F-SCC45-2 ignores, by package name. F-SCC45-5 fails once
+/// one no longer holds any lock back.
+const Map<String, _HeldBack> _heldBackVersions = <String, _HeldBack>{
+  'tom_analyzer_shared': _HeldBack(
+    from: '0.8.0',
+    owner:
+        'tom_specs uamtcc2_akfd-spec-engine-onto-analyzer-14 (after d4rt '
+        'vstdm3_akex-d4rt-repo-to-analyzer-14)',
+    reason:
+        'tom_analyzer_shared 0.8.0 requires analyzer ^14.1, and '
+        'tom_spec_engine reaches it through tom_d4rt_generator 1.52.0 '
+        '(tom_analyzer_shared ^0.7.6) and tom_d4rt, both on analyzer ^10',
+  ),
+};
 
 /// The packages whose floors F-SCC45-4 holds sample and example pubspecs to:
 /// the release-1 Dart chain (`tool/release_set.yaml`). Tooling a sample merely
@@ -208,7 +249,9 @@ Directory _pubCacheRoot() {
 Directory get _hostedCache =>
     Directory('${_pubCacheRoot().path}/hosted/pub.dev');
 
-String? _newestCachedVersion(String name) {
+/// The newest stable cached version of [name], or with [below] the newest one
+/// older than it.
+String? _newestCachedVersion(String name, {String? below}) {
   final dir = _hostedCache;
   if (!dir.existsSync()) return null;
   final prefix = '$name-';
@@ -219,6 +262,7 @@ String? _newestCachedVersion(String name) {
       .where((n) => n.startsWith(prefix))
       .map((n) => n.substring(prefix.length))
       .where((v) => !v.contains('-') && RegExp(r'^\d').hasMatch(v))
+      .where((v) => below == null || _compareVersions(v, below) < 0)
       .toList();
   if (stable.isEmpty) return null;
   stable.sort(_compareVersions);
@@ -231,23 +275,43 @@ String _relativeTo(Directory root, Directory dir) =>
             : dir.path)
         .replaceAll(r'\', '/');
 
+/// One lock behind the cache: [package] resolves [dependency] at [locked]
+/// while [cached] is in the pub cache.
+class _StaleLock {
+  const _StaleLock(this.package, this.dependency, this.locked, this.cached);
+  final String package;
+  final String dependency;
+  final String locked;
+  final String cached;
+
+  @override
+  String toString() =>
+      '$package locks $dependency $locked while $cached is already in the '
+      'pub cache';
+}
+
 /// Every lock under [root] resolving a hosted `tom_*` older than the cache
-/// holds. THE CACHE IS THE DISCRIMINATOR: comparing against a sibling's pubspec
-/// cannot tell a frozen lock from an unpublished sibling, while a newer version
-/// sitting in the cache proves pub had it and did not take it.
-List<String> _staleLocks(Directory root, Map<String, String> exceptions) {
-  final out = <String>[];
+/// holds, skipping top-level packages in [exceptions] and the [heldBack]
+/// ranges. THE CACHE IS THE DISCRIMINATOR: comparing against a sibling's
+/// pubspec cannot tell a frozen lock from an unpublished sibling, while a newer
+/// version sitting in the cache proves pub had it and did not take it.
+List<_StaleLock> _staleLocks(
+  Directory root,
+  Map<String, String> exceptions, {
+  Map<String, _HeldBack> heldBack = _heldBackVersions,
+}) {
+  final out = <_StaleLock>[];
   for (final package in _packagesUnder(root)) {
     final rel = _relativeTo(root, package);
     if (exceptions.containsKey(rel.split('/').first)) continue;
     for (final res in _lockedTomPackages(package)) {
       if (res.source != 'hosted') continue;
-      final newest = _newestCachedVersion(res.name);
+      final newest = _newestCachedVersion(
+        res.name,
+        below: heldBack[res.name]?.from,
+      );
       if (newest != null && _compareVersions(res.version, newest) < 0) {
-        out.add(
-          '$rel locks ${res.name} ${res.version} while $newest is '
-          'already in the pub cache',
-        );
+        out.add(_StaleLock(rel, res.name, res.version, newest));
       }
     }
   }
@@ -444,7 +508,7 @@ void main() {
       final stillFrozen = _staleLocks(
         root,
         const {},
-      ).map((line) => line.split(' ').first.split('/').first).toSet();
+      ).map((lock) => lock.package.split('/').first).toSet();
       final obsolete = _frozenLockExceptions.keys.toSet().difference(
         stillFrozen,
       );
@@ -519,6 +583,39 @@ void main() {
             '(`tool/run_all_samples.sh`). If it no longer works on the '
             'current release, that is the bug this guard exists to surface: '
             'fix the sample, do not lower the floor.\n${offenders.join('\n')}',
+      );
+    });
+
+    test('F-SCC45-5: every held-back range still holds a lock back', () {
+      if (root == null) {
+        markTestSkipped('ai_build repo root not reachable — nothing to check');
+        return;
+      }
+      if (!canDiscriminate('F-SCC45-5')) return;
+      // Measured with NO holds applied, for the reason F-SCC45-3 measures
+      // without exceptions: the holds would hide exactly the locks asked about.
+      final lagging = _staleLocks(
+        root,
+        _frozenLockExceptions,
+        heldBack: const {},
+      );
+      final obsolete = [
+        for (final entry in _heldBackVersions.entries)
+          if (!lagging.any(
+            (s) =>
+                s.dependency == entry.key &&
+                _compareVersions(s.cached, entry.value.from) >= 0,
+          ))
+            '${entry.key} >= ${entry.value.from} (owner ${entry.value.owner})',
+      ];
+      expect(
+        obsolete,
+        isEmpty,
+        reason:
+            'These holds no longer hold any lock back: every package now '
+            'resolves the held-back range, so its constraint has been '
+            'lifted. Delete the entries; a hold that outlives its reason '
+            'hides the next real lag.\n${obsolete.join('\n')}',
       );
     });
   });
