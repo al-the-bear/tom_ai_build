@@ -2968,6 +2968,18 @@ static std::string run_annotation_op(const som::SpecModel& model,
     if (name == "removeAll") {
       return json_text_canon(api.removeAllAnnotations().toJson(team));
     }
+    if (name == "commentChange" || name == "editMarkComment") {
+      std::optional<std::string> rev = json_opt_str(op, "revision");
+      if (rev && *rev == "@current") rev = api.revision();
+      if (name == "commentChange") {
+        return som::jsonEncodeStr(api.commentChange(
+            som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"),
+            json_opt_str(op, "author"), rev));
+      }
+      api.editMarkComment(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"),
+                          rev);
+      return "null";
+    }
     if (name == "setMarked") {
       return json_text_canon(api.setMarked(som::jsonStrOr(op, "path"),
                                            json_opt_str(op, "field"),
@@ -3204,6 +3216,28 @@ static void test_inline_marks(Checker& c, const som::SpecModel& model,
       const std::string got = som::applyInlineMarksText(text, accept);
       const std::string tag = "inlineMarks.text[" + som::jsonStrOr(t, "name") +
                               "]." + (accept ? "accept" : "reject");
+      c.check(tag, got == want, byte_diff(tag, got, want));
+    }
+  }
+  // Change comments (SOM §11.9.3): `accept` / `reject` pin accept all /
+  // reject all on the text (`decideAllMarksText`), `removed` the text once
+  // every annotation is gone (`applyInlineMarksText`).
+  som::JsonRef changeTexts = som::jsonGet(table, "changeCommentTextCases");
+  const std::size_t cn = som::jsonArrayLen(changeTexts);
+  c.check("inlineMarks.changeCommentTextCases", cn > 0,
+          "no changeCommentTextCases in inline_mark_cases.json");
+  for (std::size_t i = 0; i < cn; i++) {
+    som::JsonRef t = som::jsonArrayAt(changeTexts, i);
+    const std::string text = som::jsonStrOr(t, "text");
+    const std::string tagBase =
+        "inlineMarks.changeComments[" + som::jsonStrOr(t, "name") + "].";
+    for (const char* key : {"accept", "reject", "removed"}) {
+      const std::string k = key;
+      const std::string want = som::jsonStrOr(t, key);
+      const std::string got =
+          k == "removed" ? som::applyInlineMarksText(text, true)
+                         : som::decideAllMarksText(text, k == "accept");
+      const std::string tag = tagBase + k;
       c.check(tag, got == want, byte_diff(tag, got, want));
     }
   }

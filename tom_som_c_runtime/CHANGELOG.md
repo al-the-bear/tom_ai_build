@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Comments on changes (SOM §11.9.3), a port of the Dart reference: a comment
+  mark that starts with a quote of the change before it
+  (`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why? <<}`) is that change's
+  comment. `spec_review_annotations_list_marks` reports `quoted_change`
+  (`SpecQuotedChange`), `comment_id` and `change_id` on `SpecMarkEntry`;
+  deciding the change leaves the comment with the outcome in its quote;
+  accept all / reject all leave change comments and remove all removes them;
+  `spec_review_annotations_set_marked` keeps them. New:
+  `spec_review_annotations_comment_change`,
+  `spec_review_annotations_edit_mark_comment`, `spec_decide_all_marks_text`.
+  A malformed quote is an `annotationMalformed` finding.
 - Team reviews (SOM §11.9.8), a port of the TypeScript reference: the
   annotation listing reads attribution tokens after marks (`authors` and
   `votes`, `SpecMarkVote`, on `SpecReviewAnnotation` and `SpecMarkEntry`; the

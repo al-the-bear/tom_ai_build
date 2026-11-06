@@ -13,6 +13,7 @@ rest of the value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -120,9 +121,10 @@ answer in the project's log **before** `resolve` removes it
 | `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
 | `listMarks(path)` | Every inline mark of the document (`path` omitted) or of a subtree, as `SpecMarkEntry`: `M-<n>` id, `markKind`, `path`, `field`, `oldText` and `newText`, `markup`, the paragraph holding it as `context` |
 | `decideMarks(decisions, revision)` | One write: a `std::map<std::string, SpecMarkDecision>` `{id → Accept / Reject / Leave}`. Throws `SpecReviewAnnotationError` (nothing changes) when the document is no longer at `revision`, or when an id is unknown |
-| `acceptAllMarks(path)`, `rejectAllMarks(path)` | Every mark under a path, or in the whole document |
-| `removeAllAnnotations()` | Every mark accepted, every conflict's decision applied, and every comment, question and conflict block removed, written back ([Team reviews](#team-reviews)) |
-| `som::applyInlineMarksText(text, accept)` | One value with every mark accepted or rejected |
+| `acceptAllMarks(path)`, `rejectAllMarks(path)` | Every mark under a path, or in the whole document, except change comments, which stay |
+| `removeAllAnnotations()` | Every mark accepted (change comments removed too), every conflict's decision applied, and every comment, question and conflict block removed, written back ([Team reviews](#team-reviews)) |
+| `som::decideAllMarksText(text, accept)` | One value as accept all / reject all write it |
+| `som::applyInlineMarksText(text, accept)` | One value with every mark accepted or rejected and every comment removed |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
 mark: id, kind, path, decision, markup and result. `malformed` holds the
@@ -164,6 +166,42 @@ const som::SpecMarkedChange r = som::markChangeText(
     "Sessions expire after 30 minutes.", "Sessions expire after 15 minutes.");
 std::cout << r.text << "\n";  // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `listMarks()` | A change comment's `SpecMarkEntry` carries `quotedChange` (a `SpecQuotedChange`: `kind`, `oldText`, `newText`, `outcome`) and `changeId`, its `comment` being the text after the quote. Its change's entry carries `commentId`. All three are `std::nullopt` on other marks and left out of `toJson()` then |
+| `decideMarks`, `applyMark`, `acceptAllMarks`, `rejectAllMarks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `commentChange(markId, text, author, revision)` | Writes a change comment after the change `markId`, its quote taken from the mark; returns the comment's id. `author` and `revision` are optional |
+| `editMarkComment(markId, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote; the attribution token stays |
+| `setMarked(path, field, text)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+Both writing operations throw `SpecReviewAnnotationError` (nothing changes)
+for an unknown id, a stale `revision`, and a text that is empty or holds a
+mark delimiter or a blank line; `commentChange` also for a mark that is not a
+change or already has a comment, and an `author` that is not a member id. A
+quote opened and never closed makes the comment a plain one, and `validate()`
+reports it as `annotationMalformed`.
+
+```cpp
+som::SpecReviewAnnotations review(doc);
+const std::string rev = review.revision();
+const som::SpecMarkEntry change = review.listMarks().front();  // {~~ 30 ~> 15 ~~}
+const std::string commentId =
+    review.commentChange(change.id, "why shorter?", "alice", rev);
+review.decideMarks({{change.id, som::SpecMarkDecision::Accept}},
+                   review.revision());
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+```
+
+`commentId` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 

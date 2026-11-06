@@ -163,6 +163,99 @@
       "reject": "Use red paint, not once."
     }
   ],
+  "changeCommentTextCases": [
+    {
+      "name": "insertion with its comment",
+      "text": "Sessions {++ on kiosks ++}{>> [++ on kiosks ++] why? <<} end.",
+      "accept": "Sessions on kiosks{>> [++ on kiosks ++ | accepted] why? <<} end.",
+      "reject": "Sessions {>> [++ on kiosks ++ | rejected] why? <<} end.",
+      "removed": "Sessions on kiosks end."
+    },
+    {
+      "name": "deletion with its comment",
+      "text": "We drop {-- old --}{>> [-- old --] still needed? <<} words.",
+      "accept": "We drop {>> [-- old -- | accepted] still needed? <<} words.",
+      "reject": "We drop old{>> [-- old -- | rejected] still needed? <<} words.",
+      "removed": "We drop words."
+    },
+    {
+      "name": "substitution with its comment",
+      "text": "after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<} min",
+      "accept": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min",
+      "reject": "after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<} min",
+      "removed": "after 15 min"
+    },
+    {
+      "name": "a decided change comment stays",
+      "text": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min",
+      "accept": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min",
+      "reject": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min",
+      "removed": "after 15 min"
+    },
+    {
+      "name": "a quote not matching the change before it",
+      "text": "after {~~ 30 ~> 10 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<} min",
+      "accept": "after 10{>> [~~ 30 ~> 15 ~~] why shorter? <<} min",
+      "reject": "after 30{>> [~~ 30 ~> 15 ~~] why shorter? <<} min",
+      "removed": "after 10 min"
+    },
+    {
+      "name": "a change comment after a space stands alone",
+      "text": "after {~~ 30 ~> 15 ~~} {>> [~~ 30 ~> 15 ~~] why? <<} min",
+      "accept": "after 15 {>> [~~ 30 ~> 15 ~~] why? <<} min",
+      "reject": "after 30 {>> [~~ 30 ~> 15 ~~] why? <<} min",
+      "removed": "after 15 min"
+    },
+    {
+      "name": "a malformed quote is a plain comment",
+      "text": "after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 why? <<} min",
+      "accept": "after 15 min",
+      "reject": "after 30 min",
+      "removed": "after 15 min"
+    },
+    {
+      "name": "a substitution quote without an arrow is a plain comment",
+      "text": "after {~~ 30 ~> 15 ~~}{>> [~~ 30 15 ~~] why? <<} min",
+      "accept": "after 15 min",
+      "reject": "after 30 min",
+      "removed": "after 15 min"
+    },
+    {
+      "name": "a bracket that is no quote",
+      "text": "A note{>> [see FR-3] check <<} here.",
+      "accept": "A note here.",
+      "reject": "A note here.",
+      "removed": "A note here."
+    },
+    {
+      "name": "attribution on the change and on its comment",
+      "text": "after {~~ 30 ~> 15 ~~}{@alice}{>> [~~ 30 ~> 15 ~~] why? <<}{@bob} min",
+      "accept": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why? <<}{@bob} min",
+      "reject": "after 30{>> [~~ 30 ~> 15 ~~ | rejected] why? <<}{@bob} min",
+      "removed": "after 15 min"
+    },
+    {
+      "name": "a quote written without spaces",
+      "text": "x {~~30~>15~~}{>>[~~30~>15~~]why<<} y",
+      "accept": "x 15{>>[~~30~>15~~ | accepted]why<<} y",
+      "reject": "x 30{>>[~~30~>15~~ | rejected]why<<} y",
+      "removed": "x 15 y"
+    },
+    {
+      "name": "a quote whose text holds its delimiter",
+      "text": "x {-- a -- b --}{>> [-- a -- b --] ok? <<} y",
+      "accept": "x {>> [-- a -- b -- | accepted] ok? <<} y",
+      "reject": "x a -- b{>> [-- a -- b -- | rejected] ok? <<} y",
+      "removed": "x y"
+    },
+    {
+      "name": "a change comment standing alone",
+      "text": "A {>> [++ kiosks ++] decided elsewhere <<} note.",
+      "accept": "A {>> [++ kiosks ++] decided elsewhere <<} note.",
+      "reject": "A {>> [++ kiosks ++] decided elsewhere <<} note.",
+      "removed": "A note."
+    }
+  ],
   "cases": [
     {
       "name": "list marks and the revision",
@@ -774,6 +867,1301 @@
             "DEMO/DET": {
               "contact": "bob@example.com",
               "owner": "Bob here"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: listed with their change",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30",
+              "newText": "15",
+              "comment": null,
+              "markup": "{~~ 30 ~> 15 ~~}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "commentId": "M-2"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": null
+              },
+              "changeId": "M-1"
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "oldText": "very",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- very --}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "decided before",
+              "markup": "{>> [-- gone --| accepted] decided before <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-6",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "plain",
+              "markup": "{>> plain <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-7",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "unclear",
+              "markup": "{== this ==}{>> unclear <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-8",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "Smith",
+              "comment": null,
+              "markup": "{++ Smith ++}",
+              "context": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+              "commentId": "M-9"
+            },
+            {
+              "id": "M-9",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "full name?",
+              "markup": "{>> [++ Smith ++] full name? <<}",
+              "context": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "Smith",
+                "outcome": null
+              },
+              "changeId": "M-8"
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: deciding a change records the outcome",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "decideMarks",
+          "revision": "@current",
+          "decisions": {
+            "M-1": "accept",
+            "M-3": "reject",
+            "M-4": "accept",
+            "M-8": "accept",
+            "M-9": "reject"
+          }
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 30 ~> 15 ~~}",
+                "result": "15"
+              },
+              {
+                "id": "M-3",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ on kiosks ++}",
+                "result": ""
+              },
+              {
+                "id": "M-4",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "deletion",
+                "decision": "accept",
+                "markup": "{-- very --}",
+                "result": ""
+              },
+              {
+                "id": "M-8",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "accept",
+                "markup": "{++ Smith ++}",
+                "result": "Smith"
+              },
+              {
+                "id": "M-9",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "comment",
+                "decision": "reject",
+                "markup": "{>> [++ Smith ++] full name? <<}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob}",
+              "context": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes.\nA long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "decided before",
+              "markup": "{>> [-- gone --| accepted] decided before <<}",
+              "context": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes.\nA long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "plain",
+              "markup": "{>> plain <<}",
+              "context": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes.\nA long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "unclear",
+              "markup": "{== this ==}{>> unclear <<}",
+              "context": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes.\nA long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes.\nA long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob Smith"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: accept all leaves them, remove all removes them",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "acceptAll"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "removeAll"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 30 ~> 15 ~~}",
+                "result": "15"
+              },
+              {
+                "id": "M-3",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "accept",
+                "markup": "{++ on kiosks ++}",
+                "result": "on kiosks"
+              },
+              {
+                "id": "M-4",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "deletion",
+                "decision": "accept",
+                "markup": "{-- very --}",
+                "result": ""
+              },
+              {
+                "id": "M-6",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "comment",
+                "decision": "accept",
+                "markup": "{>> plain <<}",
+                "result": ""
+              },
+              {
+                "id": "M-7",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "highlight",
+                "decision": "accept",
+                "markup": "{== this ==}{>> unclear <<}",
+                "result": "this"
+              },
+              {
+                "id": "M-8",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "accept",
+                "markup": "{++ Smith ++}",
+                "result": "Smith"
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob}",
+              "context": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes on kiosks.\nA long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "decided before",
+              "markup": "{>> [-- gone --| accepted] decided before <<}",
+              "context": "Sessions expire after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob} minutes on kiosks.\nA long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "full name?",
+              "markup": "{>> [++ Smith ++ | accepted] full name? <<}",
+              "context": "Bob Smith{>> [++ Smith ++ | accepted] full name? <<}",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "Smith",
+                "outcome": "accepted"
+              }
+            }
+          ],
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "comment",
+                "decision": "accept",
+                "markup": "{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob}",
+                "result": ""
+              },
+              {
+                "id": "M-2",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 1,
+                "markKind": "comment",
+                "decision": "accept",
+                "markup": "{>> [-- gone --| accepted] decided before <<}",
+                "result": ""
+              },
+              {
+                "id": "M-3",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "comment",
+                "decision": "accept",
+                "markup": "{>> [++ Smith ++ | accepted] full name? <<}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          },
+          []
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 15 minutes on kiosks.\nA long line, and and this."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob Smith"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: reject all and applying one mark",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 0,
+          "accept": false
+        },
+        {
+          "op": "rejectAll",
+          "path": "DEMO/DET"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          {
+            "applied": [
+              {
+                "id": "M-7",
+                "path": "DEMO/DET",
+                "field": "owner",
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "reject",
+                "markup": "{++ Smith ++}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob}",
+              "context": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": "rejected"
+              }
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}",
+              "context": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "oldText": "very",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- very --}",
+              "context": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "decided before",
+              "markup": "{>> [-- gone --| accepted] decided before <<}",
+              "context": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "plain",
+              "markup": "{>> plain <<}",
+              "context": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-6",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "unclear",
+              "markup": "{== this ==}{>> unclear <<}",
+              "context": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-7",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "full name?",
+              "markup": "{>> [++ Smith ++ | rejected] full name? <<}",
+              "context": "Bob {>> [++ Smith ++ | rejected] full name? <<}",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "Smith",
+                "outcome": "rejected"
+              }
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {>> [++ Smith ++ | rejected] full name? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: comment a change",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "commentChange",
+          "id": "M-3",
+          "text": "  is kiosks enough?  ",
+          "author": "carol",
+          "revision": "@current"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-5",
+          "text": "nested {++ x ++}"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-5",
+          "text": "one\n\ntwo"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-5",
+          "text": "   "
+        },
+        {
+          "op": "commentChange",
+          "id": "M-5",
+          "text": "ok",
+          "author": "Bob"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-1",
+          "text": "a second one"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-2",
+          "text": "on a comment"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-99",
+          "text": "unknown"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-5",
+          "text": "stale",
+          "revision": "0000000000000000"
+        },
+        {
+          "op": "commentChange",
+          "id": "M-5",
+          "text": "still needed?"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          "M-4",
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          "M-6",
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30",
+              "newText": "15",
+              "comment": null,
+              "markup": "{~~ 30 ~> 15 ~~}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "commentId": "M-2"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": null
+              },
+              "changeId": "M-1"
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "commentId": "M-4"
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "is kiosks enough?",
+              "markup": "{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "on kiosks",
+                "outcome": null
+              },
+              "changeId": "M-3"
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "oldText": "very",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- very --}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "commentId": "M-6"
+            },
+            {
+              "id": "M-6",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "still needed?",
+              "markup": "{>> [-- very --] still needed? <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "very",
+                "newText": "",
+                "outcome": null
+              },
+              "changeId": "M-5"
+            },
+            {
+              "id": "M-7",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "decided before",
+              "markup": "{>> [-- gone --| accepted] decided before <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-8",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "plain",
+              "markup": "{>> plain <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-9",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "unclear",
+              "markup": "{== this ==}{>> unclear <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            },
+            {
+              "id": "M-10",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "Smith",
+              "comment": null,
+              "markup": "{++ Smith ++}",
+              "context": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+              "commentId": "M-11"
+            },
+            {
+              "id": "M-11",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "full name?",
+              "markup": "{>> [++ Smith ++] full name? <<}",
+              "context": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "Smith",
+                "outcome": null
+              },
+              "changeId": "M-10"
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: editing keeps the quote",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "editMarkComment",
+          "id": "M-2",
+          "text": "why 15 and not 20?",
+          "revision": "@current"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-5",
+          "text": "still decided"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-6",
+          "text": "a plain one"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-7",
+          "text": "highlighted"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-8",
+          "text": "an insertion"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-1",
+          "text": "a change"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-99",
+          "text": "unknown"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-6",
+          "text": "bad <<} text"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          null,
+          null,
+          {
+            "error": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30",
+              "newText": "15",
+              "comment": null,
+              "markup": "{~~ 30 ~> 15 ~~}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}.",
+              "commentId": "M-2"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why 15 and not 20?",
+              "markup": "{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": null
+              },
+              "changeId": "M-1"
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "oldText": "very",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- very --}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "still decided",
+              "markup": "{>> [-- gone --| accepted] still decided <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            },
+            {
+              "id": "M-6",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "a plain one",
+              "markup": "{>> a plain one <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+            },
+            {
+              "id": "M-7",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "highlighted",
+              "markup": "{== this ==}{>> highlighted <<}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+            },
+            {
+              "id": "M-8",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "Smith",
+              "comment": null,
+              "markup": "{++ Smith ++}",
+              "context": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+              "commentId": "M-9"
+            },
+            {
+              "id": "M-9",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "full name?",
+              "markup": "{>> [++ Smith ++] full name? <<}",
+              "context": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "Smith",
+                "outcome": null
+              },
+              "changeId": "M-8"
+            }
+          ],
+          {
+            "error": true
+          },
+          {
+            "error": true
+          },
+          {
+            "error": true
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change comments: setMarked detaches them with their old quote",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "text": "Sessions expire after 10 minutes on shared kiosks.\nA very long line, and and this."
+        },
+        {
+          "op": "listMarks",
+          "path": "DEMO/SUM"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30 minutes.",
+              "newText": "10 minutes on shared kiosks.",
+              "comment": null,
+              "markup": "{~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}",
+              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this."
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}",
+              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": null
+              }
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "decided before",
+              "markup": "{>> [-- gone --| accepted] decided before <<}",
+              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "quotedChange": {
+                "kind": "deletion",
+                "oldText": "gone",
+                "newText": "",
+                "outcome": "accepted"
+              }
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}"
             }
           }
         }

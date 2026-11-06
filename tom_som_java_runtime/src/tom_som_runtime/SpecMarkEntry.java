@@ -47,6 +47,18 @@ public final class SpecMarkEntry {
   /** The votes its attribution token records; empty without one. */
   public final List<SpecMarkVote> votes;
 
+  /**
+   * A change comment's quote (SOM §11.9.3): {@code kind}, {@code oldText}, {@code newText} and
+   * {@code outcome}; null for any other mark. Its {@link #comment} is the text after the quote.
+   */
+  public final Map<String, Object> quotedChange;
+
+  /** A change's attached comment, by id; null without one. */
+  public final String commentId;
+
+  /** The change an attached change comment is about, by id; null otherwise. */
+  public final String changeId;
+
   public SpecMarkEntry(
       String id,
       String path,
@@ -74,6 +86,27 @@ public final class SpecMarkEntry {
       String context,
       List<String> authors,
       List<SpecMarkVote> votes) {
+    this(
+        id, path, field, line, markKind, oldText, newText, comment, markup, context, authors, votes,
+        null, null, null);
+  }
+
+  public SpecMarkEntry(
+      String id,
+      String path,
+      String field,
+      int line,
+      SpecMarkKind markKind,
+      String oldText,
+      String newText,
+      String comment,
+      String markup,
+      String context,
+      List<String> authors,
+      List<SpecMarkVote> votes,
+      Map<String, Object> quotedChange,
+      String commentId,
+      String changeId) {
     this.id = id;
     this.path = path;
     this.field = field;
@@ -90,6 +123,12 @@ public final class SpecMarkEntry {
             : Collections.unmodifiableList(new ArrayList<>(authors));
     this.votes =
         votes == null ? Collections.emptyList() : Collections.unmodifiableList(new ArrayList<>(votes));
+    this.quotedChange =
+        quotedChange == null
+            ? null
+            : Collections.unmodifiableMap(new LinkedHashMap<>(quotedChange));
+    this.commentId = commentId;
+    this.changeId = changeId;
   }
 
   /** The canonical JSON form the older case files pin. */
@@ -99,7 +138,8 @@ public final class SpecMarkEntry {
 
   /**
    * The canonical JSON form; {@code team} adds {@code authors} and {@code votes}, the form {@code
-   * team_annotation_cases.json} pins (SOM §11.9.8).
+   * team_annotation_cases.json} pins (SOM §11.9.8). {@code quotedChange}, {@code commentId} and
+   * {@code changeId} appear only on the marks they describe.
    */
   public Map<String, Object> toJson(boolean team) {
     Map<String, Object> out = new LinkedHashMap<>();
@@ -113,6 +153,15 @@ public final class SpecMarkEntry {
     out.put("comment", comment);
     out.put("markup", markup);
     out.put("context", context);
+    if (quotedChange != null) {
+      out.put("quotedChange", new LinkedHashMap<String, Object>(quotedChange));
+    }
+    if (commentId != null) {
+      out.put("commentId", commentId);
+    }
+    if (changeId != null) {
+      out.put("changeId", changeId);
+    }
     if (team) {
       out.put("authors", new ArrayList<Object>(authors));
       List<Object> v = new ArrayList<>();

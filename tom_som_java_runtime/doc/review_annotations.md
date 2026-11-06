@@ -13,6 +13,7 @@ was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -120,9 +121,10 @@ an overload without it.
 | `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
 | `listMarks(path)` | Every inline mark of the document or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
 | `decideMarks(decisions, revision)` | One write: `{id → SpecMarkDecision.ACCEPT / REJECT / LEAVE}`. Refused when the document is no longer at `revision`, or when an id is unknown |
-| `acceptAllMarks(path)`, `rejectAllMarks(path)` | Every mark under a path, or in the whole document |
-| `removeAllAnnotations()` | Every mark accepted and every comment and question block removed, written back |
-| `SpecReviewAnnotations.applyInlineMarksText(text, accept)` | One value with every mark accepted or rejected |
+| `acceptAllMarks(path)`, `rejectAllMarks(path)` | Every mark under a path, or in the whole document, except change comments, which stay |
+| `removeAllAnnotations()` | Every mark accepted (change comments removed too) and every comment and question block removed, written back |
+| `SpecReviewAnnotations.decideAllMarksText(text, accept)` | One value as accept all / reject all write it |
+| `SpecReviewAnnotations.applyInlineMarksText(text, accept)` | One value with every mark accepted or rejected and every comment removed |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
 mark: id, kind, path, decision, markup and result. `malformed` holds the
@@ -165,6 +167,36 @@ SpecMarkedChange r =
         "Sessions expire after 30 minutes.", "Sessions expire after 15 minutes.");
 System.out.println(r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `listMarks()` | A change comment's entry carries `quotedChange` (`kind`, `oldText`, `newText`, `outcome`) and `changeId`, its `comment` being the text after the quote. Its change's entry carries `commentId` |
+| `decideMarks`, `applyMark`, `acceptAllMarks`, `rejectAllMarks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `commentChange(markId, text, author, revision)` | Writes a change comment after the change `markId`, its quote taken from the mark (`author`, `revision` may be null; an overload omits both); returns the comment's id |
+| `editMarkComment(markId, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `setMarked(...)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+A quote opened and never closed makes the comment a plain one, and
+`validate()` reports it as `annotationMalformed`.
+
+```java
+SpecReviewAnnotations review = new SpecReviewAnnotations(doc);
+String rev = review.revision();
+SpecMarkEntry change = review.listMarks().get(0); // {~~ 30 ~> 15 ~~}
+String commentId = review.commentChange(change.id, "why shorter?", "alice", rev);
+review.decideMarks(Map.of(change.id, SpecMarkDecision.ACCEPT), review.revision());
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+```
+
+`commentId` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 

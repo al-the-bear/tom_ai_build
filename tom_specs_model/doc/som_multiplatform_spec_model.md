@@ -1652,6 +1652,7 @@ Inline marks are the five [CriticMarkup](https://criticmarkup.com) forms:
 | `{++ added ++}` | Suggested insertion |
 | `{-- removed --}` | Suggested deletion |
 | `{~~ old ~> new ~~}` | Suggested replacement |
+| `{~~ old ~> new ~~}{>> [~~ old ~> new ~~] comment <<}` | A comment on the change before it (a **change comment**, below) |
 
 Example: `Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on
 shared devices ++}.`
@@ -1660,6 +1661,46 @@ Marks do not nest and do not span a blank line. An opening delimiter without
 its closing one in the same paragraph is a finding. Marks may stand anywhere in
 prose: in narrative text, in a form's preamble, inside a form field's value,
 and inside annotation blocks. In a field value they are part of the value.
+
+**Comments on changes.** A comment about a change has to stay understandable
+after the change is decided, so it carries the change with it. A **change
+comment** is a comment mark whose text starts with a **quote** of the change:
+the change's delimiters without the braces, in square brackets.
+
+| Change | With its comment |
+|--------|------------------|
+| `{++ added ++}` | `{++ added ++}{>> [++ added ++] why add it? <<}` |
+| `{-- removed --}` | `{-- removed --}{>> [-- removed --] still needed? <<}` |
+| `{~~ 30 ~> 15 ~~}` | `{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}` |
+
+- **The quote.** The comment's text, after leading whitespace, opens with `[`
+  and a delimiter `++`, `--` or `~~` (an insertion, deletion or substitution).
+  The quote ends at the first later occurrence of the same delimiter that is
+  followed, after spaces or tabs, either by `]` or by `|`, the word `accepted`
+  or `rejected` and `]` (spaces or tabs allowed around the word). The quoted
+  text lies between; a substitution's is split at its first `~>`. Each text is
+  trimmed, like a mark's. The quoted text therefore cannot hold the closing
+  sequence (`++]`, `--]`, `~~]`) or `<<}`.
+- **The comment** is the text after the quote's `]`, trimmed.
+- **Not a quote.** A comment whose text starts with anything else (`[see
+  FR-3]`, no bracket) is a plain comment. A quote that is opened and never
+  closed, or a substitution quote without `~>`, makes the comment a plain
+  comment and is a finding (§11.9.5). The comment of a highlight
+  (`{== text ==}{>> … <<}`) is never a change comment.
+- **Attached.** A change comment whose quote records no outcome, written
+  directly after a change mark (after its attribution token, §11.9.8; no space
+  between) whose kind and trimmed texts equal the quote's, is **that change's
+  comment**. Anywhere else (a space between, its change decided or edited
+  away, a quote that no longer matches) it stands alone and still carries its
+  quote.
+- **The outcome.** When an attached comment's change is accepted or rejected,
+  the comment stays where it is and its quote records the decision:
+  everything from the end of the quote's closing delimiter to its `]` becomes
+  ` | accepted]` or ` | rejected]`. `after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~]
+  why shorter? <<} minutes` accepted reads `after 15{>> [~~ 30 ~> 15 ~~ |
+  accepted] why shorter? <<} minutes`. A quote with an outcome never attaches.
+- It is plain CriticMarkup: no brace is nested, and a tool that knows nothing
+  of quotes shows a comment that begins with the change it is about.
 
 **Writing a change as marks.** An agent that changes a value in a review round
 (`tom_specs_project_flow.md` PF-ITR-REV) writes the change as marks, so the
@@ -1691,6 +1732,33 @@ instead of nesting one. `markAgainst(path, field, earlier)` marks a value that
 is already written against an earlier version. Cases:
 `corpus/change_mark_cases.json`.
 
+`setMarked` keeps the value's change comments. A comment on a change that is
+marked again detaches and keeps its old quote:
+
+1. The original is the value with every mark rejected **except the change
+   comments**, which stay as written (no outcome: nothing was decided).
+2. For each change comment the original holds, in order, three things are
+   recorded:
+   - its markup, with its attribution token;
+   - its anchor `k`, the number of non-whitespace characters before it in the
+     original, the characters of earlier change comments not counted;
+   - whether a space or tab directly precedes it.
+
+   Whitespace is space, tab, CR and LF.
+3. The change comments are removed (the removal's whitespace rules), and the
+   result is compared with `text` as above.
+4. Each comment is written back where `k` non-whitespace characters of the
+   original have passed. Text outside marks counts, and so does the old text of
+   a deletion or substitution; an insertion counts nothing. A position that
+   falls inside a mark moves to the mark's end. The comment gets a space before
+   it when one preceded it in the original. When the count never reaches `k`
+   (a difference in fenced code), the comment goes at the end of the value.
+
+`after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why? <<} minutes` set to `after 10
+minutes` becomes `after {~~ 30 ~> 10 ~~}{>> [~~ 30 ~> 15 ~~] why? <<}
+minutes`: the comment follows the new mark, detached. Other comment marks and
+highlights are removed, as before.
+
 **Accepting and rejecting.** A change mark is decided one of two ways:
 accepting takes the change, rejecting undoes it. A highlight or a comment
 mark is not a change, so either decision removes it and leaves the
@@ -1703,6 +1771,10 @@ highlighted text:
 | `{~~ old ~> new ~~}` | `new` | `old` |
 | `{== text ==}`, with or without `{>> comment <<}` | `text` | `text` |
 | `{>> comment <<}` | (nothing) | (nothing) |
+| `{>> [~~ old ~> new ~~] comment <<}` (a change comment) | (nothing) | (nothing) |
+
+A change comment is decided like a comment: either decision removes it.
+Deciding its **change** leaves it, with the outcome in its quote.
 
 The text between the delimiters is trimmed, and it may hold markdown and line
 breaks.
@@ -1729,13 +1801,42 @@ reported, never applied.
   - its id `M-<n>`, the mark's position among all marks of the document in
     document order;
   - its kind and path;
-  - the old and new text, the markup as written, and the paragraph holding it.
+  - the old and new text, the markup as written, and the paragraph holding it;
+  - for a change comment, `quotedChange` (`kind`, `oldText`, `newText` by the
+    same convention as the mark's own, and `outcome`: `accepted`, `rejected`
+    or null), its `comment` being the text after the quote, and `changeId`,
+    the id of the change it is attached to;
+  - for a change with an attached comment, `commentId`, that comment's id.
+
+  The three fields appear only on the marks they describe. The annotation
+  listing (§11.9.6) reports a change comment's text whole, quote included.
 - **Decide** mark by mark: one call takes `{id → accept | reject | leave}`
   and applies it in one write. Marks not named, and marks decided `leave`,
-  stay.
+  stay. Deciding a change records the outcome in its attached comment unless
+  the same call decides the comment too, which removes it.
 - **Accept all** or **reject all**, under a path or in the whole document.
-- **Remove all annotations**: accept every mark, remove every comment and
-  question block, and write the result back.
+  They decide every mark except change comments, which stay; the attached
+  ones record the outcome. `decideAllMarksText(value, accept)` is the same on
+  one text.
+- **Remove all annotations**: accept every mark, change comments included
+  (they are removed), remove every comment and question block, and write the
+  result back.
+- **Comment a change**: `commentChange(markId, text, {author, revision})` writes
+  a change comment directly after the change mark `markId` (after its
+  attribution token), its quote written from the mark (`[++ text ++]`,
+  `[-- text --]`, `[~~ old ~> new ~~]`) and `text` trimmed after it; with
+  `author`, an attribution token `{@author}` follows (§11.9.8). It returns the
+  new comment's id. Refused, with nothing changed: an unknown id or a
+  `revision` the document is no longer at; a mark that is not a change; a change
+  that already has an attached comment; a change whose text holds its quote's
+  closing sequence or `<<}`; a `text` that is empty or holds a mark delimiter
+  (`{>>`, `{==`, `{++`, `{--`, `{~~`, `<<}`) or a blank line; an `author`
+  that is not a member id.
+- **Edit an inline comment**: `editMarkComment(markId, text, {revision})`
+  replaces the comment of a comment mark, a change comment or a commented
+  highlight. A change comment keeps its quote as written, outcome included,
+  and the attribution token stays. Refused like `commentChange` for the id,
+  the revision and the text, and for a mark that holds no comment.
 
 Every operation returns a report for the decision log. The report lists each
 applied mark (id, kind, path, decision, the markup and the text that replaced
@@ -1785,7 +1886,7 @@ The rest of the document still validates and imports.
 | Code | When |
 |------|------|
 | `annotationMisplaced` | A comment or question block inside a form field's value, i.e. between or below the form's fields |
-| `annotationMalformed` | An unclosed or nested inline mark, or a substitution without `~>`; a comment header whose id is not `C-<n>`; a question header that is not `**❓ <ID> — <topic>:**`; a `**❓` header or an `**Answer:**` line inside a comment block |
+| `annotationMalformed` | An unclosed or nested inline mark, or a substitution without `~>`; a change comment's quote that is never closed, or a substitution quote without `~>` (the comment is read as a plain one); a comment header whose id is not `C-<n>`; a question header that is not `**❓ <ID> — <topic>:**`; a `**❓` header or an `**Answer:**` line inside a comment block |
 | `duplicateAnnotationId` | One comment id, or one question id, used twice in the same document. A merged pointer is not a second use of the surviving id |
 
 Annotations are review state, not specification content. A document submitted
@@ -1957,7 +2058,10 @@ Grammar: `{@<authors>[ <votes>]}`, where:
   both.
 - Votes are allowed on change marks only (insertion, deletion, substitution).
   A highlight or comment mark takes authors only; on a highlight with its
-  comment, the token follows the comment: `{==text==}{>>why?<<}{@bob}`.
+  comment, the token follows the comment: `{==text==}{>>why?<<}{@bob}`. A
+  change comment (§11.9.3) takes authors only too, and its token follows it;
+  the change's own token stays between the two:
+  `{~~30~>15~~}{@alice}{>>[~~30~>15~~] why?<<}{@bob}`.
 
 The token is part of its mark: the mark's markup includes it, a decision
 (§11.9.3 "Accepting and rejecting") removes it with the mark in both

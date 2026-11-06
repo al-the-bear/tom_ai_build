@@ -670,6 +670,142 @@ type annMark struct {
 	comment    *string
 	authors    []string
 	votes      []SpecMarkVote
+	// quote is a comment mark's quote of a change (SOM §11.9.3), or nil.
+	quote *annQuote
+	// changeIndex is the index (among the value's marks) of the change this
+	// change comment is attached to, or -1.
+	changeIndex int
+	// commentIndex is the index of this change's attached comment, or -1.
+	commentIndex int
+}
+
+// annQuote is the quote a change comment opens with (SOM §11.9.3); offsets
+// are byte offsets into the value.
+type annQuote struct {
+	kind    SpecMarkKind
+	oldText string
+	newText string
+	// outcome is `accepted`, `rejected`, or "" while the change is open.
+	outcome string
+	// delimEnd lies right after the quote's closing delimiter.
+	delimEnd int
+	// end lies right after the quote's `]`.
+	end int
+	// comment is the text after the quote, trimmed.
+	comment string
+}
+
+func (q *annQuote) toJSON() map[string]any {
+	var outcome any
+	if q.outcome != "" {
+		outcome = q.outcome
+	}
+	return map[string]any{
+		"kind":    string(q.kind),
+		"oldText": q.oldText,
+		"newText": q.newText,
+		"outcome": outcome,
+	}
+}
+
+var annQuoteKinds = map[string]SpecMarkKind{
+	"++": SpecMarkKindInsertion,
+	"--": SpecMarkKindDeletion,
+	"~~": SpecMarkKindSubstitution,
+}
+
+func annIsBlankChar(c byte) bool { return c == ' ' || c == '\t' }
+
+// annReadQuote reads the quote at the start of a comment mark's inner text s,
+// whose first byte is at value offset at: the quote, or nil with issue ""
+// when s opens no quote, or nil with the issue (`unclosed`, `noArrow`) of a
+// quote that is malformed.
+func annReadQuote(s string, at int) (*annQuote, string) {
+	a := 0
+	for a < len(s) && strings.IndexByte(" \t\r\n", s[a]) >= 0 {
+		a++
+	}
+	if a+3 > len(s) || s[a] != '[' {
+		return nil, ""
+	}
+	d := s[a+1 : a+3]
+	kind, ok := annQuoteKinds[d]
+	if !ok {
+		return nil, ""
+	}
+	j := annIndexFrom(s, d, a+3)
+	for j >= 0 {
+		t := j + 2
+		for t < len(s) && annIsBlankChar(s[t]) {
+			t++
+		}
+		outcome := ""
+		closeAt := -1
+		if t < len(s) && s[t] == ']' {
+			closeAt = t
+		} else if t < len(s) && s[t] == '|' {
+			t++
+			for t < len(s) && annIsBlankChar(s[t]) {
+				t++
+			}
+			for _, w := range []string{"accepted", "rejected"} {
+				if !strings.HasPrefix(s[t:], w) {
+					continue
+				}
+				u := t + len(w)
+				for u < len(s) && annIsBlankChar(s[u]) {
+					u++
+				}
+				if u < len(s) && s[u] == ']' {
+					outcome = w
+					closeAt = u
+				}
+				break
+			}
+		}
+		if closeAt >= 0 {
+			body := s[a+3 : j]
+			oldText, newText := "", ""
+			switch kind {
+			case SpecMarkKindInsertion:
+				newText = strings.TrimSpace(body)
+			case SpecMarkKindDeletion:
+				oldText = strings.TrimSpace(body)
+			default:
+				arrow := strings.Index(body, "~>")
+				if arrow < 0 {
+					return nil, "noArrow"
+				}
+				oldText = strings.TrimSpace(body[:arrow])
+				newText = strings.TrimSpace(body[arrow+2:])
+			}
+			return &annQuote{kind: kind, oldText: oldText, newText: newText, outcome: outcome,
+				delimEnd: at + j + 2, end: at + closeAt + 1,
+				comment: strings.TrimSpace(s[closeAt+1:])}, ""
+		}
+		j = annIndexFrom(s, d, j+1)
+	}
+	return nil, "unclosed"
+}
+
+// annAttachChangeComments links each change comment to the change written
+// directly before it whose kind and texts it quotes (SOM §11.9.3).
+func annAttachChangeComments(marks []*annMark) {
+	for k := 1; k < len(marks); k++ {
+		q := marks[k].quote
+		c := marks[k-1]
+		if q == nil || q.outcome != "" || !annIsChangeMark(c.kind) {
+			continue
+		}
+		if c.end != marks[k].start || c.kind != q.kind {
+			continue
+		}
+		if annMarkReplacement(c, false) != q.oldText || annMarkReplacement(c, true) != q.newText {
+			continue
+		}
+		marks[k].changeIndex = k - 1
+		c.commentIndex = k
+	}
 }
 
 // annParsed is everything one value holds.
@@ -1177,6 +1313,7 @@ func annParseMarks(p *annParsed) {
 		segEnd := lineStart[k-1] + len(p.lines[k-1])
 		annScanSegment(p, value[segStart:segEnd], segStart, lineOf)
 	}
+	annAttachChangeComments(p.marks)
 }
 
 func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
@@ -1256,13 +1393,26 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 		end := closeAt + 3
 		mark := func(kind SpecMarkKind, text string, newText, comment *string) *annMark {
 			return &annMark{start: base + i, end: base + end, bodyEnd: base + end, line: line,
-				kind: kind, text: text, newText: newText, comment: comment}
+				kind: kind, text: text, newText: newText, comment: comment,
+				changeIndex: -1, commentIndex: -1}
 		}
 		before := len(p.marks)
 		switch opener {
 		case "{>>":
 			cm := strings.TrimSpace(inner)
-			p.marks = append(p.marks, mark(SpecMarkKindComment, "", nil, &cm))
+			m := mark(SpecMarkKindComment, "", nil, &cm)
+			q, issue := annReadQuote(inner, base+i+3)
+			switch {
+			case q != nil:
+				m.quote = q
+			case issue == "unclosed":
+				p.malformed = append(p.malformed, "line "+strconv.Itoa(line)+
+					": the quote of a change comment is not closed; it is read as a plain comment (SOM §11.9.3)")
+			case issue == "noArrow":
+				p.malformed = append(p.malformed, "line "+strconv.Itoa(line)+
+					": the quote of a change comment has no \"~>\"; it is read as a plain comment (SOM §11.9.3)")
+			}
+			p.marks = append(p.marks, m)
 		case "{==":
 			var comment *string
 			if strings.HasPrefix(seg[end:], "{>>") {
@@ -1729,6 +1879,165 @@ func ApplyInlineMarksText(value string, accept bool) string {
 		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept))
 	}
 	return v
+}
+
+// DecideAllMarksText returns value with every inline mark accepted (accept)
+// or rejected, as accept all / reject all write it (SOM §11.9.3): change
+// comments stay, an attached one records the outcome; every other highlight
+// and comment mark is removed. Marks in code and malformed marks stay as
+// written.
+func DecideAllMarksText(value string, accept bool) string {
+	marks := annParse(value).marks
+	v := value
+	for k := len(marks) - 1; k >= 0; k-- {
+		if marks[k].quote != nil {
+			continue
+		}
+		v = annDecideMark(v, marks, k, accept)
+	}
+	return v
+}
+
+// annDecideMark returns value with the mark k of marks decided; a change's
+// attached comment records the outcome (SOM §11.9.3).
+func annDecideMark(value string, marks []*annMark, k int, accept bool) string {
+	m := marks[k]
+	v := value
+	if m.commentIndex >= 0 {
+		v = annRecordOutcome(v, marks[m.commentIndex].quote, accept)
+	}
+	return annReplaceMark(v, m, annMarkReplacement(m, accept))
+}
+
+// annRecordOutcome returns value with the outcome written into the quote q:
+// everything from its closing delimiter to its `]` becomes ` | accepted]` or
+// ` | rejected]`.
+func annRecordOutcome(value string, q *annQuote, accept bool) string {
+	outcome := "rejected"
+	if accept {
+		outcome = "accepted"
+	}
+	return value[:q.delimEnd] + " | " + outcome + "]" + value[q.end:]
+}
+
+var annBlankLineInRE = regexp.MustCompile(`\n[ \t\r]*\n`)
+
+// annCheckInlineComment returns the trimmed text of an inline comment,
+// refused when it is empty or holds a mark delimiter or a blank line.
+func annCheckInlineComment(text string) (string, error) {
+	t := strings.TrimSpace(text)
+	if t == "" {
+		return "", &SpecReviewAnnotationError{Message: "a comment needs text"}
+	}
+	if annContainsOpener(t) || strings.Contains(t, "<<}") || annBlankLineInRE.MatchString(t) {
+		return "", &SpecReviewAnnotationError{Message: "a comment cannot hold a mark delimiter or a blank line"}
+	}
+	return t, nil
+}
+
+// annIsAnchorSpace is the whitespace of the change-comment anchors (SOM
+// §11.9.3).
+func annIsAnchorSpace(c byte) bool { return c == ' ' || c == '\t' || c == '\r' || c == '\n' }
+
+func annNonSpaceCount(s string) int {
+	n := 0
+	for i := 0; i < len(s); i++ {
+		if !annIsAnchorSpace(s[i]) {
+			n++
+		}
+	}
+	return n
+}
+
+// annMarkKeepingChangeComments is SetMarked with the value's change comments
+// kept (SOM §11.9.3): taken out of the original, then written back where
+// their anchor falls.
+func annMarkKeepingChangeComments(current, text string) SpecMarkedChange {
+	// 1. The original: every mark rejected except the change comments.
+	original := current
+	marks := annParse(current).marks
+	for k := len(marks) - 1; k >= 0; k-- {
+		if marks[k].quote != nil {
+			continue
+		}
+		original = annReplaceMark(original, marks[k], annMarkReplacement(marks[k], false))
+	}
+	// 2. Each change comment's markup, anchor and leading space.
+	var kept []*annMark
+	for _, m := range annParse(original).marks {
+		if m.quote != nil {
+			kept = append(kept, m)
+		}
+	}
+	type anchor struct {
+		markup string
+		count  int
+		space  bool
+	}
+	anchors := make([]anchor, 0, len(kept))
+	counted, from := 0, 0
+	for _, m := range kept {
+		counted += annNonSpaceCount(original[from:m.start])
+		from = m.end
+		anchors = append(anchors, anchor{
+			markup: original[m.start:m.end],
+			count:  counted,
+			space:  m.start > 0 && annIsBlankChar(original[m.start-1]),
+		})
+	}
+	// 3. Removed, compared.
+	base := original
+	for k := len(kept) - 1; k >= 0; k-- {
+		base = annReplaceMark(base, kept[k], "")
+	}
+	result := MarkChangeText(base, text)
+	if len(anchors) == 0 {
+		return result
+	}
+	// 4. Written back where k non-whitespace bytes have passed.
+	r := result.Text
+	rm := annParse(r).marks
+	place := func(k int) int {
+		if k == 0 {
+			return 0
+		}
+		n, i, mi := 0, 0, 0
+		for i < len(r) {
+			if mi < len(rm) && rm[mi].start == i {
+				m := rm[mi]
+				mi++
+				if m.kind != SpecMarkKindInsertion {
+					n += annNonSpaceCount(m.text)
+				}
+				i = m.end
+				if n >= k {
+					return i
+				}
+				continue
+			}
+			if !annIsAnchorSpace(r[i]) {
+				n++
+			}
+			i++
+			if n >= k {
+				return i
+			}
+		}
+		return len(r)
+	}
+	at := make([]int, len(anchors))
+	for j, a := range anchors {
+		at[j] = place(a.count)
+	}
+	out := r
+	for j := len(anchors) - 1; j >= 0; j-- {
+		lead := ""
+		if anchors[j].space {
+			lead = " "
+		}
+		out = out[:at[j]] + lead + anchors[j].markup + out[at[j]:]
+	}
+	return SpecMarkedChange{Text: out, Exact: result.Exact}
 }
 
 // StripAnnotationsText returns value without any comment block, question
@@ -2337,8 +2646,7 @@ func (r *SpecReviewAnnotations) ApplyMark(path, field string, index int, accept 
 		}
 		return &SpecReviewAnnotationError{Message: "no inline mark " + strconv.Itoa(index) + " at " + where}
 	}
-	m := marks[index]
-	r.set(path, field, annReplaceMark(value, m, annMarkReplacement(m, accept)))
+	r.set(path, field, annDecideMark(value, marks, index, accept))
 	return nil
 }
 
@@ -2515,6 +2823,15 @@ type SpecMarkEntry struct {
 	Authors []string
 	// Votes are the votes its attribution token records; empty without one.
 	Votes []SpecMarkVote
+	// QuotedChange is a change comment's quote (SOM §11.9.3): `kind`,
+	// `oldText`, `newText` and `outcome`; nil for any other mark. Its Comment
+	// is the text after the quote.
+	QuotedChange map[string]any
+	// CommentID is a change's attached comment, by id; nil without one.
+	CommentID *string
+	// ChangeID is the change an attached change comment is about, by id; nil
+	// otherwise.
+	ChangeID *string
 }
 
 // ToJSON is the canonical JSON form the conformance corpus pins.
@@ -2523,7 +2840,8 @@ func (e SpecMarkEntry) ToJSON() map[string]any {
 }
 
 // ToJSONWith is the canonical JSON form, with `authors` and `votes` in the
-// team form.
+// team form. `quotedChange`, `commentId` and `changeId` appear only on the
+// marks they describe.
 func (e SpecMarkEntry) ToJSONWith(options SpecReviewJSONOptions) map[string]any {
 	out := map[string]any{
 		"id":       e.ID,
@@ -2536,6 +2854,15 @@ func (e SpecMarkEntry) ToJSONWith(options SpecReviewJSONOptions) map[string]any 
 		"comment":  nullableString(e.Comment),
 		"markup":   e.Markup,
 		"context":  e.Context,
+	}
+	if e.QuotedChange != nil {
+		out["quotedChange"] = e.QuotedChange
+	}
+	if e.CommentID != nil {
+		out["commentId"] = *e.CommentID
+	}
+	if e.ChangeID != nil {
+		out["changeId"] = *e.ChangeID
 	}
 	if options.Team {
 		out["authors"] = annStringsJSON(e.Authors)
@@ -2702,6 +3029,14 @@ func (r *SpecReviewAnnotations) ListMarks(path string) []SpecMarkEntry {
 	for _, v := range r.values() {
 		p := annParse(v.text)
 		paras := annParagraphs(p.lines, p.code)
+		first := n + 1
+		markID := func(k int) *string {
+			if k < 0 {
+				return nil
+			}
+			id := "M-" + strconv.Itoa(first+k)
+			return &id
+		}
 		for _, m := range p.marks {
 			n++
 			id := "M-" + strconv.Itoa(n)
@@ -2715,20 +3050,28 @@ func (r *SpecReviewAnnotations) ListMarks(path string) []SpecMarkEntry {
 					break
 				}
 			}
-			out = append(out, SpecMarkEntry{
-				ID:       id,
-				Path:     v.path,
-				Field:    annFieldPtr(v.field),
-				Line:     m.line,
-				MarkKind: m.kind,
-				OldText:  annMarkReplacement(m, false),
-				NewText:  annMarkReplacement(m, true),
-				Comment:  m.comment,
-				Markup:   v.text[m.start:m.end],
-				Context:  strings.Join(p.lines[para[0]:para[1]+1], "\n"),
-				Authors:  m.authors,
-				Votes:    m.votes,
-			})
+			entry := SpecMarkEntry{
+				ID:        id,
+				Path:      v.path,
+				Field:     annFieldPtr(v.field),
+				Line:      m.line,
+				MarkKind:  m.kind,
+				OldText:   annMarkReplacement(m, false),
+				NewText:   annMarkReplacement(m, true),
+				Comment:   m.comment,
+				Markup:    v.text[m.start:m.end],
+				Context:   strings.Join(p.lines[para[0]:para[1]+1], "\n"),
+				Authors:   m.authors,
+				Votes:     m.votes,
+				CommentID: markID(m.commentIndex),
+				ChangeID:  markID(m.changeIndex),
+			}
+			if m.quote != nil {
+				c := m.quote.comment
+				entry.Comment = &c
+				entry.QuotedChange = m.quote.toJSON()
+			}
+			out = append(out, entry)
 		}
 	}
 	return out
@@ -2736,7 +3079,7 @@ func (r *SpecReviewAnnotations) ListMarks(path string) []SpecMarkEntry {
 
 // applyMarks applies decide to every mark in the subtree under ("" for the
 // whole document), one write per value. decide answers "" for no decision.
-func (r *SpecReviewAnnotations) applyMarks(decide func(id string) SpecMarkDecision, under string) SpecMarkReport {
+func (r *SpecReviewAnnotations) applyMarks(decide func(id string, m *annMark) SpecMarkDecision, under string) SpecMarkReport {
 	applied := []SpecMarkOutcome{}
 	issues := []SpecMarkIssue{}
 	n := 0
@@ -2755,13 +3098,23 @@ func (r *SpecReviewAnnotations) applyMarks(decide func(id string) SpecMarkDecisi
 		}
 		value := v.text
 		var outcomes []SpecMarkOutcome
+		decided := make([]SpecMarkDecision, len(p.marks))
+		for k, m := range p.marks {
+			decided[k] = decide(ids[k], m)
+		}
+		isDecided := func(k int) bool {
+			return decided[k] != "" && decided[k] != SpecMarkDecisionLeave
+		}
 		for k := len(p.marks) - 1; k >= 0; k-- {
-			d := decide(ids[k])
-			if d == "" || d == SpecMarkDecisionLeave {
+			if !isDecided(k) {
 				continue
 			}
+			d := decided[k]
 			m := p.marks[k]
 			repl := annMarkReplacement(m, d == SpecMarkDecisionAccept)
+			if ci := m.commentIndex; ci >= 0 && !isDecided(ci) {
+				value = annRecordOutcome(value, p.marks[ci].quote, d == SpecMarkDecisionAccept)
+			}
 			outcomes = append([]SpecMarkOutcome{{
 				ID:       ids[k],
 				Path:     v.path,
@@ -2806,19 +3159,134 @@ func (r *SpecReviewAnnotations) DecideMarks(decisions map[string]SpecMarkDecisio
 			return SpecMarkReport{}, &SpecReviewAnnotationError{Message: "no inline mark " + id + " in the document"}
 		}
 	}
-	return r.applyMarks(func(id string) SpecMarkDecision { return decisions[id] }, ""), nil
+	return r.applyMarks(func(id string, _ *annMark) SpecMarkDecision { return decisions[id] }, ""), nil
 }
 
 // AcceptAllMarks accepts every inline mark under path ("" for the whole
-// document).
+// document), except change comments, which stay (SOM §11.9.3).
 func (r *SpecReviewAnnotations) AcceptAllMarks(path string) SpecMarkReport {
-	return r.applyMarks(func(string) SpecMarkDecision { return SpecMarkDecisionAccept }, path)
+	return r.applyMarks(func(_ string, m *annMark) SpecMarkDecision {
+		if m.quote != nil {
+			return ""
+		}
+		return SpecMarkDecisionAccept
+	}, path)
 }
 
 // RejectAllMarks rejects every inline mark under path ("" for the whole
-// document).
+// document), except change comments, which stay (SOM §11.9.3).
 func (r *SpecReviewAnnotations) RejectAllMarks(path string) SpecMarkReport {
-	return r.applyMarks(func(string) SpecMarkDecision { return SpecMarkDecisionReject }, path)
+	return r.applyMarks(func(_ string, m *annMark) SpecMarkDecision {
+		if m.quote != nil {
+			return ""
+		}
+		return SpecMarkDecisionReject
+	}, path)
+}
+
+// findMark finds the mark `M-<n>` markID with its value, refused when the
+// document is no longer at revision (when not "") or holds no such mark.
+func (r *SpecReviewAnnotations) findMark(markID, revision string) (annValue, *annParsed, int, error) {
+	if revision != "" {
+		if current := r.Revision(); revision != current {
+			return annValue{}, nil, 0, &SpecReviewAnnotationError{Message: "the document changed since revision " +
+				revision + " (now " + current + "); list the marks again"}
+		}
+	}
+	n := 0
+	for _, v := range r.values() {
+		p := annParse(v.text)
+		for k := range p.marks {
+			n++
+			if "M-"+strconv.Itoa(n) == markID {
+				return v, p, k, nil
+			}
+		}
+	}
+	return annValue{}, nil, 0, &SpecReviewAnnotationError{Message: "no inline mark " + markID + " in the document"}
+}
+
+// CommentChange writes a change comment (SOM §11.9.3) directly after the
+// change mark markID, its quote written from the mark and text after it,
+// with an attribution token `{@author}` when author is not "", and returns
+// the new comment's id. Refused with a SpecReviewAnnotationError — nothing
+// changes — for an unknown id, a stale revision (when not ""), a mark that
+// is not a change or already has an attached comment, a change its quote
+// cannot hold, a text that is empty or holds a mark delimiter or a blank
+// line, and an author that is not a member id.
+func (r *SpecReviewAnnotations) CommentChange(markID, text, author, revision string) (string, error) {
+	v, p, k, err := r.findMark(markID, revision)
+	if err != nil {
+		return "", err
+	}
+	m := p.marks[k]
+	if !annIsChangeMark(m.kind) {
+		return "", &SpecReviewAnnotationError{Message: markID + " is a " + string(m.kind) + " mark, not a change"}
+	}
+	if m.commentIndex >= 0 {
+		return "", &SpecReviewAnnotationError{Message: markID + " already has a comment; edit it instead"}
+	}
+	comment, err := annCheckInlineComment(text)
+	if err != nil {
+		return "", err
+	}
+	if author != "" && !annMemberIDRE.MatchString(author) {
+		return "", &SpecReviewAnnotationError{Message: "\"" + author + "\" is not a member id"}
+	}
+	d := "~~"
+	switch m.kind {
+	case SpecMarkKindInsertion:
+		d = "++"
+	case SpecMarkKindDeletion:
+		d = "--"
+	}
+	body := m.text
+	if m.kind == SpecMarkKindSubstitution {
+		body = m.text + " ~> " + *m.newText
+	}
+	if strings.Contains(body, d+"]") || strings.Contains(body, "<<}") {
+		return "", &SpecReviewAnnotationError{Message: markID + " holds \"" + d + "]\" or \"<<}\", which its quote cannot hold"}
+	}
+	markup := "{>> [" + d + " " + body + " " + d + "] " + comment + " <<}"
+	if author != "" {
+		markup += "{@" + author + "}"
+	}
+	r.set(v.path, v.field, v.text[:m.end]+markup+v.text[m.end:])
+	n, _ := strconv.Atoi(markID[2:])
+	return "M-" + strconv.Itoa(n+1), nil
+}
+
+// EditMarkComment replaces the comment of the comment mark, change comment
+// or commented highlight markID with text (SOM §11.9.3). A change comment
+// keeps its quote as written, and the attribution token stays. Refused with
+// a SpecReviewAnnotationError — nothing changes — for an unknown id, a stale
+// revision (when not ""), a mark that holds no comment, and a text that is
+// empty or holds a mark delimiter or a blank line.
+func (r *SpecReviewAnnotations) EditMarkComment(markID, text, revision string) error {
+	v, p, k, err := r.findMark(markID, revision)
+	if err != nil {
+		return err
+	}
+	m := p.marks[k]
+	comment, err := annCheckInlineComment(text)
+	if err != nil {
+		return err
+	}
+	var markup string
+	switch {
+	case m.kind == SpecMarkKindComment:
+		if q := m.quote; q == nil {
+			markup = "{>> " + comment + " <<}"
+		} else {
+			markup = "{>> " + strings.TrimLeftFunc(v.text[m.start+3:q.end], unicode.IsSpace) + " " + comment + " <<}"
+		}
+	case m.kind == SpecMarkKindHighlight && m.comment != nil:
+		markup = "{== " + m.text + " ==}{>> " + comment + " <<}"
+	default:
+		return &SpecReviewAnnotationError{Message: markID + " holds no comment"}
+	}
+	r.set(v.path, v.field, v.text[:m.start]+markup+v.text[m.bodyEnd:])
+	return nil
 }
 
 // RemoveAllAnnotations removes every annotation and writes the result back:
@@ -2832,7 +3300,7 @@ func (r *SpecReviewAnnotations) RemoveAllAnnotations() (SpecMarkReport, error) {
 	if err != nil {
 		return SpecMarkReport{}, err
 	}
-	report := r.AcceptAllMarks("")
+	report := r.applyMarks(func(string, *annMark) SpecMarkDecision { return SpecMarkDecisionAccept }, "")
 	report.Conflicts = []SpecConflictOutcome{}
 	for _, v := range r.values() {
 		value := v.text
@@ -2975,9 +3443,10 @@ func (r *SpecReviewAnnotations) applyConflict(path, field, value string, c *annC
 // against the value there now (SOM §11.9.3). A value that already holds
 // change marks is compared from its original — every mark rejected — so a
 // second edit of the same passage updates its mark instead of nesting one.
+// Change comments stay: each is taken out of the original and written back
+// after the same number of non-whitespace characters (SOM §11.9.3).
 func (r *SpecReviewAnnotations) SetMarked(path, field, text string) SpecMarkedChange {
-	base := ApplyInlineMarksText(r.get(path, field), false)
-	result := MarkChangeText(base, text)
+	result := annMarkKeepingChangeComments(r.get(path, field), text)
 	r.set(path, field, result.Text)
 	return result
 }

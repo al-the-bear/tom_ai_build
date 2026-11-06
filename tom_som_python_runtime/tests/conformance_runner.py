@@ -104,6 +104,7 @@ from tom_som_runtime import (  # noqa: E402
     encode_two_letter_date,
     generate_list_item_section_id,
     apply_inline_marks_text,
+    decide_all_marks_text,
     mark_change_text,
     validate_document,
     validate_spec_document,
@@ -1107,6 +1108,22 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
         return api.reject_all_marks(path=op.get("path")).to_json(team=team)
     if kind == "removeAll":
         return api.remove_all_annotations().to_json(team=team)
+    if kind == "commentChange":
+        rev = op.get("revision")
+        return api.comment_change(
+            op["id"],
+            op["text"],
+            author=op.get("author"),
+            revision=api.revision() if rev == "@current" else rev,
+        )
+    if kind == "editMarkComment":
+        rev = op.get("revision")
+        api.edit_mark_comment(
+            op["id"],
+            op["text"],
+            revision=api.revision() if rev == "@current" else rev,
+        )
+        return None
     if kind == "setMarked":
         return api.set_marked(op["path"], op["text"], field=op.get("field")).to_json()
     if kind == "markAgainst":
@@ -1246,6 +1263,14 @@ def test_inline_marks(model: SpecModel, tree) -> None:
                 got == c[key],
                 f"got {got!r}, want {c[key]!r}",
             )
+    for c in table["changeCommentTextCases"]:
+        name = f"change comments text[{c['name']}]"
+        for accept, key in ((True, "accept"), (False, "reject")):
+            got = decide_all_marks_text(c["text"], accept=accept)
+            _check(f"{name}.{key}", got == c[key], f"got {got!r}, want {c[key]!r}")
+        got = apply_inline_marks_text(c["text"], accept=True)
+        _check(f"{name}.removed", got == c["removed"],
+               f"got {got!r}, want {c['removed']!r}")
     for case in table["cases"]:
         got = _run_annotation_case(model, tree, case)
         _check(

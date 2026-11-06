@@ -195,6 +195,7 @@ export {
   formatCommentBlock,
   formatQuestionBlock,
   applyInlineMarksText,
+  decideAllMarksText,
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,

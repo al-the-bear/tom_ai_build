@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.function.IntUnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -354,6 +354,15 @@ public final class SpecReviewAnnotations {
     List<String> authors = Collections.emptyList();
     List<SpecMarkVote> votes = Collections.emptyList();
 
+    /** A comment mark's quote of a change (SOM §11.9.3), or null. */
+    Quote quote;
+
+    /** The index (among the value's marks) of the change this change comment is attached to. */
+    Integer changeIndex;
+
+    /** The index of this change's attached comment, or null. */
+    Integer commentIndex;
+
     Mark(int start, int end, int line, SpecMarkKind kind, String text, String newText, String comment) {
       this.start = start;
       this.end = end;
@@ -363,6 +372,174 @@ public final class SpecReviewAnnotations {
       this.text = text;
       this.newText = newText;
       this.comment = comment;
+    }
+  }
+
+  /** The quote a change comment opens with (SOM §11.9.3); offsets are into the value. */
+  private static final class Quote {
+    final SpecMarkKind kind;
+    final String oldText;
+    final String newText;
+
+    /** {@code accepted}, {@code rejected}, or null while the change is open. */
+    final String outcome;
+
+    /** Right after the quote's closing delimiter. */
+    final int delimEnd;
+
+    /** Right after the quote's {@code ]}. */
+    final int end;
+
+    /** The comment: the text after the quote, trimmed. */
+    final String comment;
+
+    Quote(
+        SpecMarkKind kind,
+        String oldText,
+        String newText,
+        String outcome,
+        int delimEnd,
+        int end,
+        String comment) {
+      this.kind = kind;
+      this.oldText = oldText;
+      this.newText = newText;
+      this.outcome = outcome;
+      this.delimEnd = delimEnd;
+      this.end = end;
+      this.comment = comment;
+    }
+
+    Map<String, Object> toJson() {
+      Map<String, Object> out = new LinkedHashMap<>();
+      out.put("kind", kind.value);
+      out.put("oldText", oldText);
+      out.put("newText", newText);
+      out.put("outcome", outcome);
+      return out;
+    }
+  }
+
+  private static SpecMarkKind quoteKind(String d) {
+    switch (d) {
+      case "++":
+        return SpecMarkKind.INSERTION;
+      case "--":
+        return SpecMarkKind.DELETION;
+      case "~~":
+        return SpecMarkKind.SUBSTITUTION;
+      default:
+        return null;
+    }
+  }
+
+  private static boolean isBlankChar(char c) {
+    return c == ' ' || c == '\t';
+  }
+
+  /**
+   * Reads the quote at the start of a comment mark's inner text {@code s}, whose first character is
+   * at value offset {@code at}: a {@link Quote}, null when {@code s} opens no quote, or the issue
+   * ({@code unclosed}, {@code noArrow}) of one that is malformed.
+   */
+  private static Object readQuote(String s, int at) {
+    int a = 0;
+    while (a < s.length() && " \t\r\n".indexOf(s.charAt(a)) >= 0) {
+      a++;
+    }
+    if (a + 3 > s.length() || s.charAt(a) != '[') {
+      return null;
+    }
+    String d = s.substring(a + 1, a + 3);
+    SpecMarkKind kind = quoteKind(d);
+    if (kind == null) {
+      return null;
+    }
+    int j = s.indexOf(d, a + 3);
+    while (j >= 0) {
+      int t = j + 2;
+      while (t < s.length() && isBlankChar(s.charAt(t))) {
+        t++;
+      }
+      String outcome = null;
+      int close = -1;
+      if (t < s.length() && s.charAt(t) == ']') {
+        close = t;
+      } else if (t < s.length() && s.charAt(t) == '|') {
+        t++;
+        while (t < s.length() && isBlankChar(s.charAt(t))) {
+          t++;
+        }
+        for (String w : new String[] {"accepted", "rejected"}) {
+          if (!s.startsWith(w, t)) {
+            continue;
+          }
+          int u = t + w.length();
+          while (u < s.length() && isBlankChar(s.charAt(u))) {
+            u++;
+          }
+          if (u < s.length() && s.charAt(u) == ']') {
+            outcome = w;
+            close = u;
+          }
+          break;
+        }
+      }
+      if (close >= 0) {
+        String body = s.substring(a + 3, j);
+        String oldText = "";
+        String newText = "";
+        switch (kind) {
+          case INSERTION:
+            newText = trim(body);
+            break;
+          case DELETION:
+            oldText = trim(body);
+            break;
+          default:
+            {
+              int arrow = body.indexOf("~>");
+              if (arrow < 0) {
+                return "noArrow";
+              }
+              oldText = trim(body.substring(0, arrow));
+              newText = trim(body.substring(arrow + 2));
+            }
+        }
+        return new Quote(
+            kind,
+            oldText,
+            newText,
+            outcome,
+            at + j + 2,
+            at + close + 1,
+            trim(s.substring(close + 1)));
+      }
+      j = s.indexOf(d, j + 1);
+    }
+    return "unclosed";
+  }
+
+  /**
+   * Links each change comment to the change written directly before it whose kind and texts it
+   * quotes (SOM §11.9.3).
+   */
+  private static void attachChangeComments(List<Mark> marks) {
+    for (int k = 1; k < marks.size(); k++) {
+      Quote q = marks.get(k).quote;
+      Mark c = marks.get(k - 1);
+      if (q == null || q.outcome != null || !isChangeMark(c.kind)) {
+        continue;
+      }
+      if (c.end != marks.get(k).start || c.kind != q.kind) {
+        continue;
+      }
+      if (!markReplacement(c, false).equals(q.oldText)
+          || !markReplacement(c, true).equals(q.newText)) {
+        continue;
+      }
+      marks.get(k).changeIndex = k - 1;
+      c.commentIndex = k;
     }
   }
 
@@ -957,6 +1134,7 @@ public final class SpecReviewAnnotations {
       int segEnd = lineStart[k - 1] + p.lines.get(k - 1).length();
       scanSegment(p, value.substring(segStart, segEnd), segStart, lineOf);
     }
+    attachChangeComments(p.marks);
   }
 
   private static void scanSegment(Parsed p, String seg, int base, IntUnaryOperator lineOf) {
@@ -1036,8 +1214,27 @@ public final class SpecReviewAnnotations {
       int before = p.marks.size();
       switch (opener) {
         case "{>>":
-          p.marks.add(new Mark(base + i, base + end, line, SpecMarkKind.COMMENT, "", null, trim(in)));
-          break;
+          {
+            Mark cm = new Mark(base + i, base + end, line, SpecMarkKind.COMMENT, "", null, trim(in));
+            Object q = readQuote(in, base + i + 3);
+            if (q instanceof Quote) {
+              cm.quote = (Quote) q;
+            } else if ("unclosed".equals(q)) {
+              p.malformed.add(
+                  "line "
+                      + line
+                      + ": the quote of a change comment is not closed; it is read as a plain"
+                      + " comment (SOM §11.9.3)");
+            } else if ("noArrow".equals(q)) {
+              p.malformed.add(
+                  "line "
+                      + line
+                      + ": the quote of a change comment has no \"~>\"; it is read as a plain"
+                      + " comment (SOM §11.9.3)");
+            }
+            p.marks.add(cm);
+            break;
+          }
         case "{==":
           {
             String comment = null;
@@ -1603,6 +1800,176 @@ public final class SpecReviewAnnotations {
       v = replaceMark(v, m, markReplacement(m, accept));
     }
     return v;
+  }
+
+  /**
+   * {@code value} with every inline mark accepted ({@code accept}) or rejected, as accept all /
+   * reject all write it (SOM §11.9.3): change comments stay, an attached one records the outcome;
+   * every other highlight and comment mark is removed. Marks in code and malformed marks stay as
+   * written.
+   */
+  public static String decideAllMarksText(String value, boolean accept) {
+    List<Mark> marks = parse(value).marks;
+    String v = value;
+    for (int k = marks.size() - 1; k >= 0; k--) {
+      if (marks.get(k).quote != null) {
+        continue;
+      }
+      v = decideMark(v, marks, k, accept);
+    }
+    return v;
+  }
+
+  /**
+   * {@code value} with the mark {@code k} of {@code marks} decided; a change's attached comment
+   * records the outcome (SOM §11.9.3).
+   */
+  private static String decideMark(String value, List<Mark> marks, int k, boolean accept) {
+    Mark m = marks.get(k);
+    String v = value;
+    Integer ci = m.commentIndex;
+    if (ci != null) {
+      v = recordOutcome(v, marks.get(ci).quote, accept);
+    }
+    return replaceMark(v, m, markReplacement(m, accept));
+  }
+
+  /**
+   * {@code value} with the outcome written into the quote {@code q}: everything from its closing
+   * delimiter to its {@code ]} becomes {@code " | accepted]"} or {@code " | rejected]"}.
+   */
+  private static String recordOutcome(String value, Quote q, boolean accept) {
+    return value.substring(0, q.delimEnd)
+        + " | "
+        + (accept ? "accepted" : "rejected")
+        + "]"
+        + value.substring(q.end);
+  }
+
+  private static final Pattern BLANK_LINE_IN = Pattern.compile("\\n[ \\t\\r]*\\n");
+
+  /**
+   * The trimmed {@code text} of an inline comment, refused when it is empty or holds a mark
+   * delimiter or a blank line.
+   */
+  private static String checkInlineComment(String text) {
+    String t = trim(text);
+    if (t.isEmpty()) {
+      throw new SpecReviewAnnotationError("a comment needs text");
+    }
+    boolean delimiter = t.contains("<<}");
+    for (String o : OPENERS) {
+      delimiter = delimiter || t.contains(o);
+    }
+    if (delimiter || BLANK_LINE_IN.matcher(t).find()) {
+      throw new SpecReviewAnnotationError(
+          "a comment cannot hold a mark delimiter or a blank line");
+    }
+    return t;
+  }
+
+  /** The whitespace of the change-comment anchors (SOM §11.9.3). */
+  private static boolean isAnchorSpace(char c) {
+    return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+  }
+
+  private static int nonSpaceCount(String s) {
+    int n = 0;
+    for (int i = 0; i < s.length(); i++) {
+      if (!isAnchorSpace(s.charAt(i))) {
+        n++;
+      }
+    }
+    return n;
+  }
+
+  /** Where {@code k} non-whitespace characters of {@code r} (with its marks {@code rm}) pass. */
+  private static int anchorPlace(String r, List<Mark> rm, int k) {
+    if (k == 0) {
+      return 0;
+    }
+    int n = 0;
+    int i = 0;
+    int mi = 0;
+    while (i < r.length()) {
+      if (mi < rm.size() && rm.get(mi).start == i) {
+        Mark m = rm.get(mi++);
+        n += m.kind == SpecMarkKind.INSERTION ? 0 : nonSpaceCount(m.text);
+        i = m.end;
+        if (n >= k) {
+          return i;
+        }
+        continue;
+      }
+      if (!isAnchorSpace(r.charAt(i))) {
+        n++;
+      }
+      i++;
+      if (n >= k) {
+        return i;
+      }
+    }
+    return r.length();
+  }
+
+  /**
+   * {@code setMarked} with the value's change comments kept (SOM §11.9.3): taken out of the
+   * original, then written back where their anchor falls.
+   */
+  private static SpecMarkedChange markKeepingChangeComments(String current, String text) {
+    // 1. The original: every mark rejected except the change comments.
+    String original = current;
+    List<Mark> marks = parse(current).marks;
+    for (int k = marks.size() - 1; k >= 0; k--) {
+      if (marks.get(k).quote != null) {
+        continue;
+      }
+      original = replaceMark(original, marks.get(k), markReplacement(marks.get(k), false));
+    }
+    // 2. Each change comment's markup, anchor and leading space.
+    List<Mark> kept = new ArrayList<>();
+    for (Mark m : parse(original).marks) {
+      if (m.quote != null) {
+        kept.add(m);
+      }
+    }
+    List<String> markups = new ArrayList<>();
+    List<Integer> counts = new ArrayList<>();
+    List<Boolean> spaces = new ArrayList<>();
+    int counted = 0;
+    int from = 0;
+    for (Mark m : kept) {
+      counted += nonSpaceCount(original.substring(from, m.start));
+      from = m.end;
+      markups.add(original.substring(m.start, m.end));
+      counts.add(counted);
+      spaces.add(m.start > 0 && isBlankChar(original.charAt(m.start - 1)));
+    }
+    // 3. Removed, compared.
+    String base = original;
+    for (int k = kept.size() - 1; k >= 0; k--) {
+      base = replaceMark(base, kept.get(k), "");
+    }
+    SpecMarkedChange result = markChangeText(base, text);
+    if (kept.isEmpty()) {
+      return result;
+    }
+    // 4. Written back where k non-whitespace characters have passed.
+    String r = result.text;
+    List<Mark> rm = parse(r).marks;
+    int[] at = new int[kept.size()];
+    for (int j = 0; j < kept.size(); j++) {
+      at[j] = anchorPlace(r, rm, counts.get(j));
+    }
+    String out = r;
+    for (int j = kept.size() - 1; j >= 0; j--) {
+      out =
+          out.substring(0, at[j])
+              + (spaces.get(j) ? " " : "")
+              + markups.get(j)
+              + out.substring(at[j]);
+    }
+    return new SpecMarkedChange(out, result.exact);
   }
 
   /**
@@ -2187,8 +2554,7 @@ public final class SpecReviewAnnotations {
       throw new SpecReviewAnnotationError(
           "no inline mark " + index + " at " + path + (field == null ? "" : " / " + field));
     }
-    Mark m = marks.get(index);
-    set(path, field, replaceMark(value, m, markReplacement(m, accept)));
+    set(path, field, decideMark(value, marks, index, accept));
   }
 
   private static final long FNV_OFFSET = 0xcbf29ce484222325L;
@@ -2238,6 +2604,7 @@ public final class SpecReviewAnnotations {
     for (Value v : values()) {
       Parsed p = parse(v.text);
       List<int[]> paras = paragraphs(p.lines, p.code);
+      int first = n + 1;
       for (Mark m : p.marks) {
         String id = "M-" + (++n);
         if (!under(v.path, path)) {
@@ -2259,11 +2626,14 @@ public final class SpecReviewAnnotations {
                 m.kind,
                 markReplacement(m, false),
                 markReplacement(m, true),
-                m.comment,
+                m.quote != null ? m.quote.comment : m.comment,
                 v.text.substring(m.start, m.end),
                 String.join("\n", p.lines.subList(para[0], para[1] + 1)),
                 m.authors,
-                m.votes));
+                m.votes,
+                m.quote == null ? null : m.quote.toJson(),
+                m.commentIndex == null ? null : "M-" + (first + m.commentIndex),
+                m.changeIndex == null ? null : "M-" + (first + m.changeIndex)));
       }
     }
     return out;
@@ -2273,7 +2643,8 @@ public final class SpecReviewAnnotations {
    * Applies {@code decide} to every mark in the subtree {@code underPath} (null: the whole
    * document), one write per value.
    */
-  private SpecMarkReport applyMarks(Function<String, SpecMarkDecision> decide, String underPath) {
+  private SpecMarkReport applyMarks(
+      BiFunction<String, Mark, SpecMarkDecision> decide, String underPath) {
     List<SpecMarkOutcome> applied = new ArrayList<>();
     List<SpecMarkIssue> issues = new ArrayList<>();
     int n = 0;
@@ -2291,13 +2662,21 @@ public final class SpecReviewAnnotations {
       }
       String v = val.text;
       List<SpecMarkOutcome> outcomes = new ArrayList<>();
+      SpecMarkDecision[] decided = new SpecMarkDecision[p.marks.size()];
+      for (int k = 0; k < p.marks.size(); k++) {
+        decided[k] = decide.apply(ids.get(k), p.marks.get(k));
+      }
       for (int k = p.marks.size() - 1; k >= 0; k--) {
-        SpecMarkDecision d = decide.apply(ids.get(k));
-        if (d == null || d == SpecMarkDecision.LEAVE) {
+        if (!isDecided(decided[k])) {
           continue;
         }
+        SpecMarkDecision d = decided[k];
         Mark m = p.marks.get(k);
         String repl = markReplacement(m, d == SpecMarkDecision.ACCEPT);
+        Integer ci = m.commentIndex;
+        if (ci != null && !isDecided(decided[ci])) {
+          v = recordOutcome(v, p.marks.get(ci).quote, d == SpecMarkDecision.ACCEPT);
+        }
         outcomes.add(
             0,
             new SpecMarkOutcome(
@@ -2317,6 +2696,10 @@ public final class SpecReviewAnnotations {
       applied.addAll(outcomes);
     }
     return new SpecMarkReport(applied, issues);
+  }
+
+  private static boolean isDecided(SpecMarkDecision d) {
+    return d != null && d != SpecMarkDecision.LEAVE;
   }
 
   /**
@@ -2343,7 +2726,7 @@ public final class SpecReviewAnnotations {
         throw new SpecReviewAnnotationError("no inline mark " + id + " in the document");
       }
     }
-    return applyMarks(decisions::get, null);
+    return applyMarks((id, m) -> decisions.get(id), null);
   }
 
   /** Accepts every inline mark of the document. */
@@ -2351,9 +2734,12 @@ public final class SpecReviewAnnotations {
     return acceptAllMarks(null);
   }
 
-  /** Accepts every inline mark under {@code path} (null: the whole document). */
+  /**
+   * Accepts every inline mark under {@code path} (null: the whole document), except change
+   * comments, which stay (SOM §11.9.3).
+   */
   public SpecMarkReport acceptAllMarks(String path) {
-    return applyMarks(id -> SpecMarkDecision.ACCEPT, path);
+    return applyMarks((id, m) -> m.quote == null ? SpecMarkDecision.ACCEPT : null, path);
   }
 
   /** Rejects every inline mark of the document. */
@@ -2361,9 +2747,144 @@ public final class SpecReviewAnnotations {
     return rejectAllMarks(null);
   }
 
-  /** Rejects every inline mark under {@code path} (null: the whole document). */
+  /**
+   * Rejects every inline mark under {@code path} (null: the whole document), except change
+   * comments, which stay (SOM §11.9.3).
+   */
   public SpecMarkReport rejectAllMarks(String path) {
-    return applyMarks(id -> SpecMarkDecision.REJECT, path);
+    return applyMarks((id, m) -> m.quote == null ? SpecMarkDecision.REJECT : null, path);
+  }
+
+  /** A mark found by its id, with its value. */
+  private static final class FoundMark {
+    final Value value;
+    final Parsed parsed;
+    final int index;
+
+    FoundMark(Value value, Parsed parsed, int index) {
+      this.value = value;
+      this.parsed = parsed;
+      this.index = index;
+    }
+  }
+
+  /**
+   * The mark {@code M-<n>} {@code markId} with its value, refused when the document is no longer at
+   * {@code revision} (when given) or holds no such mark.
+   */
+  private FoundMark findMark(String markId, String revision) {
+    if (revision != null) {
+      String current = revision();
+      if (!revision.equals(current)) {
+        throw new SpecReviewAnnotationError(
+            "the document changed since revision "
+                + revision
+                + " (now "
+                + current
+                + "); list the marks again");
+      }
+    }
+    int n = 0;
+    for (Value v : values()) {
+      Parsed p = parse(v.text);
+      for (int k = 0; k < p.marks.size(); k++) {
+        if (("M-" + (++n)).equals(markId)) {
+          return new FoundMark(v, p, k);
+        }
+      }
+    }
+    throw new SpecReviewAnnotationError("no inline mark " + markId + " in the document");
+  }
+
+  /** {@link #commentChange(String, String, String, String)} without an author or revision. */
+  public String commentChange(String markId, String text) {
+    return commentChange(markId, text, null, null);
+  }
+
+  /**
+   * Writes a change comment (SOM §11.9.3) directly after the change mark {@code markId}, its quote
+   * written from the mark and {@code text} after it, with an attribution token {@code {@author}}
+   * when {@code author} is given (null: none), and returns the new comment's id. Refused — nothing
+   * changes — for an unknown id, a stale {@code revision} (null: not checked), a mark that is not a
+   * change or already has an attached comment, a change its quote cannot hold, a {@code text} that
+   * is empty or holds a mark delimiter or a blank line, and an {@code author} that is not a member
+   * id.
+   */
+  public String commentChange(String markId, String text, String author, String revision) {
+    FoundMark f = findMark(markId, revision);
+    Mark m = f.parsed.marks.get(f.index);
+    String value = f.value.text;
+    if (!isChangeMark(m.kind)) {
+      throw new SpecReviewAnnotationError(
+          markId + " is a " + m.kind.value + " mark, not a change");
+    }
+    if (m.commentIndex != null) {
+      throw new SpecReviewAnnotationError(markId + " already has a comment; edit it instead");
+    }
+    String comment = checkInlineComment(text);
+    if (author != null && !isReviewMemberId(author)) {
+      throw new SpecReviewAnnotationError("\"" + author + "\" is not a member id");
+    }
+    String d;
+    switch (m.kind) {
+      case INSERTION:
+        d = "++";
+        break;
+      case DELETION:
+        d = "--";
+        break;
+      default:
+        d = "~~";
+    }
+    String body = m.kind == SpecMarkKind.SUBSTITUTION ? m.text + " ~> " + m.newText : m.text;
+    if (body.contains(d + "]") || body.contains("<<}")) {
+      throw new SpecReviewAnnotationError(
+          markId + " holds \"" + d + "]\" or \"<<}\", which its quote cannot hold");
+    }
+    String markup =
+        "{>> [" + d + " " + body + " " + d + "] " + comment + " <<}"
+            + (author == null ? "" : "{@" + author + "}");
+    set(
+        f.value.path,
+        f.value.field,
+        value.substring(0, m.end) + markup + value.substring(m.end));
+    return "M-" + (Integer.parseInt(markId.substring(2)) + 1);
+  }
+
+  /** {@link #editMarkComment(String, String, String)} without a revision check. */
+  public void editMarkComment(String markId, String text) {
+    editMarkComment(markId, text, null);
+  }
+
+  /**
+   * Replaces the comment of the comment mark, change comment or commented highlight {@code markId}
+   * with {@code text} (SOM §11.9.3). A change comment keeps its quote as written, and the
+   * attribution token stays. Refused — nothing changes — for an unknown id, a stale {@code
+   * revision} (null: not checked), a mark that holds no comment, and a {@code text} that is empty
+   * or holds a mark delimiter or a blank line.
+   */
+  public void editMarkComment(String markId, String text, String revision) {
+    FoundMark f = findMark(markId, revision);
+    Mark m = f.parsed.marks.get(f.index);
+    String value = f.value.text;
+    String comment = checkInlineComment(text);
+    String markup;
+    if (m.kind == SpecMarkKind.COMMENT) {
+      Quote q = m.quote;
+      int open = m.start + 3;
+      markup =
+          q == null
+              ? "{>> " + comment + " <<}"
+              : "{>> " + trimLeft(value.substring(open, q.end)) + " " + comment + " <<}";
+    } else if (m.kind == SpecMarkKind.HIGHLIGHT && m.comment != null) {
+      markup = "{== " + m.text + " ==}{>> " + comment + " <<}";
+    } else {
+      throw new SpecReviewAnnotationError(markId + " holds no comment");
+    }
+    set(
+        f.value.path,
+        f.value.field,
+        value.substring(0, m.start) + markup + value.substring(m.bodyEnd));
   }
 
   /**
@@ -2374,7 +2895,7 @@ public final class SpecReviewAnnotations {
    */
   public SpecMarkReport removeAllAnnotations() {
     List<DecidedConflict> decided = decidedConflicts();
-    SpecMarkReport marks = acceptAllMarks();
+    SpecMarkReport marks = applyMarks((id, m) -> SpecMarkDecision.ACCEPT, null);
     List<SpecConflictOutcome> outcomes = new ArrayList<>();
     for (Value val : values()) {
       String v = val.text;
@@ -2517,8 +3038,7 @@ public final class SpecReviewAnnotations {
    * instead of nesting one.
    */
   public SpecMarkedChange setMarked(String path, String field, String text) {
-    String base = applyInlineMarksText(get(path, field), false);
-    SpecMarkedChange result = markChangeText(base, text);
+    SpecMarkedChange result = markKeepingChangeComments(get(path, field), text);
     set(path, field, result.text);
     return result;
   }

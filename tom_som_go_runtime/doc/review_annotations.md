@@ -13,6 +13,7 @@ value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -125,9 +126,10 @@ Record each applied comment or answer in the project's log **before**
 | `Revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
 | `ListMarks(path)` | Every inline mark of the document (`path` `""`) or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
 | `DecideMarks(decisions, revision)` | One write: `map[id]SpecMarkDecision` with `SpecMarkDecisionAccept` / `…Reject` / `…Leave`. Refused with a `*SpecReviewAnnotationError` when the document is no longer at `revision`, or when an id is unknown |
-| `AcceptAllMarks(path)`, `RejectAllMarks(path)` | Every mark under a path, or in the whole document (`""`) |
-| `RemoveAllAnnotations()` | Every mark accepted, every conflict's decision applied, and every comment, question and conflict block removed, written back. Refused while a conflict is open, unresolved or malformed (see [Team reviews](#team-reviews)) |
-| `ApplyInlineMarksText(text, accept)` | One value with every mark accepted or rejected |
+| `AcceptAllMarks(path)`, `RejectAllMarks(path)` | Every mark under a path, or in the whole document (`""`), except change comments, which stay |
+| `RemoveAllAnnotations()` | Every mark accepted (change comments removed too), every conflict's decision applied, and every comment, question and conflict block removed, written back. Refused while a conflict is open, unresolved or malformed (see [Team reviews](#team-reviews)) |
+| `DecideAllMarksText(text, accept)` | One value as accept all / reject all write it |
+| `ApplyInlineMarksText(text, accept)` | One value with every mark accepted or rejected and every comment removed |
 
 Each returns a `SpecMarkReport`. `Applied` holds one `SpecMarkOutcome` per
 mark: id, kind, path, decision, markup and result. `Malformed` holds the
@@ -172,6 +174,43 @@ r := som.MarkChangeText(
 )
 fmt.Println(r.Text) // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `ListMarks(path)` | A change comment's entry carries `QuotedChange` (`kind`, `oldText`, `newText`, `outcome`) and `ChangeID`, its `Comment` being the text after the quote. Its change's entry carries `CommentID` |
+| `DecideMarks`, `ApplyMark`, `AcceptAllMarks`, `RejectAllMarks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `CommentChange(markID, text, author, revision)` | Writes a change comment after the change `markID`, its quote taken from the mark; returns the comment's id. `author` and `revision` may be `""` |
+| `EditMarkComment(markID, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `SetMarked(...)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+`CommentChange` and `EditMarkComment` return a `*SpecReviewAnnotationError`
+and change nothing for an unknown id, a stale revision, a mark they cannot
+comment, or a text that is empty or holds a mark delimiter or a blank line.
+A quote opened and never closed makes the comment a plain one, and
+`Validate()` reports it as `annotationMalformed`.
+
+```go
+review := som.NewSpecReviewAnnotations(doc, "")
+change := review.ListMarks("")[0] // {~~ 30 ~> 15 ~~}
+commentID, err := review.CommentChange(change.ID, "why shorter?", "alice", review.Revision())
+if err != nil {
+	return err
+}
+_, err = review.DecideMarks(map[string]som.SpecMarkDecision{
+	change.ID: som.SpecMarkDecisionAccept,
+}, review.Revision())
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+```
+
+`commentID` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 

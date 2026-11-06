@@ -711,6 +711,15 @@ pub struct SpecMarkEntry {
     pub authors: Vec<String>,
     /// The votes its attribution token records; empty without one.
     pub votes: Vec<SpecMarkVote>,
+    /// A change comment's quote (SOM §11.9.3): `kind`, `oldText`, `newText`
+    /// and `outcome`; `None` for any other mark. Its
+    /// [`comment`](Self::comment) is the text after the quote.
+    pub quoted_change: Option<Json>,
+    /// A change's attached comment, by id; `None` without one.
+    pub comment_id: Option<String>,
+    /// The change an attached change comment is about, by id; `None`
+    /// otherwise.
+    pub change_id: Option<String>,
 }
 
 impl SpecMarkEntry {
@@ -721,6 +730,8 @@ impl SpecMarkEntry {
     }
 
     /// The canonical JSON form; `options.team` adds `authors` and `votes`.
+    /// `quotedChange`, `commentId` and `changeId` appear only on the marks
+    /// they describe.
     pub fn to_json_with(&self, options: SpecReviewJsonOptions) -> Json {
         let mut pairs = vec![
             ("id", json_str(&self.id)),
@@ -734,6 +745,15 @@ impl SpecMarkEntry {
             ("markup", json_str(&self.markup)),
             ("context", json_str(&self.context)),
         ];
+        if let Some(q) = &self.quoted_change {
+            pairs.push(("quotedChange", q.clone()));
+        }
+        if let Some(id) = &self.comment_id {
+            pairs.push(("commentId", json_str(id)));
+        }
+        if let Some(id) = &self.change_id {
+            pairs.push(("changeId", json_str(id)));
+        }
         if options.team {
             pairs.push(("authors", json_strs(&self.authors)));
             pairs.push(("votes", votes_json(&self.votes)));
@@ -1097,6 +1117,149 @@ struct Mark {
     comment: Option<String>,
     authors: Vec<String>,
     votes: Vec<SpecMarkVote>,
+    /// A comment mark's quote of a change (SOM §11.9.3), or `None`.
+    quote: Option<Quote>,
+    /// The index (among the value's marks) of the change this change comment
+    /// is attached to, or `None`.
+    change_index: Option<usize>,
+    /// The index of this change's attached comment, or `None`.
+    comment_index: Option<usize>,
+}
+
+/// The quote a change comment opens with (SOM §11.9.3); offsets are byte
+/// offsets into the value.
+#[derive(Debug, Clone)]
+struct Quote {
+    kind: SpecMarkKind,
+    old_text: String,
+    new_text: String,
+    /// `accepted`, `rejected`, or `None` while the change is open.
+    outcome: Option<&'static str>,
+    /// Right after the quote's closing delimiter.
+    delim_end: usize,
+    /// Right after the quote's `]`.
+    end: usize,
+    /// The comment: the text after the quote, trimmed.
+    comment: String,
+}
+
+impl Quote {
+    fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("kind", json_str(self.kind.name())),
+            ("oldText", json_str(&self.old_text)),
+            ("newText", json_str(&self.new_text)),
+            ("outcome", self.outcome.map(json_str).unwrap_or(Json::Null)),
+        ])
+    }
+}
+
+fn is_blank_char(c: u8) -> bool {
+    c == b' ' || c == b'\t'
+}
+
+/// Reads the quote at the start of a comment mark's inner text `s`, whose
+/// first byte is at value offset `at`: `Ok(Some(quote))`, `Ok(None)` when `s`
+/// opens no quote, or `Err(issue)` (`unclosed`, `noArrow`) for a quote that
+/// is malformed.
+fn read_quote(s: &str, at: usize) -> Result<Option<Quote>, &'static str> {
+    let b = s.as_bytes();
+    let mut a = 0;
+    while a < b.len() && matches!(b[a], b' ' | b'\t' | b'\r' | b'\n') {
+        a += 1;
+    }
+    if a + 3 > b.len() || b[a] != b'[' {
+        return Ok(None);
+    }
+    let d = &b[a + 1..a + 3];
+    let kind = match d {
+        b"++" => SpecMarkKind::Insertion,
+        b"--" => SpecMarkKind::Deletion,
+        b"~~" => SpecMarkKind::Substitution,
+        _ => return Ok(None),
+    };
+    // `d` is ASCII, so `a + 3` is a char boundary.
+    let d = &s[a + 1..a + 3];
+    let mut j = find_from(s, d, a + 3);
+    while let Some(jj) = j {
+        let mut t = jj + 2;
+        while t < b.len() && is_blank_char(b[t]) {
+            t += 1;
+        }
+        let mut outcome = None;
+        let mut close = None;
+        if t < b.len() && b[t] == b']' {
+            close = Some(t);
+        } else if t < b.len() && b[t] == b'|' {
+            t += 1;
+            while t < b.len() && is_blank_char(b[t]) {
+                t += 1;
+            }
+            for w in ["accepted", "rejected"] {
+                if !b[t..].starts_with(w.as_bytes()) {
+                    continue;
+                }
+                let mut u = t + w.len();
+                while u < b.len() && is_blank_char(b[u]) {
+                    u += 1;
+                }
+                if u < b.len() && b[u] == b']' {
+                    outcome = Some(w);
+                    close = Some(u);
+                }
+                break;
+            }
+        }
+        if let Some(close) = close {
+            let body = &s[a + 3..jj];
+            let (old_text, new_text) = match kind {
+                SpecMarkKind::Insertion => (String::new(), body.trim().to_string()),
+                SpecMarkKind::Deletion => (body.trim().to_string(), String::new()),
+                _ => {
+                    let Some(arrow) = body.find("~>") else {
+                        return Err("noArrow");
+                    };
+                    (
+                        body[..arrow].trim().to_string(),
+                        body[arrow + 2..].trim().to_string(),
+                    )
+                }
+            };
+            return Ok(Some(Quote {
+                kind,
+                old_text,
+                new_text,
+                outcome,
+                delim_end: at + jj + 2,
+                end: at + close + 1,
+                comment: s[close + 1..].trim().to_string(),
+            }));
+        }
+        // Step one byte on (the delimiter is ASCII): the next delimiter may
+        // overlap this one.
+        j = find_from(s, d, jj + 1);
+    }
+    Err("unclosed")
+}
+
+/// Links each change comment to the change written directly before it whose
+/// kind and texts it quotes (SOM §11.9.3).
+fn attach_change_comments(marks: &mut [Mark]) {
+    for k in 1..marks.len() {
+        let Some(q) = &marks[k].quote else { continue };
+        let c = &marks[k - 1];
+        if q.outcome.is_some() || !is_change_mark(c.kind) {
+            continue;
+        }
+        if c.end != marks[k].start || c.kind != q.kind {
+            continue;
+        }
+        if mark_replacement(c, false) != q.old_text || mark_replacement(c, true) != q.new_text {
+            continue;
+        }
+        marks[k].change_index = Some(k - 1);
+        marks[k - 1].comment_index = Some(k);
+    }
 }
 
 /// Everything one value holds.
@@ -1702,6 +1865,7 @@ fn parse_marks(p: &mut Parsed) {
         let seg = value[seg_start..seg_end].to_string();
         scan_segment(p, &seg, seg_start, &line_start);
     }
+    attach_change_comments(&mut p.marks);
 }
 
 fn line_of(line_start: &[usize], offset: usize) -> usize {
@@ -1799,17 +1963,33 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
             comment,
             authors: Vec::new(),
             votes: Vec::new(),
+            quote: None,
+            change_index: None,
+            comment_index: None,
         };
         let before = p.marks.len();
         match opener {
             "{>>" => {
-                let m = mark(
+                let mut m = mark(
                     SpecMarkKind::Comment,
                     String::new(),
                     None,
                     Some(inn.trim().to_string()),
                     end,
                 );
+                match read_quote(inn, base + i + 3) {
+                    Ok(q) => m.quote = q,
+                    Err("unclosed") => p.malformed.push(format!(
+                        "line {}: the quote of a change comment is not closed; \
+                         it is read as a plain comment (SOM §11.9.3)",
+                        line
+                    )),
+                    Err(_) => p.malformed.push(format!(
+                        "line {}: the quote of a change comment has no \"~>\"; \
+                         it is read as a plain comment (SOM §11.9.3)",
+                        line
+                    )),
+                }
                 p.marks.push(m);
             }
             "{==" => {
@@ -2297,6 +2477,175 @@ pub fn apply_inline_marks_text(value: &str, accept: bool) -> String {
         v = replace_mark(&v, m, &mark_replacement(m, accept));
     }
     v
+}
+
+/// `value` with every inline mark accepted (`accept`) or rejected, as accept
+/// all / reject all write it (SOM §11.9.3): change comments stay, an attached
+/// one records the outcome; every other highlight and comment mark is
+/// removed. Marks in code and malformed marks stay as written.
+pub fn decide_all_marks_text(value: &str, accept: bool) -> String {
+    let marks = parse(value).marks;
+    let mut v = value.to_string();
+    for k in (0..marks.len()).rev() {
+        if marks[k].quote.is_some() {
+            continue;
+        }
+        v = decide_mark(&v, &marks, k, accept);
+    }
+    v
+}
+
+/// `value` with the mark `k` of `marks` decided; a change's attached comment
+/// records the outcome (SOM §11.9.3).
+fn decide_mark(value: &str, marks: &[Mark], k: usize, accept: bool) -> String {
+    let m = &marks[k];
+    let mut v = value.to_string();
+    if let Some(q) = m.comment_index.and_then(|ci| marks[ci].quote.as_ref()) {
+        v = record_outcome(&v, q, accept);
+    }
+    replace_mark(&v, m, &mark_replacement(m, accept))
+}
+
+/// `value` with the outcome written into the quote `q`: everything from its
+/// closing delimiter to its `]` becomes ` | accepted]` or ` | rejected]`.
+fn record_outcome(value: &str, q: &Quote, accept: bool) -> String {
+    format!(
+        "{} | {}]{}",
+        &value[..q.delim_end],
+        if accept { "accepted" } else { "rejected" },
+        &value[q.end..]
+    )
+}
+
+/// Whether `t` holds a blank line: a newline, then only spaces, tabs and
+/// carriage returns, then a newline.
+fn has_blank_line(t: &str) -> bool {
+    let b = t.as_bytes();
+    let mut i = 0;
+    while i < b.len() {
+        if b[i] == b'\n' {
+            let mut j = i + 1;
+            while j < b.len() && matches!(b[j], b' ' | b'\t' | b'\r') {
+                j += 1;
+            }
+            if j < b.len() && b[j] == b'\n' {
+                return true;
+            }
+        }
+        i += 1;
+    }
+    false
+}
+
+/// The trimmed `text` of an inline comment, refused when it is empty or
+/// holds a mark delimiter or a blank line.
+fn check_inline_comment(text: &str) -> Result<String, SpecReviewAnnotationError> {
+    let t = text.trim();
+    if t.is_empty() {
+        return Err(SpecReviewAnnotationError::new("a comment needs text"));
+    }
+    if has_opener(t) || t.contains("<<}") || has_blank_line(t) {
+        return Err(SpecReviewAnnotationError::new(
+            "a comment cannot hold a mark delimiter or a blank line",
+        ));
+    }
+    Ok(t.to_string())
+}
+
+/// The whitespace of the change-comment anchors (SOM §11.9.3).
+fn is_anchor_space(c: u8) -> bool {
+    matches!(c, b' ' | b'\t' | b'\r' | b'\n')
+}
+
+fn non_space_count(s: &str) -> usize {
+    s.bytes().filter(|&c| !is_anchor_space(c)).count()
+}
+
+/// `set_marked` with the value's change comments kept (SOM §11.9.3): taken
+/// out of the original, then written back where their anchor falls.
+fn mark_keeping_change_comments(current: &str, text: &str) -> SpecMarkedChange {
+    // 1. The original: every mark rejected except the change comments.
+    let mut original = current.to_string();
+    let marks = parse(current).marks;
+    for m in marks.iter().rev() {
+        if m.quote.is_some() {
+            continue;
+        }
+        original = replace_mark(&original, m, &mark_replacement(m, false));
+    }
+    // 2. Each change comment's markup, anchor and leading space.
+    let kept: Vec<Mark> = parse(&original)
+        .marks
+        .into_iter()
+        .filter(|m| m.quote.is_some())
+        .collect();
+    let ob = original.as_bytes();
+    let mut anchors: Vec<(String, usize, bool)> = Vec::with_capacity(kept.len());
+    let mut counted = 0;
+    let mut from = 0;
+    for m in &kept {
+        counted += non_space_count(&original[from..m.start]);
+        from = m.end;
+        anchors.push((
+            original[m.start..m.end].to_string(),
+            counted,
+            m.start > 0 && is_blank_char(ob[m.start - 1]),
+        ));
+    }
+    // 3. Removed, compared.
+    let mut base = original.clone();
+    for m in kept.iter().rev() {
+        base = replace_mark(&base, m, "");
+    }
+    let result = mark_change_text(&base, text);
+    if anchors.is_empty() {
+        return result;
+    }
+    // 4. Written back where k non-whitespace bytes have passed.
+    let r = &result.text;
+    let rb = r.as_bytes();
+    let rm = parse(r).marks;
+    let place = |k: usize| -> usize {
+        if k == 0 {
+            return 0;
+        }
+        let (mut n, mut i, mut mi) = (0, 0, 0);
+        while i < rb.len() {
+            if mi < rm.len() && rm[mi].start == i {
+                let m = &rm[mi];
+                mi += 1;
+                if m.kind != SpecMarkKind::Insertion {
+                    n += non_space_count(&m.text);
+                }
+                i = m.end;
+                if n >= k {
+                    return i;
+                }
+                continue;
+            }
+            if !is_anchor_space(rb[i]) {
+                n += 1;
+            }
+            i += 1;
+            if n >= k {
+                return i;
+            }
+        }
+        rb.len()
+    };
+    let at: Vec<usize> = anchors.iter().map(|a| place(a.1)).collect();
+    let mut out = r.clone();
+    for j in (0..anchors.len()).rev() {
+        let (markup, _, space) = &anchors[j];
+        out.insert_str(
+            at[j],
+            &format!("{}{}", if *space { " " } else { "" }, markup),
+        );
+    }
+    SpecMarkedChange {
+        text: out,
+        exact: result.exact,
+    }
 }
 
 /// `value` without any comment block, question block or inline mark (every
@@ -2966,15 +3315,15 @@ impl<'a> SpecReviewAnnotations<'a> {
     ) -> Result<(), SpecReviewAnnotationError> {
         let value = self.get(path, field);
         let marks = parse(&value).marks;
-        let Some(m) = marks.get(index) else {
+        if index >= marks.len() {
             return Err(SpecReviewAnnotationError::new(format!(
                 "no inline mark {} at {}{}",
                 index,
                 path,
                 field.map(|f| format!(" / {}", f)).unwrap_or_default()
             )));
-        };
-        let out = replace_mark(&value, m, &mark_replacement(m, accept));
+        }
+        let out = decide_mark(&value, &marks, index, accept);
         self.set(path, field, &out);
         Ok(())
     }
@@ -3058,6 +3407,15 @@ fn paragraph_last_line(
 // Reviewing inline marks (SOM §11.9.3).
 // ---------------------------------------------------------------------------
 
+/// A mark found by id: its value and its index among the value's marks.
+struct FoundMark {
+    path: String,
+    field: Option<String>,
+    text: String,
+    marks: Vec<Mark>,
+    index: usize,
+}
+
 fn is_under(path: &str, under: Option<&str>) -> bool {
     match under {
         None => true,
@@ -3094,6 +3452,8 @@ impl<'a> SpecReviewAnnotations<'a> {
         for (vpath, field, text) in values_of(self.doc) {
             let p = parse(&text);
             let paras = paragraphs(&p.lines, &p.code);
+            let first = n + 1;
+            let mark_id = |k: Option<usize>| k.map(|k| format!("M-{}", first + k));
             for m in &p.marks {
                 n += 1;
                 let id = format!("M-{}", n);
@@ -3113,11 +3473,17 @@ impl<'a> SpecReviewAnnotations<'a> {
                     mark_kind: m.kind,
                     old_text: mark_replacement(m, false),
                     new_text: mark_replacement(m, true),
-                    comment: m.comment.clone(),
+                    comment: match &m.quote {
+                        Some(q) => Some(q.comment.clone()),
+                        None => m.comment.clone(),
+                    },
                     markup: text[m.start..m.end].to_string(),
                     context: p.lines[s..=e].join("\n"),
                     authors: m.authors.clone(),
                     votes: m.votes.clone(),
+                    quoted_change: m.quote.as_ref().map(Quote::to_json),
+                    comment_id: mark_id(m.comment_index),
+                    change_id: mark_id(m.change_index),
                 });
             }
         }
@@ -3128,7 +3494,7 @@ impl<'a> SpecReviewAnnotations<'a> {
     /// whole document), one write per value.
     fn apply_marks(
         &mut self,
-        decide: impl Fn(&str) -> Option<SpecMarkDecision>,
+        decide: impl Fn(&str, &Mark) -> Option<SpecMarkDecision>,
         under: Option<&str>,
     ) -> SpecMarkReport {
         let mut report = SpecMarkReport::default();
@@ -3156,12 +3522,25 @@ impl<'a> SpecReviewAnnotations<'a> {
             }
             let mut v = text.clone();
             let mut outcomes = Vec::new();
+            let decided: Vec<Option<SpecMarkDecision>> = p
+                .marks
+                .iter()
+                .enumerate()
+                .map(|(k, m)| match decide(&ids[k], m) {
+                    Some(SpecMarkDecision::Leave) => None,
+                    d => d,
+                })
+                .collect();
             for (k, m) in p.marks.iter().enumerate().rev() {
-                let d = match decide(&ids[k]) {
-                    None | Some(SpecMarkDecision::Leave) => continue,
-                    Some(d) => d,
-                };
+                let Some(d) = decided[k] else { continue };
                 let repl = mark_replacement(m, d == SpecMarkDecision::Accept);
+                if let Some(ci) = m.comment_index {
+                    if decided[ci].is_none() {
+                        if let Some(q) = &p.marks[ci].quote {
+                            v = record_outcome(&v, q, d == SpecMarkDecision::Accept);
+                        }
+                    }
+                }
                 outcomes.insert(
                     0,
                     SpecMarkOutcome {
@@ -3210,17 +3589,170 @@ impl<'a> SpecReviewAnnotations<'a> {
                 )));
             }
         }
-        Ok(self.apply_marks(|id| decisions.get(id).copied(), None))
+        Ok(self.apply_marks(|id, _| decisions.get(id).copied(), None))
     }
 
-    /// Accepts every inline mark under `path` (`None`: the whole document).
+    /// Accepts every inline mark under `path` (`None`: the whole document),
+    /// except change comments, which stay (SOM §11.9.3).
     pub fn accept_all_marks(&mut self, path: Option<&str>) -> SpecMarkReport {
-        self.apply_marks(|_| Some(SpecMarkDecision::Accept), path)
+        self.apply_marks(
+            |_, m| m.quote.is_none().then_some(SpecMarkDecision::Accept),
+            path,
+        )
     }
 
-    /// Rejects every inline mark under `path` (`None`: the whole document).
+    /// Rejects every inline mark under `path` (`None`: the whole document),
+    /// except change comments, which stay (SOM §11.9.3).
     pub fn reject_all_marks(&mut self, path: Option<&str>) -> SpecMarkReport {
-        self.apply_marks(|_| Some(SpecMarkDecision::Reject), path)
+        self.apply_marks(
+            |_, m| m.quote.is_none().then_some(SpecMarkDecision::Reject),
+            path,
+        )
+    }
+
+    /// The mark `M-<n>` `mark_id` with its value — path, field, text, its
+    /// marks and its index among them — refused when the document is no
+    /// longer at `revision` (when given) or holds no such mark.
+    fn find_mark(
+        &self,
+        mark_id: &str,
+        revision: Option<&str>,
+    ) -> Result<FoundMark, SpecReviewAnnotationError> {
+        if let Some(revision) = revision {
+            let current = self.revision();
+            if revision != current {
+                return Err(SpecReviewAnnotationError::new(format!(
+                    "the document changed since revision {} (now {}); list the marks again",
+                    revision, current
+                )));
+            }
+        }
+        let mut n = 0;
+        for (path, field, text) in values_of(self.doc) {
+            let marks = parse(&text).marks;
+            for k in 0..marks.len() {
+                n += 1;
+                if format!("M-{}", n) == mark_id {
+                    return Ok(FoundMark {
+                        path,
+                        field,
+                        text,
+                        marks,
+                        index: k,
+                    });
+                }
+            }
+        }
+        Err(SpecReviewAnnotationError::new(format!(
+            "no inline mark {} in the document",
+            mark_id
+        )))
+    }
+
+    /// Writes a change comment (SOM §11.9.3) directly after the change mark
+    /// `mark_id`, its quote written from the mark and `text` after it, with
+    /// an attribution token `{@author}` when `author` is given, and returns
+    /// the new comment's id. Refused — nothing changes — for an unknown id, a
+    /// stale `revision`, a mark that is not a change or already has an
+    /// attached comment, a change its quote cannot hold, a `text` that is
+    /// empty or holds a mark delimiter or a blank line, and an `author` that
+    /// is not a member id.
+    pub fn comment_change(
+        &mut self,
+        mark_id: &str,
+        text: &str,
+        author: Option<&str>,
+        revision: Option<&str>,
+    ) -> Result<String, SpecReviewAnnotationError> {
+        let f = self.find_mark(mark_id, revision)?;
+        let m = &f.marks[f.index];
+        if !is_change_mark(m.kind) {
+            return Err(SpecReviewAnnotationError::new(format!(
+                "{} is a {} mark, not a change",
+                mark_id,
+                m.kind.name()
+            )));
+        }
+        if m.comment_index.is_some() {
+            return Err(SpecReviewAnnotationError::new(format!(
+                "{} already has a comment; edit it instead",
+                mark_id
+            )));
+        }
+        let comment = check_inline_comment(text)?;
+        if let Some(a) = author {
+            if !is_review_member_id(a) {
+                return Err(SpecReviewAnnotationError::new(format!(
+                    "\"{}\" is not a member id",
+                    a
+                )));
+            }
+        }
+        let d = match m.kind {
+            SpecMarkKind::Insertion => "++",
+            SpecMarkKind::Deletion => "--",
+            _ => "~~",
+        };
+        let body = if m.kind == SpecMarkKind::Substitution {
+            format!(
+                "{} ~> {}",
+                m.text,
+                m.new_text.as_deref().unwrap_or_default()
+            )
+        } else {
+            m.text.clone()
+        };
+        if body.contains(&format!("{}]", d)) || body.contains("<<}") {
+            return Err(SpecReviewAnnotationError::new(format!(
+                "{} holds \"{}]\" or \"<<}}\", which its quote cannot hold",
+                mark_id, d
+            )));
+        }
+        let markup = format!(
+            "{{>> [{d} {body} {d}] {comment} <<}}{}",
+            author.map(|a| format!("{{@{}}}", a)).unwrap_or_default()
+        );
+        let out = format!("{}{}{}", &f.text[..m.end], markup, &f.text[m.end..]);
+        self.set(&f.path, f.field.as_deref(), &out);
+        let n: u64 = mark_id[2..].parse().unwrap_or(0);
+        Ok(format!("M-{}", n + 1))
+    }
+
+    /// Replaces the comment of the comment mark, change comment or commented
+    /// highlight `mark_id` with `text` (SOM §11.9.3). A change comment keeps
+    /// its quote as written, and the attribution token stays. Refused —
+    /// nothing changes — for an unknown id, a stale `revision`, a mark that
+    /// holds no comment, and a `text` that is empty or holds a mark delimiter
+    /// or a blank line.
+    pub fn edit_mark_comment(
+        &mut self,
+        mark_id: &str,
+        text: &str,
+        revision: Option<&str>,
+    ) -> Result<(), SpecReviewAnnotationError> {
+        let f = self.find_mark(mark_id, revision)?;
+        let m = &f.marks[f.index];
+        let comment = check_inline_comment(text)?;
+        let markup = if m.kind == SpecMarkKind::Comment {
+            match &m.quote {
+                None => format!("{{>> {} <<}}", comment),
+                Some(q) => format!(
+                    "{{>> {} {} <<}}",
+                    f.text[m.start + 3..q.end].trim_start(),
+                    comment
+                ),
+            }
+        } else if m.kind == SpecMarkKind::Highlight && m.comment.is_some() {
+            format!("{{== {} ==}}{{>> {} <<}}", m.text, comment)
+        } else {
+            return Err(SpecReviewAnnotationError::new(format!(
+                "{} holds no comment",
+                mark_id
+            )));
+        };
+        let out = format!("{}{}{}", &f.text[..m.start], markup, &f.text[m.body_end..]);
+        self.set(&f.path, f.field.as_deref(), &out);
+        Ok(())
     }
 
     /// Removes every annotation and writes the result back: every inline mark
@@ -3231,7 +3763,7 @@ impl<'a> SpecReviewAnnotations<'a> {
     /// alternative for.
     pub fn remove_all_annotations(&mut self) -> Result<SpecMarkReport, SpecReviewAnnotationError> {
         let decided = self.decided_conflicts()?;
-        let mut report = self.accept_all_marks(None);
+        let mut report = self.apply_marks(|_, _| Some(SpecMarkDecision::Accept), None);
         let mut outcomes = Vec::new();
         for (path, field, text) in values_of(self.doc) {
             let mut v = text.clone();
@@ -3396,10 +3928,11 @@ impl<'a> SpecReviewAnnotations<'a> {
     /// Writes `text` at `path` / `field` as a marked change against the value
     /// there now (SOM §11.9.3). A value that already holds change marks is
     /// compared from its original — every mark rejected — so a second edit of
-    /// the same passage updates its mark instead of nesting one.
+    /// the same passage updates its mark instead of nesting one. Change
+    /// comments stay: each is taken out of the original and written back
+    /// after the same number of non-whitespace characters (SOM §11.9.3).
     pub fn set_marked(&mut self, path: &str, field: Option<&str>, text: &str) -> SpecMarkedChange {
-        let base = apply_inline_marks_text(&self.get(path, field), false);
-        let result = mark_change_text(&base, text);
+        let result = mark_keeping_change_comments(&self.get(path, field), text);
         self.set(path, field, &result.text);
         result
     }

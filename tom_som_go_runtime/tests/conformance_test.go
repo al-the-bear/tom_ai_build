@@ -3007,6 +3007,18 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			if err == nil {
 				result = report.ToJSONWith(form)
 			}
+		case "commentChange":
+			revision := opString(op, "revision")
+			if revision == "@current" {
+				revision = api.Revision()
+			}
+			result, err = api.CommentChange(opString(op, "id"), opString(op, "text"), opString(op, "author"), revision)
+		case "editMarkComment":
+			revision := opString(op, "revision")
+			if revision == "@current" {
+				revision = api.Revision()
+			}
+			err = api.EditMarkComment(opString(op, "id"), opString(op, "text"), revision)
 		case "setMarked":
 			result = api.SetMarked(opString(op, "path"), opString(op, "field"), opString(op, "text")).ToJSON()
 		case "markAgainst":
@@ -3227,6 +3239,13 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 			Accept string `json:"accept"`
 			Reject string `json:"reject"`
 		} `json:"textCases"`
+		ChangeCommentTextCases []struct {
+			Name    string `json:"name"`
+			Text    string `json:"text"`
+			Accept  string `json:"accept"`
+			Reject  string `json:"reject"`
+			Removed string `json:"removed"`
+		} `json:"changeCommentTextCases"`
 		Cases []annotationCase `json:"cases"`
 	}
 	readJSON(t, "inline_mark_cases.json", &table)
@@ -3239,6 +3258,19 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		rej := som.ApplyInlineMarksText(tc.Text, false)
 		c.check("inlineMarks.text["+tc.Name+"].reject", rej == tc.Reject,
 			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
+	}
+	c.check("inlineMarks.changeCommentTextCases", len(table.ChangeCommentTextCases) > 0,
+		"no changeCommentTextCases in inline_mark_cases.json")
+	for _, tc := range table.ChangeCommentTextCases {
+		acc := som.DecideAllMarksText(tc.Text, true)
+		c.check("inlineMarks.changeComments["+tc.Name+"].accept", acc == tc.Accept,
+			"got "+strconv.Quote(acc)+" want "+strconv.Quote(tc.Accept))
+		rej := som.DecideAllMarksText(tc.Text, false)
+		c.check("inlineMarks.changeComments["+tc.Name+"].reject", rej == tc.Reject,
+			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
+		removed := som.ApplyInlineMarksText(tc.Text, true)
+		c.check("inlineMarks.changeComments["+tc.Name+"].removed", removed == tc.Removed,
+			"got "+strconv.Quote(removed)+" want "+strconv.Quote(tc.Removed))
 	}
 	for _, cc := range table.Cases {
 		got := runAnnotationCase(t, model, tree, cc, false)

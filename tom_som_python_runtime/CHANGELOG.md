@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Comments on changes (SOM §11.9.3): a comment mark that starts with a quote
+  of the change before it (`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why? <<}`)
+  is that change's comment. `list_marks()` reports `quoted_change`,
+  `comment_id` and `change_id` (`quotedChange`, `commentId`, `changeId` in
+  `to_json`); deciding the change leaves the comment with the outcome in its
+  quote; accept all / reject all leave change comments and remove all
+  removes them; `set_marked` keeps them. New: `comment_change`,
+  `edit_mark_comment`, `decide_all_marks_text`. A malformed quote is an
+  `annotationMalformed` finding.
 - Team reviews (SOM §11.9.8): `SpecReviewAnnotations` reads attribution
   tokens after marks (`authors` and `votes`, `SpecMarkVote` with `SpecVote`,
   in `list()` and `list_marks()`; the token goes with its mark on every

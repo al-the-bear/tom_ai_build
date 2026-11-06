@@ -4295,6 +4295,33 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
         api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
         json_i64_or(op, "index", 0), accept, &err);
     som_buf_puts(&b, "null");
+  } else if (strcmp(name, "commentChange") == 0 ||
+             strcmp(name, "editMarkComment") == 0) {
+    const char *rev = json_opt_str(op, "revision");
+    char *current = NULL;
+    if (rev != NULL && strcmp(rev, "@current") == 0) {
+      current = spec_review_annotations_revision(api);
+      rev = current;
+    }
+    if (strcmp(name, "commentChange") == 0) {
+      char *id = spec_review_annotations_comment_change(
+          api, som_json_str_or(op, "id"), som_json_str_or(op, "text"),
+          json_opt_str(op, "author"), rev, &err);
+      if (id == NULL) {
+        ok = 0;
+      } else {
+        char *q = som_json_encode_str(id);
+        som_buf_puts(&b, q);
+        free(q);
+        free(id);
+      }
+    } else {
+      ok = spec_review_annotations_edit_mark_comment(
+          api, som_json_str_or(op, "id"), som_json_str_or(op, "text"), rev,
+          &err);
+      som_buf_puts(&b, "null");
+    }
+    free(current);
   } else if (strcmp(name, "revision") == 0) {
     char *rev = spec_review_annotations_revision(api);
     char *q = som_json_encode_str(rev);
@@ -4750,6 +4777,31 @@ static void test_inline_marks(Checker *c, const SpecModel *model,
       char tag[512];
       snprintf(tag, sizeof(tag), "inlineMarks.text[%s].%s",
                som_json_str_or(t, "name"), accept ? "accept" : "reject");
+      char *d = byte_diff(tag, got, want);
+      check(c, tag, strcmp(got, want) == 0, d);
+      free(d);
+      free(got);
+    }
+  }
+  /* `changeCommentTextCases` pin change comments (SOM §11.9.3): `accept` /
+   * `reject` are accept all / reject all on the text
+   * (`spec_decide_all_marks_text`), `removed` the text once every annotation
+   * is gone (`spec_apply_inline_marks_text`). */
+  const SomJson *cc = som_json_get(table, "changeCommentTextCases");
+  size_t ccn = som_json_array_len(cc);
+  check(c, "inlineMarks.changeCommentTextCases", ccn > 0,
+        "no changeCommentTextCases in inline_mark_cases.json");
+  for (size_t i = 0; i < ccn; i++) {
+    const SomJson *t = som_json_array_at(cc, i);
+    const char *text = som_json_str_or(t, "text");
+    static const char *const keys[3] = {"accept", "reject", "removed"};
+    for (int k = 0; k < 3; k++) {
+      const char *want = som_json_str_or(t, keys[k]);
+      char *got = k == 2 ? spec_apply_inline_marks_text(text, 1)
+                         : spec_decide_all_marks_text(text, k == 0);
+      char tag[512];
+      snprintf(tag, sizeof(tag), "inlineMarks.changeComments[%s].%s",
+               som_json_str_or(t, "name"), keys[k]);
       char *d = byte_diff(tag, got, want);
       check(c, tag, strcmp(got, want) == 0, d);
       free(d);

@@ -376,6 +376,22 @@ typedef struct {
   SomStrList authors;
   SpecMarkVote *votes;
   size_t votes_len;
+  /* A comment mark's quote of a change (SOM §11.9.3): `has_quote` set, the
+   * quoted kind and texts, the outcome (a static "accepted" / "rejected", or
+   * NULL while open), `q_delim_end` right after the closing delimiter and
+   * `q_end` right after the `]` (value offsets), and the comment after it. */
+  int has_quote;
+  SpecMarkKind q_kind;
+  char *q_old;
+  char *q_new;
+  const char *q_outcome;
+  size_t q_delim_end;
+  size_t q_end;
+  char *q_comment;
+  /* The index (among the value's marks) of the change this change comment
+   * is attached to, and of this change's attached comment; -1 for none. */
+  long long change_index;
+  long long comment_index;
 } Mark;
 
 typedef struct {
@@ -487,6 +503,9 @@ static void parsed_free(Parsed *p) {
     free(p->marks[i].text);
     free(p->marks[i].new_text);
     free(p->marks[i].comment);
+    free(p->marks[i].q_old);
+    free(p->marks[i].q_new);
+    free(p->marks[i].q_comment);
     som_strlist_free(&p->marks[i].authors);
     votes_free(p->marks[i].votes, p->marks[i].votes_len);
   }
@@ -1171,6 +1190,8 @@ static void add_mark(Parsed *p, size_t start, size_t end, size_t line,
   m.text = text;
   m.new_text = new_text;
   m.comment = comment;
+  m.change_index = -1;
+  m.comment_index = -1;
   som_strlist_init(&m.authors);
   PUSH(p->marks, p->marks_len, p->marks_cap, m);
 }
@@ -1321,6 +1342,105 @@ static void add_issue(Parsed *p, size_t line, const char *code) {
   PUSH(p->mark_issues, p->mark_issues_len, p->mark_issues_cap, m);
 }
 
+static int is_blank_char(char c) { return c == ' ' || c == '\t'; }
+
+/* What `read_quote` found. */
+enum { QUOTE_NONE = 0, QUOTE_OK = 1, QUOTE_UNCLOSED = 2, QUOTE_NO_ARROW = 3 };
+
+/* Reads the quote at the start of a comment mark's inner text `s[0, len)`,
+ * whose first byte is at value offset `at`, into `m` (SOM §11.9.3).
+ * Returns QUOTE_OK, QUOTE_NONE when `s` opens no quote, or the issue of one
+ * that is malformed (QUOTE_UNCLOSED, QUOTE_NO_ARROW); `m` is set only for
+ * QUOTE_OK. */
+static int read_quote(const char *s, size_t len, size_t at, Mark *m) {
+  size_t a = 0;
+  while (a < len && strchr(" \t\r\n", s[a]) != NULL) a++;
+  if (a + 3 > len || s[a] != '[') return QUOTE_NONE;
+  SpecMarkKind kind;
+  if (memcmp(s + a + 1, "++", 2) == 0) {
+    kind = SPEC_MARK_INSERTION;
+  } else if (memcmp(s + a + 1, "--", 2) == 0) {
+    kind = SPEC_MARK_DELETION;
+  } else if (memcmp(s + a + 1, "~~", 2) == 0) {
+    kind = SPEC_MARK_SUBSTITUTION;
+  } else {
+    return QUOTE_NONE;
+  }
+  char d[3] = {s[a + 1], s[a + 2], '\0'};
+  long long j = find(s, len, a + 3, d);
+  while (j >= 0) {
+    size_t t = (size_t)j + 2;
+    while (t < len && is_blank_char(s[t])) t++;
+    const char *outcome = NULL;
+    long long close = -1;
+    if (t < len && s[t] == ']') {
+      close = (long long)t;
+    } else if (t < len && s[t] == '|') {
+      t++;
+      while (t < len && is_blank_char(s[t])) t++;
+      static const char *const words[2] = {"accepted", "rejected"};
+      for (int w = 0; w < 2; w++) {
+        size_t wl = strlen(words[w]);
+        if (t + wl > len || memcmp(s + t, words[w], wl) != 0) continue;
+        size_t u = t + wl;
+        while (u < len && is_blank_char(s[u])) u++;
+        if (u < len && s[u] == ']') {
+          outcome = words[w];
+          close = (long long)u;
+        }
+        break;
+      }
+    }
+    if (close >= 0) {
+      const char *body = s + a + 3;
+      size_t body_len = (size_t)j - a - 3;
+      char *old_text, *new_text;
+      if (kind == SPEC_MARK_INSERTION) {
+        old_text = som_strdup("");
+        new_text = trim_n(body, body_len);
+      } else if (kind == SPEC_MARK_DELETION) {
+        old_text = trim_n(body, body_len);
+        new_text = som_strdup("");
+      } else {
+        long long arrow = find(body, body_len, 0, "~>");
+        if (arrow < 0) return QUOTE_NO_ARROW;
+        old_text = trim_n(body, (size_t)arrow);
+        new_text = trim_n(body + arrow + 2, body_len - (size_t)arrow - 2);
+      }
+      m->has_quote = 1;
+      m->q_kind = kind;
+      m->q_old = old_text;
+      m->q_new = new_text;
+      m->q_outcome = outcome;
+      m->q_delim_end = at + (size_t)j + 2;
+      m->q_end = at + (size_t)close + 1;
+      m->q_comment = trim_n(s + close + 1, len - (size_t)close - 1);
+      return QUOTE_OK;
+    }
+    j = find(s, len, (size_t)j + 1, d);
+  }
+  return QUOTE_UNCLOSED;
+}
+
+static const char *mark_replacement(const Mark *m, int accept);
+
+/* Links each change comment to the change written directly before it whose
+ * kind and texts it quotes (SOM §11.9.3). */
+static void attach_change_comments(Parsed *p) {
+  for (size_t k = 1; k < p->marks_len; k++) {
+    Mark *q = &p->marks[k];
+    Mark *c = &p->marks[k - 1];
+    if (!q->has_quote || q->q_outcome != NULL || !is_change_mark(c->kind))
+      continue;
+    if (c->end != q->start || c->kind != q->q_kind) continue;
+    if (strcmp(mark_replacement(c, 0), q->q_old) != 0 ||
+        strcmp(mark_replacement(c, 1), q->q_new) != 0)
+      continue;
+    q->change_index = (long long)k - 1;
+    c->comment_index = (long long)k;
+  }
+}
+
 static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
                          const size_t *line_start) {
   size_t i = 0;
@@ -1402,10 +1522,28 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
     size_t end = (size_t)close + 3;
     size_t before = p->marks_len;
     switch (oi) {
-      case 0:
+      case 0: {
         add_mark(p, base + i, base + end, line, SPEC_MARK_COMMENT,
                  som_strdup(""), NULL, trim_n(inner, inner_len));
+        int q = read_quote(inner, inner_len, base + i + 3,
+                           &p->marks[p->marks_len - 1]);
+        if (q == QUOTE_UNCLOSED) {
+          som_strlist_push(&p->malformed,
+                           fmt("line %zu: the quote of a change comment is "
+                               "not closed; it is read as a plain comment "
+                               "(SOM \xC2\xA7"
+                               "11.9.3)",
+                               line));
+        } else if (q == QUOTE_NO_ARROW) {
+          som_strlist_push(&p->malformed,
+                           fmt("line %zu: the quote of a change comment has "
+                               "no \"~>\"; it is read as a plain comment "
+                               "(SOM \xC2\xA7"
+                               "11.9.3)",
+                               line));
+        }
         break;
+      }
       case 1: {
         char *comment = NULL;
         if (end + 3 <= len && memcmp(seg + end, "{>>", 3) == 0) {
@@ -1483,6 +1621,7 @@ static void parse_marks(Parsed *p) {
   }
   free(value);
   free(line_start);
+  attach_change_comments(p);
 }
 
 static void parse(const char *value, Parsed *p) {
@@ -2205,6 +2344,192 @@ char *spec_apply_inline_marks_text(const char *value, int accept) {
   }
   parsed_free(&p);
   return v;
+}
+
+/* `value` with the outcome written into the quote of change comment `q`:
+ * everything from its closing delimiter to its `]` becomes ` | accepted]` or
+ * ` | rejected]`. Owned. */
+static char *record_outcome(const char *value, const Mark *q, int accept) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putn(&b, value, q->q_delim_end);
+  som_buf_puts(&b, accept ? " | accepted]" : " | rejected]");
+  som_buf_puts(&b, value + q->q_end);
+  return som_buf_take(&b);
+}
+
+/* `value` with mark `k` of `p` decided; a change's attached comment records
+ * the outcome (SOM §11.9.3). Owned. */
+static char *decide_mark(const char *value, const Parsed *p, size_t k,
+                         int accept) {
+  const Mark *m = &p->marks[k];
+  char *v = som_strdup(value);
+  if (m->comment_index >= 0) {
+    char *next = record_outcome(v, &p->marks[m->comment_index], accept);
+    free(v);
+    v = next;
+  }
+  char *out = replace_mark(v, m, mark_replacement(m, accept));
+  free(v);
+  return out;
+}
+
+char *spec_decide_all_marks_text(const char *value, int accept) {
+  Parsed p;
+  parse(value, &p);
+  char *v = som_strdup(value);
+  for (size_t k = p.marks_len; k-- > 0;) {
+    if (p.marks[k].has_quote) continue;
+    char *next = decide_mark(v, &p, k, accept);
+    free(v);
+    v = next;
+  }
+  parsed_free(&p);
+  return v;
+}
+
+/* The trimmed `text` of an inline comment (owned), or NULL with `*err`
+ * filled when it is empty or holds a mark delimiter or a blank line. */
+static char *check_inline_comment(const char *text,
+                                  SpecReviewAnnotationError *err) {
+  char *t = trim_dup(text);
+  size_t len = strlen(t);
+  if (len == 0) {
+    set_error(err, "a comment needs text");
+    free(t);
+    return NULL;
+  }
+  int bad = contains_opener(t, len) || find(t, len, 0, "<<}") >= 0;
+  for (size_t i = 0; !bad && i < len; i++) {
+    if (t[i] != '\n') continue;
+    size_t j = i + 1;
+    while (j < len && (t[j] == ' ' || t[j] == '\t' || t[j] == '\r')) j++;
+    bad = j < len && t[j] == '\n';
+  }
+  if (bad) {
+    set_error(err, "a comment cannot hold a mark delimiter or a blank line");
+    free(t);
+    return NULL;
+  }
+  return t;
+}
+
+/* The whitespace of the change-comment anchors (SOM §11.9.3). */
+static int is_anchor_space(char c) {
+  return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+}
+
+static size_t non_space_count(const char *s, size_t len) {
+  size_t n = 0;
+  for (size_t i = 0; i < len; i++) {
+    if (!is_anchor_space(s[i])) n++;
+  }
+  return n;
+}
+
+/* Where change-comment anchor `k` falls in `r` (whose marks are `rm`): after
+ * the k-th non-whitespace character, or at the end of a mark that brings the
+ * count to k (deletions and substitutions count their text, insertions
+ * nothing); the end of `r` when it is never reached. */
+static size_t anchor_place(const char *r, const Parsed *rm, size_t k) {
+  if (k == 0) return 0;
+  size_t len = strlen(r);
+  size_t n = 0, i = 0, mi = 0;
+  while (i < len) {
+    if (mi < rm->marks_len && rm->marks[mi].start == i) {
+      const Mark *m = &rm->marks[mi++];
+      n += m->kind == SPEC_MARK_INSERTION
+               ? 0
+               : non_space_count(m->text, strlen(m->text));
+      i = m->end;
+      if (n >= k) return i;
+      continue;
+    }
+    if (!is_anchor_space(r[i])) n++;
+    i++;
+    if (n >= k) return i;
+  }
+  return len;
+}
+
+/* `spec_review_annotations_set_marked` with the value's change comments kept
+ * (SOM §11.9.3): taken out of the original, then written back where their
+ * anchor falls. */
+static SpecMarkedChange mark_keeping_change_comments(const char *current,
+                                                     const char *text) {
+  /* 1. The original: every mark rejected except the change comments. */
+  char *original = som_strdup(current);
+  {
+    Parsed p;
+    parse(current, &p);
+    for (size_t k = p.marks_len; k-- > 0;) {
+      if (p.marks[k].has_quote) continue;
+      char *next =
+          replace_mark(original, &p.marks[k], mark_replacement(&p.marks[k], 0));
+      free(original);
+      original = next;
+    }
+    parsed_free(&p);
+  }
+  /* 2. Each change comment's markup, anchor and leading space. */
+  Parsed op;
+  parse(original, &op);
+  size_t kept = 0;
+  for (size_t k = 0; k < op.marks_len; k++) kept += op.marks[k].has_quote;
+  char **markups = calloc(kept ? kept : 1, sizeof(char *));
+  size_t *anchors = calloc(kept ? kept : 1, sizeof(size_t));
+  int *spaces = calloc(kept ? kept : 1, sizeof(int));
+  size_t counted = 0, from = 0, a = 0;
+  for (size_t k = 0; k < op.marks_len; k++) {
+    const Mark *m = &op.marks[k];
+    if (!m->has_quote) continue;
+    counted += non_space_count(original + from, m->start - from);
+    from = m->end;
+    markups[a] = som_strdup_n(original + m->start, m->end - m->start);
+    anchors[a] = counted;
+    spaces[a] = m->start > 0 && is_blank_char(original[m->start - 1]);
+    a++;
+  }
+  /* 3. Removed, compared. */
+  char *base = som_strdup(original);
+  for (size_t k = op.marks_len; k-- > 0;) {
+    if (!op.marks[k].has_quote) continue;
+    char *next = replace_mark(base, &op.marks[k], "");
+    free(base);
+    base = next;
+  }
+  parsed_free(&op);
+  free(original);
+  SpecMarkedChange result = spec_mark_change_text(base, text);
+  free(base);
+  if (kept > 0) {
+    /* 4. Written back where k non-whitespace characters have passed. */
+    Parsed rm;
+    parse(result.text, &rm);
+    size_t *at = calloc(kept, sizeof(size_t));
+    for (size_t j = 0; j < kept; j++)
+      at[j] = anchor_place(result.text, &rm, anchors[j]);
+    parsed_free(&rm);
+    char *out = som_strdup(result.text);
+    for (size_t j = kept; j-- > 0;) {
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_putn(&b, out, at[j]);
+      if (spaces[j]) som_buf_putc(&b, ' ');
+      som_buf_puts(&b, markups[j]);
+      som_buf_puts(&b, out + at[j]);
+      free(out);
+      out = som_buf_take(&b);
+    }
+    free(at);
+    free(result.text);
+    result.text = out;
+  }
+  for (size_t j = 0; j < kept; j++) free(markups[j]);
+  free(markups);
+  free(anchors);
+  free(spaces);
+  return result;
 }
 
 char *spec_strip_annotations_text(const char *value) {
@@ -3001,8 +3326,7 @@ int spec_review_annotations_apply_mark(const SpecReviewAnnotations *r,
     free(value);
     return 0;
   }
-  const Mark *m = &p.marks[index];
-  char *updated = replace_mark(value, m, mark_replacement(m, accept));
+  char *updated = decide_mark(value, &p, (size_t)index, accept);
   set_value(r->doc, path, field, updated);
   free(updated);
   parsed_free(&p);
@@ -3153,6 +3477,14 @@ void spec_mark_entry_free(SpecMarkEntry *e) {
   free(e->context);
   som_strlist_free(&e->authors);
   votes_free(e->votes, e->votes_len);
+  if (e->quoted_change != NULL) {
+    free(e->quoted_change->old_text);
+    free(e->quoted_change->new_text);
+    free(e->quoted_change->outcome);
+    free(e->quoted_change);
+  }
+  free(e->comment_id);
+  free(e->change_id);
   memset(e, 0, sizeof(*e));
 }
 
@@ -3171,6 +3503,19 @@ static char *mark_entry_json(const SpecMarkEntry *e, int team) {
   put_str(&b, &first, "comment", e->comment);
   put_str(&b, &first, "markup", e->markup);
   put_str(&b, &first, "context", e->context);
+  if (e->quoted_change != NULL) {
+    const SpecQuotedChange *q = e->quoted_change;
+    put_key(&b, &first, "quotedChange");
+    int qfirst = 1;
+    som_buf_putc(&b, '{');
+    put_str(&b, &qfirst, "kind", spec_mark_kind_name(q->kind));
+    put_str(&b, &qfirst, "oldText", q->old_text);
+    put_str(&b, &qfirst, "newText", q->new_text);
+    put_str(&b, &qfirst, "outcome", q->outcome);
+    som_buf_putc(&b, '}');
+  }
+  if (e->comment_id != NULL) put_str(&b, &first, "commentId", e->comment_id);
+  if (e->change_id != NULL) put_str(&b, &first, "changeId", e->change_id);
   if (team) {
     put_str_list(&b, &first, "authors", &e->authors);
     put_votes(&b, &first, "votes", e->votes, e->votes_len);
@@ -3353,6 +3698,7 @@ void spec_review_annotations_list_marks(const SpecReviewAnnotations *r,
     const Value *v = &vals.items[i];
     Parsed p;
     parse(v->text, &p);
+    size_t first = n + 1;
     for (size_t mi = 0; mi < p.marks_len; mi++) {
       const Mark *m = &p.marks[mi];
       ++n;
@@ -3367,13 +3713,27 @@ void spec_review_annotations_list_marks(const SpecReviewAnnotations *r,
       e.mark_kind = m->kind;
       e.old_text = som_strdup(mark_replacement(m, 0));
       e.new_text = som_strdup(mark_replacement(m, 1));
-      e.comment = dup_or_null(m->comment);
+      e.comment = dup_or_null(m->has_quote ? m->q_comment : m->comment);
       e.markup = som_strdup_n(v->text + m->start, m->end - m->start);
       e.context = join_from(LINE(&p, from), (const char *const *)p.lines.items,
                             (long long)from + 1, (long long)to);
       som_strlist_copy(&e.authors, &m->authors);
       e.votes = votes_copy(m->votes, m->votes_len);
       e.votes_len = m->votes_len;
+      e.quoted_change = NULL;
+      if (m->has_quote) {
+        e.quoted_change = malloc(sizeof(SpecQuotedChange));
+        e.quoted_change->kind = m->q_kind;
+        e.quoted_change->old_text = som_strdup(m->q_old);
+        e.quoted_change->new_text = som_strdup(m->q_new);
+        e.quoted_change->outcome = dup_or_null(m->q_outcome);
+      }
+      e.comment_id = m->comment_index < 0
+                         ? NULL
+                         : fmt("M-%zu", first + (size_t)m->comment_index);
+      e.change_id = m->change_index < 0
+                        ? NULL
+                        : fmt("M-%zu", first + (size_t)m->change_index);
       PUSH(out->items, out->len, out->cap, e);
     }
     parsed_free(&p);
@@ -3386,11 +3746,15 @@ typedef struct {
   const SpecMarkDecisionItem *items; /* NULL: `all` applies to every mark */
   size_t len;
   SpecMarkDecision all;
+  /* With `all`: change comments are left (accept all / reject all). */
+  int skip_quoted;
 } Decider;
 
-/* The decision for mark `id`; 0 when none. A later item overrides. */
-static int decide(const Decider *d, const char *id, SpecMarkDecision *out) {
+/* The decision for mark `id` (`m`); 0 when none. A later item overrides. */
+static int decide(const Decider *d, const char *id, const Mark *m,
+                  SpecMarkDecision *out) {
   if (d->items == NULL) {
+    if (d->skip_quoted && m->has_quote) return 0;
     *out = d->all;
     return 1;
   }
@@ -3432,15 +3796,29 @@ static void apply_marks(const SpecReviewAnnotations *r, const Decider *d,
     }
     char *text = som_strdup(v->text);
     size_t at = out->applied_len; /* this value's outcomes start here */
-    for (size_t k = p.marks_len; k-- > 0;) {
+    /* -1: not decided (none, or leave); else the decision. */
+    int *decided = malloc((p.marks_len ? p.marks_len : 1) * sizeof(int));
+    for (size_t k = 0; k < p.marks_len; k++) {
       char *id = fmt("M-%zu", first_id + k);
       SpecMarkDecision dec;
-      if (!decide(d, id, &dec) || dec == SPEC_MARK_DECISION_LEAVE) {
-        free(id);
-        continue;
-      }
+      decided[k] = decide(d, id, &p.marks[k], &dec) &&
+                           dec != SPEC_MARK_DECISION_LEAVE
+                       ? (int)dec
+                       : -1;
+      free(id);
+    }
+    for (size_t k = p.marks_len; k-- > 0;) {
+      if (decided[k] < 0) continue;
+      SpecMarkDecision dec = (SpecMarkDecision)decided[k];
+      char *id = fmt("M-%zu", first_id + k);
       const Mark *m = &p.marks[k];
       const char *repl = mark_replacement(m, dec == SPEC_MARK_DECISION_ACCEPT);
+      if (m->comment_index >= 0 && decided[m->comment_index] < 0) {
+        char *next = record_outcome(text, &p.marks[m->comment_index],
+                                    dec == SPEC_MARK_DECISION_ACCEPT);
+        free(text);
+        text = next;
+      }
       SpecMarkOutcome o;
       o.id = id;
       o.path = som_strdup(v->path);
@@ -3455,6 +3833,7 @@ static void apply_marks(const SpecReviewAnnotations *r, const Decider *d,
       free(text);
       text = next;
     }
+    free(decided);
     /* The outcomes were collected last to first: restore mark order. */
     for (size_t a = at, b = out->applied_len; a + 1 < b; a++, b--) {
       SpecMarkOutcome t = out->applied[a];
@@ -3501,7 +3880,7 @@ int spec_review_annotations_decide_marks(const SpecReviewAnnotations *r,
   spec_mark_entry_list_free(&marks);
   static const SpecMarkDecisionItem none[1] = {{"", SPEC_MARK_DECISION_LEAVE}};
   Decider d = {decisions_len ? decisions : none, decisions_len,
-               SPEC_MARK_DECISION_LEAVE};
+               SPEC_MARK_DECISION_LEAVE, 0};
   apply_marks(r, &d, NULL, out);
   return 1;
 }
@@ -3509,15 +3888,184 @@ int spec_review_annotations_decide_marks(const SpecReviewAnnotations *r,
 void spec_review_annotations_accept_all_marks(const SpecReviewAnnotations *r,
                                               const char *path,
                                               SpecMarkReport *out) {
-  Decider d = {NULL, 0, SPEC_MARK_DECISION_ACCEPT};
+  Decider d = {NULL, 0, SPEC_MARK_DECISION_ACCEPT, 1};
   apply_marks(r, &d, path, out);
 }
 
 void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
                                               const char *path,
                                               SpecMarkReport *out) {
-  Decider d = {NULL, 0, SPEC_MARK_DECISION_REJECT};
+  Decider d = {NULL, 0, SPEC_MARK_DECISION_REJECT, 1};
   apply_marks(r, &d, path, out);
+}
+
+/* The mark `M-<n>` `mark_id`: its value (taken into `*value`) and parse, and
+ * its index there. 0 with `*err` filled when the document is no longer at
+ * `revision` (when non-NULL) or holds no such mark. */
+static int find_mark(const SpecReviewAnnotations *r, const char *mark_id,
+                     const char *revision, Value *value, Parsed *parsed,
+                     size_t *index, SpecReviewAnnotationError *err) {
+  if (revision != NULL) {
+    char *current = spec_review_annotations_revision(r);
+    if (strcmp(revision, current) != 0) {
+      set_error(err,
+                "the document changed since revision %s (now %s); list the "
+                "marks again",
+                revision, current);
+      free(current);
+      return 0;
+    }
+    free(current);
+  }
+  size_t n = 0;
+  Values vals;
+  values_of(r->doc, &vals);
+  for (size_t i = 0; i < vals.len; i++) {
+    Parsed p;
+    parse(vals.items[i].text, &p);
+    for (size_t k = 0; k < p.marks_len; k++) {
+      char *id = fmt("M-%zu", ++n);
+      int hit = strcmp(id, mark_id) == 0;
+      free(id);
+      if (!hit) continue;
+      take_value(&vals, i, value);
+      *parsed = p;
+      *index = k;
+      values_free(&vals);
+      return 1;
+    }
+    parsed_free(&p);
+  }
+  values_free(&vals);
+  set_error(err, "no inline mark %s in the document", mark_id);
+  return 0;
+}
+
+char *spec_review_annotations_comment_change(const SpecReviewAnnotations *r,
+                                             const char *mark_id,
+                                             const char *text,
+                                             const char *author,
+                                             const char *revision,
+                                             SpecReviewAnnotationError *err) {
+  Value v;
+  Parsed p;
+  size_t k;
+  if (!find_mark(r, mark_id, revision, &v, &p, &k, err)) return NULL;
+  const Mark *m = &p.marks[k];
+  char *result = NULL;
+  char *comment = NULL;
+  char *body = NULL;
+  if (!is_change_mark(m->kind)) {
+    set_error(err, "%s is a %s mark, not a change", mark_id,
+              spec_mark_kind_name(m->kind));
+    goto done;
+  }
+  if (m->comment_index >= 0) {
+    set_error(err, "%s already has a comment; edit it instead", mark_id);
+    goto done;
+  }
+  comment = check_inline_comment(text, err);
+  if (comment == NULL) goto done;
+  if (author != NULL && !spec_review_is_member_id(author)) {
+    set_error(err, "\"%s\" is not a member id", author);
+    goto done;
+  }
+  const char *d = m->kind == SPEC_MARK_INSERTION  ? "++"
+                  : m->kind == SPEC_MARK_DELETION ? "--"
+                                                  : "~~";
+  body = m->kind == SPEC_MARK_SUBSTITUTION
+             ? fmt("%s ~> %s", m->text, m->new_text)
+             : som_strdup(m->text);
+  char *dclose = fmt("%s]", d);
+  int unfit = strstr(body, dclose) != NULL || strstr(body, "<<}") != NULL;
+  free(dclose);
+  if (unfit) {
+    set_error(err, "%s holds \"%s]\" or \"<<}\", which its quote cannot hold",
+              mark_id, d);
+    goto done;
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putn(&b, v.text, m->end);
+  som_buf_puts(&b, "{>> [");
+  som_buf_puts(&b, d);
+  som_buf_putc(&b, ' ');
+  som_buf_puts(&b, body);
+  som_buf_putc(&b, ' ');
+  som_buf_puts(&b, d);
+  som_buf_puts(&b, "] ");
+  som_buf_puts(&b, comment);
+  som_buf_puts(&b, " <<}");
+  if (author != NULL) {
+    som_buf_puts(&b, "{@");
+    som_buf_puts(&b, author);
+    som_buf_putc(&b, '}');
+  }
+  som_buf_puts(&b, v.text + m->end);
+  char *updated = som_buf_take(&b);
+  set_value(r->doc, v.path, v.field, updated);
+  free(updated);
+  result = fmt("M-%lld", strtoll(mark_id + 2, NULL, 10) + 1);
+done:
+  free(body);
+  free(comment);
+  parsed_free(&p);
+  free(v.path);
+  free(v.field);
+  free(v.text);
+  return result;
+}
+
+int spec_review_annotations_edit_mark_comment(const SpecReviewAnnotations *r,
+                                              const char *mark_id,
+                                              const char *text,
+                                              const char *revision,
+                                              SpecReviewAnnotationError *err) {
+  Value v;
+  Parsed p;
+  size_t k;
+  if (!find_mark(r, mark_id, revision, &v, &p, &k, err)) return 0;
+  const Mark *m = &p.marks[k];
+  int ok = 0;
+  char *comment = check_inline_comment(text, err);
+  if (comment != NULL) {
+    SomBuf b;
+    som_buf_init(&b);
+    som_buf_putn(&b, v.text, m->start);
+    if (m->kind == SPEC_MARK_COMMENT) {
+      som_buf_puts(&b, "{>> ");
+      if (m->has_quote) {
+        /* The quote as written, from its `[` to its `]`. */
+        size_t open = m->start + 3;
+        while (open < m->q_end && is_anchor_space(v.text[open])) open++;
+        som_buf_putn(&b, v.text + open, m->q_end - open);
+        som_buf_putc(&b, ' ');
+      }
+      ok = 1;
+    } else if (m->kind == SPEC_MARK_HIGHLIGHT && m->comment != NULL) {
+      som_buf_puts(&b, "{== ");
+      som_buf_puts(&b, m->text);
+      som_buf_puts(&b, " ==}{>> ");
+      ok = 1;
+    }
+    if (ok) {
+      som_buf_puts(&b, comment);
+      som_buf_puts(&b, " <<}");
+      som_buf_puts(&b, v.text + m->body_end);
+      char *updated = som_buf_take(&b);
+      set_value(r->doc, v.path, v.field, updated);
+      free(updated);
+    } else {
+      som_buf_free(&b);
+      set_error(err, "%s holds no comment", mark_id);
+    }
+  }
+  free(comment);
+  parsed_free(&p);
+  free(v.path);
+  free(v.field);
+  free(v.text);
+  return ok;
 }
 
 /* Whether a conflict's topic names a structural conflict the merge writes
@@ -3813,7 +4361,9 @@ int spec_review_annotations_remove_all_annotations(
     values_free(&before);
     return 0;
   }
-  spec_review_annotations_accept_all_marks(r, NULL, out);
+  /* Every mark accepted, change comments included (which go). */
+  Decider all = {NULL, 0, SPEC_MARK_DECISION_ACCEPT, 0};
+  apply_marks(r, &all, NULL, out);
   out->has_conflicts = 1;
   Values vals;
   values_of(r->doc, &vals);
@@ -4464,9 +5014,9 @@ SpecMarkedChange spec_mark_change_text(const char *old_value,
 SpecMarkedChange spec_review_annotations_set_marked(
     const SpecReviewAnnotations *r, const char *path, const char *field,
     const char *text) {
-  char *base = spec_apply_inline_marks_text(get_value(r->doc, path, field), 0);
-  SpecMarkedChange result = spec_mark_change_text(base, text);
-  free(base);
+  char *current = som_strdup(get_value(r->doc, path, field));
+  SpecMarkedChange result = mark_keeping_change_comments(current, text);
+  free(current);
   set_value(r->doc, path, field, result.text);
   return result;
 }

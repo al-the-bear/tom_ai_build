@@ -999,7 +999,8 @@ public final class ConformanceRunner {
 
   /**
    * {@code inline_mark_cases.json}: accepting and rejecting inline marks (SOM §11.9.3). The text
-   * cases pin {@code applyInlineMarksText}; the scripted cases run like the annotation cases.
+   * cases pin {@code applyInlineMarksText}, the change-comment text cases {@code
+   * decideAllMarksText} as well; the scripted cases run like the annotation cases.
    */
   @SuppressWarnings("unchecked")
   private static void testInlineMarkCases(SpecModel model, SomMetaTree tree) throws IOException {
@@ -1017,6 +1018,21 @@ public final class ConformanceRunner {
           "marks text[" + c.get("name") + "].reject",
           reject.equals(c.get("reject")),
           "got " + Json.write(reject) + ", want " + Json.write(c.get("reject")));
+    }
+    for (Object caseObj : (List<Object>) table.get("changeCommentTextCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String text = (String) c.get("text");
+      String name = "change comments text[" + c.get("name") + "]";
+      Map<String, String> live = new LinkedHashMap<>();
+      live.put("accept", SpecReviewAnnotations.decideAllMarksText(text, true));
+      live.put("reject", SpecReviewAnnotations.decideAllMarksText(text, false));
+      live.put("removed", SpecReviewAnnotations.applyInlineMarksText(text, true));
+      for (Map.Entry<String, String> e : live.entrySet()) {
+        check(
+            name + "." + e.getKey(),
+            e.getValue().equals(c.get(e.getKey())),
+            "got " + Json.write(e.getValue()) + ", want " + Json.write(c.get(e.getKey())));
+      }
     }
     for (Object caseObj : (List<Object>) table.get("cases")) {
       Map<String, Object> c = (Map<String, Object>) caseObj;
@@ -1252,6 +1268,24 @@ public final class ConformanceRunner {
         return api.rejectAllMarks((String) op.get("path")).toJson(team);
       case "removeAll":
         return api.removeAllAnnotations().toJson(team);
+      case "commentChange":
+        {
+          String rev = (String) op.get("revision");
+          return api.commentChange(
+              (String) op.get("id"),
+              (String) op.get("text"),
+              (String) op.get("author"),
+              "@current".equals(rev) ? api.revision() : rev);
+        }
+      case "editMarkComment":
+        {
+          String rev = (String) op.get("revision");
+          api.editMarkComment(
+              (String) op.get("id"),
+              (String) op.get("text"),
+              "@current".equals(rev) ? api.revision() : rev);
+          return null;
+        }
       case "setMarked":
         return api.setMarked(
                 (String) op.get("path"), (String) op.get("field"), (String) op.get("text"))

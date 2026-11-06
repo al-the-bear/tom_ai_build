@@ -279,6 +279,19 @@ const char* specMarkDecisionName(SpecMarkDecision d);
 /* The decision named `name`; nullopt when unknown. */
 std::optional<SpecMarkDecision> specMarkDecisionFromName(const std::string& name);
 
+/* The quote a change comment opens with (SOM §11.9.3): the change it is
+ * about, as written in the quote. */
+struct SpecQuotedChange {
+  SpecMarkKind kind = SpecMarkKind::Insertion;  // a change kind
+  std::string oldText;  // the text before the change ("" for an insertion)
+  std::string newText;  // the text after the change ("" for a deletion)
+  /* `accepted`, `rejected`, or nullopt while the change is open. */
+  std::optional<std::string> outcome;
+
+  /* `{kind, oldText, newText, outcome}`. */
+  std::string toJson() const;
+};
+
 /* One inline mark as `listMarks` reports it. */
 struct SpecMarkEntry {
   /* `M-<n>`: the mark's 1-based position among all marks of the document, in
@@ -298,9 +311,18 @@ struct SpecMarkEntry {
   std::vector<std::string> authors;
   /* The votes its attribution token records; empty without one. */
   std::vector<SpecMarkVote> votes;
+  /* A change comment's quote (SOM §11.9.3); nullopt for any other mark. Its
+   * `comment` is then the text after the quote. */
+  std::optional<SpecQuotedChange> quotedChange;
+  /* A change's attached comment, by id; nullopt without one. */
+  std::optional<std::string> commentId;
+  /* The change an attached change comment is about, by id; nullopt
+   * otherwise. */
+  std::optional<std::string> changeId;
 
   /* The canonical JSON form the conformance corpus pins; `team` adds
-   * `authors` and `votes`. */
+   * `authors` and `votes`. `quotedChange`, `commentId` and `changeId` appear
+   * only on the marks they describe. */
   std::string toJson(bool team = false) const;
 };
 
@@ -359,6 +381,12 @@ struct SpecMarkReport {
  * highlight and comment mark removed. Marks in code and malformed marks stay
  * as written. */
 std::string applyInlineMarksText(const std::string& value, bool accept);
+
+/* `value` with every inline mark accepted (`accept`) or rejected, as accept
+ * all / reject all write it (SOM §11.9.3): change comments stay, an attached
+ * one records the outcome; every other highlight and comment mark is
+ * removed. Marks in code and malformed marks stay as written. */
+std::string decideAllMarksText(const std::string& value, bool accept);
 
 /* ---- writing changes as inline marks (SOM §11.9.3) ---------------------- */
 
@@ -506,17 +534,43 @@ class SpecReviewAnnotations {
       const std::map<std::string, SpecMarkDecision>& decisions,
       const std::string& revision);
 
-  /* Accepts every inline mark under `path` (nullopt: the whole document). */
+  /* Accepts every inline mark under `path` (nullopt: the whole document),
+   * except change comments, which stay (SOM §11.9.3). */
   SpecMarkReport acceptAllMarks(
       const std::optional<std::string>& path = std::nullopt);
 
-  /* Rejects every inline mark under `path` (nullopt: the whole document). */
+  /* Rejects every inline mark under `path` (nullopt: the whole document),
+   * except change comments, which stay (SOM §11.9.3). */
   SpecMarkReport rejectAllMarks(
       const std::optional<std::string>& path = std::nullopt);
 
+  /* Writes a change comment (SOM §11.9.3) directly after the change mark
+   * `markId`, its quote written from the mark and `text` after it, with an
+   * attribution token `{@author}` when `author` is given, and returns the new
+   * comment's id. Throws `SpecReviewAnnotationError` — nothing changes — for
+   * an unknown id, a stale `revision` (when given), a mark that is not a
+   * change or already has an attached comment, a change its quote cannot
+   * hold, a `text` that is empty or holds a mark delimiter or a blank line,
+   * and an `author` that is not a member id. */
+  std::string commentChange(
+      const std::string& markId, const std::string& text,
+      const std::optional<std::string>& author = std::nullopt,
+      const std::optional<std::string>& revision = std::nullopt);
+
+  /* Replaces the comment of the comment mark, change comment or commented
+   * highlight `markId` with `text` (SOM §11.9.3). A change comment keeps its
+   * quote as written, and the attribution token stays. Throws
+   * `SpecReviewAnnotationError` — nothing changes — for an unknown id, a
+   * stale `revision` (when given), a mark that holds no comment, and a `text`
+   * that is empty or holds a mark delimiter or a blank line. */
+  void editMarkComment(
+      const std::string& markId, const std::string& text,
+      const std::optional<std::string>& revision = std::nullopt);
+
   /* Removes every annotation and writes the result back: every inline mark
-   * accepted, every conflict's decision applied (SOM §11.9.8), every comment,
-   * question and conflict block removed. Malformed marks stay and are
+   * accepted (change comments included, so they go too), every conflict's
+   * decision applied (SOM §11.9.8), every comment, question and conflict
+   * block removed. Malformed marks stay and are
    * reported. Refused — throws SpecReviewAnnotationError, nothing changes —
    * while a conflict is open, unresolved (`open:`), malformed, or decided for
    * a letter it has no alternative for. Returns the accept report with the
@@ -526,7 +580,9 @@ class SpecReviewAnnotations {
   /* Writes `text` at `path` / `field` as a marked change against the value
    * there now. A value that already holds change marks is compared from its
    * original — every mark rejected — so a second edit of the same passage
-   * updates its mark instead of nesting one. */
+   * updates its mark instead of nesting one. Change comments (SOM §11.9.3)
+   * are kept: each is written back after as many non-whitespace characters
+   * as preceded it in the original, detached from any change. */
   SpecMarkedChange setMarked(const std::string& path,
                              const std::optional<std::string>& field,
                              const std::string& text);
@@ -546,9 +602,11 @@ class SpecReviewAnnotations {
   std::vector<SpecValidationError> validate() const;
 
  private:
+  /* Applies `decide(id, quoted)` — `quoted`: the mark is a change comment —
+   * to every mark under `under`, one write per value. */
   SpecMarkReport applyMarks(
-      const std::function<std::optional<SpecMarkDecision>(const std::string&)>&
-          decide,
+      const std::function<std::optional<SpecMarkDecision>(const std::string&,
+                                                          bool)>& decide,
       const std::optional<std::string>& under);
 
   struct DecidedConflict;

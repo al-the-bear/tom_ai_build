@@ -479,7 +479,9 @@ class SpecMarkEntry {
    * @param {{id: string, path: string, field?: string|null, line: number,
    *   markKind: string, oldText: string, newText: string,
    *   comment?: string|null, markup: string, context: string,
-   *   authors?: string[], votes?: SpecMarkVote[]}} options
+   *   authors?: string[], votes?: SpecMarkVote[],
+   *   quotedChange?: Object|null, commentId?: string|null,
+   *   changeId?: string|null}} options
    */
   constructor({
     id,
@@ -494,6 +496,9 @@ class SpecMarkEntry {
     context,
     authors = [],
     votes = [],
+    quotedChange = null,
+    commentId = null,
+    changeId = null,
   }) {
     /** `M-<n>`: the mark's 1-based position among all marks of the document. */
     this.id = id;
@@ -519,9 +524,23 @@ class SpecMarkEntry {
     this.authors = authors;
     /** The votes its attribution token records; empty without one. */
     this.votes = votes;
+    /**
+     * A change comment's quote (SOM §11.9.3): `kind`, `oldText`, `newText`
+     * and `outcome`; null for any other mark. Its `comment` is the text after
+     * the quote.
+     */
+    this.quotedChange = quotedChange;
+    /** A change's attached comment, by id; null without one. */
+    this.commentId = commentId;
+    /** The change an attached change comment is about, by id; null otherwise. */
+    this.changeId = changeId;
   }
 
-  /** The canonical JSON form the conformance corpus pins; `{team: true}` adds authors and votes. */
+  /**
+   * The canonical JSON form the conformance corpus pins; `{team: true}` adds
+   * authors and votes. `quotedChange`, `commentId` and `changeId` appear only
+   * on the marks they describe.
+   */
   toJson({ team = false } = {}) {
     const out = {
       id: this.id,
@@ -535,6 +554,9 @@ class SpecMarkEntry {
       markup: this.markup,
       context: this.context,
     };
+    if (this.quotedChange !== null) out.quotedChange = this.quotedChange;
+    if (this.commentId !== null) out.commentId = this.commentId;
+    if (this.changeId !== null) out.changeId = this.changeId;
     if (team) {
       out.authors = this.authors;
       out.votes = this.votes.map((v) => v.toJson());
@@ -1227,6 +1249,119 @@ function _parseMarks(p) {
     const segEnd = lineStart[k - 1] + p.lines[k - 1].length;
     _scanSegment(p, value.substring(segStart, segEnd), segStart, lineOf);
   }
+  _attachChangeComments(p.marks);
+}
+
+/** The quote of a change comment's kinds (SOM §11.9.3). */
+const _QUOTE_KINDS = {
+  '++': SpecMarkKind.INSERTION,
+  '--': SpecMarkKind.DELETION,
+  '~~': SpecMarkKind.SUBSTITUTION,
+};
+
+function _isBlankChar(c) {
+  return c === ' ' || c === '\t';
+}
+
+/** A quote's JSON form: `kind`, `oldText`, `newText`, `outcome`. */
+function _quoteJson(q) {
+  return { kind: q.kind, oldText: q.oldText, newText: q.newText, outcome: q.outcome };
+}
+
+/**
+ * Reads the quote at the start of a comment mark's inner text `s`, whose first
+ * character is at value offset `at`: the quote (`kind`, `oldText`, `newText`,
+ * `outcome` — `accepted`, `rejected` or null —, `delimEnd` right after the
+ * closing delimiter, `end` right after the `]`, `comment` the text after it,
+ * trimmed), null when `s` opens no quote, or the issue (`unclosed`,
+ * `noArrow`) of one that is malformed.
+ *
+ * @param {string} s
+ * @param {number} at
+ * @returns {Object|string|null}
+ */
+function _readQuote(s, at) {
+  let a = 0;
+  while (a < s.length && ' \t\r\n'.includes(s[a])) {
+    a++;
+  }
+  if (a + 3 > s.length || s[a] !== '[') return null;
+  const d = s.substring(a + 1, a + 3);
+  const kind = Object.prototype.hasOwnProperty.call(_QUOTE_KINDS, d) ? _QUOTE_KINDS[d] : undefined;
+  if (kind === undefined) return null;
+  let j = s.indexOf(d, a + 3);
+  while (j >= 0) {
+    let t = j + 2;
+    while (t < s.length && _isBlankChar(s[t])) {
+      t++;
+    }
+    let outcome = null;
+    let close = -1;
+    if (t < s.length && s[t] === ']') {
+      close = t;
+    } else if (t < s.length && s[t] === '|') {
+      t++;
+      while (t < s.length && _isBlankChar(s[t])) {
+        t++;
+      }
+      for (const w of ['accepted', 'rejected']) {
+        if (!s.startsWith(w, t)) continue;
+        let u = t + w.length;
+        while (u < s.length && _isBlankChar(s[u])) {
+          u++;
+        }
+        if (u < s.length && s[u] === ']') {
+          outcome = w;
+          close = u;
+        }
+        break;
+      }
+    }
+    if (close >= 0) {
+      const body = s.substring(a + 3, j);
+      let oldText = '';
+      let newText = '';
+      if (kind === SpecMarkKind.INSERTION) {
+        newText = body.trim();
+      } else if (kind === SpecMarkKind.DELETION) {
+        oldText = body.trim();
+      } else {
+        const arrow = body.indexOf('~>');
+        if (arrow < 0) return 'noArrow';
+        oldText = body.substring(0, arrow).trim();
+        newText = body.substring(arrow + 2).trim();
+      }
+      return {
+        kind,
+        oldText,
+        newText,
+        outcome,
+        delimEnd: at + j + 2,
+        end: at + close + 1,
+        comment: s.substring(close + 1).trim(),
+      };
+    }
+    j = s.indexOf(d, j + 1);
+  }
+  return 'unclosed';
+}
+
+/**
+ * Links each change comment to the change written directly before it whose
+ * kind and texts it quotes (SOM §11.9.3).
+ */
+function _attachChangeComments(marks) {
+  for (let k = 1; k < marks.length; k++) {
+    const q = marks[k].quote;
+    const c = marks[k - 1];
+    if (q === null || q.outcome !== null || !_isChangeMark(c.kind)) continue;
+    if (c.end !== marks[k].start || c.kind !== q.kind) continue;
+    if (_markReplacement(c, false) !== q.oldText || _markReplacement(c, true) !== q.newText) {
+      continue;
+    }
+    marks[k].changeIndex = k - 1;
+    c.commentIndex = k;
+  }
 }
 
 function _scanSegment(p, seg, base, lineOf) {
@@ -1310,12 +1445,31 @@ function _scanSegment(p, seg, base, lineOf) {
       comment,
       authors: [],
       votes: [],
+      quote: null,
+      changeIndex: null,
+      commentIndex: null,
     });
     const before = p.marks.length;
     switch (opener) {
-      case '{>>':
-        p.marks.push(mark(SpecMarkKind.COMMENT, '', null, inner.trim()));
+      case '{>>': {
+        const m = mark(SpecMarkKind.COMMENT, '', null, inner.trim());
+        const q = _readQuote(inner, base + i + 3);
+        if (q === 'unclosed') {
+          p.malformed.push(
+            `line ${line}: the quote of a change comment is not closed; ` +
+              'it is read as a plain comment (SOM §11.9.3)',
+          );
+        } else if (q === 'noArrow') {
+          p.malformed.push(
+            `line ${line}: the quote of a change comment has no "~>"; ` +
+              'it is read as a plain comment (SOM §11.9.3)',
+          );
+        } else if (q !== null) {
+          m.quote = q;
+        }
+        p.marks.push(m);
         break;
+      }
       case '{==': {
         let comment = null;
         if (seg.startsWith('{>>', end)) {
@@ -1750,6 +1904,139 @@ function applyInlineMarksText(value, { accept }) {
     v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept));
   }
   return v;
+}
+
+/**
+ * `value` with every inline mark accepted (`accept`) or rejected, as accept all
+ * / reject all write it (SOM §11.9.3): change comments stay, an attached one
+ * records the outcome; every other highlight and comment mark is removed.
+ * Marks in code and malformed marks stay as written.
+ *
+ * @param {string} value
+ * @param {{accept: boolean}} options
+ * @returns {string}
+ */
+function decideAllMarksText(value, { accept }) {
+  const marks = _parse(value).marks;
+  let v = value;
+  for (let k = marks.length - 1; k >= 0; k--) {
+    if (marks[k].quote !== null) continue;
+    v = _decideMark(v, marks, k, accept);
+  }
+  return v;
+}
+
+/** `value` with the mark `k` of `marks` decided; a change's attached comment records the outcome (SOM §11.9.3). */
+function _decideMark(value, marks, k, accept) {
+  const m = marks[k];
+  let v = value;
+  const ci = m.commentIndex;
+  if (ci !== null) v = _recordOutcome(v, marks[ci].quote, accept);
+  return _replaceMark(v, m, _markReplacement(m, accept));
+}
+
+/**
+ * `value` with the outcome written into the quote `q`: everything from its
+ * closing delimiter to its `]` becomes ` | accepted]` or ` | rejected]`.
+ */
+function _recordOutcome(value, q, accept) {
+  return (
+    `${value.substring(0, q.delimEnd)} | ${accept ? 'accepted' : 'rejected'}]` +
+    value.substring(q.end)
+  );
+}
+
+/** The trimmed `text` of an inline comment, refused when it is empty or holds a mark delimiter or a blank line. */
+function _checkInlineComment(text) {
+  const t = text.trim();
+  if (t.length === 0) {
+    throw new SpecReviewAnnotationError('a comment needs text');
+  }
+  if ([..._OPENERS, '<<}'].some((d) => t.includes(d)) || /\n[ \t\r]*\n/.test(t)) {
+    throw new SpecReviewAnnotationError('a comment cannot hold a mark delimiter or a blank line');
+  }
+  return t;
+}
+
+/** The whitespace of the change-comment anchors (SOM §11.9.3). */
+function _isAnchorSpace(c) {
+  return c === ' ' || c === '\t' || c === '\r' || c === '\n';
+}
+
+function _nonSpaceCount(s) {
+  let n = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (!_isAnchorSpace(s[i])) n++;
+  }
+  return n;
+}
+
+/**
+ * `setMarked` with the value's change comments kept (SOM §11.9.3): taken out
+ * of the original, then written back where their anchor falls.
+ *
+ * @param {string} current
+ * @param {string} text
+ * @returns {SpecMarkedChange}
+ */
+function _markKeepingChangeComments(current, text) {
+  // 1. The original: every mark rejected except the change comments.
+  let original = current;
+  const marks = _parse(current).marks;
+  for (let k = marks.length - 1; k >= 0; k--) {
+    if (marks[k].quote !== null) continue;
+    original = _replaceMark(original, marks[k], _markReplacement(marks[k], false));
+  }
+  // 2. Each change comment's markup, anchor and leading space.
+  const kept = _parse(original).marks.filter((m) => m.quote !== null);
+  const anchors = [];
+  let counted = 0;
+  let from = 0;
+  for (const m of kept) {
+    counted += _nonSpaceCount(original.substring(from, m.start));
+    from = m.end;
+    anchors.push([
+      original.substring(m.start, m.end),
+      counted,
+      m.start > 0 && _isBlankChar(original[m.start - 1]),
+    ]);
+  }
+  // 3. Removed, compared.
+  let base = original;
+  for (let k = kept.length - 1; k >= 0; k--) {
+    base = _replaceMark(base, kept[k], '');
+  }
+  const result = markChangeText(base, text);
+  if (anchors.length === 0) return result;
+  // 4. Written back where k non-whitespace characters have passed.
+  const r = result.text;
+  const rm = _parse(r).marks;
+  const place = (k) => {
+    if (k === 0) return 0;
+    let n = 0;
+    let i = 0;
+    let mi = 0;
+    while (i < r.length) {
+      if (mi < rm.length && rm[mi].start === i) {
+        const m = rm[mi++];
+        n += m.kind === SpecMarkKind.INSERTION ? 0 : _nonSpaceCount(m.text);
+        i = m.end;
+        if (n >= k) return i;
+        continue;
+      }
+      if (!_isAnchorSpace(r[i])) n++;
+      i++;
+      if (n >= k) return i;
+    }
+    return r.length;
+  };
+  const at = anchors.map((a) => place(a[1]));
+  let out = r;
+  for (let j = anchors.length - 1; j >= 0; j--) {
+    const [markup, , space] = anchors[j];
+    out = `${out.substring(0, at[j])}${space ? ' ' : ''}${markup}${out.substring(at[j])}`;
+  }
+  return new SpecMarkedChange(out, { exact: result.exact });
 }
 
 /**
@@ -2192,8 +2479,7 @@ class SpecReviewAnnotations {
         `no inline mark ${index} at ${path}${field == null ? '' : ` / ${field}`}`,
       );
     }
-    const m = marks[index];
-    this._set(path, field, _replaceMark(value, m, _markReplacement(m, accept)));
+    this._set(path, field, _decideMark(value, marks, index, accept));
   }
 
   /**
@@ -2239,6 +2525,7 @@ class SpecReviewAnnotations {
     for (const [vpath, field, text] of this._values()) {
       const p = _parse(text);
       const paras = _paragraphs(p.lines, p.code);
+      const first = n + 1;
       for (const m of p.marks) {
         const id = `M-${++n}`;
         if (!SpecReviewAnnotations._under(vpath, path)) continue;
@@ -2252,11 +2539,14 @@ class SpecReviewAnnotations {
             markKind: m.kind,
             oldText: _markReplacement(m, false),
             newText: _markReplacement(m, true),
-            comment: m.comment,
+            comment: m.quote !== null ? m.quote.comment : m.comment,
             markup: text.substring(m.start, m.end),
             context: p.lines.slice(para[0], para[1] + 1).join('\n'),
             authors: m.authors,
             votes: m.votes,
+            quotedChange: m.quote !== null ? _quoteJson(m.quote) : null,
+            commentId: m.commentIndex === null ? null : `M-${first + m.commentIndex}`,
+            changeId: m.changeIndex === null ? null : `M-${first + m.changeIndex}`,
           }),
         );
       }
@@ -2264,7 +2554,7 @@ class SpecReviewAnnotations {
     return out;
   }
 
-  /** Applies `decide(id)` to every mark in the subtree `under` (null: all), one write per value. */
+  /** Applies `decide(id, mark)` to every mark in the subtree `under` (null: all), one write per value. */
   _applyMarks(decide, under = null) {
     const applied = [];
     const issues = [];
@@ -2278,11 +2568,17 @@ class SpecReviewAnnotations {
       }
       let v = text;
       const outcomes = [];
+      const decided = p.marks.map((m, k) => decide(ids[k], m));
+      const isDecided = (k) => decided[k] != null && decided[k] !== SpecMarkDecision.LEAVE;
       for (let k = p.marks.length - 1; k >= 0; k--) {
-        const d = decide(ids[k]);
-        if (d == null || d === SpecMarkDecision.LEAVE) continue;
+        if (!isDecided(k)) continue;
+        const d = decided[k];
         const m = p.marks[k];
         const repl = _markReplacement(m, d === SpecMarkDecision.ACCEPT);
+        const ci = m.commentIndex;
+        if (ci !== null && !isDecided(ci)) {
+          v = _recordOutcome(v, p.marks[ci].quote, d === SpecMarkDecision.ACCEPT);
+        }
         outcomes.unshift(
           new SpecMarkOutcome({
             id: ids[k],
@@ -2334,14 +2630,120 @@ class SpecReviewAnnotations {
     return this._applyMarks((id) => map.get(id));
   }
 
-  /** Accepts every inline mark under `path` (null: the whole document). @returns {SpecMarkReport} */
+  /**
+   * Accepts every inline mark under `path` (null: the whole document), except
+   * change comments, which stay (SOM §11.9.3).
+   *
+   * @returns {SpecMarkReport}
+   */
   acceptAllMarks({ path = null } = {}) {
-    return this._applyMarks(() => SpecMarkDecision.ACCEPT, path);
+    return this._applyMarks((_, m) => (m.quote === null ? SpecMarkDecision.ACCEPT : null), path);
   }
 
-  /** Rejects every inline mark under `path` (null: the whole document). @returns {SpecMarkReport} */
+  /**
+   * Rejects every inline mark under `path` (null: the whole document), except
+   * change comments, which stay (SOM §11.9.3).
+   *
+   * @returns {SpecMarkReport}
+   */
   rejectAllMarks({ path = null } = {}) {
-    return this._applyMarks(() => SpecMarkDecision.REJECT, path);
+    return this._applyMarks((_, m) => (m.quote === null ? SpecMarkDecision.REJECT : null), path);
+  }
+
+  /**
+   * The mark `M-<n>` `markId` with its value as `[path, field, text, parsed,
+   * index]`, refused when the document is no longer at `revision` (when
+   * given) or holds no such mark.
+   */
+  _findMark(markId, revision) {
+    if (revision != null) {
+      const current = this.revision();
+      if (revision !== current) {
+        throw new SpecReviewAnnotationError(
+          `the document changed since revision ${revision} (now ${current}); list the marks again`,
+        );
+      }
+    }
+    let n = 0;
+    for (const [path, field, text] of this._values()) {
+      const p = _parse(text);
+      for (let k = 0; k < p.marks.length; k++) {
+        if (`M-${++n}` === markId) return [path, field, text, p, k];
+      }
+    }
+    throw new SpecReviewAnnotationError(`no inline mark ${markId} in the document`);
+  }
+
+  /**
+   * Writes a change comment (SOM §11.9.3) directly after the change mark
+   * `markId`, its quote written from the mark and `text` after it, with an
+   * attribution token `{@author}` when `author` is given, and returns the new
+   * comment's id. Refused — nothing changes — for an unknown id, a stale
+   * `revision`, a mark that is not a change or already has an attached
+   * comment, a change its quote cannot hold, a `text` that is empty or holds a
+   * mark delimiter or a blank line, and an `author` that is not a member id.
+   *
+   * @param {string} markId
+   * @param {string} text
+   * @param {{author?: string|null, revision?: string|null}} [options]
+   * @returns {string}
+   */
+  commentChange(markId, text, { author = null, revision = null } = {}) {
+    const [path, field, value, p, k] = this._findMark(markId, revision);
+    const m = p.marks[k];
+    if (!_isChangeMark(m.kind)) {
+      throw new SpecReviewAnnotationError(`${markId} is a ${m.kind} mark, not a change`);
+    }
+    if (m.commentIndex !== null) {
+      throw new SpecReviewAnnotationError(`${markId} already has a comment; edit it instead`);
+    }
+    const comment = _checkInlineComment(text);
+    if (author != null && !_MEMBER_ID.test(author)) {
+      throw new SpecReviewAnnotationError(`"${author}" is not a member id`);
+    }
+    const d =
+      m.kind === SpecMarkKind.INSERTION ? '++' : m.kind === SpecMarkKind.DELETION ? '--' : '~~';
+    const body = m.kind === SpecMarkKind.SUBSTITUTION ? `${m.text} ~> ${m.newText}` : m.text;
+    if (body.includes(`${d}]`) || body.includes('<<}')) {
+      throw new SpecReviewAnnotationError(
+        `${markId} holds "${d}]" or "<<}", which its quote cannot hold`,
+      );
+    }
+    const markup = `{>> [${d} ${body} ${d}] ${comment} <<}${author == null ? '' : `{@${author}}`}`;
+    this._set(path, field, `${value.substring(0, m.end)}${markup}${value.substring(m.end)}`);
+    return `M-${parseInt(markId.substring(2), 10) + 1}`;
+  }
+
+  /**
+   * Replaces the comment of the comment mark, change comment or commented
+   * highlight `markId` with `text` (SOM §11.9.3). A change comment keeps its
+   * quote as written, and the attribution token stays. Refused — nothing
+   * changes — for an unknown id, a stale `revision`, a mark that holds no
+   * comment, and a `text` that is empty or holds a mark delimiter or a blank
+   * line.
+   *
+   * @param {string} markId
+   * @param {string} text
+   * @param {{revision?: string|null}} [options]
+   */
+  editMarkComment(markId, text, { revision = null } = {}) {
+    const [path, field, value, p, k] = this._findMark(markId, revision);
+    const m = p.marks[k];
+    const comment = _checkInlineComment(text);
+    let markup;
+    if (m.kind === SpecMarkKind.COMMENT) {
+      const q = m.quote;
+      const open = m.start + 3;
+      markup =
+        q === null
+          ? `{>> ${comment} <<}`
+          : `{>> ${value.substring(open, q.end).trimStart()} ${comment} <<}`;
+    } else if (m.kind === SpecMarkKind.HIGHLIGHT && m.comment !== null) {
+      markup = `{== ${m.text} ==}{>> ${comment} <<}`;
+    } else {
+      throw new SpecReviewAnnotationError(`${markId} holds no comment`);
+    }
+    this._set(path, field, `${value.substring(0, m.start)}${markup}${value.substring(m.bodyEnd)}`);
   }
 
   /**
@@ -2355,7 +2757,7 @@ class SpecReviewAnnotations {
    */
   removeAllAnnotations() {
     const decided = this._decidedConflicts();
-    const marks = this.acceptAllMarks();
+    const marks = this._applyMarks(() => SpecMarkDecision.ACCEPT);
     const outcomes = [];
     for (const [path, field, text] of this._values()) {
       let v = text;
@@ -2460,9 +2862,7 @@ class SpecReviewAnnotations {
    * @returns {SpecMarkedChange}
    */
   setMarked({ path, field = null, text }) {
-    const current = this._get(path, field);
-    const base = applyInlineMarksText(current, { accept: false });
-    const result = markChangeText(base, text);
+    const result = _markKeepingChangeComments(this._get(path, field), text);
     this._set(path, field, result.text);
     return result;
   }
@@ -3239,6 +3639,7 @@ module.exports = {
   formatCommentBlock,
   formatQuestionBlock,
   applyInlineMarksText,
+  decideAllMarksText,
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,

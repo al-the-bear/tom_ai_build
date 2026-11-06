@@ -1265,6 +1265,24 @@
     ]
   },
   {
+    "name": "annotationMalformed: change comment quotes",
+    "state": {
+      "content": {
+        "DEMO/SUM": "After {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 why? <<} and {~~ a ~> b ~~}{>> [~~ a b ~~] why? <<}, but {>> [see FR-3] plain <<} and {++ x ++}{>> [++ x ++] fine <<}."
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      }
+    ]
+  },
+  {
     "name": "duplicateAnnotationId",
     "state": {
       "content": {

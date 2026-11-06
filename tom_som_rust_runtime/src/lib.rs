@@ -130,13 +130,14 @@ pub use spec_query::{
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
 pub use spec_review_annotations::{
-    apply_inline_marks_text, format_comment_block, format_conflict_block, format_question_block,
-    is_review_member_id, mark_change_text, strip_annotations_text, validate_review_annotations,
-    SpecConflictAlternative, SpecConflictOutcome, SpecIndividualAnswer, SpecMarkDecision,
-    SpecMarkEntry, SpecMarkIssue, SpecMarkKind, SpecMarkOutcome, SpecMarkReport, SpecMarkVote,
-    SpecMarkedChange, SpecParagraph, SpecQuestionDraft, SpecQuestionOption, SpecReviewAnnotation,
-    SpecReviewAnnotationCounts, SpecReviewAnnotationError, SpecReviewAnnotationKind,
-    SpecReviewAnnotations, SpecReviewJsonOptions,
+    apply_inline_marks_text, decide_all_marks_text, format_comment_block, format_conflict_block,
+    format_question_block, is_review_member_id, mark_change_text, strip_annotations_text,
+    validate_review_annotations, SpecConflictAlternative, SpecConflictOutcome,
+    SpecIndividualAnswer, SpecMarkDecision, SpecMarkEntry, SpecMarkIssue, SpecMarkKind,
+    SpecMarkOutcome, SpecMarkReport, SpecMarkVote, SpecMarkedChange, SpecParagraph,
+    SpecQuestionDraft, SpecQuestionOption, SpecReviewAnnotation, SpecReviewAnnotationCounts,
+    SpecReviewAnnotationError, SpecReviewAnnotationKind, SpecReviewAnnotations,
+    SpecReviewJsonOptions,
 };
 pub use spec_review_merge::{
     merge_reviews, merge_reviews_markdown, SpecMergeAddition, SpecMergeAnswers, SpecMergeComment,

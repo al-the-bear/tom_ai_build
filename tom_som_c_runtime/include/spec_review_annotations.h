@@ -281,8 +281,18 @@ const char *spec_mark_decision_name(SpecMarkDecision d);
 /* Parses a wire name into `*out`; 0 when unknown. */
 int spec_mark_decision_parse(const char *name, SpecMarkDecision *out);
 
+/* A change comment's quote of a change (SOM §11.9.3): `{>> [-- old --] why?
+ * <<}`. Every string is owned. */
+typedef struct {
+  SpecMarkKind kind; /* insertion, deletion or substitution */
+  char *old_text;    /* the quoted old text; "" for an insertion */
+  char *new_text;    /* the quoted new text; "" for a deletion */
+  char *outcome;     /* "accepted", "rejected", or NULL while open */
+} SpecQuotedChange;
+
 /* One inline mark as `spec_review_annotations_list_marks` reports it. Every
- * string is owned; `field` and `comment` may be NULL. */
+ * string is owned; `field`, `comment`, `quoted_change`, `comment_id` and
+ * `change_id` may be NULL. */
 typedef struct {
   /* `M-<n>`: the mark's 1-based position among all marks of the document, in
    * document order. Stable for one `spec_review_annotations_revision`. */
@@ -301,10 +311,18 @@ typedef struct {
   /* The votes its attribution token records; none without one. */
   SpecMarkVote *votes;
   size_t votes_len;
+  /* A change comment's quote (SOM §11.9.3); NULL for any other mark. Its
+   * `comment` is then the text after the quote. Owned. */
+  SpecQuotedChange *quoted_change;
+  /* A change's attached comment, by id; NULL without one. */
+  char *comment_id;
+  /* The change an attached change comment is about, by id; NULL otherwise. */
+  char *change_id;
 } SpecMarkEntry;
 
 void spec_mark_entry_free(SpecMarkEntry *e);
-/* The canonical JSON form the conformance corpus pins. Owned. */
+/* The canonical JSON form the conformance corpus pins; `quotedChange`,
+ * `commentId` and `changeId` appear only on the marks they describe. Owned. */
 char *spec_mark_entry_to_json(const SpecMarkEntry *e);
 /* The same with `authors` and `votes`. Owned. */
 char *spec_mark_entry_to_team_json(const SpecMarkEntry *e);
@@ -383,6 +401,12 @@ typedef struct {
  * and every highlight and comment mark removed. Marks in code and malformed
  * marks stay as written. Owned result. */
 char *spec_apply_inline_marks_text(const char *value, int accept);
+
+/* `value` with every inline mark accepted (`accept` non-zero) or rejected, as
+ * accept all / reject all write it (SOM §11.9.3): change comments stay, an
+ * attached one records the outcome; every other highlight and comment mark is
+ * removed. Marks in code and malformed marks stay as written. Owned result. */
+char *spec_decide_all_marks_text(const char *value, int accept);
 
 /* ---- writing changes as inline marks (SOM §11.9.3) ---------------------- */
 
@@ -590,15 +614,44 @@ int spec_review_annotations_decide_marks(const SpecReviewAnnotations *r,
                                          SpecMarkReport *out,
                                          SpecReviewAnnotationError *err);
 
-/* Accepts every inline mark under `path` (NULL: the whole document). */
+/* Accepts every inline mark under `path` (NULL: the whole document), except
+ * change comments, which stay (SOM §11.9.3). */
 void spec_review_annotations_accept_all_marks(const SpecReviewAnnotations *r,
                                               const char *path,
                                               SpecMarkReport *out);
 
-/* Rejects every inline mark under `path` (NULL: the whole document). */
+/* Rejects every inline mark under `path` (NULL: the whole document), except
+ * change comments, which stay (SOM §11.9.3). */
 void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
                                               const char *path,
                                               SpecMarkReport *out);
+
+/* Writes a change comment (SOM §11.9.3) directly after the change mark
+ * `mark_id` (`M-<n>`), its quote written from the mark and `text` after it,
+ * with an attribution token `{@author}` when `author` is non-NULL, and
+ * returns the new comment's id (owned). Refused — NULL, `*err` filled,
+ * nothing changes — for an unknown id, a stale `revision` (when non-NULL),
+ * a mark that is not a change or already has an attached comment, a change
+ * its quote cannot hold, a `text` that is empty or holds a mark delimiter or
+ * a blank line, and an `author` that is not a member id. */
+char *spec_review_annotations_comment_change(const SpecReviewAnnotations *r,
+                                             const char *mark_id,
+                                             const char *text,
+                                             const char *author,
+                                             const char *revision,
+                                             SpecReviewAnnotationError *err);
+
+/* Replaces the comment of the comment mark, change comment or commented
+ * highlight `mark_id` with `text` (SOM §11.9.3). A change comment keeps its
+ * quote as written, and the attribution token stays. Refused — 0, `*err`
+ * filled, nothing changes — for an unknown id, a stale `revision` (when
+ * non-NULL), a mark that holds no comment, and a `text` that is empty or
+ * holds a mark delimiter or a blank line. */
+int spec_review_annotations_edit_mark_comment(const SpecReviewAnnotations *r,
+                                              const char *mark_id,
+                                              const char *text,
+                                              const char *revision,
+                                              SpecReviewAnnotationError *err);
 
 /* Removes every annotation and writes the result back: every inline mark
  * accepted, every conflict's decision applied (SOM §11.9.8), every comment,
@@ -614,7 +667,9 @@ int spec_review_annotations_remove_all_annotations(
 /* Writes `text` at `path` / `field` (NULL: content) as a marked change
  * against the value there now. A value that already holds change marks is
  * compared from its original — every mark rejected — so a second edit of the
- * same passage updates its mark instead of nesting one. */
+ * same passage updates its mark instead of nesting one. Change comments are
+ * kept: taken out of the original, then written back where as many
+ * non-whitespace characters have passed as before them (SOM §11.9.3). */
 SpecMarkedChange spec_review_annotations_set_marked(
     const SpecReviewAnnotations *r, const char *path, const char *field,
     const char *text);

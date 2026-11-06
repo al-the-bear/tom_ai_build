@@ -79,8 +79,8 @@ use tom_som_rust_runtime::spec_query::{
 };
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_review_annotations::{
-    apply_inline_marks_text, mark_change_text, SpecMarkDecision, SpecQuestionDraft,
-    SpecReviewAnnotationError, SpecReviewAnnotations, SpecReviewJsonOptions,
+    apply_inline_marks_text, decide_all_marks_text, mark_change_text, SpecMarkDecision,
+    SpecQuestionDraft, SpecReviewAnnotationError, SpecReviewAnnotations, SpecReviewJsonOptions,
 };
 use tom_som_rust_runtime::spec_review_merge::{
     merge_reviews, merge_reviews_markdown, SpecReviewMember, SpecReviewMergeOptions,
@@ -3227,6 +3227,28 @@ fn test_inline_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
             );
         }
     }
+    let change_comment_cases = cases(&table, "changeCommentTextCases");
+    c.check(
+        "inlineMarks.changeCommentTextCases",
+        !change_comment_cases.is_empty(),
+        "no changeCommentTextCases",
+    );
+    for tc in change_comment_cases {
+        let name = tc.str_or("name");
+        let text = tc.str_or("text");
+        for (key, got) in [
+            ("accept", decide_all_marks_text(&text, true)),
+            ("reject", decide_all_marks_text(&text, false)),
+            ("removed", apply_inline_marks_text(&text, true)),
+        ] {
+            let want = tc.str_or(key);
+            c.check(
+                &format!("inlineMarks.changeComments[{}].{}", name, key),
+                got == want,
+                &format!("got {:?} want {:?}", got, want),
+            );
+        }
+    }
     let scripted = cases(&table, "cases");
     c.check("inlineMarks.cases", !scripted.is_empty(), "no cases");
     for cc in scripted {
@@ -3487,6 +3509,30 @@ fn run_annotation_case(
             "acceptAll" => Ok(api.accept_all_marks(s("path")).to_json_with(json)),
             "rejectAll" => Ok(api.reject_all_marks(s("path")).to_json_with(json)),
             "removeAll" => api.remove_all_annotations().map(|r| r.to_json_with(json)),
+            "commentChange" => {
+                let revision = match s("revision") {
+                    Some("@current") => Some(api.revision()),
+                    r => r.map(str::to_string),
+                };
+                api.comment_change(
+                    s("id").unwrap_or(""),
+                    s("text").unwrap_or(""),
+                    s("author"),
+                    revision.as_deref(),
+                )
+                .map(|id| jstr(&id))
+            }
+            "editMarkComment" => {
+                let revision = match s("revision") {
+                    Some("@current") => Some(api.revision()),
+                    r => r.map(str::to_string),
+                };
+                unit(api.edit_mark_comment(
+                    s("id").unwrap_or(""),
+                    s("text").unwrap_or(""),
+                    revision.as_deref(),
+                ))
+            }
             "setMarked" => Ok(api
                 .set_marked(s("path").unwrap_or(""), s("field"), s("text").unwrap_or(""))
                 .to_json()),

@@ -288,6 +288,26 @@ struct Mark {
   std::optional<std::string> comment;
   std::vector<std::string> authors;
   std::vector<SpecMarkVote> votes;
+  /* A comment mark's quote of a change (SOM §11.9.3): index into
+   * `Parsed::quotes`, or nullopt. */
+  std::optional<std::size_t> quote;
+  /* The index (among the value's marks) of the change this change comment is
+   * attached to, or nullopt. */
+  std::optional<std::size_t> changeIndex;
+  /* The index of this change's attached comment, or nullopt. */
+  std::optional<std::size_t> commentIndex;
+};
+
+/* The quote a change comment opens with (SOM §11.9.3); offsets are byte
+ * offsets into the value. */
+struct Quote {
+  SpecMarkKind kind = SpecMarkKind::Insertion;
+  std::string oldText;
+  std::string newText;
+  std::optional<std::string> outcome;  // `accepted`, `rejected`, or open
+  std::size_t delimEnd = 0;  // right after the quote's closing delimiter
+  std::size_t end = 0;       // right after the quote's `]`
+  std::string comment;       // the text after the quote, trimmed
 };
 
 struct Parsed {
@@ -298,6 +318,7 @@ struct Parsed {
   std::vector<Question> questions;
   std::vector<Conflict> conflicts;
   std::vector<Mark> marks;
+  std::vector<Quote> quotes;  // the change comments' quotes (Mark::quote)
   std::vector<std::string> malformed;
   /* Malformed inline marks as (value line, issue code): `unclosed`,
    * `nested`, `noArrow`. */
@@ -986,6 +1007,102 @@ std::size_t attachToken(Parsed& p, const std::string& seg, std::size_t at,
   return close + 1;
 }
 
+bool isBlankChar(char c) { return c == ' ' || c == '\t'; }
+
+/* How reading a change comment's quote ended. */
+enum class QuoteRead { None, Quote, Unclosed, NoArrow };
+
+/* Reads the quote at the start of a comment mark's inner text `s`, whose
+ * first byte is at value offset `at`, into `q`: `Quote`, `None` when `s`
+ * opens no quote, or the issue (`Unclosed`, `NoArrow`) of one that is
+ * malformed (SOM §11.9.3). */
+QuoteRead readQuote(const std::string& s, std::size_t at, Quote& q) {
+  std::size_t a = 0;
+  while (a < s.size() && std::string(" \t\r\n").find(s[a]) != std::string::npos)
+    a++;
+  if (a + 3 > s.size() || s[a] != '[') return QuoteRead::None;
+  const std::string d = s.substr(a + 1, 2);
+  SpecMarkKind kind;
+  if (d == "++") {
+    kind = SpecMarkKind::Insertion;
+  } else if (d == "--") {
+    kind = SpecMarkKind::Deletion;
+  } else if (d == "~~") {
+    kind = SpecMarkKind::Substitution;
+  } else {
+    return QuoteRead::None;
+  }
+  std::size_t j = s.find(d, a + 3);
+  while (j != std::string::npos) {
+    std::size_t t = j + 2;
+    while (t < s.size() && isBlankChar(s[t])) t++;
+    std::optional<std::string> outcome;
+    std::size_t close = std::string::npos;
+    if (t < s.size() && s[t] == ']') {
+      close = t;
+    } else if (t < s.size() && s[t] == '|') {
+      t++;
+      while (t < s.size() && isBlankChar(s[t])) t++;
+      for (const char* w : {"accepted", "rejected"}) {
+        if (!startsWith(s, w, t)) continue;
+        std::size_t u = t + std::string(w).size();
+        while (u < s.size() && isBlankChar(s[u])) u++;
+        if (u < s.size() && s[u] == ']') {
+          outcome = w;
+          close = u;
+        }
+        break;
+      }
+    }
+    if (close != std::string::npos) {
+      const std::string body = s.substr(a + 3, j - a - 3);
+      q = Quote();
+      q.kind = kind;
+      switch (kind) {
+        case SpecMarkKind::Insertion:
+          q.newText = trim(body);
+          break;
+        case SpecMarkKind::Deletion:
+          q.oldText = trim(body);
+          break;
+        default: {
+          const std::size_t arrow = body.find("~>");
+          if (arrow == std::string::npos) return QuoteRead::NoArrow;
+          q.oldText = trim(body.substr(0, arrow));
+          q.newText = trim(body.substr(arrow + 2));
+        }
+      }
+      q.outcome = outcome;
+      q.delimEnd = at + j + 2;
+      q.end = at + close + 1;
+      q.comment = trim(s.substr(close + 1));
+      return QuoteRead::Quote;
+    }
+    j = s.find(d, j + 1);
+  }
+  return QuoteRead::Unclosed;
+}
+
+std::string markReplacement(const Mark& m, bool accept);
+
+/* Links each change comment to the change written directly before it whose
+ * kind and texts it quotes (SOM §11.9.3). */
+void attachChangeComments(Parsed& p) {
+  for (std::size_t k = 1; k < p.marks.size(); k++) {
+    if (!p.marks[k].quote) continue;
+    const Quote& q = p.quotes[*p.marks[k].quote];
+    Mark& c = p.marks[k - 1];
+    if (q.outcome || !isChangeMark(c.kind)) continue;
+    if (c.end != p.marks[k].start || c.kind != q.kind) continue;
+    if (markReplacement(c, false) != q.oldText ||
+        markReplacement(c, true) != q.newText) {
+      continue;
+    }
+    p.marks[k].changeIndex = k - 1;
+    c.commentIndex = k;
+  }
+}
+
 void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
                  const std::vector<std::size_t>& lineStart) {
   auto lineOf = [&](std::size_t offset) {
@@ -1072,10 +1189,34 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
     m.start = base + i;
     m.line = line;
     switch (oi) {
-      case 0:
+      case 0: {
         m.kind = SpecMarkKind::Comment;
         m.comment = trim(inner);
+        Quote q;
+        switch (readQuote(inner, base + i + 3, q)) {
+          case QuoteRead::Quote:
+            m.quote = p.quotes.size();
+            p.quotes.push_back(std::move(q));
+            break;
+          case QuoteRead::Unclosed:
+            p.malformed.push_back(
+                "line " + std::to_string(line) +
+                ": the quote of a change comment is not closed; it is read "
+                "as a plain comment (SOM \xC2\xA7"
+                "11.9.3)");
+            break;
+          case QuoteRead::NoArrow:
+            p.malformed.push_back(
+                "line " + std::to_string(line) +
+                ": the quote of a change comment has no \"~>\"; it is read "
+                "as a plain comment (SOM \xC2\xA7"
+                "11.9.3)");
+            break;
+          case QuoteRead::None:
+            break;
+        }
         break;
+      }
       case 1:
         m.kind = SpecMarkKind::Highlight;
         m.text = trim(inner);
@@ -1144,6 +1285,7 @@ void parseMarks(Parsed& p) {
     scanSegment(p, value.substr(segStart, segEnd - segStart), segStart,
                 lineStart);
   }
+  attachChangeComments(p);
 }
 
 Parsed parse(const std::string& value) {
@@ -1990,6 +2132,158 @@ std::string applyInlineMarksText(const std::string& value, bool accept) {
   return v;
 }
 
+namespace {
+
+/* `value` with the outcome written into the quote `q`: everything from its
+ * closing delimiter to its `]` becomes ` | accepted]` or ` | rejected]`. */
+std::string recordOutcome(const std::string& value, const Quote& q,
+                          bool accept) {
+  return value.substr(0, q.delimEnd) +
+         (accept ? " | accepted]" : " | rejected]") + value.substr(q.end);
+}
+
+/* `value` with the mark `k` of `p` decided; a change's attached comment
+ * records the outcome (SOM §11.9.3). */
+std::string decideMark(const std::string& value, const Parsed& p,
+                       std::size_t k, bool accept) {
+  const Mark& m = p.marks[k];
+  std::string v = value;
+  if (m.commentIndex) {
+    v = recordOutcome(v, p.quotes[*p.marks[*m.commentIndex].quote], accept);
+  }
+  return replaceMark(v, m, markReplacement(m, accept));
+}
+
+/* Whether `t` holds a blank line: a newline, then only spaces, tabs and
+ * carriage returns, then a newline. */
+bool holdsBlankLine(const std::string& t) {
+  for (std::size_t i = t.find('\n'); i != std::string::npos;
+       i = t.find('\n', i + 1)) {
+    std::size_t j = i + 1;
+    while (j < t.size() && (t[j] == ' ' || t[j] == '\t' || t[j] == '\r')) j++;
+    if (j < t.size() && t[j] == '\n') return true;
+  }
+  return false;
+}
+
+/* The trimmed `text` of an inline comment, refused when it is empty or holds
+ * a mark delimiter or a blank line. */
+std::string checkInlineComment(const std::string& text) {
+  const std::string t = trim(text);
+  if (t.empty()) throw SpecReviewAnnotationError("a comment needs text");
+  if (containsOpener(t) || t.find("<<}") != std::string::npos ||
+      holdsBlankLine(t)) {
+    throw SpecReviewAnnotationError(
+        "a comment cannot hold a mark delimiter or a blank line");
+  }
+  return t;
+}
+
+/* The whitespace of the change-comment anchors (SOM §11.9.3). */
+bool isAnchorSpace(char c) {
+  return c == ' ' || c == '\t' || c == '\r' || c == '\n';
+}
+
+/* A UTF-8 continuation byte: anchors count characters, never bytes inside
+ * one, so a comment is never written back into the middle of a character. */
+bool isContinuation(char c) {
+  return (static_cast<unsigned char>(c) & 0xC0) == 0x80;
+}
+
+std::size_t nonSpaceCount(const std::string& s) {
+  std::size_t n = 0;
+  for (char c : s) {
+    if (!isAnchorSpace(c) && !isContinuation(c)) n++;
+  }
+  return n;
+}
+
+/* `setMarked` with the value's change comments kept (SOM §11.9.3): taken out
+ * of the original, then written back where their anchor falls. */
+SpecMarkedChange markKeepingChangeComments(const std::string& current,
+                                           const std::string& text) {
+  // 1. The original: every mark rejected except the change comments.
+  std::string original = current;
+  {
+    const Parsed p = parse(current);
+    for (std::size_t k = p.marks.size(); k-- > 0;) {
+      if (p.marks[k].quote) continue;
+      original =
+          replaceMark(original, p.marks[k], markReplacement(p.marks[k], false));
+    }
+  }
+  // 2. Each change comment's markup, anchor and leading space.
+  const Parsed op = parse(original);
+  std::vector<const Mark*> kept;
+  for (const Mark& m : op.marks) {
+    if (m.quote) kept.push_back(&m);
+  }
+  struct Anchor {
+    std::string markup;
+    std::size_t count;
+    bool space;
+  };
+  std::vector<Anchor> anchors;
+  std::size_t counted = 0;
+  std::size_t from = 0;
+  for (const Mark* m : kept) {
+    counted += nonSpaceCount(original.substr(from, m->start - from));
+    from = m->end;
+    anchors.push_back({original.substr(m->start, m->end - m->start), counted,
+                       m->start > 0 && isBlankChar(original[m->start - 1])});
+  }
+  // 3. Removed, compared.
+  std::string base = original;
+  for (auto it = kept.rbegin(); it != kept.rend(); ++it) {
+    base = replaceMark(base, **it, "");
+  }
+  SpecMarkedChange result = markChangeText(base, text);
+  if (anchors.empty()) return result;
+  // 4. Written back where k non-whitespace characters have passed.
+  const std::string& r = result.text;
+  const Parsed rp = parse(r);
+  auto place = [&](std::size_t k) -> std::size_t {
+    if (k == 0) return 0;
+    std::size_t n = 0;
+    std::size_t i = 0;
+    std::size_t mi = 0;
+    while (i < r.size()) {
+      if (mi < rp.marks.size() && rp.marks[mi].start == i) {
+        const Mark& m = rp.marks[mi++];
+        n += m.kind == SpecMarkKind::Insertion ? 0 : nonSpaceCount(m.text);
+        i = m.end;
+        if (n >= k) return i;
+        continue;
+      }
+      if (!isAnchorSpace(r[i])) n++;
+      i++;
+      while (i < r.size() && isContinuation(r[i])) i++;
+      if (n >= k) return i;
+    }
+    return r.size();
+  };
+  std::vector<std::size_t> at;
+  for (const Anchor& a : anchors) at.push_back(place(a.count));
+  std::string out = r;
+  for (std::size_t j = anchors.size(); j-- > 0;) {
+    out = out.substr(0, at[j]) + (anchors[j].space ? " " : "") +
+          anchors[j].markup + out.substr(at[j]);
+  }
+  return {out, result.exact};
+}
+
+}  // namespace
+
+std::string decideAllMarksText(const std::string& value, bool accept) {
+  const Parsed p = parse(value);
+  std::string v = value;
+  for (std::size_t k = p.marks.size(); k-- > 0;) {
+    if (p.marks[k].quote) continue;
+    v = decideMark(v, p, k, accept);
+  }
+  return v;
+}
+
 std::vector<SpecValidationError> validateReviewAnnotations(
     const SpecDocument& doc) {
   std::vector<SpecValidationError> errors;
@@ -2285,8 +2579,8 @@ void SpecReviewAnnotations::applyMark(const std::string& path,
                                     " at " + path +
                                     (field ? " / " + *field : ""));
   }
-  const Mark& m = p.marks[static_cast<std::size_t>(index)];
-  setValue(*doc_, path, field, replaceMark(value, m, markReplacement(m, accept)));
+  setValue(*doc_, path, field,
+           decideMark(value, p, static_cast<std::size_t>(index), accept));
 }
 
 SpecDocument SpecReviewAnnotations::stripped() const {
@@ -2325,6 +2619,13 @@ std::optional<SpecMarkDecision> specMarkDecisionFromName(const std::string& name
   return std::nullopt;
 }
 
+std::string SpecQuotedChange::toJson() const {
+  return "{\"kind\":" + jsonEncodeStr(specMarkKindName(kind)) +
+         ",\"oldText\":" + jsonEncodeStr(oldText) +
+         ",\"newText\":" + jsonEncodeStr(newText) +
+         ",\"outcome\":" + jsonStrOrNull(outcome) + "}";
+}
+
 std::string SpecMarkEntry::toJson(bool team) const {
   return "{\"id\":" + jsonEncodeStr(id) + ",\"path\":" + jsonEncodeStr(path) +
          ",\"field\":" + jsonStrOrNull(field) +
@@ -2335,6 +2636,12 @@ std::string SpecMarkEntry::toJson(bool team) const {
          ",\"comment\":" + jsonStrOrNull(comment) +
          ",\"markup\":" + jsonEncodeStr(markup) +
          ",\"context\":" + jsonEncodeStr(context) +
+         (quotedChange ? ",\"quotedChange\":" + quotedChange->toJson()
+                       : std::string()) +
+         (commentId ? ",\"commentId\":" + jsonEncodeStr(*commentId)
+                    : std::string()) +
+         (changeId ? ",\"changeId\":" + jsonEncodeStr(*changeId)
+                   : std::string()) +
          (team ? ",\"authors\":" + jsonStrList(authors) +
                      ",\"votes\":" + jsonList(votes)
                : std::string()) +
@@ -2404,6 +2711,7 @@ std::vector<SpecMarkEntry> SpecReviewAnnotations::listMarks(
   std::size_t n = 0;
   for (const Value& v : valuesOf(*doc_)) {
     const Parsed p = parse(v.text);
+    const std::size_t first = n + 1;
     for (const Mark& m : p.marks) {
       const std::string id = "M-" + std::to_string(++n);
       if (!pathUnder(v.path, path)) continue;
@@ -2435,13 +2743,26 @@ std::vector<SpecMarkEntry> SpecReviewAnnotations::listMarks(
       e.markKind = m.kind;
       e.oldText = markReplacement(m, false);
       e.newText = markReplacement(m, true);
-      e.comment = m.comment;
+      e.comment = m.quote
+                      ? std::optional<std::string>(p.quotes[*m.quote].comment)
+                      : m.comment;
       e.markup = v.text.substr(m.start, m.end - m.start);
       std::vector<std::string> para(p.lines.begin() + from,
                                     p.lines.begin() + to + 1);
       e.context = joinLines(para);
       e.authors = m.authors;
       e.votes = m.votes;
+      if (m.quote) {
+        const Quote& q = p.quotes[*m.quote];
+        e.quotedChange = SpecQuotedChange{q.kind, q.oldText, q.newText,
+                                          q.outcome};
+      }
+      if (m.commentIndex) {
+        e.commentId = "M-" + std::to_string(first + *m.commentIndex);
+      }
+      if (m.changeIndex) {
+        e.changeId = "M-" + std::to_string(first + *m.changeIndex);
+      }
       out.push_back(std::move(e));
     }
   }
@@ -2449,8 +2770,8 @@ std::vector<SpecMarkEntry> SpecReviewAnnotations::listMarks(
 }
 
 SpecMarkReport SpecReviewAnnotations::applyMarks(
-    const std::function<std::optional<SpecMarkDecision>(const std::string&)>&
-        decide,
+    const std::function<std::optional<SpecMarkDecision>(const std::string&,
+                                                        bool)>& decide,
     const std::optional<std::string>& under) {
   SpecMarkReport report;
   std::size_t n = 0;
@@ -2466,18 +2787,30 @@ SpecMarkReport SpecReviewAnnotations::applyMarks(
     }
     std::string text = v.text;
     std::vector<SpecMarkOutcome> outcomes;
+    std::vector<std::optional<SpecMarkDecision>> decided;
+    for (std::size_t k = 0; k < p.marks.size(); k++) {
+      decided.push_back(decide(ids[k], p.marks[k].quote.has_value()));
+    }
+    auto isDecided = [&](std::size_t k) {
+      return decided[k] && *decided[k] != SpecMarkDecision::Leave;
+    };
     for (std::size_t k = p.marks.size(); k-- > 0;) {
-      const std::optional<SpecMarkDecision> d = decide(ids[k]);
-      if (!d || *d == SpecMarkDecision::Leave) continue;
+      if (!isDecided(k)) continue;
+      const SpecMarkDecision d = *decided[k];
       const Mark& m = p.marks[k];
-      const std::string repl = markReplacement(m, *d == SpecMarkDecision::Accept);
+      const std::string repl =
+          markReplacement(m, d == SpecMarkDecision::Accept);
+      if (m.commentIndex && !isDecided(*m.commentIndex)) {
+        text = recordOutcome(text, p.quotes[*p.marks[*m.commentIndex].quote],
+                             d == SpecMarkDecision::Accept);
+      }
       SpecMarkOutcome o;
       o.id = ids[k];
       o.path = v.path;
       o.field = v.field;
       o.line = m.line;
       o.markKind = m.kind;
-      o.decision = *d;
+      o.decision = d;
       o.markup = v.text.substr(m.start, m.end - m.start);
       o.result = repl;
       outcomes.insert(outcomes.begin(), std::move(o));
@@ -2508,7 +2841,7 @@ SpecMarkReport SpecReviewAnnotations::decideMarks(
     }
   }
   return applyMarks(
-      [&](const std::string& id) -> std::optional<SpecMarkDecision> {
+      [&](const std::string& id, bool) -> std::optional<SpecMarkDecision> {
         const auto it = decisions.find(id);
         if (it == decisions.end()) return std::nullopt;
         return it->second;
@@ -2519,7 +2852,8 @@ SpecMarkReport SpecReviewAnnotations::decideMarks(
 SpecMarkReport SpecReviewAnnotations::acceptAllMarks(
     const std::optional<std::string>& path) {
   return applyMarks(
-      [](const std::string&) -> std::optional<SpecMarkDecision> {
+      [](const std::string&, bool quoted) -> std::optional<SpecMarkDecision> {
+        if (quoted) return std::nullopt;
         return SpecMarkDecision::Accept;
       },
       path);
@@ -2528,10 +2862,114 @@ SpecMarkReport SpecReviewAnnotations::acceptAllMarks(
 SpecMarkReport SpecReviewAnnotations::rejectAllMarks(
     const std::optional<std::string>& path) {
   return applyMarks(
-      [](const std::string&) -> std::optional<SpecMarkDecision> {
+      [](const std::string&, bool quoted) -> std::optional<SpecMarkDecision> {
+        if (quoted) return std::nullopt;
         return SpecMarkDecision::Reject;
       },
       path);
+}
+
+namespace {
+
+/* Where `findMark` found a mark: its value and its position there. */
+struct FoundMark {
+  std::string path;
+  std::optional<std::string> field;
+  std::string value;
+  Parsed parsed;
+  std::size_t index = 0;
+};
+
+/* The mark `M-<n>` `markId` with its value, refused when the document is no
+ * longer at `revision` (when given) or holds no such mark. */
+FoundMark findMark(const SpecReviewAnnotations& api, const SpecDocument& doc,
+                   const std::string& markId,
+                   const std::optional<std::string>& revision) {
+  if (revision) {
+    const std::string current = api.revision();
+    if (*revision != current) {
+      throw SpecReviewAnnotationError("the document changed since revision " +
+                                      *revision + " (now " + current +
+                                      "); list the marks again");
+    }
+  }
+  std::size_t n = 0;
+  for (const Value& v : valuesOf(doc)) {
+    Parsed p = parse(v.text);
+    for (std::size_t k = 0; k < p.marks.size(); k++) {
+      if ("M-" + std::to_string(++n) == markId) {
+        return {v.path, v.field, v.text, std::move(p), k};
+      }
+    }
+  }
+  throw SpecReviewAnnotationError("no inline mark " + markId +
+                                  " in the document");
+}
+
+}  // namespace
+
+std::string SpecReviewAnnotations::commentChange(
+    const std::string& markId, const std::string& text,
+    const std::optional<std::string>& author,
+    const std::optional<std::string>& revision) {
+  const FoundMark f = findMark(*this, *doc_, markId, revision);
+  const Mark& m = f.parsed.marks[f.index];
+  if (!isChangeMark(m.kind)) {
+    throw SpecReviewAnnotationError(markId + " is a " +
+                                    specMarkKindName(m.kind) +
+                                    " mark, not a change");
+  }
+  if (m.commentIndex) {
+    throw SpecReviewAnnotationError(markId +
+                                    " already has a comment; edit it instead");
+  }
+  const std::string comment = checkInlineComment(text);
+  if (author && !isReviewMemberId(*author)) {
+    throw SpecReviewAnnotationError("\"" + *author + "\" is not a member id");
+  }
+  const std::string d = m.kind == SpecMarkKind::Insertion  ? "++"
+                        : m.kind == SpecMarkKind::Deletion ? "--"
+                                                           : "~~";
+  const std::string body = m.kind == SpecMarkKind::Substitution
+                               ? m.text + " ~> " + *m.newText
+                               : m.text;
+  if (body.find(d + "]") != std::string::npos ||
+      body.find("<<}") != std::string::npos) {
+    throw SpecReviewAnnotationError(markId + " holds \"" + d +
+                                    "]\" or \"<<}\", which its quote cannot "
+                                    "hold");
+  }
+  const std::string markup = "{>> [" + d + " " + body + " " + d + "] " +
+                             comment + " <<}" +
+                             (author ? "{@" + *author + "}" : "");
+  setValue(*doc_, f.path, f.field,
+           f.value.substr(0, m.end) + markup + f.value.substr(m.end));
+  return "M-" + std::to_string(std::stoll(markId.substr(2)) + 1);
+}
+
+void SpecReviewAnnotations::editMarkComment(
+    const std::string& markId, const std::string& text,
+    const std::optional<std::string>& revision) {
+  const FoundMark f = findMark(*this, *doc_, markId, revision);
+  const Mark& m = f.parsed.marks[f.index];
+  const std::string comment = checkInlineComment(text);
+  std::string markup;
+  if (m.kind == SpecMarkKind::Comment) {
+    if (!m.quote) {
+      markup = "{>> " + comment + " <<}";
+    } else {
+      const std::size_t open = m.start + 3;
+      const Quote& q = f.parsed.quotes[*m.quote];
+      markup = "{>> " + trimLeft(f.value.substr(open, q.end - open)) + " " +
+               comment + " <<}";
+    }
+  } else if (m.kind == SpecMarkKind::Highlight && m.comment) {
+    markup = "{== " + m.text + " ==}{>> " + comment + " <<}";
+  } else {
+    throw SpecReviewAnnotationError(markId + " holds no comment");
+  }
+  setValue(*doc_, f.path, f.field,
+           f.value.substr(0, m.start) + markup + f.value.substr(m.bodyEnd));
 }
 
 /* A decided conflict, as `removeAllAnnotations` found it before any change. */
@@ -2629,7 +3067,11 @@ std::string SpecReviewAnnotations::applyConflicts(
 
 SpecMarkReport SpecReviewAnnotations::removeAllAnnotations() {
   const std::vector<DecidedConflict> decided = decidedConflicts();
-  SpecMarkReport report = acceptAllMarks();
+  SpecMarkReport report = applyMarks(
+      [](const std::string&, bool) -> std::optional<SpecMarkDecision> {
+        return SpecMarkDecision::Accept;
+      },
+      std::nullopt);
   std::vector<SpecConflictOutcome> outcomes;
   for (const Value& v : valuesOf(*doc_)) {
     std::string text = v.text;
@@ -3054,9 +3496,8 @@ SpecMarkedChange markChangeText(const std::string& oldValue,
 SpecMarkedChange SpecReviewAnnotations::setMarked(
     const std::string& path, const std::optional<std::string>& field,
     const std::string& text) {
-  const std::string base =
-      applyInlineMarksText(getValue(*doc_, path, field), false);
-  SpecMarkedChange result = markChangeText(base, text);
+  SpecMarkedChange result =
+      markKeepingChangeComments(getValue(*doc_, path, field), text);
   setValue(*doc_, path, field, result.text);
   return result;
 }

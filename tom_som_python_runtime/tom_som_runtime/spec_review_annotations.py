@@ -441,10 +441,21 @@ class SpecMarkEntry:
     authors: tuple[str, ...] = ()
     #: The votes its attribution token records; empty without one.
     votes: tuple[SpecMarkVote, ...] = ()
+    #: A change comment's quote (SOM §11.9.3): ``kind``, ``oldText``,
+    #: ``newText`` and ``outcome``; ``None`` for any other mark. Its
+    #: :attr:`comment` is the text after the quote.
+    quoted_change: Optional[dict[str, Any]] = None
+    #: A change's attached comment, by id; ``None`` without one.
+    comment_id: Optional[str] = None
+    #: The change an attached change comment is about, by id; ``None``
+    #: otherwise.
+    change_id: Optional[str] = None
 
     def to_json(self, team: bool = False) -> dict[str, Any]:
         """The canonical JSON form the conformance corpus pins; *team* adds
-        the mark's ``authors`` and ``votes`` (SOM §11.9.8)."""
+        the mark's ``authors`` and ``votes`` (SOM §11.9.8). ``quotedChange``,
+        ``commentId`` and ``changeId`` appear only on the marks they
+        describe."""
         out: dict[str, Any] = {
             "id": self.id,
             "path": self.path,
@@ -457,6 +468,12 @@ class SpecMarkEntry:
             "markup": self.markup,
             "context": self.context,
         }
+        if self.quoted_change is not None:
+            out["quotedChange"] = dict(self.quoted_change)
+        if self.comment_id is not None:
+            out["commentId"] = self.comment_id
+        if self.change_id is not None:
+            out["changeId"] = self.change_id
         if team:
             out["authors"] = list(self.authors)
             out["votes"] = [v.to_json() for v in self.votes]
@@ -811,10 +828,133 @@ class _Mark:
     body_end: int = -1
     authors: tuple[str, ...] = ()
     votes: tuple[SpecMarkVote, ...] = ()
+    #: A comment mark's quote of a change (SOM §11.9.3), or ``None``.
+    quote: "Optional[_Quote]" = None
+    #: The index (among the value's marks) of the change this change comment
+    #: is attached to, or ``None``.
+    change_index: Optional[int] = None
+    #: The index of this change's attached comment, or ``None``.
+    comment_index: Optional[int] = None
 
     def __post_init__(self) -> None:
         if self.body_end < 0:
             self.body_end = self.end
+
+
+@dataclass(frozen=True)
+class _Quote:
+    """The quote a change comment opens with (SOM §11.9.3); offsets are into
+    the value."""
+
+    kind: SpecMarkKind
+    old_text: str
+    new_text: str
+    #: ``accepted``, ``rejected``, or ``None`` while the change is open.
+    outcome: Optional[str]
+    #: Right after the quote's closing delimiter.
+    delim_end: int
+    #: Right after the quote's ``]``.
+    end: int
+    #: The comment: the text after the quote, trimmed.
+    comment: str
+
+    def to_json(self) -> dict[str, Any]:
+        return {
+            "kind": self.kind.value,
+            "oldText": self.old_text,
+            "newText": self.new_text,
+            "outcome": self.outcome,
+        }
+
+
+_QUOTE_KINDS = {
+    "++": SpecMarkKind.INSERTION,
+    "--": SpecMarkKind.DELETION,
+    "~~": SpecMarkKind.SUBSTITUTION,
+}
+
+
+def _read_quote(s: str, at: int) -> "_Quote | str | None":
+    """Reads the quote at the start of a comment mark's inner text *s*, whose
+    first character is at value offset *at*: the quote, ``None`` when *s*
+    opens no quote, or the issue (``unclosed``, ``noArrow``) of one that is
+    malformed."""
+    a = 0
+    while a < len(s) and s[a] in " \t\r\n":
+        a += 1
+    if a + 3 > len(s) or s[a] != "[":
+        return None
+    d = s[a + 1:a + 3]
+    kind = _QUOTE_KINDS.get(d)
+    if kind is None:
+        return None
+    j = s.find(d, a + 3)
+    while j >= 0:
+        t = j + 2
+        while t < len(s) and _is_space(s[t]):
+            t += 1
+        outcome: Optional[str] = None
+        close = -1
+        if t < len(s) and s[t] == "]":
+            close = t
+        elif t < len(s) and s[t] == "|":
+            t += 1
+            while t < len(s) and _is_space(s[t]):
+                t += 1
+            for w in ("accepted", "rejected"):
+                if not s.startswith(w, t):
+                    continue
+                u = t + len(w)
+                while u < len(s) and _is_space(s[u]):
+                    u += 1
+                if u < len(s) and s[u] == "]":
+                    outcome = w
+                    close = u
+                break
+        if close >= 0:
+            body = s[a + 3:j]
+            old_text = ""
+            new_text = ""
+            if kind is SpecMarkKind.INSERTION:
+                new_text = _trim(body)
+            elif kind is SpecMarkKind.DELETION:
+                old_text = _trim(body)
+            else:
+                arrow = body.find("~>")
+                if arrow < 0:
+                    return "noArrow"
+                old_text = _trim(body[:arrow])
+                new_text = _trim(body[arrow + 2:])
+            return _Quote(
+                kind,
+                old_text,
+                new_text,
+                outcome,
+                at + j + 2,
+                at + close + 1,
+                _trim(s[close + 1:]),
+            )
+        j = s.find(d, j + 1)
+    return "unclosed"
+
+
+def _attach_change_comments(marks: "list[_Mark]") -> None:
+    """Links each change comment to the change written directly before it
+    whose kind and texts it quotes (SOM §11.9.3)."""
+    for k in range(1, len(marks)):
+        q = marks[k].quote
+        c = marks[k - 1]
+        if q is None or q.outcome is not None or not _is_change_mark(c.kind):
+            continue
+        if c.end != marks[k].start or c.kind is not q.kind:
+            continue
+        if (
+            _mark_replacement(c, False) != q.old_text
+            or _mark_replacement(c, True) != q.new_text
+        ):
+            continue
+        marks[k].change_index = k - 1
+        c.comment_index = k
 
 
 class _Parsed:
@@ -1224,6 +1364,7 @@ def _parse_marks(p: _Parsed) -> None:
         seg_start = line_start[seg_start_line]
         seg_end = line_start[k - 1] + len(p.lines[k - 1])
         _scan_segment(p, value[seg_start:seg_end], seg_start, line_of)
+    _attach_change_comments(p.marks)
 
 
 def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]) -> None:
@@ -1288,9 +1429,21 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
         end = close + 3
         before = len(p.marks)
         if opener == "{>>":
-            p.marks.append(
-                _Mark(base + i, base + end, line, SpecMarkKind.COMMENT, "", None, _trim(inner))
-            )
+            cm = _Mark(base + i, base + end, line, SpecMarkKind.COMMENT, "", None, _trim(inner))
+            q = _read_quote(inner, base + i + 3)
+            if isinstance(q, _Quote):
+                cm.quote = q
+            elif q == "unclosed":
+                p.malformed.append(
+                    f"line {line}: the quote of a change comment is not closed; "
+                    "it is read as a plain comment (SOM §11.9.3)"
+                )
+            elif q == "noArrow":
+                p.malformed.append(
+                    f'line {line}: the quote of a change comment has no "~>"; '
+                    "it is read as a plain comment (SOM §11.9.3)"
+                )
+            p.marks.append(cm)
         elif opener == "{==":
             comment: Optional[str] = None
             if seg.startswith("{>>", end):
@@ -1678,6 +1831,136 @@ def apply_inline_marks_text(value: str, accept: bool) -> str:
     for m in reversed(_parse(v).marks):
         v = _replace_mark(v, m, _mark_replacement(m, accept))
     return v
+
+
+def decide_all_marks_text(value: str, accept: bool) -> str:
+    """*value* with every inline mark accepted (*accept*) or rejected, as
+    accept all / reject all write it (SOM §11.9.3): change comments stay, an
+    attached one records the outcome; every other highlight and comment mark
+    is removed. Marks in code and malformed marks stay as written."""
+    marks = _parse(value).marks
+    v = value
+    for k in range(len(marks) - 1, -1, -1):
+        if marks[k].quote is not None:
+            continue
+        v = _decide_mark(v, marks, k, accept)
+    return v
+
+
+def _decide_mark(value: str, marks: "list[_Mark]", k: int, accept: bool) -> str:
+    """*value* with the mark *k* of *marks* decided; a change's attached
+    comment records the outcome (SOM §11.9.3)."""
+    m = marks[k]
+    v = value
+    ci = m.comment_index
+    if ci is not None:
+        q = marks[ci].quote
+        assert q is not None
+        v = _record_outcome(v, q, accept)
+    return _replace_mark(v, m, _mark_replacement(m, accept))
+
+
+def _record_outcome(value: str, q: _Quote, accept: bool) -> str:
+    """*value* with the outcome written into the quote *q*: everything from
+    its closing delimiter to its ``]`` becomes `` | accepted]`` or
+    `` | rejected]``."""
+    return (
+        value[:q.delim_end]
+        + f" | {'accepted' if accept else 'rejected'}]"
+        + value[q.end:]
+    )
+
+
+_BLANK_LINE_IN = re.compile(r"\n[ \t\r]*\n")
+
+
+def _check_inline_comment(text: str) -> str:
+    """The trimmed *text* of an inline comment, refused when it is empty or
+    holds a mark delimiter or a blank line."""
+    t = _trim(text)
+    if t == "":
+        raise SpecReviewAnnotationError("a comment needs text")
+    if any(o in t for o in (*_OPENERS, "<<}")) or _BLANK_LINE_IN.search(t):
+        raise SpecReviewAnnotationError(
+            "a comment cannot hold a mark delimiter or a blank line"
+        )
+    return t
+
+
+def _is_anchor_space(c: str) -> bool:
+    """The whitespace of the change-comment anchors (SOM §11.9.3)."""
+    return c in (" ", "\t", "\r", "\n")
+
+
+def _non_space_count(s: str) -> int:
+    return sum(1 for c in s if not _is_anchor_space(c))
+
+
+def _mark_keeping_change_comments(current: str, text: str) -> "SpecMarkedChange":
+    """``set_marked`` with the value's change comments kept (SOM §11.9.3):
+    taken out of the original, then written back where their anchor
+    falls."""
+    # 1. The original: every mark rejected except the change comments.
+    original = current
+    marks = _parse(current).marks
+    for k in range(len(marks) - 1, -1, -1):
+        if marks[k].quote is not None:
+            continue
+        original = _replace_mark(original, marks[k], _mark_replacement(marks[k], False))
+    # 2. Each change comment's markup, anchor and leading space.
+    kept = [m for m in _parse(original).marks if m.quote is not None]
+    anchors: list[tuple[str, int, bool]] = []
+    counted = 0
+    frm = 0
+    for m in kept:
+        counted += _non_space_count(original[frm:m.start])
+        frm = m.end
+        anchors.append(
+            (
+                original[m.start:m.end],
+                counted,
+                m.start > 0 and _is_space(original[m.start - 1]),
+            )
+        )
+    # 3. Removed, compared.
+    base = original
+    for m in reversed(kept):
+        base = _replace_mark(base, m, "")
+    result = mark_change_text(base, text)
+    if not anchors:
+        return result
+    # 4. Written back where k non-whitespace characters have passed.
+    r = result.text
+    rm = _parse(r).marks
+
+    def place(k: int) -> int:
+        if k == 0:
+            return 0
+        n = 0
+        i = 0
+        mi = 0
+        while i < len(r):
+            if mi < len(rm) and rm[mi].start == i:
+                m = rm[mi]
+                mi += 1
+                n += 0 if m.kind is SpecMarkKind.INSERTION else _non_space_count(m.text)
+                i = m.end
+                if n >= k:
+                    return i
+                continue
+            if not _is_anchor_space(r[i]):
+                n += 1
+            i += 1
+            if n >= k:
+                return i
+        return len(r)
+
+    at = [place(a[1]) for a in anchors]
+    out = r
+    for j in range(len(anchors) - 1, -1, -1):
+        markup, _, space = anchors[j]
+        out = out[:at[j]] + (" " if space else "") + markup + out[at[j]:]
+    return SpecMarkedChange(out, exact=result.exact)
 
 
 def strip_annotations_text(value: str) -> str:
@@ -2101,8 +2384,7 @@ class SpecReviewAnnotations:
         if index < 0 or index >= len(marks):
             where = path if field is None else f"{path} / {field}"
             raise SpecReviewAnnotationError(f"no inline mark {index} at {where}")
-        m = marks[index]
-        self._set(path, field, _replace_mark(value, m, _mark_replacement(m, accept)))
+        self._set(path, field, _decide_mark(value, marks, index, accept))
 
     def revision(self) -> str:
         """The revision the mark ids are stable for: FNV-1a 64-bit over the
@@ -2137,6 +2419,7 @@ class SpecReviewAnnotations:
         for vpath, field, text in self._values():
             p = _parse(text)
             paras = _paragraphs(p.lines, p.code)
+            first = n + 1
             for m in p.marks:
                 n += 1
                 id = f"M-{n}"
@@ -2154,18 +2437,27 @@ class SpecReviewAnnotations:
                         mark_kind=m.kind,
                         old_text=_mark_replacement(m, False),
                         new_text=_mark_replacement(m, True),
-                        comment=m.comment,
+                        comment=m.quote.comment if m.quote is not None else m.comment,
                         markup=text[m.start:m.end],
                         context="\n".join(p.lines[para[0]:para[1] + 1]),
                         authors=m.authors,
                         votes=m.votes,
+                        quoted_change=None if m.quote is None else m.quote.to_json(),
+                        comment_id=(
+                            None if m.comment_index is None
+                            else f"M-{first + m.comment_index}"
+                        ),
+                        change_id=(
+                            None if m.change_index is None
+                            else f"M-{first + m.change_index}"
+                        ),
                     )
                 )
         return out
 
     def _apply_marks(
         self,
-        decide: Callable[[str], Optional[SpecMarkDecision]],
+        decide: "Callable[[str, _Mark], Optional[SpecMarkDecision]]",
         under: Optional[str] = None,
     ) -> SpecMarkReport:
         """Applies *decide* to every mark in the subtree *under* (``None``:
@@ -2185,12 +2477,23 @@ class SpecReviewAnnotations:
                 issues.append(SpecMarkIssue(path=path, field=field, line=line, issue=code))
             v = text
             outcomes: list[SpecMarkOutcome] = []
+            decided = [decide(ids[k], p.marks[k]) for k in range(len(p.marks))]
+
+            def is_decided(k: int) -> bool:
+                return decided[k] is not None and decided[k] is not SpecMarkDecision.LEAVE
+
             for k in range(len(p.marks) - 1, -1, -1):
-                d = decide(ids[k])
-                if d is None or d is SpecMarkDecision.LEAVE:
+                if not is_decided(k):
                     continue
+                d = decided[k]
+                assert d is not None
                 m = p.marks[k]
                 repl = _mark_replacement(m, d is SpecMarkDecision.ACCEPT)
+                ci = m.comment_index
+                if ci is not None and not is_decided(ci):
+                    q = p.marks[ci].quote
+                    assert q is not None
+                    v = _record_outcome(v, q, d is SpecMarkDecision.ACCEPT)
                 outcomes.insert(
                     0,
                     SpecMarkOutcome(
@@ -2227,17 +2530,116 @@ class SpecReviewAnnotations:
         for id in decisions:
             if id not in known:
                 raise SpecReviewAnnotationError(f"no inline mark {id} in the document")
-        return self._apply_marks(lambda id: decisions.get(id))
+        return self._apply_marks(lambda id, _m: decisions.get(id))
 
     def accept_all_marks(self, path: Optional[str] = None) -> SpecMarkReport:
         """Accepts every inline mark under *path* (``None``: the whole
-        document)."""
-        return self._apply_marks(lambda _: SpecMarkDecision.ACCEPT, under=path)
+        document), except change comments, which stay (SOM §11.9.3)."""
+        return self._apply_marks(
+            lambda _id, m: SpecMarkDecision.ACCEPT if m.quote is None else None,
+            under=path,
+        )
 
     def reject_all_marks(self, path: Optional[str] = None) -> SpecMarkReport:
         """Rejects every inline mark under *path* (``None``: the whole
-        document)."""
-        return self._apply_marks(lambda _: SpecMarkDecision.REJECT, under=path)
+        document), except change comments, which stay (SOM §11.9.3)."""
+        return self._apply_marks(
+            lambda _id, m: SpecMarkDecision.REJECT if m.quote is None else None,
+            under=path,
+        )
+
+    def _find_mark(
+        self, mark_id: str, revision: Optional[str]
+    ) -> "tuple[str, Optional[str], str, _Parsed, int]":
+        """The mark ``M-<n>`` *mark_id* with its value, refused when the
+        document is no longer at *revision* (when given) or holds no such
+        mark."""
+        if revision is not None:
+            current = self.revision()
+            if revision != current:
+                raise SpecReviewAnnotationError(
+                    f"the document changed since revision {revision} (now {current}); "
+                    "list the marks again"
+                )
+        n = 0
+        for path, field, text in self._values():
+            p = _parse(text)
+            for k in range(len(p.marks)):
+                n += 1
+                if f"M-{n}" == mark_id:
+                    return path, field, text, p, k
+        raise SpecReviewAnnotationError(f"no inline mark {mark_id} in the document")
+
+    def comment_change(
+        self,
+        mark_id: str,
+        text: str,
+        author: Optional[str] = None,
+        revision: Optional[str] = None,
+    ) -> str:
+        """Writes a change comment (SOM §11.9.3) directly after the change
+        mark *mark_id*, its quote written from the mark and *text* after it,
+        with an attribution token ``{@author}`` when *author* is given, and
+        returns the new comment's id. Refused — nothing changes — for an
+        unknown id, a stale *revision*, a mark that is not a change or already
+        has an attached comment, a change its quote cannot hold, a *text* that
+        is empty or holds a mark delimiter or a blank line, and an *author*
+        that is not a member id."""
+        path, field, value, p, k = self._find_mark(mark_id, revision)
+        m = p.marks[k]
+        if not _is_change_mark(m.kind):
+            raise SpecReviewAnnotationError(
+                f"{mark_id} is a {m.kind.value} mark, not a change"
+            )
+        if m.comment_index is not None:
+            raise SpecReviewAnnotationError(
+                f"{mark_id} already has a comment; edit it instead"
+            )
+        comment = _check_inline_comment(text)
+        if author is not None and not is_review_member_id(author):
+            raise SpecReviewAnnotationError(f'"{author}" is not a member id')
+        if m.kind is SpecMarkKind.INSERTION:
+            d = "++"
+        elif m.kind is SpecMarkKind.DELETION:
+            d = "--"
+        else:
+            d = "~~"
+        body = f"{m.text} ~> {m.new_text}" if m.kind is SpecMarkKind.SUBSTITUTION else m.text
+        if f"{d}]" in body or "<<}" in body:
+            raise SpecReviewAnnotationError(
+                f'{mark_id} holds "{d}]" or "<<}}", which its quote cannot hold'
+            )
+        markup = f"{{>> [{d} {body} {d}] {comment} <<}}" + (
+            "" if author is None else f"{{@{author}}}"
+        )
+        self._set(path, field, value[:m.end] + markup + value[m.end:])
+        return f"M-{int(mark_id[2:]) + 1}"
+
+    def edit_mark_comment(
+        self, mark_id: str, text: str, revision: Optional[str] = None
+    ) -> None:
+        """Replaces the comment of the comment mark, change comment or
+        commented highlight *mark_id* with *text* (SOM §11.9.3). A change
+        comment keeps its quote as written, and the attribution token stays.
+        Refused — nothing changes — for an unknown id, a stale *revision*, a
+        mark that holds no comment, and a *text* that is empty or holds a mark
+        delimiter or a blank line."""
+        path, field, value, p, k = self._find_mark(mark_id, revision)
+        m = p.marks[k]
+        comment = _check_inline_comment(text)
+        if m.kind is SpecMarkKind.COMMENT:
+            q = m.quote
+            opn = m.start + 3
+            markup = (
+                f"{{>> {comment} <<}}"
+                if q is None
+                else f"{{>> {_trim_left(value[opn:q.end])} {comment} <<}}"
+            )
+        elif m.kind is SpecMarkKind.HIGHLIGHT and m.comment is not None:
+            markup = f"{{== {m.text} ==}}{{>> {comment} <<}}"
+        else:
+            raise SpecReviewAnnotationError(f"{mark_id} holds no comment")
+        self._set(path, field, value[:m.start] + markup + value[m.body_end:])
 
     def remove_all_annotations(self) -> SpecMarkReport:
         """Removes every annotation and writes the result back: every inline
@@ -2247,7 +2649,7 @@ class SpecReviewAnnotations:
         unresolved (``open:``), malformed, or decided for a letter it has no
         alternative for."""
         decided = self._decided_conflicts()
-        marks = self.accept_all_marks()
+        marks = self._apply_marks(lambda _id, _m: SpecMarkDecision.ACCEPT)
         outcomes: list[SpecConflictOutcome] = []
         for path, field, text in self._values():
             v = text
@@ -2362,9 +2764,7 @@ class SpecReviewAnnotations:
         value there now (SOM §11.9.3). A value that already holds change marks
         is compared from its original — every mark rejected — so a second edit
         of the same passage updates its mark instead of nesting one."""
-        current = self._get(path, field)
-        base = apply_inline_marks_text(current, accept=False)
-        result = mark_change_text(base, text)
+        result = _mark_keeping_change_comments(self._get(path, field), text)
         self._set(path, field, result.text)
         return result
 

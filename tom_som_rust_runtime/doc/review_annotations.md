@@ -13,6 +13,7 @@ value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -122,9 +123,10 @@ Record each applied comment or answer in the project's log **before**
 | `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
 | `list_marks(path)` | Every inline mark of the document (`None`) or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
 | `decide_marks(&decisions, revision)` | One write: a `HashMap<String, SpecMarkDecision>` of `Accept` / `Reject` / `Leave`. `Err(SpecReviewAnnotationError)` when the document is no longer at `revision`, or when an id is unknown |
-| `accept_all_marks(path)`, `reject_all_marks(path)` | Every mark under a path, or in the whole document (`None`) |
-| `remove_all_annotations()` | Every mark accepted, every conflict's decision applied, and every comment, question and conflict block removed, written back. `Err` while a conflict cannot be applied (see [Team reviews](#team-reviews)) |
-| `apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected (a free function) |
+| `accept_all_marks(path)`, `reject_all_marks(path)` | Every mark under a path, or in the whole document (`None`), except change comments, which stay |
+| `remove_all_annotations()` | Every mark accepted (change comments removed too), every conflict's decision applied, and every comment, question and conflict block removed, written back. `Err` while a conflict cannot be applied (see [Team reviews](#team-reviews)) |
+| `decide_all_marks_text(text, accept)` | One value as accept all / reject all write it (a free function) |
+| `apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected and every comment removed (a free function) |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
 mark: id, kind, path, decision, markup and result. `malformed` holds the
@@ -173,6 +175,43 @@ let r = mark_change_text(
 );
 println!("{}", r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `list_marks(path)` | A change comment's entry carries `quoted_change` (`kind`, `oldText`, `newText`, `outcome`) and `change_id`, its `comment` being the text after the quote. Its change's entry carries `comment_id` |
+| `decide_marks`, `apply_mark`, `accept_all_marks`, `reject_all_marks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `comment_change(mark_id, text, author, revision)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id. `author` and `revision` are `Option<&str>` |
+| `edit_mark_comment(mark_id, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `set_marked(...)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+`comment_change` and `edit_mark_comment` return
+`Err(SpecReviewAnnotationError)` and change nothing for an unknown id, a
+stale revision, a mark they cannot comment, or a text that is empty or holds
+a mark delimiter or a blank line. A quote opened and never closed makes the
+comment a plain one, and `validate()` reports it as `annotationMalformed`.
+
+```rust
+use std::collections::HashMap;
+use tom_som_rust_runtime::{SpecMarkDecision, SpecReviewAnnotations};
+
+let mut review = SpecReviewAnnotations::new(&mut doc);
+let rev = review.revision();
+let change = review.list_marks(None).remove(0); // {~~ 30 ~> 15 ~~}
+let comment_id = review.comment_change(&change.id, "why shorter?", Some("alice"), Some(&rev))?;
+let decisions = HashMap::from([(change.id.clone(), SpecMarkDecision::Accept)]);
+review.decide_marks(&decisions, &review.revision())?;
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+```
+
+`comment_id` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 

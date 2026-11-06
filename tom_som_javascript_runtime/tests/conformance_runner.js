@@ -82,6 +82,7 @@ const {
   SpecReviewAnnotationError,
   SpecReviewAnnotations,
   applyInlineMarksText,
+  decideAllMarksText,
   markChangeText,
   buildSomMetaTree,
   checkAddNode,
@@ -627,6 +628,16 @@ function _runAnnotationOp(model, tree, doc, api, op, json = { team: false }) {
       return api.rejectAllMarks({ path: op.path ?? null }).toJson(json);
     case 'removeAll':
       return api.removeAllAnnotations().toJson(json);
+    case 'commentChange':
+      return api.commentChange(op.id, op.text, {
+        author: op.author ?? null,
+        revision: op.revision === '@current' ? api.revision() : (op.revision ?? null),
+      });
+    case 'editMarkComment':
+      api.editMarkComment(op.id, op.text, {
+        revision: op.revision === '@current' ? api.revision() : (op.revision ?? null),
+      });
+      return null;
     case 'setMarked':
       return api.setMarked({ path: op.path, field: op.field ?? null, text: op.text }).toJson();
     case 'markAgainst':
@@ -742,6 +753,21 @@ function testInlineMarks(model, tree) {
       acc === c.accept && rej === c.reject,
       `accept ${JSON.stringify(acc)} vs ${JSON.stringify(c.accept)}; ` +
         `reject ${JSON.stringify(rej)} vs ${JSON.stringify(c.reject)}`,
+    );
+  }
+  // Change comments (SOM §11.9.3): accept all / reject all on the text, and
+  // the text once every annotation is gone.
+  for (const c of table.changeCommentTextCases) {
+    const name = `changeCommentText[${c.name}]`;
+    const acc = decideAllMarksText(c.text, { accept: true });
+    const rej = decideAllMarksText(c.text, { accept: false });
+    const rem = applyInlineMarksText(c.text, { accept: true });
+    _check(
+      name,
+      acc === c.accept && rej === c.reject && rem === c.removed,
+      `accept ${JSON.stringify(acc)} vs ${JSON.stringify(c.accept)}; ` +
+        `reject ${JSON.stringify(rej)} vs ${JSON.stringify(c.reject)}; ` +
+        `removed ${JSON.stringify(rem)} vs ${JSON.stringify(c.removed)}`,
     );
   }
   for (const c of table.cases) {

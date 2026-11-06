@@ -13,6 +13,7 @@ was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -114,9 +115,10 @@ Record each applied comment or answer in the project's log **before**
 | `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
 | `list_marks(path=None)` | Every inline mark of the document or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
 | `decide_marks(decisions, revision)` | One write: `{id: SpecMarkDecision.ACCEPT / REJECT / LEAVE}`. Refused when the document is no longer at `revision`, or when an id is unknown |
-| `accept_all_marks(path=None)`, `reject_all_marks(path=None)` | Every mark under a path, or in the whole document |
-| `remove_all_annotations()` | Every mark accepted and every comment and question block removed, written back |
-| `apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected |
+| `accept_all_marks(path=None)`, `reject_all_marks(path=None)` | Every mark under a path, or in the whole document, except change comments, which stay |
+| `remove_all_annotations()` | Every mark accepted (change comments removed too) and every comment and question block removed, written back |
+| `decide_all_marks_text(text, accept)` | One value as accept all / reject all write it |
+| `apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected and every comment removed |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
 mark: id, kind, path, decision, markup and result. `malformed` holds the
@@ -159,6 +161,40 @@ r = mark_change_text(
 )
 print(r.text)  # Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `list_marks()` | A change comment's entry carries `quoted_change` (`kind`, `oldText`, `newText`, `outcome`) and `change_id`, its `comment` being the text after the quote. Its change's entry carries `comment_id` |
+| `decide_marks`, `apply_mark`, `accept_all_marks`, `reject_all_marks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `comment_change(mark_id, text, author=None, revision=None)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id |
+| `edit_mark_comment(mark_id, text, revision=None)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `set_marked(...)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+A quote opened and never closed makes the comment a plain one, and
+`validate()` reports it as `annotationMalformed`.
+
+```python
+review = SpecReviewAnnotations(doc)
+rev = review.revision()
+change = review.list_marks()[0]  # {~~ 30 ~> 15 ~~}
+comment_id = review.comment_change(
+    change.id, "why shorter?", author="alice", revision=rev
+)
+review.decide_marks(
+    {change.id: SpecMarkDecision.ACCEPT}, revision=review.revision()
+)
+# after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+```
+
+`comment_id` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 

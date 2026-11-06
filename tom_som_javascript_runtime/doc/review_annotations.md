@@ -13,6 +13,7 @@ was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -117,9 +118,10 @@ or answer in the project's log **before** `resolve` removes it
 | `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
 | `listMarks({ path })` | Every inline mark of the document or of a subtree, as `SpecMarkEntry`: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
 | `decideMarks(decisions, { revision })` | One write: `{ id: SpecMarkDecision.ACCEPT / REJECT / LEAVE }` (an object or a `Map`). Refused when the document is no longer at `revision`, or when an id is unknown |
-| `acceptAllMarks({ path })`, `rejectAllMarks({ path })` | Every mark under a path, or in the whole document |
-| `removeAllAnnotations()` | Every mark accepted and every comment and question block removed, written back |
-| `applyInlineMarksText(text, { accept })` | One value with every mark accepted or rejected |
+| `acceptAllMarks({ path })`, `rejectAllMarks({ path })` | Every mark under a path, or in the whole document, except change comments, which stay |
+| `removeAllAnnotations()` | Every mark accepted (change comments removed too) and every comment and question block removed, written back |
+| `decideAllMarksText(text, { accept })` | One value as accept all / reject all write it |
+| `applyInlineMarksText(text, { accept })` | One value with every mark accepted or rejected and every comment removed |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
 mark: id, kind, path, decision, markup and result. `malformed` holds the
@@ -166,6 +168,42 @@ const r = markChangeText(
 );
 console.log(r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `listMarks()` | A change comment's entry carries `quotedChange` (`kind`, `oldText`, `newText`, `outcome`) and `changeId`, its `comment` being the text after the quote. Its change's entry carries `commentId` |
+| `decideMarks`, `applyMark`, `acceptAllMarks`, `rejectAllMarks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `commentChange(markId, text, { author, revision })` | Writes a change comment after the change `markId`, its quote taken from the mark; returns the comment's id |
+| `editMarkComment(markId, text, { revision })` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `setMarked({ path, field, text })` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+A quote opened and never closed makes the comment a plain one, and
+`validate()` reports it as `annotationMalformed`.
+
+```javascript
+const review = new SpecReviewAnnotations(doc);
+const rev = review.revision();
+const change = review.listMarks()[0]; // {~~ 30 ~> 15 ~~}
+const commentId = review.commentChange(change.id, 'why shorter?', {
+  author: 'alice',
+  revision: rev,
+});
+review.decideMarks(
+  { [change.id]: SpecMarkDecision.ACCEPT },
+  { revision: review.revision() },
+);
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+```
+
+`commentId` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 

@@ -13,6 +13,7 @@ value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
 - [Validation](#validation)
@@ -145,9 +146,10 @@ otherwise.
 | `revision()` | The revision the mark ids are stable for (16 hex digits, owned); any change to a value changes it |
 | `list_marks(path, out)` | Every inline mark of the document (`path` `NULL`) or of a subtree, as `SpecMarkEntry`: `M-<n>` id, `mark_kind`, `path`, `field`, `old_text` and `new_text`, `markup`, the paragraph holding it as `context` |
 | `decide_marks(decisions, decisions_len, revision, out, err)` | One write: an array of `SpecMarkDecisionItem` `{id, SPEC_MARK_DECISION_ACCEPT / _REJECT / _LEAVE}`. Refused (returns 0, nothing changes) when the document is no longer at `revision`, or when an id is unknown |
-| `accept_all_marks(path, out)`, `reject_all_marks(path, out)` | Every mark under a path, or in the whole document (`NULL`) |
-| `remove_all_annotations(out, err)` | Every mark accepted, every conflict's decision applied, and every comment, question and conflict block removed, written back; refused while a conflict is undecided ([Team reviews](#team-reviews)) |
-| `spec_apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected (owned) |
+| `accept_all_marks(path, out)`, `reject_all_marks(path, out)` | Every mark under a path, or in the whole document (`NULL`), except change comments, which stay |
+| `remove_all_annotations(out, err)` | Every mark accepted (change comments removed too), every conflict's decision applied, and every comment, question and conflict block removed, written back; refused while a conflict is undecided ([Team reviews](#team-reviews)) |
+| `spec_decide_all_marks_text(text, accept)` | One value as accept all / reject all write it (owned) |
+| `spec_apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected and every comment removed (owned) |
 
 Each fills a `SpecMarkReport` (`spec_mark_report_to_json`,
 `spec_mark_report_free`). `applied` holds one `SpecMarkOutcome` per mark: id,
@@ -202,6 +204,55 @@ SpecMarkedChange r = spec_mark_change_text(
 printf("%s\n", r.text); /* Sessions expire after {~~ 30 ~> 15 ~~} minutes. */
 spec_marked_change_free(&r);
 ```
+
+## Comments on changes
+
+A change comment is a comment mark that starts with a quote of the change it
+is about, written directly after that change:
+`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}`. The quote keeps the
+comment readable once the change is decided. The notation is SOM §11.9.3.
+
+| Operation | Does |
+|-----------|------|
+| `list_marks(path, out)` | A change comment's `SpecMarkEntry` carries `quoted_change` (a `SpecQuotedChange`: `kind`, `old_text`, `new_text`, `outcome`) and `change_id`, its `comment` being the text after the quote. Its change's entry carries `comment_id`. All three are `NULL` on the other marks |
+| `decide_marks`, `apply_mark`, `accept_all_marks`, `reject_all_marks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
+| `comment_change(mark_id, text, author, revision, err)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id (owned), or `NULL` when refused |
+| `edit_mark_comment(mark_id, text, revision, err)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `set_marked(path, field, text)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+
+`author` and `revision` may be `NULL`. A refusal returns `NULL` (or 0), fills
+`err` and changes nothing: an unknown id, a stale `revision`, a mark that is
+not a change (or holds no comment), a change that already has a comment, a
+`text` that is empty or holds a mark delimiter or a blank line, an `author`
+that is not a member id.
+
+A quote opened and never closed makes the comment a plain one, and
+`validate()` reports it as `annotationMalformed`.
+
+```c
+char *rev = spec_review_annotations_revision(&review);
+SpecMarkEntryList marks;
+spec_review_annotations_list_marks(&review, NULL, &marks); /* {~~ 30 ~> 15 ~~} */
+SpecReviewAnnotationError err;
+spec_review_annotation_error_init(&err);
+char *comment_id = spec_review_annotations_comment_change(
+    &review, marks.items[0].id, "why shorter?", "alice", rev, &err);
+if (comment_id == NULL) fprintf(stderr, "%s\n", err.message);
+char *rev2 = spec_review_annotations_revision(&review);
+SpecMarkDecisionItem d = {marks.items[0].id, SPEC_MARK_DECISION_ACCEPT};
+SpecMarkReport report;
+spec_review_annotations_decide_marks(&review, &d, 1, rev2, &report, &err);
+/* after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes */
+spec_mark_report_free(&report);
+spec_review_annotation_error_free(&err);
+spec_mark_entry_list_free(&marks);
+free(comment_id);
+free(rev2);
+free(rev);
+```
+
+`comment_id` is the new comment's `M-<n>`, valid for the revision after the
+write.
 
 ## Extracting answers for a step folder
 
@@ -384,7 +435,8 @@ Everything an operation returns is the caller's:
 | `SpecMarkReport` | `spec_mark_report_free` |
 | `SpecAnswerExtract` | `spec_answer_extract_free` |
 | `spec_render_answers`, `spec_answer_*_to_json` | `free` |
-| revision, `spec_apply_inline_marks_text` | `free` |
+| revision, `spec_apply_inline_marks_text`, `spec_decide_all_marks_text` | `free` |
+| `comment_change` id | `free` |
 | ids, JSON text, `spec_strip_annotations_text` | `free` |
 | `SomStrList` (assigned ids, block lines) | `som_strlist_free` |
 | `stripped()` document | `spec_document_free` + `free` |

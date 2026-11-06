@@ -1155,6 +1155,16 @@ void main() {
         expect(applyInlineMarksText(text, accept: false), c['reject']);
       });
     }
+    for (final c
+        in (table['changeCommentTextCases'] as List)
+            .cast<Map<String, dynamic>>()) {
+      test('change comments text: ${c['name']}', () {
+        final text = c['text'] as String;
+        expect(decideAllMarksText(text, accept: true), c['accept']);
+        expect(decideAllMarksText(text, accept: false), c['reject']);
+        expect(applyInlineMarksText(text, accept: true), c['removed']);
+      });
+    }
     for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
       test('marks: ${c['name']}', () {
         expect(
@@ -3106,6 +3116,14 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
             '> \u2b06\ufe0f **C-x** bad id\n\n'
             '> \u2b06\ufe0f **C-2** a comment\n> **Answer:** not here\n\n'
             '> **\u2753 BQ90 no dash:** bad header\n>\n> **Answer:**',
+      },
+    }),
+    caseFor('annotationMalformed: change comment quotes', {
+      'content': {
+        'DEMO/SUM':
+            'After {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 why? <<} and '
+            '{~~ a ~> b ~~}{>> [~~ a b ~~] why? <<}, but '
+            '{>> [see FR-3] plain <<} and {++ x ++}{>> [++ x ++] fine <<}.',
       },
     }),
     caseFor('duplicateAnnotationId', {
@@ -8371,6 +8389,24 @@ Map<String, Object?> _runAnnotationCase(
         'rejectAll' =>
           api.rejectAllMarks(path: op['path'] as String?).toJson(team: team),
         'removeAll' => api.removeAllAnnotations().toJson(team: team),
+        'commentChange' => api.commentChange(
+          op['id'] as String,
+          op['text'] as String,
+          author: op['author'] as String?,
+          revision: op['revision'] == '@current'
+              ? api.revision()
+              : op['revision'] as String?,
+        ),
+        'editMarkComment' => () {
+          api.editMarkComment(
+            op['id'] as String,
+            op['text'] as String,
+            revision: op['revision'] == '@current'
+                ? api.revision()
+                : op['revision'] as String?,
+          );
+          return null;
+        }(),
         'setMarked' =>
           api
               .setMarked(
@@ -8461,6 +8497,136 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
         'reject': applyInlineMarksText(e.value, accept: false),
       },
   ];
+  // Change comments (SOM §11.9.3), pinned by hand: `accept` / `reject` are
+  // accept all / reject all on the text (`decideAllMarksText`), `removed`
+  // the text once every annotation is gone (`applyInlineMarksText`).
+  final changeCommentTextCases = <Map<String, String>>[
+    {
+      'name': 'insertion with its comment',
+      'text': 'Sessions {++ on kiosks ++}{>> [++ on kiosks ++] why? <<} end.',
+      'accept':
+          'Sessions on kiosks{>> [++ on kiosks ++ | accepted] why? <<} end.',
+      'reject': 'Sessions {>> [++ on kiosks ++ | rejected] why? <<} end.',
+      'removed': 'Sessions on kiosks end.',
+    },
+    {
+      'name': 'deletion with its comment',
+      'text': 'We drop {-- old --}{>> [-- old --] still needed? <<} words.',
+      'accept': 'We drop {>> [-- old -- | accepted] still needed? <<} words.',
+      'reject':
+          'We drop old{>> [-- old -- | rejected] still needed? <<} words.',
+      'removed': 'We drop words.',
+    },
+    {
+      'name': 'substitution with its comment',
+      'text': 'after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<} min',
+      'accept': 'after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min',
+      'reject': 'after 30{>> [~~ 30 ~> 15 ~~ | rejected] why shorter? <<} min',
+      'removed': 'after 15 min',
+    },
+    {
+      'name': 'a decided change comment stays',
+      'text': 'after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min',
+      'accept': 'after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min',
+      'reject': 'after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<} min',
+      'removed': 'after 15 min',
+    },
+    {
+      'name': 'a quote not matching the change before it',
+      'text': 'after {~~ 30 ~> 10 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<} min',
+      'accept': 'after 10{>> [~~ 30 ~> 15 ~~] why shorter? <<} min',
+      'reject': 'after 30{>> [~~ 30 ~> 15 ~~] why shorter? <<} min',
+      'removed': 'after 10 min',
+    },
+    {
+      'name': 'a change comment after a space stands alone',
+      'text': 'after {~~ 30 ~> 15 ~~} {>> [~~ 30 ~> 15 ~~] why? <<} min',
+      'accept': 'after 15 {>> [~~ 30 ~> 15 ~~] why? <<} min',
+      'reject': 'after 30 {>> [~~ 30 ~> 15 ~~] why? <<} min',
+      'removed': 'after 15 min',
+    },
+    {
+      'name': 'a malformed quote is a plain comment',
+      'text': 'after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 why? <<} min',
+      'accept': 'after 15 min',
+      'reject': 'after 30 min',
+      'removed': 'after 15 min',
+    },
+    {
+      'name': 'a substitution quote without an arrow is a plain comment',
+      'text': 'after {~~ 30 ~> 15 ~~}{>> [~~ 30 15 ~~] why? <<} min',
+      'accept': 'after 15 min',
+      'reject': 'after 30 min',
+      'removed': 'after 15 min',
+    },
+    {
+      'name': 'a bracket that is no quote',
+      'text': 'A note{>> [see FR-3] check <<} here.',
+      'accept': 'A note here.',
+      'reject': 'A note here.',
+      'removed': 'A note here.',
+    },
+    {
+      'name': 'attribution on the change and on its comment',
+      'text':
+          'after {~~ 30 ~> 15 ~~}{@alice}{>> [~~ 30 ~> 15 ~~] why? <<}{@bob} min',
+      'accept': 'after 15{>> [~~ 30 ~> 15 ~~ | accepted] why? <<}{@bob} min',
+      'reject': 'after 30{>> [~~ 30 ~> 15 ~~ | rejected] why? <<}{@bob} min',
+      'removed': 'after 15 min',
+    },
+    {
+      'name': 'a quote written without spaces',
+      'text': 'x {~~30~>15~~}{>>[~~30~>15~~]why<<} y',
+      'accept': 'x 15{>>[~~30~>15~~ | accepted]why<<} y',
+      'reject': 'x 30{>>[~~30~>15~~ | rejected]why<<} y',
+      'removed': 'x 15 y',
+    },
+    {
+      'name': 'a quote whose text holds its delimiter',
+      'text': 'x {-- a -- b --}{>> [-- a -- b --] ok? <<} y',
+      'accept': 'x {>> [-- a -- b -- | accepted] ok? <<} y',
+      'reject': 'x a -- b{>> [-- a -- b -- | rejected] ok? <<} y',
+      'removed': 'x y',
+    },
+    {
+      'name': 'a change comment standing alone',
+      'text': 'A {>> [++ kiosks ++] decided elsewhere <<} note.',
+      'accept': 'A {>> [++ kiosks ++] decided elsewhere <<} note.',
+      'reject': 'A {>> [++ kiosks ++] decided elsewhere <<} note.',
+      'removed': 'A note.',
+    },
+  ];
+  for (final c in changeCommentTextCases) {
+    final text = c['text']!;
+    final live = {
+      'accept': decideAllMarksText(text, accept: true),
+      'reject': decideAllMarksText(text, accept: false),
+      'removed': applyInlineMarksText(text, accept: true),
+    };
+    for (final e in live.entries) {
+      if (e.value != c[e.key]) {
+        throw StateError(
+          'change comment "${c['name']}": ${e.key} is ${jsonEncode(e.value)}, '
+          'pinned ${jsonEncode(c[e.key])}',
+        );
+      }
+    }
+  }
+  final changeComments = <String, Object?>{
+    'content': {
+      'DEMO/SUM':
+          'Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why '
+          'shorter? <<}{@bob} minutes{++ on kiosks ++}.\n'
+          'A {-- very --} long line, {>> [-- gone --| accepted] decided '
+          'before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.',
+    },
+    'forms': {
+      'DEMO/DET': {
+        'owner': 'Bob {++ Smith ++}{>> [++ Smith ++] full name? <<}',
+        'contact': 'bob@example.com',
+      },
+    },
+  };
   final base = _annotationState();
   final withMalformed = jsonDecode(jsonEncode(base)) as Map<String, dynamic>;
   (withMalformed['content'] as Map)['DEMO/MIX/tail'] =
@@ -8529,11 +8695,122 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
         {'op': 'counts'},
       ],
     },
+    {
+      'name': 'change comments: listed with their change',
+      'state': changeComments,
+      'ops': [
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'change comments: deciding a change records the outcome',
+      'state': changeComments,
+      'ops': [
+        {
+          'op': 'decideMarks',
+          'revision': '@current',
+          'decisions': {
+            'M-1': 'accept',
+            'M-3': 'reject',
+            'M-4': 'accept',
+            'M-8': 'accept',
+            'M-9': 'reject',
+          },
+        },
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name':
+          'change comments: accept all leaves them, remove all removes them',
+      'state': changeComments,
+      'ops': [
+        {'op': 'acceptAll'},
+        {'op': 'listMarks'},
+        {'op': 'removeAll'},
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'change comments: reject all and applying one mark',
+      'state': changeComments,
+      'ops': [
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 0, 'accept': false},
+        {'op': 'rejectAll', 'path': 'DEMO/DET'},
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'change comments: comment a change',
+      'state': changeComments,
+      'ops': [
+        {
+          'op': 'commentChange',
+          'id': 'M-3',
+          'text': '  is kiosks enough?  ',
+          'author': 'carol',
+          'revision': '@current',
+        },
+        {'op': 'commentChange', 'id': 'M-5', 'text': 'nested {++ x ++}'},
+        {'op': 'commentChange', 'id': 'M-5', 'text': 'one\n\ntwo'},
+        {'op': 'commentChange', 'id': 'M-5', 'text': '   '},
+        {'op': 'commentChange', 'id': 'M-5', 'text': 'ok', 'author': 'Bob'},
+        {'op': 'commentChange', 'id': 'M-1', 'text': 'a second one'},
+        {'op': 'commentChange', 'id': 'M-2', 'text': 'on a comment'},
+        {'op': 'commentChange', 'id': 'M-99', 'text': 'unknown'},
+        {
+          'op': 'commentChange',
+          'id': 'M-5',
+          'text': 'stale',
+          'revision': '0000000000000000',
+        },
+        {'op': 'commentChange', 'id': 'M-5', 'text': 'still needed?'},
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'change comments: editing keeps the quote',
+      'state': changeComments,
+      'ops': [
+        {
+          'op': 'editMarkComment',
+          'id': 'M-2',
+          'text': 'why 15 and not 20?',
+          'revision': '@current',
+        },
+        {'op': 'editMarkComment', 'id': 'M-5', 'text': 'still decided'},
+        {'op': 'editMarkComment', 'id': 'M-6', 'text': 'a plain one'},
+        {'op': 'editMarkComment', 'id': 'M-7', 'text': 'highlighted'},
+        {'op': 'editMarkComment', 'id': 'M-8', 'text': 'an insertion'},
+        {'op': 'listMarks'},
+        {'op': 'editMarkComment', 'id': 'M-1', 'text': 'a change'},
+        {'op': 'editMarkComment', 'id': 'M-99', 'text': 'unknown'},
+        {'op': 'editMarkComment', 'id': 'M-6', 'text': 'bad <<} text'},
+      ],
+    },
+    {
+      'name': 'change comments: setMarked detaches them with their old quote',
+      'state': changeComments,
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'text':
+              'Sessions expire after 10 minutes on shared kiosks.\n'
+              'A very long line, and and this.',
+        },
+        {'op': 'listMarks', 'path': 'DEMO/SUM'},
+      ],
+    },
   ];
   for (final c in cases) {
     c['expect'] = _runAnnotationCase(model, tree, c);
   }
-  return {'textCases': textCases, 'cases': cases};
+  return {
+    'textCases': textCases,
+    'changeCommentTextCases': changeCommentTextCases,
+    'cases': cases,
+  };
 }
 
 // ---------------------------------------------------------------------------
