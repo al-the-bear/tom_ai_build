@@ -25,26 +25,34 @@ For the rules that place these members, see
   - [AuthorizationRequirementKind](#authorizationrequirementkind)
   - [GradedAccessLevel](#gradedaccesslevel)
   - [BasicAuthorizationRequirementKind](#basicauthorizationrequirementkind)
-  - [SectionType](#sectiontype)
   - [Priority](#priority)
   - [Status](#status)
   - [Probability](#probability)
   - [Impact](#impact)
+  - [ImportanceBand](#importanceband)
+  - [AlertSeverity](#alertseverity)
+  - [ConstraintEnforcement](#constraintenforcement)
+  - [OverridableBy](#overridableby)
+  - [ConfigValueType](#configvaluetype)
+  - [DecisionState](#decisionstate)
+  - [RoleMembershipSource](#rolemembershipsource)
+  - [OperationIdempotency](#operationidempotency)
+  - [ContextRelationshipType](#contextrelationshiptype)
+  - [TranslationReviewStatus](#translationreviewstatus)
   - [Iso25010Characteristic](#iso25010characteristic)
   - [SpecDocumentType](#specdocumenttype)
 - [Global Functions and Constants](#global-functions-and-constants)
 
 ## Overview
 
-The module declares **7 classes** across four files; the enums below are the
-ones this page documents.
+The module declares **8 classes** and **19 enums** across four files.
 
 | File | Holds |
 |------|-------|
 | `document_header.dart` | The document header — `DocumentHeader` |
 | `review_team.dart` | Review teams and the reviewers of a revision — `ReviewTeam`, `ReviewTeamMember`, `DocumentReviewTeamEntry`, `ReviewerRecord` |
 | `authorization_requirement.dart` | Authorization requirements — `AuthorizationRequirementSpec`, `GradedAuthorizationRequirement`, `GradedAccessLevelEntry`, `AuthorizationRequirementKind`, `GradedAccessLevel`, `BasicAuthorizationRequirementKind` |
-| `enums.dart` | Shared enums — among them `SectionType`, `Priority`, `Status`, `Probability`, `Impact`, `Iso25010Characteristic`, `SpecDocumentType` |
+| `enums.dart` | Shared enums — `Priority`, `ImportanceBand`, `Status`, `Probability`, `Impact`, `Iso25010Characteristic`, `AlertSeverity`, `ConstraintEnforcement`, `OverridableBy`, `ConfigValueType`, `DecisionState`, `RoleMembershipSource`, `OperationIdempotency`, `ContextRelationshipType`, `TranslationReviewStatus`, `SpecDocumentType` |
 
 ## Class Hierarchy
 
@@ -321,15 +329,116 @@ Impact level for risks.
 | `major` |
 | `critical` |
 
-### SectionType
+### ImportanceBand
 
-Section type in DocSpecs annotations.
+The four-band qualitative scale — `critical` / `high` / `medium` / `low`.
 
-| Value |
-|-------|
-| `description` |
-| `form` |
-| `code` |
+| Value | Meaning |
+|-------|---------|
+| `critical` | The top band: whatever this rates cannot be traded away, deferred or absorbed. On a priority it blocks the release; on a severity it stops work; on a criticality its loss stops the business function. If everything on a list is critical, the list has not been rated. |
+| `high` | Below `critical` but ahead of the ordinary queue: it is expected to be dealt with in the current cycle, and letting it slip is a decision somebody has to make rather than a routine outcome. |
+| `medium` | The ordinary band, and the default when nobody has actually assessed the item. A medium with no reasoning behind it is worth challenging — it is as often "not looked at" as it is "genuinely middling". |
+| `low` | The bottom band: worth recording, not worth planning around. Items here are done when they are cheap, and their omission needs no explanation. |
+
+### AlertSeverity
+
+How severe an alert is — what its arrival asks of the person on call.
+
+| Value | Meaning |
+|-------|---------|
+| `critical` | Someone acts now: the service, or a promise it makes, is broken. |
+| `warning` | Someone acts soon: a threshold is crossed and the trend leads to a critical alert if nothing changes. |
+| `info` | No one has to act: recorded for the picture, not for a page. |
+
+### ConstraintEnforcement
+
+How a rule about roles is enforced.
+
+| Value | Meaning |
+|-------|---------|
+| `hard` | The system refuses the combination; no override exists — including a combination that cannot arise by construction. |
+| `soft` | The system warns and the combination may stand, with the override the rule names (an approval, a recorded reason). |
+
+### OverridableBy
+
+The narrowest configuration scope permitted to shadow a key; every scope in between is opened too. Mirrors `CsOverridableBy` (`tom_code_specs`).
+
+| Value | Meaning |
+|-------|---------|
+| `none` | Scope-pinned: no narrower scope may shadow the key. |
+| `client` | A per-install client configuration value may shadow the key. |
+| `user` | A per-user setting may shadow the key. |
+| `device` | A per-user-per-device setting may shadow the key. |
+
+### ConfigValueType
+
+The type of a configuration value.
+
+| Value | Meaning |
+|-------|---------|
+| `text` | Text. |
+| `integer` | A whole number. |
+| `decimal` | A decimal number. |
+| `boolean` | True or false. |
+| `enumeration` | One of a closed set of values, which the setting names. |
+| `duration` | A length of time. |
+
+### DecisionState
+
+A yes/no fact that may also legitimately be open.
+
+| Value | Meaning |
+|-------|---------|
+| `yes` | Yes, everywhere. |
+| `no` | No, everywhere. |
+| `depends` | Depends on the installation or context; the notes say on what. |
+| `undecided` | Not decided yet. |
+
+### RoleMembershipSource
+
+How a role's membership arises.
+
+| Value | Meaning |
+|-------|---------|
+| `assigned` | Holders are assigned to the role directly. |
+| `derivedFromGrants` | Membership follows from grants the holder has: the role is a name for a set of grants, not something anyone is assigned. |
+| `both` | Both: holders are assigned, and a grant can also confer membership. |
+
+### OperationIdempotency
+
+Whether repeating an operation with the same input repeats its effect.
+
+| Value | Meaning |
+|-------|---------|
+| `idempotent` | Repeating it has no further effect. |
+| `idempotentWithKey` | Repeating it has no further effect when the caller sends the same idempotency key. |
+| `notIdempotent` | Each call has its own effect; a retry must be decided by the caller. |
+
+### ContextRelationshipType
+
+The relationship between two bounded contexts (context mapping, after Evans and Vernon).
+
+| Value | Meaning |
+|-------|---------|
+| `partnership` | The two teams succeed or fail together and plan jointly. |
+| `sharedKernel` | The two share a small common model both depend on. |
+| `customerSupplier` | The downstream context's needs shape what the upstream provides. |
+| `conformist` | The downstream context adopts the upstream model as it is. |
+| `anticorruptionLayer` | The downstream context translates the upstream model at its boundary. |
+| `openHostService` | The upstream context offers a protocol any context may use. |
+| `publishedLanguage` | The two exchange a documented, shared language. |
+| `separateWays` | The two have no integration. |
+
+### TranslationReviewStatus
+
+How far a translated text has been checked.
+
+| Value | Meaning |
+|-------|---------|
+| `draft` | Written, not yet reviewed. |
+| `machineTranslated` | Produced by a machine, not yet reviewed by a person. |
+| `reviewed` | Reviewed by a person fluent in the language. |
+| `approved` | Approved for release. |
 
 ### SpecDocumentType
 

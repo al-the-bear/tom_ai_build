@@ -108,8 +108,9 @@ unpublished_drift:
     repository. Ships with the next release.
   tom_specs_model: >-
     Documentation only since 1.7.1: som_toolchains.md describes the clitool's
-    move to analyzer 14 and tom_analyzer_shared 0.8.0. Ships with the next
-    release.
+    move to analyzer 14 and tom_analyzer_shared 0.8.0, and
+    doc/api/api_summary_common.md documents all 19 enums of the common module.
+    Ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the
