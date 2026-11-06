@@ -329,7 +329,7 @@ cargo into the interactive profile only.
 ## Documentation generation
 
 `tom_specs_documentation_standard.md` §5 puts a **generated API reference** in
-every SOM package's `doc/api/reference/`, and names a generator per language.
+every SOM package's `build/api_doc/`, and names a generator per language.
 This section records the eight tools, how each is obtained, the exact
 invocation, and what happens when one is absent.
 
@@ -420,12 +420,11 @@ generate all eighteen packages under `--strict` (their tables are above). Hosts
 provisioned only for the build — `bigbeast` is one — report `pdoc`, `doxygen`
 and whichever toolchains they lack.
 
-### The generated reference is **gitignored**, deliberately
+### The generated reference is **not committed**, deliberately
 
-`**/doc/api/**` is excluded in `tom_ai/ai_build/.gitignore` and
-`tom_ai/core/.gitignore`, with `api_summary_*.md` / `api_reference_*.md`
-re-included — the hand-written summaries are source, the rendered reference is
-output.
+It is written to `build/api_doc/`, and `build/` is gitignored in every
+repository; `doc/` and `doc/api/` hold only hand-written files (the summaries
+are source, the rendered reference is output), so no `.gitignore` names them.
 
 The quest's own precedent cuts both ways: `generated-doc/` is committed because
 the outlines are *read in review*, while `testlog/` is fully ignored because an
@@ -477,7 +476,7 @@ the tool by hand:
 | **Java** | The facade's sources reference the runtime's types, so `tom_som_java_runtime/src` must be on the `-sourcepath` — without it javadoc reports a hundred unresolved symbols and writes nothing. Only the named subpackages are documented, so this widens resolution without widening output. |
 | **C / C++** | `INPUT` is the **public headers only**, never `src`. The generated `*_v0` implementation files run to tens of thousands of lines: including them took doxygen many minutes and produced a tree far larger still — a source browser, not a reference. Even headers-only the two C/C++ facades are among the slowest targets. |
 | **Go** | `go doc` renders **text**, not an HTML tree; `pkg.go.dev` is the hosted equivalent and there is no local site generator. The reference is therefore one `index.txt` per package, which is what the Go ecosystem actually offers locally. |
-| **Rust** | `cargo doc` insists on writing into the crate's target directory, so the driver copies the rendered tree out to `doc/api/reference/` — the same location every other language uses. |
+| **Rust** | `cargo doc` insists on writing into the crate's target directory, so the driver copies the rendered tree out to `build/api_doc/` — the same location every other language uses. |
 | **Dart** | The driver resolves (`dart pub get`) **only when there is no resolution**. Doing it unconditionally was observed to disturb a *sibling* package's resolution — these packages share a pub cache and resolve each other by path override — after which `tom_specs_clitool` failed to compile the analyzer until re-resolved. Generating a reference must not have side effects on packages it is not documenting. |
 
 ### When a toolchain is absent

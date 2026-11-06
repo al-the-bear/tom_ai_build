@@ -17,7 +17,7 @@ here cite it rather than restating it
 
 ## API reference
 
-`doc/api/reference/` holds the generated reference, rendered with `javadoc`.
+`build/api_doc/` holds the generated reference, rendered with `javadoc`.
 It is **not committed** — it is output, it is large, and it regenerates:
 
 ```bash

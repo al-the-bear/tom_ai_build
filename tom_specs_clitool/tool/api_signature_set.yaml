@@ -9,7 +9,7 @@
 # doc/api) or `path: summary-folder`.
 #
 # Not here, and why: the tom_som_* packages, tom_doc_scanner and tom_doc_specs
-# hold only the generated reference under doc/api/reference/ and no fenced
+# hold only the generated reference under build/api_doc/ and no fenced
 # summary, so there is nothing to compare.
 packages:
   - tom_ai/ai_build/tom_core_codespecs

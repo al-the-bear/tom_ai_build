@@ -1142,4 +1142,34 @@ class A {}
       }
     });
   });
+
+  group('SCC10: generated output is not scanned', () {
+    late Directory root;
+
+    setUp(() {
+      root = (Directory(
+        'testlog',
+      )..createSync()).createTempSync('scc10_markdown_');
+      for (final relative in [
+        'doc/guide.md',
+        'doc/reference/terms.md',
+        'build/api_doc/media/index.md',
+        'build/notes.md',
+      ]) {
+        File(p.join(root.path, relative))
+          ..parent.createSync(recursive: true)
+          ..writeAsStringSync('# t\n');
+      }
+    });
+
+    tearDown(() => root.deleteSync(recursive: true));
+
+    test('SCC10-1: markdown under build/ (the generated API reference) is '
+        'left out; a hand-written doc/reference/ folder is scanned', () {
+      final found = listMarkdownSources(
+        root.path,
+      ).map((f) => p.split(p.relative(f, from: root.path)).join('/')).toList();
+      expect(found, ['doc/guide.md', 'doc/reference/terms.md']);
+    });
+  });
 }

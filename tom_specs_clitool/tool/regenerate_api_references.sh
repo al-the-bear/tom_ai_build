@@ -5,9 +5,12 @@
 #
 # Eighteen targets: the nine hand-written `tom_som_<lang>_runtime` packages and
 # the nine generated `tom_som_<lang>_v0` facades. Each language has its own
-# documentation generator, and each writes into `<package>/doc/api/reference/`.
+# documentation generator, and each writes into `<package>/build/api_doc/`.
 #
-# The output is DELIBERATELY GITIGNORED. See som_toolchains.md,
+# The output goes to build/api_doc/, never into doc/: doc/ is hand-authored,
+# doc/api/ holds the hand-written API summaries, and build/ is gitignored in
+# every repository — the same folder the workspace `docs` action writes
+# (tom_workspace.yaml). It is DELIBERATELY NOT COMMITTED. See som_toolchains.md,
 # "Documentation generation", for the reason: a dartdoc tree alone is ~7 MB, the
 # eighteen together are well over a hundred, and every byte of it regenerates
 # from source in seconds — so committing it would trade a large, unreviewable
@@ -70,9 +73,9 @@ record() { RESULTS+=("$1 $2 $3"); }
 
 # --- per-language generators -------------------------------------------------
 #
-# Each takes the absolute package directory and writes into <pkg>/doc/api/
-# reference/. Each returns 0 on success, 1 on failure, 3 when the toolchain is
-# absent (the caller turns 3 into SKIP, or into FAIL under --strict).
+# Each takes the absolute package directory and writes into
+# <pkg>/build/api_doc/. Each returns 0 on success, 1 on failure, 3 when the
+# toolchain is absent (the caller turns 3 into SKIP, or into FAIL under --strict).
 
 need() { command -v "$1" > /dev/null 2>&1; }
 
@@ -86,7 +89,7 @@ gen_dart() {
   # it is not documenting.
   ( cd "$1" \
     && { [ -f .dart_tool/package_config.json ] || dart pub get > /dev/null 2>&1; } \
-    && dart doc --output "doc/api/reference" > /dev/null 2>&1 )
+    && dart doc --output "build/api_doc" > /dev/null 2>&1 )
 }
 
 gen_python() {
@@ -109,7 +112,7 @@ gen_python() {
   # The facade imports the runtime, so both roots have to be on the path.
   ( cd "$1" \
     && PYTHONPATH="$1:$ROOT/tom_som_python_runtime:${PYTHONPATH:-}" \
-       pdoc -o doc/api/reference "${mods[@]}" > /dev/null 2>&1 )
+       pdoc -o build/api_doc "${mods[@]}" > /dev/null 2>&1 )
 }
 
 gen_typedoc() {   # javascript + typescript
@@ -158,15 +161,15 @@ gen_typedoc() {   # javascript + typescript
 TSCFG
     allow_js="--tsconfig $(dirname "$entry")/.typedoc-tsconfig.json"
   fi
-  ( cd "$1" && rm -rf doc/api/reference \
+  ( cd "$1" && rm -rf build/api_doc \
       && npx --yes "typedoc@$TYPEDOC_VERSION" \
-           --out doc/api/reference --skipErrorChecking --excludePrivate \
+           --out build/api_doc --skipErrorChecking --excludePrivate \
            $allow_js "$entry" > /dev/null 2>&1
     # typedoc exits non-zero on *warnings* as well as errors, and the SOM
     # sources warn routinely (doc links to built-in types it does not export).
     # The question that matters is whether a reference was rendered, so ask
     # that directly rather than reading a status that conflates the two.
-    [ -f doc/api/reference/index.html ] )
+    [ -f build/api_doc/index.html ] )
   local rc=$?
   [ -n "$tscfg" ] && rm -f "$tscfg"
   return $rc
@@ -177,8 +180,8 @@ gen_go() {
   # `go doc` renders text, not an HTML tree — it is what the Go ecosystem has
   # locally (pkg.go.dev is the hosted equivalent), so the reference here is one
   # rendered text file rather than a site.
-  ( cd "$1" && mkdir -p doc/api/reference \
-      && go doc -all . > doc/api/reference/index.txt 2>/dev/null )
+  ( cd "$1" && mkdir -p build/api_doc \
+      && go doc -all . > build/api_doc/index.txt 2>/dev/null )
 }
 
 gen_rust() {
@@ -186,8 +189,8 @@ gen_rust() {
   # cargo insists on writing into a target dir; copy the rendered tree out so
   # the reference sits where every other language's does.
   ( cd "$1" && cargo doc --no-deps --quiet > /dev/null 2>&1 \
-      && rm -rf doc/api/reference && mkdir -p doc/api \
-      && cp -R target/doc doc/api/reference )
+      && rm -rf build/api_doc && mkdir -p build \
+      && cp -R target/doc build/api_doc )
 }
 
 gen_java() {
@@ -209,8 +212,8 @@ gen_java() {
   # -Xdoclint:none because the reference is generated from the same sources the
   # dartdoc-coverage gate already measures; a doclint failure here would be a
   # second, weaker verdict on the same question.
-  ( cd "$1" && rm -rf doc/api/reference && mkdir -p doc/api/reference \
-      && javadoc -d doc/api/reference -quiet -Xdoclint:none \
+  ( cd "$1" && rm -rf build/api_doc && mkdir -p build/api_doc \
+      && javadoc -d build/api_doc -quiet -Xdoclint:none \
            -sourcepath "$sourcepath" -subpackages "$pkgs" \
            > /dev/null 2>&1 )
 }
@@ -222,11 +225,11 @@ gen_doxygen() {   # c + cpp
   # thousands of lines: including them took doxygen many minutes and produced a
   # 120 MB tree for tom_som_c_v0 alone — a source browser, not a reference.
   [ -d "$1/include" ] || { echo "no include/ directory"; return 1; }
-  ( cd "$1" && mkdir -p doc/api \
+  ( cd "$1" && mkdir -p build \
       && { cat <<DOXY
 PROJECT_NAME    = "$(basename "$1")"
-OUTPUT_DIRECTORY = doc/api
-HTML_OUTPUT     = reference
+OUTPUT_DIRECTORY = build
+HTML_OUTPUT     = api_doc
 GENERATE_LATEX  = NO
 RECURSIVE       = YES
 INPUT           = include
@@ -253,7 +256,7 @@ generate_for() {
   esac
   local rc=$?
   case $rc in
-    0) record "$target" OK "doc/api/reference" ;;
+    0) record "$target" OK "build/api_doc" ;;
     3) if [ "$STRICT" = 1 ]; then
          record "$target" FAIL "toolchain absent: ${reason:-unknown}"; fail=1
        else
@@ -275,7 +278,7 @@ for row in "${RESULTS[@]}"; do
   printf '  %-4s %-22s %s\n' "$2" "$1" "${*:3}"
 done
 echo
-echo "  output: <package>/doc/api/reference/  (gitignored — see som_toolchains.md)"
+echo "  output: <package>/build/api_doc/  (gitignored — see som_toolchains.md)"
 
 if [ "$fail" = 1 ]; then
   echo "FAILED: at least one target could not be generated."

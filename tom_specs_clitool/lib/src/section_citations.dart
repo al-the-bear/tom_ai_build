@@ -350,7 +350,8 @@ const defaultCorpusDocuments = [
 /// root keeps the gate's subject coherent, and discovery means a guide added
 /// tomorrow is gated the day it is written rather than the day someone
 /// remembers to list it. [listMarkdownSources] does the discovery, and excludes
-/// the generated `doc/api/reference/` tree.
+/// generated output under `build/` (the API reference is generated into
+/// `build/api_doc/`).
 ///
 /// `tom_specs_model/doc` is deliberately **absent**: it is the doc folder
 /// itself, already the gate's corpus. Its two package-tier subfolders are named
@@ -523,12 +524,12 @@ List<String> listScannedSources(String root) {
 /// Every `*.md` beneath [root], recursively, sorted — the markdown twin of
 /// [listDartSources].
 ///
-/// **`doc/api/reference/` is excluded.** That tree is the *generated* API
-/// reference (`tom_specs_documentation_standard.md` §5), it is gitignored, and
-/// two of the generators emit markdown into it — typedoc writes a
-/// `media/index.md` per package. Scanning it would hold a generated artefact to
-/// a convention its generator has never heard of, and would report violations
-/// that regenerate straight back.
+/// **`build/` is excluded.** It holds generated output, among it the
+/// *generated* API reference in `build/api_doc/`
+/// (`tom_specs_documentation_standard.md` §5), and two of the generators emit
+/// markdown into it — typedoc writes a `media/index.md` per package. Scanning
+/// it would hold a generated artefact to a convention its generator has never
+/// heard of, and would report violations that regenerate straight back.
 ///
 /// Returns the empty list for a root that does not exist, so a scan set may
 /// name a package that is not checked out.
@@ -540,7 +541,7 @@ List<String> listMarkdownSources(String root) {
       .whereType<File>()
       .map((f) => f.path)
       .where((path) => p.extension(path) == '.md')
-      .where((path) => !p.split(path).contains('reference'))
+      .where((path) => !p.split(p.relative(path, from: root)).contains('build'))
       .toList()
     ..sort();
 }

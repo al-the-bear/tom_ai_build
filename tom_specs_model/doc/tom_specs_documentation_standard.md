@@ -239,12 +239,12 @@ A package's `doc/` holds **its own** documentation and nothing else:
 | `doc/index.md` | The folder's catalogue — one row per file, linking it, saying what it covers. Mandatory once `doc/` holds more than one file. |
 | `doc/<topic>.md` | One file per module or coherent capability. |
 | `doc/api/api_summary_<module>.md` | The hand-written API summary per module (`_copilot_guidelines/dart/api_summary_creation.md`). |
-| `doc/api/reference/` | The **generated** API reference (§5). **Gitignored** — it is output, not source; see §5 and `som_toolchains.md`, "Documentation generation". A package is complete when the reference *regenerates*, not when it is present. |
 
 `README.md` and `CHANGELOG.md` stay at the package root and are never moved into
 `doc/`. Test artefacts never go in `doc/` — they belong in `testlog/`, which is
-gitignored. Generator output other than the API reference never goes in `doc/`
-— it belongs in a `generated-doc/` sibling.
+gitignored. Generator output never goes in `doc/`: the generated API reference
+is written to `build/api_doc/` (§5), other generator output to a
+`generated-doc/` sibling.
 
 **The one package whose `doc/` hosts both tiers.**
 `tom_ai/ai_build/tom_specs_model/doc/` is the subject-matter tier's home (§1),
@@ -354,7 +354,7 @@ runtime is the generic, reflective one.
 
 | Package | Carries |
 |---------|---------|
-| `tom_som_<lang>_v0` | `doc/tutorial.md` — a **hand-written** tutorial showing how the SOM is used *in this language*, end to end: install, open a document, read a section, edit it, validate, serialize. Plus `doc/api/reference/` — the **generated** API reference (§5). |
+| `tom_som_<lang>_v0` | `doc/tutorial.md` — a **hand-written** tutorial showing how the SOM is used *in this language*, end to end: install, open a document, read a section, edit it, validate, serialize. Plus `build/api_doc/` — the **generated** API reference (§5). |
 | `tom_som_<lang>_runtime` | `doc/generic_access.md` — the reflective/untyped API: the meta-data tree, walking a document without typed classes, and when to prefer it over the facade. Plus its own generated API reference. |
 
 Each links the other, and both link
@@ -408,7 +408,8 @@ page.
 ## 5 The API reference
 
 The API reference is **generated, never hand-written**, and lands in
-`doc/api/reference/`.
+`build/api_doc/` — outside `doc/`, which is hand-authored, and in the folder the
+workspace `docs` action writes for every Dart package.
 
 | Language | Generator |
 |----------|-----------|
@@ -428,8 +429,8 @@ per-language invocations, and the several non-obvious adjustments they needed,
 are recorded in [`som_toolchains.md`](som_toolchains.md), "Documentation
 generation".
 
-**The rendered reference is gitignored** (`**/doc/api/**`, with
-`api_summary_*.md` re-included). It is large, it is HTML, and it regenerates
+**The rendered reference is not committed:** `build/` is gitignored in every
+repository. It is large, it is HTML, and it regenerates
 from source — so holding it would trade an unreadable diff on every source edit
 for nothing a reader cannot rebuild. The reasoning is recorded in full in
 `som_toolchains.md`.
@@ -444,11 +445,10 @@ the reference. The bar:
 | Generated packages (`tom_som_*_v0`) | exempt — coverage is the **emitter's** responsibility and is measured on the emitter's templates, not on its output |
 
 **Committed or not.** The hand-written `doc/api/api_summary_<module>.md` files
-are source and are committed; the generated `doc/api/reference/` is output and
-is not. The workspace `.gitignore`s encode exactly that, and encode it by
-excluding the *contents* of `doc/api/` rather than the directory — git cannot
-re-include a file whose parent directory is excluded, so a directory-level
-`**/doc/api/` would silently swallow every summary written under it.
+are source and are committed; the generated reference in `build/api_doc/` is
+output and is not. No `.gitignore` names `doc/api/`: nothing is generated
+there, so nothing there needs hiding, and a summary written under it is seen by
+git and packed by pub like any other source file.
 
 "Public API" means every exported declaration and every public member of one.
 A comment that restates the identifier (`/// The name.` on `String name`) does
@@ -717,7 +717,7 @@ noted as not applicable.
 
 - [ ] Public-API coverage at or above the §5 bar for the package kind
 - [ ] No comment that merely restates its identifier counted toward coverage
-- [ ] `doc/api/reference/` **regenerates** with the §5 tool for the language — the folder is gitignored, so what is checked is that `tom_specs_clitool/tool/regenerate_api_references.sh` produces it, not that it is committed
+- [ ] `build/api_doc/` **regenerates** with the §5 tool for the language — the folder is gitignored, so what is checked is that `tom_specs_clitool/tool/regenerate_api_references.sh` produces it, not that it is committed
 - [ ] Behaviour decided by a subject-matter document cites it, by name and section
 
 **Corpus**

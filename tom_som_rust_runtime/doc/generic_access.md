@@ -145,7 +145,7 @@ eight. The per-language toolchain is
 
 ## The API reference
 
-The full generated reference lives in `doc/api/reference/` and is **not
+The full generated reference lives in `build/api_doc/` and is **not
 committed** — it is output, and it regenerates:
 
 ```bash
