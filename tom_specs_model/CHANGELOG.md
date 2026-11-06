@@ -1,3 +1,17 @@
+## 1.7.2
+
+- No change of structure. The chain moves with the runtimes, which read and
+  write comments on changes (SOM §11.9.3) in all nine languages.
+- Model doc text: seven bracketed names the generated facades copy and cannot
+  resolve (`SpecNode`, `cloneShallow`, `changeNarrative`, `strategyNarrative`,
+  the Given-When-Then guidance and a regex hint) are written as code or
+  emphasis. This moves `modelHash` with no change of structure.
+- Documentation: `som_multiplatform_spec_model.md` §11.9.3 specifies comments
+  on changes; `som_toolchains.md` describes the clitool's move to analyzer 14
+  and `tom_analyzer_shared` 0.8.0; `doc/api/api_summary_common.md` documents
+  all 19 enums of the common module; `tom_specs_documentation_standard.md` §5
+  says how to write model doc text the facades copy.
+
 ## 1.7.1
 
 - No model change. The chain moves with the runtimes, which read and write the

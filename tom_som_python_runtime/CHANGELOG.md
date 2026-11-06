@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.2
 
 - Comments on changes (SOM §11.9.3): a comment mark that starts with a quote
   of the change before it (`{~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why? <<}`)
@@ -11,6 +11,8 @@
   removes them; `set_marked` keeps them. New: `comment_change`,
   `edit_mark_comment`, `decide_all_marks_text`. A malformed quote is an
   `annotationMalformed` finding.
+## 1.6.2 – 1.7.1
+
 - Team reviews (SOM §11.9.8): `SpecReviewAnnotations` reads attribution
   tokens after marks (`authors` and `votes`, `SpecMarkVote` with `SpecVote`,
   in `list()` and `list_marks()`; the token goes with its mark on every

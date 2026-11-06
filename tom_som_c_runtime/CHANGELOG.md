@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.2
 
 - Comments on changes (SOM §11.9.3), a port of the Dart reference: a comment
   mark that starts with a quote of the change before it
@@ -13,6 +13,8 @@
   `spec_review_annotations_comment_change`,
   `spec_review_annotations_edit_mark_comment`, `spec_decide_all_marks_text`.
   A malformed quote is an `annotationMalformed` finding.
+## 1.6.2 – 1.7.1
+
 - Team reviews (SOM §11.9.8), a port of the TypeScript reference: the
   annotation listing reads attribution tokens after marks (`authors` and
   `votes`, `SpecMarkVote`, on `SpecReviewAnnotation` and `SpecMarkEntry`; the

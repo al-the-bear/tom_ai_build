@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-11-06T14:10:23.848624 by tom_d4rt_generator 1.52.0
+// Generated: 2026-11-06T20:02:58.746951 by tom_d4rt_generator 1.53.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1574,6 +1574,24 @@ class SomRuntimeBridge {
           accept: accept,
         );
       },
+      'decideAllMarksText': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'decideAllMarksText');
+        final value = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'value',
+          'decideAllMarksText',
+        );
+        final accept = D4.getRequiredNamedArg<bool>(
+          named,
+          'accept',
+          'decideAllMarksText',
+        );
+        return $tom_som_dart_runtime_21.decideAllMarksText(
+          value,
+          accept: accept,
+        );
+      },
       'stripAnnotationsText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stripAnnotationsText');
         final value = D4.getRequiredArg<String>(
@@ -2283,6 +2301,8 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'applyInlineMarksText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'decideAllMarksText':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'stripAnnotationsText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'markChangeText':
@@ -2380,6 +2400,8 @@ class SomRuntimeBridge {
           'List<String> formatQuestionBlock(SpecQuestionDraft q)',
       'applyInlineMarksText':
           'String applyInlineMarksText(String value, {required bool accept})',
+      'decideAllMarksText':
+          'String decideAllMarksText(String value, {required bool accept})',
       'stripAnnotationsText': 'String stripAnnotationsText(String value)',
       'markChangeText':
           'SpecMarkedChange markChangeText(String oldValue, String newValue)',
@@ -4953,6 +4975,12 @@ BridgedClass _createSpecMarkEntryBridge() {
                 'votes',
               )
             : const <$tom_som_dart_runtime_21.SpecMarkVote>[];
+        final quotedChange = D4.coerceMapOrNull<String, Object?>(
+          named['quotedChange'],
+          'quotedChange',
+        );
+        final commentId = D4.getOptionalNamedArg<String?>(named, 'commentId');
+        final changeId = D4.getOptionalNamedArg<String?>(named, 'changeId');
         return $tom_som_dart_runtime_21.SpecMarkEntry(
           id: id,
           path: path,
@@ -4966,6 +4994,9 @@ BridgedClass _createSpecMarkEntryBridge() {
           context: context,
           authors: authors,
           votes: votes,
+          quotedChange: quotedChange,
+          commentId: commentId,
+          changeId: changeId,
         );
       },
     },
@@ -5042,6 +5073,24 @@ BridgedClass _createSpecMarkEntryBridge() {
             'SpecMarkEntry',
           )
           .votes,
+      'quotedChange': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .quotedChange,
+      'commentId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .commentId,
+      'changeId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .changeId,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
@@ -5054,7 +5103,7 @@ BridgedClass _createSpecMarkEntryBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecMarkEntry({required String id, required String path, String? field, required int line, required SpecMarkKind markKind, required String oldText, required String newText, String? comment, required String markup, required String context, List<String> authors = const [], List<SpecMarkVote> votes = const []})',
+      '': 'const SpecMarkEntry({required String id, required String path, String? field, required int line, required SpecMarkKind markKind, required String oldText, required String newText, String? comment, required String markup, required String context, List<String> authors = const [], List<SpecMarkVote> votes = const [], Map<String, Object?>? quotedChange, String? commentId, String? changeId})',
     },
     methodSignatures: {
       'toJson': 'Map<String, Object?> toJson({bool team = false})',
@@ -5072,6 +5121,9 @@ BridgedClass _createSpecMarkEntryBridge() {
       'context': 'String get context',
       'authors': 'List<String> get authors',
       'votes': 'List<SpecMarkVote> get votes',
+      'quotedChange': 'Map<String, Object?>? get quotedChange',
+      'commentId': 'String? get commentId',
+      'changeId': 'String? get changeId',
     },
   );
 }
@@ -5823,6 +5875,57 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
         final path = D4.getOptionalNamedArg<String?>(named, 'path');
         return t.rejectAllMarks(path: path);
       },
+      'commentChange': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        D4.requireMinArgs(positional, 2, 'commentChange');
+        final markId = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'markId',
+          'commentChange',
+        );
+        final text = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'text',
+          'commentChange',
+        );
+        final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final revision = D4.getOptionalNamedArg<String?>(named, 'revision');
+        return t.commentChange(
+          markId,
+          text,
+          author: author,
+          revision: revision,
+        );
+      },
+      'editMarkComment': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        D4.requireMinArgs(positional, 2, 'editMarkComment');
+        final markId = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'markId',
+          'editMarkComment',
+        );
+        final text = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'text',
+          'editMarkComment',
+        );
+        final revision = D4.getOptionalNamedArg<String?>(named, 'revision');
+        t.editMarkComment(markId, text, revision: revision);
+        return null;
+      },
       'removeAllAnnotations': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotations>(
@@ -5918,6 +6021,10 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'SpecMarkReport decideMarks(Map<String, SpecMarkDecision> decisions, {required String revision})',
       'acceptAllMarks': 'SpecMarkReport acceptAllMarks({String? path})',
       'rejectAllMarks': 'SpecMarkReport rejectAllMarks({String? path})',
+      'commentChange':
+          'String commentChange(String markId, String text, {String? author, String? revision})',
+      'editMarkComment':
+          'void editMarkComment(String markId, String text, {String? revision})',
       'removeAllAnnotations': 'SpecMarkReport removeAllAnnotations()',
       'setMarked':
           'SpecMarkedChange setMarked({required String path, String? field, required String text})',
