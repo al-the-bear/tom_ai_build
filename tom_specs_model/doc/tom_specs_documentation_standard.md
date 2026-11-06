@@ -503,6 +503,17 @@ a real mistake:
    from [id]`), a map subscript (`fields['tags']`), a `@Form` field name. These
    are not references and never were — backtick them.
 
+**Model doc text has a second reader.** The generator copies every doc
+comment of `tom_specs_model` (and of the `tom_specs_core` members it inherits)
+and every `@ContentHelp` text into the nine facades, where a bracketed name
+resolves against the *facade's* members. A `[SpecNode]` that links in the model
+renders as literal brackets on a generated class that does not declare it, and
+`tom_som_dart_v0` is in the documentation-build gate, so it fails there. In a
+doc comment the generator copies, link only to members the copied-onto class
+also has — its own fields — and write any other name in backticks; in
+guidance text, write a placeholder as emphasis (`Given _context_`), not in
+brackets. Changing that text moves `modelHash`, so regenerate after it.
+
 **Run `dart doc` as well as the lint; they disagree.** `dart doc` is the
 stricter of the two on bracketed prose — it flagged `fields['tags']` in
 `tom_doc_specs` that `comment_references` passed — and it is the tool whose

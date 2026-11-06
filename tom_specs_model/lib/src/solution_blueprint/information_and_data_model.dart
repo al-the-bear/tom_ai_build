@@ -4833,7 +4833,7 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
       'patternRegex',
       String,
       'Pattern/Regex',
-      hint: r'Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)',
+      hint: r'Regex for validation (e.g., `^[A-Z]{2}-\d{6}$` for order IDs)',
       code: true,
     ),
   ])

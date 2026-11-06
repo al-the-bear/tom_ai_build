@@ -1630,7 +1630,7 @@ class AcceptanceCriteriaList(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -1664,7 +1664,7 @@ class AcceptanceCriteriaSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -1726,7 +1726,7 @@ class AcceptanceCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AcceptanceCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -1742,7 +1742,7 @@ class AcceptancePlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -1793,7 +1793,7 @@ class AcceptanceProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AcceptanceProcessContentForm(self.doc, f"{self.path}/content")
@@ -1849,7 +1849,7 @@ class AcceptanceStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AcceptanceStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -1879,7 +1879,7 @@ class AccessChannels(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -1914,7 +1914,7 @@ class AccessConstraintPolicies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessConstraintPoliciesContentForm(self.doc, f"{self.path}/content")
@@ -1944,7 +1944,7 @@ class AccessControlModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -1989,7 +1989,7 @@ class AccessControlModelSelection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessControlModelSelectionContentForm(self.doc, f"{self.path}/content")
@@ -2008,7 +2008,7 @@ class AccessHandlerEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessHandlerEntryContentForm(self.doc, f"{self.path}/content")
@@ -2020,7 +2020,7 @@ class AccessLevelEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessLevelEntryContentForm(self.doc, f"{self.path}/content")
@@ -2055,7 +2055,7 @@ class AccessLevels(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2097,7 +2097,7 @@ class AccessRestrictionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessRestrictionEntryContentForm(self.doc, f"{self.path}/content")
@@ -2113,7 +2113,7 @@ class AccessUserCategories(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2142,7 +2142,7 @@ class Accessibility(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2212,7 +2212,7 @@ class AccessibilityCheckEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessibilityCheckEntryContentForm(self.doc, f"{self.path}/content")
@@ -2246,7 +2246,7 @@ class AccessibilityChecklist(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2280,7 +2280,7 @@ class AccessibilityStandardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccessibilityStandardEntryContentForm(self.doc, f"{self.path}/content")
@@ -2316,7 +2316,7 @@ class AccountActivationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccountActivationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -2338,7 +2338,7 @@ class AccountDeactivationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccountDeactivationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -2359,7 +2359,7 @@ class AccountDeletionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccountDeletionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -2381,7 +2381,7 @@ class AccountLockoutPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccountLockoutPolicyContentForm(self.doc, f"{self.path}/content")
@@ -2402,7 +2402,7 @@ class AccountModificationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AccountModificationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -2419,7 +2419,7 @@ class ActionParameterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ActionParameterEntryContentForm(self.doc, f"{self.path}/content")
@@ -2431,7 +2431,7 @@ class ActorCharacteristics(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ActorCharacteristicsContentForm(self.doc, f"{self.path}/content")
@@ -2460,7 +2460,7 @@ class ActorEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2506,7 +2506,7 @@ class ActorGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ActorGoalsContentForm(self.doc, f"{self.path}/content")
@@ -2526,7 +2526,7 @@ class ActorOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2557,7 +2557,7 @@ class ActorPermissions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ActorPermissionsContentForm(self.doc, f"{self.path}/content")
@@ -2573,7 +2573,7 @@ class ActorRelationshipDiagram(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2604,7 +2604,7 @@ class AdminInterfaceRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AdminInterfaceRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -2635,7 +2635,7 @@ class AdministrationRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2689,7 +2689,7 @@ class AdministrativeEventPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AdministrativeEventPolicyContentForm(self.doc, f"{self.path}/content")
@@ -2706,7 +2706,7 @@ class AffectedDepartmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AffectedDepartmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -2721,7 +2721,7 @@ class AffectedFunctionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AffectedFunctionEntryContentForm(self.doc, f"{self.path}/content")
@@ -2747,7 +2747,7 @@ class AffectedObjectEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AffectedObjectEntryContentForm(self.doc, f"{self.path}/content")
@@ -2771,7 +2771,7 @@ class AlertDefinitionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlertDefinitionEntryContentForm(self.doc, f"{self.path}/content")
@@ -2798,7 +2798,7 @@ class AlertEscalationPolicies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlertEscalationPoliciesContentForm(self.doc, f"{self.path}/content")
@@ -2825,7 +2825,7 @@ class AlertNotificationChannels(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlertNotificationChannelsContentForm(self.doc, f"{self.path}/content")
@@ -2852,7 +2852,7 @@ class AlertRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlertRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -2879,7 +2879,7 @@ class AlertSuppressionRules(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlertSuppressionRulesContentForm(self.doc, f"{self.path}/content")
@@ -2899,7 +2899,7 @@ class AlertingConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -2962,7 +2962,7 @@ class AlertingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlertingRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -2994,7 +2994,7 @@ class AlternativeFlowEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlternativeFlowEntryContentForm(self.doc, f"{self.path}/content")
@@ -3022,7 +3022,7 @@ class AlternativeStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AlternativeStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -3060,7 +3060,7 @@ class AnomalyDetectionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AnomalyDetectionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -3083,7 +3083,7 @@ class ApiAbuseProtection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiAbuseProtectionContentForm(self.doc, f"{self.path}/content")
@@ -3104,7 +3104,7 @@ class ApiAuthenticationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -3126,7 +3126,7 @@ class ApiAuthorizationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiAuthorizationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -3143,7 +3143,7 @@ class ApiCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -3181,7 +3181,7 @@ class ApiCorsSecurity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiCorsSecurityContentForm(self.doc, f"{self.path}/content")
@@ -3202,7 +3202,7 @@ class ApiKeyManagementPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiKeyManagementPolicyContentForm(self.doc, f"{self.path}/content")
@@ -3225,7 +3225,7 @@ class ApiRequestValidationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiRequestValidationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -3252,7 +3252,7 @@ class ApiSecurity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3310,7 +3310,7 @@ class ApiSecurityMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiSecurityMonitoringContentForm(self.doc, f"{self.path}/content")
@@ -3327,7 +3327,7 @@ class ApiVersioningStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApiVersioningStrategyContentForm(self.doc, f"{self.path}/content")
@@ -3354,7 +3354,7 @@ class ApplicableRegulationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApplicableRegulationEntryContentForm(self.doc, f"{self.path}/content")
@@ -3371,7 +3371,7 @@ class ApplicationDiagnostics(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApplicationDiagnosticsContentForm(self.doc, f"{self.path}/content")
@@ -3398,7 +3398,7 @@ class ApplicationMetricsSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApplicationMetricsSpecContentForm(self.doc, f"{self.path}/content")
@@ -3425,7 +3425,7 @@ class ApplicationPerformanceMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApplicationPerformanceMonitoringContentForm(self.doc, f"{self.path}/content")
@@ -3457,7 +3457,7 @@ class ApplicationSecurityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApplicationSecurityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -3484,7 +3484,7 @@ class ApprovalRecord(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ApprovalRecordContentForm(self.doc, f"{self.path}/content")
@@ -3496,7 +3496,7 @@ class ArchitectureComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ArchitectureComponentEntryContentForm(self.doc, f"{self.path}/content")
@@ -3533,7 +3533,7 @@ class ArchitectureDecisionRecord(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ArchitectureDecisionRecordContentForm(self.doc, f"{self.path}/content")
@@ -3565,7 +3565,7 @@ class ArchitectureOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ArchitectureOverviewContentForm(self.doc, f"{self.path}/content")
@@ -3597,7 +3597,7 @@ class ArchitecturePrincipleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ArchitecturePrincipleEntryContentForm(self.doc, f"{self.path}/content")
@@ -3629,7 +3629,7 @@ class ArchitectureStyle(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3699,7 +3699,7 @@ class AssumptionConstraintDependencyRegister(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3735,7 +3735,7 @@ class AssumptionRegisterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AssumptionRegisterEntryContentForm(self.doc, f"{self.path}/content")
@@ -3751,7 +3751,7 @@ class AssumptionsConstraintsDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3789,7 +3789,7 @@ class AuditAndLogging(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3815,7 +3815,7 @@ class AuditEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuditEntryContentForm(self.doc, f"{self.path}/content")
@@ -3827,7 +3827,7 @@ class AuditEvidenceRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuditEvidenceRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -3844,7 +3844,7 @@ class AuditEvidenceTypeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuditEvidenceTypeEntryContentForm(self.doc, f"{self.path}/content")
@@ -3864,7 +3864,7 @@ class AuditLogFormat(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3912,7 +3912,7 @@ class AuditRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3942,7 +3942,7 @@ class Authentication(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -3982,7 +3982,7 @@ class AuthenticationErrorHandling(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthenticationErrorHandlingContentForm(self.doc, f"{self.path}/content")
@@ -4002,7 +4002,7 @@ class AuthenticationEventPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthenticationEventPolicyContentForm(self.doc, f"{self.path}/content")
@@ -4029,7 +4029,7 @@ class AuthenticationFlow(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4094,7 +4094,7 @@ class AuthenticationMethodEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthenticationMethodEntryContentForm(self.doc, f"{self.path}/content")
@@ -4136,7 +4136,7 @@ class AuthenticationMethods(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4200,7 +4200,7 @@ class AuthorizationComplianceFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4224,7 +4224,7 @@ class AuthorizationEventPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthorizationEventPolicyContentForm(self.doc, f"{self.path}/content")
@@ -4241,7 +4241,7 @@ class AuthorizationGroupEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthorizationGroupEntryContentForm(self.doc, f"{self.path}/content")
@@ -4268,7 +4268,7 @@ class AuthorizationModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4320,7 +4320,7 @@ class AuthorizationRequirementSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthorizationRequirementSpecContentForm(self.doc, f"{self.path}/content")
@@ -4367,7 +4367,7 @@ class AuthorizationRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AuthorizationRoleEntryContentForm(self.doc, f"{self.path}/content")
@@ -4429,7 +4429,7 @@ class Availability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return AvailabilityContentForm(self.doc, f"{self.path}/content")
@@ -4474,7 +4474,7 @@ class BackupAndRecoverySection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4535,7 +4535,7 @@ class BackupCompliance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackupComplianceContentForm(self.doc, f"{self.path}/content")
@@ -4562,7 +4562,7 @@ class BackupDataClassification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackupDataClassificationContentForm(self.doc, f"{self.path}/content")
@@ -4589,7 +4589,7 @@ class BackupEncryptionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackupEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -4606,7 +4606,7 @@ class BackupInfrastructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackupInfrastructureContentForm(self.doc, f"{self.path}/content")
@@ -4638,7 +4638,7 @@ class BackupPolicyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackupPolicyEntryContentForm(self.doc, f"{self.path}/content")
@@ -4670,7 +4670,7 @@ class BackupVerification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackupVerificationContentForm(self.doc, f"{self.path}/content")
@@ -4697,7 +4697,7 @@ class BackwardsCompatibilityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BackwardsCompatibilityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -4729,7 +4729,7 @@ class BandwidthRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BandwidthRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -4765,7 +4765,7 @@ class BasicTechnicalRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4808,7 +4808,7 @@ class BatchJobManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BatchJobManagementContentForm(self.doc, f"{self.path}/content")
@@ -4873,7 +4873,7 @@ class BehaviorRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BehaviorRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -4890,7 +4890,7 @@ class BindingParameterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BindingParameterEntryContentForm(self.doc, f"{self.path}/content")
@@ -4907,7 +4907,7 @@ class BiometricAuthenticationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BiometricAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -4924,7 +4924,7 @@ class BoundaryAssumptionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BoundaryAssumptionEntryContentForm(self.doc, f"{self.path}/content")
@@ -4956,7 +4956,7 @@ class BoundaryAssumptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -4991,7 +4991,7 @@ class BoundaryInteractionPatterns(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5013,7 +5013,7 @@ class BoundedContextEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BoundedContextEntryContentForm(self.doc, f"{self.path}/content")
@@ -5057,7 +5057,7 @@ class BreakpointConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5086,7 +5086,7 @@ class BreakpointEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BreakpointEntryContentForm(self.doc, f"{self.path}/content")
@@ -5108,7 +5108,7 @@ class BrowserCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BrowserCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -5140,7 +5140,7 @@ class BrowserRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BrowserRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -5172,7 +5172,7 @@ class BuildToolchainEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BuildToolchainEntryContentForm(self.doc, f"{self.path}/content")
@@ -5214,7 +5214,7 @@ class BuildToolsConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BuildToolsConfigurationContentForm(self.doc, f"{self.path}/content")
@@ -5246,7 +5246,7 @@ class BusinessComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BusinessComponentEntryContentForm(self.doc, f"{self.path}/content")
@@ -5293,7 +5293,7 @@ class BusinessDomain(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5348,7 +5348,7 @@ class BusinessGoalEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BusinessGoalEntryContentForm(self.doc, f"{self.path}/content")
@@ -5422,7 +5422,7 @@ class BusinessGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5443,7 +5443,7 @@ class BusinessMetricsSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BusinessMetricsSpecContentForm(self.doc, f"{self.path}/content")
@@ -5479,7 +5479,7 @@ class BusinessObjectAttributeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BusinessObjectAttributeEntryContentForm(self.doc, f"{self.path}/content")
@@ -5515,7 +5515,7 @@ class BusinessObjectEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5644,7 +5644,7 @@ class BusinessObjectModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5678,7 +5678,7 @@ class BusinessPainPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5713,7 +5713,7 @@ class BusinessProcessDescriptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5786,7 +5786,7 @@ class BusinessProcessEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5859,7 +5859,7 @@ class BusinessRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -5972,7 +5972,7 @@ class BusinessRuleReferenceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return BusinessRuleReferenceEntryContentForm(self.doc, f"{self.path}/content")
@@ -6000,7 +6000,7 @@ class CapacityPlanningSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6051,7 +6051,7 @@ class CapacityReviewProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CapacityReviewProcessContentForm(self.doc, f"{self.path}/content")
@@ -6078,7 +6078,7 @@ class CcbMemberEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CcbMemberEntryContentForm(self.doc, f"{self.path}/content")
@@ -6094,7 +6094,7 @@ class CertificateAuthenticationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CertificateAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -6111,7 +6111,7 @@ class CertificateManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CertificateManagementContentForm(self.doc, f"{self.path}/content")
@@ -6148,7 +6148,7 @@ class CertificateManagementPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CertificateManagementPolicyContentForm(self.doc, f"{self.path}/content")
@@ -6165,7 +6165,7 @@ class CertificationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CertificationEntryContentForm(self.doc, f"{self.path}/content")
@@ -6202,7 +6202,7 @@ class CertificationRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CertificationRequirementsSectionContentForm(self.doc, f"{self.path}/content")
@@ -6237,7 +6237,7 @@ class ChangeCategoryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeCategoryEntryContentForm(self.doc, f"{self.path}/content")
@@ -6267,7 +6267,7 @@ class ChangeControlBoard(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeControlBoardContentForm(self.doc, f"{self.path}/content")
@@ -6307,7 +6307,7 @@ class ChangeImpactCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6336,7 +6336,7 @@ class ChangeImpactCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeImpactCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -6368,7 +6368,7 @@ class ChangeNotificationRules(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeNotificationRulesContentForm(self.doc, f"{self.path}/content")
@@ -6389,7 +6389,7 @@ class ChangeProcedure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6434,7 +6434,7 @@ class ChangeProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeProcessContentForm(self.doc, f"{self.path}/content")
@@ -6475,7 +6475,7 @@ class ChangeReadinessAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6501,7 +6501,7 @@ class ChangeRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeRoleEntryContentForm(self.doc, f"{self.path}/content")
@@ -6516,7 +6516,7 @@ class ChangeStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangeStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -6557,7 +6557,7 @@ class ChangedRoleCompetencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6601,7 +6601,7 @@ class ChangedRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6647,7 +6647,7 @@ class ChangedRoleIdentification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangedRoleIdentificationContentForm(self.doc, f"{self.path}/content")
@@ -6673,7 +6673,7 @@ class ChangedRoleResponsibilities(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6709,7 +6709,7 @@ class ChangedRoleTransition(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ChangedRoleTransitionContentForm(self.doc, f"{self.path}/content")
@@ -6740,7 +6740,7 @@ class ChangesFromCurrentStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6763,7 +6763,7 @@ class ChangesFromCurrentStructure(SomNode):
     #
     # It is a summary and stays one: the impact figure here is the total, while
     # per-department detail belongs to the individual change entries.
-    # [changeNarrative] carries the story; this band carries the facts that must
+    # `changeNarrative` carries the story; this band carries the facts that must
     # stay stable while the story is rewritten.
     @property
     def overviewContent(self):
@@ -6801,7 +6801,7 @@ class CiCdPipelineConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CiCdPipelineConfigurationContentForm(self.doc, f"{self.path}/content")
@@ -6828,7 +6828,7 @@ class CiCdPipelineRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CiCdPipelineRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -6860,7 +6860,7 @@ class ClientAccessibilityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ClientAccessibilityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -6915,7 +6915,7 @@ class ClientApplicationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ClientApplicationEntryContentForm(self.doc, f"{self.path}/content")
@@ -6938,7 +6938,7 @@ class ClientConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -6965,7 +6965,7 @@ class ClientConfigurationSettingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ClientConfigurationSettingEntryContentForm(self.doc, f"{self.path}/content")
@@ -6977,7 +6977,7 @@ class ClientHardwareRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ClientHardwareRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -7009,7 +7009,7 @@ class ClientNetworkRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ClientNetworkRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -7059,7 +7059,7 @@ class ClientRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7150,7 +7150,7 @@ class ClientSecurityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ClientSecurityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -7182,7 +7182,7 @@ class CloudProviderRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CloudProviderRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -7214,7 +7214,7 @@ class CloudServiceIntegrations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CloudServiceIntegrationsContentForm(self.doc, f"{self.path}/content")
@@ -7241,7 +7241,7 @@ class CodeQualityMetrics(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CodeQualityMetricsContentForm(self.doc, f"{self.path}/content")
@@ -7278,7 +7278,7 @@ class CodeReviewProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CodeReviewProcessContentForm(self.doc, f"{self.path}/content")
@@ -7310,7 +7310,7 @@ class CodingStandardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CodingStandardEntryContentForm(self.doc, f"{self.path}/content")
@@ -7342,7 +7342,7 @@ class CodingStandardsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CodingStandardsSectionContentForm(self.doc, f"{self.path}/content")
@@ -7379,7 +7379,7 @@ class ColorPaletteEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ColorPaletteEntryContentForm(self.doc, f"{self.path}/content")
@@ -7395,7 +7395,7 @@ class ColumnLevelSecurityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ColumnLevelSecurityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -7412,7 +7412,7 @@ class CommitteeCharter(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommitteeCharterContentForm(self.doc, f"{self.path}/content")
@@ -7427,7 +7427,7 @@ class CommitteeMemberEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommitteeMemberEntryContentForm(self.doc, f"{self.path}/content")
@@ -7444,7 +7444,7 @@ class CommitteeResponsibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommitteeResponsibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -7463,7 +7463,7 @@ class CommunicationChannelEncryptionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommunicationChannelEncryptionEntryContentForm(self.doc, f"{self.path}/content")
@@ -7475,7 +7475,7 @@ class CommunicationEventEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommunicationEventEntryContentForm(self.doc, f"{self.path}/content")
@@ -7497,7 +7497,7 @@ class CommunicationMatrix(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommunicationMatrixContentForm(self.doc, f"{self.path}/content")
@@ -7523,7 +7523,7 @@ class CommunicationPatterns(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommunicationPatternsContentForm(self.doc, f"{self.path}/content")
@@ -7564,7 +7564,7 @@ class CommunicationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7590,7 +7590,7 @@ class CommunicationToolsRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommunicationToolsRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -7602,7 +7602,7 @@ class CommunicationTypeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CommunicationTypeEntryContentForm(self.doc, f"{self.path}/content")
@@ -7624,7 +7624,7 @@ class CompatibilityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7666,7 +7666,7 @@ class CompatibilityRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7742,7 +7742,7 @@ class CompetencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CompetencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -7758,7 +7758,7 @@ class CompetencyFramework(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7794,7 +7794,7 @@ class CompetencyLevelChangeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CompetencyLevelChangeEntryContentForm(self.doc, f"{self.path}/content")
@@ -7806,7 +7806,7 @@ class ComplianceAuditSchedule(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComplianceAuditScheduleContentForm(self.doc, f"{self.path}/content")
@@ -7842,7 +7842,7 @@ class ComplianceFramework(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7858,7 +7858,7 @@ class ComplianceMilestoneEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComplianceMilestoneEntryContentForm(self.doc, f"{self.path}/content")
@@ -7886,7 +7886,7 @@ class ComplianceReporting(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -7927,7 +7927,7 @@ class ComplianceRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComplianceRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -7939,7 +7939,7 @@ class ComplianceVerificationSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComplianceVerificationSectionContentForm(self.doc, f"{self.path}/content")
@@ -7979,7 +7979,7 @@ class ComponentActionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentActionEntryContentForm(self.doc, f"{self.path}/content")
@@ -8001,7 +8001,7 @@ class ComponentDocs(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentDocsContentForm(self.doc, f"{self.path}/content")
@@ -8018,7 +8018,7 @@ class ComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentEntryContentForm(self.doc, f"{self.path}/content")
@@ -8098,7 +8098,7 @@ class ComponentFamilyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentFamilyEntryContentForm(self.doc, f"{self.path}/content")
@@ -8120,7 +8120,7 @@ class ComponentGovernance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentGovernanceContentForm(self.doc, f"{self.path}/content")
@@ -8156,7 +8156,7 @@ class ComponentInterfaceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentInterfaceEntryContentForm(self.doc, f"{self.path}/content")
@@ -8200,7 +8200,7 @@ class ComponentLibrary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -8273,7 +8273,7 @@ class ComponentLicensingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentLicensingEntryContentForm(self.doc, f"{self.path}/content")
@@ -8310,7 +8310,7 @@ class ComponentOrganization(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentOrganizationContentForm(self.doc, f"{self.path}/content")
@@ -8345,7 +8345,7 @@ class ComponentPropertyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentPropertyEntryContentForm(self.doc, f"{self.path}/content")
@@ -8357,7 +8357,7 @@ class ComponentRegistry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentRegistryContentForm(self.doc, f"{self.path}/content")
@@ -8393,7 +8393,7 @@ class ComponentResponsibilitiesEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentResponsibilitiesEntryContentForm(self.doc, f"{self.path}/content")
@@ -8433,7 +8433,7 @@ class ComponentRiskAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -8463,7 +8463,7 @@ class ComponentRiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentRiskEntryContentForm(self.doc, f"{self.path}/content")
@@ -8503,7 +8503,7 @@ class ComponentSlotEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentSlotEntryContentForm(self.doc, f"{self.path}/content")
@@ -8518,7 +8518,7 @@ class ComponentStateEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentStateEntryContentForm(self.doc, f"{self.path}/content")
@@ -8555,7 +8555,7 @@ class ComponentStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentStrategyContentForm(self.doc, f"{self.path}/content")
@@ -8605,7 +8605,7 @@ class ComponentVariantEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComponentVariantEntryContentForm(self.doc, f"{self.path}/content")
@@ -8642,7 +8642,7 @@ class ComponentsAndDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -8688,7 +8688,7 @@ class ComputeResourceRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComputeResourceRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -8715,7 +8715,7 @@ class ComputingEquipmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ComputingEquipmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -8747,7 +8747,7 @@ class ConcurrentSessionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConcurrentSessionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -8764,7 +8764,7 @@ class ConfidentialInfoCategoryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConfidentialInfoCategoryEntryContentForm(self.doc, f"{self.path}/content")
@@ -8779,7 +8779,7 @@ class ConfidentialityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConfidentialityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -8801,7 +8801,7 @@ class ConfigurationManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConfigurationManagementContentForm(self.doc, f"{self.path}/content")
@@ -8833,7 +8833,7 @@ class ConnectivityResilience(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConnectivityResilienceContentForm(self.doc, f"{self.path}/content")
@@ -8860,7 +8860,7 @@ class ConsentManagementRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConsentManagementRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -8901,7 +8901,7 @@ class ConstraintRegisterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ConstraintRegisterEntryContentForm(self.doc, f"{self.path}/content")
@@ -8918,7 +8918,7 @@ class ContentScanningPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ContentScanningPolicyContentForm(self.doc, f"{self.path}/content")
@@ -8943,7 +8943,7 @@ class ContextDiagram(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -8977,7 +8977,7 @@ class ContextRelationshipEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ContextRelationshipEntryContentForm(self.doc, f"{self.path}/content")
@@ -8993,7 +8993,7 @@ class ContextualHelp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9055,7 +9055,7 @@ class ContextualNavigation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9090,7 +9090,7 @@ class ContingencyPlanEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ContingencyPlanEntryContentForm(self.doc, f"{self.path}/content")
@@ -9134,7 +9134,7 @@ class ContingencyPlans(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9155,7 +9155,7 @@ class Correctness(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CorrectnessContentForm(self.doc, f"{self.path}/content")
@@ -9191,7 +9191,7 @@ class CredentialCompromiseDetectionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CredentialCompromiseDetectionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -9212,7 +9212,7 @@ class CredentialRecoveryPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CredentialRecoveryPolicyContentForm(self.doc, f"{self.path}/content")
@@ -9237,7 +9237,7 @@ class CrossBoundaryErrorHandling(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9262,7 +9262,7 @@ class CrossBoundaryOperationalConsiderations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9278,7 +9278,7 @@ class CrossCuttingConcerns(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CrossCuttingConcernsContentForm(self.doc, f"{self.path}/content")
@@ -9323,7 +9323,7 @@ class CrossProcessAnalysis(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9345,7 +9345,7 @@ class CrossTenantAccessPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CrossTenantAccessPolicyContentForm(self.doc, f"{self.path}/content")
@@ -9370,7 +9370,7 @@ class CurrentArchitecture(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9418,7 +9418,7 @@ class CurrentBusinessProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CurrentBusinessProcessContentForm(self.doc, f"{self.path}/content")
@@ -9460,7 +9460,7 @@ class CurrentBusinessProcesses(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9513,7 +9513,7 @@ class CurrentDataClassification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9553,7 +9553,7 @@ class CurrentDataLandscape(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9650,7 +9650,7 @@ class CurrentLandscape(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9705,7 +9705,7 @@ class CurrentOperationalMetric(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9721,7 +9721,7 @@ class CurrentProcessImprovementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CurrentProcessImprovementEntryContentForm(self.doc, f"{self.path}/content")
@@ -9741,7 +9741,7 @@ class CurrentStateRiskAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9761,7 +9761,7 @@ class CurrentWorkflowEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CurrentWorkflowEntryContentForm(self.doc, f"{self.path}/content")
@@ -9827,7 +9827,7 @@ class CustomDistributionGroup(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CustomDistributionGroupContentForm(self.doc, f"{self.path}/content")
@@ -9844,7 +9844,7 @@ class CustomMetricEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return CustomMetricEntryContentForm(self.doc, f"{self.path}/content")
@@ -9864,7 +9864,7 @@ class CutoverProcedure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -9920,7 +9920,7 @@ class D00SolutionBlueprint(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10047,7 +10047,7 @@ class D01CurrentLandscapeAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10161,7 +10161,7 @@ class D02TargetOperatingModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10286,7 +10286,7 @@ class D03InformationModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10475,7 +10475,7 @@ class D04RequirementsSpecification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10592,7 +10592,7 @@ class D05InteractionScenarios(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10702,7 +10702,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10836,7 +10836,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -10961,7 +10961,7 @@ class D08SecurityAccessSpecification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11088,7 +11088,7 @@ class D09ExperienceDesignSpecification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11228,7 +11228,7 @@ class D10QualityAcceptancePlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11398,7 +11398,7 @@ class D11DeliveryRoadmap(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11518,7 +11518,7 @@ class D12TransitionRolloutPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11663,7 +11663,7 @@ class D13CodeSpecsProjection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -11866,7 +11866,7 @@ class DashboardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DashboardEntryContentForm(self.doc, f"{self.path}/content")
@@ -11888,7 +11888,7 @@ class DashboardRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DashboardRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -11920,7 +11920,7 @@ class DashboardTemplates(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DashboardTemplatesContentForm(self.doc, f"{self.path}/content")
@@ -11936,7 +11936,7 @@ class DataAccessAuditPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataAccessAuditPolicyContentForm(self.doc, f"{self.path}/content")
@@ -11956,7 +11956,7 @@ class DataAccessEventPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataAccessEventPolicyContentForm(self.doc, f"{self.path}/content")
@@ -11973,7 +11973,7 @@ class DataArchitecture(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataArchitectureContentForm(self.doc, f"{self.path}/content")
@@ -12010,7 +12010,7 @@ class DataAttributeConstraintEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataAttributeConstraintEntryContentForm(self.doc, f"{self.path}/content")
@@ -12029,7 +12029,7 @@ class DataAttributeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12227,7 +12227,7 @@ class DataClassification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12268,7 +12268,7 @@ class DataClassificationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12364,7 +12364,7 @@ class DataClassificationLevelEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataClassificationLevelEntryContentForm(self.doc, f"{self.path}/content")
@@ -12376,7 +12376,7 @@ class DataClassificationStatusEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataClassificationStatusEntryContentForm(self.doc, f"{self.path}/content")
@@ -12396,7 +12396,7 @@ class DataDictionary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12420,7 +12420,7 @@ class DataDuplicationAnalysis(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12455,7 +12455,7 @@ class DataDuplicationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataDuplicationEntryContentForm(self.doc, f"{self.path}/content")
@@ -12506,7 +12506,7 @@ class DataEntityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12598,7 +12598,7 @@ class DataEntityMigrationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataEntityMigrationEntryContentForm(self.doc, f"{self.path}/content")
@@ -12610,7 +12610,7 @@ class DataEntityReferenceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataEntityReferenceEntryContentForm(self.doc, f"{self.path}/content")
@@ -12638,7 +12638,7 @@ class DataFormatCompatibility(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataFormatCompatibilityContentForm(self.doc, f"{self.path}/content")
@@ -12677,7 +12677,7 @@ class DataGovernance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12712,7 +12712,7 @@ class DataGovernancePolicyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataGovernancePolicyEntryContentForm(self.doc, f"{self.path}/content")
@@ -12734,7 +12734,7 @@ class DataGrowthProjections(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataGrowthProjectionsContentForm(self.doc, f"{self.path}/content")
@@ -12766,7 +12766,7 @@ class DataIntegrationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataIntegrationEntryContentForm(self.doc, f"{self.path}/content")
@@ -12806,7 +12806,7 @@ class DataIntegrationPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12851,7 +12851,7 @@ class DataLevelSecurity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -12907,7 +12907,7 @@ class DataMaskingPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataMaskingPolicyContentForm(self.doc, f"{self.path}/content")
@@ -12931,7 +12931,7 @@ class DataMigrationStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataMigrationStrategyContentForm(self.doc, f"{self.path}/content")
@@ -13027,7 +13027,7 @@ class DataModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13091,7 +13091,7 @@ class DataModelFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13125,7 +13125,7 @@ class DataOwnership(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13160,7 +13160,7 @@ class DataOwnershipEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataOwnershipEntryContentForm(self.doc, f"{self.path}/content")
@@ -13182,7 +13182,7 @@ class DataProcessingAgreementRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataProcessingAgreementRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -13224,7 +13224,7 @@ class DataProtectionAndPrivacySection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13284,7 +13284,7 @@ class DataProtectionClassification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataProtectionClassificationContentForm(self.doc, f"{self.path}/content")
@@ -13324,7 +13324,7 @@ class DataQualityAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13364,7 +13364,7 @@ class DataQualityInitiativeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataQualityInitiativeEntryContentForm(self.doc, f"{self.path}/content")
@@ -13376,7 +13376,7 @@ class DataQualityIssueEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataQualityIssueEntryContentForm(self.doc, f"{self.path}/content")
@@ -13403,7 +13403,7 @@ class DataResidencyRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataResidencyRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -13438,7 +13438,7 @@ class DataRetentionPolicies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13464,7 +13464,7 @@ class DataSourceEntityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataSourceEntityEntryContentForm(self.doc, f"{self.path}/content")
@@ -13480,7 +13480,7 @@ class DataSourceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataSourceEntryContentForm(self.doc, f"{self.path}/content")
@@ -13545,7 +13545,7 @@ class DataSourceInventory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13579,7 +13579,7 @@ class DataSubjectRightsManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataSubjectRightsManagementContentForm(self.doc, f"{self.path}/content")
@@ -13621,7 +13621,7 @@ class DataVolumeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataVolumeEntryContentForm(self.doc, f"{self.path}/content")
@@ -13633,7 +13633,7 @@ class DataVolumeSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DataVolumeSummaryContentForm(self.doc, f"{self.path}/content")
@@ -13668,7 +13668,7 @@ class DataVolumesAndGrowth(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -13708,7 +13708,7 @@ class DatabaseAccessPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DatabaseAccessPolicyContentForm(self.doc, f"{self.path}/content")
@@ -13725,7 +13725,7 @@ class DatabaseCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DatabaseCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -13762,7 +13762,7 @@ class DatabaseEncryptionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DatabaseEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -13779,7 +13779,7 @@ class DebuggingConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DebuggingConfigurationContentForm(self.doc, f"{self.path}/content")
@@ -13816,7 +13816,7 @@ class DecisionAuthorityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DecisionAuthorityEntryContentForm(self.doc, f"{self.path}/content")
@@ -13828,7 +13828,7 @@ class DecisionMakerEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DecisionMakerEntryContentForm(self.doc, f"{self.path}/content")
@@ -13844,7 +13844,7 @@ class DecisionOptionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DecisionOptionEntryContentForm(self.doc, f"{self.path}/content")
@@ -13881,7 +13881,7 @@ class DecisionPointEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DecisionPointEntryContentForm(self.doc, f"{self.path}/content")
@@ -13913,7 +13913,7 @@ class DecisionPointEntryResolution(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DecisionPointEntryResolutionContentForm(self.doc, f"{self.path}/content")
@@ -13941,7 +13941,7 @@ class DecisionPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DecisionPointsContentForm(self.doc, f"{self.path}/content")
@@ -13963,7 +13963,7 @@ class DeepLinkPatternEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeepLinkPatternEntryContentForm(self.doc, f"{self.path}/content")
@@ -13991,7 +13991,7 @@ class DeepLinking(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14022,7 +14022,7 @@ class DefectResolution(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DefectResolutionContentForm(self.doc, f"{self.path}/content")
@@ -14059,7 +14059,7 @@ class DeferredScopeItemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeferredScopeItemEntryContentForm(self.doc, f"{self.path}/content")
@@ -14071,7 +14071,7 @@ class DeliverableDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeliverableDependenciesContentForm(self.doc, f"{self.path}/content")
@@ -14088,7 +14088,7 @@ class DeliverableEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeliverableEntryContentForm(self.doc, f"{self.path}/content")
@@ -14145,7 +14145,7 @@ class DeliveryAcceptanceCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeliveryAcceptanceCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -14186,7 +14186,7 @@ class DeliveryScope(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14226,7 +14226,7 @@ class DeliveryScopeAndAcceptance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14256,7 +14256,7 @@ class DeliveryTransitionAndRollout(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14303,7 +14303,7 @@ class DependenciesAndIntegrations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14353,7 +14353,7 @@ class DependencyHealthMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DependencyHealthMonitoringContentForm(self.doc, f"{self.path}/content")
@@ -14385,7 +14385,7 @@ class DependencyInjectionStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DependencyInjectionStructureContentForm(self.doc, f"{self.path}/content")
@@ -14417,7 +14417,7 @@ class DependencyManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DependencyManagementContentForm(self.doc, f"{self.path}/content")
@@ -14456,7 +14456,7 @@ class DependencyRegisterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DependencyRegisterEntryContentForm(self.doc, f"{self.path}/content")
@@ -14468,7 +14468,7 @@ class DependencyScanningRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DependencyScanningRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -14508,7 +14508,7 @@ class DeploymentContext(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14529,7 +14529,7 @@ class DeploymentEnvironmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeploymentEnvironmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -14561,7 +14561,7 @@ class DeploymentModelRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeploymentModelRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -14593,7 +14593,7 @@ class DeploymentSecurity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeploymentSecurityContentForm(self.doc, f"{self.path}/content")
@@ -14628,7 +14628,7 @@ class DeploymentStrategySection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14689,7 +14689,7 @@ class DeploymentTargetEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeploymentTargetEntryContentForm(self.doc, f"{self.path}/content")
@@ -14726,7 +14726,7 @@ class DeploymentTopology(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeploymentTopologyContentForm(self.doc, f"{self.path}/content")
@@ -14763,7 +14763,7 @@ class DesignFoundationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DesignFoundationEntryContentForm(self.doc, f"{self.path}/content")
@@ -14778,7 +14778,7 @@ class DesignGoalEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DesignGoalEntryContentForm(self.doc, f"{self.path}/content")
@@ -14798,7 +14798,7 @@ class DesignGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14824,7 +14824,7 @@ class DesignPatternEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DesignPatternEntryContentForm(self.doc, f"{self.path}/content")
@@ -14869,7 +14869,7 @@ class DesignPatternsAndStandards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14933,7 +14933,7 @@ class DesignPrincipleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DesignPrincipleEntryContentForm(self.doc, f"{self.path}/content")
@@ -14953,7 +14953,7 @@ class DesignPrinciples(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -14987,7 +14987,7 @@ class DesignVision(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15018,7 +15018,7 @@ class DesktopOsRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DesktopOsRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -15058,7 +15058,7 @@ class DetailedProcessWorkflow(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15074,7 +15074,7 @@ class DeveloperOnboarding(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeveloperOnboardingContentForm(self.doc, f"{self.path}/content")
@@ -15113,7 +15113,7 @@ class DevelopmentConventionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DevelopmentConventionEntryContentForm(self.doc, f"{self.path}/content")
@@ -15158,7 +15158,7 @@ class DevelopmentEnvironment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15229,7 +15229,7 @@ class DevelopmentQualityGates(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DevelopmentQualityGatesContentForm(self.doc, f"{self.path}/content")
@@ -15276,7 +15276,7 @@ class DeviceSettingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DeviceSettingEntryContentForm(self.doc, f"{self.path}/content")
@@ -15301,7 +15301,7 @@ class DeviceSettings(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15322,7 +15322,7 @@ class DisasterRecoveryRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DisasterRecoveryRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -15354,7 +15354,7 @@ class DisplayEquipmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DisplayEquipmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -15381,7 +15381,7 @@ class DisplayPropertyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DisplayPropertyEntryContentForm(self.doc, f"{self.path}/content")
@@ -15393,7 +15393,7 @@ class DisplayRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DisplayRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -15425,7 +15425,7 @@ class DistributedTracingSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DistributedTracingSpecContentForm(self.doc, f"{self.path}/content")
@@ -15452,7 +15452,7 @@ class DistributionGroupSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DistributionGroupSummaryContentForm(self.doc, f"{self.path}/content")
@@ -15473,7 +15473,7 @@ class DistributionList(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15513,7 +15513,7 @@ class DistributionRecipientEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DistributionRecipientEntryContentForm(self.doc, f"{self.path}/content")
@@ -15550,7 +15550,7 @@ class DistributionRecipientPreferences(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DistributionRecipientPreferencesContentForm(self.doc, f"{self.path}/content")
@@ -15562,7 +15562,7 @@ class DnsRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DnsRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -15594,7 +15594,7 @@ class DocChangeability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocChangeabilityContentForm(self.doc, f"{self.path}/content")
@@ -15626,7 +15626,7 @@ class DocCompleteness(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocCompletenessContentForm(self.doc, f"{self.path}/content")
@@ -15643,7 +15643,7 @@ class DocCorrectness(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocCorrectnessContentForm(self.doc, f"{self.path}/content")
@@ -15679,7 +15679,7 @@ class DocumentControl(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15716,15 +15716,15 @@ class DocumentHeader(SomNode):
     
     All fields are optional strings representing the document's form fields.
     
-    A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
-    an unchanged header by identity and [cloneShallow] needs no child handling.
+    A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
+    an unchanged header by identity and `cloneShallow` needs no child handling.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocumentHeaderContentForm(self.doc, f"{self.path}/content")
@@ -15740,7 +15740,7 @@ class DocumentRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15761,7 +15761,7 @@ class DocumentRelevantSections(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocumentRelevantSectionsContentForm(self.doc, f"{self.path}/content")
@@ -15778,7 +15778,7 @@ class DocumentReviewTeamEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocumentReviewTeamEntryContentForm(self.doc, f"{self.path}/content")
@@ -15799,7 +15799,7 @@ class DocumentationDeliverables(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15833,7 +15833,7 @@ class DocumentationQualityCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -15888,7 +15888,7 @@ class DocumentationStandards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocumentationStandardsContentForm(self.doc, f"{self.path}/content")
@@ -15925,7 +15925,7 @@ class DocumentationStandardsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DocumentationStandardsSectionContentForm(self.doc, f"{self.path}/content")
@@ -15965,7 +15965,7 @@ class DomainBoundaries(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16013,7 +16013,7 @@ class DomainBusinessRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainBusinessRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -16043,7 +16043,7 @@ class DomainBusinessRules(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16071,7 +16071,7 @@ class DomainEnumEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainEnumEntryContentForm(self.doc, f"{self.path}/content")
@@ -16113,7 +16113,7 @@ class DomainEnumRegistry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16142,7 +16142,7 @@ class DomainEnumValueEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainEnumValueEntryContentForm(self.doc, f"{self.path}/content")
@@ -16154,7 +16154,7 @@ class DomainEventEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainEventEntryContentForm(self.doc, f"{self.path}/content")
@@ -16174,7 +16174,7 @@ class DomainEvents(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16195,7 +16195,7 @@ class DomainInterfaceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainInterfaceEntryContentForm(self.doc, f"{self.path}/content")
@@ -16215,7 +16215,7 @@ class DomainOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16236,7 +16236,7 @@ class DomainProcessEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainProcessEntryContentForm(self.doc, f"{self.path}/content")
@@ -16271,7 +16271,7 @@ class DomainProcesses(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16301,7 +16301,7 @@ class DomainTermEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return DomainTermEntryContentForm(self.doc, f"{self.path}/content")
@@ -16321,7 +16321,7 @@ class DomainVocabulary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16342,7 +16342,7 @@ class Efficiency(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EfficiencyContentForm(self.doc, f"{self.path}/content")
@@ -16374,7 +16374,7 @@ class ElementValidationRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ElementValidationRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -16386,7 +16386,7 @@ class EmergencyMaintenanceProcedures(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EmergencyMaintenanceProceduresContentForm(self.doc, f"{self.path}/content")
@@ -16419,7 +16419,7 @@ class EncryptedDataCategoryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EncryptedDataCategoryEntryContentForm(self.doc, f"{self.path}/content")
@@ -16442,7 +16442,7 @@ class EncryptionAtRest(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16493,7 +16493,7 @@ class EncryptionAtRestPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EncryptionAtRestPolicyContentForm(self.doc, f"{self.path}/content")
@@ -16520,7 +16520,7 @@ class EncryptionInTransit(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16574,7 +16574,7 @@ class EndToEndTestScenario(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16590,7 +16590,7 @@ class EnterpriseSystemCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EnterpriseSystemCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -16622,7 +16622,7 @@ class EntitlementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EntitlementEntryContentForm(self.doc, f"{self.path}/content")
@@ -16639,7 +16639,7 @@ class EntitlementReferenceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EntitlementReferenceEntryContentForm(self.doc, f"{self.path}/content")
@@ -16654,7 +16654,7 @@ class EntityConstraintEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EntityConstraintEntryContentForm(self.doc, f"{self.path}/content")
@@ -16674,7 +16674,7 @@ class EntityFollowUpEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16768,7 +16768,7 @@ class EntityIndexEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EntityIndexEntryContentForm(self.doc, f"{self.path}/content")
@@ -16788,7 +16788,7 @@ class EntityRelationshipEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16913,7 +16913,7 @@ class EntityRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -16934,7 +16934,7 @@ class EntryPointEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EntryPointEntryContentForm(self.doc, f"{self.path}/content")
@@ -16953,7 +16953,7 @@ class EnvironmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EnvironmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -17025,7 +17025,7 @@ class EnvironmentManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EnvironmentManagementContentForm(self.doc, f"{self.path}/content")
@@ -17057,7 +17057,7 @@ class EnvironmentStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EnvironmentStrategyContentForm(self.doc, f"{self.path}/content")
@@ -17100,7 +17100,7 @@ class Environments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EnvironmentsContentForm(self.doc, f"{self.path}/content")
@@ -17124,7 +17124,7 @@ class EquipmentRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17175,7 +17175,7 @@ class ErrorBudgetTracking(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ErrorBudgetTrackingContentForm(self.doc, f"{self.path}/content")
@@ -17205,7 +17205,7 @@ class ErrorCodeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ErrorCodeEntryContentForm(self.doc, f"{self.path}/content")
@@ -17238,7 +17238,7 @@ class ErrorCodeRegistry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17268,7 +17268,7 @@ class ErrorHandling(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17338,7 +17338,7 @@ class ErrorHandlingStandards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ErrorHandlingStandardsContentForm(self.doc, f"{self.path}/content")
@@ -17383,7 +17383,7 @@ class ErrorRecovery(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17455,7 +17455,7 @@ class EvaluationCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17480,7 +17480,7 @@ class EvaluationCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EvaluationCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -17511,7 +17511,7 @@ class EventAttributePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return EventAttributePolicyContentForm(self.doc, f"{self.path}/content")
@@ -17535,7 +17535,7 @@ class ExecutiveSummaryDistribution(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17565,7 +17565,7 @@ class ExistingSystemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExistingSystemEntryContentForm(self.doc, f"{self.path}/content")
@@ -17625,7 +17625,7 @@ class ExistingSystemsLandscape(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17656,7 +17656,7 @@ class ExpectedImprovements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExpectedImprovementsContentForm(self.doc, f"{self.path}/content")
@@ -17672,7 +17672,7 @@ class ExperienceAndInterfaceDesign(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17727,7 +17727,7 @@ class ExperienceCodeSpecs(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17796,7 +17796,7 @@ class ExperienceDesignFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17859,7 +17859,7 @@ class ExperienceLocalizationFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -17880,7 +17880,7 @@ class ExportFieldMappingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExportFieldMappingEntryContentForm(self.doc, f"{self.path}/content")
@@ -17953,7 +17953,7 @@ class ExportFormatEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExportFormatEntryContentForm(self.doc, f"{self.path}/content")
@@ -18017,7 +18017,7 @@ class ExportSizeSettings(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExportSizeSettingsContentForm(self.doc, f"{self.path}/content")
@@ -18029,7 +18029,7 @@ class ExportTemplateEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExportTemplateEntryContentForm(self.doc, f"{self.path}/content")
@@ -18068,7 +18068,7 @@ class ExtensionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExtensionEntryContentForm(self.doc, f"{self.path}/content")
@@ -18096,7 +18096,7 @@ class ExtensionStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExtensionStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -18129,7 +18129,7 @@ class ExternalActorEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExternalActorEntryContentForm(self.doc, f"{self.path}/content")
@@ -18164,7 +18164,7 @@ class ExternalActors(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -18189,7 +18189,7 @@ class ExternalConnectivitySection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -18251,7 +18251,7 @@ class ExternalInterfaceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -18337,7 +18337,7 @@ class ExternalInterfaces(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -18373,7 +18373,7 @@ class ExternalNetworkRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExternalNetworkRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -18405,7 +18405,7 @@ class ExternalPartnerConnectionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExternalPartnerConnectionEntryContentForm(self.doc, f"{self.path}/content")
@@ -18447,7 +18447,7 @@ class ExternalPartnerOperations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExternalPartnerOperationsContentForm(self.doc, f"{self.path}/content")
@@ -18467,7 +18467,7 @@ class ExternalServiceDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -18492,7 +18492,7 @@ class ExternalServiceDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExternalServiceDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -18535,7 +18535,7 @@ class ExternalSystemContextEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ExternalSystemContextEntryContentForm(self.doc, f"{self.path}/content")
@@ -18578,7 +18578,7 @@ class ExternalSystemsContext(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -18599,7 +18599,7 @@ class FamilyComponentRef(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FamilyComponentRefContentForm(self.doc, f"{self.path}/content")
@@ -18615,7 +18615,7 @@ class FeatureDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureDependenciesContentForm(self.doc, f"{self.path}/content")
@@ -18641,7 +18641,7 @@ class FeatureDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -18662,7 +18662,7 @@ class FeatureHookEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureHookEntryContentForm(self.doc, f"{self.path}/content")
@@ -18679,7 +18679,7 @@ class FeatureModuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureModuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -18723,7 +18723,7 @@ class FeaturePrioritization(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeaturePrioritizationContentForm(self.doc, f"{self.path}/content")
@@ -18798,7 +18798,7 @@ class FeaturePriorityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeaturePriorityEntryContentForm(self.doc, f"{self.path}/content")
@@ -18865,7 +18865,7 @@ class FeaturePriorityRegister(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeaturePriorityRegisterContentForm(self.doc, f"{self.path}/content")
@@ -18886,7 +18886,7 @@ class FeatureStageMapping(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureStageMappingContentForm(self.doc, f"{self.path}/content")
@@ -18924,7 +18924,7 @@ class FeatureStageMatrix(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureStageMatrixContentForm(self.doc, f"{self.path}/content")
@@ -18946,7 +18946,7 @@ class FeatureStakeholders(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureStakeholdersContentForm(self.doc, f"{self.path}/content")
@@ -18958,7 +18958,7 @@ class FeatureTourEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FeatureTourEntryContentForm(self.doc, f"{self.path}/content")
@@ -18975,7 +18975,7 @@ class FieldHelpEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FieldHelpEntryContentForm(self.doc, f"{self.path}/content")
@@ -18987,7 +18987,7 @@ class FieldValidationRule(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FieldValidationRuleContentForm(self.doc, f"{self.path}/content")
@@ -19004,7 +19004,7 @@ class FileAccessControlPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FileAccessControlPolicyContentForm(self.doc, f"{self.path}/content")
@@ -19031,7 +19031,7 @@ class FileAndStorageSecurity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19087,7 +19087,7 @@ class FileDownloadSecurityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FileDownloadSecurityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -19109,7 +19109,7 @@ class FileStorageEncryptionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FileStorageEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -19132,7 +19132,7 @@ class FileUploadValidationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FileUploadValidationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -19149,7 +19149,7 @@ class FirewallRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FirewallRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -19181,7 +19181,7 @@ class Flexibility(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FlexibilityContentForm(self.doc, f"{self.path}/content")
@@ -19223,7 +19223,7 @@ class FlexibilityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19269,7 +19269,7 @@ class FormScreenAssignmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FormScreenAssignmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -19281,7 +19281,7 @@ class FrameworkRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FrameworkRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -19330,7 +19330,7 @@ class FullDistribution(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19359,7 +19359,7 @@ class FunctionDataMatrixEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FunctionDataMatrixEntryContentForm(self.doc, f"{self.path}/content")
@@ -19374,7 +19374,7 @@ class FunctionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FunctionEntryContentForm(self.doc, f"{self.path}/content")
@@ -19413,7 +19413,7 @@ class FunctionModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19471,7 +19471,7 @@ class FunctionalCompleteness(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FunctionalCompletenessContentForm(self.doc, f"{self.path}/content")
@@ -19493,7 +19493,7 @@ class FunctionalRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FunctionalRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -19580,7 +19580,7 @@ class FunctionalRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19612,7 +19612,7 @@ class FunctionalResponsibilities(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return FunctionalResponsibilitiesContentForm(self.doc, f"{self.path}/content")
@@ -19643,7 +19643,7 @@ class FunctionalSuitabilityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19693,7 +19693,7 @@ class GapEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GapEntryContentForm(self.doc, f"{self.path}/content")
@@ -19725,7 +19725,7 @@ class GeographicDistributionRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GeographicDistributionRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -19761,7 +19761,7 @@ class GlobalRoleExclusionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GlobalRoleExclusionEntryContentForm(self.doc, f"{self.path}/content")
@@ -19777,7 +19777,7 @@ class GlossaryAndAbbreviations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19798,7 +19798,7 @@ class GlossaryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GlossaryEntryContentForm(self.doc, f"{self.path}/content")
@@ -19817,7 +19817,7 @@ class GoalDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19838,7 +19838,7 @@ class GoalDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GoalDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -19875,7 +19875,7 @@ class GoalKeyResults(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19896,7 +19896,7 @@ class GoalMilestoneEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GoalMilestoneEntryContentForm(self.doc, f"{self.path}/content")
@@ -19915,7 +19915,7 @@ class GoalMilestones(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19943,7 +19943,7 @@ class GoalResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -19969,7 +19969,7 @@ class GoalRiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GoalRiskEntryContentForm(self.doc, f"{self.path}/content")
@@ -19998,7 +19998,7 @@ class GoalRisks(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20043,7 +20043,7 @@ class Goals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20083,7 +20083,7 @@ class GovernanceModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GovernanceModelContentForm(self.doc, f"{self.path}/content")
@@ -20106,7 +20106,7 @@ class GradedAccessLevelEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GradedAccessLevelEntryContentForm(self.doc, f"{self.path}/content")
@@ -20161,7 +20161,7 @@ class GradedAuthorizationRequirement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return GradedAuthorizationRequirementContentForm(self.doc, f"{self.path}/content")
@@ -20181,7 +20181,7 @@ class HandlingRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return HandlingRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -20197,7 +20197,7 @@ class HardwareRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20228,7 +20228,7 @@ class HealthCheckEndpoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return HealthCheckEndpointsContentForm(self.doc, f"{self.path}/content")
@@ -20259,7 +20259,7 @@ class HealthChecksAndDiagnosticsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20305,7 +20305,7 @@ class HighAvailabilityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return HighAvailabilityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -20342,7 +20342,7 @@ class HookMethodEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return HookMethodEntryContentForm(self.doc, f"{self.path}/content")
@@ -20354,7 +20354,7 @@ class IdeRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdeRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -20387,7 +20387,7 @@ class Identification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentificationContentForm(self.doc, f"{self.path}/content")
@@ -20433,7 +20433,7 @@ class IdentificationAndAuthentication(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20463,7 +20463,7 @@ class IdentityAttributeMappingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentityAttributeMappingEntryContentForm(self.doc, f"{self.path}/content")
@@ -20490,7 +20490,7 @@ class IdentityProviderDetails(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentityProviderDetailsContentForm(self.doc, f"{self.path}/content")
@@ -20502,7 +20502,7 @@ class IdentityProviderEndpoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentityProviderEndpointsContentForm(self.doc, f"{self.path}/content")
@@ -20518,7 +20518,7 @@ class IdentityProviderEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentityProviderEntryContentForm(self.doc, f"{self.path}/content")
@@ -20559,7 +20559,7 @@ class IdentitySourceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentitySourceEntryContentForm(self.doc, f"{self.path}/content")
@@ -20595,7 +20595,7 @@ class IdentityVerificationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IdentityVerificationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -20637,7 +20637,7 @@ class ImpactLevelDefinitions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ImpactLevelDefinitionsContentForm(self.doc, f"{self.path}/content")
@@ -20649,7 +20649,7 @@ class IncidentManagementRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IncidentManagementRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -20681,7 +20681,7 @@ class IncidentResponsePlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IncidentResponsePlanContentForm(self.doc, f"{self.path}/content")
@@ -20708,7 +20708,7 @@ class IndustryProtocolComplianceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IndustryProtocolComplianceEntryContentForm(self.doc, f"{self.path}/content")
@@ -20740,7 +20740,7 @@ class IndustryStandardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IndustryStandardEntryContentForm(self.doc, f"{self.path}/content")
@@ -20781,7 +20781,7 @@ class InformationAndDataModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20866,7 +20866,7 @@ class InformationArchitecture(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20919,7 +20919,7 @@ class InformationForUseRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -20940,7 +20940,7 @@ class InfrastructureAsCode(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InfrastructureAsCodeContentForm(self.doc, f"{self.path}/content")
@@ -20972,7 +20972,7 @@ class InfrastructureComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InfrastructureComponentEntryContentForm(self.doc, f"{self.path}/content")
@@ -21009,7 +21009,7 @@ class InfrastructureMetricsSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InfrastructureMetricsSpecContentForm(self.doc, f"{self.path}/content")
@@ -21036,7 +21036,7 @@ class InfrastructureSecurityHardening(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InfrastructureSecurityHardeningContentForm(self.doc, f"{self.path}/content")
@@ -21072,7 +21072,7 @@ class InitialDevelopmentFlow(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21088,7 +21088,7 @@ class InitialTrainingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InitialTrainingEntryContentForm(self.doc, f"{self.path}/content")
@@ -21125,7 +21125,7 @@ class InputDeviceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InputDeviceEntryContentForm(self.doc, f"{self.path}/content")
@@ -21137,7 +21137,7 @@ class InsuranceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InsuranceEntryContentForm(self.doc, f"{self.path}/content")
@@ -21156,7 +21156,7 @@ class InsuranceLiabilityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21182,7 +21182,7 @@ class IntegrationArchitecture(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IntegrationArchitectureContentForm(self.doc, f"{self.path}/content")
@@ -21223,7 +21223,7 @@ class IntegrationConstraintEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IntegrationConstraintEntryContentForm(self.doc, f"{self.path}/content")
@@ -21258,7 +21258,7 @@ class IntegrationHealthSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IntegrationHealthSummaryContentForm(self.doc, f"{self.path}/content")
@@ -21283,7 +21283,7 @@ class IntegrationPointEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IntegrationPointEntryContentForm(self.doc, f"{self.path}/content")
@@ -21303,7 +21303,7 @@ class Integrations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21331,7 +21331,7 @@ class IntegrityConstraints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21350,7 +21350,7 @@ class IntellectualPropertyRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IntellectualPropertyRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -21367,7 +21367,7 @@ class InteractionBusinessRules(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InteractionBusinessRulesContentForm(self.doc, f"{self.path}/content")
@@ -21389,7 +21389,7 @@ class InteractionCapabilityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21439,7 +21439,7 @@ class InteractionCatalog(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21474,7 +21474,7 @@ class InteractionChannelEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InteractionChannelEntryContentForm(self.doc, f"{self.path}/content")
@@ -21524,7 +21524,7 @@ class InteractionDependencyAnalysis(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21548,7 +21548,7 @@ class InteractionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21633,7 +21633,7 @@ class InteractionPatternEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InteractionPatternEntryContentForm(self.doc, f"{self.path}/content")
@@ -21673,7 +21673,7 @@ class InteractionPatterns(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21702,7 +21702,7 @@ class InteractionTestingStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -21718,7 +21718,7 @@ class InterfaceBusinessContext(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceBusinessContextContentForm(self.doc, f"{self.path}/content")
@@ -21735,7 +21735,7 @@ class InterfaceBusinessProcessEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceBusinessProcessEntryContentForm(self.doc, f"{self.path}/content")
@@ -21747,7 +21747,7 @@ class InterfaceDataEntityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceDataEntityEntryContentForm(self.doc, f"{self.path}/content")
@@ -21759,7 +21759,7 @@ class InterfaceDataSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceDataSpecContentForm(self.doc, f"{self.path}/content")
@@ -21786,7 +21786,7 @@ class InterfaceErrorHandling(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceErrorHandlingContentForm(self.doc, f"{self.path}/content")
@@ -21818,7 +21818,7 @@ class InterfaceGovernance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceGovernanceContentForm(self.doc, f"{self.path}/content")
@@ -21855,7 +21855,7 @@ class InterfaceOperationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceOperationEntryContentForm(self.doc, f"{self.path}/content")
@@ -21867,7 +21867,7 @@ class InterfaceOperational(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceOperationalContentForm(self.doc, f"{self.path}/content")
@@ -21899,7 +21899,7 @@ class InterfaceSecurity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceSecurityContentForm(self.doc, f"{self.path}/content")
@@ -21931,7 +21931,7 @@ class InterfaceSpecificationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceSpecificationEntryContentForm(self.doc, f"{self.path}/content")
@@ -21963,7 +21963,7 @@ class InterfaceTechnicalSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceTechnicalSpecContentForm(self.doc, f"{self.path}/content")
@@ -21995,7 +21995,7 @@ class InterfaceTestScenarioEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceTestScenarioEntryContentForm(self.doc, f"{self.path}/content")
@@ -22007,7 +22007,7 @@ class InterfaceTesting(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InterfaceTestingContentForm(self.doc, f"{self.path}/content")
@@ -22041,7 +22041,7 @@ class InternalDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22062,7 +22062,7 @@ class InternalNetworkRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InternalNetworkRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -22094,7 +22094,7 @@ class InteroperabilityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return InteroperabilityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -22135,7 +22135,7 @@ class IntroductionAndScope(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22208,7 +22208,7 @@ class IpOwnershipEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return IpOwnershipEntryContentForm(self.doc, f"{self.path}/content")
@@ -22233,7 +22233,7 @@ class Iso25010Coverage(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22254,7 +22254,7 @@ class Iso25010CoverageEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return Iso25010CoverageEntryContentForm(self.doc, f"{self.path}/content")
@@ -22274,7 +22274,7 @@ class ItLandscapePosition(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22295,7 +22295,7 @@ class ItSecurityOperations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ItSecurityOperationsContentForm(self.doc, f"{self.path}/content")
@@ -22336,7 +22336,7 @@ class ItSecurityStandardsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22387,7 +22387,7 @@ class ItStandardComplianceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ItStandardComplianceEntryContentForm(self.doc, f"{self.path}/content")
@@ -22433,7 +22433,7 @@ class JobDescriptionsAndStaffing(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22479,7 +22479,7 @@ class JourneyStageEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return JourneyStageEntryContentForm(self.doc, f"{self.path}/content")
@@ -22494,7 +22494,7 @@ class KeyAttributeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyAttributeEntryContentForm(self.doc, f"{self.path}/content")
@@ -22539,7 +22539,7 @@ class KeyCompromiseRecoveryPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyCompromiseRecoveryPolicyContentForm(self.doc, f"{self.path}/content")
@@ -22556,7 +22556,7 @@ class KeyConceptEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyConceptEntryContentForm(self.doc, f"{self.path}/content")
@@ -22586,7 +22586,7 @@ class KeyConcepts(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22621,7 +22621,7 @@ class KeyEscrowAndBackupPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyEscrowAndBackupPolicyContentForm(self.doc, f"{self.path}/content")
@@ -22643,7 +22643,7 @@ class KeyGenerationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyGenerationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -22670,7 +22670,7 @@ class KeyManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22718,7 +22718,7 @@ class KeyManagementRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyManagementRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -22730,7 +22730,7 @@ class KeyResultEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyResultEntryContentForm(self.doc, f"{self.path}/content")
@@ -22746,7 +22746,7 @@ class KeyRotationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyRotationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -22771,7 +22771,7 @@ class KeyScenarios(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22803,7 +22803,7 @@ class KeyStoragePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return KeyStoragePolicyContentForm(self.doc, f"{self.path}/content")
@@ -22828,7 +22828,7 @@ class KnowledgeTransfer(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22858,7 +22858,7 @@ class LanguageCountrySelection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -22917,7 +22917,7 @@ class LayerCommunicationRules(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LayerCommunicationRulesContentForm(self.doc, f"{self.path}/content")
@@ -22953,7 +22953,7 @@ class LayeringAndModuleStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23024,7 +23024,7 @@ class LegacyCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LegacyCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -23065,7 +23065,7 @@ class LegalAndContractualRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23111,7 +23111,7 @@ class LiabilityLimitations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LiabilityLimitationsContentForm(self.doc, f"{self.path}/content")
@@ -23126,7 +23126,7 @@ class LifecycleTransitionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LifecycleTransitionEntryContentForm(self.doc, f"{self.path}/content")
@@ -23153,7 +23153,7 @@ class LimitationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LimitationEntryContentForm(self.doc, f"{self.path}/content")
@@ -23165,7 +23165,7 @@ class LoadProfileRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LoadProfileRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -23192,7 +23192,7 @@ class LocalDevelopmentSetup(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LocalDevelopmentSetupContentForm(self.doc, f"{self.path}/content")
@@ -23229,7 +23229,7 @@ class LocaleHandlingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LocaleHandlingRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -23248,7 +23248,7 @@ class LocalizationProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23306,7 +23306,7 @@ class LocalizationTranslationProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23339,7 +23339,7 @@ class LocalizationTranslationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23365,7 +23365,7 @@ class LogAggregationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LogAggregationRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -23392,7 +23392,7 @@ class LogManagementRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LogManagementRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -23427,7 +23427,7 @@ class LogProtectionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LogProtectionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -23447,7 +23447,7 @@ class LogRetentionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LogRetentionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -23467,7 +23467,7 @@ class LogStoragePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LogStoragePolicyContentForm(self.doc, f"{self.path}/content")
@@ -23489,7 +23489,7 @@ class LoginFlowConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LoginFlowConfigurationContentForm(self.doc, f"{self.path}/content")
@@ -23527,7 +23527,7 @@ class LoginFlowStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return LoginFlowStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -23554,7 +23554,7 @@ class MainScenarioStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MainScenarioStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -23588,7 +23588,7 @@ class MainSuccessScenario(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MainSuccessScenarioContentForm(self.doc, f"{self.path}/content")
@@ -23605,7 +23605,7 @@ class Maintainability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MaintainabilityContentForm(self.doc, f"{self.path}/content")
@@ -23651,7 +23651,7 @@ class MaintainabilityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23692,7 +23692,7 @@ class MaintenanceChangeManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MaintenanceChangeManagementContentForm(self.doc, f"{self.path}/content")
@@ -23732,7 +23732,7 @@ class MaintenanceDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23757,7 +23757,7 @@ class MaintenanceDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MaintenanceDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -23784,7 +23784,7 @@ class MaintenanceProcedureEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MaintenanceProcedureEntryContentForm(self.doc, f"{self.path}/content")
@@ -23796,7 +23796,7 @@ class MaintenanceUserImpact(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MaintenanceUserImpactContentForm(self.doc, f"{self.path}/content")
@@ -23823,7 +23823,7 @@ class MaintenanceWindowEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MaintenanceWindowEntryContentForm(self.doc, f"{self.path}/content")
@@ -23863,7 +23863,7 @@ class MaintenanceWindowsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23914,7 +23914,7 @@ class MasterDataDomainEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MasterDataDomainEntryContentForm(self.doc, f"{self.path}/content")
@@ -23949,7 +23949,7 @@ class MasterDataManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -23975,7 +23975,7 @@ class MessageFormatStandards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MessageFormatStandardsContentForm(self.doc, f"{self.path}/content")
@@ -24014,7 +24014,7 @@ class MessageKeyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MessageKeyEntryContentForm(self.doc, f"{self.path}/content")
@@ -24058,7 +24058,7 @@ class MessageKeyRegistry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24085,7 +24085,7 @@ class MessageLocaleVariantEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MessageLocaleVariantEntryContentForm(self.doc, f"{self.path}/content")
@@ -24105,7 +24105,7 @@ class MetricsAndObservability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24168,7 +24168,7 @@ class MetricsBaselineEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MetricsBaselineEntryContentForm(self.doc, f"{self.path}/content")
@@ -24184,7 +24184,7 @@ class MetricsBaselineTable(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24205,7 +24205,7 @@ class MetricsCollectionRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MetricsCollectionRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -24237,7 +24237,7 @@ class MetricsDashboardSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MetricsDashboardSummaryContentForm(self.doc, f"{self.path}/content")
@@ -24253,7 +24253,7 @@ class MfaCategoryRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MfaCategoryRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -24284,7 +24284,7 @@ class MfaConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MfaConfigurationContentForm(self.doc, f"{self.path}/content")
@@ -24310,7 +24310,7 @@ class MigrationConsiderations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24330,7 +24330,7 @@ class MigrationConsiderations(SomNode):
     # constraint it has to fit inside, and so that changing the sequencing is
     # one edit rather than one per system.
     #
-    # [strategyNarrative] carries the reasoning behind these answers; this band
+    # `strategyNarrative` carries the reasoning behind these answers; this band
     # carries the answers themselves, so a change of approach is a change here
     # and not a rewrite of prose.
     @property
@@ -24399,7 +24399,7 @@ class MigrationEnvironments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationEnvironmentsContentForm(self.doc, f"{self.path}/content")
@@ -24420,7 +24420,7 @@ class MigrationInteractions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24439,7 +24439,7 @@ class MigrationMappingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationMappingEntryContentForm(self.doc, f"{self.path}/content")
@@ -24451,7 +24451,7 @@ class MigrationMilestoneEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationMilestoneEntryContentForm(self.doc, f"{self.path}/content")
@@ -24463,7 +24463,7 @@ class MigrationPhaseDryRuns(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationPhaseDryRunsContentForm(self.doc, f"{self.path}/content")
@@ -24482,7 +24482,7 @@ class MigrationPhaseEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationPhaseEntryContentForm(self.doc, f"{self.path}/content")
@@ -24549,7 +24549,7 @@ class MigrationPhaseResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationPhaseResourcesContentForm(self.doc, f"{self.path}/content")
@@ -24567,7 +24567,7 @@ class MigrationPhases(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationPhasesContentForm(self.doc, f"{self.path}/content")
@@ -24603,7 +24603,7 @@ class MigrationPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24619,7 +24619,7 @@ class MigrationResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationResourcesContentForm(self.doc, f"{self.path}/content")
@@ -24641,7 +24641,7 @@ class MigrationRiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationRiskEntryContentForm(self.doc, f"{self.path}/content")
@@ -24713,7 +24713,7 @@ class MigrationRiskIndicators(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationRiskIndicatorsContentForm(self.doc, f"{self.path}/content")
@@ -24735,7 +24735,7 @@ class MigrationRisks(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -24837,7 +24837,7 @@ class MigrationStakeholders(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationStakeholdersContentForm(self.doc, f"{self.path}/content")
@@ -24849,7 +24849,7 @@ class MigrationSystems(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationSystemsContentForm(self.doc, f"{self.path}/content")
@@ -24867,7 +24867,7 @@ class MigrationTargetEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MigrationTargetEntryContentForm(self.doc, f"{self.path}/content")
@@ -24879,7 +24879,7 @@ class MobileCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MobileCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -24911,7 +24911,7 @@ class MobileDeviceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MobileDeviceEntryContentForm(self.doc, f"{self.path}/content")
@@ -24933,7 +24933,7 @@ class MobileDeviceRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MobileDeviceRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -24965,7 +24965,7 @@ class ModuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ModuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -25002,7 +25002,7 @@ class ModuleVersioningStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ModuleVersioningStrategyContentForm(self.doc, f"{self.path}/content")
@@ -25042,7 +25042,7 @@ class Monitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25113,7 +25113,7 @@ class MonitoringAndAlertingSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25191,7 +25191,7 @@ class MonitoringDashboards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25238,7 +25238,7 @@ class MonitoringInfrastructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MonitoringInfrastructureContentForm(self.doc, f"{self.path}/content")
@@ -25271,7 +25271,7 @@ class MoscowAnalysis(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MoscowAnalysisContentForm(self.doc, f"{self.path}/content")
@@ -25297,7 +25297,7 @@ class MoscowEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MoscowEntryContentForm(self.doc, f"{self.path}/content")
@@ -25332,7 +25332,7 @@ class MultiChannelExperience(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25364,7 +25364,7 @@ class MultiLanguageSupport(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25410,7 +25410,7 @@ class MustPassCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25449,7 +25449,7 @@ class MustPassCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MustPassCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -25491,7 +25491,7 @@ class MutualTlsPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return MutualTlsPolicyContentForm(self.doc, f"{self.path}/content")
@@ -25508,7 +25508,7 @@ class NativeAppRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NativeAppRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -25543,7 +25543,7 @@ class NavigationGroupEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NavigationGroupEntryContentForm(self.doc, f"{self.path}/content")
@@ -25580,7 +25580,7 @@ class NavigationGuardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NavigationGuardEntryContentForm(self.doc, f"{self.path}/content")
@@ -25609,7 +25609,7 @@ class NavigationGuards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25643,7 +25643,7 @@ class NavigationHierarchy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25672,7 +25672,7 @@ class NavigationItemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NavigationItemEntryContentForm(self.doc, f"{self.path}/content")
@@ -25729,7 +25729,7 @@ class NavigationModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25788,7 +25788,7 @@ class NavigationOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NavigationOverviewContentForm(self.doc, f"{self.path}/content")
@@ -25805,7 +25805,7 @@ class NetworkAvailabilityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NetworkAvailabilityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -25837,7 +25837,7 @@ class NetworkLatencyRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NetworkLatencyRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -25869,7 +25869,7 @@ class NetworkLoadBalancingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NetworkLoadBalancingRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -25909,7 +25909,7 @@ class NetworkRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -25985,7 +25985,7 @@ class NetworkSecurityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NetworkSecurityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -26022,7 +26022,7 @@ class NetworkSecurityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NetworkSecurityRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -26064,7 +26064,7 @@ class NewOrganizationStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26103,7 +26103,7 @@ class NewRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26154,7 +26154,7 @@ class NewRoleQualifications(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NewRoleQualificationsContentForm(self.doc, f"{self.path}/content")
@@ -26185,7 +26185,7 @@ class NewRoleResponsibilities(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26216,7 +26216,7 @@ class NotificationChannelEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NotificationChannelEntryContentForm(self.doc, f"{self.path}/content")
@@ -26236,7 +26236,7 @@ class NotificationModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26267,7 +26267,7 @@ class NotificationTypeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return NotificationTypeEntryContentForm(self.doc, f"{self.path}/content")
@@ -26282,7 +26282,7 @@ class ObjectInvariantEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ObjectInvariantEntryContentForm(self.doc, f"{self.path}/content")
@@ -26297,7 +26297,7 @@ class ObjectOperationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ObjectOperationEntryContentForm(self.doc, f"{self.path}/content")
@@ -26327,7 +26327,7 @@ class ObjectStateEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ObjectStateEntryContentForm(self.doc, f"{self.path}/content")
@@ -26339,7 +26339,7 @@ class OnCallProcedures(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OnCallProceduresContentForm(self.doc, f"{self.path}/content")
@@ -26371,7 +26371,7 @@ class OnCallScheduleConfig(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OnCallScheduleConfigContentForm(self.doc, f"{self.path}/content")
@@ -26397,7 +26397,7 @@ class OnboardingHelp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26456,7 +26456,7 @@ class OngoingTrainingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OngoingTrainingEntryContentForm(self.doc, f"{self.path}/content")
@@ -26493,7 +26493,7 @@ class OperatingEnvironment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26545,7 +26545,7 @@ class OperationBindingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OperationBindingEntryContentForm(self.doc, f"{self.path}/content")
@@ -26562,7 +26562,7 @@ class OperationalMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OperationalMonitoringContentForm(self.doc, f"{self.path}/content")
@@ -26607,7 +26607,7 @@ class OperationalPainPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26637,7 +26637,7 @@ class OperationsRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26681,7 +26681,7 @@ class OpportunityStatement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26702,7 +26702,7 @@ class OrgChangeRisks(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OrgChangeRisksContentForm(self.doc, f"{self.path}/content")
@@ -26714,7 +26714,7 @@ class OrgImplementationActivity(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OrgImplementationActivityContentForm(self.doc, f"{self.path}/content")
@@ -26733,7 +26733,7 @@ class OrgRequirementImplementationPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26778,7 +26778,7 @@ class OrganizationAndProcessConcept(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26808,7 +26808,7 @@ class OrganizationStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26838,7 +26838,7 @@ class OrganizationalChangeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OrganizationalChangeEntryContentForm(self.doc, f"{self.path}/content")
@@ -26893,7 +26893,7 @@ class OrganizationalContext(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -26933,7 +26933,7 @@ class OrganizationalEnvironment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27024,7 +27024,7 @@ class OrganizationalFramework(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27078,7 +27078,7 @@ class OrganizationalRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OrganizationalRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -27130,7 +27130,7 @@ class OrganizationalRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27166,7 +27166,7 @@ class OrganizationalTransitionTimeline(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27222,7 +27222,7 @@ class OrganizationalUnitContextEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OrganizationalUnitContextEntryContentForm(self.doc, f"{self.path}/content")
@@ -27234,7 +27234,7 @@ class OsCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OsCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -27266,7 +27266,7 @@ class OtherAgreementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OtherAgreementEntryContentForm(self.doc, f"{self.path}/content")
@@ -27287,7 +27287,7 @@ class OutOfScope(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27313,7 +27313,7 @@ class OutOfScopeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return OutOfScopeEntryContentForm(self.doc, f"{self.path}/content")
@@ -27335,7 +27335,7 @@ class PackageOrganization(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PackageOrganizationContentForm(self.doc, f"{self.path}/content")
@@ -27372,7 +27372,7 @@ class PainPointEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PainPointEntryContentForm(self.doc, f"{self.path}/content")
@@ -27423,7 +27423,7 @@ class PainPointGapCorrelation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27453,7 +27453,7 @@ class PainPointGapCorrelationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PainPointGapCorrelationEntryContentForm(self.doc, f"{self.path}/content")
@@ -27465,7 +27465,7 @@ class PainPointRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PainPointRelationshipsContentForm(self.doc, f"{self.path}/content")
@@ -27486,7 +27486,7 @@ class PainPointsAndGaps(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27550,7 +27550,7 @@ class ParticipantEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ParticipantEntryContentForm(self.doc, f"{self.path}/content")
@@ -27572,7 +27572,7 @@ class PasswordAndCredentialPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27638,7 +27638,7 @@ class PasswordLifecyclePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PasswordLifecyclePolicyContentForm(self.doc, f"{self.path}/content")
@@ -27660,7 +27660,7 @@ class PasswordRequirementsPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PasswordRequirementsPolicyContentForm(self.doc, f"{self.path}/content")
@@ -27681,7 +27681,7 @@ class PasswordStoragePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PasswordStoragePolicyContentForm(self.doc, f"{self.path}/content")
@@ -27698,7 +27698,7 @@ class PeakLoadPatterns(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PeakLoadPatternsContentForm(self.doc, f"{self.path}/content")
@@ -27725,7 +27725,7 @@ class PenetrationTestingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PenetrationTestingRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -27762,7 +27762,7 @@ class PerformanceEfficiencyCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27805,7 +27805,7 @@ class PeriodicReviewPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PeriodicReviewPolicyContentForm(self.doc, f"{self.path}/content")
@@ -27822,7 +27822,7 @@ class PeripheralEquipmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PeripheralEquipmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -27838,7 +27838,7 @@ class PermissionCompositionStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PermissionCompositionStrategyContentForm(self.doc, f"{self.path}/content")
@@ -27859,7 +27859,7 @@ class PermissionEvaluationBehavior(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PermissionEvaluationBehaviorContentForm(self.doc, f"{self.path}/content")
@@ -27880,7 +27880,7 @@ class PermissionGranularityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PermissionGranularityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -27897,7 +27897,7 @@ class PermissionMatrixEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PermissionMatrixEntryContentForm(self.doc, f"{self.path}/content")
@@ -27912,7 +27912,7 @@ class PersonaEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PersonaEntryContentForm(self.doc, f"{self.path}/content")
@@ -27954,7 +27954,7 @@ class PersonaGoalEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PersonaGoalEntryContentForm(self.doc, f"{self.path}/content")
@@ -27970,7 +27970,7 @@ class PersonaGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -27991,7 +27991,7 @@ class PersonaPainPointEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PersonaPainPointEntryContentForm(self.doc, f"{self.path}/content")
@@ -28007,7 +28007,7 @@ class PersonaPainPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28028,7 +28028,7 @@ class PersonaScenarioEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PersonaScenarioEntryContentForm(self.doc, f"{self.path}/content")
@@ -28047,7 +28047,7 @@ class PersonaScenarios(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28072,7 +28072,7 @@ class PhaseGateReviewEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PhaseGateReviewEntryContentForm(self.doc, f"{self.path}/content")
@@ -28129,7 +28129,7 @@ class PhaseGateReviews(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PhaseGateReviewsContentForm(self.doc, f"{self.path}/content")
@@ -28161,7 +28161,7 @@ class PhysicalWorkplaceRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PhysicalWorkplaceRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -28190,7 +28190,7 @@ class PilotPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28206,7 +28206,7 @@ class PipelineJobEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PipelineJobEntryContentForm(self.doc, f"{self.path}/content")
@@ -28238,7 +28238,7 @@ class PipelineStageEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PipelineStageEntryContentForm(self.doc, f"{self.path}/content")
@@ -28278,7 +28278,7 @@ class PlatformAndLanguage(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28334,7 +28334,7 @@ class PolicyOwnershipEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PolicyOwnershipEntryContentForm(self.doc, f"{self.path}/content")
@@ -28346,7 +28346,7 @@ class Portability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PortabilityContentForm(self.doc, f"{self.path}/content")
@@ -28363,7 +28363,7 @@ class PostMaintenanceValidation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PostMaintenanceValidationContentForm(self.doc, f"{self.path}/content")
@@ -28385,7 +28385,7 @@ class PostconditionsAndGuarantees(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PostconditionsAndGuaranteesContentForm(self.doc, f"{self.path}/content")
@@ -28397,7 +28397,7 @@ class PreconditionsAndTriggers(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PreconditionsAndTriggersContentForm(self.doc, f"{self.path}/content")
@@ -28413,7 +28413,7 @@ class PrimaryNavigation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrimaryNavigationContentForm(self.doc, f"{self.path}/content")
@@ -28445,7 +28445,7 @@ class PrintAndExportLayout(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrintAndExportLayoutContentForm(self.doc, f"{self.path}/content")
@@ -28493,7 +28493,7 @@ class PrivacyImpactAssessmentProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrivacyImpactAssessmentProcessContentForm(self.doc, f"{self.path}/content")
@@ -28520,7 +28520,7 @@ class PrivacyRegulationCompliance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrivacyRegulationComplianceContentForm(self.doc, f"{self.path}/content")
@@ -28555,7 +28555,7 @@ class PrivilegeUsageReporting(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrivilegeUsageReportingContentForm(self.doc, f"{self.path}/content")
@@ -28580,7 +28580,7 @@ class ProblemStatement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28606,7 +28606,7 @@ class ProcessAdjustmentDetails(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessAdjustmentDetailsContentForm(self.doc, f"{self.path}/content")
@@ -28623,7 +28623,7 @@ class ProcessAdjustmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessAdjustmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -28675,7 +28675,7 @@ class ProcessAdjustments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28717,7 +28717,7 @@ class ProcessCatalog(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28748,7 +28748,7 @@ class ProcessCharacteristics(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessCharacteristicsContentForm(self.doc, f"{self.path}/content")
@@ -28770,7 +28770,7 @@ class ProcessControlEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessControlEntryContentForm(self.doc, f"{self.path}/content")
@@ -28796,7 +28796,7 @@ class ProcessControls(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28822,7 +28822,7 @@ class ProcessDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -28834,7 +28834,7 @@ class ProcessDesignPrincipleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessDesignPrincipleEntryContentForm(self.doc, f"{self.path}/content")
@@ -28853,7 +28853,7 @@ class ProcessDesignPrinciples(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28879,7 +28879,7 @@ class ProcessEndEventEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessEndEventEntryContentForm(self.doc, f"{self.path}/content")
@@ -28891,7 +28891,7 @@ class ProcessExceptionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessExceptionEntryContentForm(self.doc, f"{self.path}/content")
@@ -28920,7 +28920,7 @@ class ProcessExceptionHandling(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28940,7 +28940,7 @@ class ProcessExceptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -28966,7 +28966,7 @@ class ProcessIdentification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessIdentificationContentForm(self.doc, f"{self.path}/content")
@@ -28993,7 +28993,7 @@ class ProcessImprovementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessImprovementEntryContentForm(self.doc, f"{self.path}/content")
@@ -29022,7 +29022,7 @@ class ProcessImprovementSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29053,7 +29053,7 @@ class ProcessInputEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessInputEntryContentForm(self.doc, f"{self.path}/content")
@@ -29069,7 +29069,7 @@ class ProcessInputsOutputs(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29104,7 +29104,7 @@ class ProcessInterdependencyMatrix(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29134,7 +29134,7 @@ class ProcessKpiEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessKpiEntryContentForm(self.doc, f"{self.path}/content")
@@ -29163,7 +29163,7 @@ class ProcessMetric(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29183,7 +29183,7 @@ class ProcessMetricCategory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29207,7 +29207,7 @@ class ProcessMetricEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessMetricEntryContentForm(self.doc, f"{self.path}/content")
@@ -29253,7 +29253,7 @@ class ProcessMetrics(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29309,7 +29309,7 @@ class ProcessOutputEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessOutputEntryContentForm(self.doc, f"{self.path}/content")
@@ -29328,7 +29328,7 @@ class ProcessOverviewDiagram(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29368,7 +29368,7 @@ class ProcessPainPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29393,7 +29393,7 @@ class ProcessPerformance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29424,7 +29424,7 @@ class ProcessPerformanceSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessPerformanceSummaryContentForm(self.doc, f"{self.path}/content")
@@ -29441,7 +29441,7 @@ class ProcessRelationshipEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessRelationshipEntryContentForm(self.doc, f"{self.path}/content")
@@ -29457,7 +29457,7 @@ class ProcessRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29478,7 +29478,7 @@ class ProcessRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessRoleEntryContentForm(self.doc, f"{self.path}/content")
@@ -29504,7 +29504,7 @@ class ProcessRoles(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29530,7 +29530,7 @@ class ProcessScopeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessScopeEntryContentForm(self.doc, f"{self.path}/content")
@@ -29542,7 +29542,7 @@ class ProcessScopeSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessScopeSummaryContentForm(self.doc, f"{self.path}/content")
@@ -29564,7 +29564,7 @@ class ProcessSlaEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessSlaEntryContentForm(self.doc, f"{self.path}/content")
@@ -29586,7 +29586,7 @@ class ProcessStepsAndActorInteractions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29637,7 +29637,7 @@ class ProcessStepsOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessStepsOverviewContentForm(self.doc, f"{self.path}/content")
@@ -29649,7 +29649,7 @@ class ProcessTechnology(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessTechnologyContentForm(self.doc, f"{self.path}/content")
@@ -29671,7 +29671,7 @@ class ProcessTriggerEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProcessTriggerEntryContentForm(self.doc, f"{self.path}/content")
@@ -29687,7 +29687,7 @@ class ProcessTriggers(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29725,7 +29725,7 @@ class ProcessVision(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29761,7 +29761,7 @@ class ProgrammingLanguageEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProgrammingLanguageEntryContentForm(self.doc, f"{self.path}/content")
@@ -29802,7 +29802,7 @@ class ProjectOrganization(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29837,7 +29837,7 @@ class ProjectOrganizationAndProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29895,7 +29895,7 @@ class ProjectTeamStaffing(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -29926,7 +29926,7 @@ class ProtocolComplianceRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProtocolComplianceRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -29953,7 +29953,7 @@ class ProtocolEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProtocolEntryContentForm(self.doc, f"{self.path}/content")
@@ -29972,7 +29972,7 @@ class ProtocolFeatureEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ProtocolFeatureEntryContentForm(self.doc, f"{self.path}/content")
@@ -29994,7 +29994,7 @@ class ProtocolsAndStandardsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30058,7 +30058,7 @@ class Prototype(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30122,7 +30122,7 @@ class PrototypeFeatureEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrototypeFeatureEntryContentForm(self.doc, f"{self.path}/content")
@@ -30141,7 +30141,7 @@ class PrototypeFeatureSubset(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30185,7 +30185,7 @@ class PrototypeGoalEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PrototypeGoalEntryContentForm(self.doc, f"{self.path}/content")
@@ -30204,7 +30204,7 @@ class PrototypeGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30255,7 +30255,7 @@ class PrototypeType(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30294,7 +30294,7 @@ class PwaRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return PwaRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -30330,7 +30330,7 @@ class QualityAndAcceptanceModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30366,7 +30366,7 @@ class QualityCategoryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityCategoryEntryContentForm(self.doc, f"{self.path}/content")
@@ -30411,7 +30411,7 @@ class QualityFramework(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30476,7 +30476,7 @@ class QualityGateAdjustmentDetails(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityGateAdjustmentDetailsContentForm(self.doc, f"{self.path}/content")
@@ -30493,7 +30493,7 @@ class QualityGateAdjustmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityGateAdjustmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -30534,7 +30534,7 @@ class QualityGateAdjustments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30569,7 +30569,7 @@ class QualityGateCheckEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityGateCheckEntryContentForm(self.doc, f"{self.path}/content")
@@ -30613,7 +30613,7 @@ class QualityGateChecklist(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30660,7 +30660,7 @@ class QualityPrioritization(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30705,7 +30705,7 @@ class QualityScenarioEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityScenarioEntryContentForm(self.doc, f"{self.path}/content")
@@ -30725,7 +30725,7 @@ class QualityScenarios(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -30746,7 +30746,7 @@ class QualityStandardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityStandardEntryContentForm(self.doc, f"{self.path}/content")
@@ -30778,7 +30778,7 @@ class QualityWeightEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return QualityWeightEntryContentForm(self.doc, f"{self.path}/content")
@@ -30790,7 +30790,7 @@ class RaciEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RaciEntryContentForm(self.doc, f"{self.path}/content")
@@ -30802,7 +30802,7 @@ class RateLimitingPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RateLimitingPolicyContentForm(self.doc, f"{self.path}/content")
@@ -30829,7 +30829,7 @@ class Readability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReadabilityContentForm(self.doc, f"{self.path}/content")
@@ -30866,7 +30866,7 @@ class ReadinessCriteriaEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReadinessCriteriaEntryContentForm(self.doc, f"{self.path}/content")
@@ -30878,7 +30878,7 @@ class RecoveryProcedures(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RecoveryProceduresContentForm(self.doc, f"{self.path}/content")
@@ -30910,7 +30910,7 @@ class RecoveryScenarioEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RecoveryScenarioEntryContentForm(self.doc, f"{self.path}/content")
@@ -30931,7 +30931,7 @@ class RedirectHandlingPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RedirectHandlingPolicyContentForm(self.doc, f"{self.path}/content")
@@ -30952,7 +30952,7 @@ class ReferenceDocumentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReferenceDocumentEntryContentForm(self.doc, f"{self.path}/content")
@@ -30998,7 +30998,7 @@ class ReferenceDocuments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31022,7 +31022,7 @@ class RegulatoryAuditSupport(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RegulatoryAuditSupportContentForm(self.doc, f"{self.path}/content")
@@ -31039,7 +31039,7 @@ class RegulatoryComplianceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RegulatoryComplianceEntryContentForm(self.doc, f"{self.path}/content")
@@ -31078,7 +31078,7 @@ class RegulatoryComplianceRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31112,7 +31112,7 @@ class RegulatoryContext(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31133,7 +31133,7 @@ class RegulatoryRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RegulatoryRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -31145,7 +31145,7 @@ class RelatedDocumentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RelatedDocumentEntryContentForm(self.doc, f"{self.path}/content")
@@ -31157,7 +31157,7 @@ class RelationshipAttributeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RelationshipAttributeEntryContentForm(self.doc, f"{self.path}/content")
@@ -31169,7 +31169,7 @@ class ReleaseStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReleaseStrategyContentForm(self.doc, f"{self.path}/content")
@@ -31201,7 +31201,7 @@ class RelevantSectionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RelevantSectionEntryContentForm(self.doc, f"{self.path}/content")
@@ -31213,7 +31213,7 @@ class Reliability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReliabilityContentForm(self.doc, f"{self.path}/content")
@@ -31262,7 +31262,7 @@ class ReliabilityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31322,7 +31322,7 @@ class RememberMePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RememberMePolicyContentForm(self.doc, f"{self.path}/content")
@@ -31342,7 +31342,7 @@ class RemovedRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RemovedRoleEntryContentForm(self.doc, f"{self.path}/content")
@@ -31377,7 +31377,7 @@ class ReplacementInventory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31408,7 +31408,7 @@ class ReplacementPhaseEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReplacementPhaseEntryContentForm(self.doc, f"{self.path}/content")
@@ -31423,7 +31423,7 @@ class ReplacementSystemDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReplacementSystemDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -31435,7 +31435,7 @@ class ReportChartAxes(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportChartAxesContentForm(self.doc, f"{self.path}/content")
@@ -31449,7 +31449,7 @@ class ReportChartEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportChartEntryContentForm(self.doc, f"{self.path}/content")
@@ -31488,7 +31488,7 @@ class ReportColumnEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportColumnEntryContentForm(self.doc, f"{self.path}/content")
@@ -31577,7 +31577,7 @@ class ReportDefinitions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31598,7 +31598,7 @@ class ReportDistributionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportDistributionEntryContentForm(self.doc, f"{self.path}/content")
@@ -31625,7 +31625,7 @@ class ReportEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportEntryContentForm(self.doc, f"{self.path}/content")
@@ -31724,7 +31724,7 @@ class ReportFilterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportFilterEntryContentForm(self.doc, f"{self.path}/content")
@@ -31801,7 +31801,7 @@ class ReportRecipientEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportRecipientEntryContentForm(self.doc, f"{self.path}/content")
@@ -31830,7 +31830,7 @@ class ReportScheduleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportScheduleEntryContentForm(self.doc, f"{self.path}/content")
@@ -31862,7 +31862,7 @@ class ReportSectionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReportSectionEntryContentForm(self.doc, f"{self.path}/content")
@@ -31912,7 +31912,7 @@ class RequirementAcceptanceCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31933,7 +31933,7 @@ class RequirementBusinessRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RequirementBusinessRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -31952,7 +31952,7 @@ class RequirementBusinessRules(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -31980,7 +31980,7 @@ class RequirementCoverage(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32003,7 +32003,7 @@ class RequirementDataRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32031,7 +32031,7 @@ class RequirementDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32052,7 +32052,7 @@ class RequirementDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RequirementDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -32088,7 +32088,7 @@ class RequirementRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32107,7 +32107,7 @@ class RequirementScreenActionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RequirementScreenActionEntryContentForm(self.doc, f"{self.path}/content")
@@ -32124,7 +32124,7 @@ class RequirementTestCaseEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RequirementTestCaseEntryContentForm(self.doc, f"{self.path}/content")
@@ -32169,7 +32169,7 @@ class RequirementTestCases(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32197,7 +32197,7 @@ class RequirementTraceability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32237,7 +32237,7 @@ class RequirementUiSpecification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32307,7 +32307,7 @@ class Requirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32348,7 +32348,7 @@ class RequirementsFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32390,7 +32390,7 @@ class RequirementsOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32450,7 +32450,7 @@ class ResourceAllocationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResourceAllocationEntryContentForm(self.doc, f"{self.path}/content")
@@ -32462,7 +32462,7 @@ class ResourceCapacityBaselines(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResourceCapacityBaselinesContentForm(self.doc, f"{self.path}/content")
@@ -32494,7 +32494,7 @@ class ResourceKeyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResourceKeyEntryContentForm(self.doc, f"{self.path}/content")
@@ -32506,7 +32506,7 @@ class ResourceKeyReferenceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResourceKeyReferenceEntryContentForm(self.doc, f"{self.path}/content")
@@ -32522,7 +32522,7 @@ class ResourceProtection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32553,7 +32553,7 @@ class ResourceRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResourceRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -32565,7 +32565,7 @@ class ResponsibilityChangeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilityChangeEntryContentForm(self.doc, f"{self.path}/content")
@@ -32577,7 +32577,7 @@ class ResponsibilityContacts(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilityContactsContentForm(self.doc, f"{self.path}/content")
@@ -32589,7 +32589,7 @@ class ResponsibilityDetailEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilityDetailEntryContentForm(self.doc, f"{self.path}/content")
@@ -32606,7 +32606,7 @@ class ResponsibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -32643,7 +32643,7 @@ class ResponsibilityFunctionDetails(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilityFunctionDetailsContentForm(self.doc, f"{self.path}/content")
@@ -32655,7 +32655,7 @@ class ResponsibilityReferenceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilityReferenceEntryContentForm(self.doc, f"{self.path}/content")
@@ -32667,7 +32667,7 @@ class ResponsibilitySystems(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsibilitySystemsContentForm(self.doc, f"{self.path}/content")
@@ -32686,7 +32686,7 @@ class ResponsiveBehavior(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32748,7 +32748,7 @@ class ResponsiveDesign(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32787,7 +32787,7 @@ class ResponsiveScreenRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResponsiveScreenRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -32814,7 +32814,7 @@ class ResultEnvelope(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResultEnvelopeContentForm(self.doc, f"{self.path}/content")
@@ -32839,7 +32839,7 @@ class ResultFieldDetailEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ResultFieldDetailEntryContentForm(self.doc, f"{self.path}/content")
@@ -32851,7 +32851,7 @@ class RetentionPolicyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RetentionPolicyEntryContentForm(self.doc, f"{self.path}/content")
@@ -32878,7 +32878,7 @@ class ReusabilityPrinciples(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReusabilityPrinciplesContentForm(self.doc, f"{self.path}/content")
@@ -32918,7 +32918,7 @@ class ReusableComponentsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -32986,7 +32986,7 @@ class ReusablePrototype(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33030,7 +33030,7 @@ class ReusableUiComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReusableUiComponentEntryContentForm(self.doc, f"{self.path}/content")
@@ -33071,7 +33071,7 @@ class ReuseGoalEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReuseGoalEntryContentForm(self.doc, f"{self.path}/content")
@@ -33102,7 +33102,7 @@ class ReviewCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReviewCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -33128,7 +33128,7 @@ class ReviewTeam(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33149,7 +33149,7 @@ class ReviewTeamMember(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReviewTeamMemberContentForm(self.doc, f"{self.path}/content")
@@ -33161,7 +33161,7 @@ class ReviewerRecord(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ReviewerRecordContentForm(self.doc, f"{self.path}/content")
@@ -33173,7 +33173,7 @@ class RevisionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RevisionEntryContentForm(self.doc, f"{self.path}/content")
@@ -33195,7 +33195,7 @@ class RiskBusinessImpact(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RiskBusinessImpactContentForm(self.doc, f"{self.path}/content")
@@ -33226,7 +33226,7 @@ class RiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33277,7 +33277,7 @@ class RiskIdentification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RiskIdentificationContentForm(self.doc, f"{self.path}/content")
@@ -33299,7 +33299,7 @@ class RiskMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RiskMonitoringContentForm(self.doc, f"{self.path}/content")
@@ -33321,7 +33321,7 @@ class RiskRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RiskRelationshipsContentForm(self.doc, f"{self.path}/content")
@@ -33333,7 +33333,7 @@ class RiskResponse(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RiskResponseContentForm(self.doc, f"{self.path}/content")
@@ -33372,7 +33372,7 @@ class RisksAndAssumptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33403,7 +33403,7 @@ class RoleAdjustmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleAdjustmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -33449,7 +33449,7 @@ class RoleAdjustments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33488,7 +33488,7 @@ class RoleCertificationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleCertificationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -33509,7 +33509,7 @@ class RoleCombinationConstraintEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleCombinationConstraintEntryContentForm(self.doc, f"{self.path}/content")
@@ -33521,7 +33521,7 @@ class RoleCompetencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleCompetencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -33537,7 +33537,7 @@ class RoleDataScopeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleDataScopeEntryContentForm(self.doc, f"{self.path}/content")
@@ -33549,7 +33549,7 @@ class RoleExclusionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleExclusionEntryContentForm(self.doc, f"{self.path}/content")
@@ -33570,7 +33570,7 @@ class RoleHierarchy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33620,7 +33620,7 @@ class RoleHierarchyPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleHierarchyPolicyContentForm(self.doc, f"{self.path}/content")
@@ -33637,7 +33637,7 @@ class RoleHolderEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleHolderEntryContentForm(self.doc, f"{self.path}/content")
@@ -33653,7 +33653,7 @@ class RoleInheritanceRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleInheritanceRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -33673,7 +33673,7 @@ class RoleMatrix(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33694,7 +33694,7 @@ class RolePermissionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RolePermissionEntryContentForm(self.doc, f"{self.path}/content")
@@ -33706,7 +33706,7 @@ class RoleReferenceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RoleReferenceEntryContentForm(self.doc, f"{self.path}/content")
@@ -33718,7 +33718,7 @@ class RollbackStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RollbackStrategyContentForm(self.doc, f"{self.path}/content")
@@ -33764,7 +33764,7 @@ class RolloutPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33793,7 +33793,7 @@ class RolloutTrainingMaterial(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33814,7 +33814,7 @@ class RowLevelSecurityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RowLevelSecurityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -33831,7 +33831,7 @@ class RpoRtoRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RpoRtoRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -33861,7 +33861,7 @@ class RuleExampleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RuleExampleEntryContentForm(self.doc, f"{self.path}/content")
@@ -33881,7 +33881,7 @@ class RuntimeDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -33906,7 +33906,7 @@ class RuntimeDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RuntimeDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -33943,7 +33943,7 @@ class RuntimeEnvironment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return RuntimeEnvironmentContentForm(self.doc, f"{self.path}/content")
@@ -33995,7 +33995,7 @@ class ScalabilityArchitecture(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScalabilityArchitectureContentForm(self.doc, f"{self.path}/content")
@@ -34032,7 +34032,7 @@ class ScalingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScalingRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -34064,7 +34064,7 @@ class ScalingTriggersAndThresholds(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScalingTriggersAndThresholdsContentForm(self.doc, f"{self.path}/content")
@@ -34103,7 +34103,7 @@ class ScenarioEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -34154,7 +34154,7 @@ class ScenarioStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScenarioStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -34229,7 +34229,7 @@ class ScheduledJobEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScheduledJobEntryContentForm(self.doc, f"{self.path}/content")
@@ -34335,7 +34335,7 @@ class ScheduledJobStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScheduledJobStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -34347,7 +34347,7 @@ class ScheduledMaintenancePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScheduledMaintenancePolicyContentForm(self.doc, f"{self.path}/content")
@@ -34385,7 +34385,7 @@ class SchemaMigrationStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SchemaMigrationStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -34433,7 +34433,7 @@ class SchemaVersioningAndMigration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SchemaVersioningAndMigrationContentForm(self.doc, f"{self.path}/content")
@@ -34464,7 +34464,7 @@ class ScopeBoundaries(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -34500,7 +34500,7 @@ class ScopeItemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScopeItemEntryContentForm(self.doc, f"{self.path}/content")
@@ -34515,7 +34515,7 @@ class ScreenActionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenActionEntryContentForm(self.doc, f"{self.path}/content")
@@ -34549,7 +34549,7 @@ class ScreenActions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -34574,7 +34574,7 @@ class ScreenBehaviorEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenBehaviorEntryContentForm(self.doc, f"{self.path}/content")
@@ -34590,7 +34590,7 @@ class ScreenDescriptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -34619,7 +34619,7 @@ class ScreenElementAction(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenElementActionContentForm(self.doc, f"{self.path}/content")
@@ -34644,7 +34644,7 @@ class ScreenElementDataDisplay(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenElementDataDisplayContentForm(self.doc, f"{self.path}/content")
@@ -34670,7 +34670,7 @@ class ScreenElementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenElementEntryContentForm(self.doc, f"{self.path}/content")
@@ -34744,7 +34744,7 @@ class ScreenElementFieldSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenElementFieldSpecContentForm(self.doc, f"{self.path}/content")
@@ -34814,7 +34814,7 @@ class ScreenEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenEntryContentForm(self.doc, f"{self.path}/content")
@@ -34889,7 +34889,7 @@ class ScreenFieldEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenFieldEntryContentForm(self.doc, f"{self.path}/content")
@@ -34965,7 +34965,7 @@ class ScreenFlowStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35004,7 +35004,7 @@ class ScreenInventory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35033,7 +35033,7 @@ class ScreenResponsiveRuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenResponsiveRuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -35045,7 +35045,7 @@ class ScreenRouteEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenRouteEntryContentForm(self.doc, f"{self.path}/content")
@@ -35072,7 +35072,7 @@ class ScreenRouteMap(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35111,7 +35111,7 @@ class ScreenSectionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenSectionEntryContentForm(self.doc, f"{self.path}/content")
@@ -35145,7 +35145,7 @@ class ScreenSections(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35170,7 +35170,7 @@ class ScreenStateEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenStateEntryContentForm(self.doc, f"{self.path}/content")
@@ -35189,7 +35189,7 @@ class ScreenStates(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35210,7 +35210,7 @@ class ScreenTransitionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenTransitionEntryContentForm(self.doc, f"{self.path}/content")
@@ -35222,7 +35222,7 @@ class ScreenUserCategoryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ScreenUserCategoryEntryContentForm(self.doc, f"{self.path}/content")
@@ -35241,7 +35241,7 @@ class SecondaryNavigation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35267,7 +35267,7 @@ class Security(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityContentForm(self.doc, f"{self.path}/content")
@@ -35308,7 +35308,7 @@ class SecurityAndAccessModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35344,7 +35344,7 @@ class SecurityAuditEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityAuditEntryContentForm(self.doc, f"{self.path}/content")
@@ -35380,7 +35380,7 @@ class SecurityAuditRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35437,7 +35437,7 @@ class SecurityCertificationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityCertificationRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -35478,7 +35478,7 @@ class SecurityCharacteristic(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35529,7 +35529,7 @@ class SecurityCodeReviewPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityCodeReviewPolicyContentForm(self.doc, f"{self.path}/content")
@@ -35567,7 +35567,7 @@ class SecurityComplianceFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35588,7 +35588,7 @@ class SecurityControlEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityControlEntryContentForm(self.doc, f"{self.path}/content")
@@ -35617,7 +35617,7 @@ class SecurityControls(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35638,7 +35638,7 @@ class SecurityDevelopmentLifecycle(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityDevelopmentLifecycleContentForm(self.doc, f"{self.path}/content")
@@ -35669,7 +35669,7 @@ class SecurityEventEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityEventEntryContentForm(self.doc, f"{self.path}/content")
@@ -35685,7 +35685,7 @@ class SecurityEventLoggingPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityEventLoggingPolicyContentForm(self.doc, f"{self.path}/content")
@@ -35711,7 +35711,7 @@ class SecurityEventsDefinition(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35783,7 +35783,7 @@ class SecurityOperationsFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35813,7 +35813,7 @@ class SecurityRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -35875,7 +35875,7 @@ class SecurityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -35901,7 +35901,7 @@ class SecurityStandardComplianceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityStandardComplianceEntryContentForm(self.doc, f"{self.path}/content")
@@ -35933,7 +35933,7 @@ class SecurityStandardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityStandardEntryContentForm(self.doc, f"{self.path}/content")
@@ -35964,7 +35964,7 @@ class SecurityTestingAutomation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SecurityTestingAutomationContentForm(self.doc, f"{self.path}/content")
@@ -36005,7 +36005,7 @@ class SelfRegistrationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SelfRegistrationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -36051,7 +36051,7 @@ class SelfServiceAccountManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SelfServiceAccountManagementContentForm(self.doc, f"{self.path}/content")
@@ -36072,7 +36072,7 @@ class SensitiveDataEncryption(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -36133,7 +36133,7 @@ class ServerCallStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerCallStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -36158,7 +36158,7 @@ class ServerConfigurationSettingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerConfigurationSettingEntryContentForm(self.doc, f"{self.path}/content")
@@ -36170,7 +36170,7 @@ class ServerEnvironmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerEnvironmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -36214,7 +36214,7 @@ class ServerOperationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerOperationEntryContentForm(self.doc, f"{self.path}/content")
@@ -36273,7 +36273,7 @@ class ServerOperationMemberEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerOperationMemberEntryContentForm(self.doc, f"{self.path}/content")
@@ -36321,7 +36321,7 @@ class ServerOperationRegistry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -36349,7 +36349,7 @@ class ServerOsRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerOsRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -36389,7 +36389,7 @@ class ServerRequirementsSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -36465,7 +36465,7 @@ class ServerRoleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerRoleEntryContentForm(self.doc, f"{self.path}/content")
@@ -36497,7 +36497,7 @@ class ServerStorageRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServerStorageRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -36533,7 +36533,7 @@ class ServiceAccountCredentialPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServiceAccountCredentialPolicyContentForm(self.doc, f"{self.path}/content")
@@ -36554,7 +36554,7 @@ class ServiceAccountLifecycle(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServiceAccountLifecycleContentForm(self.doc, f"{self.path}/content")
@@ -36571,7 +36571,7 @@ class ServiceLevel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServiceLevelContentForm(self.doc, f"{self.path}/content")
@@ -36618,7 +36618,7 @@ class ServiceLevelAgreementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServiceLevelAgreementEntryContentForm(self.doc, f"{self.path}/content")
@@ -36630,7 +36630,7 @@ class ServiceLevelIndicators(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServiceLevelIndicatorsContentForm(self.doc, f"{self.path}/content")
@@ -36657,7 +36657,7 @@ class ServiceMeshAndGateway(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ServiceMeshAndGatewayContentForm(self.doc, f"{self.path}/content")
@@ -36683,7 +36683,7 @@ class SessionCreationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SessionCreationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -36705,7 +36705,7 @@ class SessionLifecycleMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SessionLifecycleMonitoringContentForm(self.doc, f"{self.path}/content")
@@ -36733,7 +36733,7 @@ class SessionManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -36792,7 +36792,7 @@ class SessionModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -36828,7 +36828,7 @@ class SessionRevocationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SessionRevocationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -36850,7 +36850,7 @@ class SessionSecurityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SessionSecurityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -36873,7 +36873,7 @@ class SessionTimeoutPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SessionTimeoutPolicyContentForm(self.doc, f"{self.path}/content")
@@ -36897,7 +36897,7 @@ class SharedInfrastructureDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -36921,7 +36921,7 @@ class SharedInfrastructureEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SharedInfrastructureEntryContentForm(self.doc, f"{self.path}/content")
@@ -36948,7 +36948,7 @@ class SharedLibraryComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SharedLibraryComponentEntryContentForm(self.doc, f"{self.path}/content")
@@ -36980,7 +36980,7 @@ class SharedLibraryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SharedLibraryEntryContentForm(self.doc, f"{self.path}/content")
@@ -37012,7 +37012,7 @@ class SignOffProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SignOffProcessContentForm(self.doc, f"{self.path}/content")
@@ -37058,7 +37058,7 @@ class SingleSignOnPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SingleSignOnPolicyContentForm(self.doc, f"{self.path}/content")
@@ -37102,7 +37102,7 @@ class SlaAndSloMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -37154,7 +37154,7 @@ class SlaMonitoringRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SlaMonitoringRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -37186,7 +37186,7 @@ class SloEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SloEntryContentForm(self.doc, f"{self.path}/content")
@@ -37212,7 +37212,7 @@ class SoftwareDeliverables(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -37237,7 +37237,7 @@ class SoftwareDesignRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -37273,7 +37273,7 @@ class SoftwareLayerEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SoftwareLayerEntryContentForm(self.doc, f"{self.path}/content")
@@ -37309,7 +37309,7 @@ class SolutionArchitectureAndTechnology(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -37350,7 +37350,7 @@ class SolutionArchitectureFollowUp(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -37371,7 +37371,7 @@ class SpecializedEquipmentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SpecializedEquipmentEntryContentForm(self.doc, f"{self.path}/content")
@@ -37397,7 +37397,7 @@ class SsoPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SsoPolicyContentForm(self.doc, f"{self.path}/content")
@@ -37414,7 +37414,7 @@ class StaffingBudget(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StaffingBudgetContentForm(self.doc, f"{self.path}/content")
@@ -37440,7 +37440,7 @@ class StaffingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StaffingEntryContentForm(self.doc, f"{self.path}/content")
@@ -37476,7 +37476,7 @@ class StaffingPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -37512,7 +37512,7 @@ class StageDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageDependenciesContentForm(self.doc, f"{self.path}/content")
@@ -37531,7 +37531,7 @@ class StageEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageEntryContentForm(self.doc, f"{self.path}/content")
@@ -37626,7 +37626,7 @@ class StageGovernance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageGovernanceContentForm(self.doc, f"{self.path}/content")
@@ -37688,7 +37688,7 @@ class StageMigrationResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageMigrationResourcesContentForm(self.doc, f"{self.path}/content")
@@ -37706,7 +37706,7 @@ class StageMigrationRiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageMigrationRiskEntryContentForm(self.doc, f"{self.path}/content")
@@ -37763,7 +37763,7 @@ class StageMigrationRisks(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageMigrationRisksContentForm(self.doc, f"{self.path}/content")
@@ -37793,7 +37793,7 @@ class StageOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageOverviewContentForm(self.doc, f"{self.path}/content")
@@ -37893,7 +37893,7 @@ class StageResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageResourcesContentForm(self.doc, f"{self.path}/content")
@@ -37905,7 +37905,7 @@ class StageStakeholders(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageStakeholdersContentForm(self.doc, f"{self.path}/content")
@@ -37922,7 +37922,7 @@ class StageSuccessCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageSuccessCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -37949,7 +37949,7 @@ class StageSummaryDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageSummaryDependenciesContentForm(self.doc, f"{self.path}/content")
@@ -37969,7 +37969,7 @@ class StageSummaryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageSummaryEntryContentForm(self.doc, f"{self.path}/content")
@@ -38016,7 +38016,7 @@ class StageSummaryResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StageSummaryResourcesContentForm(self.doc, f"{self.path}/content")
@@ -38028,7 +38028,7 @@ class StagingDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StagingDependenciesContentForm(self.doc, f"{self.path}/content")
@@ -38040,7 +38040,7 @@ class StagingDrivers(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StagingDriversContentForm(self.doc, f"{self.path}/content")
@@ -38060,7 +38060,7 @@ class StagingStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StagingStrategyContentForm(self.doc, f"{self.path}/content")
@@ -38157,7 +38157,7 @@ class StakeholderEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StakeholderEntryContentForm(self.doc, f"{self.path}/content")
@@ -38173,7 +38173,7 @@ class StakeholderRegisterEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StakeholderRegisterEntryContentForm(self.doc, f"{self.path}/content")
@@ -38196,7 +38196,7 @@ class StakeholdersAndBeneficiaries(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38226,7 +38226,7 @@ class StakeholdersAndGovernance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38297,7 +38297,7 @@ class StakeholdersAndInterests(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StakeholdersAndInterestsContentForm(self.doc, f"{self.path}/content")
@@ -38313,7 +38313,7 @@ class StandardSoftwareRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38347,7 +38347,7 @@ class StandardsComplianceSection(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38430,7 +38430,7 @@ class SteeringCommittee(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38460,7 +38460,7 @@ class StepUpAuthenticationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StepUpAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -38482,7 +38482,7 @@ class StorageEncryptionPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StorageEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
@@ -38504,7 +38504,7 @@ class StorageLifecyclePolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return StorageLifecyclePolicyContentForm(self.doc, f"{self.path}/content")
@@ -38529,7 +38529,7 @@ class StrategicAlignment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38553,7 +38553,7 @@ class SubFunctionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SubFunctionEntryContentForm(self.doc, f"{self.path}/content")
@@ -38570,7 +38570,7 @@ class SubStageEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SubStageEntryContentForm(self.doc, f"{self.path}/content")
@@ -38617,7 +38617,7 @@ class SuccessCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38671,7 +38671,7 @@ class SuccessCriteriaByCategory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38736,7 +38736,7 @@ class SuccessCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SuccessCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -38778,7 +38778,7 @@ class SuccessCriterionRelationships(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SuccessCriterionRelationshipsContentForm(self.doc, f"{self.path}/content")
@@ -38794,7 +38794,7 @@ class SupportAccess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38852,7 +38852,7 @@ class SupportDeliverables(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38873,7 +38873,7 @@ class SupportedLocaleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SupportedLocaleEntryContentForm(self.doc, f"{self.path}/content")
@@ -38906,7 +38906,7 @@ class SystemArchitectureSpec(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -38937,7 +38937,7 @@ class SystemBoundaries(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39008,7 +39008,7 @@ class SystemBusinessCriticality(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemBusinessCriticalityContentForm(self.doc, f"{self.path}/content")
@@ -39040,7 +39040,7 @@ class SystemBusinessProcessEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemBusinessProcessEntryContentForm(self.doc, f"{self.path}/content")
@@ -39052,7 +39052,7 @@ class SystemBusinessUnitEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemBusinessUnitEntryContentForm(self.doc, f"{self.path}/content")
@@ -39064,7 +39064,7 @@ class SystemConfigurationManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemConfigurationManagementContentForm(self.doc, f"{self.path}/content")
@@ -39105,7 +39105,7 @@ class SystemContext(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39161,7 +39161,7 @@ class SystemCostAnalysis(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemCostAnalysisContentForm(self.doc, f"{self.path}/content")
@@ -39198,7 +39198,7 @@ class SystemDataScope(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemDataScopeContentForm(self.doc, f"{self.path}/content")
@@ -39235,7 +39235,7 @@ class SystemDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -39299,7 +39299,7 @@ class SystemDescription(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39345,7 +39345,7 @@ class SystemDiagnosticTools(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemDiagnosticToolsContentForm(self.doc, f"{self.path}/content")
@@ -39372,7 +39372,7 @@ class SystemErrorCodeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemErrorCodeEntryContentForm(self.doc, f"{self.path}/content")
@@ -39402,7 +39402,7 @@ class SystemErrorDisplay(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39466,7 +39466,7 @@ class SystemIntegrationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemIntegrationEntryContentForm(self.doc, f"{self.path}/content")
@@ -39536,7 +39536,7 @@ class SystemInventory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39557,7 +39557,7 @@ class SystemKnowledgeTransfer(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemKnowledgeTransferContentForm(self.doc, f"{self.path}/content")
@@ -39586,7 +39586,7 @@ class SystemLandscapeInventory(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39602,7 +39602,7 @@ class SystemMigrationPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemMigrationPlanContentForm(self.doc, f"{self.path}/content")
@@ -39639,7 +39639,7 @@ class SystemMigrationRiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemMigrationRiskEntryContentForm(self.doc, f"{self.path}/content")
@@ -39655,7 +39655,7 @@ class SystemOperation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39685,7 +39685,7 @@ class SystemOperationAndMonitoring(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39725,7 +39725,7 @@ class SystemPurpose(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39791,7 +39791,7 @@ class SystemQualityGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -39931,7 +39931,7 @@ class SystemReplacementStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemReplacementStrategyContentForm(self.doc, f"{self.path}/content")
@@ -39972,7 +39972,7 @@ class SystemRollout(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40046,7 +40046,7 @@ class SystemStagePlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemStagePlanContentForm(self.doc, f"{self.path}/content")
@@ -40113,7 +40113,7 @@ class SystemSummary(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemSummaryContentForm(self.doc, f"{self.path}/content")
@@ -40149,7 +40149,7 @@ class SystemTaskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemTaskEntryContentForm(self.doc, f"{self.path}/content")
@@ -40204,7 +40204,7 @@ class SystemTechnicalAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemTechnicalAssessmentContentForm(self.doc, f"{self.path}/content")
@@ -40251,7 +40251,7 @@ class SystemToReplaceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40337,7 +40337,7 @@ class SystemTrainingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemTrainingEntryContentForm(self.doc, f"{self.path}/content")
@@ -40364,7 +40364,7 @@ class SystemUserImpact(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return SystemUserImpactContentForm(self.doc, f"{self.path}/content")
@@ -40406,7 +40406,7 @@ class SystemsToReplace(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40440,7 +40440,7 @@ class TabBarDefinitionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TabBarDefinitionEntryContentForm(self.doc, f"{self.path}/content")
@@ -40467,7 +40467,7 @@ class TabItemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TabItemEntryContentForm(self.doc, f"{self.path}/content")
@@ -40496,7 +40496,7 @@ class TargetOperatingModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40522,7 +40522,7 @@ class TargetPlatformEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TargetPlatformEntryContentForm(self.doc, f"{self.path}/content")
@@ -40558,7 +40558,7 @@ class TeamMemberEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TeamMemberEntryContentForm(self.doc, f"{self.path}/content")
@@ -40600,7 +40600,7 @@ class TeamMemberResponsibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TeamMemberResponsibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -40612,7 +40612,7 @@ class TeamMemberSkillEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TeamMemberSkillEntryContentForm(self.doc, f"{self.path}/content")
@@ -40624,7 +40624,7 @@ class TeamMemberSkills(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TeamMemberSkillsContentForm(self.doc, f"{self.path}/content")
@@ -40641,7 +40641,7 @@ class TeamStructureOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TeamStructureOverviewContentForm(self.doc, f"{self.path}/content")
@@ -40658,7 +40658,7 @@ class TechnicalCharacteristicEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalCharacteristicEntryContentForm(self.doc, f"{self.path}/content")
@@ -40670,7 +40670,7 @@ class TechnicalConstraintEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalConstraintEntryContentForm(self.doc, f"{self.path}/content")
@@ -40682,7 +40682,7 @@ class TechnicalDependencyEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalDependencyEntryContentForm(self.doc, f"{self.path}/content")
@@ -40705,7 +40705,7 @@ class TechnicalEnvironment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40794,7 +40794,7 @@ class TechnicalEnvironmentNetwork(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalEnvironmentNetworkContentForm(self.doc, f"{self.path}/content")
@@ -40825,7 +40825,7 @@ class TechnicalFrameworkConcept(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40893,7 +40893,7 @@ class TechnicalGoalConstraints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40921,7 +40921,7 @@ class TechnicalGoalDependencies(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -40946,7 +40946,7 @@ class TechnicalGoalEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalGoalEntryContentForm(self.doc, f"{self.path}/content")
@@ -40988,7 +40988,7 @@ class TechnicalGoalTestCaseEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalGoalTestCaseEntryContentForm(self.doc, f"{self.path}/content")
@@ -41007,7 +41007,7 @@ class TechnicalGoalTestCriteria(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41042,7 +41042,7 @@ class TechnicalGoals(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41067,7 +41067,7 @@ class TechnicalInfrastructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41112,7 +41112,7 @@ class TechnicalPainPoints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41142,7 +41142,7 @@ class TechnicalRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnicalRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -41204,7 +41204,7 @@ class TechnicalRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41234,7 +41234,7 @@ class TechnicalSecurityRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41270,7 +41270,7 @@ class TechnologyDataVariations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnologyDataVariationsContentForm(self.doc, f"{self.path}/content")
@@ -41286,7 +41286,7 @@ class TechnologyStandardEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TechnologyStandardEntryContentForm(self.doc, f"{self.path}/content")
@@ -41324,7 +41324,7 @@ class TenantBoundaryEnforcementPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TenantBoundaryEnforcementPolicyContentForm(self.doc, f"{self.path}/content")
@@ -41348,7 +41348,7 @@ class TenantContextPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TenantContextPolicyContentForm(self.doc, f"{self.path}/content")
@@ -41370,7 +41370,7 @@ class TenantCustomizationEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TenantCustomizationEntryContentForm(self.doc, f"{self.path}/content")
@@ -41386,7 +41386,7 @@ class TenantDataIsolationPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TenantDataIsolationPolicyContentForm(self.doc, f"{self.path}/content")
@@ -41416,7 +41416,7 @@ class TenantIsolation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41468,7 +41468,7 @@ class TenantOnboardingPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TenantOnboardingPolicyContentForm(self.doc, f"{self.path}/content")
@@ -41485,7 +41485,7 @@ class TestLevelEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TestLevelEntryContentForm(self.doc, f"{self.path}/content")
@@ -41503,7 +41503,7 @@ class TestScenarioEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TestScenarioEntryContentForm(self.doc, f"{self.path}/content")
@@ -41555,7 +41555,7 @@ class TestScenarioNotes(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TestScenarioNotesContentForm(self.doc, f"{self.path}/content")
@@ -41574,7 +41574,7 @@ class TestStrategy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41595,7 +41595,7 @@ class TestingStandards(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TestingStandardsContentForm(self.doc, f"{self.path}/content")
@@ -41627,7 +41627,7 @@ class ThirdPartyApiIntegrations(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ThirdPartyApiIntegrationsContentForm(self.doc, f"{self.path}/content")
@@ -41669,7 +41669,7 @@ class ThirdPartyCompatibilityEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ThirdPartyCompatibilityEntryContentForm(self.doc, f"{self.path}/content")
@@ -41701,7 +41701,7 @@ class ThirdPartyLibraryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ThirdPartyLibraryEntryContentForm(self.doc, f"{self.path}/content")
@@ -41745,7 +41745,7 @@ class ThrowawayPrototype(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -41794,7 +41794,7 @@ class TlsProtocolPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TlsProtocolPolicyContentForm(self.doc, f"{self.path}/content")
@@ -41811,7 +41811,7 @@ class TlsRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TlsRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -41847,7 +41847,7 @@ class TokenManagementPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TokenManagementPolicyContentForm(self.doc, f"{self.path}/content")
@@ -41871,7 +41871,7 @@ class ToolEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ToolEntryContentForm(self.doc, f"{self.path}/content")
@@ -41964,7 +41964,7 @@ class Tooling(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ToolingContentForm(self.doc, f"{self.path}/content")
@@ -42005,7 +42005,7 @@ class ToolingAndEnvironments(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42031,7 +42031,7 @@ class TourStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TourStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -42043,7 +42043,7 @@ class TradeOffDecisionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TradeOffDecisionEntryContentForm(self.doc, f"{self.path}/content")
@@ -42092,7 +42092,7 @@ class TradeOffDecisions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42131,7 +42131,7 @@ class TrainingAssessment(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TrainingAssessmentContentForm(self.doc, f"{self.path}/content")
@@ -42171,7 +42171,7 @@ class TrainingDeliverableRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42209,7 +42209,7 @@ class TrainingDeliverables(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42251,7 +42251,7 @@ class TrainingMaterials(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TrainingMaterialsContentForm(self.doc, f"{self.path}/content")
@@ -42278,7 +42278,7 @@ class TrainingModuleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TrainingModuleEntryContentForm(self.doc, f"{self.path}/content")
@@ -42297,7 +42297,7 @@ class TrainingPrototype(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42344,7 +42344,7 @@ class TrainingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42395,7 +42395,7 @@ class TrainingTopicEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TrainingTopicEntryContentForm(self.doc, f"{self.path}/content")
@@ -42407,7 +42407,7 @@ class TransitionCommunicationChannels(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionCommunicationChannelsContentForm(self.doc, f"{self.path}/content")
@@ -42423,7 +42423,7 @@ class TransitionCommunicationPlan(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42454,7 +42454,7 @@ class TransitionEscalationPaths(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionEscalationPathsContentForm(self.doc, f"{self.path}/content")
@@ -42466,7 +42466,7 @@ class TransitionMetricEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionMetricEntryContentForm(self.doc, f"{self.path}/content")
@@ -42488,7 +42488,7 @@ class TransitionMilestoneEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionMilestoneEntryContentForm(self.doc, f"{self.path}/content")
@@ -42515,7 +42515,7 @@ class TransitionOverview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionOverviewContentForm(self.doc, f"{self.path}/content")
@@ -42537,7 +42537,7 @@ class TransitionPhaseActivities(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionPhaseActivitiesContentForm(self.doc, f"{self.path}/content")
@@ -42556,7 +42556,7 @@ class TransitionPhaseEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42592,7 +42592,7 @@ class TransitionPhaseIdentification(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionPhaseIdentificationContentForm(self.doc, f"{self.path}/content")
@@ -42614,7 +42614,7 @@ class TransitionPhaseStakeholders(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionPhaseStakeholdersContentForm(self.doc, f"{self.path}/content")
@@ -42626,7 +42626,7 @@ class TransitionRiskEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionRiskEntryContentForm(self.doc, f"{self.path}/content")
@@ -42652,7 +42652,7 @@ class TransitionSuccessMetrics(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42678,7 +42678,7 @@ class TransitionSupportResourceEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransitionSupportResourceEntryContentForm(self.doc, f"{self.path}/content")
@@ -42694,7 +42694,7 @@ class TransitionSupportStructure(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42732,7 +42732,7 @@ class TranslationProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42793,7 +42793,7 @@ class TranslationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42842,7 +42842,7 @@ class TranslationVendorEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TranslationVendorEntryContentForm(self.doc, f"{self.path}/content")
@@ -42859,7 +42859,7 @@ class TransportSecurityPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TransportSecurityPolicyContentForm(self.doc, f"{self.path}/content")
@@ -42876,7 +42876,7 @@ class TroubleshootingCapabilities(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TroubleshootingCapabilitiesContentForm(self.doc, f"{self.path}/content")
@@ -42911,7 +42911,7 @@ class TrustBoundaries(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -42932,7 +42932,7 @@ class TrustBoundaryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TrustBoundaryEntryContentForm(self.doc, f"{self.path}/content")
@@ -42944,7 +42944,7 @@ class TypographyStyleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return TypographyStyleEntryContentForm(self.doc, f"{self.path}/content")
@@ -42956,7 +42956,7 @@ class UIRequirementsPreview(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UIRequirementsPreviewContentForm(self.doc, f"{self.path}/content")
@@ -42978,7 +42978,7 @@ class UatTestCycleEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UatTestCycleEntryContentForm(self.doc, f"{self.path}/content")
@@ -43005,7 +43005,7 @@ class UatTestStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UatTestStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -43026,7 +43026,7 @@ class UiComponentEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43190,7 +43190,7 @@ class UiComponents(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43253,7 +43253,7 @@ class UpgradeCycleFramework(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43269,7 +43269,7 @@ class Usability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UsabilityContentForm(self.doc, f"{self.path}/content")
@@ -43311,7 +43311,7 @@ class UseCaseExtensions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UseCaseExtensionsContentForm(self.doc, f"{self.path}/content")
@@ -43335,7 +43335,7 @@ class UseCaseTraceability(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43357,7 +43357,7 @@ class UserAcceptanceTesting(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserAcceptanceTestingContentForm(self.doc, f"{self.path}/content")
@@ -43446,7 +43446,7 @@ class UserAccessPermissions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43489,7 +43489,7 @@ class UserAccessibilityNeeds(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43514,7 +43514,7 @@ class UserAccountStatesDefinition(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserAccountStatesDefinitionContentForm(self.doc, f"{self.path}/content")
@@ -43539,7 +43539,7 @@ class UserAssistance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43598,7 +43598,7 @@ class UserAttributeEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserAttributeEntryContentForm(self.doc, f"{self.path}/content")
@@ -43619,7 +43619,7 @@ class UserAttributes(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43648,7 +43648,7 @@ class UserAuthorization(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43708,7 +43708,7 @@ class UserCategoryDefinition(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserCategoryDefinitionContentForm(self.doc, f"{self.path}/content")
@@ -43724,7 +43724,7 @@ class UserCategoryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserCategoryEntryContentForm(self.doc, f"{self.path}/content")
@@ -43793,7 +43793,7 @@ class UserDocumentationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43832,7 +43832,7 @@ class UserGroupImpactEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserGroupImpactEntryContentForm(self.doc, f"{self.path}/content")
@@ -43844,7 +43844,7 @@ class UserGrowthProjections(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserGrowthProjectionsContentForm(self.doc, f"{self.path}/content")
@@ -43881,7 +43881,7 @@ class UserInteractionModel(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -43949,7 +43949,7 @@ class UserJourney(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44007,7 +44007,7 @@ class UserLifecycle(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44077,7 +44077,7 @@ class UserLifecycleTransitionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserLifecycleTransitionEntryContentForm(self.doc, f"{self.path}/content")
@@ -44108,7 +44108,7 @@ class UserLifecycleTransitions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserLifecycleTransitionsContentForm(self.doc, f"{self.path}/content")
@@ -44139,7 +44139,7 @@ class UserManagement(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44183,7 +44183,7 @@ class UserManual(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44217,7 +44217,7 @@ class UserPersonaDetails(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44275,7 +44275,7 @@ class UserPersonas(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44301,7 +44301,7 @@ class UserProvisioningTools(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserProvisioningToolsContentForm(self.doc, f"{self.path}/content")
@@ -44333,7 +44333,7 @@ class UserRegistrationProcess(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserRegistrationProcessContentForm(self.doc, f"{self.path}/content")
@@ -44360,7 +44360,7 @@ class UserSettingEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UserSettingEntryContentForm(self.doc, f"{self.path}/content")
@@ -44388,7 +44388,7 @@ class UserSettings(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44416,7 +44416,7 @@ class UserTrainingRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44445,7 +44445,7 @@ class UtilityMenuItemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UtilityMenuItemEntryContentForm(self.doc, f"{self.path}/content")
@@ -44481,7 +44481,7 @@ class UtilityNavigation(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44506,7 +44506,7 @@ class UtilityNavigationItemEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return UtilityNavigationItemEntryContentForm(self.doc, f"{self.path}/content")
@@ -44549,7 +44549,7 @@ class ValidationConstraints(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44572,7 +44572,7 @@ class ValidationFeedback(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44631,7 +44631,7 @@ class ValidationMessageTemplate(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return ValidationMessageTemplateContentForm(self.doc, f"{self.path}/content")
@@ -44651,7 +44651,7 @@ class ValueProposition(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44687,7 +44687,7 @@ class VersionControlConfiguration(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return VersionControlConfigurationContentForm(self.doc, f"{self.path}/content")
@@ -44719,7 +44719,7 @@ class VirtualizationRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return VirtualizationRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -44751,7 +44751,7 @@ class VolumeMetricEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return VolumeMetricEntryContentForm(self.doc, f"{self.path}/content")
@@ -44763,7 +44763,7 @@ class VpnRequirementEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return VpnRequirementEntryContentForm(self.doc, f"{self.path}/content")
@@ -44795,7 +44795,7 @@ class VulnerabilityManagementPolicy(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return VulnerabilityManagementPolicyContentForm(self.doc, f"{self.path}/content")
@@ -44830,7 +44830,7 @@ class WarrantyAndSupport(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44846,7 +44846,7 @@ class WarrantyServiceLevels(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WarrantyServiceLevelsContentForm(self.doc, f"{self.path}/content")
@@ -44862,7 +44862,7 @@ class WarrantyTerms(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WarrantyTermsContentForm(self.doc, f"{self.path}/content")
@@ -44913,7 +44913,7 @@ class WcagCompliance(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -44962,7 +44962,7 @@ class WcagSuccessCriterionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WcagSuccessCriterionEntryContentForm(self.doc, f"{self.path}/content")
@@ -44978,7 +44978,7 @@ class WeightedQualityMatrix(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45031,7 +45031,7 @@ class WireframesAndMockups(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45050,7 +45050,7 @@ class WorkflowActorEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowActorEntryContentForm(self.doc, f"{self.path}/content")
@@ -45067,7 +45067,7 @@ class WorkflowBusinessRule(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowBusinessRuleContentForm(self.doc, f"{self.path}/content")
@@ -45079,7 +45079,7 @@ class WorkflowDecisionPoint(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowDecisionPointContentForm(self.doc, f"{self.path}/content")
@@ -45102,7 +45102,7 @@ class WorkflowDescriptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45137,7 +45137,7 @@ class WorkflowExceptionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowExceptionEntryContentForm(self.doc, f"{self.path}/content")
@@ -45153,7 +45153,7 @@ class WorkflowExceptions(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45174,7 +45174,7 @@ class WorkflowInputEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowInputEntryContentForm(self.doc, f"{self.path}/content")
@@ -45186,7 +45186,7 @@ class WorkflowOutputEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowOutputEntryContentForm(self.doc, f"{self.path}/content")
@@ -45201,7 +45201,7 @@ class WorkflowStepEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowStepEntryContentForm(self.doc, f"{self.path}/content")
@@ -45238,7 +45238,7 @@ class WorkflowStepIssue(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowStepIssueContentForm(self.doc, f"{self.path}/content")
@@ -45254,7 +45254,7 @@ class WorkflowStepSystem(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45288,7 +45288,7 @@ class WorkflowSummaryEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowSummaryEntryContentForm(self.doc, f"{self.path}/content")
@@ -45300,7 +45300,7 @@ class WorkflowSummaryTable(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowSummaryTableContentForm(self.doc, f"{self.path}/content")
@@ -45317,7 +45317,7 @@ class WorkflowTriggerEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkflowTriggerEntryContentForm(self.doc, f"{self.path}/content")
@@ -45333,7 +45333,7 @@ class WorkflowTriggers(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45363,7 +45363,7 @@ class WorkplaceDescriptionEntry(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return self.doc.content(f"{self.path}/content") or ""
@@ -45409,7 +45409,7 @@ class WorkplaceSoftwareRequirements(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkplaceSoftwareRequirementsContentForm(self.doc, f"{self.path}/content")
@@ -45431,7 +45431,7 @@ class WorkplaceSupportResources(SomNode):
 
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
-    # §11.4 rule 7); the field values themselves live in [form].
+    # §11.4 rule 7); the field values themselves live in the section's `form`.
     @property
     def content(self):
         return WorkplaceSupportResourcesContentForm(self.doc, f"{self.path}/content")

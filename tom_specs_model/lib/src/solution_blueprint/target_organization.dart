@@ -245,7 +245,7 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
   ///
   /// It is a summary and stays one: the impact figure here is the total, while
   /// per-department detail belongs to the individual change entries.
-  /// [changeNarrative] carries the story; this band carries the facts that must
+  /// `changeNarrative` carries the story; this band carries the facts that must
   /// stay stable while the story is rewritten.
   @SectionId('OCCHG-OVER')
   @Form([

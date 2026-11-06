@@ -61,7 +61,7 @@ class DocSpecsSection {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String? content;
 
   /// The parsed field values of a `@Form`-annotated section, when parsing has

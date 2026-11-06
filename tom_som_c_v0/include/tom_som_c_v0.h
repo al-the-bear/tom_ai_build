@@ -5407,7 +5407,7 @@ void acceptance_criteria_list_free(AcceptanceCriteriaList *self);
 int acceptance_criteria_list_can_have_content(const AcceptanceCriteriaList *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *acceptance_criteria_list_content(const AcceptanceCriteriaList *self);
 void acceptance_criteria_list_set_content(AcceptanceCriteriaList *self, const char *value);
 // Contains 0+× DeliveryAcceptanceCriterion.
@@ -5430,7 +5430,7 @@ void acceptance_criteria_summary_free(AcceptanceCriteriaSummary *self);
 int acceptance_criteria_summary_can_have_content(const AcceptanceCriteriaSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *acceptance_criteria_summary_content(const AcceptanceCriteriaSummary *self);
 void acceptance_criteria_summary_set_content(AcceptanceCriteriaSummary *self, const char *value);
 // The shape of acceptance: who signs, over what scope, in which environment,
@@ -5469,7 +5469,7 @@ void acceptance_criterion_entry_free(AcceptanceCriterionEntry *self);
 int acceptance_criterion_entry_can_have_content(const AcceptanceCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AcceptanceCriterionEntryContentForm acceptance_criterion_entry_content(const AcceptanceCriterionEntry *self);
 
 // 14.2. Acceptance Plan. Seeds → QAP.
@@ -5480,7 +5480,7 @@ void acceptance_plan_free(AcceptancePlan *self);
 int acceptance_plan_can_have_content(const AcceptancePlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *acceptance_plan_content(const AcceptancePlan *self);
 void acceptance_plan_set_content(AcceptancePlan *self, const char *value);
 // 14.2.1. Acceptance Criteria.
@@ -5508,7 +5508,7 @@ void acceptance_process_free(AcceptanceProcess *self);
 int acceptance_process_can_have_content(const AcceptanceProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AcceptanceProcessContentForm acceptance_process_content(const AcceptanceProcess *self);
 // Process overview.
 AcceptanceProcessOverviewForm acceptance_process_overview(const AcceptanceProcess *self);
@@ -5539,7 +5539,7 @@ void acceptance_step_entry_free(AcceptanceStepEntry *self);
 int acceptance_step_entry_can_have_content(const AcceptanceStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AcceptanceStepEntryContentForm acceptance_step_entry_content(const AcceptanceStepEntry *self);
 // Participants and execution flow.
 AcceptanceStepEntryFlowForm acceptance_step_entry_flow(const AcceptanceStepEntry *self);
@@ -5557,7 +5557,7 @@ void access_channels_free(AccessChannels *self);
 int access_channels_can_have_content(const AccessChannels *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *access_channels_content(const AccessChannels *self);
 void access_channels_set_content(AccessChannels *self, const char *value);
 // Channel architecture diagram.
@@ -5579,7 +5579,7 @@ void access_constraint_policies_free(AccessConstraintPolicies *self);
 int access_constraint_policies_can_have_content(const AccessConstraintPolicies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessConstraintPoliciesContentForm access_constraint_policies_content(const AccessConstraintPolicies *self);
 // Access Constraint Details (text).
 // (skipped: accessConstraintDetails has no target type)
@@ -5600,7 +5600,7 @@ void access_control_model_free(AccessControlModel *self);
 int access_control_model_can_have_content(const AccessControlModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *access_control_model_content(const AccessControlModel *self);
 void access_control_model_set_content(AccessControlModel *self, const char *value);
 // 9.1.1. User Management.
@@ -5625,7 +5625,7 @@ void access_control_model_selection_free(AccessControlModelSelection *self);
 int access_control_model_selection_can_have_content(const AccessControlModelSelection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessControlModelSelectionContentForm access_control_model_selection_content(const AccessControlModelSelection *self);
 // Access Control Model Details (text).
 // (skipped: accessControlModelDetails has no target type)
@@ -5639,7 +5639,7 @@ void access_handler_entry_free(AccessHandlerEntry *self);
 int access_handler_entry_can_have_content(const AccessHandlerEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessHandlerEntryContentForm access_handler_entry_content(const AccessHandlerEntry *self);
 
 // An access level entry (form).
@@ -5650,7 +5650,7 @@ void access_level_entry_free(AccessLevelEntry *self);
 int access_level_entry_can_have_content(const AccessLevelEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessLevelEntryContentForm access_level_entry_content(const AccessLevelEntry *self);
 // Scope and hierarchy of this access level.
 AccessLevelEntryScopeForm access_level_entry_scope(const AccessLevelEntry *self);
@@ -5670,7 +5670,7 @@ void access_levels_free(AccessLevels *self);
 int access_levels_can_have_content(const AccessLevels *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *access_levels_content(const AccessLevels *self);
 void access_levels_set_content(AccessLevels *self, const char *value);
 // Access level hierarchy diagram.
@@ -5693,7 +5693,7 @@ void access_restriction_entry_free(AccessRestrictionEntry *self);
 int access_restriction_entry_can_have_content(const AccessRestrictionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessRestrictionEntryContentForm access_restriction_entry_content(const AccessRestrictionEntry *self);
 
 // 9.1.1. User Categories.
@@ -5704,7 +5704,7 @@ void access_user_categories_free(AccessUserCategories *self);
 int access_user_categories_can_have_content(const AccessUserCategories *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *access_user_categories_content(const AccessUserCategories *self);
 void access_user_categories_set_content(AccessUserCategories *self, const char *value);
 // Contains 0+× UserCategoryDefinition.
@@ -5722,7 +5722,7 @@ void accessibility_free(Accessibility *self);
 int accessibility_can_have_content(const Accessibility *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *accessibility_content(const Accessibility *self);
 void accessibility_set_content(Accessibility *self, const char *value);
 // The accessibility commitment and its scope, before the specific conformance
@@ -5758,7 +5758,7 @@ void accessibility_check_entry_free(AccessibilityCheckEntry *self);
 int accessibility_check_entry_can_have_content(const AccessibilityCheckEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessibilityCheckEntryContentForm accessibility_check_entry_content(const AccessibilityCheckEntry *self);
 // WCAG mapping and compliance classification.
 AccessibilityCheckEntryComplianceForm accessibility_check_entry_compliance(const AccessibilityCheckEntry *self);
@@ -5777,7 +5777,7 @@ void accessibility_checklist_free(AccessibilityChecklist *self);
 int accessibility_checklist_can_have_content(const AccessibilityChecklist *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *accessibility_checklist_content(const AccessibilityChecklist *self);
 void accessibility_checklist_set_content(AccessibilityChecklist *self, const char *value);
 // How conformance is verified, as opposed to claimed.
@@ -5799,7 +5799,7 @@ void accessibility_standard_entry_free(AccessibilityStandardEntry *self);
 int accessibility_standard_entry_can_have_content(const AccessibilityStandardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccessibilityStandardEntryContentForm accessibility_standard_entry_content(const AccessibilityStandardEntry *self);
 // Scope and affected users.
 AccessibilityStandardEntryScopeForm accessibility_standard_entry_scope(const AccessibilityStandardEntry *self);
@@ -5821,7 +5821,7 @@ void account_activation_policy_free(AccountActivationPolicy *self);
 int account_activation_policy_can_have_content(const AccountActivationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccountActivationPolicyContentForm account_activation_policy_content(const AccountActivationPolicy *self);
 // Activation Flow Description (text).
 // (skipped: activationFlowDescription has no target type)
@@ -5838,7 +5838,7 @@ void account_deactivation_policy_free(AccountDeactivationPolicy *self);
 int account_deactivation_policy_can_have_content(const AccountDeactivationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccountDeactivationPolicyContentForm account_deactivation_policy_content(const AccountDeactivationPolicy *self);
 // Deactivation Process Description (text).
 // (skipped: deactivationProcessDescription has no target type)
@@ -5854,7 +5854,7 @@ void account_deletion_policy_free(AccountDeletionPolicy *self);
 int account_deletion_policy_can_have_content(const AccountDeletionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccountDeletionPolicyContentForm account_deletion_policy_content(const AccountDeletionPolicy *self);
 // Deletion Process Description (text).
 // (skipped: deletionProcessDescription has no target type)
@@ -5871,7 +5871,7 @@ void account_lockout_policy_free(AccountLockoutPolicy *self);
 int account_lockout_policy_can_have_content(const AccountLockoutPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccountLockoutPolicyContentForm account_lockout_policy_content(const AccountLockoutPolicy *self);
 // Account Lockout Details (text).
 // (skipped: accountLockoutDetails has no target type)
@@ -5887,7 +5887,7 @@ void account_modification_policy_free(AccountModificationPolicy *self);
 int account_modification_policy_can_have_content(const AccountModificationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AccountModificationPolicyContentForm account_modification_policy_content(const AccountModificationPolicy *self);
 // Modification Rules Description (text).
 // (skipped: modificationRulesDescription has no target type)
@@ -5900,7 +5900,7 @@ void action_parameter_entry_free(ActionParameterEntry *self);
 int action_parameter_entry_can_have_content(const ActionParameterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ActionParameterEntryContentForm action_parameter_entry_content(const ActionParameterEntry *self);
 
 // Actor characteristics.
@@ -5911,7 +5911,7 @@ void actor_characteristics_free(ActorCharacteristics *self);
 int actor_characteristics_can_have_content(const ActorCharacteristics *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ActorCharacteristicsContentForm actor_characteristics_content(const ActorCharacteristics *self);
 // Usage patterns and decision scope.
 ActorCharacteristicsUsageForm actor_characteristics_usage(const ActorCharacteristics *self);
@@ -5928,7 +5928,7 @@ void actor_entry_free(ActorEntry *self);
 int actor_entry_can_have_content(const ActorEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *actor_entry_content(const ActorEntry *self);
 void actor_entry_set_content(ActorEntry *self, const char *value);
 // Actor identification.
@@ -5954,7 +5954,7 @@ void actor_goals_free(ActorGoals *self);
 int actor_goals_can_have_content(const ActorGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ActorGoalsContentForm actor_goals_content(const ActorGoals *self);
 
 // 6.2.1. Actor Overview.
@@ -5968,7 +5968,7 @@ void actor_overview_free(ActorOverview *self);
 int actor_overview_can_have_content(const ActorOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *actor_overview_content(const ActorOverview *self);
 void actor_overview_set_content(ActorOverview *self, const char *value);
 // Actor overview narrative.
@@ -5987,7 +5987,7 @@ void actor_permissions_free(ActorPermissions *self);
 int actor_permissions_can_have_content(const ActorPermissions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ActorPermissionsContentForm actor_permissions_content(const ActorPermissions *self);
 
 // 6.2. Actor Relationship Diagram.
@@ -5998,7 +5998,7 @@ void actor_relationship_diagram_free(ActorRelationshipDiagram *self);
 int actor_relationship_diagram_can_have_content(const ActorRelationshipDiagram *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *actor_relationship_diagram_content(const ActorRelationshipDiagram *self);
 void actor_relationship_diagram_set_content(ActorRelationshipDiagram *self, const char *value);
 // Diagram overview.
@@ -6016,7 +6016,7 @@ void admin_interface_requirements_free(AdminInterfaceRequirements *self);
 int admin_interface_requirements_can_have_content(const AdminInterfaceRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AdminInterfaceRequirementsContentForm admin_interface_requirements_content(const AdminInterfaceRequirements *self);
 // Dashboard widget requirements.
 AdminInterfaceRequirementsDashboardForm admin_interface_requirements_dashboard(const AdminInterfaceRequirements *self);
@@ -6033,7 +6033,7 @@ void administration_requirements_section_free(AdministrationRequirementsSection 
 int administration_requirements_section_can_have_content(const AdministrationRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *administration_requirements_section_content(const AdministrationRequirementsSection *self);
 void administration_requirements_section_set_content(AdministrationRequirementsSection *self, const char *value);
 // Overview of administration requirements.
@@ -6061,7 +6061,7 @@ void administrative_event_policy_free(AdministrativeEventPolicy *self);
 int administrative_event_policy_can_have_content(const AdministrativeEventPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AdministrativeEventPolicyContentForm administrative_event_policy_content(const AdministrativeEventPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -6074,7 +6074,7 @@ void affected_department_entry_free(AffectedDepartmentEntry *self);
 int affected_department_entry_can_have_content(const AffectedDepartmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AffectedDepartmentEntryContentForm affected_department_entry_content(const AffectedDepartmentEntry *self);
 
 // An affected function reference entry (form).
@@ -6087,7 +6087,7 @@ void affected_function_entry_free(AffectedFunctionEntry *self);
 int affected_function_entry_can_have_content(const AffectedFunctionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AffectedFunctionEntryContentForm affected_function_entry_content(const AffectedFunctionEntry *self);
 // The resolved link to the function in which this rule fires.
 //
@@ -6108,7 +6108,7 @@ void affected_object_entry_free(AffectedObjectEntry *self);
 int affected_object_entry_can_have_content(const AffectedObjectEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AffectedObjectEntryContentForm affected_object_entry_content(const AffectedObjectEntry *self);
 // The resolved link to the business object this rule acts on.
 //
@@ -6128,7 +6128,7 @@ void alert_definition_entry_free(AlertDefinitionEntry *self);
 int alert_definition_entry_can_have_content(const AlertDefinitionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlertDefinitionEntryContentForm alert_definition_entry_content(const AlertDefinitionEntry *self);
 // Trigger conditions.
 AlertDefinitionEntryConditionForm alert_definition_entry_condition(const AlertDefinitionEntry *self);
@@ -6145,7 +6145,7 @@ void alert_escalation_policies_free(AlertEscalationPolicies *self);
 int alert_escalation_policies_can_have_content(const AlertEscalationPolicies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlertEscalationPoliciesContentForm alert_escalation_policies_content(const AlertEscalationPolicies *self);
 // Management escalation path and timing thresholds.
 AlertEscalationPoliciesTimingForm alert_escalation_policies_timing(const AlertEscalationPolicies *self);
@@ -6162,7 +6162,7 @@ void alert_notification_channels_free(AlertNotificationChannels *self);
 int alert_notification_channels_can_have_content(const AlertNotificationChannels *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlertNotificationChannelsContentForm alert_notification_channels_content(const AlertNotificationChannels *self);
 // Secondary and escalation delivery methods.
 AlertNotificationChannelsDeliveryForm alert_notification_channels_delivery(const AlertNotificationChannels *self);
@@ -6179,7 +6179,7 @@ void alert_rule_entry_free(AlertRuleEntry *self);
 int alert_rule_entry_can_have_content(const AlertRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlertRuleEntryContentForm alert_rule_entry_content(const AlertRuleEntry *self);
 // Trigger conditions.
 AlertRuleEntryTriggerForm alert_rule_entry_trigger(const AlertRuleEntry *self);
@@ -6196,7 +6196,7 @@ void alert_suppression_rules_free(AlertSuppressionRules *self);
 int alert_suppression_rules_can_have_content(const AlertSuppressionRules *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlertSuppressionRulesContentForm alert_suppression_rules_content(const AlertSuppressionRules *self);
 
 // 8.7.2.2. Alerting Configuration.
@@ -6210,7 +6210,7 @@ void alerting_configuration_free(AlertingConfiguration *self);
 int alerting_configuration_can_have_content(const AlertingConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *alerting_configuration_content(const AlertingConfiguration *self);
 void alerting_configuration_set_content(AlertingConfiguration *self, const char *value);
 // What is worth waking someone for, and how quickly a human is expected to
@@ -6250,7 +6250,7 @@ void alerting_requirements_free(AlertingRequirements *self);
 int alerting_requirements_can_have_content(const AlertingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlertingRequirementsContentForm alerting_requirements_content(const AlertingRequirements *self);
 // Routing rules.
 AlertingRequirementsRoutingForm alerting_requirements_routing(const AlertingRequirements *self);
@@ -6269,7 +6269,7 @@ void alternative_flow_entry_free(AlternativeFlowEntry *self);
 int alternative_flow_entry_can_have_content(const AlternativeFlowEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlternativeFlowEntryContentForm alternative_flow_entry_content(const AlternativeFlowEntry *self);
 // Resume point — a promoted `@OneOf` case.
 //
@@ -6291,7 +6291,7 @@ void alternative_step_entry_free(AlternativeStepEntry *self);
 int alternative_step_entry_can_have_content(const AlternativeStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AlternativeStepEntryContentForm alternative_step_entry_content(const AlternativeStepEntry *self);
 // How this alternative-flow step's server call is carried out, step by
 // step.
@@ -6325,7 +6325,7 @@ void anomaly_detection_policy_free(AnomalyDetectionPolicy *self);
 int anomaly_detection_policy_can_have_content(const AnomalyDetectionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AnomalyDetectionPolicyContentForm anomaly_detection_policy_content(const AnomalyDetectionPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -6343,7 +6343,7 @@ void api_abuse_protection_free(ApiAbuseProtection *self);
 int api_abuse_protection_can_have_content(const ApiAbuseProtection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiAbuseProtectionContentForm api_abuse_protection_content(const ApiAbuseProtection *self);
 // Abuse Protection Details (text).
 // (skipped: abuseProtectionDetails has no target type)
@@ -6359,7 +6359,7 @@ void api_authentication_policy_free(ApiAuthenticationPolicy *self);
 int api_authentication_policy_can_have_content(const ApiAuthenticationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiAuthenticationPolicyContentForm api_authentication_policy_content(const ApiAuthenticationPolicy *self);
 // API Authentication Details (text).
 // (skipped: apiAuthenticationDetails has no target type)
@@ -6376,7 +6376,7 @@ void api_authorization_policy_free(ApiAuthorizationPolicy *self);
 int api_authorization_policy_can_have_content(const ApiAuthorizationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiAuthorizationPolicyContentForm api_authorization_policy_content(const ApiAuthorizationPolicy *self);
 // API Authorization Details (text).
 // (skipped: apiAuthorizationDetails has no target type)
@@ -6389,7 +6389,7 @@ void api_compatibility_entry_free(ApiCompatibilityEntry *self);
 int api_compatibility_entry_can_have_content(const ApiCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiCompatibilityEntryContentForm api_compatibility_entry_content(const ApiCompatibilityEntry *self);
 // Compatibility policy.
 ApiCompatibilityEntryPolicyForm api_compatibility_entry_policy(const ApiCompatibilityEntry *self);
@@ -6413,7 +6413,7 @@ void api_cors_security_free(ApiCorsSecurity *self);
 int api_cors_security_can_have_content(const ApiCorsSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiCorsSecurityContentForm api_cors_security_content(const ApiCorsSecurity *self);
 // CORS Security Details (text).
 // (skipped: corsSecurityDetails has no target type)
@@ -6429,7 +6429,7 @@ void api_key_management_policy_free(ApiKeyManagementPolicy *self);
 int api_key_management_policy_can_have_content(const ApiKeyManagementPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiKeyManagementPolicyContentForm api_key_management_policy_content(const ApiKeyManagementPolicy *self);
 // API Key Management Details (text).
 // (skipped: apiKeyDetails has no target type)
@@ -6447,7 +6447,7 @@ void api_request_validation_policy_free(ApiRequestValidationPolicy *self);
 int api_request_validation_policy_can_have_content(const ApiRequestValidationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiRequestValidationPolicyContentForm api_request_validation_policy_content(const ApiRequestValidationPolicy *self);
 // Request Validation Details (text).
 // (skipped: requestValidationDetails has no target type)
@@ -6465,7 +6465,7 @@ void api_security_free(ApiSecurity *self);
 int api_security_can_have_content(const ApiSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *api_security_content(const ApiSecurity *self);
 void api_security_set_content(ApiSecurity *self, const char *value);
 // API Security Overview (text).
@@ -6497,7 +6497,7 @@ void api_security_monitoring_free(ApiSecurityMonitoring *self);
 int api_security_monitoring_can_have_content(const ApiSecurityMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiSecurityMonitoringContentForm api_security_monitoring_content(const ApiSecurityMonitoring *self);
 // API Security Monitoring Details (text).
 // (skipped: apiSecurityMonitoringDetails has no target type)
@@ -6510,7 +6510,7 @@ void api_versioning_strategy_free(ApiVersioningStrategy *self);
 int api_versioning_strategy_can_have_content(const ApiVersioningStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApiVersioningStrategyContentForm api_versioning_strategy_content(const ApiVersioningStrategy *self);
 // Supported versions and deprecation commitments.
 ApiVersioningStrategySupportForm api_versioning_strategy_support(const ApiVersioningStrategy *self);
@@ -6527,7 +6527,7 @@ void applicable_regulation_entry_free(ApplicableRegulationEntry *self);
 int applicable_regulation_entry_can_have_content(const ApplicableRegulationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApplicableRegulationEntryContentForm applicable_regulation_entry_content(const ApplicableRegulationEntry *self);
 // Specific compliance measures for this regulation.
 // Returns the list view; element type: scalar (construct from item paths).
@@ -6541,7 +6541,7 @@ void application_diagnostics_free(ApplicationDiagnostics *self);
 int application_diagnostics_can_have_content(const ApplicationDiagnostics *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApplicationDiagnosticsContentForm application_diagnostics_content(const ApplicationDiagnostics *self);
 // On-demand profiling and slow-request tracing.
 ApplicationDiagnosticsPerformanceForm application_diagnostics_performance(const ApplicationDiagnostics *self);
@@ -6558,7 +6558,7 @@ void application_metrics_spec_free(ApplicationMetricsSpec *self);
 int application_metrics_spec_can_have_content(const ApplicationMetricsSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApplicationMetricsSpecContentForm application_metrics_spec_content(const ApplicationMetricsSpec *self);
 // USE metrics.
 ApplicationMetricsSpecResourcesForm application_metrics_spec_resources(const ApplicationMetricsSpec *self);
@@ -6575,7 +6575,7 @@ void application_performance_monitoring_free(ApplicationPerformanceMonitoring *s
 int application_performance_monitoring_can_have_content(const ApplicationPerformanceMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApplicationPerformanceMonitoringContentForm application_performance_monitoring_content(const ApplicationPerformanceMonitoring *self);
 // Tracing settings.
 ApplicationPerformanceMonitoringTracingForm application_performance_monitoring_tracing(const ApplicationPerformanceMonitoring *self);
@@ -6594,7 +6594,7 @@ void application_security_requirements_free(ApplicationSecurityRequirements *sel
 int application_security_requirements_can_have_content(const ApplicationSecurityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApplicationSecurityRequirementsContentForm application_security_requirements_content(const ApplicationSecurityRequirements *self);
 // Core protection controls.
 ApplicationSecurityRequirementsControlsForm application_security_requirements_controls(const ApplicationSecurityRequirements *self);
@@ -6611,7 +6611,7 @@ void approval_record_free(ApprovalRecord *self);
 int approval_record_can_have_content(const ApprovalRecord *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ApprovalRecordContentForm approval_record_content(const ApprovalRecord *self);
 
 // Architecture component/service entry.
@@ -6622,7 +6622,7 @@ void architecture_component_entry_free(ArchitectureComponentEntry *self);
 int architecture_component_entry_can_have_content(const ArchitectureComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ArchitectureComponentEntryContentForm architecture_component_entry_content(const ArchitectureComponentEntry *self);
 // Purpose and ownership boundaries.
 ArchitectureComponentEntryPurposeForm architecture_component_entry_purpose(const ArchitectureComponentEntry *self);
@@ -6643,7 +6643,7 @@ void architecture_decision_record_free(ArchitectureDecisionRecord *self);
 int architecture_decision_record_can_have_content(const ArchitectureDecisionRecord *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ArchitectureDecisionRecordContentForm architecture_decision_record_content(const ArchitectureDecisionRecord *self);
 // Decision context and constraints.
 ArchitectureDecisionRecordContextDetailsForm architecture_decision_record_context_details(const ArchitectureDecisionRecord *self);
@@ -6662,7 +6662,7 @@ void architecture_overview_free(ArchitectureOverview *self);
 int architecture_overview_can_have_content(const ArchitectureOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ArchitectureOverviewContentForm architecture_overview_content(const ArchitectureOverview *self);
 // Architecture drivers.
 ArchitectureOverviewDriversForm architecture_overview_drivers(const ArchitectureOverview *self);
@@ -6681,7 +6681,7 @@ void architecture_principle_entry_free(ArchitecturePrincipleEntry *self);
 int architecture_principle_entry_can_have_content(const ArchitecturePrincipleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ArchitecturePrincipleEntryContentForm architecture_principle_entry_content(const ArchitecturePrincipleEntry *self);
 // Rationale and practical implications.
 ArchitecturePrincipleEntryGuidanceForm architecture_principle_entry_guidance(const ArchitecturePrincipleEntry *self);
@@ -6701,7 +6701,7 @@ void architecture_style_free(ArchitectureStyle *self);
 int architecture_style_can_have_content(const ArchitectureStyle *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *architecture_style_content(const ArchitectureStyle *self);
 void architecture_style_set_content(ArchitectureStyle *self, const char *value);
 // Architecture overview and primary style selection.
@@ -6736,7 +6736,7 @@ void assumption_constraint_dependency_register_free(AssumptionConstraintDependen
 int assumption_constraint_dependency_register_can_have_content(const AssumptionConstraintDependencyRegister *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *assumption_constraint_dependency_register_content(const AssumptionConstraintDependencyRegister *self);
 void assumption_constraint_dependency_register_set_content(AssumptionConstraintDependencyRegister *self, const char *value);
 // Assumptions the solution depends on being true.
@@ -6761,7 +6761,7 @@ void assumption_register_entry_free(AssumptionRegisterEntry *self);
 int assumption_register_entry_can_have_content(const AssumptionRegisterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AssumptionRegisterEntryContentForm assumption_register_entry_content(const AssumptionRegisterEntry *self);
 
 // SBP.6 Assumptions, Constraints & Dependencies.
@@ -6772,7 +6772,7 @@ void assumptions_constraints_dependencies_free(AssumptionsConstraintsDependencie
 int assumptions_constraints_dependencies_can_have_content(const AssumptionsConstraintsDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *assumptions_constraints_dependencies_content(const AssumptionsConstraintsDependencies *self);
 void assumptions_constraints_dependencies_set_content(AssumptionsConstraintsDependencies *self, const char *value);
 // The consolidated assumption / constraint register.
@@ -6798,7 +6798,7 @@ void audit_and_logging_free(AuditAndLogging *self);
 int audit_and_logging_can_have_content(const AuditAndLogging *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *audit_and_logging_content(const AuditAndLogging *self);
 void audit_and_logging_set_content(AuditAndLogging *self, const char *value);
 // 9.6.1. Security Events — the CE-LG declared half.
@@ -6814,7 +6814,7 @@ void audit_entry_free(AuditEntry *self);
 int audit_entry_can_have_content(const AuditEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuditEntryContentForm audit_entry_content(const AuditEntry *self);
 
 // Audit evidence requirements.
@@ -6825,7 +6825,7 @@ void audit_evidence_requirements_free(AuditEvidenceRequirements *self);
 int audit_evidence_requirements_can_have_content(const AuditEvidenceRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuditEvidenceRequirementsContentForm audit_evidence_requirements_content(const AuditEvidenceRequirements *self);
 // Evidence types required.
 // Returns the list view; element type: AuditEvidenceTypeEntry (construct from item paths).
@@ -6839,7 +6839,7 @@ void audit_evidence_type_entry_free(AuditEvidenceTypeEntry *self);
 int audit_evidence_type_entry_can_have_content(const AuditEvidenceTypeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuditEvidenceTypeEntryContentForm audit_evidence_type_entry_content(const AuditEvidenceTypeEntry *self);
 
 // 9.6.2. Audit Log Format.
@@ -6853,7 +6853,7 @@ void audit_log_format_free(AuditLogFormat *self);
 int audit_log_format_can_have_content(const AuditLogFormat *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *audit_log_format_content(const AuditLogFormat *self);
 void audit_log_format_set_content(AuditLogFormat *self, const char *value);
 // Event Attribute Policy.
@@ -6877,7 +6877,7 @@ void audit_requirements_free(AuditRequirements *self);
 int audit_requirements_can_have_content(const AuditRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *audit_requirements_content(const AuditRequirements *self);
 void audit_requirements_set_content(AuditRequirements *self, const char *value);
 // Planned audits — contains 0+× Audit Entry.
@@ -6894,7 +6894,7 @@ void authentication_free(Authentication *self);
 int authentication_can_have_content(const Authentication *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *authentication_content(const Authentication *self);
 void authentication_set_content(Authentication *self, const char *value);
 // 9.2.2.1. Authentication Methods.
@@ -6917,7 +6917,7 @@ void authentication_error_handling_free(AuthenticationErrorHandling *self);
 int authentication_error_handling_can_have_content(const AuthenticationErrorHandling *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthenticationErrorHandlingContentForm authentication_error_handling_content(const AuthenticationErrorHandling *self);
 // Error Handling Details (text).
 // (skipped: errorHandlingDetails has no target type)
@@ -6932,7 +6932,7 @@ void authentication_event_policy_free(AuthenticationEventPolicy *self);
 int authentication_event_policy_can_have_content(const AuthenticationEventPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthenticationEventPolicyContentForm authentication_event_policy_content(const AuthenticationEventPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -6950,7 +6950,7 @@ void authentication_flow_free(AuthenticationFlow *self);
 int authentication_flow_can_have_content(const AuthenticationFlow *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *authentication_flow_content(const AuthenticationFlow *self);
 void authentication_flow_set_content(AuthenticationFlow *self, const char *value);
 // Authentication Flow Overview (text).
@@ -6984,7 +6984,7 @@ void authentication_method_entry_free(AuthenticationMethodEntry *self);
 int authentication_method_entry_can_have_content(const AuthenticationMethodEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthenticationMethodEntryContentForm authentication_method_entry_content(const AuthenticationMethodEntry *self);
 // Security posture of the authentication method.
 AuthenticationMethodEntrySecurityForm authentication_method_entry_security(const AuthenticationMethodEntry *self);
@@ -7008,7 +7008,7 @@ void authentication_methods_free(AuthenticationMethods *self);
 int authentication_methods_can_have_content(const AuthenticationMethods *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *authentication_methods_content(const AuthenticationMethods *self);
 void authentication_methods_set_content(AuthenticationMethods *self, const char *value);
 // Authentication Methods Overview (text).
@@ -7043,7 +7043,7 @@ void authorization_compliance_follow_up_free(AuthorizationComplianceFollowUp *se
 int authorization_compliance_follow_up_can_have_content(const AuthorizationComplianceFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *authorization_compliance_follow_up_content(const AuthorizationComplianceFollowUp *self);
 void authorization_compliance_follow_up_set_content(AuthorizationComplianceFollowUp *self, const char *value);
 // 10.5.1. Authorization Compliance.
@@ -7059,7 +7059,7 @@ void authorization_event_policy_free(AuthorizationEventPolicy *self);
 int authorization_event_policy_can_have_content(const AuthorizationEventPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthorizationEventPolicyContentForm authorization_event_policy_content(const AuthorizationEventPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -7072,7 +7072,7 @@ void authorization_group_entry_free(AuthorizationGroupEntry *self);
 int authorization_group_entry_can_have_content(const AuthorizationGroupEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthorizationGroupEntryContentForm authorization_group_entry_content(const AuthorizationGroupEntry *self);
 // Contains 0+× RoleReference.
 // Returns the list view; element type: RoleReferenceEntry (construct from item paths).
@@ -7091,7 +7091,7 @@ void authorization_model_free(AuthorizationModel *self);
 int authorization_model_can_have_content(const AuthorizationModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *authorization_model_content(const AuthorizationModel *self);
 void authorization_model_set_content(AuthorizationModel *self, const char *value);
 // Access Control Model Selection.
@@ -7120,7 +7120,7 @@ void authorization_requirement_spec_free(AuthorizationRequirementSpec *self);
 int authorization_requirement_spec_can_have_content(const AuthorizationRequirementSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthorizationRequirementSpecContentForm authorization_requirement_spec_content(const AuthorizationRequirementSpec *self);
 // Role requirement payload — a promoted `@OneOf` case.
 AuthorizationRequirementSpecRoleRequirementForm authorization_requirement_spec_role_requirement(const AuthorizationRequirementSpec *self);
@@ -7147,7 +7147,7 @@ void authorization_role_entry_free(AuthorizationRoleEntry *self);
 int authorization_role_entry_can_have_content(const AuthorizationRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AuthorizationRoleEntryContentForm authorization_role_entry_content(const AuthorizationRoleEntry *self);
 // Scope and inheritance metadata.
 AuthorizationRoleEntryStructureForm authorization_role_entry_structure(const AuthorizationRoleEntry *self);
@@ -7184,7 +7184,7 @@ void availability_free(Availability *self);
 int availability_can_have_content(const Availability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 AvailabilityContentForm availability_content(const Availability *self);
 // Operating-hour expectations.
 AvailabilityOperatingHoursDetailsForm availability_operating_hours_details(const Availability *self);
@@ -7208,7 +7208,7 @@ void backup_and_recovery_section_free(BackupAndRecoverySection *self);
 int backup_and_recovery_section_can_have_content(const BackupAndRecoverySection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *backup_and_recovery_section_content(const BackupAndRecoverySection *self);
 void backup_and_recovery_section_set_content(BackupAndRecoverySection *self, const char *value);
 // Overview of backup and recovery strategy.
@@ -7239,7 +7239,7 @@ void backup_compliance_free(BackupCompliance *self);
 int backup_compliance_can_have_content(const BackupCompliance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackupComplianceContentForm backup_compliance_content(const BackupCompliance *self);
 // Audit controls.
 BackupComplianceAuditForm backup_compliance_audit(const BackupCompliance *self);
@@ -7256,7 +7256,7 @@ void backup_data_classification_free(BackupDataClassification *self);
 int backup_data_classification_can_have_content(const BackupDataClassification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackupDataClassificationContentForm backup_data_classification_content(const BackupDataClassification *self);
 // Included data categories.
 BackupDataClassificationCategoriesForm backup_data_classification_categories(const BackupDataClassification *self);
@@ -7275,7 +7275,7 @@ void backup_encryption_policy_free(BackupEncryptionPolicy *self);
 int backup_encryption_policy_can_have_content(const BackupEncryptionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackupEncryptionPolicyContentForm backup_encryption_policy_content(const BackupEncryptionPolicy *self);
 // Backup Encryption Details (text).
 // (skipped: backupEncryptionDetails has no target type)
@@ -7288,7 +7288,7 @@ void backup_infrastructure_free(BackupInfrastructure *self);
 int backup_infrastructure_can_have_content(const BackupInfrastructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackupInfrastructureContentForm backup_infrastructure_content(const BackupInfrastructure *self);
 // Performance and secondary storage.
 BackupInfrastructureStorageForm backup_infrastructure_storage(const BackupInfrastructure *self);
@@ -7307,7 +7307,7 @@ void backup_policy_entry_free(BackupPolicyEntry *self);
 int backup_policy_entry_can_have_content(const BackupPolicyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackupPolicyEntryContentForm backup_policy_entry_content(const BackupPolicyEntry *self);
 // Backup type configuration.
 BackupPolicyEntryBackupTypeForm backup_policy_entry_backup_type(const BackupPolicyEntry *self);
@@ -7326,7 +7326,7 @@ void backup_verification_free(BackupVerification *self);
 int backup_verification_can_have_content(const BackupVerification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackupVerificationContentForm backup_verification_content(const BackupVerification *self);
 // Recovery testing.
 BackupVerificationRecoveryForm backup_verification_recovery(const BackupVerification *self);
@@ -7343,7 +7343,7 @@ void backwards_compatibility_requirements_free(BackwardsCompatibilityRequirement
 int backwards_compatibility_requirements_can_have_content(const BackwardsCompatibilityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BackwardsCompatibilityRequirementsContentForm backwards_compatibility_requirements_content(const BackwardsCompatibilityRequirements *self);
 // Data compatibility requirements.
 BackwardsCompatibilityRequirementsDataForm backwards_compatibility_requirements_data(const BackwardsCompatibilityRequirements *self);
@@ -7362,7 +7362,7 @@ void bandwidth_requirements_free(BandwidthRequirements *self);
 int bandwidth_requirements_can_have_content(const BandwidthRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BandwidthRequirementsContentForm bandwidth_requirements_content(const BandwidthRequirements *self);
 // Directional bandwidth requirements.
 BandwidthRequirementsDirectionForm bandwidth_requirements_direction(const BandwidthRequirements *self);
@@ -7381,7 +7381,7 @@ void basic_technical_requirements_free(BasicTechnicalRequirements *self);
 int basic_technical_requirements_can_have_content(const BasicTechnicalRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *basic_technical_requirements_content(const BasicTechnicalRequirements *self);
 void basic_technical_requirements_set_content(BasicTechnicalRequirements *self, const char *value);
 // 8.1.1. Platform and Language.
@@ -7410,7 +7410,7 @@ void batch_job_management_free(BatchJobManagement *self);
 int batch_job_management_can_have_content(const BatchJobManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BatchJobManagementContentForm batch_job_management_content(const BatchJobManagement *self);
 // Workload shape — orientation above the job list, deliberately narrative.
 //
@@ -7460,7 +7460,7 @@ void behavior_rule_entry_free(BehaviorRuleEntry *self);
 int behavior_rule_entry_can_have_content(const BehaviorRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BehaviorRuleEntryContentForm behavior_rule_entry_content(const BehaviorRuleEntry *self);
 
 // Where a protocol binding finds one request member (form).
@@ -7475,7 +7475,7 @@ void binding_parameter_entry_free(BindingParameterEntry *self);
 int binding_parameter_entry_can_have_content(const BindingParameterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BindingParameterEntryContentForm binding_parameter_entry_content(const BindingParameterEntry *self);
 
 // Biometric authentication policy (form).
@@ -7490,7 +7490,7 @@ void biometric_authentication_policy_free(BiometricAuthenticationPolicy *self);
 int biometric_authentication_policy_can_have_content(const BiometricAuthenticationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BiometricAuthenticationPolicyContentForm biometric_authentication_policy_content(const BiometricAuthenticationPolicy *self);
 // Biometric Implementation Details (text).
 // (skipped: biometricDetails has no target type)
@@ -7503,7 +7503,7 @@ void boundary_assumption_entry_free(BoundaryAssumptionEntry *self);
 int boundary_assumption_entry_can_have_content(const BoundaryAssumptionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BoundaryAssumptionEntryContentForm boundary_assumption_entry_content(const BoundaryAssumptionEntry *self);
 // Validation ownership and confidence.
 BoundaryAssumptionEntryValidationForm boundary_assumption_entry_validation(const BoundaryAssumptionEntry *self);
@@ -7523,7 +7523,7 @@ void boundary_assumptions_free(BoundaryAssumptions *self);
 int boundary_assumptions_can_have_content(const BoundaryAssumptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *boundary_assumptions_content(const BoundaryAssumptions *self);
 void boundary_assumptions_set_content(BoundaryAssumptions *self, const char *value);
 // Overview of assumption categories and validation approach.
@@ -7544,7 +7544,7 @@ void boundary_interaction_patterns_free(BoundaryInteractionPatterns *self);
 int boundary_interaction_patterns_can_have_content(const BoundaryInteractionPatterns *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *boundary_interaction_patterns_content(const BoundaryInteractionPatterns *self);
 void boundary_interaction_patterns_set_content(BoundaryInteractionPatterns *self, const char *value);
 
@@ -7561,7 +7561,7 @@ void bounded_context_entry_free(BoundedContextEntry *self);
 int bounded_context_entry_can_have_content(const BoundedContextEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BoundedContextEntryContentForm bounded_context_entry_content(const BoundedContextEntry *self);
 // Scope and language definitions.
 BoundedContextEntryScopeForm bounded_context_entry_scope(const BoundedContextEntry *self);
@@ -7585,7 +7585,7 @@ void breakpoint_configuration_free(BreakpointConfiguration *self);
 int breakpoint_configuration_can_have_content(const BreakpointConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *breakpoint_configuration_content(const BreakpointConfiguration *self);
 void breakpoint_configuration_set_content(BreakpointConfiguration *self, const char *value);
 // The breakpoint set the layout switches at.
@@ -7605,7 +7605,7 @@ void breakpoint_entry_free(BreakpointEntry *self);
 int breakpoint_entry_can_have_content(const BreakpointEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BreakpointEntryContentForm breakpoint_entry_content(const BreakpointEntry *self);
 // Grid and layout rules for this breakpoint.
 BreakpointEntryLayoutForm breakpoint_entry_layout(const BreakpointEntry *self);
@@ -7620,7 +7620,7 @@ void browser_compatibility_entry_free(BrowserCompatibilityEntry *self);
 int browser_compatibility_entry_can_have_content(const BrowserCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BrowserCompatibilityEntryContentForm browser_compatibility_entry_content(const BrowserCompatibilityEntry *self);
 // Support level and priority.
 BrowserCompatibilityEntrySupportForm browser_compatibility_entry_support(const BrowserCompatibilityEntry *self);
@@ -7639,7 +7639,7 @@ void browser_requirement_entry_free(BrowserRequirementEntry *self);
 int browser_requirement_entry_can_have_content(const BrowserRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BrowserRequirementEntryContentForm browser_requirement_entry_content(const BrowserRequirementEntry *self);
 // Support level and user share.
 BrowserRequirementEntrySupportForm browser_requirement_entry_support(const BrowserRequirementEntry *self);
@@ -7658,7 +7658,7 @@ void build_toolchain_entry_free(BuildToolchainEntry *self);
 int build_toolchain_entry_can_have_content(const BuildToolchainEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BuildToolchainEntryContentForm build_toolchain_entry_content(const BuildToolchainEntry *self);
 // Version requirements.
 BuildToolchainEntryVersionsForm build_toolchain_entry_versions(const BuildToolchainEntry *self);
@@ -7681,7 +7681,7 @@ void build_tools_configuration_free(BuildToolsConfiguration *self);
 int build_tools_configuration_can_have_content(const BuildToolsConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BuildToolsConfigurationContentForm build_tools_configuration_content(const BuildToolsConfiguration *self);
 // Build system settings.
 BuildToolsConfigurationBuildSystemSettingsForm build_tools_configuration_build_system_settings(const BuildToolsConfiguration *self);
@@ -7700,7 +7700,7 @@ void business_component_entry_free(BusinessComponentEntry *self);
 int business_component_entry_can_have_content(const BusinessComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BusinessComponentEntryContentForm business_component_entry_content(const BusinessComponentEntry *self);
 // Purpose and business rules.
 BusinessComponentEntryDescriptionForm business_component_entry_description(const BusinessComponentEntry *self);
@@ -7726,7 +7726,7 @@ void business_domain_free(BusinessDomain *self);
 int business_domain_can_have_content(const BusinessDomain *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_domain_content(const BusinessDomain *self);
 void business_domain_set_content(BusinessDomain *self, const char *value);
 // 4.1.3.1. Domain Overview.
@@ -7755,7 +7755,7 @@ void business_goal_entry_free(BusinessGoalEntry *self);
 int business_goal_entry_can_have_content(const BusinessGoalEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BusinessGoalEntryContentForm business_goal_entry_content(const BusinessGoalEntry *self);
 // Goal definition and priority.
 BusinessGoalEntryDefinitionForm business_goal_entry_definition(const BusinessGoalEntry *self);
@@ -7796,7 +7796,7 @@ void business_goals_free(BusinessGoals *self);
 int business_goals_can_have_content(const BusinessGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_goals_content(const BusinessGoals *self);
 void business_goals_set_content(BusinessGoals *self, const char *value);
 // Business goals list — contains 1+× Business Goal.
@@ -7811,7 +7811,7 @@ void business_metrics_spec_free(BusinessMetricsSpec *self);
 int business_metrics_spec_can_have_content(const BusinessMetricsSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BusinessMetricsSpecContentForm business_metrics_spec_content(const BusinessMetricsSpec *self);
 // Transaction and revenue metrics.
 BusinessMetricsSpecTransactionsForm business_metrics_spec_transactions(const BusinessMetricsSpec *self);
@@ -7833,7 +7833,7 @@ void business_object_attribute_entry_free(BusinessObjectAttributeEntry *self);
 int business_object_attribute_entry_can_have_content(const BusinessObjectAttributeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BusinessObjectAttributeEntryContentForm business_object_attribute_entry_content(const BusinessObjectAttributeEntry *self);
 // Format and requirement details.
 BusinessObjectAttributeEntryDefinitionForm business_object_attribute_entry_definition(const BusinessObjectAttributeEntry *self);
@@ -7854,7 +7854,7 @@ void business_object_entry_free(BusinessObjectEntry *self);
 int business_object_entry_can_have_content(const BusinessObjectEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_object_entry_content(const BusinessObjectEntry *self);
 void business_object_entry_set_content(BusinessObjectEntry *self, const char *value);
 // What this business object is called in the business, and which pattern it
@@ -7947,7 +7947,7 @@ void business_object_model_free(BusinessObjectModel *self);
 int business_object_model_can_have_content(const BusinessObjectModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_object_model_content(const BusinessObjectModel *self);
 void business_object_model_set_content(BusinessObjectModel *self, const char *value);
 // 7.2.1. Object Catalog — contains 1+× Business Object.
@@ -7967,7 +7967,7 @@ void business_pain_points_free(BusinessPainPoints *self);
 int business_pain_points_can_have_content(const BusinessPainPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_pain_points_content(const BusinessPainPoints *self);
 void business_pain_points_set_content(BusinessPainPoints *self, const char *value);
 // Category-level summary for business pain points.
@@ -7988,7 +7988,7 @@ void business_process_descriptions_free(BusinessProcessDescriptions *self);
 int business_process_descriptions_can_have_content(const BusinessProcessDescriptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_process_descriptions_content(const BusinessProcessDescriptions *self);
 void business_process_descriptions_set_content(BusinessProcessDescriptions *self, const char *value);
 // 6.1.1. Process Vision.
@@ -8024,7 +8024,7 @@ void business_process_entry_free(BusinessProcessEntry *self);
 int business_process_entry_can_have_content(const BusinessProcessEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_process_entry_content(const BusinessProcessEntry *self);
 void business_process_entry_set_content(BusinessProcessEntry *self, const char *value);
 // Process identification.
@@ -8058,7 +8058,7 @@ void business_rule_entry_free(BusinessRuleEntry *self);
 int business_rule_entry_can_have_content(const BusinessRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *business_rule_entry_content(const BusinessRuleEntry *self);
 void business_rule_entry_set_content(BusinessRuleEntry *self, const char *value);
 // The rule's own statement, in the words of the business, and its version.
@@ -8142,7 +8142,7 @@ void business_rule_reference_entry_free(BusinessRuleReferenceEntry *self);
 int business_rule_reference_entry_can_have_content(const BusinessRuleReferenceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 BusinessRuleReferenceEntryContentForm business_rule_reference_entry_content(const BusinessRuleReferenceEntry *self);
 // The resolved link to the business rule this entry cites.
 //
@@ -8162,7 +8162,7 @@ void capacity_planning_section_free(CapacityPlanningSection *self);
 int capacity_planning_section_can_have_content(const CapacityPlanningSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *capacity_planning_section_content(const CapacityPlanningSection *self);
 void capacity_planning_section_set_content(CapacityPlanningSection *self, const char *value);
 // Overview of capacity planning strategy.
@@ -8188,7 +8188,7 @@ void capacity_review_process_free(CapacityReviewProcess *self);
 int capacity_review_process_can_have_content(const CapacityReviewProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CapacityReviewProcessContentForm capacity_review_process_content(const CapacityReviewProcess *self);
 // Monitoring and forecasting inputs.
 CapacityReviewProcessMonitoringForm capacity_review_process_monitoring(const CapacityReviewProcess *self);
@@ -8205,7 +8205,7 @@ void ccb_member_entry_free(CcbMemberEntry *self);
 int ccb_member_entry_can_have_content(const CcbMemberEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CcbMemberEntryContentForm ccb_member_entry_content(const CcbMemberEntry *self);
 
 // Certificate-based authentication policy (form).
@@ -8219,7 +8219,7 @@ void certificate_authentication_policy_free(CertificateAuthenticationPolicy *sel
 int certificate_authentication_policy_can_have_content(const CertificateAuthenticationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CertificateAuthenticationPolicyContentForm certificate_authentication_policy_content(const CertificateAuthenticationPolicy *self);
 // Certificate Authentication Details (text).
 // (skipped: certificateDetails has no target type)
@@ -8232,7 +8232,7 @@ void certificate_management_free(CertificateManagement *self);
 int certificate_management_can_have_content(const CertificateManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CertificateManagementContentForm certificate_management_content(const CertificateManagement *self);
 // Key specifications.
 CertificateManagementKeysForm certificate_management_keys(const CertificateManagement *self);
@@ -8255,7 +8255,7 @@ void certificate_management_policy_free(CertificateManagementPolicy *self);
 int certificate_management_policy_can_have_content(const CertificateManagementPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CertificateManagementPolicyContentForm certificate_management_policy_content(const CertificateManagementPolicy *self);
 // Certificate Management Details (text).
 // (skipped: certificateManagementDetails has no target type)
@@ -8268,7 +8268,7 @@ void certification_entry_free(CertificationEntry *self);
 int certification_entry_can_have_content(const CertificationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CertificationEntryContentForm certification_entry_content(const CertificationEntry *self);
 // Description and audience.
 CertificationEntryOverviewForm certification_entry_overview(const CertificationEntry *self);
@@ -8289,7 +8289,7 @@ void certification_requirements_section_free(CertificationRequirementsSection *s
 int certification_requirements_section_can_have_content(const CertificationRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CertificationRequirementsSectionContentForm certification_requirements_section_content(const CertificationRequirementsSection *self);
 // Certification process.
 CertificationRequirementsSectionProcessForm certification_requirements_section_process(const CertificationRequirementsSection *self);
@@ -8310,7 +8310,7 @@ void change_category_entry_free(ChangeCategoryEntry *self);
 int change_category_entry_can_have_content(const ChangeCategoryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeCategoryEntryContentForm change_category_entry_content(const ChangeCategoryEntry *self);
 // Scope and example changes.
 ChangeCategoryEntryScopeDetailsForm change_category_entry_scope_details(const ChangeCategoryEntry *self);
@@ -8329,7 +8329,7 @@ void change_control_board_free(ChangeControlBoard *self);
 int change_control_board_can_have_content(const ChangeControlBoard *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeControlBoardContentForm change_control_board_content(const ChangeControlBoard *self);
 // Regular meeting cadence details.
 ChangeControlBoardMeetingsForm change_control_board_meetings(const ChangeControlBoard *self);
@@ -8352,7 +8352,7 @@ void change_impact_criteria_free(ChangeImpactCriteria *self);
 int change_impact_criteria_can_have_content(const ChangeImpactCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *change_impact_criteria_content(const ChangeImpactCriteria *self);
 void change_impact_criteria_set_content(ChangeImpactCriteria *self, const char *value);
 // Impact level definitions.
@@ -8372,7 +8372,7 @@ void change_impact_criterion_entry_free(ChangeImpactCriterionEntry *self);
 int change_impact_criterion_entry_can_have_content(const ChangeImpactCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeImpactCriterionEntryContentForm change_impact_criterion_entry_content(const ChangeImpactCriterionEntry *self);
 // Threshold levels.
 ChangeImpactCriterionEntryThresholdsForm change_impact_criterion_entry_thresholds(const ChangeImpactCriterionEntry *self);
@@ -8391,7 +8391,7 @@ void change_notification_rules_free(ChangeNotificationRules *self);
 int change_notification_rules_can_have_content(const ChangeNotificationRules *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeNotificationRulesContentForm change_notification_rules_content(const ChangeNotificationRules *self);
 
 // 3.4. Change Procedure.
@@ -8406,7 +8406,7 @@ void change_procedure_free(ChangeProcedure *self);
 int change_procedure_can_have_content(const ChangeProcedure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *change_procedure_content(const ChangeProcedure *self);
 void change_procedure_set_content(ChangeProcedure *self, const char *value);
 // Change procedure summary.
@@ -8432,7 +8432,7 @@ void change_process_free(ChangeProcess *self);
 int change_process_can_have_content(const ChangeProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeProcessContentForm change_process_content(const ChangeProcess *self);
 // Overview diagram (e.g. Mermaid or image reference).
 // (skipped: overviewDiagram has no target type)
@@ -8456,7 +8456,7 @@ void change_readiness_assessment_free(ChangeReadinessAssessment *self);
 int change_readiness_assessment_can_have_content(const ChangeReadinessAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *change_readiness_assessment_content(const ChangeReadinessAssessment *self);
 void change_readiness_assessment_set_content(ChangeReadinessAssessment *self, const char *value);
 // Overview of readiness assessment approach.
@@ -8473,7 +8473,7 @@ void change_role_entry_free(ChangeRoleEntry *self);
 int change_role_entry_can_have_content(const ChangeRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeRoleEntryContentForm change_role_entry_content(const ChangeRoleEntry *self);
 
 // A change process step entry (form).
@@ -8486,7 +8486,7 @@ void change_step_entry_free(ChangeStepEntry *self);
 int change_step_entry_can_have_content(const ChangeStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangeStepEntryContentForm change_step_entry_content(const ChangeStepEntry *self);
 // Responsibility assignments.
 ChangeStepEntryResponsibilityForm change_step_entry_responsibility(const ChangeStepEntry *self);
@@ -8507,7 +8507,7 @@ void changed_role_competencies_free(ChangedRoleCompetencies *self);
 int changed_role_competencies_can_have_content(const ChangedRoleCompetencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *changed_role_competencies_content(const ChangedRoleCompetencies *self);
 void changed_role_competencies_set_content(ChangedRoleCompetencies *self, const char *value);
 // New competencies required.
@@ -8533,7 +8533,7 @@ void changed_role_entry_free(ChangedRoleEntry *self);
 int changed_role_entry_can_have_content(const ChangedRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *changed_role_entry_content(const ChangedRoleEntry *self);
 void changed_role_entry_set_content(ChangedRoleEntry *self, const char *value);
 // Changed role identification.
@@ -8557,7 +8557,7 @@ void changed_role_identification_free(ChangedRoleIdentification *self);
 int changed_role_identification_can_have_content(const ChangedRoleIdentification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangedRoleIdentificationContentForm changed_role_identification_content(const ChangedRoleIdentification *self);
 // Current and future organizational placement.
 ChangedRoleIdentificationStructureForm changed_role_identification_structure(const ChangedRoleIdentification *self);
@@ -8572,7 +8572,7 @@ void changed_role_responsibilities_free(ChangedRoleResponsibilities *self);
 int changed_role_responsibilities_can_have_content(const ChangedRoleResponsibilities *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *changed_role_responsibilities_content(const ChangedRoleResponsibilities *self);
 void changed_role_responsibilities_set_content(ChangedRoleResponsibilities *self, const char *value);
 // Responsibilities being added.
@@ -8595,7 +8595,7 @@ void changed_role_transition_free(ChangedRoleTransition *self);
 int changed_role_transition_can_have_content(const ChangedRoleTransition *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ChangedRoleTransitionContentForm changed_role_transition_content(const ChangedRoleTransition *self);
 // Training preparation for the transition.
 ChangedRoleTransitionTrainingForm changed_role_transition_training(const ChangedRoleTransition *self);
@@ -8614,7 +8614,7 @@ void changes_from_current_structure_free(ChangesFromCurrentStructure *self);
 int changes_from_current_structure_can_have_content(const ChangesFromCurrentStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *changes_from_current_structure_content(const ChangesFromCurrentStructure *self);
 void changes_from_current_structure_set_content(ChangesFromCurrentStructure *self, const char *value);
 // The reorganization in summary — how far it reaches, what is driving it,
@@ -8631,7 +8631,7 @@ void changes_from_current_structure_set_content(ChangesFromCurrentStructure *sel
 //
 // It is a summary and stays one: the impact figure here is the total, while
 // per-department detail belongs to the individual change entries.
-// [changeNarrative] carries the story; this band carries the facts that must
+// `changeNarrative` carries the story; this band carries the facts that must
 // stay stable while the story is rewritten.
 ChangesFromCurrentStructureOverviewContentForm changes_from_current_structure_overview_content(const ChangesFromCurrentStructure *self);
 // Detailed description of structural changes.
@@ -8659,7 +8659,7 @@ void ci_cd_pipeline_configuration_free(CiCdPipelineConfiguration *self);
 int ci_cd_pipeline_configuration_can_have_content(const CiCdPipelineConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CiCdPipelineConfigurationContentForm ci_cd_pipeline_configuration_content(const CiCdPipelineConfiguration *self);
 // Pipeline stages.
 // Returns the list view; element type: PipelineStageEntry (construct from item paths).
@@ -8679,7 +8679,7 @@ void ci_cd_pipeline_requirements_free(CiCdPipelineRequirements *self);
 int ci_cd_pipeline_requirements_can_have_content(const CiCdPipelineRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CiCdPipelineRequirementsContentForm ci_cd_pipeline_requirements_content(const CiCdPipelineRequirements *self);
 // Build stage settings.
 CiCdPipelineRequirementsBuildForm ci_cd_pipeline_requirements_build(const CiCdPipelineRequirements *self);
@@ -8698,7 +8698,7 @@ void client_accessibility_requirements_free(ClientAccessibilityRequirements *sel
 int client_accessibility_requirements_can_have_content(const ClientAccessibilityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ClientAccessibilityRequirementsContentForm client_accessibility_requirements_content(const ClientAccessibilityRequirements *self);
 // Visual accessibility support.
 ClientAccessibilityRequirementsVisualForm client_accessibility_requirements_visual(const ClientAccessibilityRequirements *self);
@@ -8739,7 +8739,7 @@ void client_application_entry_free(ClientApplicationEntry *self);
 int client_application_entry_can_have_content(const ClientApplicationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ClientApplicationEntryContentForm client_application_entry_content(const ClientApplicationEntry *self);
 
 // Client configuration — per-machine settings of a client application (CE-CC).
@@ -8756,7 +8756,7 @@ void client_configuration_free(ClientConfiguration *self);
 int client_configuration_can_have_content(const ClientConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *client_configuration_content(const ClientConfiguration *self);
 void client_configuration_set_content(ClientConfiguration *self, const char *value);
 // The declared client configuration settings.
@@ -8776,7 +8776,7 @@ void client_configuration_setting_entry_free(ClientConfigurationSettingEntry *se
 int client_configuration_setting_entry_can_have_content(const ClientConfigurationSettingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ClientConfigurationSettingEntryContentForm client_configuration_setting_entry_content(const ClientConfigurationSettingEntry *self);
 
 // Client hardware requirements.
@@ -8787,7 +8787,7 @@ void client_hardware_requirements_free(ClientHardwareRequirements *self);
 int client_hardware_requirements_can_have_content(const ClientHardwareRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ClientHardwareRequirementsContentForm client_hardware_requirements_content(const ClientHardwareRequirements *self);
 // Memory requirements.
 ClientHardwareRequirementsMemoryForm client_hardware_requirements_memory(const ClientHardwareRequirements *self);
@@ -8806,7 +8806,7 @@ void client_network_requirements_free(ClientNetworkRequirements *self);
 int client_network_requirements_can_have_content(const ClientNetworkRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ClientNetworkRequirementsContentForm client_network_requirements_content(const ClientNetworkRequirements *self);
 // Latency requirements.
 ClientNetworkRequirementsLatencyForm client_network_requirements_latency(const ClientNetworkRequirements *self);
@@ -8838,7 +8838,7 @@ void client_requirements_section_free(ClientRequirementsSection *self);
 int client_requirements_section_can_have_content(const ClientRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *client_requirements_section_content(const ClientRequirementsSection *self);
 void client_requirements_section_set_content(ClientRequirementsSection *self, const char *value);
 // Overview of client requirements strategy.
@@ -8884,7 +8884,7 @@ void client_security_requirements_free(ClientSecurityRequirements *self);
 int client_security_requirements_can_have_content(const ClientSecurityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ClientSecurityRequirementsContentForm client_security_requirements_content(const ClientSecurityRequirements *self);
 // Authentication requirements.
 ClientSecurityRequirementsAuthenticationForm client_security_requirements_authentication(const ClientSecurityRequirements *self);
@@ -8903,7 +8903,7 @@ void cloud_provider_requirements_free(CloudProviderRequirements *self);
 int cloud_provider_requirements_can_have_content(const CloudProviderRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CloudProviderRequirementsContentForm cloud_provider_requirements_content(const CloudProviderRequirements *self);
 // Account-structure requirements.
 CloudProviderRequirementsAccountsForm cloud_provider_requirements_accounts(const CloudProviderRequirements *self);
@@ -8922,7 +8922,7 @@ void cloud_service_integrations_free(CloudServiceIntegrations *self);
 int cloud_service_integrations_can_have_content(const CloudServiceIntegrations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CloudServiceIntegrationsContentForm cloud_service_integrations_content(const CloudServiceIntegrations *self);
 // Managed services catalog.
 CloudServiceIntegrationsServicesForm cloud_service_integrations_services(const CloudServiceIntegrations *self);
@@ -8939,7 +8939,7 @@ void code_quality_metrics_free(CodeQualityMetrics *self);
 int code_quality_metrics_can_have_content(const CodeQualityMetrics *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CodeQualityMetricsContentForm code_quality_metrics_content(const CodeQualityMetrics *self);
 // Complexity limits.
 CodeQualityMetricsComplexityForm code_quality_metrics_complexity(const CodeQualityMetrics *self);
@@ -8960,7 +8960,7 @@ void code_review_process_free(CodeReviewProcess *self);
 int code_review_process_can_have_content(const CodeReviewProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CodeReviewProcessContentForm code_review_process_content(const CodeReviewProcess *self);
 // Reviewer requirements.
 CodeReviewProcessRequirementsForm code_review_process_requirements(const CodeReviewProcess *self);
@@ -8979,7 +8979,7 @@ void coding_standard_entry_free(CodingStandardEntry *self);
 int coding_standard_entry_can_have_content(const CodingStandardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CodingStandardEntryContentForm coding_standard_entry_content(const CodingStandardEntry *self);
 // Rule description.
 CodingStandardEntryRuleDetailsForm coding_standard_entry_rule_details(const CodingStandardEntry *self);
@@ -8998,7 +8998,7 @@ void coding_standards_section_free(CodingStandardsSection *self);
 int coding_standards_section_can_have_content(const CodingStandardsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CodingStandardsSectionContentForm coding_standards_section_content(const CodingStandardsSection *self);
 // Formatting and layout rules.
 CodingStandardsSectionFormattingForm coding_standards_section_formatting(const CodingStandardsSection *self);
@@ -9019,7 +9019,7 @@ void color_palette_entry_free(ColorPaletteEntry *self);
 int color_palette_entry_can_have_content(const ColorPaletteEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ColorPaletteEntryContentForm color_palette_entry_content(const ColorPaletteEntry *self);
 
 // Column-level security policy (form).
@@ -9033,7 +9033,7 @@ void column_level_security_policy_free(ColumnLevelSecurityPolicy *self);
 int column_level_security_policy_can_have_content(const ColumnLevelSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ColumnLevelSecurityPolicyContentForm column_level_security_policy_content(const ColumnLevelSecurityPolicy *self);
 // Column-Level Security Details (text).
 // (skipped: columnLevelSecurityDetails has no target type)
@@ -9046,7 +9046,7 @@ void committee_charter_free(CommitteeCharter *self);
 int committee_charter_can_have_content(const CommitteeCharter *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommitteeCharterContentForm committee_charter_content(const CommitteeCharter *self);
 
 // A steering committee member entry (form).
@@ -9059,7 +9059,7 @@ void committee_member_entry_free(CommitteeMemberEntry *self);
 int committee_member_entry_can_have_content(const CommitteeMemberEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommitteeMemberEntryContentForm committee_member_entry_content(const CommitteeMemberEntry *self);
 // Specific responsibilities of this member.
 // Returns the list view; element type: CommitteeResponsibilityEntry (construct from item paths).
@@ -9073,7 +9073,7 @@ void committee_responsibility_entry_free(CommitteeResponsibilityEntry *self);
 int committee_responsibility_entry_can_have_content(const CommitteeResponsibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommitteeResponsibilityEntryContentForm committee_responsibility_entry_content(const CommitteeResponsibilityEntry *self);
 
 // A communication channel encryption entry (form)
@@ -9090,7 +9090,7 @@ void communication_channel_encryption_entry_free(CommunicationChannelEncryptionE
 int communication_channel_encryption_entry_can_have_content(const CommunicationChannelEncryptionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommunicationChannelEncryptionEntryContentForm communication_channel_encryption_entry_content(const CommunicationChannelEncryptionEntry *self);
 
 // Communication event entry (form).
@@ -9101,7 +9101,7 @@ void communication_event_entry_free(CommunicationEventEntry *self);
 int communication_event_entry_can_have_content(const CommunicationEventEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommunicationEventEntryContentForm communication_event_entry_content(const CommunicationEventEntry *self);
 // Delivery ownership.
 CommunicationEventEntryDeliveryForm communication_event_entry_delivery(const CommunicationEventEntry *self);
@@ -9116,7 +9116,7 @@ void communication_matrix_free(CommunicationMatrix *self);
 int communication_matrix_can_have_content(const CommunicationMatrix *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommunicationMatrixContentForm communication_matrix_content(const CommunicationMatrix *self);
 // Communication matrix diagram.
 char *communication_matrix_communication_flow_diagram(const CommunicationMatrix *self);
@@ -9133,7 +9133,7 @@ void communication_patterns_free(CommunicationPatterns *self);
 int communication_patterns_can_have_content(const CommunicationPatterns *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommunicationPatternsContentForm communication_patterns_content(const CommunicationPatterns *self);
 // Synchronous communication details.
 CommunicationPatternsSynchronousForm communication_patterns_synchronous(const CommunicationPatterns *self);
@@ -9154,7 +9154,7 @@ void communication_requirements_free(CommunicationRequirements *self);
 int communication_requirements_can_have_content(const CommunicationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *communication_requirements_content(const CommunicationRequirements *self);
 void communication_requirements_set_content(CommunicationRequirements *self, const char *value);
 // 8.6.1. Protocols and Standards.
@@ -9170,7 +9170,7 @@ void communication_tools_requirements_free(CommunicationToolsRequirements *self)
 int communication_tools_requirements_can_have_content(const CommunicationToolsRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommunicationToolsRequirementsContentForm communication_tools_requirements_content(const CommunicationToolsRequirements *self);
 
 // A communication type with distribution rules.
@@ -9181,7 +9181,7 @@ void communication_type_entry_free(CommunicationTypeEntry *self);
 int communication_type_entry_can_have_content(const CommunicationTypeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CommunicationTypeEntryContentForm communication_type_entry_content(const CommunicationTypeEntry *self);
 
 // 11.4. Compatibility (ISO/IEC 25010:2023).
@@ -9197,7 +9197,7 @@ void compatibility_characteristic_free(CompatibilityCharacteristic *self);
 int compatibility_characteristic_can_have_content(const CompatibilityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *compatibility_characteristic_content(const CompatibilityCharacteristic *self);
 void compatibility_characteristic_set_content(CompatibilityCharacteristic *self, const char *value);
 // What the system must co-exist with, and what it must interoperate with.
@@ -9224,7 +9224,7 @@ void compatibility_requirements_section_free(CompatibilityRequirementsSection *s
 int compatibility_requirements_section_can_have_content(const CompatibilityRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *compatibility_requirements_section_content(const CompatibilityRequirementsSection *self);
 void compatibility_requirements_section_set_content(CompatibilityRequirementsSection *self, const char *value);
 // Overview of compatibility strategy.
@@ -9268,7 +9268,7 @@ void competency_entry_free(CompetencyEntry *self);
 int competency_entry_can_have_content(const CompetencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CompetencyEntryContentForm competency_entry_content(const CompetencyEntry *self);
 
 // 5.2.5. Competency Framework.
@@ -9279,7 +9279,7 @@ void competency_framework_free(CompetencyFramework *self);
 int competency_framework_can_have_content(const CompetencyFramework *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *competency_framework_content(const CompetencyFramework *self);
 void competency_framework_set_content(CompetencyFramework *self, const char *value);
 // Framework overview.
@@ -9302,7 +9302,7 @@ void competency_level_change_entry_free(CompetencyLevelChangeEntry *self);
 int competency_level_change_entry_can_have_content(const CompetencyLevelChangeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CompetencyLevelChangeEntryContentForm competency_level_change_entry_content(const CompetencyLevelChangeEntry *self);
 
 // Compliance audit planning and scheduling.
@@ -9313,7 +9313,7 @@ void compliance_audit_schedule_free(ComplianceAuditSchedule *self);
 int compliance_audit_schedule_can_have_content(const ComplianceAuditSchedule *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComplianceAuditScheduleContentForm compliance_audit_schedule_content(const ComplianceAuditSchedule *self);
 // Annual planning and scoping rules.
 ComplianceAuditSchedulePlanningForm compliance_audit_schedule_planning(const ComplianceAuditSchedule *self);
@@ -9334,7 +9334,7 @@ void compliance_framework_free(ComplianceFramework *self);
 int compliance_framework_can_have_content(const ComplianceFramework *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *compliance_framework_content(const ComplianceFramework *self);
 void compliance_framework_set_content(ComplianceFramework *self, const char *value);
 
@@ -9346,7 +9346,7 @@ void compliance_milestone_entry_free(ComplianceMilestoneEntry *self);
 int compliance_milestone_entry_can_have_content(const ComplianceMilestoneEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComplianceMilestoneEntryContentForm compliance_milestone_entry_content(const ComplianceMilestoneEntry *self);
 
 // 9.6.3. Compliance Reporting.
@@ -9368,7 +9368,7 @@ void compliance_reporting_free(ComplianceReporting *self);
 int compliance_reporting_can_have_content(const ComplianceReporting *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *compliance_reporting_content(const ComplianceReporting *self);
 void compliance_reporting_set_content(ComplianceReporting *self, const char *value);
 // Periodic Review Policy.
@@ -9390,7 +9390,7 @@ void compliance_requirement_entry_free(ComplianceRequirementEntry *self);
 int compliance_requirement_entry_can_have_content(const ComplianceRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComplianceRequirementEntryContentForm compliance_requirement_entry_content(const ComplianceRequirementEntry *self);
 
 // Compliance verification section.
@@ -9401,7 +9401,7 @@ void compliance_verification_section_free(ComplianceVerificationSection *self);
 int compliance_verification_section_can_have_content(const ComplianceVerificationSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComplianceVerificationSectionContentForm compliance_verification_section_content(const ComplianceVerificationSection *self);
 // Manual review procedures.
 ComplianceVerificationSectionReviewForm compliance_verification_section_review(const ComplianceVerificationSection *self);
@@ -9424,7 +9424,7 @@ void component_action_entry_free(ComponentActionEntry *self);
 int component_action_entry_can_have_content(const ComponentActionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentActionEntryContentForm component_action_entry_content(const ComponentActionEntry *self);
 // Authorization and confirmation behavior.
 ComponentActionEntryGovernanceForm component_action_entry_governance(const ComponentActionEntry *self);
@@ -9439,7 +9439,7 @@ void component_docs_free(ComponentDocs *self);
 int component_docs_can_have_content(const ComponentDocs *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentDocsContentForm component_docs_content(const ComponentDocs *self);
 
 // A component entry (form) with sub-entries.
@@ -9454,7 +9454,7 @@ void component_entry_free(ComponentEntry *self);
 int component_entry_can_have_content(const ComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentEntryContentForm component_entry_content(const ComponentEntry *self);
 // Vendor information.
 ComponentEntryVendorForm component_entry_vendor(const ComponentEntry *self);
@@ -9496,7 +9496,7 @@ void component_family_entry_free(ComponentFamilyEntry *self);
 int component_family_entry_can_have_content(const ComponentFamilyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentFamilyEntryContentForm component_family_entry_content(const ComponentFamilyEntry *self);
 // Family narrative.
 // (skipped: familyNarrative has no target type)
@@ -9512,7 +9512,7 @@ void component_governance_free(ComponentGovernance *self);
 int component_governance_can_have_content(const ComponentGovernance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentGovernanceContentForm component_governance_content(const ComponentGovernance *self);
 // Contribution governance.
 ComponentGovernanceContributionForm component_governance_contribution(const ComponentGovernance *self);
@@ -9534,7 +9534,7 @@ void component_interface_entry_free(ComponentInterfaceEntry *self);
 int component_interface_entry_can_have_content(const ComponentInterfaceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentInterfaceEntryContentForm component_interface_entry_content(const ComponentInterfaceEntry *self);
 // Network configuration.
 ComponentInterfaceEntryNetworkForm component_interface_entry_network(const ComponentInterfaceEntry *self);
@@ -9557,7 +9557,7 @@ void component_library_free(ComponentLibrary *self);
 int component_library_can_have_content(const ComponentLibrary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *component_library_content(const ComponentLibrary *self);
 void component_library_set_content(ComponentLibrary *self, const char *value);
 // The design tokens every component draws on — colour, type, spacing, motion.
@@ -9598,7 +9598,7 @@ void component_licensing_entry_free(ComponentLicensingEntry *self);
 int component_licensing_entry_can_have_content(const ComponentLicensingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentLicensingEntryContentForm component_licensing_entry_content(const ComponentLicensingEntry *self);
 // Cost and renewal details.
 ComponentLicensingEntryCostsForm component_licensing_entry_costs(const ComponentLicensingEntry *self);
@@ -9619,7 +9619,7 @@ void component_organization_free(ComponentOrganization *self);
 int component_organization_can_have_content(const ComponentOrganization *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentOrganizationContentForm component_organization_content(const ComponentOrganization *self);
 // Layering rules.
 ComponentOrganizationLayeringForm component_organization_layering(const ComponentOrganization *self);
@@ -9640,7 +9640,7 @@ void component_property_entry_free(ComponentPropertyEntry *self);
 int component_property_entry_can_have_content(const ComponentPropertyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentPropertyEntryContentForm component_property_entry_content(const ComponentPropertyEntry *self);
 
 // Component discovery and registry configuration.
@@ -9651,7 +9651,7 @@ void component_registry_free(ComponentRegistry *self);
 int component_registry_can_have_content(const ComponentRegistry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentRegistryContentForm component_registry_content(const ComponentRegistry *self);
 // Metadata requirements.
 ComponentRegistryMetadataForm component_registry_metadata(const ComponentRegistry *self);
@@ -9673,7 +9673,7 @@ void component_responsibilities_entry_free(ComponentResponsibilitiesEntry *self)
 int component_responsibilities_entry_can_have_content(const ComponentResponsibilitiesEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentResponsibilitiesEntryContentForm component_responsibilities_entry_content(const ComponentResponsibilitiesEntry *self);
 // Vendor support details.
 ComponentResponsibilitiesEntrySupportForm component_responsibilities_entry_support(const ComponentResponsibilitiesEntry *self);
@@ -9695,7 +9695,7 @@ void component_risk_assessment_free(ComponentRiskAssessment *self);
 int component_risk_assessment_can_have_content(const ComponentRiskAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *component_risk_assessment_content(const ComponentRiskAssessment *self);
 void component_risk_assessment_set_content(ComponentRiskAssessment *self, const char *value);
 // 12.6.1. Component Risks — contains 0+× Risk.
@@ -9715,7 +9715,7 @@ void component_risk_entry_free(ComponentRiskEntry *self);
 int component_risk_entry_can_have_content(const ComponentRiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentRiskEntryContentForm component_risk_entry_content(const ComponentRiskEntry *self);
 // Risk description and categorization.
 ComponentRiskEntryDescriptionForm component_risk_entry_description(const ComponentRiskEntry *self);
@@ -9738,7 +9738,7 @@ void component_slot_entry_free(ComponentSlotEntry *self);
 int component_slot_entry_can_have_content(const ComponentSlotEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentSlotEntryContentForm component_slot_entry_content(const ComponentSlotEntry *self);
 
 // A component state entry.
@@ -9751,7 +9751,7 @@ void component_state_entry_free(ComponentStateEntry *self);
 int component_state_entry_can_have_content(const ComponentStateEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentStateEntryContentForm component_state_entry_content(const ComponentStateEntry *self);
 // Visual appearance in this state.
 ComponentStateEntryVisualForm component_state_entry_visual(const ComponentStateEntry *self);
@@ -9774,7 +9774,7 @@ void component_strategy_free(ComponentStrategy *self);
 int component_strategy_can_have_content(const ComponentStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentStrategyContentForm component_strategy_content(const ComponentStrategy *self);
 // Vendor preferences and exceptions.
 ComponentStrategyVendorsForm component_strategy_vendors(const ComponentStrategy *self);
@@ -9802,7 +9802,7 @@ void component_variant_entry_free(ComponentVariantEntry *self);
 int component_variant_entry_can_have_content(const ComponentVariantEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComponentVariantEntryContentForm component_variant_entry_content(const ComponentVariantEntry *self);
 // Visual styling details.
 ComponentVariantEntryVisualForm component_variant_entry_visual(const ComponentVariantEntry *self);
@@ -9824,7 +9824,7 @@ void components_and_dependencies_free(ComponentsAndDependencies *self);
 int components_and_dependencies_can_have_content(const ComponentsAndDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *components_and_dependencies_content(const ComponentsAndDependencies *self);
 void components_and_dependencies_set_content(ComponentsAndDependencies *self, const char *value);
 // 12.1. Component Strategy.
@@ -9849,7 +9849,7 @@ void compute_resource_requirements_free(ComputeResourceRequirements *self);
 int compute_resource_requirements_can_have_content(const ComputeResourceRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComputeResourceRequirementsContentForm compute_resource_requirements_content(const ComputeResourceRequirements *self);
 // Memory requirements.
 ComputeResourceRequirementsMemoryForm compute_resource_requirements_memory(const ComputeResourceRequirements *self);
@@ -9866,7 +9866,7 @@ void computing_equipment_entry_free(ComputingEquipmentEntry *self);
 int computing_equipment_entry_can_have_content(const ComputingEquipmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ComputingEquipmentEntryContentForm computing_equipment_entry_content(const ComputingEquipmentEntry *self);
 // Hardware specifications.
 ComputingEquipmentEntryHardwareForm computing_equipment_entry_hardware(const ComputingEquipmentEntry *self);
@@ -9887,7 +9887,7 @@ void concurrent_session_policy_free(ConcurrentSessionPolicy *self);
 int concurrent_session_policy_can_have_content(const ConcurrentSessionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConcurrentSessionPolicyContentForm concurrent_session_policy_content(const ConcurrentSessionPolicy *self);
 // Concurrent Session Details (text).
 // (skipped: concurrentSessionDetails has no target type)
@@ -9900,7 +9900,7 @@ void confidential_info_category_entry_free(ConfidentialInfoCategoryEntry *self);
 int confidential_info_category_entry_can_have_content(const ConfidentialInfoCategoryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConfidentialInfoCategoryEntryContentForm confidential_info_category_entry_content(const ConfidentialInfoCategoryEntry *self);
 
 // 3.6.2. Confidentiality and NDA Requirements.
@@ -9913,7 +9913,7 @@ void confidentiality_requirements_free(ConfidentialityRequirements *self);
 int confidentiality_requirements_can_have_content(const ConfidentialityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConfidentialityRequirementsContentForm confidentiality_requirements_content(const ConfidentialityRequirements *self);
 // Confidential information categories.
 // Returns the list view; element type: ConfidentialInfoCategoryEntry (construct from item paths).
@@ -9929,7 +9929,7 @@ void configuration_management_free(ConfigurationManagement *self);
 int configuration_management_can_have_content(const ConfigurationManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConfigurationManagementContentForm configuration_management_content(const ConfigurationManagement *self);
 // Environment-configuration rules.
 ConfigurationManagementEnvironmentForm configuration_management_environment(const ConfigurationManagement *self);
@@ -9948,7 +9948,7 @@ void connectivity_resilience_free(ConnectivityResilience *self);
 int connectivity_resilience_can_have_content(const ConnectivityResilience *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConnectivityResilienceContentForm connectivity_resilience_content(const ConnectivityResilience *self);
 // Circuit breaking and isolation strategy.
 ConnectivityResilienceProtectionForm connectivity_resilience_protection(const ConnectivityResilience *self);
@@ -9965,7 +9965,7 @@ void consent_management_requirements_free(ConsentManagementRequirements *self);
 int consent_management_requirements_can_have_content(const ConsentManagementRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConsentManagementRequirementsContentForm consent_management_requirements_content(const ConsentManagementRequirements *self);
 // Collection requirements.
 ConsentManagementRequirementsCollectionForm consent_management_requirements_collection(const ConsentManagementRequirements *self);
@@ -9989,7 +9989,7 @@ void constraint_register_entry_free(ConstraintRegisterEntry *self);
 int constraint_register_entry_can_have_content(const ConstraintRegisterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ConstraintRegisterEntryContentForm constraint_register_entry_content(const ConstraintRegisterEntry *self);
 
 // Content scanning policy — how uploaded and stored files are scanned for
@@ -10004,7 +10004,7 @@ void content_scanning_policy_free(ContentScanningPolicy *self);
 int content_scanning_policy_can_have_content(const ContentScanningPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ContentScanningPolicyContentForm content_scanning_policy_content(const ContentScanningPolicy *self);
 // Content Scanning Details (text).
 // (skipped: contentScanningDetails has no target type)
@@ -10020,7 +10020,7 @@ void context_diagram_free(ContextDiagram *self);
 int context_diagram_can_have_content(const ContextDiagram *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *context_diagram_content(const ContextDiagram *self);
 void context_diagram_set_content(ContextDiagram *self, const char *value);
 // Context diagram in Mermaid format.
@@ -10038,7 +10038,7 @@ void context_relationship_entry_free(ContextRelationshipEntry *self);
 int context_relationship_entry_can_have_content(const ContextRelationshipEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ContextRelationshipEntryContentForm context_relationship_entry_content(const ContextRelationshipEntry *self);
 
 // 10.8.1. Contextual Help.
@@ -10049,7 +10049,7 @@ void contextual_help_free(ContextualHelp *self);
 int contextual_help_can_have_content(const ContextualHelp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *contextual_help_content(const ContextualHelp *self);
 void contextual_help_set_content(ContextualHelp *self, const char *value);
 // Help delivered in place, at the moment of use.
@@ -10082,7 +10082,7 @@ void contextual_navigation_free(ContextualNavigation *self);
 int contextual_navigation_can_have_content(const ContextualNavigation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *contextual_navigation_content(const ContextualNavigation *self);
 void contextual_navigation_set_content(ContextualNavigation *self, const char *value);
 // 10.3.1.6.1. Breadcrumb Configuration.
@@ -10103,7 +10103,7 @@ void contingency_plan_entry_free(ContingencyPlanEntry *self);
 int contingency_plan_entry_can_have_content(const ContingencyPlanEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ContingencyPlanEntryContentForm contingency_plan_entry_content(const ContingencyPlanEntry *self);
 // Reference links to risk and component.
 ContingencyPlanEntryReferencesForm contingency_plan_entry_references(const ContingencyPlanEntry *self);
@@ -10126,7 +10126,7 @@ void contingency_plans_free(ContingencyPlans *self);
 int contingency_plans_can_have_content(const ContingencyPlans *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *contingency_plans_content(const ContingencyPlans *self);
 void contingency_plans_set_content(ContingencyPlans *self, const char *value);
 // Contains 0+× ContingencyPlan.
@@ -10141,7 +10141,7 @@ void correctness_free(Correctness *self);
 int correctness_can_have_content(const Correctness *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CorrectnessContentForm correctness_content(const Correctness *self);
 // Data integrity expectations.
 CorrectnessIntegrityForm correctness_integrity(const Correctness *self);
@@ -10163,7 +10163,7 @@ void credential_compromise_detection_policy_free(CredentialCompromiseDetectionPo
 int credential_compromise_detection_policy_can_have_content(const CredentialCompromiseDetectionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CredentialCompromiseDetectionPolicyContentForm credential_compromise_detection_policy_content(const CredentialCompromiseDetectionPolicy *self);
 // Compromise Detection Details (text).
 // (skipped: compromiseDetectionDetails has no target type)
@@ -10179,7 +10179,7 @@ void credential_recovery_policy_free(CredentialRecoveryPolicy *self);
 int credential_recovery_policy_can_have_content(const CredentialRecoveryPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CredentialRecoveryPolicyContentForm credential_recovery_policy_content(const CredentialRecoveryPolicy *self);
 // Credential Recovery Details (text).
 // (skipped: credentialRecoveryDetails has no target type)
@@ -10195,7 +10195,7 @@ void cross_boundary_error_handling_free(CrossBoundaryErrorHandling *self);
 int cross_boundary_error_handling_can_have_content(const CrossBoundaryErrorHandling *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *cross_boundary_error_handling_content(const CrossBoundaryErrorHandling *self);
 void cross_boundary_error_handling_set_content(CrossBoundaryErrorHandling *self, const char *value);
 
@@ -10211,7 +10211,7 @@ void cross_boundary_operational_considerations_free(CrossBoundaryOperationalCons
 int cross_boundary_operational_considerations_can_have_content(const CrossBoundaryOperationalConsiderations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *cross_boundary_operational_considerations_content(const CrossBoundaryOperationalConsiderations *self);
 void cross_boundary_operational_considerations_set_content(CrossBoundaryOperationalConsiderations *self, const char *value);
 
@@ -10223,7 +10223,7 @@ void cross_cutting_concerns_free(CrossCuttingConcerns *self);
 int cross_cutting_concerns_can_have_content(const CrossCuttingConcerns *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CrossCuttingConcernsContentForm cross_cutting_concerns_content(const CrossCuttingConcerns *self);
 // Error handling concerns.
 CrossCuttingConcernsErrorsForm cross_cutting_concerns_errors(const CrossCuttingConcerns *self);
@@ -10247,7 +10247,7 @@ void cross_process_analysis_free(CrossProcessAnalysis *self);
 int cross_process_analysis_can_have_content(const CrossProcessAnalysis *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *cross_process_analysis_content(const CrossProcessAnalysis *self);
 void cross_process_analysis_set_content(CrossProcessAnalysis *self, const char *value);
 
@@ -10264,7 +10264,7 @@ void cross_tenant_access_policy_free(CrossTenantAccessPolicy *self);
 int cross_tenant_access_policy_can_have_content(const CrossTenantAccessPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CrossTenantAccessPolicyContentForm cross_tenant_access_policy_content(const CrossTenantAccessPolicy *self);
 // Cross-Tenant Access Policy Details (text).
 // (skipped: crossTenantAccessPolicyDetails has no target type)
@@ -10280,7 +10280,7 @@ void current_architecture_free(CurrentArchitecture *self);
 int current_architecture_can_have_content(const CurrentArchitecture *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_architecture_content(const CurrentArchitecture *self);
 void current_architecture_set_content(CurrentArchitecture *self, const char *value);
 // Architecture overview diagram.
@@ -10307,7 +10307,7 @@ void current_business_process_free(CurrentBusinessProcess *self);
 int current_business_process_can_have_content(const CurrentBusinessProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CurrentBusinessProcessContentForm current_business_process_content(const CurrentBusinessProcess *self);
 // Process context and purpose.
 CurrentBusinessProcessProcessContextForm current_business_process_process_context(const CurrentBusinessProcess *self);
@@ -10331,7 +10331,7 @@ void current_business_processes_free(CurrentBusinessProcesses *self);
 int current_business_processes_can_have_content(const CurrentBusinessProcesses *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_business_processes_content(const CurrentBusinessProcesses *self);
 void current_business_processes_set_content(CurrentBusinessProcesses *self, const char *value);
 // Process landscape diagram.
@@ -10358,7 +10358,7 @@ void current_data_classification_free(CurrentDataClassification *self);
 int current_data_classification_can_have_content(const CurrentDataClassification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_data_classification_content(const CurrentDataClassification *self);
 void current_data_classification_set_content(CurrentDataClassification *self, const char *value);
 // Classification framework summary.
@@ -10382,7 +10382,7 @@ void current_data_landscape_free(CurrentDataLandscape *self);
 int current_data_landscape_can_have_content(const CurrentDataLandscape *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_data_landscape_content(const CurrentDataLandscape *self);
 void current_data_landscape_set_content(CurrentDataLandscape *self, const char *value);
 // Visual representation of the data landscape.
@@ -10425,7 +10425,7 @@ void current_landscape_free(CurrentLandscape *self);
 int current_landscape_can_have_content(const CurrentLandscape *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_landscape_content(const CurrentLandscape *self);
 void current_landscape_set_content(CurrentLandscape *self, const char *value);
 // 1.1. Existing Systems Landscape.
@@ -10454,7 +10454,7 @@ void current_operational_metric_free(CurrentOperationalMetric *self);
 int current_operational_metric_can_have_content(const CurrentOperationalMetric *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_operational_metric_content(const CurrentOperationalMetric *self);
 void current_operational_metric_set_content(CurrentOperationalMetric *self, const char *value);
 
@@ -10466,7 +10466,7 @@ void current_process_improvement_entry_free(CurrentProcessImprovementEntry *self
 int current_process_improvement_entry_can_have_content(const CurrentProcessImprovementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CurrentProcessImprovementEntryContentForm current_process_improvement_entry_content(const CurrentProcessImprovementEntry *self);
 
 // 1.6. Current State Risks.
@@ -10480,7 +10480,7 @@ void current_state_risk_assessment_free(CurrentStateRiskAssessment *self);
 int current_state_risk_assessment_can_have_content(const CurrentStateRiskAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *current_state_risk_assessment_content(const CurrentStateRiskAssessment *self);
 void current_state_risk_assessment_set_content(CurrentStateRiskAssessment *self, const char *value);
 
@@ -10495,7 +10495,7 @@ void current_workflow_entry_free(CurrentWorkflowEntry *self);
 int current_workflow_entry_can_have_content(const CurrentWorkflowEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CurrentWorkflowEntryContentForm current_workflow_entry_content(const CurrentWorkflowEntry *self);
 // Workflow diagram.
 char *current_workflow_entry_workflow_diagram(const CurrentWorkflowEntry *self);
@@ -10533,7 +10533,7 @@ void custom_distribution_group_free(CustomDistributionGroup *self);
 int custom_distribution_group_can_have_content(const CustomDistributionGroup *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CustomDistributionGroupContentForm custom_distribution_group_content(const CustomDistributionGroup *self);
 // Group members.
 // Returns the list view; element type: DistributionRecipientEntry (construct from item paths).
@@ -10547,7 +10547,7 @@ void custom_metric_entry_free(CustomMetricEntry *self);
 int custom_metric_entry_can_have_content(const CustomMetricEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 CustomMetricEntryContentForm custom_metric_entry_content(const CustomMetricEntry *self);
 
 // 15.6. Cutover Procedures.
@@ -10561,7 +10561,7 @@ void cutover_procedure_free(CutoverProcedure *self);
 int cutover_procedure_can_have_content(const CutoverProcedure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *cutover_procedure_content(const CutoverProcedure *self);
 void cutover_procedure_set_content(CutoverProcedure *self, const char *value);
 
@@ -10598,7 +10598,7 @@ void d00_solution_blueprint_free(D00SolutionBlueprint *self);
 int d00_solution_blueprint_can_have_content(const D00SolutionBlueprint *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d00_solution_blueprint_content(const D00SolutionBlueprint *self);
 void d00_solution_blueprint_set_content(D00SolutionBlueprint *self, const char *value);
 // SBP.1 Document Control (header + revision history + approvals).
@@ -10664,7 +10664,7 @@ void d01_current_landscape_assessment_free(D01CurrentLandscapeAssessment *self);
 int d01_current_landscape_assessment_can_have_content(const D01CurrentLandscapeAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d01_current_landscape_assessment_content(const D01CurrentLandscapeAssessment *self);
 void d01_current_landscape_assessment_set_content(D01CurrentLandscapeAssessment *self, const char *value);
 // Standard TomSpecs document header.
@@ -10728,7 +10728,7 @@ void d02_target_operating_model_free(D02TargetOperatingModel *self);
 int d02_target_operating_model_can_have_content(const D02TargetOperatingModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d02_target_operating_model_content(const D02TargetOperatingModel *self);
 void d02_target_operating_model_set_content(D02TargetOperatingModel *self, const char *value);
 // Standard TomSpecs document header.
@@ -10798,7 +10798,7 @@ void d03_information_model_free(D03InformationModel *self);
 int d03_information_model_can_have_content(const D03InformationModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d03_information_model_content(const D03InformationModel *self);
 void d03_information_model_set_content(D03InformationModel *self, const char *value);
 // Standard TomSpecs document header.
@@ -10911,7 +10911,7 @@ void d04_requirements_specification_free(D04RequirementsSpecification *self);
 int d04_requirements_specification_can_have_content(const D04RequirementsSpecification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d04_requirements_specification_content(const D04RequirementsSpecification *self);
 void d04_requirements_specification_set_content(D04RequirementsSpecification *self, const char *value);
 // Standard TomSpecs document header.
@@ -10978,7 +10978,7 @@ void d05_interaction_scenarios_free(D05InteractionScenarios *self);
 int d05_interaction_scenarios_can_have_content(const D05InteractionScenarios *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d05_interaction_scenarios_content(const D05InteractionScenarios *self);
 void d05_interaction_scenarios_set_content(D05InteractionScenarios *self, const char *value);
 // Standard TomSpecs document header.
@@ -11041,7 +11041,7 @@ void d06_architecture_technology_specification_free(D06ArchitectureTechnologySpe
 int d06_architecture_technology_specification_can_have_content(const D06ArchitectureTechnologySpecification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d06_architecture_technology_specification_content(const D06ArchitectureTechnologySpecification *self);
 void d06_architecture_technology_specification_set_content(D06ArchitectureTechnologySpecification *self, const char *value);
 // Standard TomSpecs document header.
@@ -11112,7 +11112,7 @@ void d07_integration_interface_specification_free(D07IntegrationInterfaceSpecifi
 int d07_integration_interface_specification_can_have_content(const D07IntegrationInterfaceSpecification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d07_integration_interface_specification_content(const D07IntegrationInterfaceSpecification *self);
 void d07_integration_interface_specification_set_content(D07IntegrationInterfaceSpecification *self, const char *value);
 // Standard TomSpecs document header.
@@ -11183,7 +11183,7 @@ void d08_security_access_specification_free(D08SecurityAccessSpecification *self
 int d08_security_access_specification_can_have_content(const D08SecurityAccessSpecification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d08_security_access_specification_content(const D08SecurityAccessSpecification *self);
 void d08_security_access_specification_set_content(D08SecurityAccessSpecification *self, const char *value);
 // Standard TomSpecs document header.
@@ -11256,7 +11256,7 @@ void d09_experience_design_specification_free(D09ExperienceDesignSpecification *
 int d09_experience_design_specification_can_have_content(const D09ExperienceDesignSpecification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d09_experience_design_specification_content(const D09ExperienceDesignSpecification *self);
 void d09_experience_design_specification_set_content(D09ExperienceDesignSpecification *self, const char *value);
 // Standard TomSpecs document header.
@@ -11330,7 +11330,7 @@ void d10_quality_acceptance_plan_free(D10QualityAcceptancePlan *self);
 int d10_quality_acceptance_plan_can_have_content(const D10QualityAcceptancePlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d10_quality_acceptance_plan_content(const D10QualityAcceptancePlan *self);
 void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, const char *value);
 // Standard TomSpecs document header.
@@ -11416,7 +11416,7 @@ void d11_delivery_roadmap_free(D11DeliveryRoadmap *self);
 int d11_delivery_roadmap_can_have_content(const D11DeliveryRoadmap *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d11_delivery_roadmap_content(const D11DeliveryRoadmap *self);
 void d11_delivery_roadmap_set_content(D11DeliveryRoadmap *self, const char *value);
 // Standard TomSpecs document header.
@@ -11483,7 +11483,7 @@ void d12_transition_rollout_plan_free(D12TransitionRolloutPlan *self);
 int d12_transition_rollout_plan_can_have_content(const D12TransitionRolloutPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d12_transition_rollout_plan_content(const D12TransitionRolloutPlan *self);
 void d12_transition_rollout_plan_set_content(D12TransitionRolloutPlan *self, const char *value);
 // Standard TomSpecs document header.
@@ -11565,7 +11565,7 @@ void d13_code_specs_projection_free(D13CodeSpecsProjection *self);
 int d13_code_specs_projection_can_have_content(const D13CodeSpecsProjection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *d13_code_specs_projection_content(const D13CodeSpecsProjection *self);
 void d13_code_specs_projection_set_content(D13CodeSpecsProjection *self, const char *value);
 // Standard TomSpecs document header.
@@ -11713,7 +11713,7 @@ void dashboard_entry_free(DashboardEntry *self);
 int dashboard_entry_can_have_content(const DashboardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DashboardEntryContentForm dashboard_entry_content(const DashboardEntry *self);
 // Refresh and data composition details.
 DashboardEntryConfigurationForm dashboard_entry_configuration(const DashboardEntry *self);
@@ -11728,7 +11728,7 @@ void dashboard_requirements_free(DashboardRequirements *self);
 int dashboard_requirements_can_have_content(const DashboardRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DashboardRequirementsContentForm dashboard_requirements_content(const DashboardRequirements *self);
 // Standard dashboards.
 DashboardRequirementsStandardForm dashboard_requirements_standard(const DashboardRequirements *self);
@@ -11747,7 +11747,7 @@ void dashboard_templates_free(DashboardTemplates *self);
 int dashboard_templates_can_have_content(const DashboardTemplates *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DashboardTemplatesContentForm dashboard_templates_content(const DashboardTemplates *self);
 
 // Data access audit policy (form).
@@ -11761,7 +11761,7 @@ void data_access_audit_policy_free(DataAccessAuditPolicy *self);
 int data_access_audit_policy_can_have_content(const DataAccessAuditPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataAccessAuditPolicyContentForm data_access_audit_policy_content(const DataAccessAuditPolicy *self);
 // Data Access Audit Details (text).
 // (skipped: dataAccessAuditDetails has no target type)
@@ -11776,7 +11776,7 @@ void data_access_event_policy_free(DataAccessEventPolicy *self);
 int data_access_event_policy_can_have_content(const DataAccessEventPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataAccessEventPolicyContentForm data_access_event_policy_content(const DataAccessEventPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -11789,7 +11789,7 @@ void data_architecture_free(DataArchitecture *self);
 int data_architecture_can_have_content(const DataArchitecture *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataArchitectureContentForm data_architecture_content(const DataArchitecture *self);
 // Storage decisions.
 DataArchitectureStorageForm data_architecture_storage(const DataArchitecture *self);
@@ -11810,7 +11810,7 @@ void data_attribute_constraint_entry_free(DataAttributeConstraintEntry *self);
 int data_attribute_constraint_entry_can_have_content(const DataAttributeConstraintEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataAttributeConstraintEntryContentForm data_attribute_constraint_entry_content(const DataAttributeConstraintEntry *self);
 
 // A data attribute entry (form).
@@ -11823,7 +11823,7 @@ void data_attribute_entry_free(DataAttributeEntry *self);
 int data_attribute_entry_can_have_content(const DataAttributeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_attribute_entry_content(const DataAttributeEntry *self);
 void data_attribute_entry_set_content(DataAttributeEntry *self, const char *value);
 // What this attribute is called and what it means, in business terms.
@@ -11976,7 +11976,7 @@ void data_classification_free(DataClassification *self);
 int data_classification_can_have_content(const DataClassification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_classification_content(const DataClassification *self);
 void data_classification_set_content(DataClassification *self, const char *value);
 // The framework the classification levels are drawn from, and who maintains
@@ -12003,7 +12003,7 @@ void data_classification_entry_free(DataClassificationEntry *self);
 int data_classification_entry_can_have_content(const DataClassificationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_classification_entry_content(const DataClassificationEntry *self);
 void data_classification_entry_set_content(DataClassificationEntry *self, const char *value);
 // What this level means and what belongs in it.
@@ -12076,7 +12076,7 @@ void data_classification_level_entry_free(DataClassificationLevelEntry *self);
 int data_classification_level_entry_can_have_content(const DataClassificationLevelEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataClassificationLevelEntryContentForm data_classification_level_entry_content(const DataClassificationLevelEntry *self);
 
 // Classification status for a data domain.
@@ -12087,7 +12087,7 @@ void data_classification_status_entry_free(DataClassificationStatusEntry *self);
 int data_classification_status_entry_can_have_content(const DataClassificationStatusEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataClassificationStatusEntryContentForm data_classification_status_entry_content(const DataClassificationStatusEntry *self);
 
 // 7.1.5. Data Dictionary.
@@ -12101,7 +12101,7 @@ void data_dictionary_free(DataDictionary *self);
 int data_dictionary_can_have_content(const DataDictionary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_dictionary_content(const DataDictionary *self);
 void data_dictionary_set_content(DataDictionary *self, const char *value);
 
@@ -12116,7 +12116,7 @@ void data_duplication_analysis_free(DataDuplicationAnalysis *self);
 int data_duplication_analysis_can_have_content(const DataDuplicationAnalysis *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_duplication_analysis_content(const DataDuplicationAnalysis *self);
 void data_duplication_analysis_set_content(DataDuplicationAnalysis *self, const char *value);
 // Duplication analysis summary.
@@ -12136,7 +12136,7 @@ void data_duplication_entry_free(DataDuplicationEntry *self);
 int data_duplication_entry_can_have_content(const DataDuplicationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataDuplicationEntryContentForm data_duplication_entry_content(const DataDuplicationEntry *self);
 // Sources and duplication shape.
 DataDuplicationEntrySourcesForm data_duplication_entry_sources(const DataDuplicationEntry *self);
@@ -12172,7 +12172,7 @@ void data_entity_entry_free(DataEntityEntry *self);
 int data_entity_entry_can_have_content(const DataEntityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_entity_entry_content(const DataEntityEntry *self);
 void data_entity_entry_set_content(DataEntityEntry *self, const char *value);
 // What this entity is called, in each vocabulary that needs a name for it.
@@ -12240,7 +12240,7 @@ void data_entity_migration_entry_free(DataEntityMigrationEntry *self);
 int data_entity_migration_entry_can_have_content(const DataEntityMigrationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataEntityMigrationEntryContentForm data_entity_migration_entry_content(const DataEntityMigrationEntry *self);
 
 // A reference to a data entity (form).
@@ -12251,7 +12251,7 @@ void data_entity_reference_entry_free(DataEntityReferenceEntry *self);
 int data_entity_reference_entry_can_have_content(const DataEntityReferenceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataEntityReferenceEntryContentForm data_entity_reference_entry_content(const DataEntityReferenceEntry *self);
 // The data-model entity these operations act on, named by section id.
 //
@@ -12275,7 +12275,7 @@ void data_format_compatibility_free(DataFormatCompatibility *self);
 int data_format_compatibility_can_have_content(const DataFormatCompatibility *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataFormatCompatibilityContentForm data_format_compatibility_content(const DataFormatCompatibility *self);
 // Data format compatibility.
 DataFormatCompatibilityFormatsForm data_format_compatibility_formats(const DataFormatCompatibility *self);
@@ -12296,7 +12296,7 @@ void data_governance_free(DataGovernance *self);
 int data_governance_can_have_content(const DataGovernance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_governance_content(const DataGovernance *self);
 void data_governance_set_content(DataGovernance *self, const char *value);
 // Governance maturity assessment.
@@ -12316,7 +12316,7 @@ void data_governance_policy_entry_free(DataGovernancePolicyEntry *self);
 int data_governance_policy_entry_can_have_content(const DataGovernancePolicyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataGovernancePolicyEntryContentForm data_governance_policy_entry_content(const DataGovernancePolicyEntry *self);
 // Policy lifecycle and applicability.
 DataGovernancePolicyEntryLifecycleForm data_governance_policy_entry_lifecycle(const DataGovernancePolicyEntry *self);
@@ -12331,7 +12331,7 @@ void data_growth_projections_free(DataGrowthProjections *self);
 int data_growth_projections_can_have_content(const DataGrowthProjections *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataGrowthProjectionsContentForm data_growth_projections_content(const DataGrowthProjections *self);
 // Growth-rate assumptions.
 DataGrowthProjectionsGrowthForm data_growth_projections_growth(const DataGrowthProjections *self);
@@ -12350,7 +12350,7 @@ void data_integration_entry_free(DataIntegrationEntry *self);
 int data_integration_entry_can_have_content(const DataIntegrationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataIntegrationEntryContentForm data_integration_entry_content(const DataIntegrationEntry *self);
 // Endpoints and type.
 DataIntegrationEntryEndpointsForm data_integration_entry_endpoints(const DataIntegrationEntry *self);
@@ -12372,7 +12372,7 @@ void data_integration_points_free(DataIntegrationPoints *self);
 int data_integration_points_can_have_content(const DataIntegrationPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_integration_points_content(const DataIntegrationPoints *self);
 void data_integration_points_set_content(DataIntegrationPoints *self, const char *value);
 // Integration summary.
@@ -12397,7 +12397,7 @@ void data_level_security_free(DataLevelSecurity *self);
 int data_level_security_can_have_content(const DataLevelSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_level_security_content(const DataLevelSecurity *self);
 void data_level_security_set_content(DataLevelSecurity *self, const char *value);
 // Data-Level Security Overview (text).
@@ -12427,7 +12427,7 @@ void data_masking_policy_free(DataMaskingPolicy *self);
 int data_masking_policy_can_have_content(const DataMaskingPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataMaskingPolicyContentForm data_masking_policy_content(const DataMaskingPolicy *self);
 // Data Masking Details (text).
 // (skipped: dataMaskingDetails has no target type)
@@ -12446,7 +12446,7 @@ void data_migration_strategy_free(DataMigrationStrategy *self);
 int data_migration_strategy_can_have_content(const DataMigrationStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataMigrationStrategyContentForm data_migration_strategy_content(const DataMigrationStrategy *self);
 // Strategic approach details.
 DataMigrationStrategyApproachForm data_migration_strategy_approach(const DataMigrationStrategy *self);
@@ -12493,7 +12493,7 @@ void data_model_free(DataModel *self);
 int data_model_can_have_content(const DataModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_model_content(const DataModel *self);
 void data_model_set_content(DataModel *self, const char *value);
 // 7.1.1. Entity Overview — contains 1+× Data Entity.
@@ -12531,7 +12531,7 @@ void data_model_follow_up_free(DataModelFollowUp *self);
 int data_model_follow_up_can_have_content(const DataModelFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_model_follow_up_content(const DataModelFollowUp *self);
 void data_model_follow_up_set_content(DataModelFollowUp *self, const char *value);
 // 7.10.1. Entity-Relationship Diagram (mermaid).
@@ -12551,7 +12551,7 @@ void data_ownership_free(DataOwnership *self);
 int data_ownership_can_have_content(const DataOwnership *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_ownership_content(const DataOwnership *self);
 void data_ownership_set_content(DataOwnership *self, const char *value);
 // Ownership model summary.
@@ -12571,7 +12571,7 @@ void data_ownership_entry_free(DataOwnershipEntry *self);
 int data_ownership_entry_can_have_content(const DataOwnershipEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataOwnershipEntryContentForm data_ownership_entry_content(const DataOwnershipEntry *self);
 // Stewardship and custodianship assignments.
 DataOwnershipEntryStewardshipForm data_ownership_entry_stewardship(const DataOwnershipEntry *self);
@@ -12586,7 +12586,7 @@ void data_processing_agreement_requirements_free(DataProcessingAgreementRequirem
 int data_processing_agreement_requirements_can_have_content(const DataProcessingAgreementRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataProcessingAgreementRequirementsContentForm data_processing_agreement_requirements_content(const DataProcessingAgreementRequirements *self);
 // Agreement-management details.
 DataProcessingAgreementRequirementsManagementForm data_processing_agreement_requirements_management(const DataProcessingAgreementRequirements *self);
@@ -12610,7 +12610,7 @@ void data_protection_and_privacy_section_free(DataProtectionAndPrivacySection *s
 int data_protection_and_privacy_section_can_have_content(const DataProtectionAndPrivacySection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_protection_and_privacy_section_content(const DataProtectionAndPrivacySection *self);
 void data_protection_and_privacy_section_set_content(DataProtectionAndPrivacySection *self, const char *value);
 // Overview of data protection and privacy strategy.
@@ -12641,7 +12641,7 @@ void data_protection_classification_free(DataProtectionClassification *self);
 int data_protection_classification_can_have_content(const DataProtectionClassification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataProtectionClassificationContentForm data_protection_classification_content(const DataProtectionClassification *self);
 // Handling rules.
 DataProtectionClassificationHandlingForm data_protection_classification_handling(const DataProtectionClassification *self);
@@ -12663,7 +12663,7 @@ void data_quality_assessment_free(DataQualityAssessment *self);
 int data_quality_assessment_can_have_content(const DataQualityAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_quality_assessment_content(const DataQualityAssessment *self);
 void data_quality_assessment_set_content(DataQualityAssessment *self, const char *value);
 // Data quality dimensions summary.
@@ -12686,7 +12686,7 @@ void data_quality_initiative_entry_free(DataQualityInitiativeEntry *self);
 int data_quality_initiative_entry_can_have_content(const DataQualityInitiativeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataQualityInitiativeEntryContentForm data_quality_initiative_entry_content(const DataQualityInitiativeEntry *self);
 
 // A data quality issue entry (form).
@@ -12697,7 +12697,7 @@ void data_quality_issue_entry_free(DataQualityIssueEntry *self);
 int data_quality_issue_entry_can_have_content(const DataQualityIssueEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataQualityIssueEntryContentForm data_quality_issue_entry_content(const DataQualityIssueEntry *self);
 // Classification and severity.
 DataQualityIssueEntryClassificationForm data_quality_issue_entry_classification(const DataQualityIssueEntry *self);
@@ -12714,7 +12714,7 @@ void data_residency_requirements_free(DataResidencyRequirements *self);
 int data_residency_requirements_can_have_content(const DataResidencyRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataResidencyRequirementsContentForm data_residency_requirements_content(const DataResidencyRequirements *self);
 // Governing regulation and sovereignty constraints.
 DataResidencyRequirementsSovereigntyForm data_residency_requirements_sovereignty(const DataResidencyRequirements *self);
@@ -12734,7 +12734,7 @@ void data_retention_policies_free(DataRetentionPolicies *self);
 int data_retention_policies_can_have_content(const DataRetentionPolicies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_retention_policies_content(const DataRetentionPolicies *self);
 void data_retention_policies_set_content(DataRetentionPolicies *self, const char *value);
 // Retention policy summary.
@@ -12751,7 +12751,7 @@ void data_source_entity_entry_free(DataSourceEntityEntry *self);
 int data_source_entity_entry_can_have_content(const DataSourceEntityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataSourceEntityEntryContentForm data_source_entity_entry_content(const DataSourceEntityEntry *self);
 
 // A data source entry (form).
@@ -12765,7 +12765,7 @@ void data_source_entry_free(DataSourceEntry *self);
 int data_source_entry_can_have_content(const DataSourceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataSourceEntryContentForm data_source_entry_content(const DataSourceEntry *self);
 // Classification.
 DataSourceEntryClassificationForm data_source_entry_classification(const DataSourceEntry *self);
@@ -12798,7 +12798,7 @@ void data_source_inventory_free(DataSourceInventory *self);
 int data_source_inventory_can_have_content(const DataSourceInventory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_source_inventory_content(const DataSourceInventory *self);
 void data_source_inventory_set_content(DataSourceInventory *self, const char *value);
 // Visual map of data sources by domain/category.
@@ -12819,7 +12819,7 @@ void data_subject_rights_management_free(DataSubjectRightsManagement *self);
 int data_subject_rights_management_can_have_content(const DataSubjectRightsManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataSubjectRightsManagementContentForm data_subject_rights_management_content(const DataSubjectRightsManagement *self);
 // Access and rectification handling.
 DataSubjectRightsManagementAccessForm data_subject_rights_management_access(const DataSubjectRightsManagement *self);
@@ -12842,7 +12842,7 @@ void data_volume_entry_free(DataVolumeEntry *self);
 int data_volume_entry_can_have_content(const DataVolumeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataVolumeEntryContentForm data_volume_entry_content(const DataVolumeEntry *self);
 
 // Summary of data volumes and growth trends.
@@ -12853,7 +12853,7 @@ void data_volume_summary_free(DataVolumeSummary *self);
 int data_volume_summary_can_have_content(const DataVolumeSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DataVolumeSummaryContentForm data_volume_summary_content(const DataVolumeSummary *self);
 // Historical growth behavior.
 DataVolumeSummaryGrowthForm data_volume_summary_growth(const DataVolumeSummary *self);
@@ -12873,7 +12873,7 @@ void data_volumes_and_growth_free(DataVolumesAndGrowth *self);
 int data_volumes_and_growth_can_have_content(const DataVolumesAndGrowth *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *data_volumes_and_growth_content(const DataVolumesAndGrowth *self);
 void data_volumes_and_growth_set_content(DataVolumesAndGrowth *self, const char *value);
 // Volume and growth summary.
@@ -12897,7 +12897,7 @@ void database_access_policy_free(DatabaseAccessPolicy *self);
 int database_access_policy_can_have_content(const DatabaseAccessPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DatabaseAccessPolicyContentForm database_access_policy_content(const DatabaseAccessPolicy *self);
 // Database Access Policy Details (text).
 // (skipped: databaseAccessDetails has no target type)
@@ -12910,7 +12910,7 @@ void database_compatibility_entry_free(DatabaseCompatibilityEntry *self);
 int database_compatibility_entry_can_have_content(const DatabaseCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DatabaseCompatibilityEntryContentForm database_compatibility_entry_content(const DatabaseCompatibilityEntry *self);
 // Support options.
 DatabaseCompatibilityEntrySupportForm database_compatibility_entry_support(const DatabaseCompatibilityEntry *self);
@@ -12933,7 +12933,7 @@ void database_encryption_policy_free(DatabaseEncryptionPolicy *self);
 int database_encryption_policy_can_have_content(const DatabaseEncryptionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DatabaseEncryptionPolicyContentForm database_encryption_policy_content(const DatabaseEncryptionPolicy *self);
 // Database Encryption Details (text).
 // (skipped: databaseEncryptionDetails has no target type)
@@ -12946,7 +12946,7 @@ void debugging_configuration_free(DebuggingConfiguration *self);
 int debugging_configuration_can_have_content(const DebuggingConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DebuggingConfigurationContentForm debugging_configuration_content(const DebuggingConfiguration *self);
 // Breakpoint and watch setup.
 DebuggingConfigurationBreakpointsForm debugging_configuration_breakpoints(const DebuggingConfiguration *self);
@@ -12967,7 +12967,7 @@ void decision_authority_entry_free(DecisionAuthorityEntry *self);
 int decision_authority_entry_can_have_content(const DecisionAuthorityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DecisionAuthorityEntryContentForm decision_authority_entry_content(const DecisionAuthorityEntry *self);
 
 // A decision maker entry.
@@ -12978,7 +12978,7 @@ void decision_maker_entry_free(DecisionMakerEntry *self);
 int decision_maker_entry_can_have_content(const DecisionMakerEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DecisionMakerEntryContentForm decision_maker_entry_content(const DecisionMakerEntry *self);
 
 // A decision option entry (form).
@@ -12992,7 +12992,7 @@ void decision_option_entry_free(DecisionOptionEntry *self);
 int decision_option_entry_can_have_content(const DecisionOptionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DecisionOptionEntryContentForm decision_option_entry_content(const DecisionOptionEntry *self);
 // Recommendation flags.
 DecisionOptionEntrySelectionForm decision_option_entry_selection(const DecisionOptionEntry *self);
@@ -13015,7 +13015,7 @@ void decision_point_entry_free(DecisionPointEntry *self);
 int decision_point_entry_can_have_content(const DecisionPointEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DecisionPointEntryContentForm decision_point_entry_content(const DecisionPointEntry *self);
 // Context and timing information.
 DecisionPointEntryContextForm decision_point_entry_context(const DecisionPointEntry *self);
@@ -13034,7 +13034,7 @@ void decision_point_entry_resolution_free(DecisionPointEntryResolution *self);
 int decision_point_entry_resolution_can_have_content(const DecisionPointEntryResolution *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DecisionPointEntryResolutionContentForm decision_point_entry_resolution_content(const DecisionPointEntryResolution *self);
 // Decision context narrative.
 // (skipped: decisionNarrative has no target type)
@@ -13055,7 +13055,7 @@ void decision_points_free(DecisionPoints *self);
 int decision_points_can_have_content(const DecisionPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DecisionPointsContentForm decision_points_content(const DecisionPoints *self);
 // Decision framework narrative.
 // (skipped: decisionFrameworkNarrative has no target type)
@@ -13071,7 +13071,7 @@ void deep_link_pattern_entry_free(DeepLinkPatternEntry *self);
 int deep_link_pattern_entry_can_have_content(const DeepLinkPatternEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeepLinkPatternEntryContentForm deep_link_pattern_entry_content(const DeepLinkPatternEntry *self);
 // Access control — what a caller must satisfy to follow this deep link.
 //
@@ -13090,7 +13090,7 @@ void deep_linking_free(DeepLinking *self);
 int deep_linking_can_have_content(const DeepLinking *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *deep_linking_content(const DeepLinking *self);
 void deep_linking_set_content(DeepLinking *self, const char *value);
 // Deep linking strategy overview.
@@ -13111,7 +13111,7 @@ void defect_resolution_free(DefectResolution *self);
 int defect_resolution_can_have_content(const DefectResolution *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DefectResolutionContentForm defect_resolution_content(const DefectResolution *self);
 // Classification refinement and SLA targets.
 DefectResolutionSlaForm defect_resolution_sla(const DefectResolution *self);
@@ -13132,7 +13132,7 @@ void deferred_scope_item_entry_free(DeferredScopeItemEntry *self);
 int deferred_scope_item_entry_can_have_content(const DeferredScopeItemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeferredScopeItemEntryContentForm deferred_scope_item_entry_content(const DeferredScopeItemEntry *self);
 
 // Dependencies for deliverable.
@@ -13143,7 +13143,7 @@ void deliverable_dependencies_free(DeliverableDependencies *self);
 int deliverable_dependencies_can_have_content(const DeliverableDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeliverableDependenciesContentForm deliverable_dependencies_content(const DeliverableDependencies *self);
 
 // A deliverable entry (form).
@@ -13158,7 +13158,7 @@ void deliverable_entry_free(DeliverableEntry *self);
 int deliverable_entry_can_have_content(const DeliverableEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeliverableEntryContentForm deliverable_entry_content(const DeliverableEntry *self);
 // Identification details.
 DeliverableEntryIdentityForm deliverable_entry_identity(const DeliverableEntry *self);
@@ -13190,7 +13190,7 @@ void delivery_acceptance_criterion_entry_free(DeliveryAcceptanceCriterionEntry *
 int delivery_acceptance_criterion_entry_can_have_content(const DeliveryAcceptanceCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeliveryAcceptanceCriterionEntryContentForm delivery_acceptance_criterion_entry_content(const DeliveryAcceptanceCriterionEntry *self);
 // Priority and description.
 DeliveryAcceptanceCriterionEntryDefinitionForm delivery_acceptance_criterion_entry_definition(const DeliveryAcceptanceCriterionEntry *self);
@@ -13211,7 +13211,7 @@ void delivery_scope_free(DeliveryScope *self);
 int delivery_scope_can_have_content(const DeliveryScope *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *delivery_scope_content(const DeliveryScope *self);
 void delivery_scope_set_content(DeliveryScope *self, const char *value);
 // 14.1.1. Software Deliverables.
@@ -13231,7 +13231,7 @@ void delivery_scope_and_acceptance_free(DeliveryScopeAndAcceptance *self);
 int delivery_scope_and_acceptance_can_have_content(const DeliveryScopeAndAcceptance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *delivery_scope_and_acceptance_content(const DeliveryScopeAndAcceptance *self);
 void delivery_scope_and_acceptance_set_content(DeliveryScopeAndAcceptance *self, const char *value);
 // 14.1. Delivery and Service Scope.
@@ -13247,7 +13247,7 @@ void delivery_transition_and_rollout_free(DeliveryTransitionAndRollout *self);
 int delivery_transition_and_rollout_can_have_content(const DeliveryTransitionAndRollout *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *delivery_transition_and_rollout_content(const DeliveryTransitionAndRollout *self);
 void delivery_transition_and_rollout_set_content(DeliveryTransitionAndRollout *self, const char *value);
 // Staged delivery / phase plan.
@@ -13273,7 +13273,7 @@ void dependencies_and_integrations_free(DependenciesAndIntegrations *self);
 int dependencies_and_integrations_can_have_content(const DependenciesAndIntegrations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *dependencies_and_integrations_content(const DependenciesAndIntegrations *self);
 void dependencies_and_integrations_set_content(DependenciesAndIntegrations *self, const char *value);
 // Dependency matrix diagram.
@@ -13298,7 +13298,7 @@ void dependency_health_monitoring_free(DependencyHealthMonitoring *self);
 int dependency_health_monitoring_can_have_content(const DependencyHealthMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DependencyHealthMonitoringContentForm dependency_health_monitoring_content(const DependencyHealthMonitoring *self);
 // Cache subsystem checks.
 DependencyHealthMonitoringCacheForm dependency_health_monitoring_cache(const DependencyHealthMonitoring *self);
@@ -13317,7 +13317,7 @@ void dependency_injection_structure_free(DependencyInjectionStructure *self);
 int dependency_injection_structure_can_have_content(const DependencyInjectionStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DependencyInjectionStructureContentForm dependency_injection_structure_content(const DependencyInjectionStructure *self);
 // Registration organization.
 DependencyInjectionStructureRegistrationForm dependency_injection_structure_registration(const DependencyInjectionStructure *self);
@@ -13336,7 +13336,7 @@ void dependency_management_free(DependencyManagement *self);
 int dependency_management_can_have_content(const DependencyManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DependencyManagementContentForm dependency_management_content(const DependencyManagement *self);
 // Versioning and update policy.
 DependencyManagementVersioningForm dependency_management_versioning(const DependencyManagement *self);
@@ -13361,7 +13361,7 @@ void dependency_register_entry_free(DependencyRegisterEntry *self);
 int dependency_register_entry_can_have_content(const DependencyRegisterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DependencyRegisterEntryContentForm dependency_register_entry_content(const DependencyRegisterEntry *self);
 
 // Dependency and supply-chain scanning requirements.
@@ -13372,7 +13372,7 @@ void dependency_scanning_requirements_free(DependencyScanningRequirements *self)
 int dependency_scanning_requirements_can_have_content(const DependencyScanningRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DependencyScanningRequirementsContentForm dependency_scanning_requirements_content(const DependencyScanningRequirements *self);
 // Vulnerability-management rules.
 DependencyScanningRequirementsVulnerabilitiesForm dependency_scanning_requirements_vulnerabilities(const DependencyScanningRequirements *self);
@@ -13394,7 +13394,7 @@ void deployment_context_free(DeploymentContext *self);
 int deployment_context_can_have_content(const DeploymentContext *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *deployment_context_content(const DeploymentContext *self);
 void deployment_context_set_content(DeploymentContext *self, const char *value);
 // Deployment Context Details (form).
@@ -13408,7 +13408,7 @@ void deployment_environment_entry_free(DeploymentEnvironmentEntry *self);
 int deployment_environment_entry_can_have_content(const DeploymentEnvironmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeploymentEnvironmentEntryContentForm deployment_environment_entry_content(const DeploymentEnvironmentEntry *self);
 // Deployment method and rollback controls.
 DeploymentEnvironmentEntryDeploymentForm deployment_environment_entry_deployment(const DeploymentEnvironmentEntry *self);
@@ -13427,7 +13427,7 @@ void deployment_model_requirements_free(DeploymentModelRequirements *self);
 int deployment_model_requirements_can_have_content(const DeploymentModelRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeploymentModelRequirementsContentForm deployment_model_requirements_content(const DeploymentModelRequirements *self);
 // Container image policies.
 DeploymentModelRequirementsContainerForm deployment_model_requirements_container(const DeploymentModelRequirements *self);
@@ -13446,7 +13446,7 @@ void deployment_security_free(DeploymentSecurity *self);
 int deployment_security_can_have_content(const DeploymentSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeploymentSecurityContentForm deployment_security_content(const DeploymentSecurity *self);
 // Supply-chain security.
 DeploymentSecuritySupplyChainForm deployment_security_supply_chain(const DeploymentSecurity *self);
@@ -13466,7 +13466,7 @@ void deployment_strategy_section_free(DeploymentStrategySection *self);
 int deployment_strategy_section_can_have_content(const DeploymentStrategySection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *deployment_strategy_section_content(const DeploymentStrategySection *self);
 void deployment_strategy_section_set_content(DeploymentStrategySection *self, const char *value);
 // Overview of deployment strategy.
@@ -13496,7 +13496,7 @@ void deployment_target_entry_free(DeploymentTargetEntry *self);
 int deployment_target_entry_can_have_content(const DeploymentTargetEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeploymentTargetEntryContentForm deployment_target_entry_content(const DeploymentTargetEntry *self);
 // Platform specifics.
 DeploymentTargetEntryPlatformForm deployment_target_entry_platform(const DeploymentTargetEntry *self);
@@ -13517,7 +13517,7 @@ void deployment_topology_free(DeploymentTopology *self);
 int deployment_topology_can_have_content(const DeploymentTopology *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeploymentTopologyContentForm deployment_topology_content(const DeploymentTopology *self);
 // Infrastructure layout.
 DeploymentTopologyInfrastructureForm deployment_topology_infrastructure(const DeploymentTopology *self);
@@ -13538,7 +13538,7 @@ void design_foundation_entry_free(DesignFoundationEntry *self);
 int design_foundation_entry_can_have_content(const DesignFoundationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DesignFoundationEntryContentForm design_foundation_entry_content(const DesignFoundationEntry *self);
 
 // A design goal entry (form).
@@ -13551,7 +13551,7 @@ void design_goal_entry_free(DesignGoalEntry *self);
 int design_goal_entry_can_have_content(const DesignGoalEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DesignGoalEntryContentForm design_goal_entry_content(const DesignGoalEntry *self);
 
 // 10.1.1. Design Goals.
@@ -13565,7 +13565,7 @@ void design_goals_free(DesignGoals *self);
 int design_goals_can_have_content(const DesignGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *design_goals_content(const DesignGoals *self);
 void design_goals_set_content(DesignGoals *self, const char *value);
 // Overview of the design goal framework and prioritization approach.
@@ -13582,7 +13582,7 @@ void design_pattern_entry_free(DesignPatternEntry *self);
 int design_pattern_entry_can_have_content(const DesignPatternEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DesignPatternEntryContentForm design_pattern_entry_content(const DesignPatternEntry *self);
 // Applicability guidance.
 DesignPatternEntryApplicabilityForm design_pattern_entry_applicability(const DesignPatternEntry *self);
@@ -13606,7 +13606,7 @@ void design_patterns_and_standards_free(DesignPatternsAndStandards *self);
 int design_patterns_and_standards_can_have_content(const DesignPatternsAndStandards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *design_patterns_and_standards_content(const DesignPatternsAndStandards *self);
 void design_patterns_and_standards_set_content(DesignPatternsAndStandards *self, const char *value);
 // Overview of design patterns and standards approach.
@@ -13642,7 +13642,7 @@ void design_principle_entry_free(DesignPrincipleEntry *self);
 int design_principle_entry_can_have_content(const DesignPrincipleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DesignPrincipleEntryContentForm design_principle_entry_content(const DesignPrincipleEntry *self);
 
 // 10.1.2. Design Principles.
@@ -13656,7 +13656,7 @@ void design_principles_free(DesignPrinciples *self);
 int design_principles_can_have_content(const DesignPrinciples *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *design_principles_content(const DesignPrinciples *self);
 void design_principles_set_content(DesignPrinciples *self, const char *value);
 // Overview of the design principle framework.
@@ -13676,7 +13676,7 @@ void design_vision_free(DesignVision *self);
 int design_vision_can_have_content(const DesignVision *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *design_vision_content(const DesignVision *self);
 void design_vision_set_content(DesignVision *self, const char *value);
 // 10.1.1. Design Goals.
@@ -13694,7 +13694,7 @@ void desktop_os_requirement_entry_free(DesktopOsRequirementEntry *self);
 int desktop_os_requirement_entry_can_have_content(const DesktopOsRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DesktopOsRequirementEntryContentForm desktop_os_requirement_entry_content(const DesktopOsRequirementEntry *self);
 // Support prioritization.
 DesktopOsRequirementEntrySupportForm desktop_os_requirement_entry_support(const DesktopOsRequirementEntry *self);
@@ -13716,7 +13716,7 @@ void detailed_process_workflow_free(DetailedProcessWorkflow *self);
 int detailed_process_workflow_can_have_content(const DetailedProcessWorkflow *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *detailed_process_workflow_content(const DetailedProcessWorkflow *self);
 void detailed_process_workflow_set_content(DetailedProcessWorkflow *self, const char *value);
 
@@ -13728,7 +13728,7 @@ void developer_onboarding_free(DeveloperOnboarding *self);
 int developer_onboarding_can_have_content(const DeveloperOnboarding *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeveloperOnboardingContentForm developer_onboarding_content(const DeveloperOnboarding *self);
 // Setup expectations.
 DeveloperOnboardingSetupForm developer_onboarding_setup(const DeveloperOnboarding *self);
@@ -13750,7 +13750,7 @@ void development_convention_entry_free(DevelopmentConventionEntry *self);
 int development_convention_entry_can_have_content(const DevelopmentConventionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DevelopmentConventionEntryContentForm development_convention_entry_content(const DevelopmentConventionEntry *self);
 // Background and workflow.
 DevelopmentConventionEntryOverviewForm development_convention_entry_overview(const DevelopmentConventionEntry *self);
@@ -13774,7 +13774,7 @@ void development_environment_free(DevelopmentEnvironment *self);
 int development_environment_can_have_content(const DevelopmentEnvironment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *development_environment_content(const DevelopmentEnvironment *self);
 void development_environment_set_content(DevelopmentEnvironment *self, const char *value);
 // Overview of development environment requirements.
@@ -13809,7 +13809,7 @@ void development_quality_gates_free(DevelopmentQualityGates *self);
 int development_quality_gates_can_have_content(const DevelopmentQualityGates *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DevelopmentQualityGatesContentForm development_quality_gates_content(const DevelopmentQualityGates *self);
 // Coverage requirements.
 DevelopmentQualityGatesCoverageForm development_quality_gates_coverage(const DevelopmentQualityGates *self);
@@ -13839,7 +13839,7 @@ void device_setting_entry_free(DeviceSettingEntry *self);
 int device_setting_entry_can_have_content(const DeviceSettingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DeviceSettingEntryContentForm device_setting_entry_content(const DeviceSettingEntry *self);
 
 // Device settings — user-specific settings of a user-owned device (CE-DS).
@@ -13858,7 +13858,7 @@ void device_settings_free(DeviceSettings *self);
 int device_settings_can_have_content(const DeviceSettings *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *device_settings_content(const DeviceSettings *self);
 void device_settings_set_content(DeviceSettings *self, const char *value);
 // The declared device settings.
@@ -13873,7 +13873,7 @@ void disaster_recovery_requirements_free(DisasterRecoveryRequirements *self);
 int disaster_recovery_requirements_can_have_content(const DisasterRecoveryRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DisasterRecoveryRequirementsContentForm disaster_recovery_requirements_content(const DisasterRecoveryRequirements *self);
 // Failover execution.
 DisasterRecoveryRequirementsFailoverForm disaster_recovery_requirements_failover(const DisasterRecoveryRequirements *self);
@@ -13892,7 +13892,7 @@ void display_equipment_entry_free(DisplayEquipmentEntry *self);
 int display_equipment_entry_can_have_content(const DisplayEquipmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DisplayEquipmentEntryContentForm display_equipment_entry_content(const DisplayEquipmentEntry *self);
 // Display quality and connection properties.
 DisplayEquipmentEntryVisualForm display_equipment_entry_visual(const DisplayEquipmentEntry *self);
@@ -13909,7 +13909,7 @@ void display_property_entry_free(DisplayPropertyEntry *self);
 int display_property_entry_can_have_content(const DisplayPropertyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DisplayPropertyEntryContentForm display_property_entry_content(const DisplayPropertyEntry *self);
 
 // Display and screen requirements.
@@ -13920,7 +13920,7 @@ void display_requirements_free(DisplayRequirements *self);
 int display_requirements_can_have_content(const DisplayRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DisplayRequirementsContentForm display_requirements_content(const DisplayRequirements *self);
 // Aspect ratio and layout support.
 DisplayRequirementsLayoutForm display_requirements_layout(const DisplayRequirements *self);
@@ -13939,7 +13939,7 @@ void distributed_tracing_spec_free(DistributedTracingSpec *self);
 int distributed_tracing_spec_can_have_content(const DistributedTracingSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DistributedTracingSpecContentForm distributed_tracing_spec_content(const DistributedTracingSpec *self);
 // Sampling strategy.
 DistributedTracingSpecSamplingForm distributed_tracing_spec_sampling(const DistributedTracingSpec *self);
@@ -13956,7 +13956,7 @@ void distribution_group_summary_free(DistributionGroupSummary *self);
 int distribution_group_summary_can_have_content(const DistributionGroupSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DistributionGroupSummaryContentForm distribution_group_summary_content(const DistributionGroupSummary *self);
 
 // 3.3. Distribution List.
@@ -13971,7 +13971,7 @@ void distribution_list_free(DistributionList *self);
 int distribution_list_can_have_content(const DistributionList *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *distribution_list_content(const DistributionList *self);
 void distribution_list_set_content(DistributionList *self, const char *value);
 // Communication matrix overview.
@@ -13995,7 +13995,7 @@ void distribution_recipient_entry_free(DistributionRecipientEntry *self);
 int distribution_recipient_entry_can_have_content(const DistributionRecipientEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DistributionRecipientEntryContentForm distribution_recipient_entry_content(const DistributionRecipientEntry *self);
 // Contact information.
 DistributionRecipientEntryContactForm distribution_recipient_entry_contact(const DistributionRecipientEntry *self);
@@ -14017,7 +14017,7 @@ void distribution_recipient_preferences_free(DistributionRecipientPreferences *s
 int distribution_recipient_preferences_can_have_content(const DistributionRecipientPreferences *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DistributionRecipientPreferencesContentForm distribution_recipient_preferences_content(const DistributionRecipientPreferences *self);
 
 // DNS requirements.
@@ -14028,7 +14028,7 @@ void dns_requirements_free(DnsRequirements *self);
 int dns_requirements_can_have_content(const DnsRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DnsRequirementsContentForm dns_requirements_content(const DnsRequirements *self);
 // Zone requirements.
 DnsRequirementsZonesForm dns_requirements_zones(const DnsRequirements *self);
@@ -14047,7 +14047,7 @@ void doc_changeability_free(DocChangeability *self);
 int doc_changeability_can_have_content(const DocChangeability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocChangeabilityContentForm doc_changeability_content(const DocChangeability *self);
 // Extensibility and localization readiness.
 DocChangeabilityExtensibilityForm doc_changeability_extensibility(const DocChangeability *self);
@@ -14066,7 +14066,7 @@ void doc_completeness_free(DocCompleteness *self);
 int doc_completeness_can_have_content(const DocCompleteness *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocCompletenessContentForm doc_completeness_content(const DocCompleteness *self);
 // Detailed completeness requirements narrative.
 // (skipped: narrative has no target type)
@@ -14079,7 +14079,7 @@ void doc_correctness_free(DocCorrectness *self);
 int doc_correctness_can_have_content(const DocCorrectness *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocCorrectnessContentForm doc_correctness_content(const DocCorrectness *self);
 // Formatting and implementation alignment.
 DocCorrectnessAlignmentForm doc_correctness_alignment(const DocCorrectness *self);
@@ -14100,7 +14100,7 @@ void document_control_free(DocumentControl *self);
 int document_control_can_have_content(const DocumentControl *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *document_control_content(const DocumentControl *self);
 void document_control_set_content(DocumentControl *self, const char *value);
 // Document header form (id, project, version, date, author, status).
@@ -14121,8 +14121,8 @@ ReferenceDocuments document_control_reference_documents(const DocumentControl *s
 //
 // All fields are optional strings representing the document's form fields.
 //
-// A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
-// an unchanged header by identity and [cloneShallow] needs no child handling.
+// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
+// an unchanged header by identity and `cloneShallow` needs no child handling.
 // Binds a DocumentHeader facade to a document and a path (path copied).
 void document_header_init(DocumentHeader *self, SpecDocument *doc, const char *path);
 void document_header_free(DocumentHeader *self);
@@ -14130,7 +14130,7 @@ void document_header_free(DocumentHeader *self);
 int document_header_can_have_content(const DocumentHeader *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocumentHeaderContentForm document_header_content(const DocumentHeader *self);
 
 // Relationships between reference documents.
@@ -14141,7 +14141,7 @@ void document_relationships_free(DocumentRelationships *self);
 int document_relationships_can_have_content(const DocumentRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *document_relationships_content(const DocumentRelationships *self);
 void document_relationships_set_content(DocumentRelationships *self, const char *value);
 // Related document entries.
@@ -14156,7 +14156,7 @@ void document_relevant_sections_free(DocumentRelevantSections *self);
 int document_relevant_sections_can_have_content(const DocumentRelevantSections *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocumentRelevantSectionsContentForm document_relevant_sections_content(const DocumentRelevantSections *self);
 // Individual relevant section entries.
 // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
@@ -14170,7 +14170,7 @@ void document_review_team_entry_free(DocumentReviewTeamEntry *self);
 int document_review_team_entry_can_have_content(const DocumentReviewTeamEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocumentReviewTeamEntryContentForm document_review_team_entry_content(const DocumentReviewTeamEntry *self);
 // The members of the team.
 // Returns the list view; element type: ReviewTeamMember (construct from item paths).
@@ -14184,7 +14184,7 @@ void documentation_deliverables_free(DocumentationDeliverables *self);
 int documentation_deliverables_can_have_content(const DocumentationDeliverables *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *documentation_deliverables_content(const DocumentationDeliverables *self);
 void documentation_deliverables_set_content(DocumentationDeliverables *self, const char *value);
 // Contains 0+× Deliverable.
@@ -14207,7 +14207,7 @@ void documentation_quality_criteria_free(DocumentationQualityCriteria *self);
 int documentation_quality_criteria_can_have_content(const DocumentationQualityCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *documentation_quality_criteria_content(const DocumentationQualityCriteria *self);
 void documentation_quality_criteria_set_content(DocumentationQualityCriteria *self, const char *value);
 // How documentation is produced and kept current — strategy, ownership,
@@ -14240,7 +14240,7 @@ void documentation_standards_free(DocumentationStandards *self);
 int documentation_standards_can_have_content(const DocumentationStandards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocumentationStandardsContentForm documentation_standards_content(const DocumentationStandards *self);
 // Code documentation requirements.
 DocumentationStandardsCodeDocsForm documentation_standards_code_docs(const DocumentationStandards *self);
@@ -14261,7 +14261,7 @@ void documentation_standards_section_free(DocumentationStandardsSection *self);
 int documentation_standards_section_can_have_content(const DocumentationStandardsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DocumentationStandardsSectionContentForm documentation_standards_section_content(const DocumentationStandardsSection *self);
 // Technical documentation standards.
 DocumentationStandardsSectionTechnicalForm documentation_standards_section_technical(const DocumentationStandardsSection *self);
@@ -14283,7 +14283,7 @@ void domain_boundaries_free(DomainBoundaries *self);
 int domain_boundaries_can_have_content(const DomainBoundaries *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_boundaries_content(const DomainBoundaries *self);
 void domain_boundaries_set_content(DomainBoundaries *self, const char *value);
 // Context map showing domain boundaries.
@@ -14307,7 +14307,7 @@ void domain_business_rule_entry_free(DomainBusinessRuleEntry *self);
 int domain_business_rule_entry_can_have_content(const DomainBusinessRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainBusinessRuleEntryContentForm domain_business_rule_entry_content(const DomainBusinessRuleEntry *self);
 // Formal definition and applicability.
 DomainBusinessRuleEntryDefinitionForm domain_business_rule_entry_definition(const DomainBusinessRuleEntry *self);
@@ -14325,7 +14325,7 @@ void domain_business_rules_free(DomainBusinessRules *self);
 int domain_business_rules_can_have_content(const DomainBusinessRules *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_business_rules_content(const DomainBusinessRules *self);
 void domain_business_rules_set_content(DomainBusinessRules *self, const char *value);
 // Business rule entries — contains 0+× BusinessRuleEntry.
@@ -14346,7 +14346,7 @@ void domain_enum_entry_free(DomainEnumEntry *self);
 int domain_enum_entry_can_have_content(const DomainEnumEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainEnumEntryContentForm domain_enum_entry_content(const DomainEnumEntry *self);
 // 7.5.x. Enum Values — one entry per member of the value set.
 // Returns the list view; element type: DomainEnumValueEntry (construct from item paths).
@@ -14380,7 +14380,7 @@ void domain_enum_registry_free(DomainEnumRegistry *self);
 int domain_enum_registry_can_have_content(const DomainEnumRegistry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_enum_registry_content(const DomainEnumRegistry *self);
 void domain_enum_registry_set_content(DomainEnumRegistry *self, const char *value);
 // 7.5.1. Domain Enums — one entry per closed value set.
@@ -14402,7 +14402,7 @@ void domain_enum_value_entry_free(DomainEnumValueEntry *self);
 int domain_enum_value_entry_can_have_content(const DomainEnumValueEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainEnumValueEntryContentForm domain_enum_value_entry_content(const DomainEnumValueEntry *self);
 
 // A domain event entry (form).
@@ -14413,7 +14413,7 @@ void domain_event_entry_free(DomainEventEntry *self);
 int domain_event_entry_can_have_content(const DomainEventEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainEventEntryContentForm domain_event_entry_content(const DomainEventEntry *self);
 
 // 4.1.3.7. Domain Events.
@@ -14427,7 +14427,7 @@ void domain_events_free(DomainEvents *self);
 int domain_events_can_have_content(const DomainEvents *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_events_content(const DomainEvents *self);
 void domain_events_set_content(DomainEvents *self, const char *value);
 // Domain event entries — contains 0+× DomainEventEntry.
@@ -14442,7 +14442,7 @@ void domain_interface_entry_free(DomainInterfaceEntry *self);
 int domain_interface_entry_can_have_content(const DomainInterfaceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainInterfaceEntryContentForm domain_interface_entry_content(const DomainInterfaceEntry *self);
 
 // 4.1.3.1. Domain Overview.
@@ -14456,7 +14456,7 @@ void domain_overview_free(DomainOverview *self);
 int domain_overview_can_have_content(const DomainOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_overview_content(const DomainOverview *self);
 void domain_overview_set_content(DomainOverview *self, const char *value);
 // Domain Overview Details (form).
@@ -14470,7 +14470,7 @@ void domain_process_entry_free(DomainProcessEntry *self);
 int domain_process_entry_can_have_content(const DomainProcessEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainProcessEntryContentForm domain_process_entry_content(const DomainProcessEntry *self);
 // Inputs, outputs, and participant flow.
 DomainProcessEntryFlowForm domain_process_entry_flow(const DomainProcessEntry *self);
@@ -14490,7 +14490,7 @@ void domain_processes_free(DomainProcesses *self);
 int domain_processes_can_have_content(const DomainProcesses *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_processes_content(const DomainProcesses *self);
 void domain_processes_set_content(DomainProcesses *self, const char *value);
 // Process overview diagram.
@@ -14508,7 +14508,7 @@ void domain_term_entry_free(DomainTermEntry *self);
 int domain_term_entry_can_have_content(const DomainTermEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 DomainTermEntryContentForm domain_term_entry_content(const DomainTermEntry *self);
 
 // 4.1.3.2. Domain Vocabulary.
@@ -14522,7 +14522,7 @@ void domain_vocabulary_free(DomainVocabulary *self);
 int domain_vocabulary_can_have_content(const DomainVocabulary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *domain_vocabulary_content(const DomainVocabulary *self);
 void domain_vocabulary_set_content(DomainVocabulary *self, const char *value);
 // Vocabulary entries — contains 1+× DomainTermEntry.
@@ -14537,7 +14537,7 @@ void efficiency_free(Efficiency *self);
 int efficiency_can_have_content(const Efficiency *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EfficiencyContentForm efficiency_content(const Efficiency *self);
 // Throughput and scale targets.
 EfficiencyThroughputForm efficiency_throughput(const Efficiency *self);
@@ -14556,7 +14556,7 @@ void element_validation_rule_entry_free(ElementValidationRuleEntry *self);
 int element_validation_rule_entry_can_have_content(const ElementValidationRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ElementValidationRuleEntryContentForm element_validation_rule_entry_content(const ElementValidationRuleEntry *self);
 
 // Emergency maintenance procedures.
@@ -14567,7 +14567,7 @@ void emergency_maintenance_procedures_free(EmergencyMaintenanceProcedures *self)
 int emergency_maintenance_procedures_can_have_content(const EmergencyMaintenanceProcedures *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EmergencyMaintenanceProceduresContentForm emergency_maintenance_procedures_content(const EmergencyMaintenanceProcedures *self);
 // Approval and documentation workflow.
 EmergencyMaintenanceProceduresGovernanceForm emergency_maintenance_procedures_governance(const EmergencyMaintenanceProcedures *self);
@@ -14589,7 +14589,7 @@ void encrypted_data_category_entry_free(EncryptedDataCategoryEntry *self);
 int encrypted_data_category_entry_can_have_content(const EncryptedDataCategoryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EncryptedDataCategoryEntryContentForm encrypted_data_category_entry_content(const EncryptedDataCategoryEntry *self);
 
 // 9.5.1. Encryption At Rest.
@@ -14606,7 +14606,7 @@ void encryption_at_rest_free(EncryptionAtRest *self);
 int encryption_at_rest_can_have_content(const EncryptionAtRest *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *encryption_at_rest_content(const EncryptionAtRest *self);
 void encryption_at_rest_set_content(EncryptionAtRest *self, const char *value);
 // Encryption At Rest Policy.
@@ -14635,7 +14635,7 @@ void encryption_at_rest_policy_free(EncryptionAtRestPolicy *self);
 int encryption_at_rest_policy_can_have_content(const EncryptionAtRestPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EncryptionAtRestPolicyContentForm encryption_at_rest_policy_content(const EncryptionAtRestPolicy *self);
 // Encryption At Rest Policy Details (text).
 // (skipped: encryptionAtRestPolicyDetails has no target type)
@@ -14653,7 +14653,7 @@ void encryption_in_transit_free(EncryptionInTransit *self);
 int encryption_in_transit_can_have_content(const EncryptionInTransit *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *encryption_in_transit_content(const EncryptionInTransit *self);
 void encryption_in_transit_set_content(EncryptionInTransit *self, const char *value);
 // TLS Protocol Policy.
@@ -14681,7 +14681,7 @@ void end_to_end_test_scenario_free(EndToEndTestScenario *self);
 int end_to_end_test_scenario_can_have_content(const EndToEndTestScenario *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *end_to_end_test_scenario_content(const EndToEndTestScenario *self);
 void end_to_end_test_scenario_set_content(EndToEndTestScenario *self, const char *value);
 
@@ -14693,7 +14693,7 @@ void enterprise_system_compatibility_entry_free(EnterpriseSystemCompatibilityEnt
 int enterprise_system_compatibility_entry_can_have_content(const EnterpriseSystemCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EnterpriseSystemCompatibilityEntryContentForm enterprise_system_compatibility_entry_content(const EnterpriseSystemCompatibilityEntry *self);
 // Integration details.
 EnterpriseSystemCompatibilityEntryIntegrationForm enterprise_system_compatibility_entry_integration(const EnterpriseSystemCompatibilityEntry *self);
@@ -14712,7 +14712,7 @@ void entitlement_entry_free(EntitlementEntry *self);
 int entitlement_entry_can_have_content(const EntitlementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EntitlementEntryContentForm entitlement_entry_content(const EntitlementEntry *self);
 // Contains 0+× ResourceKeyReference.
 // Returns the list view; element type: ResourceKeyReferenceEntry (construct from item paths).
@@ -14726,7 +14726,7 @@ void entitlement_reference_entry_free(EntitlementReferenceEntry *self);
 int entitlement_reference_entry_can_have_content(const EntitlementReferenceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EntitlementReferenceEntryContentForm entitlement_reference_entry_content(const EntitlementReferenceEntry *self);
 
 // An entity constraint entry (form).
@@ -14739,7 +14739,7 @@ void entity_constraint_entry_free(EntityConstraintEntry *self);
 int entity_constraint_entry_can_have_content(const EntityConstraintEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EntityConstraintEntryContentForm entity_constraint_entry_content(const EntityConstraintEntry *self);
 
 // A per-entity follow-up facet block (form + lists).
@@ -14753,7 +14753,7 @@ void entity_follow_up_entry_free(EntityFollowUpEntry *self);
 int entity_follow_up_entry_can_have_content(const EntityFollowUpEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *entity_follow_up_entry_content(const EntityFollowUpEntry *self);
 void entity_follow_up_entry_set_content(EntityFollowUpEntry *self, const char *value);
 // Which entity these follow-up facets describe.
@@ -14831,7 +14831,7 @@ void entity_index_entry_free(EntityIndexEntry *self);
 int entity_index_entry_can_have_content(const EntityIndexEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EntityIndexEntryContentForm entity_index_entry_content(const EntityIndexEntry *self);
 
 // An entity relationship entry (form).
@@ -14845,7 +14845,7 @@ void entity_relationship_entry_free(EntityRelationshipEntry *self);
 int entity_relationship_entry_can_have_content(const EntityRelationshipEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *entity_relationship_entry_content(const EntityRelationshipEntry *self);
 void entity_relationship_entry_set_content(EntityRelationshipEntry *self, const char *value);
 // What kind of relationship this is, and why it exists.
@@ -14940,7 +14940,7 @@ void entity_relationships_free(EntityRelationships *self);
 int entity_relationships_can_have_content(const EntityRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *entity_relationships_content(const EntityRelationships *self);
 void entity_relationships_set_content(EntityRelationships *self, const char *value);
 // Contains 0+× EntityRelationship.
@@ -14955,7 +14955,7 @@ void entry_point_entry_free(EntryPointEntry *self);
 int entry_point_entry_can_have_content(const EntryPointEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EntryPointEntryContentForm entry_point_entry_content(const EntryPointEntry *self);
 
 // An environment entry (form).
@@ -14972,7 +14972,7 @@ void environment_entry_free(EnvironmentEntry *self);
 int environment_entry_can_have_content(const EnvironmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EnvironmentEntryContentForm environment_entry_content(const EnvironmentEntry *self);
 // Identity and classification details.
 EnvironmentEntryIdentityForm environment_entry_identity(const EnvironmentEntry *self);
@@ -15007,7 +15007,7 @@ void environment_management_free(EnvironmentManagement *self);
 int environment_management_can_have_content(const EnvironmentManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EnvironmentManagementContentForm environment_management_content(const EnvironmentManagement *self);
 // Configuration settings.
 EnvironmentManagementConfigurationForm environment_management_configuration(const EnvironmentManagement *self);
@@ -15026,7 +15026,7 @@ void environment_strategy_free(EnvironmentStrategy *self);
 int environment_strategy_can_have_content(const EnvironmentStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EnvironmentStrategyContentForm environment_strategy_content(const EnvironmentStrategy *self);
 // Development environment setup.
 EnvironmentStrategyDevelopmentForm environment_strategy_development(const EnvironmentStrategy *self);
@@ -15052,7 +15052,7 @@ void environments_free(Environments *self);
 int environments_can_have_content(const Environments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EnvironmentsContentForm environments_content(const Environments *self);
 // Contains 0+× Environment.
 // Returns the list view; element type: EnvironmentEntry (construct from item paths).
@@ -15068,7 +15068,7 @@ void equipment_requirements_free(EquipmentRequirements *self);
 int equipment_requirements_can_have_content(const EquipmentRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *equipment_requirements_content(const EquipmentRequirements *self);
 void equipment_requirements_set_content(EquipmentRequirements *self, const char *value);
 // Equipment overview.
@@ -15100,7 +15100,7 @@ void error_budget_tracking_free(ErrorBudgetTracking *self);
 int error_budget_tracking_can_have_content(const ErrorBudgetTracking *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ErrorBudgetTrackingContentForm error_budget_tracking_content(const ErrorBudgetTracking *self);
 // Burn-rate monitoring thresholds.
 ErrorBudgetTrackingMonitoringForm error_budget_tracking_monitoring(const ErrorBudgetTracking *self);
@@ -15122,7 +15122,7 @@ void error_code_entry_free(ErrorCodeEntry *self);
 int error_code_entry_can_have_content(const ErrorCodeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ErrorCodeEntryContentForm error_code_entry_content(const ErrorCodeEntry *self);
 
 // 7.6. Error Code Registry.
@@ -15149,7 +15149,7 @@ void error_code_registry_free(ErrorCodeRegistry *self);
 int error_code_registry_can_have_content(const ErrorCodeRegistry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *error_code_registry_content(const ErrorCodeRegistry *self);
 void error_code_registry_set_content(ErrorCodeRegistry *self, const char *value);
 // 7.6.1. Error Codes — one entry per shared application error code.
@@ -15168,7 +15168,7 @@ void error_handling_free(ErrorHandling *self);
 int error_handling_can_have_content(const ErrorHandling *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *error_handling_content(const ErrorHandling *self);
 void error_handling_set_content(ErrorHandling *self, const char *value);
 // The stance errors are written from, before the concrete categories below.
@@ -15204,7 +15204,7 @@ void error_handling_standards_free(ErrorHandlingStandards *self);
 int error_handling_standards_can_have_content(const ErrorHandlingStandards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ErrorHandlingStandardsContentForm error_handling_standards_content(const ErrorHandlingStandards *self);
 // Exception type conventions.
 ErrorHandlingStandardsExceptionsForm error_handling_standards_exceptions(const ErrorHandlingStandards *self);
@@ -15228,7 +15228,7 @@ void error_recovery_free(ErrorRecovery *self);
 int error_recovery_can_have_content(const ErrorRecovery *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *error_recovery_content(const ErrorRecovery *self);
 void error_recovery_set_content(ErrorRecovery *self, const char *value);
 // What the system offers after an error, so the user is not left stranded.
@@ -15266,7 +15266,7 @@ void evaluation_criteria_free(EvaluationCriteria *self);
 int evaluation_criteria_can_have_content(const EvaluationCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *evaluation_criteria_content(const EvaluationCriteria *self);
 void evaluation_criteria_set_content(EvaluationCriteria *self, const char *value);
 // Contains 0+× EvaluationCriterion.
@@ -15284,7 +15284,7 @@ void evaluation_criterion_entry_free(EvaluationCriterionEntry *self);
 int evaluation_criterion_entry_can_have_content(const EvaluationCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EvaluationCriterionEntryContentForm evaluation_criterion_entry_content(const EvaluationCriterionEntry *self);
 // Scoring settings.
 EvaluationCriterionEntryScoringForm evaluation_criterion_entry_scoring(const EvaluationCriterionEntry *self);
@@ -15304,7 +15304,7 @@ void event_attribute_policy_free(EventAttributePolicy *self);
 int event_attribute_policy_can_have_content(const EventAttributePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 EventAttributePolicyContentForm event_attribute_policy_content(const EventAttributePolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -15319,7 +15319,7 @@ void executive_summary_distribution_free(ExecutiveSummaryDistribution *self);
 int executive_summary_distribution_can_have_content(const ExecutiveSummaryDistribution *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *executive_summary_distribution_content(const ExecutiveSummaryDistribution *self);
 void executive_summary_distribution_set_content(ExecutiveSummaryDistribution *self, const char *value);
 // Executive distribution summary.
@@ -15339,7 +15339,7 @@ void existing_system_entry_free(ExistingSystemEntry *self);
 int existing_system_entry_can_have_content(const ExistingSystemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExistingSystemEntryContentForm existing_system_entry_content(const ExistingSystemEntry *self);
 // Technology stack details.
 ExistingSystemEntryTechnologyForm existing_system_entry_technology(const ExistingSystemEntry *self);
@@ -15370,7 +15370,7 @@ void existing_systems_landscape_free(ExistingSystemsLandscape *self);
 int existing_systems_landscape_can_have_content(const ExistingSystemsLandscape *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *existing_systems_landscape_content(const ExistingSystemsLandscape *self);
 void existing_systems_landscape_set_content(ExistingSystemsLandscape *self, const char *value);
 // 1.1.1. System Inventory.
@@ -15388,7 +15388,7 @@ void expected_improvements_free(ExpectedImprovements *self);
 int expected_improvements_can_have_content(const ExpectedImprovements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExpectedImprovementsContentForm expected_improvements_content(const ExpectedImprovements *self);
 
 // 10. Experience & Interface Design. Seeds → XDS.
@@ -15399,7 +15399,7 @@ void experience_and_interface_design_free(ExperienceAndInterfaceDesign *self);
 int experience_and_interface_design_can_have_content(const ExperienceAndInterfaceDesign *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *experience_and_interface_design_content(const ExperienceAndInterfaceDesign *self);
 void experience_and_interface_design_set_content(ExperienceAndInterfaceDesign *self, const char *value);
 // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
@@ -15430,7 +15430,7 @@ void experience_code_specs_free(ExperienceCodeSpecs *self);
 int experience_code_specs_can_have_content(const ExperienceCodeSpecs *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *experience_code_specs_content(const ExperienceCodeSpecs *self);
 void experience_code_specs_set_content(ExperienceCodeSpecs *self, const char *value);
 // 10.1.1. Screen Descriptions. Seeds → XDS.
@@ -15472,7 +15472,7 @@ void experience_design_follow_up_free(ExperienceDesignFollowUp *self);
 int experience_design_follow_up_can_have_content(const ExperienceDesignFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *experience_design_follow_up_content(const ExperienceDesignFollowUp *self);
 void experience_design_follow_up_set_content(ExperienceDesignFollowUp *self, const char *value);
 // 10.3.1. Design Vision. Seeds → XDS.
@@ -15508,7 +15508,7 @@ void experience_localization_follow_up_free(ExperienceLocalizationFollowUp *self
 int experience_localization_follow_up_can_have_content(const ExperienceLocalizationFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *experience_localization_follow_up_content(const ExperienceLocalizationFollowUp *self);
 void experience_localization_follow_up_set_content(ExperienceLocalizationFollowUp *self, const char *value);
 // 10.4.1. Multi-language Support.
@@ -15522,7 +15522,7 @@ void export_field_mapping_entry_free(ExportFieldMappingEntry *self);
 int export_field_mapping_entry_can_have_content(const ExportFieldMappingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExportFieldMappingEntryContentForm export_field_mapping_entry_content(const ExportFieldMappingEntry *self);
 // Ordering and formatting settings.
 ExportFieldMappingEntryFormattingForm export_field_mapping_entry_formatting(const ExportFieldMappingEntry *self);
@@ -15567,7 +15567,7 @@ void export_format_entry_free(ExportFormatEntry *self);
 int export_format_entry_can_have_content(const ExportFormatEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExportFormatEntryContentForm export_format_entry_content(const ExportFormatEntry *self);
 // Identity and data source.
 ExportFormatEntryIdentityForm export_format_entry_identity(const ExportFormatEntry *self);
@@ -15602,7 +15602,7 @@ void export_size_settings_free(ExportSizeSettings *self);
 int export_size_settings_can_have_content(const ExportSizeSettings *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExportSizeSettingsContentForm export_size_settings_content(const ExportSizeSettings *self);
 
 // A reusable export template (form).
@@ -15613,7 +15613,7 @@ void export_template_entry_free(ExportTemplateEntry *self);
 int export_template_entry_can_have_content(const ExportTemplateEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExportTemplateEntryContentForm export_template_entry_content(const ExportTemplateEntry *self);
 // Format configuration.
 ExportTemplateEntryFormatForm export_template_entry_format(const ExportTemplateEntry *self);
@@ -15636,7 +15636,7 @@ void extension_entry_free(ExtensionEntry *self);
 int extension_entry_can_have_content(const ExtensionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExtensionEntryContentForm extension_entry_content(const ExtensionEntry *self);
 // Resume point — a promoted `@OneOf` case.
 //
@@ -15658,7 +15658,7 @@ void extension_step_entry_free(ExtensionStepEntry *self);
 int extension_step_entry_can_have_content(const ExtensionStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExtensionStepEntryContentForm extension_step_entry_content(const ExtensionStepEntry *self);
 // How this extension step's server call is carried out, step by step.
 //
@@ -15688,7 +15688,7 @@ void external_actor_entry_free(ExternalActorEntry *self);
 int external_actor_entry_can_have_content(const ExternalActorEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExternalActorEntryContentForm external_actor_entry_content(const ExternalActorEntry *self);
 // Interaction cadence and exchanged information.
 ExternalActorEntryInteractionForm external_actor_entry_interaction(const ExternalActorEntry *self);
@@ -15709,7 +15709,7 @@ void external_actors_free(ExternalActors *self);
 int external_actors_can_have_content(const ExternalActors *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *external_actors_content(const ExternalActors *self);
 void external_actors_set_content(ExternalActors *self, const char *value);
 // Actor entries — contains 1+× ExternalActorEntry.
@@ -15724,7 +15724,7 @@ void external_connectivity_section_free(ExternalConnectivitySection *self);
 int external_connectivity_section_can_have_content(const ExternalConnectivitySection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *external_connectivity_section_content(const ExternalConnectivitySection *self);
 void external_connectivity_section_set_content(ExternalConnectivitySection *self, const char *value);
 // Overview of external connectivity requirements.
@@ -15757,7 +15757,7 @@ void external_interface_entry_free(ExternalInterfaceEntry *self);
 int external_interface_entry_can_have_content(const ExternalInterfaceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *external_interface_entry_content(const ExternalInterfaceEntry *self);
 void external_interface_entry_set_content(ExternalInterfaceEntry *self, const char *value);
 // Which external system this interface reaches, and what kind of
@@ -15807,7 +15807,7 @@ void external_interfaces_free(ExternalInterfaces *self);
 int external_interfaces_can_have_content(const ExternalInterfaces *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *external_interfaces_content(const ExternalInterfaces *self);
 void external_interfaces_set_content(ExternalInterfaces *self, const char *value);
 // Summary of the integration landscape.
@@ -15828,7 +15828,7 @@ void external_network_requirements_free(ExternalNetworkRequirements *self);
 int external_network_requirements_can_have_content(const ExternalNetworkRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExternalNetworkRequirementsContentForm external_network_requirements_content(const ExternalNetworkRequirements *self);
 // Public endpoint requirements.
 ExternalNetworkRequirementsPublicEndpointsConfigForm external_network_requirements_public_endpoints_config(const ExternalNetworkRequirements *self);
@@ -15847,7 +15847,7 @@ void external_partner_connection_entry_free(ExternalPartnerConnectionEntry *self
 int external_partner_connection_entry_can_have_content(const ExternalPartnerConnectionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExternalPartnerConnectionEntryContentForm external_partner_connection_entry_content(const ExternalPartnerConnectionEntry *self);
 // Protocol and endpoint.
 ExternalPartnerConnectionEntryProtocolForm external_partner_connection_entry_protocol(const ExternalPartnerConnectionEntry *self);
@@ -15871,7 +15871,7 @@ void external_partner_operations_free(ExternalPartnerOperations *self);
 int external_partner_operations_can_have_content(const ExternalPartnerOperations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExternalPartnerOperationsContentForm external_partner_operations_content(const ExternalPartnerOperations *self);
 
 // 1.1.3.2. External Service Dependencies.
@@ -15885,7 +15885,7 @@ void external_service_dependencies_free(ExternalServiceDependencies *self);
 int external_service_dependencies_can_have_content(const ExternalServiceDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *external_service_dependencies_content(const ExternalServiceDependencies *self);
 void external_service_dependencies_set_content(ExternalServiceDependencies *self, const char *value);
 // Contains 0+× External Service Dependency.
@@ -15903,7 +15903,7 @@ void external_service_dependency_entry_free(ExternalServiceDependencyEntry *self
 int external_service_dependency_entry_can_have_content(const ExternalServiceDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExternalServiceDependencyEntryContentForm external_service_dependency_entry_content(const ExternalServiceDependencyEntry *self);
 // Internal dependency and contract details.
 ExternalServiceDependencyEntryRelationshipForm external_service_dependency_entry_relationship(const ExternalServiceDependencyEntry *self);
@@ -15933,7 +15933,7 @@ void external_system_context_entry_free(ExternalSystemContextEntry *self);
 int external_system_context_entry_can_have_content(const ExternalSystemContextEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ExternalSystemContextEntryContentForm external_system_context_entry_content(const ExternalSystemContextEntry *self);
 // Integration intent and exchanged information.
 ExternalSystemContextEntryIntegrationForm external_system_context_entry_integration(const ExternalSystemContextEntry *self);
@@ -15955,7 +15955,7 @@ void external_systems_context_free(ExternalSystemsContext *self);
 int external_systems_context_can_have_content(const ExternalSystemsContext *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *external_systems_context_content(const ExternalSystemsContext *self);
 void external_systems_context_set_content(ExternalSystemsContext *self, const char *value);
 // External system entries — contains 0+× ExternalSystemContextEntry.
@@ -15970,7 +15970,7 @@ void family_component_ref_free(FamilyComponentRef *self);
 int family_component_ref_can_have_content(const FamilyComponentRef *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FamilyComponentRefContentForm family_component_ref_content(const FamilyComponentRef *self);
 
 // 13.4.4. Feature Dependencies.
@@ -15984,7 +15984,7 @@ void feature_dependencies_free(FeatureDependencies *self);
 int feature_dependencies_can_have_content(const FeatureDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureDependenciesContentForm feature_dependencies_content(const FeatureDependencies *self);
 // Dependency analysis narrative.
 // (skipped: dependencyAnalysis has no target type)
@@ -16003,7 +16003,7 @@ void feature_dependency_entry_free(FeatureDependencyEntry *self);
 int feature_dependency_entry_can_have_content(const FeatureDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureDependencyEntryContentForm feature_dependency_entry_content(const FeatureDependencyEntry *self);
 
 // One hook of a framework protocol feature that the system implements (form +
@@ -16022,7 +16022,7 @@ void feature_hook_entry_free(FeatureHookEntry *self);
 int feature_hook_entry_can_have_content(const FeatureHookEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureHookEntryContentForm feature_hook_entry_content(const FeatureHookEntry *self);
 // 7.9.2.x. Methods — what each member of the hook contract does.
 // Returns the list view; element type: HookMethodEntry (construct from item paths).
@@ -16036,7 +16036,7 @@ void feature_module_entry_free(FeatureModuleEntry *self);
 int feature_module_entry_can_have_content(const FeatureModuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureModuleEntryContentForm feature_module_entry_content(const FeatureModuleEntry *self);
 // Purpose and value.
 FeatureModuleEntryDescriptionForm feature_module_entry_description(const FeatureModuleEntry *self);
@@ -16063,7 +16063,7 @@ void feature_prioritization_free(FeaturePrioritization *self);
 int feature_prioritization_can_have_content(const FeaturePrioritization *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeaturePrioritizationContentForm feature_prioritization_content(const FeaturePrioritization *self);
 // Methodology and scoring.
 FeaturePrioritizationMethodologyForm feature_prioritization_methodology(const FeaturePrioritization *self);
@@ -16103,7 +16103,7 @@ void feature_priority_entry_free(FeaturePriorityEntry *self);
 int feature_priority_entry_can_have_content(const FeaturePriorityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeaturePriorityEntryContentForm feature_priority_entry_content(const FeaturePriorityEntry *self);
 // Feature identity.
 FeaturePriorityEntryIdentityForm feature_priority_entry_identity(const FeaturePriorityEntry *self);
@@ -16142,7 +16142,7 @@ void feature_priority_register_free(FeaturePriorityRegister *self);
 int feature_priority_register_can_have_content(const FeaturePriorityRegister *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeaturePriorityRegisterContentForm feature_priority_register_content(const FeaturePriorityRegister *self);
 // Contains 1+× FeaturePriorityEntry.
 // Returns the list view; element type: FeaturePriorityEntry (construct from item paths).
@@ -16159,7 +16159,7 @@ void feature_stage_mapping_free(FeatureStageMapping *self);
 int feature_stage_mapping_can_have_content(const FeatureStageMapping *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureStageMappingContentForm feature_stage_mapping_content(const FeatureStageMapping *self);
 // Stage assignment details.
 FeatureStageMappingAssignmentForm feature_stage_mapping_assignment(const FeatureStageMapping *self);
@@ -16183,7 +16183,7 @@ void feature_stage_matrix_free(FeatureStageMatrix *self);
 int feature_stage_matrix_can_have_content(const FeatureStageMatrix *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureStageMatrixContentForm feature_stage_matrix_content(const FeatureStageMatrix *self);
 // Feature-Stage matrix narrative.
 // (skipped: matrixNarrative has no target type)
@@ -16199,7 +16199,7 @@ void feature_stakeholders_free(FeatureStakeholders *self);
 int feature_stakeholders_can_have_content(const FeatureStakeholders *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureStakeholdersContentForm feature_stakeholders_content(const FeatureStakeholders *self);
 
 // A feature tour entry.
@@ -16210,7 +16210,7 @@ void feature_tour_entry_free(FeatureTourEntry *self);
 int feature_tour_entry_can_have_content(const FeatureTourEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FeatureTourEntryContentForm feature_tour_entry_content(const FeatureTourEntry *self);
 // Tour steps.
 // Returns the list view; element type: TourStepEntry (construct from item paths).
@@ -16224,7 +16224,7 @@ void field_help_entry_free(FieldHelpEntry *self);
 int field_help_entry_can_have_content(const FieldHelpEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FieldHelpEntryContentForm field_help_entry_content(const FieldHelpEntry *self);
 
 // A field validation rule (form).
@@ -16235,7 +16235,7 @@ void field_validation_rule_free(FieldValidationRule *self);
 int field_validation_rule_can_have_content(const FieldValidationRule *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FieldValidationRuleContentForm field_validation_rule_content(const FieldValidationRule *self);
 
 // File access control policy — who can access, modify, share, and delete
@@ -16250,7 +16250,7 @@ void file_access_control_policy_free(FileAccessControlPolicy *self);
 int file_access_control_policy_can_have_content(const FileAccessControlPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FileAccessControlPolicyContentForm file_access_control_policy_content(const FileAccessControlPolicy *self);
 // File Access Control Details (text).
 // (skipped: fileAccessControlDetails has no target type)
@@ -16268,7 +16268,7 @@ void file_and_storage_security_free(FileAndStorageSecurity *self);
 int file_and_storage_security_can_have_content(const FileAndStorageSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *file_and_storage_security_content(const FileAndStorageSecurity *self);
 void file_and_storage_security_set_content(FileAndStorageSecurity *self, const char *value);
 // File and Storage Security Overview (text).
@@ -16298,7 +16298,7 @@ void file_download_security_policy_free(FileDownloadSecurityPolicy *self);
 int file_download_security_policy_can_have_content(const FileDownloadSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FileDownloadSecurityPolicyContentForm file_download_security_policy_content(const FileDownloadSecurityPolicy *self);
 // Download Security Details (text).
 // (skipped: downloadSecurityDetails has no target type)
@@ -16315,7 +16315,7 @@ void file_storage_encryption_policy_free(FileStorageEncryptionPolicy *self);
 int file_storage_encryption_policy_can_have_content(const FileStorageEncryptionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FileStorageEncryptionPolicyContentForm file_storage_encryption_policy_content(const FileStorageEncryptionPolicy *self);
 // File Storage Encryption Details (text).
 // (skipped: fileStorageEncryptionDetails has no target type)
@@ -16333,7 +16333,7 @@ void file_upload_validation_policy_free(FileUploadValidationPolicy *self);
 int file_upload_validation_policy_can_have_content(const FileUploadValidationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FileUploadValidationPolicyContentForm file_upload_validation_policy_content(const FileUploadValidationPolicy *self);
 // Upload Validation Details (text).
 // (skipped: uploadValidationDetails has no target type)
@@ -16346,7 +16346,7 @@ void firewall_requirements_free(FirewallRequirements *self);
 int firewall_requirements_can_have_content(const FirewallRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FirewallRequirementsContentForm firewall_requirements_content(const FirewallRequirements *self);
 // Rule definitions.
 FirewallRequirementsRulesForm firewall_requirements_rules(const FirewallRequirements *self);
@@ -16365,7 +16365,7 @@ void flexibility_free(Flexibility *self);
 int flexibility_can_have_content(const Flexibility *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FlexibilityContentForm flexibility_content(const Flexibility *self);
 // Modularity and reuse goals.
 FlexibilityModularityForm flexibility_modularity(const Flexibility *self);
@@ -16389,7 +16389,7 @@ void flexibility_characteristic_free(FlexibilityCharacteristic *self);
 int flexibility_characteristic_can_have_content(const FlexibilityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *flexibility_characteristic_content(const FlexibilityCharacteristic *self);
 void flexibility_characteristic_set_content(FlexibilityCharacteristic *self, const char *value);
 // The changes the system must absorb without redesign, and the environments
@@ -16419,7 +16419,7 @@ void form_screen_assignment_entry_free(FormScreenAssignmentEntry *self);
 int form_screen_assignment_entry_can_have_content(const FormScreenAssignmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FormScreenAssignmentEntryContentForm form_screen_assignment_entry_content(const FormScreenAssignmentEntry *self);
 
 // Framework or library requirement entry.
@@ -16430,7 +16430,7 @@ void framework_requirement_entry_free(FrameworkRequirementEntry *self);
 int framework_requirement_entry_can_have_content(const FrameworkRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FrameworkRequirementEntryContentForm framework_requirement_entry_content(const FrameworkRequirementEntry *self);
 // Identity details.
 FrameworkRequirementEntryIdentityForm framework_requirement_entry_identity(const FrameworkRequirementEntry *self);
@@ -16455,7 +16455,7 @@ void full_distribution_free(FullDistribution *self);
 int full_distribution_can_have_content(const FullDistribution *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *full_distribution_content(const FullDistribution *self);
 void full_distribution_set_content(FullDistribution *self, const char *value);
 // Full distribution summary.
@@ -16474,7 +16474,7 @@ void function_data_matrix_entry_free(FunctionDataMatrixEntry *self);
 int function_data_matrix_entry_can_have_content(const FunctionDataMatrixEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FunctionDataMatrixEntryContentForm function_data_matrix_entry_content(const FunctionDataMatrixEntry *self);
 
 // A function entry (form).
@@ -16487,7 +16487,7 @@ void function_entry_free(FunctionEntry *self);
 int function_entry_can_have_content(const FunctionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FunctionEntryContentForm function_entry_content(const FunctionEntry *self);
 // Decomposition position and classification.
 FunctionEntryClassificationForm function_entry_classification(const FunctionEntry *self);
@@ -16509,7 +16509,7 @@ void function_model_free(FunctionModel *self);
 int function_model_can_have_content(const FunctionModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *function_model_content(const FunctionModel *self);
 void function_model_set_content(FunctionModel *self, const char *value);
 // How the function hierarchy was cut, and how deep it goes.
@@ -16551,7 +16551,7 @@ void functional_completeness_free(FunctionalCompleteness *self);
 int functional_completeness_can_have_content(const FunctionalCompleteness *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FunctionalCompletenessContentForm functional_completeness_content(const FunctionalCompleteness *self);
 // Detailed functional completeness narrative.
 // (skipped: narrative has no target type)
@@ -16568,7 +16568,7 @@ void functional_requirement_entry_free(FunctionalRequirementEntry *self);
 int functional_requirement_entry_can_have_content(const FunctionalRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FunctionalRequirementEntryContentForm functional_requirement_entry_content(const FunctionalRequirementEntry *self);
 // Requirement details: description, type, category.
 FunctionalRequirementEntryDetailsForm functional_requirement_entry_details(const FunctionalRequirementEntry *self);
@@ -16610,7 +16610,7 @@ void functional_requirements_free(FunctionalRequirements *self);
 int functional_requirements_can_have_content(const FunctionalRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *functional_requirements_content(const FunctionalRequirements *self);
 void functional_requirements_set_content(FunctionalRequirements *self, const char *value);
 // Functional requirements summary form.
@@ -16632,7 +16632,7 @@ void functional_responsibilities_free(FunctionalResponsibilities *self);
 int functional_responsibilities_can_have_content(const FunctionalResponsibilities *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 FunctionalResponsibilitiesContentForm functional_responsibilities_content(const FunctionalResponsibilities *self);
 // Responsibility matrix overview narrative.
 // (skipped: matrixOverview has no target type)
@@ -16652,7 +16652,7 @@ void functional_suitability_characteristic_free(FunctionalSuitabilityCharacteris
 int functional_suitability_characteristic_can_have_content(const FunctionalSuitabilityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *functional_suitability_characteristic_content(const FunctionalSuitabilityCharacteristic *self);
 void functional_suitability_characteristic_set_content(FunctionalSuitabilityCharacteristic *self, const char *value);
 // The bar for "the right functions, working correctly" — the coverage target
@@ -16685,7 +16685,7 @@ void gap_entry_free(GapEntry *self);
 int gap_entry_can_have_content(const GapEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GapEntryContentForm gap_entry_content(const GapEntry *self);
 // Gap description and business impact.
 GapEntryDescriptionForm gap_entry_description(const GapEntry *self);
@@ -16704,7 +16704,7 @@ void geographic_distribution_requirements_free(GeographicDistributionRequirement
 int geographic_distribution_requirements_can_have_content(const GeographicDistributionRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GeographicDistributionRequirementsContentForm geographic_distribution_requirements_content(const GeographicDistributionRequirements *self);
 // CDN requirements.
 GeographicDistributionRequirementsCdnForm geographic_distribution_requirements_cdn(const GeographicDistributionRequirements *self);
@@ -16726,7 +16726,7 @@ void global_role_exclusion_entry_free(GlobalRoleExclusionEntry *self);
 int global_role_exclusion_entry_can_have_content(const GlobalRoleExclusionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GlobalRoleExclusionEntryContentForm global_role_exclusion_entry_content(const GlobalRoleExclusionEntry *self);
 
 // SBP.3 Glossary & Abbreviations.
@@ -16737,7 +16737,7 @@ void glossary_and_abbreviations_free(GlossaryAndAbbreviations *self);
 int glossary_and_abbreviations_can_have_content(const GlossaryAndAbbreviations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *glossary_and_abbreviations_content(const GlossaryAndAbbreviations *self);
 void glossary_and_abbreviations_set_content(GlossaryAndAbbreviations *self, const char *value);
 // The set of defined terms and abbreviations.
@@ -16752,7 +16752,7 @@ void glossary_entry_free(GlossaryEntry *self);
 int glossary_entry_can_have_content(const GlossaryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GlossaryEntryContentForm glossary_entry_content(const GlossaryEntry *self);
 
 // 4.2.1.n.3. Dependencies.
@@ -16765,7 +16765,7 @@ void goal_dependencies_free(GoalDependencies *self);
 int goal_dependencies_can_have_content(const GoalDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *goal_dependencies_content(const GoalDependencies *self);
 void goal_dependencies_set_content(GoalDependencies *self, const char *value);
 // Dependency entries — contains 0+× GoalDependencyEntry.
@@ -16780,7 +16780,7 @@ void goal_dependency_entry_free(GoalDependencyEntry *self);
 int goal_dependency_entry_can_have_content(const GoalDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GoalDependencyEntryContentForm goal_dependency_entry_content(const GoalDependencyEntry *self);
 // The goal whose achievement this dependency blocks, named by section id.
 //
@@ -16808,7 +16808,7 @@ void goal_key_results_free(GoalKeyResults *self);
 int goal_key_results_can_have_content(const GoalKeyResults *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *goal_key_results_content(const GoalKeyResults *self);
 void goal_key_results_set_content(GoalKeyResults *self, const char *value);
 // Key result entries — contains 0+× KeyResultEntry.
@@ -16823,7 +16823,7 @@ void goal_milestone_entry_free(GoalMilestoneEntry *self);
 int goal_milestone_entry_can_have_content(const GoalMilestoneEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GoalMilestoneEntryContentForm goal_milestone_entry_content(const GoalMilestoneEntry *self);
 
 // 4.2.1.n.2. Milestones.
@@ -16836,7 +16836,7 @@ void goal_milestones_free(GoalMilestones *self);
 int goal_milestones_can_have_content(const GoalMilestones *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *goal_milestones_content(const GoalMilestones *self);
 void goal_milestones_set_content(GoalMilestones *self, const char *value);
 // Milestone entries — contains 0+× GoalMilestoneEntry.
@@ -16853,7 +16853,7 @@ void goal_resources_free(GoalResources *self);
 int goal_resources_can_have_content(const GoalResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *goal_resources_content(const GoalResources *self);
 void goal_resources_set_content(GoalResources *self, const char *value);
 // Resource requirement form.
@@ -16870,7 +16870,7 @@ void goal_risk_entry_free(GoalRiskEntry *self);
 int goal_risk_entry_can_have_content(const GoalRiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GoalRiskEntryContentForm goal_risk_entry_content(const GoalRiskEntry *self);
 // Risk assessment details.
 GoalRiskEntryAssessmentForm goal_risk_entry_assessment(const GoalRiskEntry *self);
@@ -16887,7 +16887,7 @@ void goal_risks_free(GoalRisks *self);
 int goal_risks_can_have_content(const GoalRisks *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *goal_risks_content(const GoalRisks *self);
 void goal_risks_set_content(GoalRisks *self, const char *value);
 // Risk entries — contains 0+× GoalRiskEntry.
@@ -16921,7 +16921,7 @@ void goals_free(Goals *self);
 int goals_can_have_content(const Goals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *goals_content(const Goals *self);
 void goals_set_content(Goals *self, const char *value);
 // Goal hierarchy diagram.
@@ -16942,7 +16942,7 @@ void governance_model_free(GovernanceModel *self);
 int governance_model_can_have_content(const GovernanceModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GovernanceModelContentForm governance_model_content(const GovernanceModel *self);
 // Decision authority matrix.
 // Returns the list view; element type: DecisionAuthorityEntry (construct from item paths).
@@ -16961,7 +16961,7 @@ void graded_access_level_entry_free(GradedAccessLevelEntry *self);
 int graded_access_level_entry_can_have_content(const GradedAccessLevelEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GradedAccessLevelEntryContentForm graded_access_level_entry_content(const GradedAccessLevelEntry *self);
 // Role requirement payload — a promoted `@OneOf` case.
 GradedAccessLevelEntryRoleRequirementForm graded_access_level_entry_role_requirement(const GradedAccessLevelEntry *self);
@@ -16999,7 +16999,7 @@ void graded_authorization_requirement_free(GradedAuthorizationRequirement *self)
 int graded_authorization_requirement_can_have_content(const GradedAuthorizationRequirement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 GradedAuthorizationRequirementContentForm graded_authorization_requirement_content(const GradedAuthorizationRequirement *self);
 // The authored rungs of the ladder — contains 1..3× Graded Access Level.
 // Returns the list view; element type: GradedAccessLevelEntry (construct from item paths).
@@ -17015,7 +17015,7 @@ void handling_requirement_entry_free(HandlingRequirementEntry *self);
 int handling_requirement_entry_can_have_content(const HandlingRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 HandlingRequirementEntryContentForm handling_requirement_entry_content(const HandlingRequirementEntry *self);
 
 // 8.4. Hardware Concept Requirements.
@@ -17026,7 +17026,7 @@ void hardware_requirements_free(HardwareRequirements *self);
 int hardware_requirements_can_have_content(const HardwareRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *hardware_requirements_content(const HardwareRequirements *self);
 void hardware_requirements_set_content(HardwareRequirements *self, const char *value);
 // 8.4.1. Server Requirements.
@@ -17044,7 +17044,7 @@ void health_check_endpoints_free(HealthCheckEndpoints *self);
 int health_check_endpoints_can_have_content(const HealthCheckEndpoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 HealthCheckEndpointsContentForm health_check_endpoints_content(const HealthCheckEndpoints *self);
 // Response configuration.
 HealthCheckEndpointsConfigurationForm health_check_endpoints_configuration(const HealthCheckEndpoints *self);
@@ -17061,7 +17061,7 @@ void health_checks_and_diagnostics_section_free(HealthChecksAndDiagnosticsSectio
 int health_checks_and_diagnostics_section_can_have_content(const HealthChecksAndDiagnosticsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *health_checks_and_diagnostics_section_content(const HealthChecksAndDiagnosticsSection *self);
 void health_checks_and_diagnostics_section_set_content(HealthChecksAndDiagnosticsSection *self, const char *value);
 // Overview of health check and diagnostic strategy.
@@ -17085,7 +17085,7 @@ void high_availability_requirements_free(HighAvailabilityRequirements *self);
 int high_availability_requirements_can_have_content(const HighAvailabilityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 HighAvailabilityRequirementsContentForm high_availability_requirements_content(const HighAvailabilityRequirements *self);
 // Redundancy model.
 HighAvailabilityRequirementsRedundancyForm high_availability_requirements_redundancy(const HighAvailabilityRequirements *self);
@@ -17108,7 +17108,7 @@ void hook_method_entry_free(HookMethodEntry *self);
 int hook_method_entry_can_have_content(const HookMethodEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 HookMethodEntryContentForm hook_method_entry_content(const HookMethodEntry *self);
 
 // IDE requirement entry — a required IDE or editor.
@@ -17119,7 +17119,7 @@ void ide_requirement_entry_free(IdeRequirementEntry *self);
 int ide_requirement_entry_can_have_content(const IdeRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdeRequirementEntryContentForm ide_requirement_entry_content(const IdeRequirementEntry *self);
 // Extension and workspace configuration.
 IdeRequirementEntryConfigurationForm ide_requirement_entry_configuration(const IdeRequirementEntry *self);
@@ -17141,7 +17141,7 @@ void identification_free(Identification *self);
 int identification_can_have_content(const Identification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentificationContentForm identification_content(const Identification *self);
 // Identity Sources — contains 0+× Identity Source.
 // Returns the list view; element type: IdentitySourceEntry (construct from item paths).
@@ -17167,7 +17167,7 @@ void identification_and_authentication_free(IdentificationAndAuthentication *sel
 int identification_and_authentication_can_have_content(const IdentificationAndAuthentication *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *identification_and_authentication_content(const IdentificationAndAuthentication *self);
 void identification_and_authentication_set_content(IdentificationAndAuthentication *self, const char *value);
 // 9.2.1. Identification.
@@ -17186,7 +17186,7 @@ void identity_attribute_mapping_entry_free(IdentityAttributeMappingEntry *self);
 int identity_attribute_mapping_entry_can_have_content(const IdentityAttributeMappingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentityAttributeMappingEntryContentForm identity_attribute_mapping_entry_content(const IdentityAttributeMappingEntry *self);
 // Transformation and defaulting behavior.
 IdentityAttributeMappingEntryTransformationForm identity_attribute_mapping_entry_transformation(const IdentityAttributeMappingEntry *self);
@@ -17203,7 +17203,7 @@ void identity_provider_details_free(IdentityProviderDetails *self);
 int identity_provider_details_can_have_content(const IdentityProviderDetails *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentityProviderDetailsContentForm identity_provider_details_content(const IdentityProviderDetails *self);
 
 // Endpoint configuration.
@@ -17214,7 +17214,7 @@ void identity_provider_endpoints_free(IdentityProviderEndpoints *self);
 int identity_provider_endpoints_can_have_content(const IdentityProviderEndpoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentityProviderEndpointsContentForm identity_provider_endpoints_content(const IdentityProviderEndpoints *self);
 
 // An identity provider entry (form).
@@ -17228,7 +17228,7 @@ void identity_provider_entry_free(IdentityProviderEntry *self);
 int identity_provider_entry_can_have_content(const IdentityProviderEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentityProviderEntryContentForm identity_provider_entry_content(const IdentityProviderEntry *self);
 // Provider details.
 // Returns the list view; element type: IdentityProviderDetails (construct from item paths).
@@ -17254,7 +17254,7 @@ void identity_source_entry_free(IdentitySourceEntry *self);
 int identity_source_entry_can_have_content(const IdentitySourceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentitySourceEntryContentForm identity_source_entry_content(const IdentitySourceEntry *self);
 // Connectivity and trust details.
 IdentitySourceEntryConnectionForm identity_source_entry_connection(const IdentitySourceEntry *self);
@@ -17276,7 +17276,7 @@ void identity_verification_policy_free(IdentityVerificationPolicy *self);
 int identity_verification_policy_can_have_content(const IdentityVerificationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IdentityVerificationPolicyContentForm identity_verification_policy_content(const IdentityVerificationPolicy *self);
 // Required proofing artifacts.
 IdentityVerificationPolicyDocumentsForm identity_verification_policy_documents(const IdentityVerificationPolicy *self);
@@ -17299,7 +17299,7 @@ void impact_level_definitions_free(ImpactLevelDefinitions *self);
 int impact_level_definitions_can_have_content(const ImpactLevelDefinitions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ImpactLevelDefinitionsContentForm impact_level_definitions_content(const ImpactLevelDefinitions *self);
 
 // Incident management requirements.
@@ -17310,7 +17310,7 @@ void incident_management_requirements_free(IncidentManagementRequirements *self)
 int incident_management_requirements_can_have_content(const IncidentManagementRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IncidentManagementRequirementsContentForm incident_management_requirements_content(const IncidentManagementRequirements *self);
 // Communication requirements.
 IncidentManagementRequirementsCommunicationForm incident_management_requirements_communication(const IncidentManagementRequirements *self);
@@ -17329,7 +17329,7 @@ void incident_response_plan_free(IncidentResponsePlan *self);
 int incident_response_plan_can_have_content(const IncidentResponsePlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IncidentResponsePlanContentForm incident_response_plan_content(const IncidentResponsePlan *self);
 // Response process.
 IncidentResponsePlanProcessForm incident_response_plan_process(const IncidentResponsePlan *self);
@@ -17346,7 +17346,7 @@ void industry_protocol_compliance_entry_free(IndustryProtocolComplianceEntry *se
 int industry_protocol_compliance_entry_can_have_content(const IndustryProtocolComplianceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IndustryProtocolComplianceEntryContentForm industry_protocol_compliance_entry_content(const IndustryProtocolComplianceEntry *self);
 // Compliance scope and features.
 IndustryProtocolComplianceEntryScopeForm industry_protocol_compliance_entry_scope(const IndustryProtocolComplianceEntry *self);
@@ -17365,7 +17365,7 @@ void industry_standard_entry_free(IndustryStandardEntry *self);
 int industry_standard_entry_can_have_content(const IndustryStandardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IndustryStandardEntryContentForm industry_standard_entry_content(const IndustryStandardEntry *self);
 // Scope details.
 IndustryStandardEntryScopeForm industry_standard_entry_scope(const IndustryStandardEntry *self);
@@ -17386,7 +17386,7 @@ void information_and_data_model_free(InformationAndDataModel *self);
 int information_and_data_model_can_have_content(const InformationAndDataModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *information_and_data_model_content(const InformationAndDataModel *self);
 void information_and_data_model_set_content(InformationAndDataModel *self, const char *value);
 // 7.1. Data Model.
@@ -17432,7 +17432,7 @@ void information_architecture_free(InformationArchitecture *self);
 int information_architecture_can_have_content(const InformationArchitecture *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *information_architecture_content(const InformationArchitecture *self);
 void information_architecture_set_content(InformationArchitecture *self, const char *value);
 // Site map overview.
@@ -17462,7 +17462,7 @@ void information_for_use_requirements_free(InformationForUseRequirements *self);
 int information_for_use_requirements_can_have_content(const InformationForUseRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *information_for_use_requirements_content(const InformationForUseRequirements *self);
 void information_for_use_requirements_set_content(InformationForUseRequirements *self, const char *value);
 // User documentation requirements (doc half of the former DOANTR).
@@ -17476,7 +17476,7 @@ void infrastructure_as_code_free(InfrastructureAsCode *self);
 int infrastructure_as_code_can_have_content(const InfrastructureAsCode *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InfrastructureAsCodeContentForm infrastructure_as_code_content(const InfrastructureAsCode *self);
 // State management.
 InfrastructureAsCodeStateForm infrastructure_as_code_state(const InfrastructureAsCode *self);
@@ -17495,7 +17495,7 @@ void infrastructure_component_entry_free(InfrastructureComponentEntry *self);
 int infrastructure_component_entry_can_have_content(const InfrastructureComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InfrastructureComponentEntryContentForm infrastructure_component_entry_content(const InfrastructureComponentEntry *self);
 // Purpose and technology choices.
 InfrastructureComponentEntryDescriptionForm infrastructure_component_entry_description(const InfrastructureComponentEntry *self);
@@ -17516,7 +17516,7 @@ void infrastructure_metrics_spec_free(InfrastructureMetricsSpec *self);
 int infrastructure_metrics_spec_can_have_content(const InfrastructureMetricsSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InfrastructureMetricsSpecContentForm infrastructure_metrics_spec_content(const InfrastructureMetricsSpec *self);
 // Container and orchestration metrics.
 InfrastructureMetricsSpecKubernetesForm infrastructure_metrics_spec_kubernetes(const InfrastructureMetricsSpec *self);
@@ -17533,7 +17533,7 @@ void infrastructure_security_hardening_free(InfrastructureSecurityHardening *sel
 int infrastructure_security_hardening_can_have_content(const InfrastructureSecurityHardening *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InfrastructureSecurityHardeningContentForm infrastructure_security_hardening_content(const InfrastructureSecurityHardening *self);
 // Container security.
 InfrastructureSecurityHardeningContainerForm infrastructure_security_hardening_container(const InfrastructureSecurityHardening *self);
@@ -17554,7 +17554,7 @@ void initial_development_flow_free(InitialDevelopmentFlow *self);
 int initial_development_flow_can_have_content(const InitialDevelopmentFlow *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *initial_development_flow_content(const InitialDevelopmentFlow *self);
 void initial_development_flow_set_content(InitialDevelopmentFlow *self, const char *value);
 
@@ -17566,7 +17566,7 @@ void initial_training_entry_free(InitialTrainingEntry *self);
 int initial_training_entry_can_have_content(const InitialTrainingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InitialTrainingEntryContentForm initial_training_entry_content(const InitialTrainingEntry *self);
 // Target and prerequisites.
 InitialTrainingEntryAudienceForm initial_training_entry_audience(const InitialTrainingEntry *self);
@@ -17587,7 +17587,7 @@ void input_device_entry_free(InputDeviceEntry *self);
 int input_device_entry_can_have_content(const InputDeviceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InputDeviceEntryContentForm input_device_entry_content(const InputDeviceEntry *self);
 
 // An insurance requirement entry.
@@ -17598,7 +17598,7 @@ void insurance_entry_free(InsuranceEntry *self);
 int insurance_entry_can_have_content(const InsuranceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InsuranceEntryContentForm insurance_entry_content(const InsuranceEntry *self);
 
 // 3.6.5. Insurance and Liability Requirements.
@@ -17611,7 +17611,7 @@ void insurance_liability_requirements_free(InsuranceLiabilityRequirements *self)
 int insurance_liability_requirements_can_have_content(const InsuranceLiabilityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *insurance_liability_requirements_content(const InsuranceLiabilityRequirements *self);
 void insurance_liability_requirements_set_content(InsuranceLiabilityRequirements *self, const char *value);
 // Insurance requirements — contains 0+× Insurance Entry.
@@ -17629,7 +17629,7 @@ void integration_architecture_free(IntegrationArchitecture *self);
 int integration_architecture_can_have_content(const IntegrationArchitecture *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IntegrationArchitectureContentForm integration_architecture_content(const IntegrationArchitecture *self);
 // External system landscape.
 IntegrationArchitectureSystemsForm integration_architecture_systems(const IntegrationArchitecture *self);
@@ -17653,7 +17653,7 @@ void integration_constraint_entry_free(IntegrationConstraintEntry *self);
 int integration_constraint_entry_can_have_content(const IntegrationConstraintEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IntegrationConstraintEntryContentForm integration_constraint_entry_content(const IntegrationConstraintEntry *self);
 // Constraint details.
 IntegrationConstraintEntryDetailsForm integration_constraint_entry_details(const IntegrationConstraintEntry *self);
@@ -17674,7 +17674,7 @@ void integration_health_summary_free(IntegrationHealthSummary *self);
 int integration_health_summary_can_have_content(const IntegrationHealthSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IntegrationHealthSummaryContentForm integration_health_summary_content(const IntegrationHealthSummary *self);
 // Fragile integration points requiring attention.
 // Returns the list view; element type: scalar (construct from item paths).
@@ -17695,7 +17695,7 @@ void integration_point_entry_free(IntegrationPointEntry *self);
 int integration_point_entry_can_have_content(const IntegrationPointEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IntegrationPointEntryContentForm integration_point_entry_content(const IntegrationPointEntry *self);
 
 // 1.1.3.4. System Integrations.
@@ -17709,7 +17709,7 @@ void integrations_free(Integrations *self);
 int integrations_can_have_content(const Integrations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *integrations_content(const Integrations *self);
 void integrations_set_content(Integrations *self, const char *value);
 // Contains 0+× SystemIntegration.
@@ -17726,7 +17726,7 @@ void integrity_constraints_free(IntegrityConstraints *self);
 int integrity_constraints_can_have_content(const IntegrityConstraints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *integrity_constraints_content(const IntegrityConstraints *self);
 void integrity_constraints_set_content(IntegrityConstraints *self, const char *value);
 
@@ -17740,7 +17740,7 @@ void intellectual_property_requirements_free(IntellectualPropertyRequirements *s
 int intellectual_property_requirements_can_have_content(const IntellectualPropertyRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IntellectualPropertyRequirementsContentForm intellectual_property_requirements_content(const IntellectualPropertyRequirements *self);
 // IP ownership details — contains 0+× IP Ownership Entry.
 // Returns the list view; element type: IpOwnershipEntry (construct from item paths).
@@ -17754,7 +17754,7 @@ void interaction_business_rules_free(InteractionBusinessRules *self);
 int interaction_business_rules_can_have_content(const InteractionBusinessRules *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InteractionBusinessRulesContentForm interaction_business_rules_content(const InteractionBusinessRules *self);
 
 // 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
@@ -17770,7 +17770,7 @@ void interaction_capability_characteristic_free(InteractionCapabilityCharacteris
 int interaction_capability_characteristic_can_have_content(const InteractionCapabilityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *interaction_capability_characteristic_content(const InteractionCapabilityCharacteristic *self);
 void interaction_capability_characteristic_set_content(InteractionCapabilityCharacteristic *self, const char *value);
 // The user population whose experience sets the bar, and the level of
@@ -17802,7 +17802,7 @@ void interaction_catalog_free(InteractionCatalog *self);
 int interaction_catalog_can_have_content(const InteractionCatalog *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *interaction_catalog_content(const InteractionCatalog *self);
 void interaction_catalog_set_content(InteractionCatalog *self, const char *value);
 // Interaction catalog overview.
@@ -17824,7 +17824,7 @@ void interaction_channel_entry_free(InteractionChannelEntry *self);
 int interaction_channel_entry_can_have_content(const InteractionChannelEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InteractionChannelEntryContentForm interaction_channel_entry_content(const InteractionChannelEntry *self);
 // Platform and targeting.
 InteractionChannelEntryPlatformForm interaction_channel_entry_platform(const InteractionChannelEntry *self);
@@ -17851,7 +17851,7 @@ void interaction_dependency_analysis_free(InteractionDependencyAnalysis *self);
 int interaction_dependency_analysis_can_have_content(const InteractionDependencyAnalysis *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *interaction_dependency_analysis_content(const InteractionDependencyAnalysis *self);
 void interaction_dependency_analysis_set_content(InteractionDependencyAnalysis *self, const char *value);
 
@@ -17866,7 +17866,7 @@ void interaction_entry_free(InteractionEntry *self);
 int interaction_entry_can_have_content(const InteractionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *interaction_entry_content(const InteractionEntry *self);
 void interaction_entry_set_content(InteractionEntry *self, const char *value);
 // Interaction identification (use case header).
@@ -17912,7 +17912,7 @@ void interaction_pattern_entry_free(InteractionPatternEntry *self);
 int interaction_pattern_entry_can_have_content(const InteractionPatternEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InteractionPatternEntryContentForm interaction_pattern_entry_content(const InteractionPatternEntry *self);
 // Narrative summary and typical scenarios.
 InteractionPatternEntryDefinitionForm interaction_pattern_entry_definition(const InteractionPatternEntry *self);
@@ -17934,7 +17934,7 @@ void interaction_patterns_free(InteractionPatterns *self);
 int interaction_patterns_can_have_content(const InteractionPatterns *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *interaction_patterns_content(const InteractionPatterns *self);
 void interaction_patterns_set_content(InteractionPatterns *self, const char *value);
 // Pattern entries — contains 1+× InteractionPatternEntry.
@@ -17952,7 +17952,7 @@ void interaction_testing_strategy_free(InteractionTestingStrategy *self);
 int interaction_testing_strategy_can_have_content(const InteractionTestingStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *interaction_testing_strategy_content(const InteractionTestingStrategy *self);
 void interaction_testing_strategy_set_content(InteractionTestingStrategy *self, const char *value);
 
@@ -17964,7 +17964,7 @@ void interface_business_context_free(InterfaceBusinessContext *self);
 int interface_business_context_can_have_content(const InterfaceBusinessContext *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceBusinessContextContentForm interface_business_context_content(const InterfaceBusinessContext *self);
 // Business processes that depend on this interface.
 // Returns the list view; element type: InterfaceBusinessProcessEntry (construct from item paths).
@@ -17978,7 +17978,7 @@ void interface_business_process_entry_free(InterfaceBusinessProcessEntry *self);
 int interface_business_process_entry_can_have_content(const InterfaceBusinessProcessEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceBusinessProcessEntryContentForm interface_business_process_entry_content(const InterfaceBusinessProcessEntry *self);
 
 // Data entity exchanged.
@@ -17989,7 +17989,7 @@ void interface_data_entity_entry_free(InterfaceDataEntityEntry *self);
 int interface_data_entity_entry_can_have_content(const InterfaceDataEntityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceDataEntityEntryContentForm interface_data_entity_entry_content(const InterfaceDataEntityEntry *self);
 
 // Data specification for an interface.
@@ -18000,7 +18000,7 @@ void interface_data_spec_free(InterfaceDataSpec *self);
 int interface_data_spec_can_have_content(const InterfaceDataSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceDataSpecContentForm interface_data_spec_content(const InterfaceDataSpec *self);
 // Data entities exchanged.
 // Returns the list view; element type: InterfaceDataEntityEntry (construct from item paths).
@@ -18020,7 +18020,7 @@ void interface_error_handling_free(InterfaceErrorHandling *self);
 int interface_error_handling_can_have_content(const InterfaceErrorHandling *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceErrorHandlingContentForm interface_error_handling_content(const InterfaceErrorHandling *self);
 // Non-retryable errors and retry strategy.
 InterfaceErrorHandlingRetryForm interface_error_handling_retry(const InterfaceErrorHandling *self);
@@ -18040,7 +18040,7 @@ void interface_governance_free(InterfaceGovernance *self);
 int interface_governance_can_have_content(const InterfaceGovernance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceGovernanceContentForm interface_governance_content(const InterfaceGovernance *self);
 // Contract and commercial terms.
 InterfaceGovernanceContractForm interface_governance_contract(const InterfaceGovernance *self);
@@ -18066,7 +18066,7 @@ void interface_operation_entry_free(InterfaceOperationEntry *self);
 int interface_operation_entry_can_have_content(const InterfaceOperationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceOperationEntryContentForm interface_operation_entry_content(const InterfaceOperationEntry *self);
 
 // Operational characteristics.
@@ -18077,7 +18077,7 @@ void interface_operational_free(InterfaceOperational *self);
 int interface_operational_can_have_content(const InterfaceOperational *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceOperationalContentForm interface_operational_content(const InterfaceOperational *self);
 // Rate limiting rules.
 InterfaceOperationalRateLimitingForm interface_operational_rate_limiting(const InterfaceOperational *self);
@@ -18097,7 +18097,7 @@ void interface_security_free(InterfaceSecurity *self);
 int interface_security_can_have_content(const InterfaceSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceSecurityContentForm interface_security_content(const InterfaceSecurity *self);
 // Authorization boundaries.
 InterfaceSecurityAuthorizationForm interface_security_authorization(const InterfaceSecurity *self);
@@ -18116,7 +18116,7 @@ void interface_specification_entry_free(InterfaceSpecificationEntry *self);
 int interface_specification_entry_can_have_content(const InterfaceSpecificationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceSpecificationEntryContentForm interface_specification_entry_content(const InterfaceSpecificationEntry *self);
 // Definition storage and validation.
 InterfaceSpecificationEntryDefinitionForm interface_specification_entry_definition(const InterfaceSpecificationEntry *self);
@@ -18135,7 +18135,7 @@ void interface_technical_spec_free(InterfaceTechnicalSpec *self);
 int interface_technical_spec_can_have_content(const InterfaceTechnicalSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceTechnicalSpecContentForm interface_technical_spec_content(const InterfaceTechnicalSpec *self);
 // Directionality and messaging pattern.
 InterfaceTechnicalSpecCommunicationForm interface_technical_spec_communication(const InterfaceTechnicalSpec *self);
@@ -18155,7 +18155,7 @@ void interface_test_scenario_entry_free(InterfaceTestScenarioEntry *self);
 int interface_test_scenario_entry_can_have_content(const InterfaceTestScenarioEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceTestScenarioEntryContentForm interface_test_scenario_entry_content(const InterfaceTestScenarioEntry *self);
 
 // Testing specification.
@@ -18166,7 +18166,7 @@ void interface_testing_free(InterfaceTesting *self);
 int interface_testing_can_have_content(const InterfaceTesting *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InterfaceTestingContentForm interface_testing_content(const InterfaceTesting *self);
 // Test data strategy.
 InterfaceTestingDataForm interface_testing_data(const InterfaceTesting *self);
@@ -18186,7 +18186,7 @@ void internal_dependencies_free(InternalDependencies *self);
 int internal_dependencies_can_have_content(const InternalDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *internal_dependencies_content(const InternalDependencies *self);
 void internal_dependencies_set_content(InternalDependencies *self, const char *value);
 // Contains 0+× Internal System Dependency.
@@ -18201,7 +18201,7 @@ void internal_network_requirements_free(InternalNetworkRequirements *self);
 int internal_network_requirements_can_have_content(const InternalNetworkRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InternalNetworkRequirementsContentForm internal_network_requirements_content(const InternalNetworkRequirements *self);
 // Segmentation and isolation.
 InternalNetworkRequirementsSegmentationForm internal_network_requirements_segmentation(const InternalNetworkRequirements *self);
@@ -18220,7 +18220,7 @@ void interoperability_requirements_free(InteroperabilityRequirements *self);
 int interoperability_requirements_can_have_content(const InteroperabilityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 InteroperabilityRequirementsContentForm interoperability_requirements_content(const InteroperabilityRequirements *self);
 // Data-exchange definitions.
 InteroperabilityRequirementsDataExchangeForm interoperability_requirements_data_exchange(const InteroperabilityRequirements *self);
@@ -18243,7 +18243,7 @@ void introduction_and_scope_free(IntroductionAndScope *self);
 int introduction_and_scope_can_have_content(const IntroductionAndScope *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *introduction_and_scope_content(const IntroductionAndScope *self);
 void introduction_and_scope_set_content(IntroductionAndScope *self, const char *value);
 // System overview summary statistics.
@@ -18282,7 +18282,7 @@ void ip_ownership_entry_free(IpOwnershipEntry *self);
 int ip_ownership_entry_can_have_content(const IpOwnershipEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 IpOwnershipEntryContentForm ip_ownership_entry_content(const IpOwnershipEntry *self);
 
 // ISO/IEC 25010:2023 product-quality cross-map (derived).
@@ -18301,7 +18301,7 @@ void iso25010_coverage_free(Iso25010Coverage *self);
 int iso25010_coverage_can_have_content(const Iso25010Coverage *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *iso25010_coverage_content(const Iso25010Coverage *self);
 void iso25010_coverage_set_content(Iso25010Coverage *self, const char *value);
 // One entry per ISO/IEC 25010:2023 characteristic addressed.
@@ -18316,7 +18316,7 @@ void iso25010_coverage_entry_free(Iso25010CoverageEntry *self);
 int iso25010_coverage_entry_can_have_content(const Iso25010CoverageEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 Iso25010CoverageEntryContentForm iso25010_coverage_entry_content(const Iso25010CoverageEntry *self);
 
 // 4.1.2.2. IT Landscape Position.
@@ -18330,7 +18330,7 @@ void it_landscape_position_free(ItLandscapePosition *self);
 int it_landscape_position_can_have_content(const ItLandscapePosition *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *it_landscape_position_content(const ItLandscapePosition *self);
 void it_landscape_position_set_content(ItLandscapePosition *self, const char *value);
 // IT Landscape Position Details (form).
@@ -18344,7 +18344,7 @@ void it_security_operations_free(ItSecurityOperations *self);
 int it_security_operations_can_have_content(const ItSecurityOperations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ItSecurityOperationsContentForm it_security_operations_content(const ItSecurityOperations *self);
 // Access protection controls.
 ItSecurityOperationsAccessForm it_security_operations_access(const ItSecurityOperations *self);
@@ -18365,7 +18365,7 @@ void it_security_standards_section_free(ItSecurityStandardsSection *self);
 int it_security_standards_section_can_have_content(const ItSecurityStandardsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *it_security_standards_section_content(const ItSecurityStandardsSection *self);
 void it_security_standards_section_set_content(ItSecurityStandardsSection *self, const char *value);
 // Overview of IT security standards strategy.
@@ -18392,7 +18392,7 @@ void it_standard_compliance_entry_free(ItStandardComplianceEntry *self);
 int it_standard_compliance_entry_can_have_content(const ItStandardComplianceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ItStandardComplianceEntryContentForm it_standard_compliance_entry_content(const ItStandardComplianceEntry *self);
 // Applicability and priority.
 ItStandardComplianceEntryScopeForm it_standard_compliance_entry_scope(const ItStandardComplianceEntry *self);
@@ -18417,7 +18417,7 @@ void job_descriptions_and_staffing_free(JobDescriptionsAndStaffing *self);
 int job_descriptions_and_staffing_can_have_content(const JobDescriptionsAndStaffing *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *job_descriptions_and_staffing_content(const JobDescriptionsAndStaffing *self);
 void job_descriptions_and_staffing_set_content(JobDescriptionsAndStaffing *self, const char *value);
 // Overview of the job architecture and role design approach.
@@ -18444,7 +18444,7 @@ void journey_stage_entry_free(JourneyStageEntry *self);
 int journey_stage_entry_can_have_content(const JourneyStageEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 JourneyStageEntryContentForm journey_stage_entry_content(const JourneyStageEntry *self);
 
 // A key attribute entry (form).
@@ -18457,7 +18457,7 @@ void key_attribute_entry_free(KeyAttributeEntry *self);
 int key_attribute_entry_can_have_content(const KeyAttributeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyAttributeEntryContentForm key_attribute_entry_content(const KeyAttributeEntry *self);
 // Key generation settings.
 KeyAttributeEntryGenerationForm key_attribute_entry_generation(const KeyAttributeEntry *self);
@@ -18488,7 +18488,7 @@ void key_compromise_recovery_policy_free(KeyCompromiseRecoveryPolicy *self);
 int key_compromise_recovery_policy_can_have_content(const KeyCompromiseRecoveryPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyCompromiseRecoveryPolicyContentForm key_compromise_recovery_policy_content(const KeyCompromiseRecoveryPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -18501,7 +18501,7 @@ void key_concept_entry_free(KeyConceptEntry *self);
 int key_concept_entry_can_have_content(const KeyConceptEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyConceptEntryContentForm key_concept_entry_content(const KeyConceptEntry *self);
 // Detailed attribute definitions for this concept.
 // (skipped: attributeDetails has no target type)
@@ -18519,7 +18519,7 @@ void key_concepts_free(KeyConcepts *self);
 int key_concepts_can_have_content(const KeyConcepts *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *key_concepts_content(const KeyConcepts *self);
 void key_concepts_set_content(KeyConcepts *self, const char *value);
 // Conceptual domain model diagram.
@@ -18541,7 +18541,7 @@ void key_escrow_and_backup_policy_free(KeyEscrowAndBackupPolicy *self);
 int key_escrow_and_backup_policy_can_have_content(const KeyEscrowAndBackupPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyEscrowAndBackupPolicyContentForm key_escrow_and_backup_policy_content(const KeyEscrowAndBackupPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -18558,7 +18558,7 @@ void key_generation_policy_free(KeyGenerationPolicy *self);
 int key_generation_policy_can_have_content(const KeyGenerationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyGenerationPolicyContentForm key_generation_policy_content(const KeyGenerationPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -18576,7 +18576,7 @@ void key_management_free(KeyManagement *self);
 int key_management_can_have_content(const KeyManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *key_management_content(const KeyManagement *self);
 void key_management_set_content(KeyManagement *self, const char *value);
 // Key Generation Policy.
@@ -18601,7 +18601,7 @@ void key_management_requirements_free(KeyManagementRequirements *self);
 int key_management_requirements_can_have_content(const KeyManagementRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyManagementRequirementsContentForm key_management_requirements_content(const KeyManagementRequirements *self);
 
 // A key result entry (form).
@@ -18612,7 +18612,7 @@ void key_result_entry_free(KeyResultEntry *self);
 int key_result_entry_can_have_content(const KeyResultEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyResultEntryContentForm key_result_entry_content(const KeyResultEntry *self);
 
 // Key rotation policy (form).
@@ -18626,7 +18626,7 @@ void key_rotation_policy_free(KeyRotationPolicy *self);
 int key_rotation_policy_can_have_content(const KeyRotationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyRotationPolicyContentForm key_rotation_policy_content(const KeyRotationPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -18642,7 +18642,7 @@ void key_scenarios_free(KeyScenarios *self);
 int key_scenarios_can_have_content(const KeyScenarios *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *key_scenarios_content(const KeyScenarios *self);
 void key_scenarios_set_content(KeyScenarios *self, const char *value);
 // Scenario overview.
@@ -18664,7 +18664,7 @@ void key_storage_policy_free(KeyStoragePolicy *self);
 int key_storage_policy_can_have_content(const KeyStoragePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 KeyStoragePolicyContentForm key_storage_policy_content(const KeyStoragePolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -18680,7 +18680,7 @@ void knowledge_transfer_free(KnowledgeTransfer *self);
 int knowledge_transfer_can_have_content(const KnowledgeTransfer *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *knowledge_transfer_content(const KnowledgeTransfer *self);
 void knowledge_transfer_set_content(KnowledgeTransfer *self, const char *value);
 
@@ -18701,7 +18701,7 @@ void language_country_selection_free(LanguageCountrySelection *self);
 int language_country_selection_can_have_content(const LanguageCountrySelection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *language_country_selection_content(const LanguageCountrySelection *self);
 void language_country_selection_set_content(LanguageCountrySelection *self, const char *value);
 // How a user's language is chosen and changed.
@@ -18735,7 +18735,7 @@ void layer_communication_rules_free(LayerCommunicationRules *self);
 int layer_communication_rules_can_have_content(const LayerCommunicationRules *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LayerCommunicationRulesContentForm layer_communication_rules_content(const LayerCommunicationRules *self);
 // Interface requirements between layers.
 LayerCommunicationRulesInterfacesForm layer_communication_rules_interfaces(const LayerCommunicationRules *self);
@@ -18756,7 +18756,7 @@ void layering_and_module_structure_free(LayeringAndModuleStructure *self);
 int layering_and_module_structure_can_have_content(const LayeringAndModuleStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *layering_and_module_structure_content(const LayeringAndModuleStructure *self);
 void layering_and_module_structure_set_content(LayeringAndModuleStructure *self, const char *value);
 // Overview of the layering and modularization approach.
@@ -18795,7 +18795,7 @@ void legacy_compatibility_entry_free(LegacyCompatibilityEntry *self);
 int legacy_compatibility_entry_can_have_content(const LegacyCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LegacyCompatibilityEntryContentForm legacy_compatibility_entry_content(const LegacyCompatibilityEntry *self);
 // Integration approach.
 LegacyCompatibilityEntryIntegrationForm legacy_compatibility_entry_integration(const LegacyCompatibilityEntry *self);
@@ -18818,7 +18818,7 @@ void legal_and_contractual_requirements_free(LegalAndContractualRequirements *se
 int legal_and_contractual_requirements_can_have_content(const LegalAndContractualRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *legal_and_contractual_requirements_content(const LegalAndContractualRequirements *self);
 void legal_and_contractual_requirements_set_content(LegalAndContractualRequirements *self, const char *value);
 // 3.6.1. Intellectual Property.
@@ -18843,7 +18843,7 @@ void liability_limitations_free(LiabilityLimitations *self);
 int liability_limitations_can_have_content(const LiabilityLimitations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LiabilityLimitationsContentForm liability_limitations_content(const LiabilityLimitations *self);
 
 // A lifecycle transition entry (form).
@@ -18856,7 +18856,7 @@ void lifecycle_transition_entry_free(LifecycleTransitionEntry *self);
 int lifecycle_transition_entry_can_have_content(const LifecycleTransitionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LifecycleTransitionEntryContentForm lifecycle_transition_entry_content(const LifecycleTransitionEntry *self);
 // Triggering event details.
 LifecycleTransitionEntryTriggerForm lifecycle_transition_entry_trigger(const LifecycleTransitionEntry *self);
@@ -18873,7 +18873,7 @@ void limitation_entry_free(LimitationEntry *self);
 int limitation_entry_can_have_content(const LimitationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LimitationEntryContentForm limitation_entry_content(const LimitationEntry *self);
 
 // Load profile requirements.
@@ -18884,7 +18884,7 @@ void load_profile_requirements_free(LoadProfileRequirements *self);
 int load_profile_requirements_can_have_content(const LoadProfileRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LoadProfileRequirementsContentForm load_profile_requirements_content(const LoadProfileRequirements *self);
 // Request volume assumptions.
 LoadProfileRequirementsRequestLoadForm load_profile_requirements_request_load(const LoadProfileRequirements *self);
@@ -18901,7 +18901,7 @@ void local_development_setup_free(LocalDevelopmentSetup *self);
 int local_development_setup_can_have_content(const LocalDevelopmentSetup *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LocalDevelopmentSetupContentForm local_development_setup_content(const LocalDevelopmentSetup *self);
 // Setup workflow.
 LocalDevelopmentSetupWorkflowForm local_development_setup_workflow(const LocalDevelopmentSetup *self);
@@ -18922,7 +18922,7 @@ void locale_handling_requirements_free(LocaleHandlingRequirements *self);
 int locale_handling_requirements_can_have_content(const LocaleHandlingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LocaleHandlingRequirementsContentForm locale_handling_requirements_content(const LocaleHandlingRequirements *self);
 
 // 10.12.1. Localization Process.
@@ -18935,7 +18935,7 @@ void localization_process_free(LocalizationProcess *self);
 int localization_process_can_have_content(const LocalizationProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *localization_process_content(const LocalizationProcess *self);
 void localization_process_set_content(LocalizationProcess *self, const char *value);
 // How locale-specific adaptation is carried out beyond translation.
@@ -18966,7 +18966,7 @@ void localization_translation_process_free(LocalizationTranslationProcess *self)
 int localization_translation_process_can_have_content(const LocalizationTranslationProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *localization_translation_process_content(const LocalizationTranslationProcess *self);
 void localization_translation_process_set_content(LocalizationTranslationProcess *self, const char *value);
 // Localization workflow (content identification, externalization, review).
@@ -18984,7 +18984,7 @@ void localization_translation_requirements_free(LocalizationTranslationRequireme
 int localization_translation_requirements_can_have_content(const LocalizationTranslationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *localization_translation_requirements_content(const LocalizationTranslationRequirements *self);
 void localization_translation_requirements_set_content(LocalizationTranslationRequirements *self, const char *value);
 // Technical internationalization requirements (re-homed from MLAR).
@@ -19000,7 +19000,7 @@ void log_aggregation_requirements_free(LogAggregationRequirements *self);
 int log_aggregation_requirements_can_have_content(const LogAggregationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LogAggregationRequirementsContentForm log_aggregation_requirements_content(const LogAggregationRequirements *self);
 // Dynamic configuration and collection settings.
 LogAggregationRequirementsCollectionForm log_aggregation_requirements_collection(const LogAggregationRequirements *self);
@@ -19017,7 +19017,7 @@ void log_management_requirements_free(LogManagementRequirements *self);
 int log_management_requirements_can_have_content(const LogManagementRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LogManagementRequirementsContentForm log_management_requirements_content(const LogManagementRequirements *self);
 // Collection method.
 LogManagementRequirementsCollectionForm log_management_requirements_collection(const LogManagementRequirements *self);
@@ -19038,7 +19038,7 @@ void log_protection_policy_free(LogProtectionPolicy *self);
 int log_protection_policy_can_have_content(const LogProtectionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LogProtectionPolicyContentForm log_protection_policy_content(const LogProtectionPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -19053,7 +19053,7 @@ void log_retention_policy_free(LogRetentionPolicy *self);
 int log_retention_policy_can_have_content(const LogRetentionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LogRetentionPolicyContentForm log_retention_policy_content(const LogRetentionPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -19068,7 +19068,7 @@ void log_storage_policy_free(LogStoragePolicy *self);
 int log_storage_policy_can_have_content(const LogStoragePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LogStoragePolicyContentForm log_storage_policy_content(const LogStoragePolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -19085,7 +19085,7 @@ void login_flow_configuration_free(LoginFlowConfiguration *self);
 int login_flow_configuration_can_have_content(const LoginFlowConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LoginFlowConfigurationContentForm login_flow_configuration_content(const LoginFlowConfiguration *self);
 // Login Flow Details (text).
 // (skipped: loginFlowDetails has no target type)
@@ -19118,7 +19118,7 @@ void login_flow_step_entry_free(LoginFlowStepEntry *self);
 int login_flow_step_entry_can_have_content(const LoginFlowStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 LoginFlowStepEntryContentForm login_flow_step_entry_content(const LoginFlowStepEntry *self);
 // Inputs and validation behavior.
 LoginFlowStepEntryValidationForm login_flow_step_entry_validation(const LoginFlowStepEntry *self);
@@ -19135,7 +19135,7 @@ void main_scenario_step_entry_free(MainScenarioStepEntry *self);
 int main_scenario_step_entry_can_have_content(const MainScenarioStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MainScenarioStepEntryContentForm main_scenario_step_entry_content(const MainScenarioStepEntry *self);
 // How this main-flow step's server call is carried out, step by step.
 //
@@ -19166,7 +19166,7 @@ void main_success_scenario_free(MainSuccessScenario *self);
 int main_success_scenario_can_have_content(const MainSuccessScenario *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MainSuccessScenarioContentForm main_success_scenario_content(const MainSuccessScenario *self);
 // Main scenario steps — contains 1+× Scenario Step.
 // Returns the list view; element type: MainScenarioStepEntry (construct from item paths).
@@ -19180,7 +19180,7 @@ void maintainability_free(Maintainability *self);
 int maintainability_can_have_content(const Maintainability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MaintainabilityContentForm maintainability_content(const Maintainability *self);
 // Analyzability requirements.
 MaintainabilityAnalyzabilityForm maintainability_analyzability(const Maintainability *self);
@@ -19205,7 +19205,7 @@ void maintainability_characteristic_free(MaintainabilityCharacteristic *self);
 int maintainability_characteristic_can_have_content(const MaintainabilityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *maintainability_characteristic_content(const MaintainabilityCharacteristic *self);
 void maintainability_characteristic_set_content(MaintainabilityCharacteristic *self, const char *value);
 // What modification must cost, and the structural thresholds that keep it
@@ -19233,7 +19233,7 @@ void maintenance_change_management_free(MaintenanceChangeManagement *self);
 int maintenance_change_management_can_have_content(const MaintenanceChangeManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MaintenanceChangeManagementContentForm maintenance_change_management_content(const MaintenanceChangeManagement *self);
 // CAB cadence and documentation prerequisites.
 MaintenanceChangeManagementGovernanceForm maintenance_change_management_governance(const MaintenanceChangeManagement *self);
@@ -19255,7 +19255,7 @@ void maintenance_dependencies_free(MaintenanceDependencies *self);
 int maintenance_dependencies_can_have_content(const MaintenanceDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *maintenance_dependencies_content(const MaintenanceDependencies *self);
 void maintenance_dependencies_set_content(MaintenanceDependencies *self, const char *value);
 // Contains 0+× Maintenance Dependency.
@@ -19273,7 +19273,7 @@ void maintenance_dependency_entry_free(MaintenanceDependencyEntry *self);
 int maintenance_dependency_entry_can_have_content(const MaintenanceDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MaintenanceDependencyEntryContentForm maintenance_dependency_entry_content(const MaintenanceDependencyEntry *self);
 // Classification and purpose.
 MaintenanceDependencyEntryClassificationForm maintenance_dependency_entry_classification(const MaintenanceDependencyEntry *self);
@@ -19290,7 +19290,7 @@ void maintenance_procedure_entry_free(MaintenanceProcedureEntry *self);
 int maintenance_procedure_entry_can_have_content(const MaintenanceProcedureEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MaintenanceProcedureEntryContentForm maintenance_procedure_entry_content(const MaintenanceProcedureEntry *self);
 
 // User impact and communication.
@@ -19301,7 +19301,7 @@ void maintenance_user_impact_free(MaintenanceUserImpact *self);
 int maintenance_user_impact_can_have_content(const MaintenanceUserImpact *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MaintenanceUserImpactContentForm maintenance_user_impact_content(const MaintenanceUserImpact *self);
 // Communication during maintenance.
 MaintenanceUserImpactDuringForm maintenance_user_impact_during(const MaintenanceUserImpact *self);
@@ -19318,7 +19318,7 @@ void maintenance_window_entry_free(MaintenanceWindowEntry *self);
 int maintenance_window_entry_can_have_content(const MaintenanceWindowEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MaintenanceWindowEntryContentForm maintenance_window_entry_content(const MaintenanceWindowEntry *self);
 // Schedule details.
 MaintenanceWindowEntryScheduleForm maintenance_window_entry_schedule(const MaintenanceWindowEntry *self);
@@ -19340,7 +19340,7 @@ void maintenance_windows_section_free(MaintenanceWindowsSection *self);
 int maintenance_windows_section_can_have_content(const MaintenanceWindowsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *maintenance_windows_section_content(const MaintenanceWindowsSection *self);
 void maintenance_windows_section_set_content(MaintenanceWindowsSection *self, const char *value);
 // Overview of maintenance strategy.
@@ -19367,7 +19367,7 @@ void master_data_domain_entry_free(MasterDataDomainEntry *self);
 int master_data_domain_entry_can_have_content(const MasterDataDomainEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MasterDataDomainEntryContentForm master_data_domain_entry_content(const MasterDataDomainEntry *self);
 // Volume and quality indicators.
 MasterDataDomainEntryQualityForm master_data_domain_entry_quality(const MasterDataDomainEntry *self);
@@ -19387,7 +19387,7 @@ void master_data_management_free(MasterDataManagement *self);
 int master_data_management_can_have_content(const MasterDataManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *master_data_management_content(const MasterDataManagement *self);
 void master_data_management_set_content(MasterDataManagement *self, const char *value);
 // MDM maturity and status summary.
@@ -19404,7 +19404,7 @@ void message_format_standards_free(MessageFormatStandards *self);
 int message_format_standards_can_have_content(const MessageFormatStandards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MessageFormatStandardsContentForm message_format_standards_content(const MessageFormatStandards *self);
 // Schema standards.
 MessageFormatStandardsSchemaForm message_format_standards_schema(const MessageFormatStandards *self);
@@ -19429,7 +19429,7 @@ void message_key_entry_free(MessageKeyEntry *self);
 int message_key_entry_can_have_content(const MessageKeyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MessageKeyEntryContentForm message_key_entry_content(const MessageKeyEntry *self);
 // 7.8.x. Locale Variants — one entry per non-default locale.
 // Returns the list view; element type: MessageLocaleVariantEntry (construct from item paths).
@@ -19465,7 +19465,7 @@ void message_key_registry_free(MessageKeyRegistry *self);
 int message_key_registry_can_have_content(const MessageKeyRegistry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *message_key_registry_content(const MessageKeyRegistry *self);
 void message_key_registry_set_content(MessageKeyRegistry *self, const char *value);
 // 7.8.1. Message Keys — one entry per author-once copy string.
@@ -19485,7 +19485,7 @@ void message_locale_variant_entry_free(MessageLocaleVariantEntry *self);
 int message_locale_variant_entry_can_have_content(const MessageLocaleVariantEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MessageLocaleVariantEntryContentForm message_locale_variant_entry_content(const MessageLocaleVariantEntry *self);
 
 // 8.7.2.3. Metrics and Observability.
@@ -19499,7 +19499,7 @@ void metrics_and_observability_free(MetricsAndObservability *self);
 int metrics_and_observability_can_have_content(const MetricsAndObservability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *metrics_and_observability_content(const MetricsAndObservability *self);
 void metrics_and_observability_set_content(MetricsAndObservability *self, const char *value);
 // Which telemetry signals are collected at all, in what format, and at what
@@ -19538,7 +19538,7 @@ void metrics_baseline_entry_free(MetricsBaselineEntry *self);
 int metrics_baseline_entry_can_have_content(const MetricsBaselineEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MetricsBaselineEntryContentForm metrics_baseline_entry_content(const MetricsBaselineEntry *self);
 
 // Baseline table for tracking metrics over time.
@@ -19549,7 +19549,7 @@ void metrics_baseline_table_free(MetricsBaselineTable *self);
 int metrics_baseline_table_can_have_content(const MetricsBaselineTable *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *metrics_baseline_table_content(const MetricsBaselineTable *self);
 void metrics_baseline_table_set_content(MetricsBaselineTable *self, const char *value);
 // Baseline entries.
@@ -19564,7 +19564,7 @@ void metrics_collection_requirements_free(MetricsCollectionRequirements *self);
 int metrics_collection_requirements_can_have_content(const MetricsCollectionRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MetricsCollectionRequirementsContentForm metrics_collection_requirements_content(const MetricsCollectionRequirements *self);
 // Container and cluster metrics.
 MetricsCollectionRequirementsContainerForm metrics_collection_requirements_container(const MetricsCollectionRequirements *self);
@@ -19583,7 +19583,7 @@ void metrics_dashboard_summary_free(MetricsDashboardSummary *self);
 int metrics_dashboard_summary_can_have_content(const MetricsDashboardSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MetricsDashboardSummaryContentForm metrics_dashboard_summary_content(const MetricsDashboardSummary *self);
 
 // An MFA enforcement per user category entry (form).
@@ -19597,7 +19597,7 @@ void mfa_category_requirement_entry_free(MfaCategoryRequirementEntry *self);
 int mfa_category_requirement_entry_can_have_content(const MfaCategoryRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MfaCategoryRequirementEntryContentForm mfa_category_requirement_entry_content(const MfaCategoryRequirementEntry *self);
 // Allowed authenticators and phishing-resistance rules.
 MfaCategoryRequirementEntryAuthenticatorsForm mfa_category_requirement_entry_authenticators(const MfaCategoryRequirementEntry *self);
@@ -19617,7 +19617,7 @@ void mfa_configuration_free(MfaConfiguration *self);
 int mfa_configuration_can_have_content(const MfaConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MfaConfigurationContentForm mfa_configuration_content(const MfaConfiguration *self);
 // MFA Implementation Details (text).
 // Returns the list view; element type: scalar (construct from item paths).
@@ -19635,7 +19635,7 @@ void migration_considerations_free(MigrationConsiderations *self);
 int migration_considerations_can_have_content(const MigrationConsiderations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *migration_considerations_content(const MigrationConsiderations *self);
 void migration_considerations_set_content(MigrationConsiderations *self, const char *value);
 // The portfolio-wide cutover approach — the decisions that bound every
@@ -19649,7 +19649,7 @@ void migration_considerations_set_content(MigrationConsiderations *self, const c
 // constraint it has to fit inside, and so that changing the sequencing is
 // one edit rather than one per system.
 //
-// [strategyNarrative] carries the reasoning behind these answers; this band
+// `strategyNarrative` carries the reasoning behind these answers; this band
 // carries the answers themselves, so a change of approach is a change here
 // and not a rewrite of prose.
 MigrationConsiderationsStrategyContentForm migration_considerations_strategy_content(const MigrationConsiderations *self);
@@ -19686,7 +19686,7 @@ void migration_environments_free(MigrationEnvironments *self);
 int migration_environments_can_have_content(const MigrationEnvironments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationEnvironmentsContentForm migration_environments_content(const MigrationEnvironments *self);
 
 // 4.5.8. Migration Interactions.
@@ -19701,7 +19701,7 @@ void migration_interactions_free(MigrationInteractions *self);
 int migration_interactions_can_have_content(const MigrationInteractions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *migration_interactions_content(const MigrationInteractions *self);
 void migration_interactions_set_content(MigrationInteractions *self, const char *value);
 
@@ -19715,7 +19715,7 @@ void migration_mapping_entry_free(MigrationMappingEntry *self);
 int migration_mapping_entry_can_have_content(const MigrationMappingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationMappingEntryContentForm migration_mapping_entry_content(const MigrationMappingEntry *self);
 
 // A migration milestone entry.
@@ -19726,7 +19726,7 @@ void migration_milestone_entry_free(MigrationMilestoneEntry *self);
 int migration_milestone_entry_can_have_content(const MigrationMilestoneEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationMilestoneEntryContentForm migration_milestone_entry_content(const MigrationMilestoneEntry *self);
 
 // Dry runs for migration phase.
@@ -19737,7 +19737,7 @@ void migration_phase_dry_runs_free(MigrationPhaseDryRuns *self);
 int migration_phase_dry_runs_can_have_content(const MigrationPhaseDryRuns *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationPhaseDryRunsContentForm migration_phase_dry_runs_content(const MigrationPhaseDryRuns *self);
 
 // A migration phase entry (form).
@@ -19754,7 +19754,7 @@ void migration_phase_entry_free(MigrationPhaseEntry *self);
 int migration_phase_entry_can_have_content(const MigrationPhaseEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationPhaseEntryContentForm migration_phase_entry_content(const MigrationPhaseEntry *self);
 // Phase identity details.
 MigrationPhaseEntryIdentityForm migration_phase_entry_identity(const MigrationPhaseEntry *self);
@@ -19789,7 +19789,7 @@ void migration_phase_resources_free(MigrationPhaseResources *self);
 int migration_phase_resources_can_have_content(const MigrationPhaseResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationPhaseResourcesContentForm migration_phase_resources_content(const MigrationPhaseResources *self);
 
 // 13.5.1. Migration Phases.
@@ -19805,7 +19805,7 @@ void migration_phases_free(MigrationPhases *self);
 int migration_phases_can_have_content(const MigrationPhases *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationPhasesContentForm migration_phases_content(const MigrationPhases *self);
 // Phase overview narrative.
 // (skipped: phaseOverview has no target type)
@@ -19830,7 +19830,7 @@ void migration_plan_free(MigrationPlan *self);
 int migration_plan_can_have_content(const MigrationPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *migration_plan_content(const MigrationPlan *self);
 void migration_plan_set_content(MigrationPlan *self, const char *value);
 
@@ -19842,7 +19842,7 @@ void migration_resources_free(MigrationResources *self);
 int migration_resources_can_have_content(const MigrationResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationResourcesContentForm migration_resources_content(const MigrationResources *self);
 // Resource timeline by phase.
 // (skipped: resourceTimeline has no target type)
@@ -19859,7 +19859,7 @@ void migration_risk_entry_free(MigrationRiskEntry *self);
 int migration_risk_entry_can_have_content(const MigrationRiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationRiskEntryContentForm migration_risk_entry_content(const MigrationRiskEntry *self);
 // Risk identification details.
 MigrationRiskEntryIdentificationForm migration_risk_entry_identification(const MigrationRiskEntry *self);
@@ -19895,7 +19895,7 @@ void migration_risk_indicators_free(MigrationRiskIndicators *self);
 int migration_risk_indicators_can_have_content(const MigrationRiskIndicators *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationRiskIndicatorsContentForm migration_risk_indicators_content(const MigrationRiskIndicators *self);
 
 // Migration risks — program-level risks.
@@ -19911,7 +19911,7 @@ void migration_risks_free(MigrationRisks *self);
 int migration_risks_can_have_content(const MigrationRisks *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *migration_risks_content(const MigrationRisks *self);
 void migration_risks_set_content(MigrationRisks *self, const char *value);
 // Who owns migration risk, and how often it is looked at.
@@ -19969,7 +19969,7 @@ void migration_stakeholders_free(MigrationStakeholders *self);
 int migration_stakeholders_can_have_content(const MigrationStakeholders *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationStakeholdersContentForm migration_stakeholders_content(const MigrationStakeholders *self);
 
 // Source and target systems for migration.
@@ -19980,7 +19980,7 @@ void migration_systems_free(MigrationSystems *self);
 int migration_systems_can_have_content(const MigrationSystems *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationSystemsContentForm migration_systems_content(const MigrationSystems *self);
 
 // A single migration target — one data source / schema pair (form).
@@ -19996,7 +19996,7 @@ void migration_target_entry_free(MigrationTargetEntry *self);
 int migration_target_entry_can_have_content(const MigrationTargetEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MigrationTargetEntryContentForm migration_target_entry_content(const MigrationTargetEntry *self);
 
 // Mobile device compatibility entry.
@@ -20007,7 +20007,7 @@ void mobile_compatibility_entry_free(MobileCompatibilityEntry *self);
 int mobile_compatibility_entry_can_have_content(const MobileCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MobileCompatibilityEntryContentForm mobile_compatibility_entry_content(const MobileCompatibilityEntry *self);
 // Supported devices.
 MobileCompatibilityEntryDevicesForm mobile_compatibility_entry_devices(const MobileCompatibilityEntry *self);
@@ -20026,7 +20026,7 @@ void mobile_device_entry_free(MobileDeviceEntry *self);
 int mobile_device_entry_can_have_content(const MobileDeviceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MobileDeviceEntryContentForm mobile_device_entry_content(const MobileDeviceEntry *self);
 // Technical and management requirements.
 MobileDeviceEntryCapabilitiesForm mobile_device_entry_capabilities(const MobileDeviceEntry *self);
@@ -20041,7 +20041,7 @@ void mobile_device_requirement_entry_free(MobileDeviceRequirementEntry *self);
 int mobile_device_requirement_entry_can_have_content(const MobileDeviceRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MobileDeviceRequirementEntryContentForm mobile_device_requirement_entry_content(const MobileDeviceRequirementEntry *self);
 // Support prioritization.
 MobileDeviceRequirementEntrySupportForm mobile_device_requirement_entry_support(const MobileDeviceRequirementEntry *self);
@@ -20060,7 +20060,7 @@ void module_entry_free(ModuleEntry *self);
 int module_entry_can_have_content(const ModuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ModuleEntryContentForm module_entry_content(const ModuleEntry *self);
 // Purpose and API.
 ModuleEntryDescriptionForm module_entry_description(const ModuleEntry *self);
@@ -20081,7 +20081,7 @@ void module_versioning_strategy_free(ModuleVersioningStrategy *self);
 int module_versioning_strategy_can_have_content(const ModuleVersioningStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ModuleVersioningStrategyContentForm module_versioning_strategy_content(const ModuleVersioningStrategy *self);
 // Compatibility policy.
 ModuleVersioningStrategyCompatibilityForm module_versioning_strategy_compatibility(const ModuleVersioningStrategy *self);
@@ -20103,7 +20103,7 @@ void monitoring_free(Monitoring *self);
 int monitoring_can_have_content(const Monitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *monitoring_content(const Monitoring *self);
 void monitoring_set_content(Monitoring *self, const char *value);
 // The monitoring posture as a whole — the strategy, the platforms it runs
@@ -20144,7 +20144,7 @@ void monitoring_and_alerting_section_free(MonitoringAndAlertingSection *self);
 int monitoring_and_alerting_section_can_have_content(const MonitoringAndAlertingSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *monitoring_and_alerting_section_content(const MonitoringAndAlertingSection *self);
 void monitoring_and_alerting_section_set_content(MonitoringAndAlertingSection *self, const char *value);
 // Overview of monitoring strategy.
@@ -20181,7 +20181,7 @@ void monitoring_dashboards_free(MonitoringDashboards *self);
 int monitoring_dashboards_can_have_content(const MonitoringDashboards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *monitoring_dashboards_content(const MonitoringDashboards *self);
 void monitoring_dashboards_set_content(MonitoringDashboards *self, const char *value);
 // The ground rules for the dashboard estate — platform, access, and the
@@ -20214,7 +20214,7 @@ void monitoring_infrastructure_free(MonitoringInfrastructure *self);
 int monitoring_infrastructure_can_have_content(const MonitoringInfrastructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MonitoringInfrastructureContentForm monitoring_infrastructure_content(const MonitoringInfrastructure *self);
 // Deployment model.
 MonitoringInfrastructureDeploymentForm monitoring_infrastructure_deployment(const MonitoringInfrastructure *self);
@@ -20236,7 +20236,7 @@ void moscow_analysis_free(MoscowAnalysis *self);
 int moscow_analysis_can_have_content(const MoscowAnalysis *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MoscowAnalysisContentForm moscow_analysis_content(const MoscowAnalysis *self);
 // MoSCoW rationale narrative.
 // (skipped: moscowRationale has no target type)
@@ -20255,7 +20255,7 @@ void moscow_entry_free(MoscowEntry *self);
 int moscow_entry_can_have_content(const MoscowEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MoscowEntryContentForm moscow_entry_content(const MoscowEntry *self);
 // MoSCoW classification details.
 MoscowEntryClassificationForm moscow_entry_classification(const MoscowEntry *self);
@@ -20275,7 +20275,7 @@ void multi_channel_experience_free(MultiChannelExperience *self);
 int multi_channel_experience_can_have_content(const MultiChannelExperience *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *multi_channel_experience_content(const MultiChannelExperience *self);
 void multi_channel_experience_set_content(MultiChannelExperience *self, const char *value);
 // Multi-channel configuration.
@@ -20295,7 +20295,7 @@ void multi_language_support_free(MultiLanguageSupport *self);
 int multi_language_support_can_have_content(const MultiLanguageSupport *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *multi_language_support_content(const MultiLanguageSupport *self);
 void multi_language_support_set_content(MultiLanguageSupport *self, const char *value);
 // Which languages are supported and what support means.
@@ -20321,7 +20321,7 @@ void must_pass_criteria_free(MustPassCriteria *self);
 int must_pass_criteria_can_have_content(const MustPassCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *must_pass_criteria_content(const MustPassCriteria *self);
 void must_pass_criteria_set_content(MustPassCriteria *self, const char *value);
 // What qualifies a criterion as must-pass, how many there are, and whether
@@ -20348,7 +20348,7 @@ void must_pass_criterion_entry_free(MustPassCriterionEntry *self);
 int must_pass_criterion_entry_can_have_content(const MustPassCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MustPassCriterionEntryContentForm must_pass_criterion_entry_content(const MustPassCriterionEntry *self);
 // Classification and intent of the criterion.
 MustPassCriterionEntryDefinitionForm must_pass_criterion_entry_definition(const MustPassCriterionEntry *self);
@@ -20373,7 +20373,7 @@ void mutual_tls_policy_free(MutualTlsPolicy *self);
 int mutual_tls_policy_can_have_content(const MutualTlsPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 MutualTlsPolicyContentForm mutual_tls_policy_content(const MutualTlsPolicy *self);
 // Mutual TLS Policy Details (text).
 // (skipped: mutualTlsPolicyDetails has no target type)
@@ -20386,7 +20386,7 @@ void native_app_requirements_free(NativeAppRequirements *self);
 int native_app_requirements_can_have_content(const NativeAppRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NativeAppRequirementsContentForm native_app_requirements_content(const NativeAppRequirements *self);
 // Store presence requirements.
 NativeAppRequirementsStoresForm native_app_requirements_stores(const NativeAppRequirements *self);
@@ -20407,7 +20407,7 @@ void navigation_group_entry_free(NavigationGroupEntry *self);
 int navigation_group_entry_can_have_content(const NavigationGroupEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NavigationGroupEntryContentForm navigation_group_entry_content(const NavigationGroupEntry *self);
 // Display and expansion behavior.
 NavigationGroupEntryDisplayForm navigation_group_entry_display(const NavigationGroupEntry *self);
@@ -20432,7 +20432,7 @@ void navigation_guard_entry_free(NavigationGuardEntry *self);
 int navigation_guard_entry_can_have_content(const NavigationGuardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NavigationGuardEntryContentForm navigation_guard_entry_content(const NavigationGuardEntry *self);
 // Covered routes and dialog resources.
 NavigationGuardEntryDialogForm navigation_guard_entry_dialog(const NavigationGuardEntry *self);
@@ -20449,7 +20449,7 @@ void navigation_guards_free(NavigationGuards *self);
 int navigation_guards_can_have_content(const NavigationGuards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *navigation_guards_content(const NavigationGuards *self);
 void navigation_guards_set_content(NavigationGuards *self, const char *value);
 // Overview of navigation guard strategy.
@@ -20469,7 +20469,7 @@ void navigation_hierarchy_free(NavigationHierarchy *self);
 int navigation_hierarchy_can_have_content(const NavigationHierarchy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *navigation_hierarchy_content(const NavigationHierarchy *self);
 void navigation_hierarchy_set_content(NavigationHierarchy *self, const char *value);
 // Overview of the navigation hierarchy structure.
@@ -20488,7 +20488,7 @@ void navigation_item_entry_free(NavigationItemEntry *self);
 int navigation_item_entry_can_have_content(const NavigationItemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NavigationItemEntryContentForm navigation_item_entry_content(const NavigationItemEntry *self);
 // Display properties: icons, labels, descriptions.
 NavigationItemEntryDisplayForm navigation_item_entry_display(const NavigationItemEntry *self);
@@ -20521,7 +20521,7 @@ void navigation_model_free(NavigationModel *self);
 int navigation_model_can_have_content(const NavigationModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *navigation_model_content(const NavigationModel *self);
 void navigation_model_set_content(NavigationModel *self, const char *value);
 // 10.3.1.1. Navigation Overview.
@@ -20551,7 +20551,7 @@ void navigation_overview_free(NavigationOverview *self);
 int navigation_overview_can_have_content(const NavigationOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NavigationOverviewContentForm navigation_overview_content(const NavigationOverview *self);
 // Design rationale and open questions.
 // (skipped: designNotes has no target type)
@@ -20564,7 +20564,7 @@ void network_availability_requirements_free(NetworkAvailabilityRequirements *sel
 int network_availability_requirements_can_have_content(const NetworkAvailabilityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NetworkAvailabilityRequirementsContentForm network_availability_requirements_content(const NetworkAvailabilityRequirements *self);
 // Redundancy configuration.
 NetworkAvailabilityRequirementsRedundancyForm network_availability_requirements_redundancy(const NetworkAvailabilityRequirements *self);
@@ -20583,7 +20583,7 @@ void network_latency_requirements_free(NetworkLatencyRequirements *self);
 int network_latency_requirements_can_have_content(const NetworkLatencyRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NetworkLatencyRequirementsContentForm network_latency_requirements_content(const NetworkLatencyRequirements *self);
 // Segment-level latency budgets.
 NetworkLatencyRequirementsSegmentsForm network_latency_requirements_segments(const NetworkLatencyRequirements *self);
@@ -20602,7 +20602,7 @@ void network_load_balancing_requirements_free(NetworkLoadBalancingRequirements *
 int network_load_balancing_requirements_can_have_content(const NetworkLoadBalancingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NetworkLoadBalancingRequirementsContentForm network_load_balancing_requirements_content(const NetworkLoadBalancingRequirements *self);
 // Routing strategy.
 NetworkLoadBalancingRequirementsRoutingForm network_load_balancing_requirements_routing(const NetworkLoadBalancingRequirements *self);
@@ -20624,7 +20624,7 @@ void network_requirements_section_free(NetworkRequirementsSection *self);
 int network_requirements_section_can_have_content(const NetworkRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *network_requirements_section_content(const NetworkRequirementsSection *self);
 void network_requirements_section_set_content(NetworkRequirementsSection *self, const char *value);
 // Overview of network infrastructure strategy.
@@ -20661,7 +20661,7 @@ void network_security_policy_free(NetworkSecurityPolicy *self);
 int network_security_policy_can_have_content(const NetworkSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NetworkSecurityPolicyContentForm network_security_policy_content(const NetworkSecurityPolicy *self);
 // Firewall rule details.
 NetworkSecurityPolicyFirewallForm network_security_policy_firewall(const NetworkSecurityPolicy *self);
@@ -20682,7 +20682,7 @@ void network_security_requirements_free(NetworkSecurityRequirements *self);
 int network_security_requirements_can_have_content(const NetworkSecurityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NetworkSecurityRequirementsContentForm network_security_requirements_content(const NetworkSecurityRequirements *self);
 // Access-control settings.
 NetworkSecurityRequirementsAccessForm network_security_requirements_access(const NetworkSecurityRequirements *self);
@@ -20706,7 +20706,7 @@ void new_organization_structure_free(NewOrganizationStructure *self);
 int new_organization_structure_can_have_content(const NewOrganizationStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *new_organization_structure_content(const NewOrganizationStructure *self);
 void new_organization_structure_set_content(NewOrganizationStructure *self, const char *value);
 // Overview of the target organization structure.
@@ -20727,7 +20727,7 @@ void new_role_entry_free(NewRoleEntry *self);
 int new_role_entry_can_have_content(const NewRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *new_role_entry_content(const NewRoleEntry *self);
 void new_role_entry_set_content(NewRoleEntry *self, const char *value);
 // Role identification and overview.
@@ -20753,7 +20753,7 @@ void new_role_qualifications_free(NewRoleQualifications *self);
 int new_role_qualifications_can_have_content(const NewRoleQualifications *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NewRoleQualificationsContentForm new_role_qualifications_content(const NewRoleQualifications *self);
 // Credential and mobility requirements.
 NewRoleQualificationsCredentialsForm new_role_qualifications_credentials(const NewRoleQualifications *self);
@@ -20771,7 +20771,7 @@ void new_role_responsibilities_free(NewRoleResponsibilities *self);
 int new_role_responsibilities_can_have_content(const NewRoleResponsibilities *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *new_role_responsibilities_content(const NewRoleResponsibilities *self);
 void new_role_responsibilities_set_content(NewRoleResponsibilities *self, const char *value);
 // Primary responsibilities (key accountabilities).
@@ -20791,7 +20791,7 @@ void notification_channel_entry_free(NotificationChannelEntry *self);
 int notification_channel_entry_can_have_content(const NotificationChannelEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NotificationChannelEntryContentForm notification_channel_entry_content(const NotificationChannelEntry *self);
 
 // 4.1.5.5. Notification Model.
@@ -20805,7 +20805,7 @@ void notification_model_free(NotificationModel *self);
 int notification_model_can_have_content(const NotificationModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *notification_model_content(const NotificationModel *self);
 void notification_model_set_content(NotificationModel *self, const char *value);
 // Notification channel entries — contains 1+× NotificationChannelEntry.
@@ -20826,7 +20826,7 @@ void notification_type_entry_free(NotificationTypeEntry *self);
 int notification_type_entry_can_have_content(const NotificationTypeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 NotificationTypeEntryContentForm notification_type_entry_content(const NotificationTypeEntry *self);
 
 // An object invariant entry (form).
@@ -20839,7 +20839,7 @@ void object_invariant_entry_free(ObjectInvariantEntry *self);
 int object_invariant_entry_can_have_content(const ObjectInvariantEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ObjectInvariantEntryContentForm object_invariant_entry_content(const ObjectInvariantEntry *self);
 
 // An object operation entry (form).
@@ -20852,7 +20852,7 @@ void object_operation_entry_free(ObjectOperationEntry *self);
 int object_operation_entry_can_have_content(const ObjectOperationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ObjectOperationEntryContentForm object_operation_entry_content(const ObjectOperationEntry *self);
 // Execution contract for this operation.
 ObjectOperationEntryExecutionForm object_operation_entry_execution(const ObjectOperationEntry *self);
@@ -20871,7 +20871,7 @@ void object_state_entry_free(ObjectStateEntry *self);
 int object_state_entry_can_have_content(const ObjectStateEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ObjectStateEntryContentForm object_state_entry_content(const ObjectStateEntry *self);
 
 // On-call procedures.
@@ -20882,7 +20882,7 @@ void on_call_procedures_free(OnCallProcedures *self);
 int on_call_procedures_can_have_content(const OnCallProcedures *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OnCallProceduresContentForm on_call_procedures_content(const OnCallProcedures *self);
 // Team coverage.
 OnCallProceduresTeamsForm on_call_procedures_teams(const OnCallProcedures *self);
@@ -20901,7 +20901,7 @@ void on_call_schedule_config_free(OnCallScheduleConfig *self);
 int on_call_schedule_config_can_have_content(const OnCallScheduleConfig *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OnCallScheduleConfigContentForm on_call_schedule_config_content(const OnCallScheduleConfig *self);
 // Override and coverage handling.
 OnCallScheduleConfigCoverageForm on_call_schedule_config_coverage(const OnCallScheduleConfig *self);
@@ -20916,7 +20916,7 @@ void onboarding_help_free(OnboardingHelp *self);
 int onboarding_help_can_have_content(const OnboardingHelp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *onboarding_help_content(const OnboardingHelp *self);
 void onboarding_help_set_content(OnboardingHelp *self, const char *value);
 // The guided first-run experience for a new user.
@@ -20948,7 +20948,7 @@ void ongoing_training_entry_free(OngoingTrainingEntry *self);
 int ongoing_training_entry_can_have_content(const OngoingTrainingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OngoingTrainingEntryContentForm ongoing_training_entry_content(const OngoingTrainingEntry *self);
 // Scheduling and delivery.
 OngoingTrainingEntryScheduleForm ongoing_training_entry_schedule(const OngoingTrainingEntry *self);
@@ -20970,7 +20970,7 @@ void operating_environment_free(OperatingEnvironment *self);
 int operating_environment_can_have_content(const OperatingEnvironment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *operating_environment_content(const OperatingEnvironment *self);
 void operating_environment_set_content(OperatingEnvironment *self, const char *value);
 // Framework conditions overview.
@@ -20999,7 +20999,7 @@ void operation_binding_entry_free(OperationBindingEntry *self);
 int operation_binding_entry_can_have_content(const OperationBindingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OperationBindingEntryContentForm operation_binding_entry_content(const OperationBindingEntry *self);
 // 7.9.x. Parameters — where the binding finds each request member.
 // Returns the list view; element type: BindingParameterEntry (construct from item paths).
@@ -21013,7 +21013,7 @@ void operational_monitoring_free(OperationalMonitoring *self);
 int operational_monitoring_can_have_content(const OperationalMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OperationalMonitoringContentForm operational_monitoring_content(const OperationalMonitoring *self);
 // Component monitoring coverage.
 OperationalMonitoringCoverageForm operational_monitoring_coverage(const OperationalMonitoring *self);
@@ -21037,7 +21037,7 @@ void operational_pain_points_free(OperationalPainPoints *self);
 int operational_pain_points_can_have_content(const OperationalPainPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *operational_pain_points_content(const OperationalPainPoints *self);
 void operational_pain_points_set_content(OperationalPainPoints *self, const char *value);
 // Category-level summary for operational pain points.
@@ -21054,7 +21054,7 @@ void operations_requirements_free(OperationsRequirements *self);
 int operations_requirements_can_have_content(const OperationsRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *operations_requirements_content(const OperationsRequirements *self);
 void operations_requirements_set_content(OperationsRequirements *self, const char *value);
 // 8.5.1. Backup And Recovery.
@@ -21077,7 +21077,7 @@ void opportunity_statement_free(OpportunityStatement *self);
 int opportunity_statement_can_have_content(const OpportunityStatement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *opportunity_statement_content(const OpportunityStatement *self);
 void opportunity_statement_set_content(OpportunityStatement *self, const char *value);
 // Opportunity Details Form.
@@ -21091,7 +21091,7 @@ void org_change_risks_free(OrgChangeRisks *self);
 int org_change_risks_can_have_content(const OrgChangeRisks *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OrgChangeRisksContentForm org_change_risks_content(const OrgChangeRisks *self);
 
 // An organizational implementation activity (form).
@@ -21102,7 +21102,7 @@ void org_implementation_activity_free(OrgImplementationActivity *self);
 int org_implementation_activity_can_have_content(const OrgImplementationActivity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OrgImplementationActivityContentForm org_implementation_activity_content(const OrgImplementationActivity *self);
 
 // 4.3.4.n.2. Implementation Plan.
@@ -21115,7 +21115,7 @@ void org_requirement_implementation_plan_free(OrgRequirementImplementationPlan *
 int org_requirement_implementation_plan_can_have_content(const OrgRequirementImplementationPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *org_requirement_implementation_plan_content(const OrgRequirementImplementationPlan *self);
 void org_requirement_implementation_plan_set_content(OrgRequirementImplementationPlan *self, const char *value);
 // Implementation plan form.
@@ -21146,7 +21146,7 @@ void organization_and_process_concept_free(OrganizationAndProcessConcept *self);
 int organization_and_process_concept_can_have_content(const OrganizationAndProcessConcept *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organization_and_process_concept_content(const OrganizationAndProcessConcept *self);
 void organization_and_process_concept_set_content(OrganizationAndProcessConcept *self, const char *value);
 // Target organizational structure and roles.
@@ -21162,7 +21162,7 @@ void organization_structure_free(OrganizationStructure *self);
 int organization_structure_can_have_content(const OrganizationStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organization_structure_content(const OrganizationStructure *self);
 void organization_structure_set_content(OrganizationStructure *self, const char *value);
 // Governance model details.
@@ -21181,7 +21181,7 @@ void organizational_change_entry_free(OrganizationalChangeEntry *self);
 int organizational_change_entry_can_have_content(const OrganizationalChangeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OrganizationalChangeEntryContentForm organizational_change_entry_content(const OrganizationalChangeEntry *self);
 // Change identification details.
 OrganizationalChangeEntryIdentificationForm organizational_change_entry_identification(const OrganizationalChangeEntry *self);
@@ -21210,7 +21210,7 @@ void organizational_context_free(OrganizationalContext *self);
 int organizational_context_can_have_content(const OrganizationalContext *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organizational_context_content(const OrganizationalContext *self);
 void organizational_context_set_content(OrganizationalContext *self, const char *value);
 // Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
@@ -21233,7 +21233,7 @@ void organizational_environment_free(OrganizationalEnvironment *self);
 int organizational_environment_can_have_content(const OrganizationalEnvironment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organizational_environment_content(const OrganizationalEnvironment *self);
 void organizational_environment_set_content(OrganizationalEnvironment *self, const char *value);
 // Who the organization is — the facts that set the scale everything else in
@@ -21287,7 +21287,7 @@ void organizational_framework_free(OrganizationalFramework *self);
 int organizational_framework_can_have_content(const OrganizationalFramework *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organizational_framework_content(const OrganizationalFramework *self);
 void organizational_framework_set_content(OrganizationalFramework *self, const char *value);
 // Overview of organizational changes required for the new system.
@@ -21321,7 +21321,7 @@ void organizational_requirement_entry_free(OrganizationalRequirementEntry *self)
 int organizational_requirement_entry_can_have_content(const OrganizationalRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OrganizationalRequirementEntryContentForm organizational_requirement_entry_content(const OrganizationalRequirementEntry *self);
 // Requirement classification and source.
 OrganizationalRequirementEntryClassificationForm organizational_requirement_entry_classification(const OrganizationalRequirementEntry *self);
@@ -21349,7 +21349,7 @@ void organizational_requirements_free(OrganizationalRequirements *self);
 int organizational_requirements_can_have_content(const OrganizationalRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organizational_requirements_content(const OrganizationalRequirements *self);
 void organizational_requirements_set_content(OrganizationalRequirements *self, const char *value);
 // Organizational requirements summary form.
@@ -21371,7 +21371,7 @@ void organizational_transition_timeline_free(OrganizationalTransitionTimeline *s
 int organizational_transition_timeline_can_have_content(const OrganizationalTransitionTimeline *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *organizational_transition_timeline_content(const OrganizationalTransitionTimeline *self);
 void organizational_transition_timeline_set_content(OrganizationalTransitionTimeline *self, const char *value);
 // Overview of the transition approach and guiding principles.
@@ -21402,7 +21402,7 @@ void organizational_unit_context_entry_free(OrganizationalUnitContextEntry *self
 int organizational_unit_context_entry_can_have_content(const OrganizationalUnitContextEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OrganizationalUnitContextEntryContentForm organizational_unit_context_entry_content(const OrganizationalUnitContextEntry *self);
 
 // Operating system compatibility entry.
@@ -21413,7 +21413,7 @@ void os_compatibility_entry_free(OsCompatibilityEntry *self);
 int os_compatibility_entry_can_have_content(const OsCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OsCompatibilityEntryContentForm os_compatibility_entry_content(const OsCompatibilityEntry *self);
 // Support level and prioritization.
 OsCompatibilityEntrySupportForm os_compatibility_entry_support(const OsCompatibilityEntry *self);
@@ -21432,7 +21432,7 @@ void other_agreement_entry_free(OtherAgreementEntry *self);
 int other_agreement_entry_can_have_content(const OtherAgreementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OtherAgreementEntryContentForm other_agreement_entry_content(const OtherAgreementEntry *self);
 
 // 4.5.2. Out of Scope.
@@ -21447,7 +21447,7 @@ void out_of_scope_free(OutOfScope *self);
 int out_of_scope_can_have_content(const OutOfScope *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *out_of_scope_content(const OutOfScope *self);
 void out_of_scope_set_content(OutOfScope *self, const char *value);
 // Overview of scope exclusion approach.
@@ -21464,7 +21464,7 @@ void out_of_scope_entry_free(OutOfScopeEntry *self);
 int out_of_scope_entry_can_have_content(const OutOfScopeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 OutOfScopeEntryContentForm out_of_scope_entry_content(const OutOfScopeEntry *self);
 // Decision history and future reconsideration.
 OutOfScopeEntryDecisionForm out_of_scope_entry_decision(const OutOfScopeEntry *self);
@@ -21479,7 +21479,7 @@ void package_organization_free(PackageOrganization *self);
 int package_organization_can_have_content(const PackageOrganization *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PackageOrganizationContentForm package_organization_content(const PackageOrganization *self);
 // Repository and directory structure.
 PackageOrganizationStructureForm package_organization_structure(const PackageOrganization *self);
@@ -21502,7 +21502,7 @@ void pain_point_entry_free(PainPointEntry *self);
 int pain_point_entry_can_have_content(const PainPointEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PainPointEntryContentForm pain_point_entry_content(const PainPointEntry *self);
 // Classification.
 PainPointEntryClassificationForm pain_point_entry_classification(const PainPointEntry *self);
@@ -21528,7 +21528,7 @@ void pain_point_gap_correlation_free(PainPointGapCorrelation *self);
 int pain_point_gap_correlation_can_have_content(const PainPointGapCorrelation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *pain_point_gap_correlation_content(const PainPointGapCorrelation *self);
 void pain_point_gap_correlation_set_content(PainPointGapCorrelation *self, const char *value);
 // Visual correlation between pain points and gaps.
@@ -21546,7 +21546,7 @@ void pain_point_gap_correlation_entry_free(PainPointGapCorrelationEntry *self);
 int pain_point_gap_correlation_entry_can_have_content(const PainPointGapCorrelationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PainPointGapCorrelationEntryContentForm pain_point_gap_correlation_entry_content(const PainPointGapCorrelationEntry *self);
 
 // Relationships for pain point.
@@ -21557,7 +21557,7 @@ void pain_point_relationships_free(PainPointRelationships *self);
 int pain_point_relationships_can_have_content(const PainPointRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PainPointRelationshipsContentForm pain_point_relationships_content(const PainPointRelationships *self);
 
 // 1.3. Pain Points and Gaps.
@@ -21572,7 +21572,7 @@ void pain_points_and_gaps_free(PainPointsAndGaps *self);
 int pain_points_and_gaps_can_have_content(const PainPointsAndGaps *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *pain_points_and_gaps_content(const PainPointsAndGaps *self);
 void pain_points_and_gaps_set_content(PainPointsAndGaps *self, const char *value);
 // Visual mapping of pain points and their relationships.
@@ -21603,7 +21603,7 @@ void participant_entry_free(ParticipantEntry *self);
 int participant_entry_can_have_content(const ParticipantEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ParticipantEntryContentForm participant_entry_content(const ParticipantEntry *self);
 
 // 9.2.3. Password and Credential Policy.
@@ -21619,7 +21619,7 @@ void password_and_credential_policy_free(PasswordAndCredentialPolicy *self);
 int password_and_credential_policy_can_have_content(const PasswordAndCredentialPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *password_and_credential_policy_content(const PasswordAndCredentialPolicy *self);
 void password_and_credential_policy_set_content(PasswordAndCredentialPolicy *self, const char *value);
 // Password and Credential Policy Overview (text).
@@ -21654,7 +21654,7 @@ void password_lifecycle_policy_free(PasswordLifecyclePolicy *self);
 int password_lifecycle_policy_can_have_content(const PasswordLifecyclePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PasswordLifecyclePolicyContentForm password_lifecycle_policy_content(const PasswordLifecyclePolicy *self);
 // Password Lifecycle Details (text).
 // (skipped: passwordLifecycleDetails has no target type)
@@ -21671,7 +21671,7 @@ void password_requirements_policy_free(PasswordRequirementsPolicy *self);
 int password_requirements_policy_can_have_content(const PasswordRequirementsPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PasswordRequirementsPolicyContentForm password_requirements_policy_content(const PasswordRequirementsPolicy *self);
 // Password Requirements Details (text).
 // (skipped: passwordRequirementsDetails has no target type)
@@ -21687,7 +21687,7 @@ void password_storage_policy_free(PasswordStoragePolicy *self);
 int password_storage_policy_can_have_content(const PasswordStoragePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PasswordStoragePolicyContentForm password_storage_policy_content(const PasswordStoragePolicy *self);
 // Password Storage Details (text).
 // (skipped: passwordStorageDetails has no target type)
@@ -21700,7 +21700,7 @@ void peak_load_patterns_free(PeakLoadPatterns *self);
 int peak_load_patterns_can_have_content(const PeakLoadPatterns *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PeakLoadPatternsContentForm peak_load_patterns_content(const PeakLoadPatterns *self);
 // Peak metrics.
 PeakLoadPatternsMetricsForm peak_load_patterns_metrics(const PeakLoadPatterns *self);
@@ -21717,7 +21717,7 @@ void penetration_testing_requirements_free(PenetrationTestingRequirements *self)
 int penetration_testing_requirements_can_have_content(const PenetrationTestingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PenetrationTestingRequirementsContentForm penetration_testing_requirements_content(const PenetrationTestingRequirements *self);
 // Frequency and scheduling.
 PenetrationTestingRequirementsSchedulingForm penetration_testing_requirements_scheduling(const PenetrationTestingRequirements *self);
@@ -21739,7 +21739,7 @@ void performance_efficiency_characteristic_free(PerformanceEfficiencyCharacteris
 int performance_efficiency_characteristic_can_have_content(const PerformanceEfficiencyCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *performance_efficiency_characteristic_content(const PerformanceEfficiencyCharacteristic *self);
 void performance_efficiency_characteristic_set_content(PerformanceEfficiencyCharacteristic *self, const char *value);
 // The engineering stance the performance and structural targets are set
@@ -21768,7 +21768,7 @@ void periodic_review_policy_free(PeriodicReviewPolicy *self);
 int periodic_review_policy_can_have_content(const PeriodicReviewPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PeriodicReviewPolicyContentForm periodic_review_policy_content(const PeriodicReviewPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -21781,7 +21781,7 @@ void peripheral_equipment_entry_free(PeripheralEquipmentEntry *self);
 int peripheral_equipment_entry_can_have_content(const PeripheralEquipmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PeripheralEquipmentEntryContentForm peripheral_equipment_entry_content(const PeripheralEquipmentEntry *self);
 
 // Permission Composition Strategy (form).
@@ -21795,7 +21795,7 @@ void permission_composition_strategy_free(PermissionCompositionStrategy *self);
 int permission_composition_strategy_can_have_content(const PermissionCompositionStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PermissionCompositionStrategyContentForm permission_composition_strategy_content(const PermissionCompositionStrategy *self);
 // Permission Composition Details (text).
 // (skipped: permissionCompositionDetails has no target type)
@@ -21811,7 +21811,7 @@ void permission_evaluation_behavior_free(PermissionEvaluationBehavior *self);
 int permission_evaluation_behavior_can_have_content(const PermissionEvaluationBehavior *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PermissionEvaluationBehaviorContentForm permission_evaluation_behavior_content(const PermissionEvaluationBehavior *self);
 // Permission Evaluation Details (text).
 // (skipped: permissionEvaluationDetails has no target type)
@@ -21827,7 +21827,7 @@ void permission_granularity_policy_free(PermissionGranularityPolicy *self);
 int permission_granularity_policy_can_have_content(const PermissionGranularityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PermissionGranularityPolicyContentForm permission_granularity_policy_content(const PermissionGranularityPolicy *self);
 // Permission Granularity Details (text).
 // (skipped: permissionGranularityDetails has no target type)
@@ -21840,7 +21840,7 @@ void permission_matrix_entry_free(PermissionMatrixEntry *self);
 int permission_matrix_entry_can_have_content(const PermissionMatrixEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PermissionMatrixEntryContentForm permission_matrix_entry_content(const PermissionMatrixEntry *self);
 
 // A user persona entry (form).
@@ -21853,7 +21853,7 @@ void persona_entry_free(PersonaEntry *self);
 int persona_entry_can_have_content(const PersonaEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PersonaEntryContentForm persona_entry_content(const PersonaEntry *self);
 // Background and capability profile.
 PersonaEntryProfileForm persona_entry_profile(const PersonaEntry *self);
@@ -21876,7 +21876,7 @@ void persona_goal_entry_free(PersonaGoalEntry *self);
 int persona_goal_entry_can_have_content(const PersonaGoalEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PersonaGoalEntryContentForm persona_goal_entry_content(const PersonaGoalEntry *self);
 
 // 10.1.3.n.1. Persona Goals.
@@ -21887,7 +21887,7 @@ void persona_goals_free(PersonaGoals *self);
 int persona_goals_can_have_content(const PersonaGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *persona_goals_content(const PersonaGoals *self);
 void persona_goals_set_content(PersonaGoals *self, const char *value);
 // Contains 0+× PersonaGoal.
@@ -21902,7 +21902,7 @@ void persona_pain_point_entry_free(PersonaPainPointEntry *self);
 int persona_pain_point_entry_can_have_content(const PersonaPainPointEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PersonaPainPointEntryContentForm persona_pain_point_entry_content(const PersonaPainPointEntry *self);
 
 // 10.1.3.n.2. Persona Pain Points.
@@ -21913,7 +21913,7 @@ void persona_pain_points_free(PersonaPainPoints *self);
 int persona_pain_points_can_have_content(const PersonaPainPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *persona_pain_points_content(const PersonaPainPoints *self);
 void persona_pain_points_set_content(PersonaPainPoints *self, const char *value);
 // Contains 0+× PersonaPainPoint.
@@ -21928,7 +21928,7 @@ void persona_scenario_entry_free(PersonaScenarioEntry *self);
 int persona_scenario_entry_can_have_content(const PersonaScenarioEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PersonaScenarioEntryContentForm persona_scenario_entry_content(const PersonaScenarioEntry *self);
 
 // 10.1.3.n.3. Persona Scenarios.
@@ -21941,7 +21941,7 @@ void persona_scenarios_free(PersonaScenarios *self);
 int persona_scenarios_can_have_content(const PersonaScenarios *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *persona_scenarios_content(const PersonaScenarios *self);
 void persona_scenarios_set_content(PersonaScenarios *self, const char *value);
 // Contains 0+× PersonaScenario.
@@ -21959,7 +21959,7 @@ void phase_gate_review_entry_free(PhaseGateReviewEntry *self);
 int phase_gate_review_entry_can_have_content(const PhaseGateReviewEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PhaseGateReviewEntryContentForm phase_gate_review_entry_content(const PhaseGateReviewEntry *self);
 // Gate identity.
 PhaseGateReviewEntryIdentityForm phase_gate_review_entry_identity(const PhaseGateReviewEntry *self);
@@ -21991,7 +21991,7 @@ void phase_gate_reviews_free(PhaseGateReviews *self);
 int phase_gate_reviews_can_have_content(const PhaseGateReviews *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PhaseGateReviewsContentForm phase_gate_reviews_content(const PhaseGateReviews *self);
 // Standard participants and evidence package.
 PhaseGateReviewsPreparationForm phase_gate_reviews_preparation(const PhaseGateReviews *self);
@@ -22011,7 +22011,7 @@ void physical_workplace_requirements_free(PhysicalWorkplaceRequirements *self);
 int physical_workplace_requirements_can_have_content(const PhysicalWorkplaceRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PhysicalWorkplaceRequirementsContentForm physical_workplace_requirements_content(const PhysicalWorkplaceRequirements *self);
 // Environmental conditions and controls.
 PhysicalWorkplaceRequirementsEnvironmentForm physical_workplace_requirements_environment(const PhysicalWorkplaceRequirements *self);
@@ -22028,7 +22028,7 @@ void pilot_plan_free(PilotPlan *self);
 int pilot_plan_can_have_content(const PilotPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *pilot_plan_content(const PilotPlan *self);
 void pilot_plan_set_content(PilotPlan *self, const char *value);
 
@@ -22040,7 +22040,7 @@ void pipeline_job_entry_free(PipelineJobEntry *self);
 int pipeline_job_entry_can_have_content(const PipelineJobEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PipelineJobEntryContentForm pipeline_job_entry_content(const PipelineJobEntry *self);
 // Execution environment.
 PipelineJobEntryEnvironmentForm pipeline_job_entry_environment(const PipelineJobEntry *self);
@@ -22059,7 +22059,7 @@ void pipeline_stage_entry_free(PipelineStageEntry *self);
 int pipeline_stage_entry_can_have_content(const PipelineStageEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PipelineStageEntryContentForm pipeline_stage_entry_content(const PipelineStageEntry *self);
 // Triggering conditions and approval gates.
 PipelineStageEntryTriggerForm pipeline_stage_entry_trigger(const PipelineStageEntry *self);
@@ -22081,7 +22081,7 @@ void platform_and_language_free(PlatformAndLanguage *self);
 int platform_and_language_can_have_content(const PlatformAndLanguage *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *platform_and_language_content(const PlatformAndLanguage *self);
 void platform_and_language_set_content(PlatformAndLanguage *self, const char *value);
 // General platform and technology overview.
@@ -22114,7 +22114,7 @@ void policy_ownership_entry_free(PolicyOwnershipEntry *self);
 int policy_ownership_entry_can_have_content(const PolicyOwnershipEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PolicyOwnershipEntryContentForm policy_ownership_entry_content(const PolicyOwnershipEntry *self);
 
 // 11.3.2. Portability quality.
@@ -22125,7 +22125,7 @@ void portability_free(Portability *self);
 int portability_can_have_content(const Portability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PortabilityContentForm portability_content(const Portability *self);
 // Detailed portability requirements narrative.
 // (skipped: narrative has no target type)
@@ -22138,7 +22138,7 @@ void post_maintenance_validation_free(PostMaintenanceValidation *self);
 int post_maintenance_validation_can_have_content(const PostMaintenanceValidation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PostMaintenanceValidationContentForm post_maintenance_validation_content(const PostMaintenanceValidation *self);
 // Monitoring requirements after maintenance.
 PostMaintenanceValidationMonitoringForm post_maintenance_validation_monitoring(const PostMaintenanceValidation *self);
@@ -22153,7 +22153,7 @@ void postconditions_and_guarantees_free(PostconditionsAndGuarantees *self);
 int postconditions_and_guarantees_can_have_content(const PostconditionsAndGuarantees *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PostconditionsAndGuaranteesContentForm postconditions_and_guarantees_content(const PostconditionsAndGuarantees *self);
 
 // Preconditions and triggers.
@@ -22164,7 +22164,7 @@ void preconditions_and_triggers_free(PreconditionsAndTriggers *self);
 int preconditions_and_triggers_can_have_content(const PreconditionsAndTriggers *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PreconditionsAndTriggersContentForm preconditions_and_triggers_content(const PreconditionsAndTriggers *self);
 
 // 10.3.1.3. Primary Navigation.
@@ -22178,7 +22178,7 @@ void primary_navigation_free(PrimaryNavigation *self);
 int primary_navigation_can_have_content(const PrimaryNavigation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrimaryNavigationContentForm primary_navigation_content(const PrimaryNavigation *self);
 // Drawer and rail behavior.
 PrimaryNavigationDrawerForm primary_navigation_drawer(const PrimaryNavigation *self);
@@ -22197,7 +22197,7 @@ void print_and_export_layout_free(PrintAndExportLayout *self);
 int print_and_export_layout_can_have_content(const PrintAndExportLayout *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrintAndExportLayoutContentForm print_and_export_layout_content(const PrintAndExportLayout *self);
 // Page margins and setup.
 PrintAndExportLayoutPageSetupForm print_and_export_layout_page_setup(const PrintAndExportLayout *self);
@@ -22225,7 +22225,7 @@ void privacy_impact_assessment_process_free(PrivacyImpactAssessmentProcess *self
 int privacy_impact_assessment_process_can_have_content(const PrivacyImpactAssessmentProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrivacyImpactAssessmentProcessContentForm privacy_impact_assessment_process_content(const PrivacyImpactAssessmentProcess *self);
 // Assessment process inputs.
 PrivacyImpactAssessmentProcessAssessmentForm privacy_impact_assessment_process_assessment(const PrivacyImpactAssessmentProcess *self);
@@ -22242,7 +22242,7 @@ void privacy_regulation_compliance_free(PrivacyRegulationCompliance *self);
 int privacy_regulation_compliance_can_have_content(const PrivacyRegulationCompliance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrivacyRegulationComplianceContentForm privacy_regulation_compliance_content(const PrivacyRegulationCompliance *self);
 // GDPR-specific requirements.
 PrivacyRegulationComplianceGdprForm privacy_regulation_compliance_gdpr(const PrivacyRegulationCompliance *self);
@@ -22263,7 +22263,7 @@ void privilege_usage_reporting_free(PrivilegeUsageReporting *self);
 int privilege_usage_reporting_can_have_content(const PrivilegeUsageReporting *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrivilegeUsageReportingContentForm privilege_usage_reporting_content(const PrivilegeUsageReporting *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -22279,7 +22279,7 @@ void problem_statement_free(ProblemStatement *self);
 int problem_statement_can_have_content(const ProblemStatement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *problem_statement_content(const ProblemStatement *self);
 void problem_statement_set_content(ProblemStatement *self, const char *value);
 // Problem Description Form.
@@ -22296,7 +22296,7 @@ void process_adjustment_details_free(ProcessAdjustmentDetails *self);
 int process_adjustment_details_can_have_content(const ProcessAdjustmentDetails *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessAdjustmentDetailsContentForm process_adjustment_details_content(const ProcessAdjustmentDetails *self);
 
 // A process adjustment entry (form).
@@ -22311,7 +22311,7 @@ void process_adjustment_entry_free(ProcessAdjustmentEntry *self);
 int process_adjustment_entry_can_have_content(const ProcessAdjustmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessAdjustmentEntryContentForm process_adjustment_entry_content(const ProcessAdjustmentEntry *self);
 // Identification details.
 ProcessAdjustmentEntryIdentityForm process_adjustment_entry_identity(const ProcessAdjustmentEntry *self);
@@ -22340,7 +22340,7 @@ void process_adjustments_free(ProcessAdjustments *self);
 int process_adjustments_can_have_content(const ProcessAdjustments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_adjustments_content(const ProcessAdjustments *self);
 void process_adjustments_set_content(ProcessAdjustments *self, const char *value);
 // Process adjustment summary.
@@ -22362,7 +22362,7 @@ void process_catalog_free(ProcessCatalog *self);
 int process_catalog_can_have_content(const ProcessCatalog *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_catalog_content(const ProcessCatalog *self);
 void process_catalog_set_content(ProcessCatalog *self, const char *value);
 // Process catalog overview.
@@ -22381,7 +22381,7 @@ void process_characteristics_free(ProcessCharacteristics *self);
 int process_characteristics_can_have_content(const ProcessCharacteristics *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessCharacteristicsContentForm process_characteristics_content(const ProcessCharacteristics *self);
 // Operational characteristics and automation level.
 ProcessCharacteristicsOperationsForm process_characteristics_operations(const ProcessCharacteristics *self);
@@ -22396,7 +22396,7 @@ void process_control_entry_free(ProcessControlEntry *self);
 int process_control_entry_can_have_content(const ProcessControlEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessControlEntryContentForm process_control_entry_content(const ProcessControlEntry *self);
 // Control operation and ownership.
 ProcessControlEntryOperationForm process_control_entry_operation(const ProcessControlEntry *self);
@@ -22411,7 +22411,7 @@ void process_controls_free(ProcessControls *self);
 int process_controls_can_have_content(const ProcessControls *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_controls_content(const ProcessControls *self);
 void process_controls_set_content(ProcessControls *self, const char *value);
 // Controls overview.
@@ -22428,7 +22428,7 @@ void process_dependency_entry_free(ProcessDependencyEntry *self);
 int process_dependency_entry_can_have_content(const ProcessDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessDependencyEntryContentForm process_dependency_entry_content(const ProcessDependencyEntry *self);
 
 // A process design principle entry (form).
@@ -22439,7 +22439,7 @@ void process_design_principle_entry_free(ProcessDesignPrincipleEntry *self);
 int process_design_principle_entry_can_have_content(const ProcessDesignPrincipleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessDesignPrincipleEntryContentForm process_design_principle_entry_content(const ProcessDesignPrincipleEntry *self);
 
 // 6.1.2. Design Principles.
@@ -22452,7 +22452,7 @@ void process_design_principles_free(ProcessDesignPrinciples *self);
 int process_design_principles_can_have_content(const ProcessDesignPrinciples *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_design_principles_content(const ProcessDesignPrinciples *self);
 void process_design_principles_set_content(ProcessDesignPrinciples *self, const char *value);
 // Design principles overview.
@@ -22469,7 +22469,7 @@ void process_end_event_entry_free(ProcessEndEventEntry *self);
 int process_end_event_entry_can_have_content(const ProcessEndEventEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessEndEventEntryContentForm process_end_event_entry_content(const ProcessEndEventEntry *self);
 
 // A process exception entry.
@@ -22480,7 +22480,7 @@ void process_exception_entry_free(ProcessExceptionEntry *self);
 int process_exception_entry_can_have_content(const ProcessExceptionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessExceptionEntryContentForm process_exception_entry_content(const ProcessExceptionEntry *self);
 // Likelihood, impact, and detection.
 ProcessExceptionEntryAssessmentForm process_exception_entry_assessment(const ProcessExceptionEntry *self);
@@ -22497,7 +22497,7 @@ void process_exception_handling_free(ProcessExceptionHandling *self);
 int process_exception_handling_can_have_content(const ProcessExceptionHandling *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_exception_handling_content(const ProcessExceptionHandling *self);
 void process_exception_handling_set_content(ProcessExceptionHandling *self, const char *value);
 
@@ -22509,7 +22509,7 @@ void process_exceptions_free(ProcessExceptions *self);
 int process_exceptions_can_have_content(const ProcessExceptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_exceptions_content(const ProcessExceptions *self);
 void process_exceptions_set_content(ProcessExceptions *self, const char *value);
 // Exceptions overview.
@@ -22526,7 +22526,7 @@ void process_identification_free(ProcessIdentification *self);
 int process_identification_can_have_content(const ProcessIdentification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessIdentificationContentForm process_identification_content(const ProcessIdentification *self);
 // Position in the process hierarchy and taxonomy.
 ProcessIdentificationClassificationForm process_identification_classification(const ProcessIdentification *self);
@@ -22543,7 +22543,7 @@ void process_improvement_entry_free(ProcessImprovementEntry *self);
 int process_improvement_entry_can_have_content(const ProcessImprovementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessImprovementEntryContentForm process_improvement_entry_content(const ProcessImprovementEntry *self);
 // Target outcome and value case.
 ProcessImprovementEntryBenefitsForm process_improvement_entry_benefits(const ProcessImprovementEntry *self);
@@ -22560,7 +22560,7 @@ void process_improvement_summary_free(ProcessImprovementSummary *self);
 int process_improvement_summary_can_have_content(const ProcessImprovementSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_improvement_summary_content(const ProcessImprovementSummary *self);
 void process_improvement_summary_set_content(ProcessImprovementSummary *self, const char *value);
 // Improvement overview.
@@ -22579,7 +22579,7 @@ void process_input_entry_free(ProcessInputEntry *self);
 int process_input_entry_can_have_content(const ProcessInputEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessInputEntryContentForm process_input_entry_content(const ProcessInputEntry *self);
 
 // Process inputs and outputs.
@@ -22590,7 +22590,7 @@ void process_inputs_outputs_free(ProcessInputsOutputs *self);
 int process_inputs_outputs_can_have_content(const ProcessInputsOutputs *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_inputs_outputs_content(const ProcessInputsOutputs *self);
 void process_inputs_outputs_set_content(ProcessInputsOutputs *self, const char *value);
 // Inputs overview.
@@ -22610,7 +22610,7 @@ void process_interdependency_matrix_free(ProcessInterdependencyMatrix *self);
 int process_interdependency_matrix_can_have_content(const ProcessInterdependencyMatrix *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_interdependency_matrix_content(const ProcessInterdependencyMatrix *self);
 void process_interdependency_matrix_set_content(ProcessInterdependencyMatrix *self, const char *value);
 // Interdependency diagram.
@@ -22628,7 +22628,7 @@ void process_kpi_entry_free(ProcessKpiEntry *self);
 int process_kpi_entry_can_have_content(const ProcessKpiEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessKpiEntryContentForm process_kpi_entry_content(const ProcessKpiEntry *self);
 // Measurement targets and thresholds.
 ProcessKpiEntryMeasurementForm process_kpi_entry_measurement(const ProcessKpiEntry *self);
@@ -22645,7 +22645,7 @@ void process_metric_free(ProcessMetric *self);
 int process_metric_can_have_content(const ProcessMetric *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_metric_content(const ProcessMetric *self);
 void process_metric_set_content(ProcessMetric *self, const char *value);
 
@@ -22657,7 +22657,7 @@ void process_metric_category_free(ProcessMetricCategory *self);
 int process_metric_category_can_have_content(const ProcessMetricCategory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_metric_category_content(const ProcessMetricCategory *self);
 void process_metric_category_set_content(ProcessMetricCategory *self, const char *value);
 // Metrics in this category.
@@ -22674,7 +22674,7 @@ void process_metric_entry_free(ProcessMetricEntry *self);
 int process_metric_entry_can_have_content(const ProcessMetricEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessMetricEntryContentForm process_metric_entry_content(const ProcessMetricEntry *self);
 // Measurement collection details.
 ProcessMetricEntryMeasurementForm process_metric_entry_measurement(const ProcessMetricEntry *self);
@@ -22705,7 +22705,7 @@ void process_metrics_free(ProcessMetrics *self);
 int process_metrics_can_have_content(const ProcessMetrics *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_metrics_content(const ProcessMetrics *self);
 void process_metrics_set_content(ProcessMetrics *self, const char *value);
 // Metrics dashboard summary.
@@ -22739,7 +22739,7 @@ void process_output_entry_free(ProcessOutputEntry *self);
 int process_output_entry_can_have_content(const ProcessOutputEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessOutputEntryContentForm process_output_entry_content(const ProcessOutputEntry *self);
 
 // 6.1.4. Process Overview Diagram.
@@ -22752,7 +22752,7 @@ void process_overview_diagram_free(ProcessOverviewDiagram *self);
 int process_overview_diagram_can_have_content(const ProcessOverviewDiagram *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_overview_diagram_content(const ProcessOverviewDiagram *self);
 void process_overview_diagram_set_content(ProcessOverviewDiagram *self, const char *value);
 // Diagram overview.
@@ -22772,7 +22772,7 @@ void process_pain_points_free(ProcessPainPoints *self);
 int process_pain_points_can_have_content(const ProcessPainPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_pain_points_content(const ProcessPainPoints *self);
 void process_pain_points_set_content(ProcessPainPoints *self, const char *value);
 // Process improvement opportunities.
@@ -22787,7 +22787,7 @@ void process_performance_free(ProcessPerformance *self);
 int process_performance_can_have_content(const ProcessPerformance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_performance_content(const ProcessPerformance *self);
 void process_performance_set_content(ProcessPerformance *self, const char *value);
 // Performance overview.
@@ -22807,7 +22807,7 @@ void process_performance_summary_free(ProcessPerformanceSummary *self);
 int process_performance_summary_can_have_content(const ProcessPerformanceSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessPerformanceSummaryContentForm process_performance_summary_content(const ProcessPerformanceSummary *self);
 // Key metrics summary.
 // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
@@ -22821,7 +22821,7 @@ void process_relationship_entry_free(ProcessRelationshipEntry *self);
 int process_relationship_entry_can_have_content(const ProcessRelationshipEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessRelationshipEntryContentForm process_relationship_entry_content(const ProcessRelationshipEntry *self);
 
 // Process relationships and dependencies (supplementary section).
@@ -22832,7 +22832,7 @@ void process_relationships_free(ProcessRelationships *self);
 int process_relationships_can_have_content(const ProcessRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_relationships_content(const ProcessRelationships *self);
 void process_relationships_set_content(ProcessRelationships *self, const char *value);
 // Contains 0+× process relationship.
@@ -22847,7 +22847,7 @@ void process_role_entry_free(ProcessRoleEntry *self);
 int process_role_entry_can_have_content(const ProcessRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessRoleEntryContentForm process_role_entry_content(const ProcessRoleEntry *self);
 // Process participation and authority.
 ProcessRoleEntryExecutionForm process_role_entry_execution(const ProcessRoleEntry *self);
@@ -22862,7 +22862,7 @@ void process_roles_free(ProcessRoles *self);
 int process_roles_can_have_content(const ProcessRoles *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_roles_content(const ProcessRoles *self);
 void process_roles_set_content(ProcessRoles *self, const char *value);
 // Roles overview.
@@ -22879,7 +22879,7 @@ void process_scope_entry_free(ProcessScopeEntry *self);
 int process_scope_entry_can_have_content(const ProcessScopeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessScopeEntryContentForm process_scope_entry_content(const ProcessScopeEntry *self);
 
 // Process scope summary defining in-scope and out-of-scope processes.
@@ -22890,7 +22890,7 @@ void process_scope_summary_free(ProcessScopeSummary *self);
 int process_scope_summary_can_have_content(const ProcessScopeSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessScopeSummaryContentForm process_scope_summary_content(const ProcessScopeSummary *self);
 // Processes in scope.
 // Returns the list view; element type: ProcessScopeEntry (construct from item paths).
@@ -22907,7 +22907,7 @@ void process_sla_entry_free(ProcessSlaEntry *self);
 int process_sla_entry_can_have_content(const ProcessSlaEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessSlaEntryContentForm process_sla_entry_content(const ProcessSlaEntry *self);
 
 // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
@@ -22923,7 +22923,7 @@ void process_steps_and_actor_interactions_free(ProcessStepsAndActorInteractions 
 int process_steps_and_actor_interactions_can_have_content(const ProcessStepsAndActorInteractions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_steps_and_actor_interactions_content(const ProcessStepsAndActorInteractions *self);
 void process_steps_and_actor_interactions_set_content(ProcessStepsAndActorInteractions *self, const char *value);
 // Section overview.
@@ -22950,7 +22950,7 @@ void process_steps_overview_free(ProcessStepsOverview *self);
 int process_steps_overview_can_have_content(const ProcessStepsOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessStepsOverviewContentForm process_steps_overview_content(const ProcessStepsOverview *self);
 
 // Process technology support.
@@ -22961,7 +22961,7 @@ void process_technology_free(ProcessTechnology *self);
 int process_technology_can_have_content(const ProcessTechnology *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessTechnologyContentForm process_technology_content(const ProcessTechnology *self);
 // Data, reporting, and document tooling.
 ProcessTechnologyInformationForm process_technology_information(const ProcessTechnology *self);
@@ -22976,7 +22976,7 @@ void process_trigger_entry_free(ProcessTriggerEntry *self);
 int process_trigger_entry_can_have_content(const ProcessTriggerEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProcessTriggerEntryContentForm process_trigger_entry_content(const ProcessTriggerEntry *self);
 
 // Process triggers and events.
@@ -22987,7 +22987,7 @@ void process_triggers_free(ProcessTriggers *self);
 int process_triggers_can_have_content(const ProcessTriggers *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_triggers_content(const ProcessTriggers *self);
 void process_triggers_set_content(ProcessTriggers *self, const char *value);
 // Main trigger overview.
@@ -23009,7 +23009,7 @@ void process_vision_free(ProcessVision *self);
 int process_vision_can_have_content(const ProcessVision *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *process_vision_content(const ProcessVision *self);
 void process_vision_set_content(ProcessVision *self, const char *value);
 // Process vision overview.
@@ -23030,7 +23030,7 @@ void programming_language_entry_free(ProgrammingLanguageEntry *self);
 int programming_language_entry_can_have_content(const ProgrammingLanguageEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProgrammingLanguageEntryContentForm programming_language_entry_content(const ProgrammingLanguageEntry *self);
 // Version requirements.
 ProgrammingLanguageEntryVersionForm programming_language_entry_version(const ProgrammingLanguageEntry *self);
@@ -23051,7 +23051,7 @@ void project_organization_free(ProjectOrganization *self);
 int project_organization_can_have_content(const ProjectOrganization *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *project_organization_content(const ProjectOrganization *self);
 void project_organization_set_content(ProjectOrganization *self, const char *value);
 // 3.1.1. Organization Structure.
@@ -23071,7 +23071,7 @@ void project_organization_and_process_free(ProjectOrganizationAndProcess *self);
 int project_organization_and_process_can_have_content(const ProjectOrganizationAndProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *project_organization_and_process_content(const ProjectOrganizationAndProcess *self);
 void project_organization_and_process_set_content(ProjectOrganizationAndProcess *self, const char *value);
 // Visual overview of methodology deviations.
@@ -23099,7 +23099,7 @@ void project_team_staffing_free(ProjectTeamStaffing *self);
 int project_team_staffing_can_have_content(const ProjectTeamStaffing *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *project_team_staffing_content(const ProjectTeamStaffing *self);
 void project_team_staffing_set_content(ProjectTeamStaffing *self, const char *value);
 // Team structure overview.
@@ -23119,7 +23119,7 @@ void protocol_compliance_requirements_free(ProtocolComplianceRequirements *self)
 int protocol_compliance_requirements_can_have_content(const ProtocolComplianceRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProtocolComplianceRequirementsContentForm protocol_compliance_requirements_content(const ProtocolComplianceRequirements *self);
 // Caching requirements.
 ProtocolComplianceRequirementsCachingForm protocol_compliance_requirements_caching(const ProtocolComplianceRequirements *self);
@@ -23136,7 +23136,7 @@ void protocol_entry_free(ProtocolEntry *self);
 int protocol_entry_can_have_content(const ProtocolEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProtocolEntryContentForm protocol_entry_content(const ProtocolEntry *self);
 
 // A standard protocol server the framework provides, enabled by the system
@@ -23153,7 +23153,7 @@ void protocol_feature_entry_free(ProtocolFeatureEntry *self);
 int protocol_feature_entry_can_have_content(const ProtocolFeatureEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ProtocolFeatureEntryContentForm protocol_feature_entry_content(const ProtocolFeatureEntry *self);
 // 7.9.2.x. Hooks — the extension points of the feature the system
 // implements.
@@ -23168,7 +23168,7 @@ void protocols_and_standards_section_free(ProtocolsAndStandardsSection *self);
 int protocols_and_standards_section_can_have_content(const ProtocolsAndStandardsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *protocols_and_standards_section_content(const ProtocolsAndStandardsSection *self);
 void protocols_and_standards_section_set_content(ProtocolsAndStandardsSection *self, const char *value);
 // Overview of communication protocols and standards.
@@ -23200,7 +23200,7 @@ void prototype_free(Prototype *self);
 int prototype_can_have_content(const Prototype *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *prototype_content(const Prototype *self);
 void prototype_set_content(Prototype *self, const char *value);
 // What the prototype is for and what it is not.
@@ -23233,7 +23233,7 @@ void prototype_feature_entry_free(PrototypeFeatureEntry *self);
 int prototype_feature_entry_can_have_content(const PrototypeFeatureEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrototypeFeatureEntryContentForm prototype_feature_entry_content(const PrototypeFeatureEntry *self);
 
 // 10.13.2. Selected Feature Subset.
@@ -23246,7 +23246,7 @@ void prototype_feature_subset_free(PrototypeFeatureSubset *self);
 int prototype_feature_subset_can_have_content(const PrototypeFeatureSubset *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *prototype_feature_subset_content(const PrototypeFeatureSubset *self);
 void prototype_feature_subset_set_content(PrototypeFeatureSubset *self, const char *value);
 // Which features the prototype includes, and the criteria that chose them.
@@ -23272,7 +23272,7 @@ void prototype_goal_entry_free(PrototypeGoalEntry *self);
 int prototype_goal_entry_can_have_content(const PrototypeGoalEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PrototypeGoalEntryContentForm prototype_goal_entry_content(const PrototypeGoalEntry *self);
 
 // 10.13.1. Prototype Goals.
@@ -23285,7 +23285,7 @@ void prototype_goals_free(PrototypeGoals *self);
 int prototype_goals_can_have_content(const PrototypeGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *prototype_goals_content(const PrototypeGoals *self);
 void prototype_goals_set_content(PrototypeGoals *self, const char *value);
 // The questions the prototype is built to answer.
@@ -23313,7 +23313,7 @@ void prototype_type_free(PrototypeType *self);
 int prototype_type_can_have_content(const PrototypeType *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *prototype_type_content(const PrototypeType *self);
 void prototype_type_set_content(PrototypeType *self, const char *value);
 // Whether the prototype is reusable or throwaway, and why.
@@ -23336,7 +23336,7 @@ void pwa_requirements_free(PwaRequirements *self);
 int pwa_requirements_can_have_content(const PwaRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 PwaRequirementsContentForm pwa_requirements_content(const PwaRequirements *self);
 // Icon requirements.
 PwaRequirementsIconsForm pwa_requirements_icons(const PwaRequirements *self);
@@ -23355,7 +23355,7 @@ void quality_and_acceptance_model_free(QualityAndAcceptanceModel *self);
 int quality_and_acceptance_model_can_have_content(const QualityAndAcceptanceModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *quality_and_acceptance_model_content(const QualityAndAcceptanceModel *self);
 void quality_and_acceptance_model_set_content(QualityAndAcceptanceModel *self, const char *value);
 // Quality goals and attributes.
@@ -23377,7 +23377,7 @@ void quality_category_entry_free(QualityCategoryEntry *self);
 int quality_category_entry_can_have_content(const QualityCategoryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityCategoryEntryContentForm quality_category_entry_content(const QualityCategoryEntry *self);
 // Description and priority context.
 QualityCategoryEntryDefinitionForm quality_category_entry_definition(const QualityCategoryEntry *self);
@@ -23401,7 +23401,7 @@ void quality_framework_free(QualityFramework *self);
 int quality_framework_can_have_content(const QualityFramework *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *quality_framework_content(const QualityFramework *self);
 void quality_framework_set_content(QualityFramework *self, const char *value);
 // Which published quality model this chapter's structure comes from, at
@@ -23440,7 +23440,7 @@ void quality_gate_adjustment_details_free(QualityGateAdjustmentDetails *self);
 int quality_gate_adjustment_details_can_have_content(const QualityGateAdjustmentDetails *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityGateAdjustmentDetailsContentForm quality_gate_adjustment_details_content(const QualityGateAdjustmentDetails *self);
 
 // A quality gate adjustment entry (form).
@@ -23455,7 +23455,7 @@ void quality_gate_adjustment_entry_free(QualityGateAdjustmentEntry *self);
 int quality_gate_adjustment_entry_can_have_content(const QualityGateAdjustmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityGateAdjustmentEntryContentForm quality_gate_adjustment_entry_content(const QualityGateAdjustmentEntry *self);
 // Gate details.
 // Returns the list view; element type: QualityGateAdjustmentDetails (construct from item paths).
@@ -23479,7 +23479,7 @@ void quality_gate_adjustments_free(QualityGateAdjustments *self);
 int quality_gate_adjustments_can_have_content(const QualityGateAdjustments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *quality_gate_adjustments_content(const QualityGateAdjustments *self);
 void quality_gate_adjustments_set_content(QualityGateAdjustments *self, const char *value);
 // Quality gate adjustment summary.
@@ -23499,7 +23499,7 @@ void quality_gate_check_entry_free(QualityGateCheckEntry *self);
 int quality_gate_check_entry_can_have_content(const QualityGateCheckEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityGateCheckEntryContentForm quality_gate_check_entry_content(const QualityGateCheckEntry *self);
 // Check definition and categorization.
 QualityGateCheckEntryDefinitionForm quality_gate_check_entry_definition(const QualityGateCheckEntry *self);
@@ -23522,7 +23522,7 @@ void quality_gate_checklist_free(QualityGateChecklist *self);
 int quality_gate_checklist_can_have_content(const QualityGateChecklist *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *quality_gate_checklist_content(const QualityGateChecklist *self);
 void quality_gate_checklist_set_content(QualityGateChecklist *self, const char *value);
 // What the checklist is used for, how completely it must be worked, and who
@@ -23552,7 +23552,7 @@ void quality_prioritization_free(QualityPrioritization *self);
 int quality_prioritization_can_have_content(const QualityPrioritization *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *quality_prioritization_content(const QualityPrioritization *self);
 void quality_prioritization_set_content(QualityPrioritization *self, const char *value);
 // How quality attributes are ranked against one another, by whom, and how
@@ -23581,7 +23581,7 @@ void quality_scenario_entry_free(QualityScenarioEntry *self);
 int quality_scenario_entry_can_have_content(const QualityScenarioEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityScenarioEntryContentForm quality_scenario_entry_content(const QualityScenarioEntry *self);
 
 // 4.2.2.n.1. Quality Scenarios.
@@ -23595,7 +23595,7 @@ void quality_scenarios_free(QualityScenarios *self);
 int quality_scenarios_can_have_content(const QualityScenarios *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *quality_scenarios_content(const QualityScenarios *self);
 void quality_scenarios_set_content(QualityScenarios *self, const char *value);
 // Quality scenario entries — contains 0+× QualityScenarioEntry.
@@ -23610,7 +23610,7 @@ void quality_standard_entry_free(QualityStandardEntry *self);
 int quality_standard_entry_can_have_content(const QualityStandardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityStandardEntryContentForm quality_standard_entry_content(const QualityStandardEntry *self);
 // Process coverage.
 QualityStandardEntryProcessesForm quality_standard_entry_processes(const QualityStandardEntry *self);
@@ -23629,7 +23629,7 @@ void quality_weight_entry_free(QualityWeightEntry *self);
 int quality_weight_entry_can_have_content(const QualityWeightEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 QualityWeightEntryContentForm quality_weight_entry_content(const QualityWeightEntry *self);
 
 // One activity of the cross-process RACI matrix.
@@ -23640,7 +23640,7 @@ void raci_entry_free(RaciEntry *self);
 int raci_entry_can_have_content(const RaciEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RaciEntryContentForm raci_entry_content(const RaciEntry *self);
 
 // Rate limiting and throttling.
@@ -23651,7 +23651,7 @@ void rate_limiting_policy_free(RateLimitingPolicy *self);
 int rate_limiting_policy_can_have_content(const RateLimitingPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RateLimitingPolicyContentForm rate_limiting_policy_content(const RateLimitingPolicy *self);
 // Rate-limit ceilings and burst handling.
 RateLimitingPolicyLimitsForm rate_limiting_policy_limits(const RateLimitingPolicy *self);
@@ -23668,7 +23668,7 @@ void readability_free(Readability *self);
 int readability_can_have_content(const Readability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReadabilityContentForm readability_content(const Readability *self);
 // Identifiability and navigation.
 ReadabilityNavigationForm readability_navigation(const Readability *self);
@@ -23689,7 +23689,7 @@ void readiness_criteria_entry_free(ReadinessCriteriaEntry *self);
 int readiness_criteria_entry_can_have_content(const ReadinessCriteriaEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReadinessCriteriaEntryContentForm readiness_criteria_entry_content(const ReadinessCriteriaEntry *self);
 
 // Recovery procedures.
@@ -23700,7 +23700,7 @@ void recovery_procedures_free(RecoveryProcedures *self);
 int recovery_procedures_can_have_content(const RecoveryProcedures *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RecoveryProceduresContentForm recovery_procedures_content(const RecoveryProcedures *self);
 // Database recovery behavior.
 RecoveryProceduresDatabaseForm recovery_procedures_database(const RecoveryProcedures *self);
@@ -23719,7 +23719,7 @@ void recovery_scenario_entry_free(RecoveryScenarioEntry *self);
 int recovery_scenario_entry_can_have_content(const RecoveryScenarioEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RecoveryScenarioEntryContentForm recovery_scenario_entry_content(const RecoveryScenarioEntry *self);
 // Detailed recovery flow.
 // (skipped: detailedFlow has no target type)
@@ -23735,7 +23735,7 @@ void redirect_handling_policy_free(RedirectHandlingPolicy *self);
 int redirect_handling_policy_can_have_content(const RedirectHandlingPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RedirectHandlingPolicyContentForm redirect_handling_policy_content(const RedirectHandlingPolicy *self);
 // Redirect Handling Details (text).
 // (skipped: redirectDetails has no target type)
@@ -23751,7 +23751,7 @@ void reference_document_entry_free(ReferenceDocumentEntry *self);
 int reference_document_entry_can_have_content(const ReferenceDocumentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReferenceDocumentEntryContentForm reference_document_entry_content(const ReferenceDocumentEntry *self);
 // Document metadata and relevance.
 ReferenceDocumentEntryMetadataForm reference_document_entry_metadata(const ReferenceDocumentEntry *self);
@@ -23776,7 +23776,7 @@ void reference_documents_free(ReferenceDocuments *self);
 int reference_documents_can_have_content(const ReferenceDocuments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *reference_documents_content(const ReferenceDocuments *self);
 void reference_documents_set_content(ReferenceDocuments *self, const char *value);
 // Reference document entries — contains 0+× Reference Document.
@@ -23793,7 +23793,7 @@ void regulatory_audit_support_free(RegulatoryAuditSupport *self);
 int regulatory_audit_support_can_have_content(const RegulatoryAuditSupport *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RegulatoryAuditSupportContentForm regulatory_audit_support_content(const RegulatoryAuditSupport *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -23806,7 +23806,7 @@ void regulatory_compliance_entry_free(RegulatoryComplianceEntry *self);
 int regulatory_compliance_entry_can_have_content(const RegulatoryComplianceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RegulatoryComplianceEntryContentForm regulatory_compliance_entry_content(const RegulatoryComplianceEntry *self);
 // Applicability analysis.
 RegulatoryComplianceEntryApplicabilityForm regulatory_compliance_entry_applicability(const RegulatoryComplianceEntry *self);
@@ -23827,7 +23827,7 @@ void regulatory_compliance_requirements_free(RegulatoryComplianceRequirements *s
 int regulatory_compliance_requirements_can_have_content(const RegulatoryComplianceRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *regulatory_compliance_requirements_content(const RegulatoryComplianceRequirements *self);
 void regulatory_compliance_requirements_set_content(RegulatoryComplianceRequirements *self, const char *value);
 // Regulatory requirements — contains 0+× Regulatory Requirement.
@@ -23848,7 +23848,7 @@ void regulatory_context_free(RegulatoryContext *self);
 int regulatory_context_can_have_content(const RegulatoryContext *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *regulatory_context_content(const RegulatoryContext *self);
 void regulatory_context_set_content(RegulatoryContext *self, const char *value);
 // Applicable regulations — contains 0+× ApplicableRegulationEntry.
@@ -23863,7 +23863,7 @@ void regulatory_requirement_entry_free(RegulatoryRequirementEntry *self);
 int regulatory_requirement_entry_can_have_content(const RegulatoryRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RegulatoryRequirementEntryContentForm regulatory_requirement_entry_content(const RegulatoryRequirementEntry *self);
 
 // A relationship to another reference document.
@@ -23874,7 +23874,7 @@ void related_document_entry_free(RelatedDocumentEntry *self);
 int related_document_entry_can_have_content(const RelatedDocumentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RelatedDocumentEntryContentForm related_document_entry_content(const RelatedDocumentEntry *self);
 
 // A single relationship attribute entry.
@@ -23885,7 +23885,7 @@ void relationship_attribute_entry_free(RelationshipAttributeEntry *self);
 int relationship_attribute_entry_can_have_content(const RelationshipAttributeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RelationshipAttributeEntryContentForm relationship_attribute_entry_content(const RelationshipAttributeEntry *self);
 
 // Release strategy.
@@ -23896,7 +23896,7 @@ void release_strategy_free(ReleaseStrategy *self);
 int release_strategy_can_have_content(const ReleaseStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReleaseStrategyContentForm release_strategy_content(const ReleaseStrategy *self);
 // Blue-green deployment configuration.
 ReleaseStrategyBlueGreenForm release_strategy_blue_green(const ReleaseStrategy *self);
@@ -23915,7 +23915,7 @@ void relevant_section_entry_free(RelevantSectionEntry *self);
 int relevant_section_entry_can_have_content(const RelevantSectionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RelevantSectionEntryContentForm relevant_section_entry_content(const RelevantSectionEntry *self);
 
 // 11.3.6. Reliability quality.
@@ -23926,7 +23926,7 @@ void reliability_free(Reliability *self);
 int reliability_can_have_content(const Reliability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReliabilityContentForm reliability_content(const Reliability *self);
 // Recovery objectives.
 ReliabilityRecoveryForm reliability_recovery(const Reliability *self);
@@ -23954,7 +23954,7 @@ void reliability_characteristic_free(ReliabilityCharacteristic *self);
 int reliability_characteristic_can_have_content(const ReliabilityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *reliability_characteristic_content(const ReliabilityCharacteristic *self);
 void reliability_characteristic_set_content(ReliabilityCharacteristic *self, const char *value);
 // How the system will be run: the operating model, the responsible party,
@@ -23991,7 +23991,7 @@ void remember_me_policy_free(RememberMePolicy *self);
 int remember_me_policy_can_have_content(const RememberMePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RememberMePolicyContentForm remember_me_policy_content(const RememberMePolicy *self);
 // Remember-Me Policy Details (text).
 // (skipped: rememberMeDetails has no target type)
@@ -24006,7 +24006,7 @@ void removed_role_entry_free(RemovedRoleEntry *self);
 int removed_role_entry_can_have_content(const RemovedRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RemovedRoleEntryContentForm removed_role_entry_content(const RemovedRoleEntry *self);
 // Incumbent transition planning.
 RemovedRoleEntryTransitionForm removed_role_entry_transition(const RemovedRoleEntry *self);
@@ -24026,7 +24026,7 @@ void replacement_inventory_free(ReplacementInventory *self);
 int replacement_inventory_can_have_content(const ReplacementInventory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *replacement_inventory_content(const ReplacementInventory *self);
 void replacement_inventory_set_content(ReplacementInventory *self, const char *value);
 // Portfolio summary before listing individual systems.
@@ -24045,7 +24045,7 @@ void replacement_phase_entry_free(ReplacementPhaseEntry *self);
 int replacement_phase_entry_can_have_content(const ReplacementPhaseEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReplacementPhaseEntryContentForm replacement_phase_entry_content(const ReplacementPhaseEntry *self);
 
 // A system dependency entry.
@@ -24058,7 +24058,7 @@ void replacement_system_dependency_entry_free(ReplacementSystemDependencyEntry *
 int replacement_system_dependency_entry_can_have_content(const ReplacementSystemDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReplacementSystemDependencyEntryContentForm replacement_system_dependency_entry_content(const ReplacementSystemDependencyEntry *self);
 
 // Axes for report chart.
@@ -24069,7 +24069,7 @@ void report_chart_axes_free(ReportChartAxes *self);
 int report_chart_axes_can_have_content(const ReportChartAxes *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportChartAxesContentForm report_chart_axes_content(const ReportChartAxes *self);
 
 // A chart/visualization in a report
@@ -24081,7 +24081,7 @@ void report_chart_entry_free(ReportChartEntry *self);
 int report_chart_entry_can_have_content(const ReportChartEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportChartEntryContentForm report_chart_entry_content(const ReportChartEntry *self);
 // Axes configuration.
 // Returns the list view; element type: ReportChartAxes (construct from item paths).
@@ -24104,7 +24104,7 @@ void report_column_entry_free(ReportColumnEntry *self);
 int report_column_entry_can_have_content(const ReportColumnEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportColumnEntryContentForm report_column_entry_content(const ReportColumnEntry *self);
 // Data source and type.
 ReportColumnEntryDataSourceForm report_column_entry_data_source(const ReportColumnEntry *self);
@@ -24157,7 +24157,7 @@ void report_definitions_free(ReportDefinitions *self);
 int report_definitions_can_have_content(const ReportDefinitions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *report_definitions_content(const ReportDefinitions *self);
 void report_definitions_set_content(ReportDefinitions *self, const char *value);
 // 10.2.1. Reports — contains 0+× Report.
@@ -24172,7 +24172,7 @@ void report_distribution_entry_free(ReportDistributionEntry *self);
 int report_distribution_entry_can_have_content(const ReportDistributionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportDistributionEntryContentForm report_distribution_entry_content(const ReportDistributionEntry *self);
 // Recipient and format settings.
 ReportDistributionEntryRecipientsForm report_distribution_entry_recipients(const ReportDistributionEntry *self);
@@ -24189,7 +24189,7 @@ void report_entry_free(ReportEntry *self);
 int report_entry_can_have_content(const ReportEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportEntryContentForm report_entry_content(const ReportEntry *self);
 // Identity and context.
 ReportEntryIdentityForm report_entry_identity(const ReportEntry *self);
@@ -24241,7 +24241,7 @@ void report_filter_entry_free(ReportFilterEntry *self);
 int report_filter_entry_can_have_content(const ReportFilterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportFilterEntryContentForm report_filter_entry_content(const ReportFilterEntry *self);
 // Input and value configuration.
 ReportFilterEntryInputForm report_filter_entry_input(const ReportFilterEntry *self);
@@ -24290,7 +24290,7 @@ void report_recipient_entry_free(ReportRecipientEntry *self);
 int report_recipient_entry_can_have_content(const ReportRecipientEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportRecipientEntryContentForm report_recipient_entry_content(const ReportRecipientEntry *self);
 // Recipient business context.
 ReportRecipientEntryContextForm report_recipient_entry_context(const ReportRecipientEntry *self);
@@ -24308,7 +24308,7 @@ void report_schedule_entry_free(ReportScheduleEntry *self);
 int report_schedule_entry_can_have_content(const ReportScheduleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportScheduleEntryContentForm report_schedule_entry_content(const ReportScheduleEntry *self);
 // Timing configuration.
 ReportScheduleEntryTimingForm report_schedule_entry_timing(const ReportScheduleEntry *self);
@@ -24327,7 +24327,7 @@ void report_section_entry_free(ReportSectionEntry *self);
 int report_section_entry_can_have_content(const ReportSectionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReportSectionEntryContentForm report_section_entry_content(const ReportSectionEntry *self);
 // Data source configuration.
 ReportSectionEntryDataForm report_section_entry_data(const ReportSectionEntry *self);
@@ -24355,7 +24355,7 @@ void requirement_acceptance_criteria_free(RequirementAcceptanceCriteria *self);
 int requirement_acceptance_criteria_can_have_content(const RequirementAcceptanceCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_acceptance_criteria_content(const RequirementAcceptanceCriteria *self);
 void requirement_acceptance_criteria_set_content(RequirementAcceptanceCriteria *self, const char *value);
 // Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
@@ -24370,7 +24370,7 @@ void requirement_business_rule_entry_free(RequirementBusinessRuleEntry *self);
 int requirement_business_rule_entry_can_have_content(const RequirementBusinessRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RequirementBusinessRuleEntryContentForm requirement_business_rule_entry_content(const RequirementBusinessRuleEntry *self);
 
 // 4.3.1.n.2. Business Rules.
@@ -24383,7 +24383,7 @@ void requirement_business_rules_free(RequirementBusinessRules *self);
 int requirement_business_rules_can_have_content(const RequirementBusinessRules *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_business_rules_content(const RequirementBusinessRules *self);
 void requirement_business_rules_set_content(RequirementBusinessRules *self, const char *value);
 // Business rule entries — contains 0+× RequirementBusinessRuleEntry.
@@ -24400,7 +24400,7 @@ void requirement_coverage_free(RequirementCoverage *self);
 int requirement_coverage_can_have_content(const RequirementCoverage *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_coverage_content(const RequirementCoverage *self);
 void requirement_coverage_set_content(RequirementCoverage *self, const char *value);
 
@@ -24414,7 +24414,7 @@ void requirement_data_requirements_free(RequirementDataRequirements *self);
 int requirement_data_requirements_can_have_content(const RequirementDataRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_data_requirements_content(const RequirementDataRequirements *self);
 void requirement_data_requirements_set_content(RequirementDataRequirements *self, const char *value);
 // Data entity entries — contains 0+× DataEntityReferenceEntry.
@@ -24431,7 +24431,7 @@ void requirement_dependencies_free(RequirementDependencies *self);
 int requirement_dependencies_can_have_content(const RequirementDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_dependencies_content(const RequirementDependencies *self);
 void requirement_dependencies_set_content(RequirementDependencies *self, const char *value);
 // Dependency entries — contains 0+× RequirementDependencyEntry.
@@ -24446,7 +24446,7 @@ void requirement_dependency_entry_free(RequirementDependencyEntry *self);
 int requirement_dependency_entry_can_have_content(const RequirementDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RequirementDependencyEntryContentForm requirement_dependency_entry_content(const RequirementDependencyEntry *self);
 // The other requirement in this dependency, named by section id.
 //
@@ -24473,7 +24473,7 @@ void requirement_relationships_free(RequirementRelationships *self);
 int requirement_relationships_can_have_content(const RequirementRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_relationships_content(const RequirementRelationships *self);
 void requirement_relationships_set_content(RequirementRelationships *self, const char *value);
 
@@ -24487,7 +24487,7 @@ void requirement_screen_action_entry_free(RequirementScreenActionEntry *self);
 int requirement_screen_action_entry_can_have_content(const RequirementScreenActionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RequirementScreenActionEntryContentForm requirement_screen_action_entry_content(const RequirementScreenActionEntry *self);
 // Action parameters — contains 0+× ActionParameterEntry.
 // Returns the list view; element type: ActionParameterEntry (construct from item paths).
@@ -24501,7 +24501,7 @@ void requirement_test_case_entry_free(RequirementTestCaseEntry *self);
 int requirement_test_case_entry_can_have_content(const RequirementTestCaseEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RequirementTestCaseEntryContentForm requirement_test_case_entry_content(const RequirementTestCaseEntry *self);
 // Test execution details.
 RequirementTestCaseEntryExecutionForm requirement_test_case_entry_execution(const RequirementTestCaseEntry *self);
@@ -24531,7 +24531,7 @@ void requirement_test_cases_free(RequirementTestCases *self);
 int requirement_test_cases_can_have_content(const RequirementTestCases *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_test_cases_content(const RequirementTestCases *self);
 void requirement_test_cases_set_content(RequirementTestCases *self, const char *value);
 // Test case entries — contains 0+× RequirementTestCaseEntry.
@@ -24548,7 +24548,7 @@ void requirement_traceability_free(RequirementTraceability *self);
 int requirement_traceability_can_have_content(const RequirementTraceability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_traceability_content(const RequirementTraceability *self);
 void requirement_traceability_set_content(RequirementTraceability *self, const char *value);
 // Traceability links form.
@@ -24570,7 +24570,7 @@ void requirement_ui_specification_free(RequirementUiSpecification *self);
 int requirement_ui_specification_can_have_content(const RequirementUiSpecification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirement_ui_specification_content(const RequirementUiSpecification *self);
 void requirement_ui_specification_set_content(RequirementUiSpecification *self, const char *value);
 // UI specification form.
@@ -24610,7 +24610,7 @@ void requirements_free(Requirements *self);
 int requirements_can_have_content(const Requirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirements_content(const Requirements *self);
 void requirements_set_content(Requirements *self, const char *value);
 // Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
@@ -24639,7 +24639,7 @@ void requirements_follow_up_free(RequirementsFollowUp *self);
 int requirements_follow_up_can_have_content(const RequirementsFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirements_follow_up_content(const RequirementsFollowUp *self);
 void requirements_follow_up_set_content(RequirementsFollowUp *self, const char *value);
 // Localization & Translation requirements (NFR-L10N-NNN).
@@ -24663,7 +24663,7 @@ void requirements_overview_free(RequirementsOverview *self);
 int requirements_overview_can_have_content(const RequirementsOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *requirements_overview_content(const RequirementsOverview *self);
 void requirements_overview_set_content(RequirementsOverview *self, const char *value);
 // Requirements overview form.
@@ -24693,7 +24693,7 @@ void resource_allocation_entry_free(ResourceAllocationEntry *self);
 int resource_allocation_entry_can_have_content(const ResourceAllocationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResourceAllocationEntryContentForm resource_allocation_entry_content(const ResourceAllocationEntry *self);
 
 // Resource capacity baselines.
@@ -24704,7 +24704,7 @@ void resource_capacity_baselines_free(ResourceCapacityBaselines *self);
 int resource_capacity_baselines_can_have_content(const ResourceCapacityBaselines *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResourceCapacityBaselinesContentForm resource_capacity_baselines_content(const ResourceCapacityBaselines *self);
 // Storage baselines.
 ResourceCapacityBaselinesStorageForm resource_capacity_baselines_storage(const ResourceCapacityBaselines *self);
@@ -24723,7 +24723,7 @@ void resource_key_entry_free(ResourceKeyEntry *self);
 int resource_key_entry_can_have_content(const ResourceKeyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResourceKeyEntryContentForm resource_key_entry_content(const ResourceKeyEntry *self);
 
 // A resource key reference entry (form).
@@ -24734,7 +24734,7 @@ void resource_key_reference_entry_free(ResourceKeyReferenceEntry *self);
 int resource_key_reference_entry_can_have_content(const ResourceKeyReferenceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResourceKeyReferenceEntryContentForm resource_key_reference_entry_content(const ResourceKeyReferenceEntry *self);
 
 // 9.3. Resource Protection.
@@ -24745,7 +24745,7 @@ void resource_protection_free(ResourceProtection *self);
 int resource_protection_can_have_content(const ResourceProtection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *resource_protection_content(const ResourceProtection *self);
 void resource_protection_set_content(ResourceProtection *self, const char *value);
 // 9.3.1. Data-Level Security.
@@ -24763,7 +24763,7 @@ void resource_requirement_entry_free(ResourceRequirementEntry *self);
 int resource_requirement_entry_can_have_content(const ResourceRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResourceRequirementEntryContentForm resource_requirement_entry_content(const ResourceRequirementEntry *self);
 
 // Responsibility change entry (form).
@@ -24774,7 +24774,7 @@ void responsibility_change_entry_free(ResponsibilityChangeEntry *self);
 int responsibility_change_entry_can_have_content(const ResponsibilityChangeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilityChangeEntryContentForm responsibility_change_entry_content(const ResponsibilityChangeEntry *self);
 
 // Key contacts.
@@ -24785,7 +24785,7 @@ void responsibility_contacts_free(ResponsibilityContacts *self);
 int responsibility_contacts_can_have_content(const ResponsibilityContacts *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilityContactsContentForm responsibility_contacts_content(const ResponsibilityContacts *self);
 
 // Detailed responsibility entry (form).
@@ -24796,7 +24796,7 @@ void responsibility_detail_entry_free(ResponsibilityDetailEntry *self);
 int responsibility_detail_entry_can_have_content(const ResponsibilityDetailEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilityDetailEntryContentForm responsibility_detail_entry_content(const ResponsibilityDetailEntry *self);
 
 // A responsibility entry (form).
@@ -24811,7 +24811,7 @@ void responsibility_entry_free(ResponsibilityEntry *self);
 int responsibility_entry_can_have_content(const ResponsibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilityEntryContentForm responsibility_entry_content(const ResponsibilityEntry *self);
 // Function details and scope.
 // Returns the list view; element type: ResponsibilityFunctionDetails (construct from item paths).
@@ -24835,7 +24835,7 @@ void responsibility_function_details_free(ResponsibilityFunctionDetails *self);
 int responsibility_function_details_can_have_content(const ResponsibilityFunctionDetails *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilityFunctionDetailsContentForm responsibility_function_details_content(const ResponsibilityFunctionDetails *self);
 
 // A responsibility reference entry (form).
@@ -24846,7 +24846,7 @@ void responsibility_reference_entry_free(ResponsibilityReferenceEntry *self);
 int responsibility_reference_entry_can_have_content(const ResponsibilityReferenceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilityReferenceEntryContentForm responsibility_reference_entry_content(const ResponsibilityReferenceEntry *self);
 
 // Related systems and data.
@@ -24857,7 +24857,7 @@ void responsibility_systems_free(ResponsibilitySystems *self);
 int responsibility_systems_can_have_content(const ResponsibilitySystems *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsibilitySystemsContentForm responsibility_systems_content(const ResponsibilitySystems *self);
 
 // 10.10.2. Responsive Behavior.
@@ -24870,7 +24870,7 @@ void responsive_behavior_free(ResponsiveBehavior *self);
 int responsive_behavior_can_have_content(const ResponsiveBehavior *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *responsive_behavior_content(const ResponsiveBehavior *self);
 void responsive_behavior_set_content(ResponsiveBehavior *self, const char *value);
 // What actually changes at each breakpoint.
@@ -24903,7 +24903,7 @@ void responsive_design_free(ResponsiveDesign *self);
 int responsive_design_can_have_content(const ResponsiveDesign *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *responsive_design_content(const ResponsiveDesign *self);
 void responsive_design_set_content(ResponsiveDesign *self, const char *value);
 // The responsive strategy: which approach the product takes and why.
@@ -24926,7 +24926,7 @@ void responsive_screen_rule_entry_free(ResponsiveScreenRuleEntry *self);
 int responsive_screen_rule_entry_can_have_content(const ResponsiveScreenRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResponsiveScreenRuleEntryContentForm responsive_screen_rule_entry_content(const ResponsiveScreenRuleEntry *self);
 
 // 7.7. Result Envelope.
@@ -24951,7 +24951,7 @@ void result_envelope_free(ResultEnvelope *self);
 int result_envelope_can_have_content(const ResultEnvelope *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResultEnvelopeContentForm result_envelope_content(const ResultEnvelope *self);
 // 7.7.1. Field-Level Details — the per-field error detail the error arm may
 // carry (e.g. form-validation failures).
@@ -24972,7 +24972,7 @@ void result_field_detail_entry_free(ResultFieldDetailEntry *self);
 int result_field_detail_entry_can_have_content(const ResultFieldDetailEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ResultFieldDetailEntryContentForm result_field_detail_entry_content(const ResultFieldDetailEntry *self);
 
 // Retention policy for a specific data category.
@@ -24983,7 +24983,7 @@ void retention_policy_entry_free(RetentionPolicyEntry *self);
 int retention_policy_entry_can_have_content(const RetentionPolicyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RetentionPolicyEntryContentForm retention_policy_entry_content(const RetentionPolicyEntry *self);
 // Retention timing and legal basis.
 RetentionPolicyEntryRequirementsForm retention_policy_entry_requirements(const RetentionPolicyEntry *self);
@@ -25000,7 +25000,7 @@ void reusability_principles_free(ReusabilityPrinciples *self);
 int reusability_principles_can_have_content(const ReusabilityPrinciples *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReusabilityPrinciplesContentForm reusability_principles_content(const ReusabilityPrinciples *self);
 // Abstraction rules.
 ReusabilityPrinciplesAbstractionForm reusability_principles_abstraction(const ReusabilityPrinciples *self);
@@ -25022,7 +25022,7 @@ void reusable_components_section_free(ReusableComponentsSection *self);
 int reusable_components_section_can_have_content(const ReusableComponentsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *reusable_components_section_content(const ReusableComponentsSection *self);
 void reusable_components_section_set_content(ReusableComponentsSection *self, const char *value);
 // Overview of reusability strategy.
@@ -25059,7 +25059,7 @@ void reusable_prototype_free(ReusablePrototype *self);
 int reusable_prototype_can_have_content(const ReusablePrototype *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *reusable_prototype_content(const ReusablePrototype *self);
 void reusable_prototype_set_content(ReusablePrototype *self, const char *value);
 // The standards a reusable prototype must meet to graduate into the product.
@@ -25084,7 +25084,7 @@ void reusable_ui_component_entry_free(ReusableUiComponentEntry *self);
 int reusable_ui_component_entry_can_have_content(const ReusableUiComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReusableUiComponentEntryContentForm reusable_ui_component_entry_content(const ReusableUiComponentEntry *self);
 // Description and use cases.
 ReusableUiComponentEntryDescriptionForm reusable_ui_component_entry_description(const ReusableUiComponentEntry *self);
@@ -25108,7 +25108,7 @@ void reuse_goal_entry_free(ReuseGoalEntry *self);
 int reuse_goal_entry_can_have_content(const ReuseGoalEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReuseGoalEntryContentForm reuse_goal_entry_content(const ReuseGoalEntry *self);
 // Measurement and scope.
 ReuseGoalEntryMeasurementForm reuse_goal_entry_measurement(const ReuseGoalEntry *self);
@@ -25128,7 +25128,7 @@ void review_criterion_entry_free(ReviewCriterionEntry *self);
 int review_criterion_entry_can_have_content(const ReviewCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReviewCriterionEntryContentForm review_criterion_entry_content(const ReviewCriterionEntry *self);
 // How this criterion is measured and weighted.
 ReviewCriterionEntryAssessmentForm review_criterion_entry_assessment(const ReviewCriterionEntry *self);
@@ -25143,7 +25143,7 @@ void review_team_free(ReviewTeam *self);
 int review_team_can_have_content(const ReviewTeam *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *review_team_content(const ReviewTeam *self);
 void review_team_set_content(ReviewTeam *self, const char *value);
 // The members of the team.
@@ -25158,7 +25158,7 @@ void review_team_member_free(ReviewTeamMember *self);
 int review_team_member_can_have_content(const ReviewTeamMember *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReviewTeamMemberContentForm review_team_member_content(const ReviewTeamMember *self);
 
 // A reviewer recorded in a revision entry (form).
@@ -25169,7 +25169,7 @@ void reviewer_record_free(ReviewerRecord *self);
 int reviewer_record_can_have_content(const ReviewerRecord *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ReviewerRecordContentForm reviewer_record_content(const ReviewerRecord *self);
 
 // A single document revision entry (form).
@@ -25180,7 +25180,7 @@ void revision_entry_free(RevisionEntry *self);
 int revision_entry_can_have_content(const RevisionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RevisionEntryContentForm revision_entry_content(const RevisionEntry *self);
 // The review team the round leading to this revision started with.
 // Returns the list view; element type: ReviewerRecord (construct from item paths).
@@ -25197,7 +25197,7 @@ void risk_business_impact_free(RiskBusinessImpact *self);
 int risk_business_impact_can_have_content(const RiskBusinessImpact *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RiskBusinessImpactContentForm risk_business_impact_content(const RiskBusinessImpact *self);
 // Broader stakeholder and compliance impact.
 RiskBusinessImpactStakeholdersForm risk_business_impact_stakeholders(const RiskBusinessImpact *self);
@@ -25216,7 +25216,7 @@ void risk_entry_free(RiskEntry *self);
 int risk_entry_can_have_content(const RiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *risk_entry_content(const RiskEntry *self);
 void risk_entry_set_content(RiskEntry *self, const char *value);
 // Risk identification — unique identifier and basic description.
@@ -25243,7 +25243,7 @@ void risk_identification_free(RiskIdentification *self);
 int risk_identification_can_have_content(const RiskIdentification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RiskIdentificationContentForm risk_identification_content(const RiskIdentification *self);
 // Identification source and ownership metadata.
 RiskIdentificationSourceDetailsForm risk_identification_source_details(const RiskIdentification *self);
@@ -25258,7 +25258,7 @@ void risk_monitoring_free(RiskMonitoring *self);
 int risk_monitoring_can_have_content(const RiskMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RiskMonitoringContentForm risk_monitoring_content(const RiskMonitoring *self);
 // Trend and monitoring indicators.
 RiskMonitoringTrendDetailsForm risk_monitoring_trend_details(const RiskMonitoring *self);
@@ -25273,7 +25273,7 @@ void risk_relationships_free(RiskRelationships *self);
 int risk_relationships_can_have_content(const RiskRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RiskRelationshipsContentForm risk_relationships_content(const RiskRelationships *self);
 
 // Risk response — strategy and planned actions.
@@ -25284,7 +25284,7 @@ void risk_response_free(RiskResponse *self);
 int risk_response_can_have_content(const RiskResponse *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RiskResponseContentForm risk_response_content(const RiskResponse *self);
 // Residual and secondary risk expectations.
 RiskResponseResidualForm risk_response_residual(const RiskResponse *self);
@@ -25311,7 +25311,7 @@ void risks_and_assumptions_free(RisksAndAssumptions *self);
 int risks_and_assumptions_can_have_content(const RisksAndAssumptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *risks_and_assumptions_content(const RisksAndAssumptions *self);
 void risks_and_assumptions_set_content(RisksAndAssumptions *self, const char *value);
 // Overview of the risk management approach for this project.
@@ -25332,7 +25332,7 @@ void role_adjustment_entry_free(RoleAdjustmentEntry *self);
 int role_adjustment_entry_can_have_content(const RoleAdjustmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleAdjustmentEntryContentForm role_adjustment_entry_content(const RoleAdjustmentEntry *self);
 // Adjustment details: name changes, affected responsibilities.
 RoleAdjustmentEntryDetailsForm role_adjustment_entry_details(const RoleAdjustmentEntry *self);
@@ -25357,7 +25357,7 @@ void role_adjustments_free(RoleAdjustments *self);
 int role_adjustments_can_have_content(const RoleAdjustments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *role_adjustments_content(const RoleAdjustments *self);
 void role_adjustments_set_content(RoleAdjustments *self, const char *value);
 // Role adjustment summary statistics.
@@ -25380,7 +25380,7 @@ void role_certification_policy_free(RoleCertificationPolicy *self);
 int role_certification_policy_can_have_content(const RoleCertificationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleCertificationPolicyContentForm role_certification_policy_content(const RoleCertificationPolicy *self);
 // Role Certification Details (text).
 // (skipped: roleCertificationDetails has no target type)
@@ -25396,7 +25396,7 @@ void role_combination_constraint_entry_free(RoleCombinationConstraintEntry *self
 int role_combination_constraint_entry_can_have_content(const RoleCombinationConstraintEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleCombinationConstraintEntryContentForm role_combination_constraint_entry_content(const RoleCombinationConstraintEntry *self);
 
 // Role competency entry (form).
@@ -25407,7 +25407,7 @@ void role_competency_entry_free(RoleCompetencyEntry *self);
 int role_competency_entry_can_have_content(const RoleCompetencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleCompetencyEntryContentForm role_competency_entry_content(const RoleCompetencyEntry *self);
 
 // A data scope entry for a role (form).
@@ -25421,7 +25421,7 @@ void role_data_scope_entry_free(RoleDataScopeEntry *self);
 int role_data_scope_entry_can_have_content(const RoleDataScopeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleDataScopeEntryContentForm role_data_scope_entry_content(const RoleDataScopeEntry *self);
 
 // A role exclusion entry (form).
@@ -25432,7 +25432,7 @@ void role_exclusion_entry_free(RoleExclusionEntry *self);
 int role_exclusion_entry_can_have_content(const RoleExclusionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleExclusionEntryContentForm role_exclusion_entry_content(const RoleExclusionEntry *self);
 
 // 9.4.6. Role Hierarchy.
@@ -25447,7 +25447,7 @@ void role_hierarchy_free(RoleHierarchy *self);
 int role_hierarchy_can_have_content(const RoleHierarchy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *role_hierarchy_content(const RoleHierarchy *self);
 void role_hierarchy_set_content(RoleHierarchy *self, const char *value);
 // Role Hierarchy Policy.
@@ -25477,7 +25477,7 @@ void role_hierarchy_policy_free(RoleHierarchyPolicy *self);
 int role_hierarchy_policy_can_have_content(const RoleHierarchyPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleHierarchyPolicyContentForm role_hierarchy_policy_content(const RoleHierarchyPolicy *self);
 // Role Hierarchy Policy Details (text).
 // (skipped: roleHierarchyPolicyDetails has no target type)
@@ -25490,7 +25490,7 @@ void role_holder_entry_free(RoleHolderEntry *self);
 int role_holder_entry_can_have_content(const RoleHolderEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleHolderEntryContentForm role_holder_entry_content(const RoleHolderEntry *self);
 
 // A role inheritance rule entry (form).
@@ -25504,7 +25504,7 @@ void role_inheritance_rule_entry_free(RoleInheritanceRuleEntry *self);
 int role_inheritance_rule_entry_can_have_content(const RoleInheritanceRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleInheritanceRuleEntryContentForm role_inheritance_rule_entry_content(const RoleInheritanceRuleEntry *self);
 
 // 9.7. Role Matrix.
@@ -25518,7 +25518,7 @@ void role_matrix_free(RoleMatrix *self);
 int role_matrix_can_have_content(const RoleMatrix *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *role_matrix_content(const RoleMatrix *self);
 void role_matrix_set_content(RoleMatrix *self, const char *value);
 
@@ -25534,7 +25534,7 @@ void role_permission_entry_free(RolePermissionEntry *self);
 int role_permission_entry_can_have_content(const RolePermissionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RolePermissionEntryContentForm role_permission_entry_content(const RolePermissionEntry *self);
 
 // A role reference entry (form).
@@ -25545,7 +25545,7 @@ void role_reference_entry_free(RoleReferenceEntry *self);
 int role_reference_entry_can_have_content(const RoleReferenceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RoleReferenceEntryContentForm role_reference_entry_content(const RoleReferenceEntry *self);
 
 // Rollback strategy.
@@ -25556,7 +25556,7 @@ void rollback_strategy_free(RollbackStrategy *self);
 int rollback_strategy_can_have_content(const RollbackStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RollbackStrategyContentForm rollback_strategy_content(const RollbackStrategy *self);
 // Trigger and timing conditions.
 RollbackStrategyTriggersForm rollback_strategy_triggers(const RollbackStrategy *self);
@@ -25581,7 +25581,7 @@ void rollout_plan_free(RolloutPlan *self);
 int rollout_plan_can_have_content(const RolloutPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *rollout_plan_content(const RolloutPlan *self);
 void rollout_plan_set_content(RolloutPlan *self, const char *value);
 
@@ -25601,7 +25601,7 @@ void rollout_training_material_free(RolloutTrainingMaterial *self);
 int rollout_training_material_can_have_content(const RolloutTrainingMaterial *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *rollout_training_material_content(const RolloutTrainingMaterial *self);
 void rollout_training_material_set_content(RolloutTrainingMaterial *self, const char *value);
 
@@ -25617,7 +25617,7 @@ void row_level_security_policy_free(RowLevelSecurityPolicy *self);
 int row_level_security_policy_can_have_content(const RowLevelSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RowLevelSecurityPolicyContentForm row_level_security_policy_content(const RowLevelSecurityPolicy *self);
 // Row-Level Security Details (text).
 // (skipped: rowLevelSecurityDetails has no target type)
@@ -25630,7 +25630,7 @@ void rpo_rto_requirements_free(RpoRtoRequirements *self);
 int rpo_rto_requirements_can_have_content(const RpoRtoRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RpoRtoRequirementsContentForm rpo_rto_requirements_content(const RpoRtoRequirements *self);
 // Tier-based targets.
 RpoRtoRequirementsByTierForm rpo_rto_requirements_by_tier(const RpoRtoRequirements *self);
@@ -25649,7 +25649,7 @@ void rule_example_entry_free(RuleExampleEntry *self);
 int rule_example_entry_can_have_content(const RuleExampleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RuleExampleEntryContentForm rule_example_entry_content(const RuleExampleEntry *self);
 
 // 12.4. Runtime Dependencies.
@@ -25663,7 +25663,7 @@ void runtime_dependencies_free(RuntimeDependencies *self);
 int runtime_dependencies_can_have_content(const RuntimeDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *runtime_dependencies_content(const RuntimeDependencies *self);
 void runtime_dependencies_set_content(RuntimeDependencies *self, const char *value);
 // Contains 0+× Runtime Dependency.
@@ -25681,7 +25681,7 @@ void runtime_dependency_entry_free(RuntimeDependencyEntry *self);
 int runtime_dependency_entry_can_have_content(const RuntimeDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RuntimeDependencyEntryContentForm runtime_dependency_entry_content(const RuntimeDependencyEntry *self);
 // Versioning and business criticality.
 RuntimeDependencyEntryClassificationForm runtime_dependency_entry_classification(const RuntimeDependencyEntry *self);
@@ -25702,7 +25702,7 @@ void runtime_environment_free(RuntimeEnvironment *self);
 int runtime_environment_can_have_content(const RuntimeEnvironment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 RuntimeEnvironmentContentForm runtime_environment_content(const RuntimeEnvironment *self);
 // Memory limits.
 RuntimeEnvironmentMemoryForm runtime_environment_memory(const RuntimeEnvironment *self);
@@ -25729,7 +25729,7 @@ void scalability_architecture_free(ScalabilityArchitecture *self);
 int scalability_architecture_can_have_content(const ScalabilityArchitecture *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScalabilityArchitectureContentForm scalability_architecture_content(const ScalabilityArchitecture *self);
 // Capacity planning assumptions.
 ScalabilityArchitectureCapacityForm scalability_architecture_capacity(const ScalabilityArchitecture *self);
@@ -25750,7 +25750,7 @@ void scaling_requirements_free(ScalingRequirements *self);
 int scaling_requirements_can_have_content(const ScalingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScalingRequirementsContentForm scaling_requirements_content(const ScalingRequirements *self);
 // Horizontal scaling configuration.
 ScalingRequirementsHorizontalForm scaling_requirements_horizontal(const ScalingRequirements *self);
@@ -25769,7 +25769,7 @@ void scaling_triggers_and_thresholds_free(ScalingTriggersAndThresholds *self);
 int scaling_triggers_and_thresholds_can_have_content(const ScalingTriggersAndThresholds *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScalingTriggersAndThresholdsContentForm scaling_triggers_and_thresholds_content(const ScalingTriggersAndThresholds *self);
 // Memory-based thresholds.
 ScalingTriggersAndThresholdsMemoryForm scaling_triggers_and_thresholds_memory(const ScalingTriggersAndThresholds *self);
@@ -25790,7 +25790,7 @@ void scenario_entry_free(ScenarioEntry *self);
 int scenario_entry_can_have_content(const ScenarioEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *scenario_entry_content(const ScenarioEntry *self);
 void scenario_entry_set_content(ScenarioEntry *self, const char *value);
 // Scenario identification.
@@ -25818,7 +25818,7 @@ void scenario_step_entry_free(ScenarioStepEntry *self);
 int scenario_step_entry_can_have_content(const ScenarioStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScenarioStepEntryContentForm scenario_step_entry_content(const ScenarioStepEntry *self);
 // Expected outcome and referenced artifacts.
 ScenarioStepEntryContextForm scenario_step_entry_context(const ScenarioStepEntry *self);
@@ -25883,7 +25883,7 @@ void scheduled_job_entry_free(ScheduledJobEntry *self);
 int scheduled_job_entry_can_have_content(const ScheduledJobEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScheduledJobEntryContentForm scheduled_job_entry_content(const ScheduledJobEntry *self);
 // Cron trigger — a promoted `@OneOf` case.
 //
@@ -25967,7 +25967,7 @@ void scheduled_job_step_entry_free(ScheduledJobStepEntry *self);
 int scheduled_job_step_entry_can_have_content(const ScheduledJobStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScheduledJobStepEntryContentForm scheduled_job_step_entry_content(const ScheduledJobStepEntry *self);
 
 // Scheduled maintenance policy.
@@ -25978,7 +25978,7 @@ void scheduled_maintenance_policy_free(ScheduledMaintenancePolicy *self);
 int scheduled_maintenance_policy_can_have_content(const ScheduledMaintenancePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScheduledMaintenancePolicyContentForm scheduled_maintenance_policy_content(const ScheduledMaintenancePolicy *self);
 // Scheduling preferences.
 ScheduledMaintenancePolicySchedulingForm scheduled_maintenance_policy_scheduling(const ScheduledMaintenancePolicy *self);
@@ -26002,7 +26002,7 @@ void schema_migration_step_entry_free(SchemaMigrationStepEntry *self);
 int schema_migration_step_entry_can_have_content(const SchemaMigrationStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SchemaMigrationStepEntryContentForm schema_migration_step_entry_content(const SchemaMigrationStepEntry *self);
 // Baseline schema definition — a promoted `@OneOf` case.
 //
@@ -26039,7 +26039,7 @@ void schema_versioning_and_migration_free(SchemaVersioningAndMigration *self);
 int schema_versioning_and_migration_can_have_content(const SchemaVersioningAndMigration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SchemaVersioningAndMigrationContentForm schema_versioning_and_migration_content(const SchemaVersioningAndMigration *self);
 // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply
 // to.
@@ -26060,7 +26060,7 @@ void scope_boundaries_free(ScopeBoundaries *self);
 int scope_boundaries_can_have_content(const ScopeBoundaries *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *scope_boundaries_content(const ScopeBoundaries *self);
 void scope_boundaries_set_content(ScopeBoundaries *self, const char *value);
 // In-Scope Items — contains 1+× ScopeItem.
@@ -26084,7 +26084,7 @@ void scope_item_entry_free(ScopeItemEntry *self);
 int scope_item_entry_can_have_content(const ScopeItemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScopeItemEntryContentForm scope_item_entry_content(const ScopeItemEntry *self);
 
 // A screen action entry (form).
@@ -26097,7 +26097,7 @@ void screen_action_entry_free(ScreenActionEntry *self);
 int screen_action_entry_can_have_content(const ScreenActionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenActionEntryContentForm screen_action_entry_content(const ScreenActionEntry *self);
 // Visual presentation of the action.
 ScreenActionEntryVisualForm screen_action_entry_visual(const ScreenActionEntry *self);
@@ -26116,7 +26116,7 @@ void screen_actions_free(ScreenActions *self);
 int screen_actions_can_have_content(const ScreenActions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_actions_content(const ScreenActions *self);
 void screen_actions_set_content(ScreenActions *self, const char *value);
 // Contains 0+× ScreenAction.
@@ -26134,7 +26134,7 @@ void screen_behavior_entry_free(ScreenBehaviorEntry *self);
 int screen_behavior_entry_can_have_content(const ScreenBehaviorEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenBehaviorEntryContentForm screen_behavior_entry_content(const ScreenBehaviorEntry *self);
 
 // 10.2. Screen Descriptions.
@@ -26145,7 +26145,7 @@ void screen_descriptions_free(ScreenDescriptions *self);
 int screen_descriptions_can_have_content(const ScreenDescriptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_descriptions_content(const ScreenDescriptions *self);
 void screen_descriptions_set_content(ScreenDescriptions *self, const char *value);
 // 10.2.1. Screen Inventory.
@@ -26163,7 +26163,7 @@ void screen_element_action_free(ScreenElementAction *self);
 int screen_element_action_can_have_content(const ScreenElementAction *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenElementActionContentForm screen_element_action_content(const ScreenElementAction *self);
 // Confirmation and execution feedback behavior.
 ScreenElementActionExecutionForm screen_element_action_execution(const ScreenElementAction *self);
@@ -26180,7 +26180,7 @@ void screen_element_data_display_free(ScreenElementDataDisplay *self);
 int screen_element_data_display_can_have_content(const ScreenElementDataDisplay *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenElementDataDisplayContentForm screen_element_data_display_content(const ScreenElementDataDisplay *self);
 // Refresh and drill-down behavior.
 ScreenElementDataDisplayBehaviorForm screen_element_data_display_behavior(const ScreenElementDataDisplay *self);
@@ -26198,7 +26198,7 @@ void screen_element_entry_free(ScreenElementEntry *self);
 int screen_element_entry_can_have_content(const ScreenElementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenElementEntryContentForm screen_element_entry_content(const ScreenElementEntry *self);
 // Labels and icon resources.
 ScreenElementEntryResourcesForm screen_element_entry_resources(const ScreenElementEntry *self);
@@ -26244,7 +26244,7 @@ void screen_element_field_spec_free(ScreenElementFieldSpec *self);
 int screen_element_field_spec_can_have_content(const ScreenElementFieldSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenElementFieldSpecContentForm screen_element_field_spec_content(const ScreenElementFieldSpec *self);
 // Prefix, suffix, and formatting.
 ScreenElementFieldSpecFormattingForm screen_element_field_spec_formatting(const ScreenElementFieldSpec *self);
@@ -26291,7 +26291,7 @@ void screen_entry_free(ScreenEntry *self);
 int screen_entry_can_have_content(const ScreenEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenEntryContentForm screen_entry_content(const ScreenEntry *self);
 // Classification and routing metadata.
 ScreenEntryClassificationForm screen_entry_classification(const ScreenEntry *self);
@@ -26334,7 +26334,7 @@ void screen_field_entry_free(ScreenFieldEntry *self);
 int screen_field_entry_can_have_content(const ScreenFieldEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenFieldEntryContentForm screen_field_entry_content(const ScreenFieldEntry *self);
 // Data binding and defaults.
 ScreenFieldEntryDataBindingForm screen_field_entry_data_binding(const ScreenFieldEntry *self);
@@ -26376,7 +26376,7 @@ void screen_flow_structure_free(ScreenFlowStructure *self);
 int screen_flow_structure_can_have_content(const ScreenFlowStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_flow_structure_content(const ScreenFlowStructure *self);
 void screen_flow_structure_set_content(ScreenFlowStructure *self, const char *value);
 // 10.3.1. Navigation Model.
@@ -26397,7 +26397,7 @@ void screen_inventory_free(ScreenInventory *self);
 int screen_inventory_can_have_content(const ScreenInventory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_inventory_content(const ScreenInventory *self);
 void screen_inventory_set_content(ScreenInventory *self, const char *value);
 // Overview of the screen inventory structure and conventions.
@@ -26416,7 +26416,7 @@ void screen_responsive_rule_entry_free(ScreenResponsiveRuleEntry *self);
 int screen_responsive_rule_entry_can_have_content(const ScreenResponsiveRuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenResponsiveRuleEntryContentForm screen_responsive_rule_entry_content(const ScreenResponsiveRuleEntry *self);
 
 // A route entry (form).
@@ -26427,7 +26427,7 @@ void screen_route_entry_free(ScreenRouteEntry *self);
 int screen_route_entry_can_have_content(const ScreenRouteEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenRouteEntryContentForm screen_route_entry_content(const ScreenRouteEntry *self);
 
 // 10.3.3. Screen Route Map.
@@ -26448,7 +26448,7 @@ void screen_route_map_free(ScreenRouteMap *self);
 int screen_route_map_can_have_content(const ScreenRouteMap *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_route_map_content(const ScreenRouteMap *self);
 void screen_route_map_set_content(ScreenRouteMap *self, const char *value);
 // Overview of the route map and its conventions.
@@ -26473,7 +26473,7 @@ void screen_section_entry_free(ScreenSectionEntry *self);
 int screen_section_entry_can_have_content(const ScreenSectionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenSectionEntryContentForm screen_section_entry_content(const ScreenSectionEntry *self);
 // Layout and ordering for the section.
 ScreenSectionEntryLayoutForm screen_section_entry_layout(const ScreenSectionEntry *self);
@@ -26493,7 +26493,7 @@ void screen_sections_free(ScreenSections *self);
 int screen_sections_can_have_content(const ScreenSections *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_sections_content(const ScreenSections *self);
 void screen_sections_set_content(ScreenSections *self, const char *value);
 // Contains 0+× ScreenSection.
@@ -26511,7 +26511,7 @@ void screen_state_entry_free(ScreenStateEntry *self);
 int screen_state_entry_can_have_content(const ScreenStateEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenStateEntryContentForm screen_state_entry_content(const ScreenStateEntry *self);
 
 // 10.2.1.n.3. Screen States.
@@ -26524,7 +26524,7 @@ void screen_states_free(ScreenStates *self);
 int screen_states_can_have_content(const ScreenStates *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *screen_states_content(const ScreenStates *self);
 void screen_states_set_content(ScreenStates *self, const char *value);
 // Contains 0+× ScreenState.
@@ -26539,7 +26539,7 @@ void screen_transition_entry_free(ScreenTransitionEntry *self);
 int screen_transition_entry_can_have_content(const ScreenTransitionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenTransitionEntryContentForm screen_transition_entry_content(const ScreenTransitionEntry *self);
 
 // A user category entry (form).
@@ -26550,7 +26550,7 @@ void screen_user_category_entry_free(ScreenUserCategoryEntry *self);
 int screen_user_category_entry_can_have_content(const ScreenUserCategoryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ScreenUserCategoryEntryContentForm screen_user_category_entry_content(const ScreenUserCategoryEntry *self);
 
 // 10.3.1.4. Secondary Navigation.
@@ -26563,7 +26563,7 @@ void secondary_navigation_free(SecondaryNavigation *self);
 int secondary_navigation_can_have_content(const SecondaryNavigation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *secondary_navigation_content(const SecondaryNavigation *self);
 void secondary_navigation_set_content(SecondaryNavigation *self, const char *value);
 // Overview of secondary navigation patterns.
@@ -26580,7 +26580,7 @@ void security_free(Security *self);
 int security_can_have_content(const Security *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityContentForm security_content(const Security *self);
 // Authentication controls.
 SecurityAuthenticationForm security_authentication(const Security *self);
@@ -26601,7 +26601,7 @@ void security_and_access_model_free(SecurityAndAccessModel *self);
 int security_and_access_model_can_have_content(const SecurityAndAccessModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_and_access_model_content(const SecurityAndAccessModel *self);
 void security_and_access_model_set_content(SecurityAndAccessModel *self, const char *value);
 // 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
@@ -26621,7 +26621,7 @@ void security_audit_entry_free(SecurityAuditEntry *self);
 int security_audit_entry_can_have_content(const SecurityAuditEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityAuditEntryContentForm security_audit_entry_content(const SecurityAuditEntry *self);
 // Audit schedule and cadence.
 SecurityAuditEntrySchedulingForm security_audit_entry_scheduling(const SecurityAuditEntry *self);
@@ -26642,7 +26642,7 @@ void security_audit_requirements_section_free(SecurityAuditRequirementsSection *
 int security_audit_requirements_section_can_have_content(const SecurityAuditRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_audit_requirements_section_content(const SecurityAuditRequirementsSection *self);
 void security_audit_requirements_section_set_content(SecurityAuditRequirementsSection *self, const char *value);
 // Overview of security audit strategy and approach.
@@ -26672,7 +26672,7 @@ void security_certification_requirements_free(SecurityCertificationRequirements 
 int security_certification_requirements_can_have_content(const SecurityCertificationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityCertificationRequirementsContentForm security_certification_requirements_content(const SecurityCertificationRequirements *self);
 // ISO 27001 requirements.
 SecurityCertificationRequirementsIso27001Form security_certification_requirements_iso27001(const SecurityCertificationRequirements *self);
@@ -26695,7 +26695,7 @@ void security_characteristic_free(SecurityCharacteristic *self);
 int security_characteristic_can_have_content(const SecurityCharacteristic *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_characteristic_content(const SecurityCharacteristic *self);
 void security_characteristic_set_content(SecurityCharacteristic *self, const char *value);
 // The security posture the system is built to, and the compliance regime
@@ -26729,7 +26729,7 @@ void security_code_review_policy_free(SecurityCodeReviewPolicy *self);
 int security_code_review_policy_can_have_content(const SecurityCodeReviewPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityCodeReviewPolicyContentForm security_code_review_policy_content(const SecurityCodeReviewPolicy *self);
 // Reviewer qualification and independence rules.
 SecurityCodeReviewPolicyReviewersForm security_code_review_policy_reviewers(const SecurityCodeReviewPolicy *self);
@@ -26752,7 +26752,7 @@ void security_compliance_follow_up_free(SecurityComplianceFollowUp *self);
 int security_compliance_follow_up_can_have_content(const SecurityComplianceFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_compliance_follow_up_content(const SecurityComplianceFollowUp *self);
 void security_compliance_follow_up_set_content(SecurityComplianceFollowUp *self, const char *value);
 // 9.3.1. Compliance Framework.
@@ -26766,7 +26766,7 @@ void security_control_entry_free(SecurityControlEntry *self);
 int security_control_entry_can_have_content(const SecurityControlEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityControlEntryContentForm security_control_entry_content(const SecurityControlEntry *self);
 // Control implementation details.
 SecurityControlEntryImplementationForm security_control_entry_implementation(const SecurityControlEntry *self);
@@ -26783,7 +26783,7 @@ void security_controls_free(SecurityControls *self);
 int security_controls_can_have_content(const SecurityControls *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_controls_content(const SecurityControls *self);
 void security_controls_set_content(SecurityControls *self, const char *value);
 // Security control entries — contains 0+× SecurityControlEntry.
@@ -26798,7 +26798,7 @@ void security_development_lifecycle_free(SecurityDevelopmentLifecycle *self);
 int security_development_lifecycle_can_have_content(const SecurityDevelopmentLifecycle *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityDevelopmentLifecycleContentForm security_development_lifecycle_content(const SecurityDevelopmentLifecycle *self);
 // Development-phase controls.
 SecurityDevelopmentLifecycleDevelopmentForm security_development_lifecycle_development(const SecurityDevelopmentLifecycle *self);
@@ -26818,7 +26818,7 @@ void security_event_entry_free(SecurityEventEntry *self);
 int security_event_entry_can_have_content(const SecurityEventEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityEventEntryContentForm security_event_entry_content(const SecurityEventEntry *self);
 
 // Security event logging policy (form).
@@ -26832,7 +26832,7 @@ void security_event_logging_policy_free(SecurityEventLoggingPolicy *self);
 int security_event_logging_policy_can_have_content(const SecurityEventLoggingPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityEventLoggingPolicyContentForm security_event_logging_policy_content(const SecurityEventLoggingPolicy *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
@@ -26849,7 +26849,7 @@ void security_events_definition_free(SecurityEventsDefinition *self);
 int security_events_definition_can_have_content(const SecurityEventsDefinition *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_events_definition_content(const SecurityEventsDefinition *self);
 void security_events_definition_set_content(SecurityEventsDefinition *self, const char *value);
 // Security Event Logging Policy.
@@ -26895,7 +26895,7 @@ void security_operations_follow_up_free(SecurityOperationsFollowUp *self);
 int security_operations_follow_up_can_have_content(const SecurityOperationsFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_operations_follow_up_content(const SecurityOperationsFollowUp *self);
 void security_operations_follow_up_set_content(SecurityOperationsFollowUp *self, const char *value);
 // 9.3.1. Sensitive Data Encryption.
@@ -26914,7 +26914,7 @@ void security_requirement_entry_free(SecurityRequirementEntry *self);
 int security_requirement_entry_can_have_content(const SecurityRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityRequirementEntryContentForm security_requirement_entry_content(const SecurityRequirementEntry *self);
 // Category and classification.
 SecurityRequirementEntryClassificationForm security_requirement_entry_classification(const SecurityRequirementEntry *self);
@@ -26946,7 +26946,7 @@ void security_requirements_free(SecurityRequirements *self);
 int security_requirements_can_have_content(const SecurityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *security_requirements_content(const SecurityRequirements *self);
 void security_requirements_set_content(SecurityRequirements *self, const char *value);
 // Security requirements summary form.
@@ -26963,7 +26963,7 @@ void security_standard_compliance_entry_free(SecurityStandardComplianceEntry *se
 int security_standard_compliance_entry_can_have_content(const SecurityStandardComplianceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityStandardComplianceEntryContentForm security_standard_compliance_entry_content(const SecurityStandardComplianceEntry *self);
 // Scope details.
 SecurityStandardComplianceEntryScopeForm security_standard_compliance_entry_scope(const SecurityStandardComplianceEntry *self);
@@ -26982,7 +26982,7 @@ void security_standard_entry_free(SecurityStandardEntry *self);
 int security_standard_entry_can_have_content(const SecurityStandardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityStandardEntryContentForm security_standard_entry_content(const SecurityStandardEntry *self);
 // Applicability and regulatory scope.
 SecurityStandardEntryScopeForm security_standard_entry_scope(const SecurityStandardEntry *self);
@@ -27002,7 +27002,7 @@ void security_testing_automation_free(SecurityTestingAutomation *self);
 int security_testing_automation_can_have_content(const SecurityTestingAutomation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SecurityTestingAutomationContentForm security_testing_automation_content(const SecurityTestingAutomation *self);
 // Dynamic analysis configuration.
 SecurityTestingAutomationDastForm security_testing_automation_dast(const SecurityTestingAutomation *self);
@@ -27026,7 +27026,7 @@ void self_registration_policy_free(SelfRegistrationPolicy *self);
 int self_registration_policy_can_have_content(const SelfRegistrationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SelfRegistrationPolicyContentForm self_registration_policy_content(const SelfRegistrationPolicy *self);
 // Field configuration.
 SelfRegistrationPolicyFieldsForm self_registration_policy_fields(const SelfRegistrationPolicy *self);
@@ -27052,7 +27052,7 @@ void self_service_account_management_free(SelfServiceAccountManagement *self);
 int self_service_account_management_can_have_content(const SelfServiceAccountManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SelfServiceAccountManagementContentForm self_service_account_management_content(const SelfServiceAccountManagement *self);
 // Self-Service Capabilities Description (text).
 // (skipped: selfServiceDescription has no target type)
@@ -27065,7 +27065,7 @@ void sensitive_data_encryption_free(SensitiveDataEncryption *self);
 int sensitive_data_encryption_can_have_content(const SensitiveDataEncryption *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *sensitive_data_encryption_content(const SensitiveDataEncryption *self);
 void sensitive_data_encryption_set_content(SensitiveDataEncryption *self, const char *value);
 // 9.5.1. Encryption At Rest.
@@ -27112,7 +27112,7 @@ void server_call_step_entry_free(ServerCallStepEntry *self);
 int server_call_step_entry_can_have_content(const ServerCallStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerCallStepEntryContentForm server_call_step_entry_content(const ServerCallStepEntry *self);
 
 // A single declared server / system configuration setting (CE-CF).
@@ -27135,7 +27135,7 @@ void server_configuration_setting_entry_free(ServerConfigurationSettingEntry *se
 int server_configuration_setting_entry_can_have_content(const ServerConfigurationSettingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerConfigurationSettingEntryContentForm server_configuration_setting_entry_content(const ServerConfigurationSettingEntry *self);
 
 // Server environment entry (development, staging, production, DR).
@@ -27146,7 +27146,7 @@ void server_environment_entry_free(ServerEnvironmentEntry *self);
 int server_environment_entry_can_have_content(const ServerEnvironmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerEnvironmentEntryContentForm server_environment_entry_content(const ServerEnvironmentEntry *self);
 // Location details.
 ServerEnvironmentEntryLocationForm server_environment_entry_location(const ServerEnvironmentEntry *self);
@@ -27176,7 +27176,7 @@ void server_operation_entry_free(ServerOperationEntry *self);
 int server_operation_entry_can_have_content(const ServerOperationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerOperationEntryContentForm server_operation_entry_content(const ServerOperationEntry *self);
 // 7.9.x. Authorization — what a caller must satisfy to invoke this
 // operation.
@@ -27221,7 +27221,7 @@ void server_operation_member_entry_free(ServerOperationMemberEntry *self);
 int server_operation_member_entry_can_have_content(const ServerOperationMemberEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerOperationMemberEntryContentForm server_operation_member_entry_content(const ServerOperationMemberEntry *self);
 
 // 7.9. Server Operation Registry.
@@ -27263,7 +27263,7 @@ void server_operation_registry_free(ServerOperationRegistry *self);
 int server_operation_registry_can_have_content(const ServerOperationRegistry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *server_operation_registry_content(const ServerOperationRegistry *self);
 void server_operation_registry_set_content(ServerOperationRegistry *self, const char *value);
 // 7.9.1. Operations — one entry per operation the system answers.
@@ -27283,7 +27283,7 @@ void server_os_requirements_free(ServerOsRequirements *self);
 int server_os_requirements_can_have_content(const ServerOsRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerOsRequirementsContentForm server_os_requirements_content(const ServerOsRequirements *self);
 // Hardening requirements.
 ServerOsRequirementsHardeningForm server_os_requirements_hardening(const ServerOsRequirements *self);
@@ -27305,7 +27305,7 @@ void server_requirements_section_free(ServerRequirementsSection *self);
 int server_requirements_section_can_have_content(const ServerRequirementsSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *server_requirements_section_content(const ServerRequirementsSection *self);
 void server_requirements_section_set_content(ServerRequirementsSection *self, const char *value);
 // Overview of server infrastructure strategy.
@@ -27343,7 +27343,7 @@ void server_role_entry_free(ServerRoleEntry *self);
 int server_role_entry_can_have_content(const ServerRoleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerRoleEntryContentForm server_role_entry_content(const ServerRoleEntry *self);
 // Software stack details.
 ServerRoleEntrySoftwareForm server_role_entry_software(const ServerRoleEntry *self);
@@ -27362,7 +27362,7 @@ void server_storage_requirements_free(ServerStorageRequirements *self);
 int server_storage_requirements_can_have_content(const ServerStorageRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServerStorageRequirementsContentForm server_storage_requirements_content(const ServerStorageRequirements *self);
 // Database storage requirements.
 ServerStorageRequirementsDatabaseForm server_storage_requirements_database(const ServerStorageRequirements *self);
@@ -27384,7 +27384,7 @@ void service_account_credential_policy_free(ServiceAccountCredentialPolicy *self
 int service_account_credential_policy_can_have_content(const ServiceAccountCredentialPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServiceAccountCredentialPolicyContentForm service_account_credential_policy_content(const ServiceAccountCredentialPolicy *self);
 // Service Account Credential Details (text).
 // (skipped: serviceAccountDetails has no target type)
@@ -27400,7 +27400,7 @@ void service_account_lifecycle_free(ServiceAccountLifecycle *self);
 int service_account_lifecycle_can_have_content(const ServiceAccountLifecycle *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServiceAccountLifecycleContentForm service_account_lifecycle_content(const ServiceAccountLifecycle *self);
 // Service Account Management Description (text).
 // (skipped: serviceAccountDescription has no target type)
@@ -27413,7 +27413,7 @@ void service_level_free(ServiceLevel *self);
 int service_level_can_have_content(const ServiceLevel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServiceLevelContentForm service_level_content(const ServiceLevel *self);
 // Remaining response targets.
 ServiceLevelResponseForm service_level_response(const ServiceLevel *self);
@@ -27439,7 +27439,7 @@ void service_level_agreement_entry_free(ServiceLevelAgreementEntry *self);
 int service_level_agreement_entry_can_have_content(const ServiceLevelAgreementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServiceLevelAgreementEntryContentForm service_level_agreement_entry_content(const ServiceLevelAgreementEntry *self);
 
 // Service Level Indicators.
@@ -27450,7 +27450,7 @@ void service_level_indicators_free(ServiceLevelIndicators *self);
 int service_level_indicators_can_have_content(const ServiceLevelIndicators *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServiceLevelIndicatorsContentForm service_level_indicators_content(const ServiceLevelIndicators *self);
 // Latency and throughput indicators.
 ServiceLevelIndicatorsPerformanceForm service_level_indicators_performance(const ServiceLevelIndicators *self);
@@ -27467,7 +27467,7 @@ void service_mesh_and_gateway_free(ServiceMeshAndGateway *self);
 int service_mesh_and_gateway_can_have_content(const ServiceMeshAndGateway *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ServiceMeshAndGatewayContentForm service_mesh_and_gateway_content(const ServiceMeshAndGateway *self);
 // Service mesh configuration.
 ServiceMeshAndGatewayMeshForm service_mesh_and_gateway_mesh(const ServiceMeshAndGateway *self);
@@ -27485,7 +27485,7 @@ void session_creation_policy_free(SessionCreationPolicy *self);
 int session_creation_policy_can_have_content(const SessionCreationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SessionCreationPolicyContentForm session_creation_policy_content(const SessionCreationPolicy *self);
 // Session Creation Details (text).
 // (skipped: sessionCreationDetails has no target type)
@@ -27502,7 +27502,7 @@ void session_lifecycle_monitoring_free(SessionLifecycleMonitoring *self);
 int session_lifecycle_monitoring_can_have_content(const SessionLifecycleMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SessionLifecycleMonitoringContentForm session_lifecycle_monitoring_content(const SessionLifecycleMonitoring *self);
 // Session Lifecycle Monitoring Details (text).
 // (skipped: sessionLifecycleDetails has no target type)
@@ -27521,7 +27521,7 @@ void session_management_free(SessionManagement *self);
 int session_management_can_have_content(const SessionManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *session_management_content(const SessionManagement *self);
 void session_management_set_content(SessionManagement *self, const char *value);
 // Session Management Overview (text).
@@ -27550,7 +27550,7 @@ void session_model_free(SessionModel *self);
 int session_model_can_have_content(const SessionModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *session_model_content(const SessionModel *self);
 void session_model_set_content(SessionModel *self, const char *value);
 // Session configuration.
@@ -27572,7 +27572,7 @@ void session_revocation_policy_free(SessionRevocationPolicy *self);
 int session_revocation_policy_can_have_content(const SessionRevocationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SessionRevocationPolicyContentForm session_revocation_policy_content(const SessionRevocationPolicy *self);
 // Session Revocation Details (text).
 // (skipped: sessionRevocationDetails has no target type)
@@ -27589,7 +27589,7 @@ void session_security_policy_free(SessionSecurityPolicy *self);
 int session_security_policy_can_have_content(const SessionSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SessionSecurityPolicyContentForm session_security_policy_content(const SessionSecurityPolicy *self);
 // Session Security Details (text).
 // (skipped: sessionSecurityDetails has no target type)
@@ -27607,7 +27607,7 @@ void session_timeout_policy_free(SessionTimeoutPolicy *self);
 int session_timeout_policy_can_have_content(const SessionTimeoutPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SessionTimeoutPolicyContentForm session_timeout_policy_content(const SessionTimeoutPolicy *self);
 // Session Timeout Details (text).
 // (skipped: sessionTimeoutDetails has no target type)
@@ -27622,7 +27622,7 @@ void shared_infrastructure_dependencies_free(SharedInfrastructureDependencies *s
 int shared_infrastructure_dependencies_can_have_content(const SharedInfrastructureDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *shared_infrastructure_dependencies_content(const SharedInfrastructureDependencies *self);
 void shared_infrastructure_dependencies_set_content(SharedInfrastructureDependencies *self, const char *value);
 // Contains 0+× Shared Infrastructure Component.
@@ -27639,7 +27639,7 @@ void shared_infrastructure_entry_free(SharedInfrastructureEntry *self);
 int shared_infrastructure_entry_can_have_content(const SharedInfrastructureEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SharedInfrastructureEntryContentForm shared_infrastructure_entry_content(const SharedInfrastructureEntry *self);
 // Criticality and resilience.
 SharedInfrastructureEntryResilienceForm shared_infrastructure_entry_resilience(const SharedInfrastructureEntry *self);
@@ -27656,7 +27656,7 @@ void shared_library_component_entry_free(SharedLibraryComponentEntry *self);
 int shared_library_component_entry_can_have_content(const SharedLibraryComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SharedLibraryComponentEntryContentForm shared_library_component_entry_content(const SharedLibraryComponentEntry *self);
 // Purpose and consumers.
 SharedLibraryComponentEntryDescriptionForm shared_library_component_entry_description(const SharedLibraryComponentEntry *self);
@@ -27675,7 +27675,7 @@ void shared_library_entry_free(SharedLibraryEntry *self);
 int shared_library_entry_can_have_content(const SharedLibraryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SharedLibraryEntryContentForm shared_library_entry_content(const SharedLibraryEntry *self);
 // Description and usage.
 SharedLibraryEntryDescriptionForm shared_library_entry_description(const SharedLibraryEntry *self);
@@ -27696,7 +27696,7 @@ void sign_off_process_free(SignOffProcess *self);
 int sign_off_process_can_have_content(const SignOffProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SignOffProcessContentForm sign_off_process_content(const SignOffProcess *self);
 // Signatory and quorum governance.
 SignOffProcessGovernanceForm sign_off_process_governance(const SignOffProcess *self);
@@ -27722,7 +27722,7 @@ void single_sign_on_policy_free(SingleSignOnPolicy *self);
 int single_sign_on_policy_can_have_content(const SingleSignOnPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SingleSignOnPolicyContentForm single_sign_on_policy_content(const SingleSignOnPolicy *self);
 // Gateway and federation setup.
 SingleSignOnPolicyFederationForm single_sign_on_policy_federation(const SingleSignOnPolicy *self);
@@ -27745,7 +27745,7 @@ void sla_and_slo_monitoring_free(SlaAndSloMonitoring *self);
 int sla_and_slo_monitoring_can_have_content(const SlaAndSloMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *sla_and_slo_monitoring_content(const SlaAndSloMonitoring *self);
 void sla_and_slo_monitoring_set_content(SlaAndSloMonitoring *self, const char *value);
 // The service-level regime — the framework, the error-budget policy, and
@@ -27779,7 +27779,7 @@ void sla_monitoring_requirements_free(SlaMonitoringRequirements *self);
 int sla_monitoring_requirements_can_have_content(const SlaMonitoringRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SlaMonitoringRequirementsContentForm sla_monitoring_requirements_content(const SlaMonitoringRequirements *self);
 // Monitoring mechanics.
 SlaMonitoringRequirementsMonitoringForm sla_monitoring_requirements_monitoring(const SlaMonitoringRequirements *self);
@@ -27798,7 +27798,7 @@ void slo_entry_free(SloEntry *self);
 int slo_entry_can_have_content(const SloEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SloEntryContentForm slo_entry_content(const SloEntry *self);
 // Objective target and budget definition.
 SloEntryTargetForm slo_entry_target(const SloEntry *self);
@@ -27813,7 +27813,7 @@ void software_deliverables_free(SoftwareDeliverables *self);
 int software_deliverables_can_have_content(const SoftwareDeliverables *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *software_deliverables_content(const SoftwareDeliverables *self);
 void software_deliverables_set_content(SoftwareDeliverables *self, const char *value);
 // Contains 0+× Deliverable.
@@ -27828,7 +27828,7 @@ void software_design_requirements_free(SoftwareDesignRequirements *self);
 int software_design_requirements_can_have_content(const SoftwareDesignRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *software_design_requirements_content(const SoftwareDesignRequirements *self);
 void software_design_requirements_set_content(SoftwareDesignRequirements *self, const char *value);
 // 8.2.1. Layering and Module Structure.
@@ -27848,7 +27848,7 @@ void software_layer_entry_free(SoftwareLayerEntry *self);
 int software_layer_entry_can_have_content(const SoftwareLayerEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SoftwareLayerEntryContentForm software_layer_entry_content(const SoftwareLayerEntry *self);
 // Responsibilities and constraints.
 SoftwareLayerEntryResponsibilitiesForm software_layer_entry_responsibilities(const SoftwareLayerEntry *self);
@@ -27867,7 +27867,7 @@ void solution_architecture_and_technology_free(SolutionArchitectureAndTechnology
 int solution_architecture_and_technology_can_have_content(const SolutionArchitectureAndTechnology *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *solution_architecture_and_technology_content(const SolutionArchitectureAndTechnology *self);
 void solution_architecture_and_technology_set_content(SolutionArchitectureAndTechnology *self, const char *value);
 // Technical framework and platform concept — the CodeSpecs-relevant
@@ -27893,7 +27893,7 @@ void solution_architecture_follow_up_free(SolutionArchitectureFollowUp *self);
 int solution_architecture_follow_up_can_have_content(const SolutionArchitectureFollowUp *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *solution_architecture_follow_up_content(const SolutionArchitectureFollowUp *self);
 void solution_architecture_follow_up_set_content(SolutionArchitectureFollowUp *self, const char *value);
 // Components, libraries, and services to reuse.
@@ -27907,7 +27907,7 @@ void specialized_equipment_entry_free(SpecializedEquipmentEntry *self);
 int specialized_equipment_entry_can_have_content(const SpecializedEquipmentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SpecializedEquipmentEntryContentForm specialized_equipment_entry_content(const SpecializedEquipmentEntry *self);
 // Technical and compliance characteristics.
 SpecializedEquipmentEntryTechnicalForm specialized_equipment_entry_technical(const SpecializedEquipmentEntry *self);
@@ -27925,7 +27925,7 @@ void sso_policy_free(SsoPolicy *self);
 int sso_policy_can_have_content(const SsoPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SsoPolicyContentForm sso_policy_content(const SsoPolicy *self);
 // SSO Implementation Details (text).
 // (skipped: ssoDetails has no target type)
@@ -27938,7 +27938,7 @@ void staffing_budget_free(StaffingBudget *self);
 int staffing_budget_can_have_content(const StaffingBudget *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StaffingBudgetContentForm staffing_budget_content(const StaffingBudget *self);
 // Recruitment and enablement cost categories.
 StaffingBudgetAllocationsForm staffing_budget_allocations(const StaffingBudget *self);
@@ -27956,7 +27956,7 @@ void staffing_entry_free(StaffingEntry *self);
 int staffing_entry_can_have_content(const StaffingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StaffingEntryContentForm staffing_entry_content(const StaffingEntry *self);
 // Organization and employment placement.
 StaffingEntryOrganizationForm staffing_entry_organization(const StaffingEntry *self);
@@ -27975,7 +27975,7 @@ void staffing_plan_free(StaffingPlan *self);
 int staffing_plan_can_have_content(const StaffingPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *staffing_plan_content(const StaffingPlan *self);
 void staffing_plan_set_content(StaffingPlan *self, const char *value);
 // Staffing plan overview.
@@ -27996,7 +27996,7 @@ void stage_dependencies_free(StageDependencies *self);
 int stage_dependencies_can_have_content(const StageDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageDependenciesContentForm stage_dependencies_content(const StageDependencies *self);
 
 // A stage entry (form) with description subsections.
@@ -28013,7 +28013,7 @@ void stage_entry_free(StageEntry *self);
 int stage_entry_can_have_content(const StageEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageEntryContentForm stage_entry_content(const StageEntry *self);
 // Identity and classification.
 StageEntryIdentityForm stage_entry_identity(const StageEntry *self);
@@ -28066,7 +28066,7 @@ void stage_governance_free(StageGovernance *self);
 int stage_governance_can_have_content(const StageGovernance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageGovernanceContentForm stage_governance_content(const StageGovernance *self);
 // Governance model details.
 StageGovernanceModelForm stage_governance_model(const StageGovernance *self);
@@ -28097,7 +28097,7 @@ void stage_migration_resources_free(StageMigrationResources *self);
 int stage_migration_resources_can_have_content(const StageMigrationResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageMigrationResourcesContentForm stage_migration_resources_content(const StageMigrationResources *self);
 
 // A stage migration risk entry (form).
@@ -28113,7 +28113,7 @@ void stage_migration_risk_entry_free(StageMigrationRiskEntry *self);
 int stage_migration_risk_entry_can_have_content(const StageMigrationRiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageMigrationRiskEntryContentForm stage_migration_risk_entry_content(const StageMigrationRiskEntry *self);
 // Risk identity and description.
 StageMigrationRiskEntryIdentityForm stage_migration_risk_entry_identity(const StageMigrationRiskEntry *self);
@@ -28144,7 +28144,7 @@ void stage_migration_risks_free(StageMigrationRisks *self);
 int stage_migration_risks_can_have_content(const StageMigrationRisks *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageMigrationRisksContentForm stage_migration_risks_content(const StageMigrationRisks *self);
 // Risk summary narrative.
 // (skipped: riskSummary has no target type)
@@ -28167,7 +28167,7 @@ void stage_overview_free(StageOverview *self);
 int stage_overview_can_have_content(const StageOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageOverviewContentForm stage_overview_content(const StageOverview *self);
 // Summary metrics across all stages.
 StageOverviewMetricsForm stage_overview_metrics(const StageOverview *self);
@@ -28216,7 +28216,7 @@ void stage_resources_free(StageResources *self);
 int stage_resources_can_have_content(const StageResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageResourcesContentForm stage_resources_content(const StageResources *self);
 
 // Stakeholders and communication for a stage entry.
@@ -28227,7 +28227,7 @@ void stage_stakeholders_free(StageStakeholders *self);
 int stage_stakeholders_can_have_content(const StageStakeholders *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageStakeholdersContentForm stage_stakeholders_content(const StageStakeholders *self);
 
 // A success criterion entry (form).
@@ -28242,7 +28242,7 @@ void stage_success_criterion_entry_free(StageSuccessCriterionEntry *self);
 int stage_success_criterion_entry_can_have_content(const StageSuccessCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageSuccessCriterionEntryContentForm stage_success_criterion_entry_content(const StageSuccessCriterionEntry *self);
 // Measurement targets.
 StageSuccessCriterionEntryMeasurementForm stage_success_criterion_entry_measurement(const StageSuccessCriterionEntry *self);
@@ -28259,7 +28259,7 @@ void stage_summary_dependencies_free(StageSummaryDependencies *self);
 int stage_summary_dependencies_can_have_content(const StageSummaryDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageSummaryDependenciesContentForm stage_summary_dependencies_content(const StageSummaryDependencies *self);
 
 // A stage summary entry (form).
@@ -28277,7 +28277,7 @@ void stage_summary_entry_free(StageSummaryEntry *self);
 int stage_summary_entry_can_have_content(const StageSummaryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageSummaryEntryContentForm stage_summary_entry_content(const StageSummaryEntry *self);
 // Identity and theme.
 StageSummaryEntryIdentityForm stage_summary_entry_identity(const StageSummaryEntry *self);
@@ -28304,7 +28304,7 @@ void stage_summary_resources_free(StageSummaryResources *self);
 int stage_summary_resources_can_have_content(const StageSummaryResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StageSummaryResourcesContentForm stage_summary_resources_content(const StageSummaryResources *self);
 
 // Dependencies for staging strategy.
@@ -28315,7 +28315,7 @@ void staging_dependencies_free(StagingDependencies *self);
 int staging_dependencies_can_have_content(const StagingDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StagingDependenciesContentForm staging_dependencies_content(const StagingDependencies *self);
 
 // Key drivers for staging strategy.
@@ -28326,7 +28326,7 @@ void staging_drivers_free(StagingDrivers *self);
 int staging_drivers_can_have_content(const StagingDrivers *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StagingDriversContentForm staging_drivers_content(const StagingDrivers *self);
 
 // 13.1. Staging Strategy.
@@ -28344,7 +28344,7 @@ void staging_strategy_free(StagingStrategy *self);
 int staging_strategy_can_have_content(const StagingStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StagingStrategyContentForm staging_strategy_content(const StagingStrategy *self);
 // Approach selection details.
 StagingStrategyApproachSelectionForm staging_strategy_approach_selection(const StagingStrategy *self);
@@ -28395,7 +28395,7 @@ void stakeholder_entry_free(StakeholderEntry *self);
 int stakeholder_entry_can_have_content(const StakeholderEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *self);
 
 // A single stakeholder register entry (form).
@@ -28409,7 +28409,7 @@ void stakeholder_register_entry_free(StakeholderRegisterEntry *self);
 int stakeholder_register_entry_can_have_content(const StakeholderRegisterEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StakeholderRegisterEntryContentForm stakeholder_register_entry_content(const StakeholderRegisterEntry *self);
 
 // 4.1.1.3. Stakeholders and Beneficiaries.
@@ -28426,7 +28426,7 @@ void stakeholders_and_beneficiaries_free(StakeholdersAndBeneficiaries *self);
 int stakeholders_and_beneficiaries_can_have_content(const StakeholdersAndBeneficiaries *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *stakeholders_and_beneficiaries_content(const StakeholdersAndBeneficiaries *self);
 void stakeholders_and_beneficiaries_set_content(StakeholdersAndBeneficiaries *self, const char *value);
 // Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
@@ -28444,7 +28444,7 @@ void stakeholders_and_governance_free(StakeholdersAndGovernance *self);
 int stakeholders_and_governance_can_have_content(const StakeholdersAndGovernance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *stakeholders_and_governance_content(const StakeholdersAndGovernance *self);
 void stakeholders_and_governance_set_content(StakeholdersAndGovernance *self, const char *value);
 // Governance overview summary statistics (folded in from the former
@@ -28483,7 +28483,7 @@ void stakeholders_and_interests_free(StakeholdersAndInterests *self);
 int stakeholders_and_interests_can_have_content(const StakeholdersAndInterests *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StakeholdersAndInterestsContentForm stakeholders_and_interests_content(const StakeholdersAndInterests *self);
 
 // 8.3. Standard Application Software Requirements.
@@ -28494,7 +28494,7 @@ void standard_software_requirements_free(StandardSoftwareRequirements *self);
 int standard_software_requirements_can_have_content(const StandardSoftwareRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *standard_software_requirements_content(const StandardSoftwareRequirements *self);
 void standard_software_requirements_set_content(StandardSoftwareRequirements *self, const char *value);
 // 8.3.1. Compatibility Requirements.
@@ -28513,7 +28513,7 @@ void standards_compliance_section_free(StandardsComplianceSection *self);
 int standards_compliance_section_can_have_content(const StandardsComplianceSection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *standards_compliance_section_content(const StandardsComplianceSection *self);
 void standards_compliance_section_set_content(StandardsComplianceSection *self, const char *value);
 // Overview of standards compliance strategy.
@@ -28558,7 +28558,7 @@ void steering_committee_free(SteeringCommittee *self);
 int steering_committee_can_have_content(const SteeringCommittee *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *steering_committee_content(const SteeringCommittee *self);
 void steering_committee_set_content(SteeringCommittee *self, const char *value);
 // Committee charter and rules.
@@ -28578,7 +28578,7 @@ void step_up_authentication_policy_free(StepUpAuthenticationPolicy *self);
 int step_up_authentication_policy_can_have_content(const StepUpAuthenticationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StepUpAuthenticationPolicyContentForm step_up_authentication_policy_content(const StepUpAuthenticationPolicy *self);
 // Step-Up Authentication Details (text).
 // Returns the list view; element type: scalar (construct from item paths).
@@ -28596,7 +28596,7 @@ void storage_encryption_policy_free(StorageEncryptionPolicy *self);
 int storage_encryption_policy_can_have_content(const StorageEncryptionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StorageEncryptionPolicyContentForm storage_encryption_policy_content(const StorageEncryptionPolicy *self);
 // Storage Encryption Details (text).
 // (skipped: storageEncryptionDetails has no target type)
@@ -28613,7 +28613,7 @@ void storage_lifecycle_policy_free(StorageLifecyclePolicy *self);
 int storage_lifecycle_policy_can_have_content(const StorageLifecyclePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 StorageLifecyclePolicyContentForm storage_lifecycle_policy_content(const StorageLifecyclePolicy *self);
 // Storage Lifecycle Details (text).
 // (skipped: storageLifecycleDetails has no target type)
@@ -28629,7 +28629,7 @@ void strategic_alignment_free(StrategicAlignment *self);
 int strategic_alignment_can_have_content(const StrategicAlignment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *strategic_alignment_content(const StrategicAlignment *self);
 void strategic_alignment_set_content(StrategicAlignment *self, const char *value);
 // Strategic Alignment Details (form).
@@ -28645,7 +28645,7 @@ void sub_function_entry_free(SubFunctionEntry *self);
 int sub_function_entry_can_have_content(const SubFunctionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SubFunctionEntryContentForm sub_function_entry_content(const SubFunctionEntry *self);
 
 // A sub-stage or milestone entry (form).
@@ -28660,7 +28660,7 @@ void sub_stage_entry_free(SubStageEntry *self);
 int sub_stage_entry_can_have_content(const SubStageEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SubStageEntryContentForm sub_stage_entry_content(const SubStageEntry *self);
 // Description and objectives.
 SubStageEntryOverviewForm sub_stage_entry_overview(const SubStageEntry *self);
@@ -28686,7 +28686,7 @@ void success_criteria_free(SuccessCriteria *self);
 int success_criteria_can_have_content(const SuccessCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *success_criteria_content(const SuccessCriteria *self);
 void success_criteria_set_content(SuccessCriteria *self, const char *value);
 // Success criteria summary.
@@ -28712,7 +28712,7 @@ void success_criteria_by_category_free(SuccessCriteriaByCategory *self);
 int success_criteria_by_category_can_have_content(const SuccessCriteriaByCategory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *success_criteria_by_category_content(const SuccessCriteriaByCategory *self);
 void success_criteria_by_category_set_content(SuccessCriteriaByCategory *self, const char *value);
 // Business outcome criteria overview.
@@ -28742,7 +28742,7 @@ void success_criterion_entry_free(SuccessCriterionEntry *self);
 int success_criterion_entry_can_have_content(const SuccessCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SuccessCriterionEntryContentForm success_criterion_entry_content(const SuccessCriterionEntry *self);
 // Identification details.
 SuccessCriterionEntryIdentityForm success_criterion_entry_identity(const SuccessCriterionEntry *self);
@@ -28766,7 +28766,7 @@ void success_criterion_relationships_free(SuccessCriterionRelationships *self);
 int success_criterion_relationships_can_have_content(const SuccessCriterionRelationships *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SuccessCriterionRelationshipsContentForm success_criterion_relationships_content(const SuccessCriterionRelationships *self);
 
 // 10.8.3. Support Access.
@@ -28777,7 +28777,7 @@ void support_access_free(SupportAccess *self);
 int support_access_can_have_content(const SupportAccess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *support_access_content(const SupportAccess *self);
 void support_access_set_content(SupportAccess *self, const char *value);
 // How a user reaches a human when the product's own help runs out.
@@ -28806,7 +28806,7 @@ void support_deliverables_free(SupportDeliverables *self);
 int support_deliverables_can_have_content(const SupportDeliverables *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *support_deliverables_content(const SupportDeliverables *self);
 void support_deliverables_set_content(SupportDeliverables *self, const char *value);
 // Contains 0+× Deliverable.
@@ -28821,7 +28821,7 @@ void supported_locale_entry_free(SupportedLocaleEntry *self);
 int supported_locale_entry_can_have_content(const SupportedLocaleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SupportedLocaleEntryContentForm supported_locale_entry_content(const SupportedLocaleEntry *self);
 // Formatting and direction rules for the locale.
 SupportedLocaleEntryFormattingForm supported_locale_entry_formatting(const SupportedLocaleEntry *self);
@@ -28842,7 +28842,7 @@ void system_architecture_spec_free(SystemArchitectureSpec *self);
 int system_architecture_spec_can_have_content(const SystemArchitectureSpec *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_architecture_spec_content(const SystemArchitectureSpec *self);
 void system_architecture_spec_set_content(SystemArchitectureSpec *self, const char *value);
 // The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
@@ -28861,7 +28861,7 @@ void system_boundaries_free(SystemBoundaries *self);
 int system_boundaries_can_have_content(const SystemBoundaries *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_boundaries_content(const SystemBoundaries *self);
 void system_boundaries_set_content(SystemBoundaries *self, const char *value);
 // Overview of system boundaries and scope definition approach.
@@ -28898,7 +28898,7 @@ void system_business_criticality_free(SystemBusinessCriticality *self);
 int system_business_criticality_can_have_content(const SystemBusinessCriticality *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemBusinessCriticalityContentForm system_business_criticality_content(const SystemBusinessCriticality *self);
 // Usage scale and commercial impact.
 SystemBusinessCriticalityOperationsForm system_business_criticality_operations(const SystemBusinessCriticality *self);
@@ -28919,7 +28919,7 @@ void system_business_process_entry_free(SystemBusinessProcessEntry *self);
 int system_business_process_entry_can_have_content(const SystemBusinessProcessEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemBusinessProcessEntryContentForm system_business_process_entry_content(const SystemBusinessProcessEntry *self);
 
 // Business unit using the system.
@@ -28930,7 +28930,7 @@ void system_business_unit_entry_free(SystemBusinessUnitEntry *self);
 int system_business_unit_entry_can_have_content(const SystemBusinessUnitEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemBusinessUnitEntryContentForm system_business_unit_entry_content(const SystemBusinessUnitEntry *self);
 
 // System configuration management.
@@ -28941,7 +28941,7 @@ void system_configuration_management_free(SystemConfigurationManagement *self);
 int system_configuration_management_can_have_content(const SystemConfigurationManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemConfigurationManagementContentForm system_configuration_management_content(const SystemConfigurationManagement *self);
 // Dynamic configuration and rollback behavior.
 SystemConfigurationManagementDynamicForm system_configuration_management_dynamic(const SystemConfigurationManagement *self);
@@ -28965,7 +28965,7 @@ void system_context_free(SystemContext *self);
 int system_context_can_have_content(const SystemContext *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_context_content(const SystemContext *self);
 void system_context_set_content(SystemContext *self, const char *value);
 // 4.1.2.1. Context Diagram.
@@ -28993,7 +28993,7 @@ void system_cost_analysis_free(SystemCostAnalysis *self);
 int system_cost_analysis_can_have_content(const SystemCostAnalysis *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemCostAnalysisContentForm system_cost_analysis_content(const SystemCostAnalysis *self);
 // Current-state support and total annual cost.
 SystemCostAnalysisCurrentCostsForm system_cost_analysis_current_costs(const SystemCostAnalysis *self);
@@ -29015,7 +29015,7 @@ void system_data_scope_free(SystemDataScope *self);
 int system_data_scope_can_have_content(const SystemDataScope *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemDataScopeContentForm system_data_scope_content(const SystemDataScope *self);
 // Data sensitivity and quality posture.
 SystemDataScopeGovernanceForm system_data_scope_governance(const SystemDataScope *self);
@@ -29040,7 +29040,7 @@ void system_dependency_entry_free(SystemDependencyEntry *self);
 int system_dependency_entry_can_have_content(const SystemDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemDependencyEntryContentForm system_dependency_entry_content(const SystemDependencyEntry *self);
 // Mechanism and coupling.
 SystemDependencyEntryMechanismForm system_dependency_entry_mechanism(const SystemDependencyEntry *self);
@@ -29080,7 +29080,7 @@ void system_description_free(SystemDescription *self);
 int system_description_can_have_content(const SystemDescription *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_description_content(const SystemDescription *self);
 void system_description_set_content(SystemDescription *self, const char *value);
 // System description summary.
@@ -29105,7 +29105,7 @@ void system_diagnostic_tools_free(SystemDiagnosticTools *self);
 int system_diagnostic_tools_can_have_content(const SystemDiagnosticTools *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemDiagnosticToolsContentForm system_diagnostic_tools_content(const SystemDiagnosticTools *self);
 // Trace and dependency inspection tools.
 SystemDiagnosticToolsTracingForm system_diagnostic_tools_tracing(const SystemDiagnosticTools *self);
@@ -29122,7 +29122,7 @@ void system_error_code_entry_free(SystemErrorCodeEntry *self);
 int system_error_code_entry_can_have_content(const SystemErrorCodeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemErrorCodeEntryContentForm system_error_code_entry_content(const SystemErrorCodeEntry *self);
 // Recovery and display guidance.
 SystemErrorCodeEntryHandlingForm system_error_code_entry_handling(const SystemErrorCodeEntry *self);
@@ -29140,7 +29140,7 @@ void system_error_display_free(SystemErrorDisplay *self);
 int system_error_display_can_have_content(const SystemErrorDisplay *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_error_display_content(const SystemErrorDisplay *self);
 void system_error_display_set_content(SystemErrorDisplay *self, const char *value);
 // How failures the user cannot correct are surfaced.
@@ -29177,7 +29177,7 @@ void system_integration_entry_free(SystemIntegrationEntry *self);
 int system_integration_entry_can_have_content(const SystemIntegrationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemIntegrationEntryContentForm system_integration_entry_content(const SystemIntegrationEntry *self);
 // Protocol and transport details.
 SystemIntegrationEntryProtocolForm system_integration_entry_protocol(const SystemIntegrationEntry *self);
@@ -29217,7 +29217,7 @@ void system_inventory_free(SystemInventory *self);
 int system_inventory_can_have_content(const SystemInventory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_inventory_content(const SystemInventory *self);
 void system_inventory_set_content(SystemInventory *self, const char *value);
 // Contains 1+× Existing System.
@@ -29232,7 +29232,7 @@ void system_knowledge_transfer_free(SystemKnowledgeTransfer *self);
 int system_knowledge_transfer_can_have_content(const SystemKnowledgeTransfer *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemKnowledgeTransferContentForm system_knowledge_transfer_content(const SystemKnowledgeTransfer *self);
 // Critical knowledge areas to preserve.
 // Returns the list view; element type: scalar (construct from item paths).
@@ -29250,7 +29250,7 @@ void system_landscape_inventory_free(SystemLandscapeInventory *self);
 int system_landscape_inventory_can_have_content(const SystemLandscapeInventory *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_landscape_inventory_content(const SystemLandscapeInventory *self);
 void system_landscape_inventory_set_content(SystemLandscapeInventory *self, const char *value);
 
@@ -29262,7 +29262,7 @@ void system_migration_plan_free(SystemMigrationPlan *self);
 int system_migration_plan_can_have_content(const SystemMigrationPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemMigrationPlanContentForm system_migration_plan_content(const SystemMigrationPlan *self);
 // Migration execution and validation details.
 SystemMigrationPlanExecutionForm system_migration_plan_execution(const SystemMigrationPlan *self);
@@ -29284,7 +29284,7 @@ void system_migration_risk_entry_free(SystemMigrationRiskEntry *self);
 int system_migration_risk_entry_can_have_content(const SystemMigrationRiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemMigrationRiskEntryContentForm system_migration_risk_entry_content(const SystemMigrationRiskEntry *self);
 
 // 8.7.1. System Operation.
@@ -29295,7 +29295,7 @@ void system_operation_free(SystemOperation *self);
 int system_operation_can_have_content(const SystemOperation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_operation_content(const SystemOperation *self);
 void system_operation_set_content(SystemOperation *self, const char *value);
 // 8.7.1.1. Administration Requirements.
@@ -29312,7 +29312,7 @@ void system_operation_and_monitoring_free(SystemOperationAndMonitoring *self);
 int system_operation_and_monitoring_can_have_content(const SystemOperationAndMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_operation_and_monitoring_content(const SystemOperationAndMonitoring *self);
 void system_operation_and_monitoring_set_content(SystemOperationAndMonitoring *self, const char *value);
 // 8.7.1. System Operation.
@@ -29334,7 +29334,7 @@ void system_purpose_free(SystemPurpose *self);
 int system_purpose_can_have_content(const SystemPurpose *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_purpose_content(const SystemPurpose *self);
 void system_purpose_set_content(SystemPurpose *self, const char *value);
 // Vision Statement.
@@ -29367,7 +29367,7 @@ void system_quality_goals_free(SystemQualityGoals *self);
 int system_quality_goals_can_have_content(const SystemQualityGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_quality_goals_content(const SystemQualityGoals *self);
 void system_quality_goals_set_content(SystemQualityGoals *self, const char *value);
 // The project's quality stance: the philosophy it works to, the standards it
@@ -29435,7 +29435,7 @@ void system_replacement_strategy_free(SystemReplacementStrategy *self);
 int system_replacement_strategy_can_have_content(const SystemReplacementStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemReplacementStrategyContentForm system_replacement_strategy_content(const SystemReplacementStrategy *self);
 // Replacement timeline milestones.
 SystemReplacementStrategyTimelineForm system_replacement_strategy_timeline(const SystemReplacementStrategy *self);
@@ -29458,7 +29458,7 @@ void system_rollout_free(SystemRollout *self);
 int system_rollout_can_have_content(const SystemRollout *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_rollout_content(const SystemRollout *self);
 void system_rollout_set_content(SystemRollout *self, const char *value);
 // 15.1. Rollout Plan.
@@ -29503,7 +29503,7 @@ void system_stage_plan_free(SystemStagePlan *self);
 int system_stage_plan_can_have_content(const SystemStagePlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemStagePlanContentForm system_stage_plan_content(const SystemStagePlan *self);
 // Overall schedule and buffer model.
 SystemStagePlanTimelineForm system_stage_plan_timeline(const SystemStagePlan *self);
@@ -29537,7 +29537,7 @@ void system_summary_free(SystemSummary *self);
 int system_summary_can_have_content(const SystemSummary *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemSummaryContentForm system_summary_content(const SystemSummary *self);
 // System classification.
 SystemSummaryClassificationForm system_summary_classification(const SystemSummary *self);
@@ -29559,7 +29559,7 @@ void system_task_entry_free(SystemTaskEntry *self);
 int system_task_entry_can_have_content(const SystemTaskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemTaskEntryContentForm system_task_entry_content(const SystemTaskEntry *self);
 // Timing, complexity, and trigger details.
 SystemTaskEntryExecutionForm system_task_entry_execution(const SystemTaskEntry *self);
@@ -29597,7 +29597,7 @@ void system_technical_assessment_free(SystemTechnicalAssessment *self);
 int system_technical_assessment_can_have_content(const SystemTechnicalAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemTechnicalAssessmentContentForm system_technical_assessment_content(const SystemTechnicalAssessment *self);
 // Platform and age details.
 SystemTechnicalAssessmentPlatformForm system_technical_assessment_platform(const SystemTechnicalAssessment *self);
@@ -29625,7 +29625,7 @@ void system_to_replace_entry_free(SystemToReplaceEntry *self);
 int system_to_replace_entry_can_have_content(const SystemToReplaceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *system_to_replace_entry_content(const SystemToReplaceEntry *self);
 void system_to_replace_entry_set_content(SystemToReplaceEntry *self, const char *value);
 // Which legacy system this entry is about.
@@ -29672,7 +29672,7 @@ void system_training_entry_free(SystemTrainingEntry *self);
 int system_training_entry_can_have_content(const SystemTrainingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemTrainingEntryContentForm system_training_entry_content(const SystemTrainingEntry *self);
 // Functional training coverage.
 SystemTrainingEntryFunctionalForm system_training_entry_functional(const SystemTrainingEntry *self);
@@ -29689,7 +29689,7 @@ void system_user_impact_free(SystemUserImpact *self);
 int system_user_impact_can_have_content(const SystemUserImpact *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 SystemUserImpactContentForm system_user_impact_content(const SystemUserImpact *self);
 // User-facing change profile.
 SystemUserImpactChangeProfileForm system_user_impact_change_profile(const SystemUserImpact *self);
@@ -29714,7 +29714,7 @@ void systems_to_replace_free(SystemsToReplace *self);
 int systems_to_replace_can_have_content(const SystemsToReplace *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *systems_to_replace_content(const SystemsToReplace *self);
 void systems_to_replace_set_content(SystemsToReplace *self, const char *value);
 // Overview of the systems replacement scope and strategy.
@@ -29734,7 +29734,7 @@ void tab_bar_definition_entry_free(TabBarDefinitionEntry *self);
 int tab_bar_definition_entry_can_have_content(const TabBarDefinitionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TabBarDefinitionEntryContentForm tab_bar_definition_entry_content(const TabBarDefinitionEntry *self);
 // Position and selection behavior.
 TabBarDefinitionEntryBehaviorForm tab_bar_definition_entry_behavior(const TabBarDefinitionEntry *self);
@@ -29752,7 +29752,7 @@ void tab_item_entry_free(TabItemEntry *self);
 int tab_item_entry_can_have_content(const TabItemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self);
 // Access control — what a caller must satisfy to reach this tab.
 //
@@ -29772,7 +29772,7 @@ void target_operating_model_free(TargetOperatingModel *self);
 int target_operating_model_can_have_content(const TargetOperatingModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *target_operating_model_content(const TargetOperatingModel *self);
 void target_operating_model_set_content(TargetOperatingModel *self, const char *value);
 // ORG/OPS follow-up subtree: target organization + process narrative.
@@ -29788,7 +29788,7 @@ void target_platform_entry_free(TargetPlatformEntry *self);
 int target_platform_entry_can_have_content(const TargetPlatformEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TargetPlatformEntryContentForm target_platform_entry_content(const TargetPlatformEntry *self);
 // Version requirements.
 TargetPlatformEntryVersionForm target_platform_entry_version(const TargetPlatformEntry *self);
@@ -29810,7 +29810,7 @@ void team_member_entry_free(TeamMemberEntry *self);
 int team_member_entry_can_have_content(const TeamMemberEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TeamMemberEntryContentForm team_member_entry_content(const TeamMemberEntry *self);
 // Allocation and scheduling details.
 TeamMemberEntryAllocationDetailsForm team_member_entry_allocation_details(const TeamMemberEntry *self);
@@ -29834,7 +29834,7 @@ void team_member_responsibility_entry_free(TeamMemberResponsibilityEntry *self);
 int team_member_responsibility_entry_can_have_content(const TeamMemberResponsibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TeamMemberResponsibilityEntryContentForm team_member_responsibility_entry_content(const TeamMemberResponsibilityEntry *self);
 
 // A skill entry with proficiency level.
@@ -29845,7 +29845,7 @@ void team_member_skill_entry_free(TeamMemberSkillEntry *self);
 int team_member_skill_entry_can_have_content(const TeamMemberSkillEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TeamMemberSkillEntryContentForm team_member_skill_entry_content(const TeamMemberSkillEntry *self);
 
 // Team member skills and certifications.
@@ -29856,7 +29856,7 @@ void team_member_skills_free(TeamMemberSkills *self);
 int team_member_skills_can_have_content(const TeamMemberSkills *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TeamMemberSkillsContentForm team_member_skills_content(const TeamMemberSkills *self);
 // Individual skill entries.
 // Returns the list view; element type: TeamMemberSkillEntry (construct from item paths).
@@ -29870,7 +29870,7 @@ void team_structure_overview_free(TeamStructureOverview *self);
 int team_structure_overview_can_have_content(const TeamStructureOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TeamStructureOverviewContentForm team_structure_overview_content(const TeamStructureOverview *self);
 // Team structure diagram.
 // (skipped: teamDiagram has no target type)
@@ -29883,7 +29883,7 @@ void technical_characteristic_entry_free(TechnicalCharacteristicEntry *self);
 int technical_characteristic_entry_can_have_content(const TechnicalCharacteristicEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalCharacteristicEntryContentForm technical_characteristic_entry_content(const TechnicalCharacteristicEntry *self);
 
 // A technical constraint entry (form).
@@ -29894,7 +29894,7 @@ void technical_constraint_entry_free(TechnicalConstraintEntry *self);
 int technical_constraint_entry_can_have_content(const TechnicalConstraintEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalConstraintEntryContentForm technical_constraint_entry_content(const TechnicalConstraintEntry *self);
 
 // A technical dependency entry (form).
@@ -29905,7 +29905,7 @@ void technical_dependency_entry_free(TechnicalDependencyEntry *self);
 int technical_dependency_entry_can_have_content(const TechnicalDependencyEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalDependencyEntryContentForm technical_dependency_entry_content(const TechnicalDependencyEntry *self);
 
 // 4.6.3. Technical Environment. Seeds → ATS.
@@ -29922,7 +29922,7 @@ void technical_environment_free(TechnicalEnvironment *self);
 int technical_environment_can_have_content(const TechnicalEnvironment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_environment_content(const TechnicalEnvironment *self);
 void technical_environment_set_content(TechnicalEnvironment *self, const char *value);
 // Where the organization stands technically today, before anything is said
@@ -29974,7 +29974,7 @@ void technical_environment_network_free(TechnicalEnvironmentNetwork *self);
 int technical_environment_network_can_have_content(const TechnicalEnvironmentNetwork *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalEnvironmentNetworkContentForm technical_environment_network_content(const TechnicalEnvironmentNetwork *self);
 // DevOps and deployment standards.
 // Returns the list view; element type: scalar (construct from item paths).
@@ -29993,7 +29993,7 @@ void technical_framework_concept_free(TechnicalFrameworkConcept *self);
 int technical_framework_concept_can_have_content(const TechnicalFrameworkConcept *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_framework_concept_content(const TechnicalFrameworkConcept *self);
 void technical_framework_concept_set_content(TechnicalFrameworkConcept *self, const char *value);
 // 8.1. Basic Technical Requirements.
@@ -30025,7 +30025,7 @@ void technical_goal_constraints_free(TechnicalGoalConstraints *self);
 int technical_goal_constraints_can_have_content(const TechnicalGoalConstraints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_goal_constraints_content(const TechnicalGoalConstraints *self);
 void technical_goal_constraints_set_content(TechnicalGoalConstraints *self, const char *value);
 // Constraint entries — contains 0+× TechnicalConstraintEntry.
@@ -30042,7 +30042,7 @@ void technical_goal_dependencies_free(TechnicalGoalDependencies *self);
 int technical_goal_dependencies_can_have_content(const TechnicalGoalDependencies *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_goal_dependencies_content(const TechnicalGoalDependencies *self);
 void technical_goal_dependencies_set_content(TechnicalGoalDependencies *self, const char *value);
 // Dependency entries — contains 0+× TechnicalDependencyEntry.
@@ -30060,7 +30060,7 @@ void technical_goal_entry_free(TechnicalGoalEntry *self);
 int technical_goal_entry_can_have_content(const TechnicalGoalEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalGoalEntryContentForm technical_goal_entry_content(const TechnicalGoalEntry *self);
 // Success measurement details.
 TechnicalGoalEntryMeasurementForm technical_goal_entry_measurement(const TechnicalGoalEntry *self);
@@ -30083,7 +30083,7 @@ void technical_goal_test_case_entry_free(TechnicalGoalTestCaseEntry *self);
 int technical_goal_test_case_entry_can_have_content(const TechnicalGoalTestCaseEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalGoalTestCaseEntryContentForm technical_goal_test_case_entry_content(const TechnicalGoalTestCaseEntry *self);
 
 // 4.2.2.n.2. Test Criteria.
@@ -30096,7 +30096,7 @@ void technical_goal_test_criteria_free(TechnicalGoalTestCriteria *self);
 int technical_goal_test_criteria_can_have_content(const TechnicalGoalTestCriteria *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_goal_test_criteria_content(const TechnicalGoalTestCriteria *self);
 void technical_goal_test_criteria_set_content(TechnicalGoalTestCriteria *self, const char *value);
 // Test criteria form.
@@ -30117,7 +30117,7 @@ void technical_goals_free(TechnicalGoals *self);
 int technical_goals_can_have_content(const TechnicalGoals *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_goals_content(const TechnicalGoals *self);
 void technical_goals_set_content(TechnicalGoals *self, const char *value);
 // Technical goals list — contains 1+× Technical Goal.
@@ -30132,7 +30132,7 @@ void technical_infrastructure_free(TechnicalInfrastructure *self);
 int technical_infrastructure_can_have_content(const TechnicalInfrastructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_infrastructure_content(const TechnicalInfrastructure *self);
 void technical_infrastructure_set_content(TechnicalInfrastructure *self, const char *value);
 // Network connectivity requirements.
@@ -30157,7 +30157,7 @@ void technical_pain_points_free(TechnicalPainPoints *self);
 int technical_pain_points_can_have_content(const TechnicalPainPoints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_pain_points_content(const TechnicalPainPoints *self);
 void technical_pain_points_set_content(TechnicalPainPoints *self, const char *value);
 // Category-level summary for technical pain points.
@@ -30177,7 +30177,7 @@ void technical_requirement_entry_free(TechnicalRequirementEntry *self);
 int technical_requirement_entry_can_have_content(const TechnicalRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnicalRequirementEntryContentForm technical_requirement_entry_content(const TechnicalRequirementEntry *self);
 // Requirement details: description, category, priority.
 TechnicalRequirementEntryDetailsForm technical_requirement_entry_details(const TechnicalRequirementEntry *self);
@@ -30209,7 +30209,7 @@ void technical_requirements_free(TechnicalRequirements *self);
 int technical_requirements_can_have_content(const TechnicalRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_requirements_content(const TechnicalRequirements *self);
 void technical_requirements_set_content(TechnicalRequirements *self, const char *value);
 // Technical requirements summary form.
@@ -30226,7 +30226,7 @@ void technical_security_requirements_free(TechnicalSecurityRequirements *self);
 int technical_security_requirements_can_have_content(const TechnicalSecurityRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *technical_security_requirements_content(const TechnicalSecurityRequirements *self);
 void technical_security_requirements_set_content(TechnicalSecurityRequirements *self, const char *value);
 // 8.8.1. IT Security Standards.
@@ -30246,7 +30246,7 @@ void technology_data_variations_free(TechnologyDataVariations *self);
 int technology_data_variations_can_have_content(const TechnologyDataVariations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnologyDataVariationsContentForm technology_data_variations_content(const TechnologyDataVariations *self);
 
 // A technology standard entry (form).
@@ -30260,7 +30260,7 @@ void technology_standard_entry_free(TechnologyStandardEntry *self);
 int technology_standard_entry_can_have_content(const TechnologyStandardEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TechnologyStandardEntryContentForm technology_standard_entry_content(const TechnologyStandardEntry *self);
 // Standard details and sources.
 TechnologyStandardEntryDetailsForm technology_standard_entry_details(const TechnologyStandardEntry *self);
@@ -30284,7 +30284,7 @@ void tenant_boundary_enforcement_policy_free(TenantBoundaryEnforcementPolicy *se
 int tenant_boundary_enforcement_policy_can_have_content(const TenantBoundaryEnforcementPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TenantBoundaryEnforcementPolicyContentForm tenant_boundary_enforcement_policy_content(const TenantBoundaryEnforcementPolicy *self);
 // Tenant Boundary Enforcement Details (text).
 // (skipped: boundaryEnforcementDetails has no target type)
@@ -30303,7 +30303,7 @@ void tenant_context_policy_free(TenantContextPolicy *self);
 int tenant_context_policy_can_have_content(const TenantContextPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TenantContextPolicyContentForm tenant_context_policy_content(const TenantContextPolicy *self);
 // Tenant Context Policy Details (text).
 // (skipped: tenantContextPolicyDetails has no target type)
@@ -30320,7 +30320,7 @@ void tenant_customization_entry_free(TenantCustomizationEntry *self);
 int tenant_customization_entry_can_have_content(const TenantCustomizationEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TenantCustomizationEntryContentForm tenant_customization_entry_content(const TenantCustomizationEntry *self);
 
 // Tenant data isolation policy (form).
@@ -30334,7 +30334,7 @@ void tenant_data_isolation_policy_free(TenantDataIsolationPolicy *self);
 int tenant_data_isolation_policy_can_have_content(const TenantDataIsolationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TenantDataIsolationPolicyContentForm tenant_data_isolation_policy_content(const TenantDataIsolationPolicy *self);
 // Tenant Data Isolation Details (text).
 // (skipped: tenantDataIsolationDetails has no target type)
@@ -30355,7 +30355,7 @@ void tenant_isolation_free(TenantIsolation *self);
 int tenant_isolation_can_have_content(const TenantIsolation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *tenant_isolation_content(const TenantIsolation *self);
 void tenant_isolation_set_content(TenantIsolation *self, const char *value);
 // Tenant Context Policy.
@@ -30385,7 +30385,7 @@ void tenant_onboarding_policy_free(TenantOnboardingPolicy *self);
 int tenant_onboarding_policy_can_have_content(const TenantOnboardingPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TenantOnboardingPolicyContentForm tenant_onboarding_policy_content(const TenantOnboardingPolicy *self);
 // Tenant Onboarding Policy Details (text).
 // (skipped: tenantOnboardingPolicyDetails has no target type)
@@ -30398,7 +30398,7 @@ void test_level_entry_free(TestLevelEntry *self);
 int test_level_entry_can_have_content(const TestLevelEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TestLevelEntryContentForm test_level_entry_content(const TestLevelEntry *self);
 
 // A test scenario entry (form).
@@ -30414,7 +30414,7 @@ void test_scenario_entry_free(TestScenarioEntry *self);
 int test_scenario_entry_can_have_content(const TestScenarioEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TestScenarioEntryContentForm test_scenario_entry_content(const TestScenarioEntry *self);
 // Identification.
 TestScenarioEntryIdentificationForm test_scenario_entry_identification(const TestScenarioEntry *self);
@@ -30443,7 +30443,7 @@ void test_scenario_notes_free(TestScenarioNotes *self);
 int test_scenario_notes_can_have_content(const TestScenarioNotes *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TestScenarioNotesContentForm test_scenario_notes_content(const TestScenarioNotes *self);
 
 // 11.8. Test Strategy.
@@ -30456,7 +30456,7 @@ void test_strategy_free(TestStrategy *self);
 int test_strategy_can_have_content(const TestStrategy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *test_strategy_content(const TestStrategy *self);
 void test_strategy_set_content(TestStrategy *self, const char *value);
 // Test levels — contains 0+× test level.
@@ -30471,7 +30471,7 @@ void testing_standards_free(TestingStandards *self);
 int testing_standards_can_have_content(const TestingStandards *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TestingStandardsContentForm testing_standards_content(const TestingStandards *self);
 // Additional test types and organization.
 TestingStandardsOrganizationForm testing_standards_organization(const TestingStandards *self);
@@ -30490,7 +30490,7 @@ void third_party_api_integrations_free(ThirdPartyApiIntegrations *self);
 int third_party_api_integrations_can_have_content(const ThirdPartyApiIntegrations *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ThirdPartyApiIntegrationsContentForm third_party_api_integrations_content(const ThirdPartyApiIntegrations *self);
 // Analytics and monitoring providers.
 ThirdPartyApiIntegrationsAnalyticsForm third_party_api_integrations_analytics(const ThirdPartyApiIntegrations *self);
@@ -30513,7 +30513,7 @@ void third_party_compatibility_entry_free(ThirdPartyCompatibilityEntry *self);
 int third_party_compatibility_entry_can_have_content(const ThirdPartyCompatibilityEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ThirdPartyCompatibilityEntryContentForm third_party_compatibility_entry_content(const ThirdPartyCompatibilityEntry *self);
 // Compatibility characteristics.
 ThirdPartyCompatibilityEntryCompatibilityForm third_party_compatibility_entry_compatibility(const ThirdPartyCompatibilityEntry *self);
@@ -30532,7 +30532,7 @@ void third_party_library_entry_free(ThirdPartyLibraryEntry *self);
 int third_party_library_entry_can_have_content(const ThirdPartyLibraryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ThirdPartyLibraryEntryContentForm third_party_library_entry_content(const ThirdPartyLibraryEntry *self);
 // Evaluation and selection.
 ThirdPartyLibraryEntryEvaluationForm third_party_library_entry_evaluation(const ThirdPartyLibraryEntry *self);
@@ -30555,7 +30555,7 @@ void throwaway_prototype_free(ThrowawayPrototype *self);
 int throwaway_prototype_can_have_content(const ThrowawayPrototype *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *throwaway_prototype_content(const ThrowawayPrototype *self);
 void throwaway_prototype_set_content(ThrowawayPrototype *self, const char *value);
 // The explicit disposal terms for a throwaway prototype.
@@ -30584,7 +30584,7 @@ void tls_protocol_policy_free(TlsProtocolPolicy *self);
 int tls_protocol_policy_can_have_content(const TlsProtocolPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TlsProtocolPolicyContentForm tls_protocol_policy_content(const TlsProtocolPolicy *self);
 // TLS Protocol Policy Details (text).
 // (skipped: tlsProtocolPolicyDetails has no target type)
@@ -30597,7 +30597,7 @@ void tls_requirements_free(TlsRequirements *self);
 int tls_requirements_can_have_content(const TlsRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TlsRequirementsContentForm tls_requirements_content(const TlsRequirements *self);
 // Cipher suite policy.
 TlsRequirementsCipherSuitesForm tls_requirements_cipher_suites(const TlsRequirements *self);
@@ -30619,7 +30619,7 @@ void token_management_policy_free(TokenManagementPolicy *self);
 int token_management_policy_can_have_content(const TokenManagementPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TokenManagementPolicyContentForm token_management_policy_content(const TokenManagementPolicy *self);
 // Token Management Details (text).
 // (skipped: tokenManagementDetails has no target type)
@@ -30638,7 +30638,7 @@ void tool_entry_free(ToolEntry *self);
 int tool_entry_can_have_content(const ToolEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ToolEntryContentForm tool_entry_content(const ToolEntry *self);
 // Identity and classification details.
 ToolEntryIdentityForm tool_entry_identity(const ToolEntry *self);
@@ -30684,7 +30684,7 @@ void tooling_free(Tooling *self);
 int tooling_can_have_content(const Tooling *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ToolingContentForm tooling_content(const Tooling *self);
 // Stack composition and selection policies.
 ToolingStackForm tooling_stack(const Tooling *self);
@@ -30706,7 +30706,7 @@ void tooling_and_environments_free(ToolingAndEnvironments *self);
 int tooling_and_environments_can_have_content(const ToolingAndEnvironments *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *tooling_and_environments_content(const ToolingAndEnvironments *self);
 void tooling_and_environments_set_content(ToolingAndEnvironments *self, const char *value);
 // 2.4.1. Tooling.
@@ -30722,7 +30722,7 @@ void tour_step_entry_free(TourStepEntry *self);
 int tour_step_entry_can_have_content(const TourStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TourStepEntryContentForm tour_step_entry_content(const TourStepEntry *self);
 
 // A trade-off decision entry (form).
@@ -30733,7 +30733,7 @@ void trade_off_decision_entry_free(TradeOffDecisionEntry *self);
 int trade_off_decision_entry_can_have_content(const TradeOffDecisionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TradeOffDecisionEntryContentForm trade_off_decision_entry_content(const TradeOffDecisionEntry *self);
 // Qualities in conflict.
 TradeOffDecisionEntryQualitiesForm trade_off_decision_entry_qualities(const TradeOffDecisionEntry *self);
@@ -30758,7 +30758,7 @@ void trade_off_decisions_free(TradeOffDecisions *self);
 int trade_off_decisions_can_have_content(const TradeOffDecisions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *trade_off_decisions_content(const TradeOffDecisions *self);
 void trade_off_decisions_set_content(TradeOffDecisions *self, const char *value);
 // Who may decide a quality trade-off, how it is recorded, and how it is
@@ -30785,7 +30785,7 @@ void training_assessment_free(TrainingAssessment *self);
 int training_assessment_can_have_content(const TrainingAssessment *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TrainingAssessmentContentForm training_assessment_content(const TrainingAssessment *self);
 // Retention and effectiveness evaluation.
 TrainingAssessmentEffectivenessForm training_assessment_effectiveness(const TrainingAssessment *self);
@@ -30810,7 +30810,7 @@ void training_deliverable_requirements_free(TrainingDeliverableRequirements *sel
 int training_deliverable_requirements_can_have_content(const TrainingDeliverableRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *training_deliverable_requirements_content(const TrainingDeliverableRequirements *self);
 void training_deliverable_requirements_set_content(TrainingDeliverableRequirements *self, const char *value);
 // The training materials that accompany a localized release.
@@ -30832,7 +30832,7 @@ void training_deliverables_free(TrainingDeliverables *self);
 int training_deliverables_can_have_content(const TrainingDeliverables *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *training_deliverables_content(const TrainingDeliverables *self);
 void training_deliverables_set_content(TrainingDeliverables *self, const char *value);
 // Contains 0+× Deliverable.
@@ -30863,7 +30863,7 @@ void training_materials_free(TrainingMaterials *self);
 int training_materials_can_have_content(const TrainingMaterials *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TrainingMaterialsContentForm training_materials_content(const TrainingMaterials *self);
 // Practice and reference resources.
 TrainingMaterialsPracticeForm training_materials_practice(const TrainingMaterials *self);
@@ -30880,7 +30880,7 @@ void training_module_entry_free(TrainingModuleEntry *self);
 int training_module_entry_can_have_content(const TrainingModuleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TrainingModuleEntryContentForm training_module_entry_content(const TrainingModuleEntry *self);
 
 // 10.13.3.2. Training Prototype.
@@ -30893,7 +30893,7 @@ void training_prototype_free(TrainingPrototype *self);
 int training_prototype_can_have_content(const TrainingPrototype *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *training_prototype_content(const TrainingPrototype *self);
 void training_prototype_set_content(TrainingPrototype *self, const char *value);
 // How knowledge from the prototype is transferred to the delivery team.
@@ -30919,7 +30919,7 @@ void training_requirements_free(TrainingRequirements *self);
 int training_requirements_can_have_content(const TrainingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *training_requirements_content(const TrainingRequirements *self);
 void training_requirements_set_content(TrainingRequirements *self, const char *value);
 // Training overview and strategy.
@@ -30949,7 +30949,7 @@ void training_topic_entry_free(TrainingTopicEntry *self);
 int training_topic_entry_can_have_content(const TrainingTopicEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TrainingTopicEntryContentForm training_topic_entry_content(const TrainingTopicEntry *self);
 
 // Communication channels definition.
@@ -30960,7 +30960,7 @@ void transition_communication_channels_free(TransitionCommunicationChannels *sel
 int transition_communication_channels_can_have_content(const TransitionCommunicationChannels *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionCommunicationChannelsContentForm transition_communication_channels_content(const TransitionCommunicationChannels *self);
 
 // Communication plan for the transition.
@@ -30971,7 +30971,7 @@ void transition_communication_plan_free(TransitionCommunicationPlan *self);
 int transition_communication_plan_can_have_content(const TransitionCommunicationPlan *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *transition_communication_plan_content(const TransitionCommunicationPlan *self);
 void transition_communication_plan_set_content(TransitionCommunicationPlan *self, const char *value);
 // Communication strategy overview.
@@ -30991,7 +30991,7 @@ void transition_escalation_paths_free(TransitionEscalationPaths *self);
 int transition_escalation_paths_can_have_content(const TransitionEscalationPaths *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionEscalationPathsContentForm transition_escalation_paths_content(const TransitionEscalationPaths *self);
 
 // Transition metric entry (form).
@@ -31002,7 +31002,7 @@ void transition_metric_entry_free(TransitionMetricEntry *self);
 int transition_metric_entry_can_have_content(const TransitionMetricEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionMetricEntryContentForm transition_metric_entry_content(const TransitionMetricEntry *self);
 // Measurement operations.
 TransitionMetricEntryOperationsForm transition_metric_entry_operations(const TransitionMetricEntry *self);
@@ -31017,7 +31017,7 @@ void transition_milestone_entry_free(TransitionMilestoneEntry *self);
 int transition_milestone_entry_can_have_content(const TransitionMilestoneEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionMilestoneEntryContentForm transition_milestone_entry_content(const TransitionMilestoneEntry *self);
 // Deliverables and decisioning.
 TransitionMilestoneEntryGovernanceForm transition_milestone_entry_governance(const TransitionMilestoneEntry *self);
@@ -31034,7 +31034,7 @@ void transition_overview_free(TransitionOverview *self);
 int transition_overview_can_have_content(const TransitionOverview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionOverviewContentForm transition_overview_content(const TransitionOverview *self);
 // Timeline and cutover planning.
 TransitionOverviewTimelineForm transition_overview_timeline(const TransitionOverview *self);
@@ -31049,7 +31049,7 @@ void transition_phase_activities_free(TransitionPhaseActivities *self);
 int transition_phase_activities_can_have_content(const TransitionPhaseActivities *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionPhaseActivitiesContentForm transition_phase_activities_content(const TransitionPhaseActivities *self);
 
 // A transition phase entry (form).
@@ -31062,7 +31062,7 @@ void transition_phase_entry_free(TransitionPhaseEntry *self);
 int transition_phase_entry_can_have_content(const TransitionPhaseEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *transition_phase_entry_content(const TransitionPhaseEntry *self);
 void transition_phase_entry_set_content(TransitionPhaseEntry *self, const char *value);
 // Phase identification and timeline.
@@ -31084,7 +31084,7 @@ void transition_phase_identification_free(TransitionPhaseIdentification *self);
 int transition_phase_identification_can_have_content(const TransitionPhaseIdentification *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionPhaseIdentificationContentForm transition_phase_identification_content(const TransitionPhaseIdentification *self);
 // Timeline and sequencing details.
 TransitionPhaseIdentificationTimelineForm transition_phase_identification_timeline(const TransitionPhaseIdentification *self);
@@ -31099,7 +31099,7 @@ void transition_phase_stakeholders_free(TransitionPhaseStakeholders *self);
 int transition_phase_stakeholders_can_have_content(const TransitionPhaseStakeholders *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionPhaseStakeholdersContentForm transition_phase_stakeholders_content(const TransitionPhaseStakeholders *self);
 
 // Transition risk entry (form).
@@ -31110,7 +31110,7 @@ void transition_risk_entry_free(TransitionRiskEntry *self);
 int transition_risk_entry_can_have_content(const TransitionRiskEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionRiskEntryContentForm transition_risk_entry_content(const TransitionRiskEntry *self);
 // Risk assessment and exposure details.
 TransitionRiskEntryAssessmentForm transition_risk_entry_assessment(const TransitionRiskEntry *self);
@@ -31125,7 +31125,7 @@ void transition_success_metrics_free(TransitionSuccessMetrics *self);
 int transition_success_metrics_can_have_content(const TransitionSuccessMetrics *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *transition_success_metrics_content(const TransitionSuccessMetrics *self);
 void transition_success_metrics_set_content(TransitionSuccessMetrics *self, const char *value);
 // Metrics overview.
@@ -31142,7 +31142,7 @@ void transition_support_resource_entry_free(TransitionSupportResourceEntry *self
 int transition_support_resource_entry_can_have_content(const TransitionSupportResourceEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransitionSupportResourceEntryContentForm transition_support_resource_entry_content(const TransitionSupportResourceEntry *self);
 
 // Support structure during transition.
@@ -31153,7 +31153,7 @@ void transition_support_structure_free(TransitionSupportStructure *self);
 int transition_support_structure_can_have_content(const TransitionSupportStructure *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *transition_support_structure_content(const TransitionSupportStructure *self);
 void transition_support_structure_set_content(TransitionSupportStructure *self, const char *value);
 // Support organization overview.
@@ -31175,7 +31175,7 @@ void translation_process_free(TranslationProcess *self);
 int translation_process_can_have_content(const TranslationProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *translation_process_content(const TranslationProcess *self);
 void translation_process_set_content(TranslationProcess *self, const char *value);
 // How translated text is produced, reviewed and shipped.
@@ -31207,7 +31207,7 @@ void translation_requirements_free(TranslationRequirements *self);
 int translation_requirements_can_have_content(const TranslationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *translation_requirements_content(const TranslationRequirements *self);
 void translation_requirements_set_content(TranslationRequirements *self, const char *value);
 // What must be translated, and what deliberately must not.
@@ -31234,7 +31234,7 @@ void translation_vendor_entry_free(TranslationVendorEntry *self);
 int translation_vendor_entry_can_have_content(const TranslationVendorEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TranslationVendorEntryContentForm translation_vendor_entry_content(const TranslationVendorEntry *self);
 
 // HSTS and Transport Security Policy (form).
@@ -31249,7 +31249,7 @@ void transport_security_policy_free(TransportSecurityPolicy *self);
 int transport_security_policy_can_have_content(const TransportSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TransportSecurityPolicyContentForm transport_security_policy_content(const TransportSecurityPolicy *self);
 // Transport Security Policy Details (text).
 // (skipped: transportSecurityPolicyDetails has no target type)
@@ -31262,7 +31262,7 @@ void troubleshooting_capabilities_free(TroubleshootingCapabilities *self);
 int troubleshooting_capabilities_can_have_content(const TroubleshootingCapabilities *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TroubleshootingCapabilitiesContentForm troubleshooting_capabilities_content(const TroubleshootingCapabilities *self);
 // Runbook and remediation support.
 TroubleshootingCapabilitiesRunbooksForm troubleshooting_capabilities_runbooks(const TroubleshootingCapabilities *self);
@@ -31282,7 +31282,7 @@ void trust_boundaries_free(TrustBoundaries *self);
 int trust_boundaries_can_have_content(const TrustBoundaries *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *trust_boundaries_content(const TrustBoundaries *self);
 void trust_boundaries_set_content(TrustBoundaries *self, const char *value);
 // Trust boundary entries — contains 0+× TrustBoundaryEntry.
@@ -31297,7 +31297,7 @@ void trust_boundary_entry_free(TrustBoundaryEntry *self);
 int trust_boundary_entry_can_have_content(const TrustBoundaryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TrustBoundaryEntryContentForm trust_boundary_entry_content(const TrustBoundaryEntry *self);
 
 // A typography style entry.
@@ -31308,7 +31308,7 @@ void typography_style_entry_free(TypographyStyleEntry *self);
 int typography_style_entry_can_have_content(const TypographyStyleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 TypographyStyleEntryContentForm typography_style_entry_content(const TypographyStyleEntry *self);
 
 // UI requirements preview for this interaction.
@@ -31319,7 +31319,7 @@ void uirequirements_preview_free(UIRequirementsPreview *self);
 int uirequirements_preview_can_have_content(const UIRequirementsPreview *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UIRequirementsPreviewContentForm uirequirements_preview_content(const UIRequirementsPreview *self);
 // UI mockup/wireframe reference.
 // (skipped: screenMockup has no target type)
@@ -31336,7 +31336,7 @@ void uat_test_cycle_entry_free(UatTestCycleEntry *self);
 int uat_test_cycle_entry_can_have_content(const UatTestCycleEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UatTestCycleEntryContentForm uat_test_cycle_entry_content(const UatTestCycleEntry *self);
 // Scope and pass criteria for this cycle.
 UatTestCycleEntryScopeForm uat_test_cycle_entry_scope(const UatTestCycleEntry *self);
@@ -31355,7 +31355,7 @@ void uat_test_step_entry_free(UatTestStepEntry *self);
 int uat_test_step_entry_can_have_content(const UatTestStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UatTestStepEntryContentForm uat_test_step_entry_content(const UatTestStepEntry *self);
 
 // A UI component entry.
@@ -31370,7 +31370,7 @@ void ui_component_entry_free(UiComponentEntry *self);
 int ui_component_entry_can_have_content(const UiComponentEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *ui_component_entry_content(const UiComponentEntry *self);
 void ui_component_entry_set_content(UiComponentEntry *self, const char *value);
 // What this component is and where it is used.
@@ -31461,7 +31461,7 @@ void ui_components_free(UiComponents *self);
 int ui_components_can_have_content(const UiComponents *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *ui_components_content(const UiComponents *self);
 void ui_components_set_content(UiComponents *self, const char *value);
 // The library's scope and governance, before the individual components.
@@ -31496,7 +31496,7 @@ void upgrade_cycle_framework_free(UpgradeCycleFramework *self);
 int upgrade_cycle_framework_can_have_content(const UpgradeCycleFramework *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *upgrade_cycle_framework_content(const UpgradeCycleFramework *self);
 void upgrade_cycle_framework_set_content(UpgradeCycleFramework *self, const char *value);
 
@@ -31508,7 +31508,7 @@ void usability_free(Usability *self);
 int usability_can_have_content(const Usability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UsabilityContentForm usability_content(const Usability *self);
 // Operability verification and ergonomics goals.
 UsabilityOperabilityForm usability_operability(const Usability *self);
@@ -31531,7 +31531,7 @@ void use_case_extensions_free(UseCaseExtensions *self);
 int use_case_extensions_can_have_content(const UseCaseExtensions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UseCaseExtensionsContentForm use_case_extensions_content(const UseCaseExtensions *self);
 // Extension entries — contains 0+× Extension.
 // Returns the list view; element type: ExtensionEntry (construct from item paths).
@@ -31547,7 +31547,7 @@ void use_case_traceability_free(UseCaseTraceability *self);
 int use_case_traceability_can_have_content(const UseCaseTraceability *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *use_case_traceability_content(const UseCaseTraceability *self);
 void use_case_traceability_set_content(UseCaseTraceability *self, const char *value);
 
@@ -31564,7 +31564,7 @@ void user_acceptance_testing_free(UserAcceptanceTesting *self);
 int user_acceptance_testing_can_have_content(const UserAcceptanceTesting *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserAcceptanceTestingContentForm user_acceptance_testing_content(const UserAcceptanceTesting *self);
 // Scope and objectives.
 UserAcceptanceTestingScopeForm user_acceptance_testing_scope(const UserAcceptanceTesting *self);
@@ -31607,7 +31607,7 @@ void user_access_permissions_free(UserAccessPermissions *self);
 int user_access_permissions_can_have_content(const UserAccessPermissions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_access_permissions_content(const UserAccessPermissions *self);
 void user_access_permissions_set_content(UserAccessPermissions *self, const char *value);
 // Access Permissions Form.
@@ -31630,7 +31630,7 @@ void user_accessibility_needs_free(UserAccessibilityNeeds *self);
 int user_accessibility_needs_can_have_content(const UserAccessibilityNeeds *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_accessibility_needs_content(const UserAccessibilityNeeds *self);
 void user_accessibility_needs_set_content(UserAccessibilityNeeds *self, const char *value);
 // Accessibility Needs Form.
@@ -31647,7 +31647,7 @@ void user_account_states_definition_free(UserAccountStatesDefinition *self);
 int user_account_states_definition_can_have_content(const UserAccountStatesDefinition *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserAccountStatesDefinitionContentForm user_account_states_definition_content(const UserAccountStatesDefinition *self);
 // State Transition Diagram (mermaid).
 // (skipped: stateTransitionDiagram has no target type)
@@ -31663,7 +31663,7 @@ void user_assistance_free(UserAssistance *self);
 int user_assistance_can_have_content(const UserAssistance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_assistance_content(const UserAssistance *self);
 void user_assistance_set_content(UserAssistance *self, const char *value);
 // The help model as a whole, before the delivery channels below.
@@ -31694,7 +31694,7 @@ void user_attribute_entry_free(UserAttributeEntry *self);
 int user_attribute_entry_can_have_content(const UserAttributeEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserAttributeEntryContentForm user_attribute_entry_content(const UserAttributeEntry *self);
 // How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
 UserAttributeEntryOidcReleaseForm user_attribute_entry_oidc_release(const UserAttributeEntry *self);
@@ -31707,7 +31707,7 @@ void user_attributes_free(UserAttributes *self);
 int user_attributes_can_have_content(const UserAttributes *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_attributes_content(const UserAttributes *self);
 void user_attributes_set_content(UserAttributes *self, const char *value);
 // Contains 0+× UserAttribute.
@@ -31725,7 +31725,7 @@ void user_authorization_free(UserAuthorization *self);
 int user_authorization_can_have_content(const UserAuthorization *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_authorization_content(const UserAuthorization *self);
 void user_authorization_set_content(UserAuthorization *self, const char *value);
 // 9.4.1. Authorization Model.
@@ -31762,7 +31762,7 @@ void user_category_definition_free(UserCategoryDefinition *self);
 int user_category_definition_can_have_content(const UserCategoryDefinition *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserCategoryDefinitionContentForm user_category_definition_content(const UserCategoryDefinition *self);
 
 // A user category entry.
@@ -31776,7 +31776,7 @@ void user_category_entry_free(UserCategoryEntry *self);
 int user_category_entry_can_have_content(const UserCategoryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserCategoryEntryContentForm user_category_entry_content(const UserCategoryEntry *self);
 // Interaction profile and scale indicators.
 UserCategoryEntryUsageForm user_category_entry_usage(const UserCategoryEntry *self);
@@ -31813,7 +31813,7 @@ void user_documentation_requirements_free(UserDocumentationRequirements *self);
 int user_documentation_requirements_can_have_content(const UserDocumentationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_documentation_requirements_content(const UserDocumentationRequirements *self);
 void user_documentation_requirements_set_content(UserDocumentationRequirements *self, const char *value);
 // Which user-facing documentation is translated, and to what standard.
@@ -31836,7 +31836,7 @@ void user_group_impact_entry_free(UserGroupImpactEntry *self);
 int user_group_impact_entry_can_have_content(const UserGroupImpactEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserGroupImpactEntryContentForm user_group_impact_entry_content(const UserGroupImpactEntry *self);
 
 // User growth projections.
@@ -31847,7 +31847,7 @@ void user_growth_projections_free(UserGrowthProjections *self);
 int user_growth_projections_can_have_content(const UserGrowthProjections *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserGrowthProjectionsContentForm user_growth_projections_content(const UserGrowthProjections *self);
 // Growth-rate assumptions and time-based projections.
 UserGrowthProjectionsForecastForm user_growth_projections_forecast(const UserGrowthProjections *self);
@@ -31869,7 +31869,7 @@ void user_interaction_model_free(UserInteractionModel *self);
 int user_interaction_model_can_have_content(const UserInteractionModel *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_interaction_model_content(const UserInteractionModel *self);
 void user_interaction_model_set_content(UserInteractionModel *self, const char *value);
 // Interaction model summary.
@@ -31906,7 +31906,7 @@ void user_journey_free(UserJourney *self);
 int user_journey_can_have_content(const UserJourney *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_journey_content(const UserJourney *self);
 void user_journey_set_content(UserJourney *self, const char *value);
 // User journey diagram.
@@ -31937,7 +31937,7 @@ void user_lifecycle_free(UserLifecycle *self);
 int user_lifecycle_can_have_content(const UserLifecycle *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_lifecycle_content(const UserLifecycle *self);
 void user_lifecycle_set_content(UserLifecycle *self, const char *value);
 // Overview (text).
@@ -31973,7 +31973,7 @@ void user_lifecycle_transition_entry_free(UserLifecycleTransitionEntry *self);
 int user_lifecycle_transition_entry_can_have_content(const UserLifecycleTransitionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserLifecycleTransitionEntryContentForm user_lifecycle_transition_entry_content(const UserLifecycleTransitionEntry *self);
 // Approval requirements.
 UserLifecycleTransitionEntryApprovalForm user_lifecycle_transition_entry_approval(const UserLifecycleTransitionEntry *self);
@@ -31993,7 +31993,7 @@ void user_lifecycle_transitions_free(UserLifecycleTransitions *self);
 int user_lifecycle_transitions_can_have_content(const UserLifecycleTransitions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserLifecycleTransitionsContentForm user_lifecycle_transitions_content(const UserLifecycleTransitions *self);
 // Transition Rules Description (text).
 // (skipped: transitionRulesDescription has no target type)
@@ -32011,7 +32011,7 @@ void user_management_free(UserManagement *self);
 int user_management_can_have_content(const UserManagement *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_management_content(const UserManagement *self);
 void user_management_set_content(UserManagement *self, const char *value);
 // 9.1.1. User Categories.
@@ -32037,7 +32037,7 @@ void user_manual_free(UserManual *self);
 int user_manual_can_have_content(const UserManual *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_manual_content(const UserManual *self);
 void user_manual_set_content(UserManual *self, const char *value);
 
@@ -32061,7 +32061,7 @@ void user_persona_details_free(UserPersonaDetails *self);
 int user_persona_details_can_have_content(const UserPersonaDetails *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_persona_details_content(const UserPersonaDetails *self);
 void user_persona_details_set_content(UserPersonaDetails *self, const char *value);
 // Persona Details Form.
@@ -32090,7 +32090,7 @@ void user_personas_free(UserPersonas *self);
 int user_personas_can_have_content(const UserPersonas *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_personas_content(const UserPersonas *self);
 void user_personas_set_content(UserPersonas *self, const char *value);
 // Overview of persona research methodology and usage.
@@ -32107,7 +32107,7 @@ void user_provisioning_tools_free(UserProvisioningTools *self);
 int user_provisioning_tools_can_have_content(const UserProvisioningTools *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserProvisioningToolsContentForm user_provisioning_tools_content(const UserProvisioningTools *self);
 // Account lifecycle management.
 UserProvisioningToolsLifecycleForm user_provisioning_tools_lifecycle(const UserProvisioningTools *self);
@@ -32128,7 +32128,7 @@ void user_registration_process_free(UserRegistrationProcess *self);
 int user_registration_process_can_have_content(const UserRegistrationProcess *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserRegistrationProcessContentForm user_registration_process_content(const UserRegistrationProcess *self);
 // Registration Flow Description (text).
 // (skipped: registrationFlowDescription has no target type)
@@ -32147,7 +32147,7 @@ void user_setting_entry_free(UserSettingEntry *self);
 int user_setting_entry_can_have_content(const UserSettingEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UserSettingEntryContentForm user_setting_entry_content(const UserSettingEntry *self);
 
 // User settings — server-persisted settings that follow the user (CE-UP).
@@ -32169,7 +32169,7 @@ void user_settings_free(UserSettings *self);
 int user_settings_can_have_content(const UserSettings *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_settings_content(const UserSettings *self);
 void user_settings_set_content(UserSettings *self, const char *value);
 // The declared user settings.
@@ -32186,7 +32186,7 @@ void user_training_requirements_free(UserTrainingRequirements *self);
 int user_training_requirements_can_have_content(const UserTrainingRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *user_training_requirements_content(const UserTrainingRequirements *self);
 void user_training_requirements_set_content(UserTrainingRequirements *self, const char *value);
 // Training Requirements Form.
@@ -32205,7 +32205,7 @@ void utility_menu_item_entry_free(UtilityMenuItemEntry *self);
 int utility_menu_item_entry_can_have_content(const UtilityMenuItemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UtilityMenuItemEntryContentForm utility_menu_item_entry_content(const UtilityMenuItemEntry *self);
 // Routing and action references.
 UtilityMenuItemEntryActionForm utility_menu_item_entry_action(const UtilityMenuItemEntry *self);
@@ -32226,7 +32226,7 @@ void utility_navigation_free(UtilityNavigation *self);
 int utility_navigation_can_have_content(const UtilityNavigation *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *utility_navigation_content(const UtilityNavigation *self);
 void utility_navigation_set_content(UtilityNavigation *self, const char *value);
 // Contains 0+× UtilityNavigationItem.
@@ -32244,7 +32244,7 @@ void utility_navigation_item_entry_free(UtilityNavigationItemEntry *self);
 int utility_navigation_item_entry_can_have_content(const UtilityNavigationItemEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 UtilityNavigationItemEntryContentForm utility_navigation_item_entry_content(const UtilityNavigationItemEntry *self);
 // Ordering and rendering.
 UtilityNavigationItemEntryDisplayForm utility_navigation_item_entry_display(const UtilityNavigationItemEntry *self);
@@ -32270,7 +32270,7 @@ void validation_constraints_free(ValidationConstraints *self);
 int validation_constraints_can_have_content(const ValidationConstraints *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *validation_constraints_content(const ValidationConstraints *self);
 void validation_constraints_set_content(ValidationConstraints *self, const char *value);
 
@@ -32284,7 +32284,7 @@ void validation_feedback_free(ValidationFeedback *self);
 int validation_feedback_can_have_content(const ValidationFeedback *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *validation_feedback_content(const ValidationFeedback *self);
 void validation_feedback_set_content(ValidationFeedback *self, const char *value);
 // How field-level validation feedback reaches the user.
@@ -32317,7 +32317,7 @@ void validation_message_template_free(ValidationMessageTemplate *self);
 int validation_message_template_can_have_content(const ValidationMessageTemplate *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 ValidationMessageTemplateContentForm validation_message_template_content(const ValidationMessageTemplate *self);
 
 // 4.1.1.4. Value Proposition.
@@ -32331,7 +32331,7 @@ void value_proposition_free(ValueProposition *self);
 int value_proposition_can_have_content(const ValueProposition *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *value_proposition_content(const ValueProposition *self);
 void value_proposition_set_content(ValueProposition *self, const char *value);
 // Value Proposition Details (form).
@@ -32352,7 +32352,7 @@ void version_control_configuration_free(VersionControlConfiguration *self);
 int version_control_configuration_can_have_content(const VersionControlConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 VersionControlConfigurationContentForm version_control_configuration_content(const VersionControlConfiguration *self);
 // Repository structure settings.
 VersionControlConfigurationRepositoryForm version_control_configuration_repository(const VersionControlConfiguration *self);
@@ -32371,7 +32371,7 @@ void virtualization_requirements_free(VirtualizationRequirements *self);
 int virtualization_requirements_can_have_content(const VirtualizationRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 VirtualizationRequirementsContentForm virtualization_requirements_content(const VirtualizationRequirements *self);
 // VM requirements.
 VirtualizationRequirementsVmForm virtualization_requirements_vm(const VirtualizationRequirements *self);
@@ -32390,7 +32390,7 @@ void volume_metric_entry_free(VolumeMetricEntry *self);
 int volume_metric_entry_can_have_content(const VolumeMetricEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 VolumeMetricEntryContentForm volume_metric_entry_content(const VolumeMetricEntry *self);
 
 // VPN requirement entry.
@@ -32401,7 +32401,7 @@ void vpn_requirement_entry_free(VpnRequirementEntry *self);
 int vpn_requirement_entry_can_have_content(const VpnRequirementEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 VpnRequirementEntryContentForm vpn_requirement_entry_content(const VpnRequirementEntry *self);
 // Endpoint configuration.
 VpnRequirementEntryEndpointsForm vpn_requirement_entry_endpoints(const VpnRequirementEntry *self);
@@ -32420,7 +32420,7 @@ void vulnerability_management_policy_free(VulnerabilityManagementPolicy *self);
 int vulnerability_management_policy_can_have_content(const VulnerabilityManagementPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 VulnerabilityManagementPolicyContentForm vulnerability_management_policy_content(const VulnerabilityManagementPolicy *self);
 // Severity classification.
 VulnerabilityManagementPolicyClassificationForm vulnerability_management_policy_classification(const VulnerabilityManagementPolicy *self);
@@ -32440,7 +32440,7 @@ void warranty_and_support_free(WarrantyAndSupport *self);
 int warranty_and_support_can_have_content(const WarrantyAndSupport *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *warranty_and_support_content(const WarrantyAndSupport *self);
 void warranty_and_support_set_content(WarrantyAndSupport *self, const char *value);
 
@@ -32452,7 +32452,7 @@ void warranty_service_levels_free(WarrantyServiceLevels *self);
 int warranty_service_levels_can_have_content(const WarrantyServiceLevels *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WarrantyServiceLevelsContentForm warranty_service_levels_content(const WarrantyServiceLevels *self);
 
 // 14.2.6. Warranty.
@@ -32466,7 +32466,7 @@ void warranty_terms_free(WarrantyTerms *self);
 int warranty_terms_can_have_content(const WarrantyTerms *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WarrantyTermsContentForm warranty_terms_content(const WarrantyTerms *self);
 // Duration and activation.
 WarrantyTermsDurationForm warranty_terms_duration(const WarrantyTerms *self);
@@ -32492,7 +32492,7 @@ void wcag_compliance_free(WcagCompliance *self);
 int wcag_compliance_can_have_content(const WcagCompliance *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *wcag_compliance_content(const WcagCompliance *self);
 void wcag_compliance_set_content(WcagCompliance *self, const char *value);
 // The conformance target and the evidence for it.
@@ -32520,7 +32520,7 @@ void wcag_success_criterion_entry_free(WcagSuccessCriterionEntry *self);
 int wcag_success_criterion_entry_can_have_content(const WcagSuccessCriterionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WcagSuccessCriterionEntryContentForm wcag_success_criterion_entry_content(const WcagSuccessCriterionEntry *self);
 
 // 11.6.1. Weighted Quality Matrix.
@@ -32531,7 +32531,7 @@ void weighted_quality_matrix_free(WeightedQualityMatrix *self);
 int weighted_quality_matrix_can_have_content(const WeightedQualityMatrix *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *weighted_quality_matrix_content(const WeightedQualityMatrix *self);
 void weighted_quality_matrix_set_content(WeightedQualityMatrix *self, const char *value);
 // The mechanics of the weighting: the scale, whether weights must sum, and
@@ -32564,7 +32564,7 @@ void wireframes_and_mockups_free(WireframesAndMockups *self);
 int wireframes_and_mockups_can_have_content(const WireframesAndMockups *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *wireframes_and_mockups_content(const WireframesAndMockups *self);
 void wireframes_and_mockups_set_content(WireframesAndMockups *self, const char *value);
 
@@ -32578,7 +32578,7 @@ void workflow_actor_entry_free(WorkflowActorEntry *self);
 int workflow_actor_entry_can_have_content(const WorkflowActorEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowActorEntryContentForm workflow_actor_entry_content(const WorkflowActorEntry *self);
 // Steps this actor participates in.
 WorkflowActorEntryParticipatingStepsForm workflow_actor_entry_participating_steps(const WorkflowActorEntry *self);
@@ -32591,7 +32591,7 @@ void workflow_business_rule_free(WorkflowBusinessRule *self);
 int workflow_business_rule_can_have_content(const WorkflowBusinessRule *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowBusinessRuleContentForm workflow_business_rule_content(const WorkflowBusinessRule *self);
 
 // A decision point within a workflow.
@@ -32602,7 +32602,7 @@ void workflow_decision_point_free(WorkflowDecisionPoint *self);
 int workflow_decision_point_can_have_content(const WorkflowDecisionPoint *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowDecisionPointContentForm workflow_decision_point_content(const WorkflowDecisionPoint *self);
 
 // 1.2.nn.1. Workflow Descriptions.
@@ -32619,7 +32619,7 @@ void workflow_descriptions_free(WorkflowDescriptions *self);
 int workflow_descriptions_can_have_content(const WorkflowDescriptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *workflow_descriptions_content(const WorkflowDescriptions *self);
 void workflow_descriptions_set_content(WorkflowDescriptions *self, const char *value);
 // Workflow overview diagram.
@@ -32639,7 +32639,7 @@ void workflow_exception_entry_free(WorkflowExceptionEntry *self);
 int workflow_exception_entry_can_have_content(const WorkflowExceptionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowExceptionEntryContentForm workflow_exception_entry_content(const WorkflowExceptionEntry *self);
 
 // Workflow exception handling.
@@ -32650,7 +32650,7 @@ void workflow_exceptions_free(WorkflowExceptions *self);
 int workflow_exceptions_can_have_content(const WorkflowExceptions *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *workflow_exceptions_content(const WorkflowExceptions *self);
 void workflow_exceptions_set_content(WorkflowExceptions *self, const char *value);
 // Exception entries.
@@ -32665,7 +32665,7 @@ void workflow_input_entry_free(WorkflowInputEntry *self);
 int workflow_input_entry_can_have_content(const WorkflowInputEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowInputEntryContentForm workflow_input_entry_content(const WorkflowInputEntry *self);
 
 // A workflow output.
@@ -32676,7 +32676,7 @@ void workflow_output_entry_free(WorkflowOutputEntry *self);
 int workflow_output_entry_can_have_content(const WorkflowOutputEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowOutputEntryContentForm workflow_output_entry_content(const WorkflowOutputEntry *self);
 
 // A workflow step entry (form).
@@ -32689,7 +32689,7 @@ void workflow_step_entry_free(WorkflowStepEntry *self);
 int workflow_step_entry_can_have_content(const WorkflowStepEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowStepEntryContentForm workflow_step_entry_content(const WorkflowStepEntry *self);
 // Systems used in this step.
 // Returns the list view; element type: WorkflowStepSystem (construct from item paths).
@@ -32715,7 +32715,7 @@ void workflow_step_issue_free(WorkflowStepIssue *self);
 int workflow_step_issue_can_have_content(const WorkflowStepIssue *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowStepIssueContentForm workflow_step_issue_content(const WorkflowStepIssue *self);
 
 // A system used in a workflow step.
@@ -32726,7 +32726,7 @@ void workflow_step_system_free(WorkflowStepSystem *self);
 int workflow_step_system_can_have_content(const WorkflowStepSystem *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *workflow_step_system_content(const WorkflowStepSystem *self);
 void workflow_step_system_set_content(WorkflowStepSystem *self, const char *value);
 // Which system the step uses.
@@ -32750,7 +32750,7 @@ void workflow_summary_entry_free(WorkflowSummaryEntry *self);
 int workflow_summary_entry_can_have_content(const WorkflowSummaryEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowSummaryEntryContentForm workflow_summary_entry_content(const WorkflowSummaryEntry *self);
 
 // Summary table of all workflows for quick reference.
@@ -32761,7 +32761,7 @@ void workflow_summary_table_free(WorkflowSummaryTable *self);
 int workflow_summary_table_can_have_content(const WorkflowSummaryTable *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowSummaryTableContentForm workflow_summary_table_content(const WorkflowSummaryTable *self);
 // Summary entries per workflow.
 // Returns the list view; element type: WorkflowSummaryEntry (construct from item paths).
@@ -32775,7 +32775,7 @@ void workflow_trigger_entry_free(WorkflowTriggerEntry *self);
 int workflow_trigger_entry_can_have_content(const WorkflowTriggerEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkflowTriggerEntryContentForm workflow_trigger_entry_content(const WorkflowTriggerEntry *self);
 
 // Workflow triggers and initiation conditions.
@@ -32786,7 +32786,7 @@ void workflow_triggers_free(WorkflowTriggers *self);
 int workflow_triggers_can_have_content(const WorkflowTriggers *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *workflow_triggers_content(const WorkflowTriggers *self);
 void workflow_triggers_set_content(WorkflowTriggers *self, const char *value);
 // Trigger entries.
@@ -32805,7 +32805,7 @@ void workplace_description_entry_free(WorkplaceDescriptionEntry *self);
 int workplace_description_entry_can_have_content(const WorkplaceDescriptionEntry *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 char *workplace_description_entry_content(const WorkplaceDescriptionEntry *self);
 void workplace_description_entry_set_content(WorkplaceDescriptionEntry *self, const char *value);
 // User category identification.
@@ -32829,7 +32829,7 @@ void workplace_software_requirements_free(WorkplaceSoftwareRequirements *self);
 int workplace_software_requirements_can_have_content(const WorkplaceSoftwareRequirements *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkplaceSoftwareRequirementsContentForm workplace_software_requirements_content(const WorkplaceSoftwareRequirements *self);
 // Security and collaboration software stack.
 WorkplaceSoftwareRequirementsPlatformForm workplace_software_requirements_platform(const WorkplaceSoftwareRequirements *self);
@@ -32844,7 +32844,7 @@ void workplace_support_resources_free(WorkplaceSupportResources *self);
 int workplace_support_resources_can_have_content(const WorkplaceSupportResources *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
-// §11.4 rule 7); the field values themselves live in [form].
+// §11.4 rule 7); the field values themselves live in the section's `form`.
 WorkplaceSupportResourcesContentForm workplace_support_resources_content(const WorkplaceSupportResources *self);
 // Extended support channels.
 WorkplaceSupportResourcesChannelsForm workplace_support_resources_channels(const WorkplaceSupportResources *self);

@@ -204,8 +204,11 @@ re-exports; anything else is reported as `<page>: [text] -> <package>`.
 
 A build that fails without a verdict line, or pages that carry no doc prose for
 the link scan to read, end the run with exit `2` rather than a pass.
-`tom_som_dart_v0` is not in the set yet: its warnings are text the generator
-copies out of the model, and the fix is a model change (see the set's header).
+`tom_som_dart_v0` is in the set, which governs the model's doc text as well:
+the generator copies every model doc comment and `@ContentHelp` text into the
+facade, where a bracketed name resolves against the facade's members, not the
+model's. Write a name the facade does not declare in backticks, in the model
+source; the fix regenerates every facade.
 
 ### The CodeSpecs validator
 

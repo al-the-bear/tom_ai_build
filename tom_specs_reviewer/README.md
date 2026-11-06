@@ -194,9 +194,9 @@ Expected stamp after a clean refresh:
 
 | Key | Value |
 | --- | --- |
-| `modelVersion` / `modelVersionLabel` | `1` / `1.6.0+5.e0f9f8f8` |
+| `modelVersion` / `modelVersionLabel` | `1` / `1.7.1+29.32d601e4` |
 | `metaSchemaVersion` | `1` |
-| `classCount` | 1259 |
+| `classCount` | 1270 |
 | `rootCount` | 14 |
 | `containerRoot` | `DocSpecsProject` |
 

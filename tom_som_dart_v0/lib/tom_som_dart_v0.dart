@@ -1798,7 +1798,7 @@ class AcceptanceCriteriaList extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Formal acceptance criteria that must be met for project sign-off.
   /// Covers functional, non-functional, documentation, and training criteria.
@@ -1838,7 +1838,7 @@ class AcceptanceCriteriaSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the acceptance framework before the must-pass, quality-gate and detailed-criteria subsections below. Cover who accepts, and on what evidence.
   String get content => doc.content('$path/content') ?? '';
@@ -1893,7 +1893,7 @@ class AcceptanceCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AcceptanceCriterionEntryContentForm get content => AcceptanceCriterionEntryContentForm(doc, '$path/content');
 }
 
@@ -1911,7 +1911,7 @@ class AcceptancePlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Acceptance plan overview: defines how the project deliverables will be
   /// formally accepted by the client/business. Covers:
@@ -1961,7 +1961,7 @@ class AcceptanceProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AcceptanceProcessContentForm get content => AcceptanceProcessContentForm(doc, '$path/content');
 
   /// Process overview.
@@ -2007,7 +2007,7 @@ class AcceptanceStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AcceptanceStepEntryContentForm get content => AcceptanceStepEntryContentForm(doc, '$path/content');
 
   /// Participants and execution flow.
@@ -2036,7 +2036,7 @@ class AccessChannels extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the access channel landscape and how channels collectively serve the user base.
   String get content => doc.content('$path/content') ?? '';
@@ -2069,7 +2069,7 @@ class AccessConstraintPolicies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.
   AccessConstraintPoliciesContentForm get content => AccessConstraintPoliciesContentForm(doc, '$path/content');
@@ -2100,7 +2100,7 @@ class AccessControlModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -2134,7 +2134,7 @@ class AccessControlModelSelection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.
   AccessControlModelSelectionContentForm get content => AccessControlModelSelectionContentForm(doc, '$path/content');
@@ -2155,7 +2155,7 @@ class AccessHandlerEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessHandlerEntryContentForm get content => AccessHandlerEntryContentForm(doc, '$path/content');
 }
 
@@ -2170,7 +2170,7 @@ class AccessLevelEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessLevelEntryContentForm get content => AccessLevelEntryContentForm(doc, '$path/content');
 
   /// Scope and hierarchy of this access level.
@@ -2202,7 +2202,7 @@ class AccessLevels extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the access-level model and how levels structure authorization across the system.
   String get content => doc.content('$path/content') ?? '';
@@ -2239,7 +2239,7 @@ class AccessRestrictionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessRestrictionEntryContentForm get content => AccessRestrictionEntryContentForm(doc, '$path/content');
 }
 
@@ -2257,7 +2257,7 @@ class AccessUserCategories extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the distinct categories of users who interact with the system. Each
   /// category should reflect different trust levels, access patterns, and business
@@ -2304,7 +2304,7 @@ class Accessibility extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the accessibility commitment before the WCAG, checklist, keyboard and screen-reader subsections below. Cover the target conformance level and who verifies it.
   String get content => doc.content('$path/content') ?? '';
@@ -2364,7 +2364,7 @@ class AccessibilityCheckEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessibilityCheckEntryContentForm get content => AccessibilityCheckEntryContentForm(doc, '$path/content');
 
   /// WCAG mapping and compliance classification.
@@ -2393,7 +2393,7 @@ class AccessibilityChecklist extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the verification checklist before the individual items below. Cover when the checklist is run and who signs it off.
   String get content => doc.content('$path/content') ?? '';
@@ -2425,7 +2425,7 @@ class AccessibilityStandardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessibilityStandardEntryContentForm get content => AccessibilityStandardEntryContentForm(doc, '$path/content');
 
   /// Scope and affected users.
@@ -2455,7 +2455,7 @@ class AccountActivationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.
   AccountActivationPolicyContentForm get content => AccountActivationPolicyContentForm(doc, '$path/content');
@@ -2479,7 +2479,7 @@ class AccountDeactivationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.
   AccountDeactivationPolicyContentForm get content => AccountDeactivationPolicyContentForm(doc, '$path/content');
@@ -2502,7 +2502,7 @@ class AccountDeletionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.
   AccountDeletionPolicyContentForm get content => AccountDeletionPolicyContentForm(doc, '$path/content');
@@ -2526,7 +2526,7 @@ class AccountLockoutPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.
   AccountLockoutPolicyContentForm get content => AccountLockoutPolicyContentForm(doc, '$path/content');
@@ -2549,7 +2549,7 @@ class AccountModificationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.
   AccountModificationPolicyContentForm get content => AccountModificationPolicyContentForm(doc, '$path/content');
@@ -2569,7 +2569,7 @@ class ActionParameterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ActionParameterEntryContentForm get content => ActionParameterEntryContentForm(doc, '$path/content');
 }
 
@@ -2584,7 +2584,7 @@ class ActorCharacteristics extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ActorCharacteristicsContentForm get content => ActorCharacteristicsContentForm(doc, '$path/content');
 
   /// Usage patterns and decision scope.
@@ -2610,7 +2610,7 @@ class ActorEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this actor — their working context, motivation and constraints, beyond the characteristics, goals and permissions recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -2650,7 +2650,7 @@ class ActorGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ActorGoalsContentForm get content => ActorGoalsContentForm(doc, '$path/content');
 }
 
@@ -2671,7 +2671,7 @@ class ActorOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Actors represent roles that interact with the system. Following UML actor
   /// modeling conventions with Cockburn-style goal and scope annotations.
@@ -2715,7 +2715,7 @@ class ActorPermissions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ActorPermissionsContentForm get content => ActorPermissionsContentForm(doc, '$path/content');
 }
 
@@ -2733,7 +2733,7 @@ class ActorRelationshipDiagram extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the actor landscape before the hierarchy and actor-system diagrams below. Cover which actors are human, which are systems, and how they generalize.
   String get content => doc.content('$path/content') ?? '';
@@ -2760,7 +2760,7 @@ class AdminInterfaceRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AdminInterfaceRequirementsContentForm get content => AdminInterfaceRequirementsContentForm(doc, '$path/content');
 
   /// Dashboard widget requirements.
@@ -2825,7 +2825,7 @@ class AdministrationRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of administration requirements.
   ///
@@ -2880,7 +2880,7 @@ class AdministrativeEventPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AdministrativeEventPolicyContentForm get content => AdministrativeEventPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -2898,7 +2898,7 @@ class AffectedDepartmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AffectedDepartmentEntryContentForm get content => AffectedDepartmentEntryContentForm(doc, '$path/content');
 }
 
@@ -2915,7 +2915,7 @@ class AffectedFunctionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AffectedFunctionEntryContentForm get content => AffectedFunctionEntryContentForm(doc, '$path/content');
 
   /// The resolved link to the function in which this rule fires.
@@ -2941,7 +2941,7 @@ class AffectedObjectEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AffectedObjectEntryContentForm get content => AffectedObjectEntryContentForm(doc, '$path/content');
 
   /// The resolved link to the business object this rule acts on.
@@ -2966,7 +2966,7 @@ class AlertDefinitionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertDefinitionEntryContentForm get content => AlertDefinitionEntryContentForm(doc, '$path/content');
 
   /// Trigger conditions.
@@ -2990,7 +2990,7 @@ class AlertEscalationPolicies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertEscalationPoliciesContentForm get content => AlertEscalationPoliciesContentForm(doc, '$path/content');
 
   /// Management escalation path and timing thresholds.
@@ -3014,7 +3014,7 @@ class AlertNotificationChannels extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertNotificationChannelsContentForm get content => AlertNotificationChannelsContentForm(doc, '$path/content');
 
   /// Secondary and escalation delivery methods.
@@ -3038,7 +3038,7 @@ class AlertRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertRuleEntryContentForm get content => AlertRuleEntryContentForm(doc, '$path/content');
 
   /// Trigger conditions.
@@ -3062,7 +3062,7 @@ class AlertSuppressionRules extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertSuppressionRulesContentForm get content => AlertSuppressionRulesContentForm(doc, '$path/content');
 }
 
@@ -3083,7 +3083,7 @@ class AlertingConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the alerting approach before the channel, rule, escalation and on-call subsections below. Cover what warrants an alert at all, and the noise-versus-coverage balance the rules aim for.
   String get content => doc.content('$path/content') ?? '';
@@ -3138,7 +3138,7 @@ class AlertingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertingRequirementsContentForm get content => AlertingRequirementsContentForm(doc, '$path/content');
 
   /// Routing rules.
@@ -3165,7 +3165,7 @@ class AlternativeFlowEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlternativeFlowEntryContentForm get content => AlternativeFlowEntryContentForm(doc, '$path/content');
 
   /// Resume point — a promoted `@OneOf` case.
@@ -3194,7 +3194,7 @@ class AlternativeStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AlternativeStepEntryContentForm get content => AlternativeStepEntryContentForm(doc, '$path/content');
 
   /// How this alternative-flow step's server call is carried out, step by
@@ -3234,7 +3234,7 @@ class AnomalyDetectionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AnomalyDetectionPolicyContentForm get content => AnomalyDetectionPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -3257,7 +3257,7 @@ class ApiAbuseProtection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.
   ApiAbuseProtectionContentForm get content => ApiAbuseProtectionContentForm(doc, '$path/content');
@@ -3280,7 +3280,7 @@ class ApiAuthenticationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.
   ApiAuthenticationPolicyContentForm get content => ApiAuthenticationPolicyContentForm(doc, '$path/content');
@@ -3304,7 +3304,7 @@ class ApiAuthorizationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.
   ApiAuthorizationPolicyContentForm get content => ApiAuthorizationPolicyContentForm(doc, '$path/content');
@@ -3324,7 +3324,7 @@ class ApiCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiCompatibilityEntryContentForm get content => ApiCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Compatibility policy.
@@ -3356,7 +3356,7 @@ class ApiCorsSecurity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.
   ApiCorsSecurityContentForm get content => ApiCorsSecurityContentForm(doc, '$path/content');
@@ -3379,7 +3379,7 @@ class ApiKeyManagementPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.
   ApiKeyManagementPolicyContentForm get content => ApiKeyManagementPolicyContentForm(doc, '$path/content');
@@ -3404,7 +3404,7 @@ class ApiRequestValidationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.
   ApiRequestValidationPolicyContentForm get content => ApiRequestValidationPolicyContentForm(doc, '$path/content');
@@ -3432,7 +3432,7 @@ class ApiSecurity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define security controls for all APIs exposed by the system, including
   /// public-facing APIs, internal microservices, and webhooks.
@@ -3509,7 +3509,7 @@ class ApiSecurityMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.
   ApiSecurityMonitoringContentForm get content => ApiSecurityMonitoringContentForm(doc, '$path/content');
@@ -3529,7 +3529,7 @@ class ApiVersioningStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiVersioningStrategyContentForm get content => ApiVersioningStrategyContentForm(doc, '$path/content');
 
   /// Supported versions and deprecation commitments.
@@ -3553,7 +3553,7 @@ class ApplicableRegulationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicableRegulationEntryContentForm get content => ApplicableRegulationEntryContentForm(doc, '$path/content');
 
   /// Specific compliance measures for this regulation.
@@ -3573,7 +3573,7 @@ class ApplicationDiagnostics extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationDiagnosticsContentForm get content => ApplicationDiagnosticsContentForm(doc, '$path/content');
 
   /// On-demand profiling and slow-request tracing.
@@ -3597,7 +3597,7 @@ class ApplicationMetricsSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationMetricsSpecContentForm get content => ApplicationMetricsSpecContentForm(doc, '$path/content');
 
   /// USE metrics.
@@ -3621,7 +3621,7 @@ class ApplicationPerformanceMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationPerformanceMonitoringContentForm get content => ApplicationPerformanceMonitoringContentForm(doc, '$path/content');
 
   /// Tracing settings.
@@ -3648,7 +3648,7 @@ class ApplicationSecurityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationSecurityRequirementsContentForm get content => ApplicationSecurityRequirementsContentForm(doc, '$path/content');
 
   /// Core protection controls.
@@ -3672,7 +3672,7 @@ class ApprovalRecord extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ApprovalRecordContentForm get content => ApprovalRecordContentForm(doc, '$path/content');
 }
 
@@ -3687,7 +3687,7 @@ class ArchitectureComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitectureComponentEntryContentForm get content => ArchitectureComponentEntryContentForm(doc, '$path/content');
 
   /// Purpose and ownership boundaries.
@@ -3717,7 +3717,7 @@ class ArchitectureDecisionRecord extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitectureDecisionRecordContentForm get content => ArchitectureDecisionRecordContentForm(doc, '$path/content');
 
   /// Decision context and constraints.
@@ -3744,7 +3744,7 @@ class ArchitectureOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitectureOverviewContentForm get content => ArchitectureOverviewContentForm(doc, '$path/content');
 
   /// Architecture drivers.
@@ -3771,7 +3771,7 @@ class ArchitecturePrincipleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitecturePrincipleEntryContentForm get content => ArchitecturePrincipleEntryContentForm(doc, '$path/content');
 
   /// Rationale and practical implications.
@@ -3826,7 +3826,7 @@ class ArchitectureStyle extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide the architectural vision and primary style selection rationale.
   ///
@@ -3897,7 +3897,7 @@ class AssumptionConstraintDependencyRegister extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -3932,7 +3932,7 @@ class AssumptionRegisterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AssumptionRegisterEntryContentForm get content => AssumptionRegisterEntryContentForm(doc, '$path/content');
 }
 
@@ -3950,7 +3950,7 @@ class AssumptionsConstraintsDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -3984,7 +3984,7 @@ class AuditAndLogging extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define security audit and logging requirements. Comprehensive logging enables
   /// incident detection, forensic investigation, and compliance reporting.
@@ -4043,7 +4043,7 @@ class AuditEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuditEntryContentForm get content => AuditEntryContentForm(doc, '$path/content');
 }
 
@@ -4058,7 +4058,7 @@ class AuditEvidenceRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuditEvidenceRequirementsContentForm get content => AuditEvidenceRequirementsContentForm(doc, '$path/content');
 
   /// Evidence types required.
@@ -4078,7 +4078,7 @@ class AuditEvidenceTypeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuditEvidenceTypeEntryContentForm get content => AuditEvidenceTypeEntryContentForm(doc, '$path/content');
 }
 
@@ -4099,7 +4099,7 @@ class AuditLogFormat extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the structure and format of audit log entries for consistency,
   /// parsability, and forensic utility.
@@ -4180,7 +4180,7 @@ class AuditRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -4207,7 +4207,7 @@ class Authentication extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of the authentication subsystem: methods supported, credential
   /// policies, session management, and authentication flows.
@@ -4259,7 +4259,7 @@ class AuthenticationErrorHandling extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.
   AuthenticationErrorHandlingContentForm get content => AuthenticationErrorHandlingContentForm(doc, '$path/content');
@@ -4281,7 +4281,7 @@ class AuthenticationEventPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthenticationEventPolicyContentForm get content => AuthenticationEventPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -4307,7 +4307,7 @@ class AuthenticationFlow extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Document the end-to-end authentication flow from initial login request to
   /// established session. Include sequence diagrams for clarity.
@@ -4379,7 +4379,7 @@ class AuthenticationMethodEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthenticationMethodEntryContentForm get content => AuthenticationMethodEntryContentForm(doc, '$path/content');
 
   /// Security posture of the authentication method.
@@ -4414,7 +4414,7 @@ class AuthenticationMethods extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Document all authentication methods supported by the system and their
   /// applicability to different user categories and use cases.
@@ -4487,7 +4487,7 @@ class AuthorizationComplianceFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -4508,7 +4508,7 @@ class AuthorizationEventPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationEventPolicyContentForm get content => AuthorizationEventPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -4526,7 +4526,7 @@ class AuthorizationGroupEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationGroupEntryContentForm get content => AuthorizationGroupEntryContentForm(doc, '$path/content');
 
   /// Contains 0+× RoleReference.
@@ -4554,7 +4554,7 @@ class AuthorizationModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the authorization model that governs who can do what in the system.
   ///
@@ -4626,7 +4626,7 @@ class AuthorizationRequirementSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** What a caller must satisfy to reach the guarded thing.
   ///
@@ -4682,7 +4682,7 @@ class AuthorizationRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationRoleEntryContentForm get content => AuthorizationRoleEntryContentForm(doc, '$path/content');
 
   /// Scope and inheritance metadata.
@@ -4739,7 +4739,7 @@ class Availability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   AvailabilityContentForm get content => AvailabilityContentForm(doc, '$path/content');
 
   /// Operating-hour expectations.
@@ -4808,7 +4808,7 @@ class BackupAndRecoverySection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of backup and recovery strategy.
   ///
@@ -4869,7 +4869,7 @@ class BackupCompliance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupComplianceContentForm get content => BackupComplianceContentForm(doc, '$path/content');
 
   /// Audit controls.
@@ -4893,7 +4893,7 @@ class BackupDataClassification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupDataClassificationContentForm get content => BackupDataClassificationContentForm(doc, '$path/content');
 
   /// Included data categories.
@@ -4918,7 +4918,7 @@ class BackupEncryptionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.
   BackupEncryptionPolicyContentForm get content => BackupEncryptionPolicyContentForm(doc, '$path/content');
@@ -4938,7 +4938,7 @@ class BackupInfrastructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupInfrastructureContentForm get content => BackupInfrastructureContentForm(doc, '$path/content');
 
   /// Performance and secondary storage.
@@ -4965,7 +4965,7 @@ class BackupPolicyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupPolicyEntryContentForm get content => BackupPolicyEntryContentForm(doc, '$path/content');
 
   /// Backup type configuration.
@@ -4992,7 +4992,7 @@ class BackupVerification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupVerificationContentForm get content => BackupVerificationContentForm(doc, '$path/content');
 
   /// Recovery testing.
@@ -5016,7 +5016,7 @@ class BackwardsCompatibilityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BackwardsCompatibilityRequirementsContentForm get content => BackwardsCompatibilityRequirementsContentForm(doc, '$path/content');
 
   /// Data compatibility requirements.
@@ -5043,7 +5043,7 @@ class BandwidthRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BandwidthRequirementsContentForm get content => BandwidthRequirementsContentForm(doc, '$path/content');
 
   /// Directional bandwidth requirements.
@@ -5095,7 +5095,7 @@ class BasicTechnicalRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of basic technical requirements and key decisions.
   ///
@@ -5147,7 +5147,7 @@ class BatchJobManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the ground rules every scheduled job runs under.
   ///
@@ -5223,7 +5223,7 @@ class BehaviorRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BehaviorRuleEntryContentForm get content => BehaviorRuleEntryContentForm(doc, '$path/content');
 }
 
@@ -5242,7 +5242,7 @@ class BindingParameterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BindingParameterEntryContentForm get content => BindingParameterEntryContentForm(doc, '$path/content');
 }
 
@@ -5261,7 +5261,7 @@ class BiometricAuthenticationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.
   BiometricAuthenticationPolicyContentForm get content => BiometricAuthenticationPolicyContentForm(doc, '$path/content');
@@ -5281,7 +5281,7 @@ class BoundaryAssumptionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BoundaryAssumptionEntryContentForm get content => BoundaryAssumptionEntryContentForm(doc, '$path/content');
 
   /// Validation ownership and confidence.
@@ -5310,7 +5310,7 @@ class BoundaryAssumptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the assumptions the project depends on before the individual items below. Cover how an assumption is validated and what happens when one fails.
   String get content => doc.content('$path/content') ?? '';
@@ -5345,7 +5345,7 @@ class BoundaryInteractionPatterns extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Reusable interaction patterns applied at system boundaries. Distinct
   /// from `InteractionPatterns` which documents patterns
@@ -5379,7 +5379,7 @@ class BoundedContextEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BoundedContextEntryContentForm get content => BoundedContextEntryContentForm(doc, '$path/content');
 
   /// Scope and language definitions.
@@ -5416,7 +5416,7 @@ class BreakpointConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the breakpoint scheme before the individual breakpoints below. Cover the units used and the reasoning behind the chosen thresholds.
   String get content => doc.content('$path/content') ?? '';
@@ -5445,7 +5445,7 @@ class BreakpointEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BreakpointEntryContentForm get content => BreakpointEntryContentForm(doc, '$path/content');
 
   /// Grid and layout rules for this breakpoint.
@@ -5466,7 +5466,7 @@ class BrowserCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BrowserCompatibilityEntryContentForm get content => BrowserCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Support level and priority.
@@ -5493,7 +5493,7 @@ class BrowserRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BrowserRequirementEntryContentForm get content => BrowserRequirementEntryContentForm(doc, '$path/content');
 
   /// Support level and user share.
@@ -5520,7 +5520,7 @@ class BuildToolchainEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BuildToolchainEntryContentForm get content => BuildToolchainEntryContentForm(doc, '$path/content');
 
   /// Version requirements.
@@ -5553,7 +5553,7 @@ class BuildToolsConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BuildToolsConfigurationContentForm get content => BuildToolsConfigurationContentForm(doc, '$path/content');
 
   /// Build system settings.
@@ -5580,7 +5580,7 @@ class BusinessComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessComponentEntryContentForm get content => BusinessComponentEntryContentForm(doc, '$path/content');
 
   /// Purpose and business rules.
@@ -5620,7 +5620,7 @@ class BusinessDomain extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -5660,7 +5660,7 @@ class BusinessGoalEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessGoalEntryContentForm get content => BusinessGoalEntryContentForm(doc, '$path/content');
 
   /// Goal definition and priority.
@@ -5719,7 +5719,7 @@ class BusinessGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -5740,7 +5740,7 @@ class BusinessMetricsSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessMetricsSpecContentForm get content => BusinessMetricsSpecContentForm(doc, '$path/content');
 
   /// Transaction and revenue metrics.
@@ -5770,7 +5770,7 @@ class BusinessObjectAttributeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessObjectAttributeEntryContentForm get content => BusinessObjectAttributeEntryContentForm(doc, '$path/content');
 
   /// Format and requirement details.
@@ -5801,7 +5801,7 @@ class BusinessObjectEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this business object — its role in the domain, beyond the attribute, state, rule and operation facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -5923,7 +5923,7 @@ class BusinessObjectModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Key business objects, their properties, states, and behaviors. Following
   /// Domain-Driven Design patterns for rich domain modeling.
@@ -5972,7 +5972,7 @@ class BusinessPainPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of business pain points affecting strategic outcomes and growth.
   /// Include revenue impact, compliance exposure, customer retention effects,
@@ -6009,7 +6009,7 @@ class BusinessProcessDescriptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Target business processes at a high level. Each process will be expanded with
   /// detailed workflows, triggers, decision points, and exception handling in the
@@ -6077,7 +6077,7 @@ class BusinessProcessEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this business process — the story of how it actually runs, and anything the identification, trigger, role, performance and control facets below do not capture.
   String get content => doc.content('$path/content') ?? '';
@@ -6130,7 +6130,7 @@ class BusinessRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this business rule — the intent behind it, beyond the logic, enforcement and governance facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -6232,7 +6232,7 @@ class BusinessRuleReferenceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessRuleReferenceEntryContentForm get content => BusinessRuleReferenceEntryContentForm(doc, '$path/content');
 
   /// The resolved link to the business rule this entry cites.
@@ -6299,7 +6299,7 @@ class CapacityPlanningSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of capacity planning approach.
   ///
@@ -6352,7 +6352,7 @@ class CapacityReviewProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CapacityReviewProcessContentForm get content => CapacityReviewProcessContentForm(doc, '$path/content');
 
   /// Monitoring and forecasting inputs.
@@ -6376,7 +6376,7 @@ class CcbMemberEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CcbMemberEntryContentForm get content => CcbMemberEntryContentForm(doc, '$path/content');
 }
 
@@ -6394,7 +6394,7 @@ class CertificateAuthenticationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.
   CertificateAuthenticationPolicyContentForm get content => CertificateAuthenticationPolicyContentForm(doc, '$path/content');
@@ -6414,7 +6414,7 @@ class CertificateManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificateManagementContentForm get content => CertificateManagementContentForm(doc, '$path/content');
 
   /// Key specifications.
@@ -6445,7 +6445,7 @@ class CertificateManagementPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.
   CertificateManagementPolicyContentForm get content => CertificateManagementPolicyContentForm(doc, '$path/content');
@@ -6465,7 +6465,7 @@ class CertificationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificationEntryContentForm get content => CertificationEntryContentForm(doc, '$path/content');
 
   /// Description and audience.
@@ -6495,7 +6495,7 @@ class CertificationRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificationRequirementsSectionContentForm get content => CertificationRequirementsSectionContentForm(doc, '$path/content');
 
   /// Certification process.
@@ -6524,7 +6524,7 @@ class ChangeCategoryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeCategoryEntryContentForm get content => ChangeCategoryEntryContentForm(doc, '$path/content');
 
   /// Scope and example changes.
@@ -6550,7 +6550,7 @@ class ChangeControlBoard extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Description of the Change Control Board composition, authority,
   /// and operating procedures. Define meeting schedule, quorum requirements,
@@ -6589,7 +6589,7 @@ class ChangeImpactCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Criteria for assessing change impact across different dimensions.
   /// Define thresholds that determine whether a change is minor, moderate,
@@ -6621,7 +6621,7 @@ class ChangeImpactCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeImpactCriterionEntryContentForm get content => ChangeImpactCriterionEntryContentForm(doc, '$path/content');
 
   /// Threshold levels.
@@ -6648,7 +6648,7 @@ class ChangeNotificationRules extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeNotificationRulesContentForm get content => ChangeNotificationRulesContentForm(doc, '$path/content');
 }
 
@@ -6670,7 +6670,7 @@ class ChangeProcedure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of the change management process for project documents.
   /// Describe the philosophy for change control, when formal change requests
@@ -6710,7 +6710,7 @@ class ChangeProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Detailed description of the change request workflow.
   /// Describe each step from submission through closure, including
@@ -6753,7 +6753,7 @@ class ChangeReadinessAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the readiness assessment before the individual criteria below. Cover how readiness is measured and what happens when a group is not ready.
   String get content => doc.content('$path/content') ?? '';
@@ -6779,7 +6779,7 @@ class ChangeRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeRoleEntryContentForm get content => ChangeRoleEntryContentForm(doc, '$path/content');
 }
 
@@ -6796,7 +6796,7 @@ class ChangeStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeStepEntryContentForm get content => ChangeStepEntryContentForm(doc, '$path/content');
 
   /// Responsibility assignments.
@@ -6829,7 +6829,7 @@ class ChangedRoleCompetencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how this role's competency requirements shift before the new, removed and changed-level lists below.
   String get content => doc.content('$path/content') ?? '';
@@ -6871,7 +6871,7 @@ class ChangedRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this changed role — what the change means for the people currently in it, beyond the responsibility, competency and transition facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -6907,7 +6907,7 @@ class ChangedRoleIdentification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangedRoleIdentificationContentForm get content => ChangedRoleIdentificationContentForm(doc, '$path/content');
 
   /// Current and future organizational placement.
@@ -6931,7 +6931,7 @@ class ChangedRoleResponsibilities extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how this role's responsibilities shift before the added, removed and modified lists below.
   String get content => doc.content('$path/content') ?? '';
@@ -6967,7 +6967,7 @@ class ChangedRoleTransition extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangedRoleTransitionContentForm get content => ChangedRoleTransitionContentForm(doc, '$path/content');
 
   /// Training preparation for the transition.
@@ -6995,7 +6995,7 @@ class ChangesFromCurrentStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the current-to-target delta before the narrative, chart comparison and individual changes below. Cover which parts of the organization are deliberately left untouched.
   String get content => doc.content('$path/content') ?? '';
@@ -7015,7 +7015,7 @@ class ChangesFromCurrentStructure extends SomNode {
   /// 
   /// It is a summary and stays one: the impact figure here is the total, while
   /// per-department detail belongs to the individual change entries.
-  /// [changeNarrative] carries the story; this band carries the facts that must
+  /// `changeNarrative` carries the story; this band carries the facts that must
   /// stay stable while the story is rewritten.
   ChangesFromCurrentStructureOverviewContentForm get overviewContent => ChangesFromCurrentStructureOverviewContentForm(doc, '$path/OCCHG-OVER');
 
@@ -7059,7 +7059,7 @@ class CiCdPipelineConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CiCdPipelineConfigurationContentForm get content => CiCdPipelineConfigurationContentForm(doc, '$path/content');
 
   /// Pipeline stages.
@@ -7089,7 +7089,7 @@ class CiCdPipelineRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CiCdPipelineRequirementsContentForm get content => CiCdPipelineRequirementsContentForm(doc, '$path/content');
 
   /// Build stage settings.
@@ -7116,7 +7116,7 @@ class ClientAccessibilityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientAccessibilityRequirementsContentForm get content => ClientAccessibilityRequirementsContentForm(doc, '$path/content');
 
   /// Visual accessibility support.
@@ -7165,7 +7165,7 @@ class ClientApplicationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** One client application of the system.
   ///
@@ -7203,7 +7203,7 @@ class ClientConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Summarise how this client application is configured per install — which
   /// categories of setting exist, which are shipped as defaults in the app's
@@ -7237,7 +7237,7 @@ class ClientConfigurationSettingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientConfigurationSettingEntryContentForm get content => ClientConfigurationSettingEntryContentForm(doc, '$path/content');
 }
 
@@ -7252,7 +7252,7 @@ class ClientHardwareRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientHardwareRequirementsContentForm get content => ClientHardwareRequirementsContentForm(doc, '$path/content');
 
   /// Memory requirements.
@@ -7279,7 +7279,7 @@ class ClientNetworkRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientNetworkRequirementsContentForm get content => ClientNetworkRequirementsContentForm(doc, '$path/content');
 
   /// Latency requirements.
@@ -7356,7 +7356,7 @@ class ClientRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of client requirements and support strategy.
   ///
@@ -7441,7 +7441,7 @@ class ClientSecurityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientSecurityRequirementsContentForm get content => ClientSecurityRequirementsContentForm(doc, '$path/content');
 
   /// Authentication requirements.
@@ -7468,7 +7468,7 @@ class CloudProviderRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CloudProviderRequirementsContentForm get content => CloudProviderRequirementsContentForm(doc, '$path/content');
 
   /// Account-structure requirements.
@@ -7495,7 +7495,7 @@ class CloudServiceIntegrations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CloudServiceIntegrationsContentForm get content => CloudServiceIntegrationsContentForm(doc, '$path/content');
 
   /// Managed services catalog.
@@ -7519,7 +7519,7 @@ class CodeQualityMetrics extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CodeQualityMetricsContentForm get content => CodeQualityMetricsContentForm(doc, '$path/content');
 
   /// Complexity limits.
@@ -7549,7 +7549,7 @@ class CodeReviewProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CodeReviewProcessContentForm get content => CodeReviewProcessContentForm(doc, '$path/content');
 
   /// Reviewer requirements.
@@ -7576,7 +7576,7 @@ class CodingStandardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CodingStandardEntryContentForm get content => CodingStandardEntryContentForm(doc, '$path/content');
 
   /// Rule description.
@@ -7603,7 +7603,7 @@ class CodingStandardsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CodingStandardsSectionContentForm get content => CodingStandardsSectionContentForm(doc, '$path/content');
 
   /// Formatting and layout rules.
@@ -7633,7 +7633,7 @@ class ColorPaletteEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ColorPaletteEntryContentForm get content => ColorPaletteEntryContentForm(doc, '$path/content');
 }
 
@@ -7651,7 +7651,7 @@ class ColumnLevelSecurityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.
   ColumnLevelSecurityPolicyContentForm get content => ColumnLevelSecurityPolicyContentForm(doc, '$path/content');
@@ -7671,7 +7671,7 @@ class CommitteeCharter extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommitteeCharterContentForm get content => CommitteeCharterContentForm(doc, '$path/content');
 }
 
@@ -7690,7 +7690,7 @@ class CommitteeMemberEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommitteeMemberEntryContentForm get content => CommitteeMemberEntryContentForm(doc, '$path/content');
 
   /// Specific responsibilities of this member.
@@ -7710,7 +7710,7 @@ class CommitteeResponsibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommitteeResponsibilityEntryContentForm get content => CommitteeResponsibilityEntryContentForm(doc, '$path/content');
 }
 
@@ -7731,7 +7731,7 @@ class CommunicationChannelEncryptionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationChannelEncryptionEntryContentForm get content => CommunicationChannelEncryptionEntryContentForm(doc, '$path/content');
 }
 
@@ -7746,7 +7746,7 @@ class CommunicationEventEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationEventEntryContentForm get content => CommunicationEventEntryContentForm(doc, '$path/content');
 
   /// Delivery ownership.
@@ -7767,7 +7767,7 @@ class CommunicationMatrix extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationMatrixContentForm get content => CommunicationMatrixContentForm(doc, '$path/content');
 
   /// Communication matrix diagram.
@@ -7791,7 +7791,7 @@ class CommunicationPatterns extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationPatternsContentForm get content => CommunicationPatternsContentForm(doc, '$path/content');
 
   /// Synchronous communication details.
@@ -7852,7 +7852,7 @@ class CommunicationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of communication architecture and strategy.
   ///
@@ -7890,7 +7890,7 @@ class CommunicationToolsRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationToolsRequirementsContentForm get content => CommunicationToolsRequirementsContentForm(doc, '$path/content');
 }
 
@@ -7905,7 +7905,7 @@ class CommunicationTypeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationTypeEntryContentForm get content => CommunicationTypeEntryContentForm(doc, '$path/content');
 }
 
@@ -7928,7 +7928,7 @@ class CompatibilityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce compatibility for this system before any co-existence and interoperability detail below. Cover what the system must share an environment or an interface with.
   String get content => doc.content('$path/content') ?? '';
@@ -7995,7 +7995,7 @@ class CompatibilityRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of compatibility requirements and testing strategy.
   ///
@@ -8079,7 +8079,7 @@ class CompetencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CompetencyEntryContentForm get content => CompetencyEntryContentForm(doc, '$path/content');
 }
 
@@ -8097,7 +8097,7 @@ class CompetencyFramework extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the competency framework before the core, technical and leadership competency lists below. Cover how proficiency levels are defined.
   String get content => doc.content('$path/content') ?? '';
@@ -8133,7 +8133,7 @@ class CompetencyLevelChangeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CompetencyLevelChangeEntryContentForm get content => CompetencyLevelChangeEntryContentForm(doc, '$path/content');
 }
 
@@ -8148,7 +8148,7 @@ class ComplianceAuditSchedule extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceAuditScheduleContentForm get content => ComplianceAuditScheduleContentForm(doc, '$path/content');
 
   /// Annual planning and scoping rules.
@@ -8179,7 +8179,7 @@ class ComplianceFramework extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Explicit mapping from the access/auth controls in this concept to the
   /// compliance frameworks the project must satisfy.
@@ -8206,7 +8206,7 @@ class ComplianceMilestoneEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceMilestoneEntryContentForm get content => ComplianceMilestoneEntryContentForm(doc, '$path/content');
 }
 
@@ -8235,7 +8235,7 @@ class ComplianceReporting extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define compliance reporting requirements to satisfy regulatory audits and
   /// internal governance.
@@ -8306,7 +8306,7 @@ class ComplianceRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceRequirementEntryContentForm get content => ComplianceRequirementEntryContentForm(doc, '$path/content');
 }
 
@@ -8321,7 +8321,7 @@ class ComplianceVerificationSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceVerificationSectionContentForm get content => ComplianceVerificationSectionContentForm(doc, '$path/content');
 
   /// Manual review procedures.
@@ -8353,7 +8353,7 @@ class ComponentActionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentActionEntryContentForm get content => ComponentActionEntryContentForm(doc, '$path/content');
 
   /// Authorization and confirmation behavior.
@@ -8374,7 +8374,7 @@ class ComponentDocs extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentDocsContentForm get content => ComponentDocsContentForm(doc, '$path/content');
 }
 
@@ -8393,7 +8393,7 @@ class ComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentEntryContentForm get content => ComponentEntryContentForm(doc, '$path/content');
 
   /// Vendor information.
@@ -8455,7 +8455,7 @@ class ComponentFamilyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentFamilyEntryContentForm get content => ComponentFamilyEntryContentForm(doc, '$path/content');
 
   /// Family narrative.
@@ -8478,7 +8478,7 @@ class ComponentGovernance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentGovernanceContentForm get content => ComponentGovernanceContentForm(doc, '$path/content');
 
   /// Contribution governance.
@@ -8508,7 +8508,7 @@ class ComponentInterfaceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentInterfaceEntryContentForm get content => ComponentInterfaceEntryContentForm(doc, '$path/content');
 
   /// Network configuration.
@@ -8543,7 +8543,7 @@ class ComponentLibrary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the design system before the token, colour and typography subsections below. Cover where the foundations come from and how they are versioned.
   String get content => doc.content('$path/content') ?? '';
@@ -8607,7 +8607,7 @@ class ComponentLicensingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentLicensingEntryContentForm get content => ComponentLicensingEntryContentForm(doc, '$path/content');
 
   /// Cost and renewal details.
@@ -8637,7 +8637,7 @@ class ComponentOrganization extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentOrganizationContentForm get content => ComponentOrganizationContentForm(doc, '$path/content');
 
   /// Layering rules.
@@ -8666,7 +8666,7 @@ class ComponentPropertyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentPropertyEntryContentForm get content => ComponentPropertyEntryContentForm(doc, '$path/content');
 }
 
@@ -8681,7 +8681,7 @@ class ComponentRegistry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentRegistryContentForm get content => ComponentRegistryContentForm(doc, '$path/content');
 
   /// Metadata requirements.
@@ -8711,7 +8711,7 @@ class ComponentResponsibilitiesEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentResponsibilitiesEntryContentForm get content => ComponentResponsibilitiesEntryContentForm(doc, '$path/content');
 
   /// Vendor support details.
@@ -8744,7 +8744,7 @@ class ComponentRiskAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Risk Assessment (12.6)
   ///
@@ -8792,7 +8792,7 @@ class ComponentRiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentRiskEntryContentForm get content => ComponentRiskEntryContentForm(doc, '$path/content');
 
   /// Risk description and categorization.
@@ -8824,7 +8824,7 @@ class ComponentSlotEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentSlotEntryContentForm get content => ComponentSlotEntryContentForm(doc, '$path/content');
 }
 
@@ -8841,7 +8841,7 @@ class ComponentStateEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentStateEntryContentForm get content => ComponentStateEntryContentForm(doc, '$path/content');
 
   /// Visual appearance in this state.
@@ -8872,7 +8872,7 @@ class ComponentStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentStrategyContentForm get content => ComponentStrategyContentForm(doc, '$path/content');
 
   /// Vendor preferences and exceptions.
@@ -8912,7 +8912,7 @@ class ComponentVariantEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentVariantEntryContentForm get content => ComponentVariantEntryContentForm(doc, '$path/content');
 
   /// Visual styling details.
@@ -8944,7 +8944,7 @@ class ComponentsAndDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Components and Dependencies (Chapter 12)
   ///
@@ -9004,7 +9004,7 @@ class ComputeResourceRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComputeResourceRequirementsContentForm get content => ComputeResourceRequirementsContentForm(doc, '$path/content');
 
   /// Memory requirements.
@@ -9028,7 +9028,7 @@ class ComputingEquipmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ComputingEquipmentEntryContentForm get content => ComputingEquipmentEntryContentForm(doc, '$path/content');
 
   /// Hardware specifications.
@@ -9056,7 +9056,7 @@ class ConcurrentSessionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.
   ConcurrentSessionPolicyContentForm get content => ConcurrentSessionPolicyContentForm(doc, '$path/content');
@@ -9076,7 +9076,7 @@ class ConfidentialInfoCategoryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ConfidentialInfoCategoryEntryContentForm get content => ConfidentialInfoCategoryEntryContentForm(doc, '$path/content');
 }
 
@@ -9095,7 +9095,7 @@ class ConfidentialityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ConfidentialityRequirementsContentForm get content => ConfidentialityRequirementsContentForm(doc, '$path/content');
 
   /// Confidential information categories.
@@ -9118,7 +9118,7 @@ class ConfigurationManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ConfigurationManagementContentForm get content => ConfigurationManagementContentForm(doc, '$path/content');
 
   /// Environment-configuration rules.
@@ -9145,7 +9145,7 @@ class ConnectivityResilience extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ConnectivityResilienceContentForm get content => ConnectivityResilienceContentForm(doc, '$path/content');
 
   /// Circuit breaking and isolation strategy.
@@ -9169,7 +9169,7 @@ class ConsentManagementRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ConsentManagementRequirementsContentForm get content => ConsentManagementRequirementsContentForm(doc, '$path/content');
 
   /// Collection requirements.
@@ -9202,7 +9202,7 @@ class ConstraintRegisterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ConstraintRegisterEntryContentForm get content => ConstraintRegisterEntryContentForm(doc, '$path/content');
 }
 
@@ -9221,7 +9221,7 @@ class ContentScanningPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.
   ContentScanningPolicyContentForm get content => ContentScanningPolicyContentForm(doc, '$path/content');
@@ -9249,7 +9249,7 @@ class ContextDiagram extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide a narrative overview of the context diagram and what the depicted black-box view represents.
   String get content => doc.content('$path/content') ?? '';
@@ -9277,7 +9277,7 @@ class ContextRelationshipEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Why the two contexts relate this way and what crosses the boundary.
   ContextRelationshipEntryContentForm get content => ContextRelationshipEntryContentForm(doc, '$path/content');
@@ -9297,7 +9297,7 @@ class ContextualHelp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce on-screen contextual help before the inline, panel and rich-help subsections below. Cover which surfaces carry help and how it is kept current.
   String get content => doc.content('$path/content') ?? '';
@@ -9347,7 +9347,7 @@ class ContextualNavigation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Contextual Navigation (10.3.1.6)
   ///
@@ -9394,7 +9394,7 @@ class ContingencyPlanEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ContingencyPlanEntryContentForm get content => ContingencyPlanEntryContentForm(doc, '$path/content');
 
   /// Reference links to risk and component.
@@ -9429,7 +9429,7 @@ class ContingencyPlans extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Contingency Plans (12.6.2)
   ///
@@ -9469,7 +9469,7 @@ class Correctness extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CorrectnessContentForm get content => CorrectnessContentForm(doc, '$path/content');
 
   /// Data integrity expectations.
@@ -9499,7 +9499,7 @@ class CredentialCompromiseDetectionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.
   CredentialCompromiseDetectionPolicyContentForm get content => CredentialCompromiseDetectionPolicyContentForm(doc, '$path/content');
@@ -9522,7 +9522,7 @@ class CredentialRecoveryPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.
   CredentialRecoveryPolicyContentForm get content => CredentialRecoveryPolicyContentForm(doc, '$path/content');
@@ -9548,7 +9548,7 @@ class CrossBoundaryErrorHandling extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Policy for how failures propagate or are contained across boundary
   /// interactions. Complements per-interface `InterfaceErrorHandling` which
@@ -9584,7 +9584,7 @@ class CrossBoundaryOperationalConsiderations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Operational considerations that span all boundary interactions rather
   /// than being specific to one partner.
@@ -9611,7 +9611,7 @@ class CrossCuttingConcerns extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CrossCuttingConcernsContentForm get content => CrossCuttingConcernsContentForm(doc, '$path/content');
 
   /// Error handling concerns.
@@ -9647,7 +9647,7 @@ class CrossProcessAnalysis extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Cross-cutting view of how processes interact: shared entities, data
   /// exchanged, synchronization points, and conflicts.
@@ -9678,7 +9678,7 @@ class CrossTenantAccessPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.
   CrossTenantAccessPolicyContentForm get content => CrossTenantAccessPolicyContentForm(doc, '$path/content');
@@ -9704,7 +9704,7 @@ class CurrentArchitecture extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation.
   String get content => doc.content('$path/content') ?? '';
@@ -9747,7 +9747,7 @@ class CurrentBusinessProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CurrentBusinessProcessContentForm get content => CurrentBusinessProcessContentForm(doc, '$path/content');
 
   /// Process context and purpose.
@@ -9784,7 +9784,7 @@ class CurrentBusinessProcesses extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below.
   String get content => doc.content('$path/content') ?? '';
@@ -9828,7 +9828,7 @@ class CurrentDataClassification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data classification in the organization. Describe the classification
   /// framework, sensitivity levels, handling requirements, and current classification
@@ -9868,7 +9868,7 @@ class CurrentDataLandscape extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the current data landscape. Summarize the overall data
   /// situation, key data assets, major challenges, and strategic importance of data
@@ -9935,7 +9935,7 @@ class CurrentLandscape extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive summary of the current state: existing systems landscape, business
   /// processes today, known pain points, current data landscape, operational
@@ -9983,7 +9983,7 @@ class CurrentOperationalMetric extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Captures measurable operational characteristics of the current systems
   /// landscape. Feeds requirement derivation (target throughput, peak-load
@@ -10013,7 +10013,7 @@ class CurrentProcessImprovementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CurrentProcessImprovementEntryContentForm get content => CurrentProcessImprovementEntryContentForm(doc, '$path/content');
 }
 
@@ -10034,7 +10034,7 @@ class CurrentStateRiskAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Risks that originate from the current systems landscape or from the act of
   /// replacing them. Not to be confused with target-state risks.
@@ -10067,7 +10067,7 @@ class CurrentWorkflowEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CurrentWorkflowEntryContentForm get content => CurrentWorkflowEntryContentForm(doc, '$path/content');
 
   /// Workflow diagram.
@@ -10127,7 +10127,7 @@ class CustomDistributionGroup extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CustomDistributionGroupContentForm get content => CustomDistributionGroupContentForm(doc, '$path/content');
 
   /// Group members.
@@ -10147,7 +10147,7 @@ class CustomMetricEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   CustomMetricEntryContentForm get content => CustomMetricEntryContentForm(doc, '$path/content');
 }
 
@@ -10168,7 +10168,7 @@ class CutoverProcedure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Cutover runbook: the operational plan that executes the go-live moment.
   /// Deliberately more tactical than the Rollout Plan — which sets cohorts and
@@ -10231,7 +10231,7 @@ class D00SolutionBlueprint extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -10324,7 +10324,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the current-state analysis that motivates the project.
   String get content => doc.content('$path/content') ?? '';
@@ -10414,7 +10414,7 @@ class D02TargetOperatingModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the target business process model.
   String get content => doc.content('$path/content') ?? '';
@@ -10511,7 +10511,7 @@ class D03InformationModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the business data model.
   String get content => doc.content('$path/content') ?? '';
@@ -10656,7 +10656,7 @@ class D04RequirementsSpecification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the requirements catalog and its traceability model.
   String get content => doc.content('$path/content') ?? '';
@@ -10748,7 +10748,7 @@ class D05InteractionScenarios extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the use-case model and its coverage.
   String get content => doc.content('$path/content') ?? '';
@@ -10836,7 +10836,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the technical-requirements set.
   String get content => doc.content('$path/content') ?? '';
@@ -10938,7 +10938,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the system-boundary interaction specification.
   String get content => doc.content('$path/content') ?? '';
@@ -11035,7 +11035,7 @@ class D08SecurityAccessSpecification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the access and authorization concept.
   String get content => doc.content('$path/content') ?? '';
@@ -11136,7 +11136,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the UI prototype and design system.
   String get content => doc.content('$path/content') ?? '';
@@ -11242,7 +11242,7 @@ class D10QualityAcceptancePlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the business quality plan.
   String get content => doc.content('$path/content') ?? '';
@@ -11366,7 +11366,7 @@ class D11DeliveryRoadmap extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the phase plan and its gate model.
   String get content => doc.content('$path/content') ?? '';
@@ -11460,7 +11460,7 @@ class D12TransitionRolloutPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the rollout approach.
   String get content => doc.content('$path/content') ?? '';
@@ -11573,7 +11573,7 @@ class D13CodeSpecsProjection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of the CodeSpecs generation input: which blueprint subtrees feed generation and how they route across the shared/client/server split.
   String get content => doc.content('$path/content') ?? '';
@@ -11744,7 +11744,7 @@ class DashboardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DashboardEntryContentForm get content => DashboardEntryContentForm(doc, '$path/content');
 
   /// Refresh and data composition details.
@@ -11765,7 +11765,7 @@ class DashboardRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DashboardRequirementsContentForm get content => DashboardRequirementsContentForm(doc, '$path/content');
 
   /// Standard dashboards.
@@ -11792,7 +11792,7 @@ class DashboardTemplates extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DashboardTemplatesContentForm get content => DashboardTemplatesContentForm(doc, '$path/content');
 }
 
@@ -11810,7 +11810,7 @@ class DataAccessAuditPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.
   DataAccessAuditPolicyContentForm get content => DataAccessAuditPolicyContentForm(doc, '$path/content');
@@ -11832,7 +11832,7 @@ class DataAccessEventPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataAccessEventPolicyContentForm get content => DataAccessEventPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -11850,7 +11850,7 @@ class DataArchitecture extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataArchitectureContentForm get content => DataArchitectureContentForm(doc, '$path/content');
 
   /// Storage decisions.
@@ -11880,7 +11880,7 @@ class DataAttributeConstraintEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataAttributeConstraintEntryContentForm get content => DataAttributeConstraintEntryContentForm(doc, '$path/content');
 }
 
@@ -11900,7 +11900,7 @@ class DataAttributeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this attribute — what it means and how it is used, beyond the type, constraint and lineage facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -12077,7 +12077,7 @@ class DataClassification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the classification framework before the individual levels below. Cover who classifies data and when a classification is reviewed.
   String get content => doc.content('$path/content') ?? '';
@@ -12116,7 +12116,7 @@ class DataClassificationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this classification level — what kind of data belongs in it, beyond the storage, access and retention rules below.
   String get content => doc.content('$path/content') ?? '';
@@ -12204,7 +12204,7 @@ class DataClassificationLevelEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataClassificationLevelEntryContentForm get content => DataClassificationLevelEntryContentForm(doc, '$path/content');
 }
 
@@ -12219,7 +12219,7 @@ class DataClassificationStatusEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataClassificationStatusEntryContentForm get content => DataClassificationStatusEntryContentForm(doc, '$path/content');
 }
 
@@ -12240,7 +12240,7 @@ class DataDictionary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Single authoritative registry for data attributes across the system.
   ///
@@ -12273,7 +12273,7 @@ class DataDuplicationAnalysis extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data duplication across the organization. Describe the extent
   /// of duplication, its causes, impacts, and any ongoing deduplication efforts.
@@ -12304,7 +12304,7 @@ class DataDuplicationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataDuplicationEntryContentForm get content => DataDuplicationEntryContentForm(doc, '$path/content');
 
   /// Sources and duplication shape.
@@ -12350,7 +12350,7 @@ class DataEntityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this data entity — what it represents in the business, beyond the identity, attribute and key facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -12436,7 +12436,7 @@ class DataEntityMigrationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataEntityMigrationEntryContentForm get content => DataEntityMigrationEntryContentForm(doc, '$path/content');
 }
 
@@ -12451,7 +12451,7 @@ class DataEntityReferenceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataEntityReferenceEntryContentForm get content => DataEntityReferenceEntryContentForm(doc, '$path/content');
 
   /// The data-model entity these operations act on, named by section id.
@@ -12480,7 +12480,7 @@ class DataFormatCompatibility extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataFormatCompatibilityContentForm get content => DataFormatCompatibilityContentForm(doc, '$path/content');
 
   /// Data format compatibility.
@@ -12512,7 +12512,7 @@ class DataGovernance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data governance in the organization. Describe the governance
   /// framework, organizational structure, policies, and current maturity level.
@@ -12543,7 +12543,7 @@ class DataGovernancePolicyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataGovernancePolicyEntryContentForm get content => DataGovernancePolicyEntryContentForm(doc, '$path/content');
 
   /// Policy lifecycle and applicability.
@@ -12564,7 +12564,7 @@ class DataGrowthProjections extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataGrowthProjectionsContentForm get content => DataGrowthProjectionsContentForm(doc, '$path/content');
 
   /// Growth-rate assumptions.
@@ -12591,7 +12591,7 @@ class DataIntegrationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataIntegrationEntryContentForm get content => DataIntegrationEntryContentForm(doc, '$path/content');
 
   /// Endpoints and type.
@@ -12624,7 +12624,7 @@ class DataIntegrationPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data integration across the organization. Describe the integration
   /// architecture, major data flows, technologies used, and integration challenges.
@@ -12663,7 +12663,7 @@ class DataLevelSecurity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define data-level security controls that protect sensitive information
   /// within databases and data stores.
@@ -12736,7 +12736,7 @@ class DataMaskingPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.
   DataMaskingPolicyContentForm get content => DataMaskingPolicyContentForm(doc, '$path/content');
@@ -12762,7 +12762,7 @@ class DataMigrationStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataMigrationStrategyContentForm get content => DataMigrationStrategyContentForm(doc, '$path/content');
 
   /// Strategic approach details.
@@ -12838,7 +12838,7 @@ class DataModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Conceptual data model from a business perspective. Defines the entities,
   /// attributes, relationships, and constraints that represent core business data.
@@ -12909,7 +12909,7 @@ class DataModelFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Follow-up facets for the data model. These describe operational, capacity,
   /// compliance, and migration concerns that accompany — but are not part of — the
@@ -12948,7 +12948,7 @@ class DataOwnership extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data ownership and stewardship across the organization. Describe
   /// the ownership model, roles and responsibilities, and any gaps in accountability.
@@ -12979,7 +12979,7 @@ class DataOwnershipEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataOwnershipEntryContentForm get content => DataOwnershipEntryContentForm(doc, '$path/content');
 
   /// Stewardship and custodianship assignments.
@@ -13000,7 +13000,7 @@ class DataProcessingAgreementRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataProcessingAgreementRequirementsContentForm get content => DataProcessingAgreementRequirementsContentForm(doc, '$path/content');
 
   /// Agreement-management details.
@@ -13073,7 +13073,7 @@ class DataProtectionAndPrivacySection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of data protection and privacy strategy.
   ///
@@ -13132,7 +13132,7 @@ class DataProtectionClassification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataProtectionClassificationContentForm get content => DataProtectionClassificationContentForm(doc, '$path/content');
 
   /// Handling rules.
@@ -13165,7 +13165,7 @@ class DataQualityAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data quality across the organization. Describe the assessment
   /// methodology, scope, key findings, and overall data quality posture.
@@ -13201,7 +13201,7 @@ class DataQualityInitiativeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataQualityInitiativeEntryContentForm get content => DataQualityInitiativeEntryContentForm(doc, '$path/content');
 }
 
@@ -13216,7 +13216,7 @@ class DataQualityIssueEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataQualityIssueEntryContentForm get content => DataQualityIssueEntryContentForm(doc, '$path/content');
 
   /// Classification and severity.
@@ -13240,7 +13240,7 @@ class DataResidencyRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataResidencyRequirementsContentForm get content => DataResidencyRequirementsContentForm(doc, '$path/content');
 
   /// Governing regulation and sovereignty constraints.
@@ -13270,7 +13270,7 @@ class DataRetentionPolicies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data retention policies and lifecycle management. Describe the
   /// policy framework, regulatory drivers, implementation status, and any gaps.
@@ -13297,7 +13297,7 @@ class DataSourceEntityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataSourceEntityEntryContentForm get content => DataSourceEntityEntryContentForm(doc, '$path/content');
 }
 
@@ -13315,7 +13315,7 @@ class DataSourceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataSourceEntryContentForm get content => DataSourceEntryContentForm(doc, '$path/content');
 
   /// Classification.
@@ -13365,7 +13365,7 @@ class DataSourceInventory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of the data source inventory. Describe the methodology used to
   /// catalog data sources, coverage of the inventory, and any known gaps.
@@ -13396,7 +13396,7 @@ class DataSubjectRightsManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataSubjectRightsManagementContentForm get content => DataSubjectRightsManagementContentForm(doc, '$path/content');
 
   /// Access and rectification handling.
@@ -13429,7 +13429,7 @@ class DataVolumeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataVolumeEntryContentForm get content => DataVolumeEntryContentForm(doc, '$path/content');
 }
 
@@ -13444,7 +13444,7 @@ class DataVolumeSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DataVolumeSummaryContentForm get content => DataVolumeSummaryContentForm(doc, '$path/content');
 
   /// Historical growth behavior.
@@ -13474,7 +13474,7 @@ class DataVolumesAndGrowth extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of data volumes and growth patterns across the organization.
   /// Describe current total volumes, growth trends, capacity constraints,
@@ -13510,7 +13510,7 @@ class DatabaseAccessPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.
   DatabaseAccessPolicyContentForm get content => DatabaseAccessPolicyContentForm(doc, '$path/content');
@@ -13530,7 +13530,7 @@ class DatabaseCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DatabaseCompatibilityEntryContentForm get content => DatabaseCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Support options.
@@ -13561,7 +13561,7 @@ class DatabaseEncryptionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.
   DatabaseEncryptionPolicyContentForm get content => DatabaseEncryptionPolicyContentForm(doc, '$path/content');
@@ -13581,7 +13581,7 @@ class DebuggingConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DebuggingConfigurationContentForm get content => DebuggingConfigurationContentForm(doc, '$path/content');
 
   /// Breakpoint and watch setup.
@@ -13611,7 +13611,7 @@ class DecisionAuthorityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionAuthorityEntryContentForm get content => DecisionAuthorityEntryContentForm(doc, '$path/content');
 }
 
@@ -13626,7 +13626,7 @@ class DecisionMakerEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionMakerEntryContentForm get content => DecisionMakerEntryContentForm(doc, '$path/content');
 }
 
@@ -13644,7 +13644,7 @@ class DecisionOptionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionOptionEntryContentForm get content => DecisionOptionEntryContentForm(doc, '$path/content');
 
   /// Recommendation flags.
@@ -13675,7 +13675,7 @@ class DecisionPointEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionPointEntryContentForm get content => DecisionPointEntryContentForm(doc, '$path/content');
 
   /// Context and timing information.
@@ -13702,7 +13702,7 @@ class DecisionPointEntryResolution extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionPointEntryResolutionContentForm get content => DecisionPointEntryResolutionContentForm(doc, '$path/content');
 
   /// Decision context narrative.
@@ -13732,7 +13732,7 @@ class DecisionPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionPointsContentForm get content => DecisionPointsContentForm(doc, '$path/content');
 
   /// Decision framework narrative.
@@ -13757,7 +13757,7 @@ class DeepLinkPatternEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeepLinkPatternEntryContentForm get content => DeepLinkPatternEntryContentForm(doc, '$path/content');
 
   /// Access control — what a caller must satisfy to follow this deep link.
@@ -13784,7 +13784,7 @@ class DeepLinking extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Deep Linking (10.3.1.7)
   ///
@@ -13830,7 +13830,7 @@ class DefectResolution extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DefectResolutionContentForm get content => DefectResolutionContentForm(doc, '$path/content');
 
   /// Classification refinement and SLA targets.
@@ -13862,7 +13862,7 @@ class DeferredScopeItemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeferredScopeItemEntryContentForm get content => DeferredScopeItemEntryContentForm(doc, '$path/content');
 }
 
@@ -13877,7 +13877,7 @@ class DeliverableDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeliverableDependenciesContentForm get content => DeliverableDependenciesContentForm(doc, '$path/content');
 }
 
@@ -13896,7 +13896,7 @@ class DeliverableEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeliverableEntryContentForm get content => DeliverableEntryContentForm(doc, '$path/content');
 
   /// Identification details.
@@ -13941,7 +13941,7 @@ class DeliveryAcceptanceCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeliveryAcceptanceCriterionEntryContentForm get content => DeliveryAcceptanceCriterionEntryContentForm(doc, '$path/content');
 
   /// Priority and description.
@@ -13974,7 +13974,7 @@ class DeliveryScope extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Defines what is delivered as part of this project across four categories:
   /// - Software deliverables (application components, libraries, configurations)
@@ -14015,7 +14015,7 @@ class DeliveryScopeAndAcceptance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Chapter overview: defines agreements regarding delivery scope and acceptance
   /// for the system. Covers two major subsections:
@@ -14051,7 +14051,7 @@ class DeliveryTransitionAndRollout extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -14088,7 +14088,7 @@ class DependenciesAndIntegrations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is.
   String get content => doc.content('$path/content') ?? '';
@@ -14127,7 +14127,7 @@ class DependencyHealthMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyHealthMonitoringContentForm get content => DependencyHealthMonitoringContentForm(doc, '$path/content');
 
   /// Cache subsystem checks.
@@ -14154,7 +14154,7 @@ class DependencyInjectionStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyInjectionStructureContentForm get content => DependencyInjectionStructureContentForm(doc, '$path/content');
 
   /// Registration organization.
@@ -14181,7 +14181,7 @@ class DependencyManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyManagementContentForm get content => DependencyManagementContentForm(doc, '$path/content');
 
   /// Versioning and update policy.
@@ -14214,7 +14214,7 @@ class DependencyRegisterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyRegisterEntryContentForm get content => DependencyRegisterEntryContentForm(doc, '$path/content');
 }
 
@@ -14229,7 +14229,7 @@ class DependencyScanningRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyScanningRequirementsContentForm get content => DependencyScanningRequirementsContentForm(doc, '$path/content');
 
   /// Vulnerability-management rules.
@@ -14264,7 +14264,7 @@ class DeploymentContext extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide a narrative overview of the deployment context before the structured deployment details below.
   String get content => doc.content('$path/content') ?? '';
@@ -14285,7 +14285,7 @@ class DeploymentEnvironmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentEnvironmentEntryContentForm get content => DeploymentEnvironmentEntryContentForm(doc, '$path/content');
 
   /// Deployment method and rollback controls.
@@ -14312,7 +14312,7 @@ class DeploymentModelRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentModelRequirementsContentForm get content => DeploymentModelRequirementsContentForm(doc, '$path/content');
 
   /// Container image policies.
@@ -14339,7 +14339,7 @@ class DeploymentSecurity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentSecurityContentForm get content => DeploymentSecurityContentForm(doc, '$path/content');
 
   /// Supply-chain security.
@@ -14403,7 +14403,7 @@ class DeploymentStrategySection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of deployment strategy and pipeline.
   ///
@@ -14462,7 +14462,7 @@ class DeploymentTargetEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentTargetEntryContentForm get content => DeploymentTargetEntryContentForm(doc, '$path/content');
 
   /// Platform specifics.
@@ -14492,7 +14492,7 @@ class DeploymentTopology extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentTopologyContentForm get content => DeploymentTopologyContentForm(doc, '$path/content');
 
   /// Infrastructure layout.
@@ -14522,7 +14522,7 @@ class DesignFoundationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignFoundationEntryContentForm get content => DesignFoundationEntryContentForm(doc, '$path/content');
 }
 
@@ -14539,7 +14539,7 @@ class DesignGoalEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignGoalEntryContentForm get content => DesignGoalEntryContentForm(doc, '$path/content');
 }
 
@@ -14560,7 +14560,7 @@ class DesignGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Design Goals (10.1.1)
   ///
@@ -14605,7 +14605,7 @@ class DesignPatternEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignPatternEntryContentForm get content => DesignPatternEntryContentForm(doc, '$path/content');
 
   /// Applicability guidance.
@@ -14668,7 +14668,7 @@ class DesignPatternsAndStandards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the design patterns and standards approach.
   ///
@@ -14737,7 +14737,7 @@ class DesignPrincipleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignPrincipleEntryContentForm get content => DesignPrincipleEntryContentForm(doc, '$path/content');
 }
 
@@ -14758,7 +14758,7 @@ class DesignPrinciples extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Design Principles (10.1.2)
   ///
@@ -14812,7 +14812,7 @@ class DesignVision extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Design Vision (10.1)
   ///
@@ -14857,7 +14857,7 @@ class DesktopOsRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DesktopOsRequirementEntryContentForm get content => DesktopOsRequirementEntryContentForm(doc, '$path/content');
 
   /// Support prioritization.
@@ -14890,7 +14890,7 @@ class DetailedProcessWorkflow extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Step-level detail for each process in the catalog: activity sequence,
   /// decision points, handoffs, swim lanes, timing, and system-actor vs human
@@ -14918,7 +14918,7 @@ class DeveloperOnboarding extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeveloperOnboardingContentForm get content => DeveloperOnboardingContentForm(doc, '$path/content');
 
   /// Setup expectations.
@@ -14949,7 +14949,7 @@ class DevelopmentConventionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DevelopmentConventionEntryContentForm get content => DevelopmentConventionEntryContentForm(doc, '$path/content');
 
   /// Background and workflow.
@@ -15019,7 +15019,7 @@ class DevelopmentEnvironment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the development environment philosophy.
   ///
@@ -15086,7 +15086,7 @@ class DevelopmentQualityGates extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DevelopmentQualityGatesContentForm get content => DevelopmentQualityGatesContentForm(doc, '$path/content');
 
   /// Coverage requirements.
@@ -15125,7 +15125,7 @@ class DeviceSettingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DeviceSettingEntryContentForm get content => DeviceSettingEntryContentForm(doc, '$path/content');
 }
 
@@ -15151,7 +15151,7 @@ class DeviceSettings extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Summarise which settings this system keeps per (user, device) rather than
   /// per user — the ones that describe how *this* machine is set up and would be
@@ -15179,7 +15179,7 @@ class DisasterRecoveryRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DisasterRecoveryRequirementsContentForm get content => DisasterRecoveryRequirementsContentForm(doc, '$path/content');
 
   /// Failover execution.
@@ -15206,7 +15206,7 @@ class DisplayEquipmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DisplayEquipmentEntryContentForm get content => DisplayEquipmentEntryContentForm(doc, '$path/content');
 
   /// Display quality and connection properties.
@@ -15230,7 +15230,7 @@ class DisplayPropertyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DisplayPropertyEntryContentForm get content => DisplayPropertyEntryContentForm(doc, '$path/content');
 }
 
@@ -15245,7 +15245,7 @@ class DisplayRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DisplayRequirementsContentForm get content => DisplayRequirementsContentForm(doc, '$path/content');
 
   /// Aspect ratio and layout support.
@@ -15272,7 +15272,7 @@ class DistributedTracingSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributedTracingSpecContentForm get content => DistributedTracingSpecContentForm(doc, '$path/content');
 
   /// Sampling strategy.
@@ -15296,7 +15296,7 @@ class DistributionGroupSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributionGroupSummaryContentForm get content => DistributionGroupSummaryContentForm(doc, '$path/content');
 }
 
@@ -15318,7 +15318,7 @@ class DistributionList extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of project communication and distribution approach.
   /// Describe the different stakeholder groups, their information needs,
@@ -15356,7 +15356,7 @@ class DistributionRecipientEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributionRecipientEntryContentForm get content => DistributionRecipientEntryContentForm(doc, '$path/content');
 
   /// Contact information.
@@ -15388,7 +15388,7 @@ class DistributionRecipientPreferences extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributionRecipientPreferencesContentForm get content => DistributionRecipientPreferencesContentForm(doc, '$path/content');
 }
 
@@ -15403,7 +15403,7 @@ class DnsRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DnsRequirementsContentForm get content => DnsRequirementsContentForm(doc, '$path/content');
 
   /// Zone requirements.
@@ -15430,7 +15430,7 @@ class DocChangeability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocChangeabilityContentForm get content => DocChangeabilityContentForm(doc, '$path/content');
 
   /// Extensibility and localization readiness.
@@ -15457,7 +15457,7 @@ class DocCompleteness extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocCompletenessContentForm get content => DocCompletenessContentForm(doc, '$path/content');
 
   /// Detailed completeness requirements narrative.
@@ -15475,7 +15475,7 @@ class DocCorrectness extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocCorrectnessContentForm get content => DocCorrectnessContentForm(doc, '$path/content');
 
   /// Formatting and implementation alignment.
@@ -15508,7 +15508,7 @@ class DocumentControl extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -15536,8 +15536,8 @@ class DocumentControl extends SomNode {
 /// 
 /// All fields are optional strings representing the document's form fields.
 /// 
-/// A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
-/// an unchanged header by identity and [cloneShallow] needs no child handling.
+/// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
+/// an unchanged header by identity and `cloneShallow` needs no child handling.
 class DocumentHeader extends SomNode {
   /// Names the `DocumentHeader` section at [path] inside [doc].
   ///
@@ -15548,7 +15548,7 @@ class DocumentHeader extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentHeaderContentForm get content => DocumentHeaderContentForm(doc, '$path/content');
 }
 
@@ -15568,7 +15568,7 @@ class DocumentRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -15589,7 +15589,7 @@ class DocumentRelevantSections extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentRelevantSectionsContentForm get content => DocumentRelevantSectionsContentForm(doc, '$path/content');
 
   /// Individual relevant section entries.
@@ -15609,7 +15609,7 @@ class DocumentReviewTeamEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentReviewTeamEntryContentForm get content => DocumentReviewTeamEntryContentForm(doc, '$path/content');
 
   /// The members of the team.
@@ -15632,7 +15632,7 @@ class DocumentationDeliverables extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Documentation deliverables: user guides, technical documentation,
   /// operations runbooks, API documentation, architecture decision records,
@@ -15669,7 +15669,7 @@ class DocumentationQualityCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the documentation quality bar before the readability, completeness, correctness and changeability subsections below. Cover which deliverables the criteria apply to.
   String get content => doc.content('$path/content') ?? '';
@@ -15716,7 +15716,7 @@ class DocumentationStandards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentationStandardsContentForm get content => DocumentationStandardsContentForm(doc, '$path/content');
 
   /// Code documentation requirements.
@@ -15746,7 +15746,7 @@ class DocumentationStandardsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentationStandardsSectionContentForm get content => DocumentationStandardsSectionContentForm(doc, '$path/content');
 
   /// Technical documentation standards.
@@ -15781,7 +15781,7 @@ class DomainBoundaries extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam.
   String get content => doc.content('$path/content') ?? '';
@@ -15818,7 +15818,7 @@ class DomainBusinessRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainBusinessRuleEntryContentForm get content => DomainBusinessRuleEntryContentForm(doc, '$path/content');
 
   /// Formal definition and applicability.
@@ -15847,7 +15847,7 @@ class DomainBusinessRules extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -15874,7 +15874,7 @@ class DomainEnumEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainEnumEntryContentForm get content => DomainEnumEntryContentForm(doc, '$path/content');
 
   /// 7.5.x. Enum Values — one entry per member of the value set.
@@ -15917,7 +15917,7 @@ class DomainEnumRegistry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Catalogue the domain enums — the closed value sets the data model relies on
   /// (e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum
@@ -15955,7 +15955,7 @@ class DomainEnumValueEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainEnumValueEntryContentForm get content => DomainEnumValueEntryContentForm(doc, '$path/content');
 }
 
@@ -15970,7 +15970,7 @@ class DomainEventEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainEventEntryContentForm get content => DomainEventEntryContentForm(doc, '$path/content');
 }
 
@@ -15993,7 +15993,7 @@ class DomainEvents extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16014,7 +16014,7 @@ class DomainInterfaceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainInterfaceEntryContentForm get content => DomainInterfaceEntryContentForm(doc, '$path/content');
 }
 
@@ -16037,7 +16037,7 @@ class DomainOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here.
   String get content => doc.content('$path/content') ?? '';
@@ -16058,7 +16058,7 @@ class DomainProcessEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainProcessEntryContentForm get content => DomainProcessEntryContentForm(doc, '$path/content');
 
   /// Inputs, outputs, and participant flow.
@@ -16090,7 +16090,7 @@ class DomainProcesses extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the domain's main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together.
   String get content => doc.content('$path/content') ?? '';
@@ -16119,7 +16119,7 @@ class DomainTermEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainTermEntryContentForm get content => DomainTermEntryContentForm(doc, '$path/content');
 }
 
@@ -16142,7 +16142,7 @@ class DomainVocabulary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -16163,7 +16163,7 @@ class Efficiency extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EfficiencyContentForm get content => EfficiencyContentForm(doc, '$path/content');
 
   /// Throughput and scale targets.
@@ -16190,7 +16190,7 @@ class ElementValidationRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ElementValidationRuleEntryContentForm get content => ElementValidationRuleEntryContentForm(doc, '$path/content');
 }
 
@@ -16205,7 +16205,7 @@ class EmergencyMaintenanceProcedures extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EmergencyMaintenanceProceduresContentForm get content => EmergencyMaintenanceProceduresContentForm(doc, '$path/content');
 
   /// Approval and documentation workflow.
@@ -16234,7 +16234,7 @@ class EncryptedDataCategoryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EncryptedDataCategoryEntryContentForm get content => EncryptedDataCategoryEntryContentForm(doc, '$path/content');
 }
 
@@ -16258,7 +16258,7 @@ class EncryptionAtRest extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define how stored data is encrypted to protect against unauthorized access,
   /// data breaches, and physical media theft.
@@ -16333,7 +16333,7 @@ class EncryptionAtRestPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.
   EncryptionAtRestPolicyContentForm get content => EncryptionAtRestPolicyContentForm(doc, '$path/content');
@@ -16361,7 +16361,7 @@ class EncryptionInTransit extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define how data is protected while moving over networks, both externally
   /// (internet) and internally (service-to-service).
@@ -16438,7 +16438,7 @@ class EndToEndTestScenario extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** End-to-end test scenarios derived from use cases and key user journeys.
   /// Feeds BQP test strategy and the Phase 5 test derivation step.
@@ -16465,7 +16465,7 @@ class EnterpriseSystemCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EnterpriseSystemCompatibilityEntryContentForm get content => EnterpriseSystemCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Integration details.
@@ -16492,7 +16492,7 @@ class EntitlementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EntitlementEntryContentForm get content => EntitlementEntryContentForm(doc, '$path/content');
 
   /// Contains 0+× ResourceKeyReference.
@@ -16512,7 +16512,7 @@ class EntitlementReferenceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EntitlementReferenceEntryContentForm get content => EntitlementReferenceEntryContentForm(doc, '$path/content');
 }
 
@@ -16529,7 +16529,7 @@ class EntityConstraintEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EntityConstraintEntryContentForm get content => EntityConstraintEntryContentForm(doc, '$path/content');
 }
 
@@ -16550,7 +16550,7 @@ class EntityFollowUpEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this entity's follow-up facets — operational context the volume, compliance, technical and migration lists below do not capture.
   String get content => doc.content('$path/content') ?? '';
@@ -16643,7 +16643,7 @@ class EntityIndexEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EntityIndexEntryContentForm get content => EntityIndexEntryContentForm(doc, '$path/content');
 }
 
@@ -16664,7 +16664,7 @@ class EntityRelationshipEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this relationship — the business fact it records, beyond the cardinality and referential-integrity facets below.
   String get content => doc.content('$path/content') ?? '';
@@ -16778,7 +16778,7 @@ class EntityRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Relationship specifications between data entities. Captures cardinality,
   /// referential integrity rules, and navigation patterns.
@@ -16816,7 +16816,7 @@ class EntryPointEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EntryPointEntryContentForm get content => EntryPointEntryContentForm(doc, '$path/content');
 }
 
@@ -16837,7 +16837,7 @@ class EnvironmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentEntryContentForm get content => EnvironmentEntryContentForm(doc, '$path/content');
 
   /// Identity and classification details.
@@ -16888,7 +16888,7 @@ class EnvironmentManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentManagementContentForm get content => EnvironmentManagementContentForm(doc, '$path/content');
 
   /// Configuration settings.
@@ -16915,7 +16915,7 @@ class EnvironmentStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentStrategyContentForm get content => EnvironmentStrategyContentForm(doc, '$path/content');
 
   /// Development environment setup.
@@ -16950,7 +16950,7 @@ class Environments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentsContentForm get content => EnvironmentsContentForm(doc, '$path/content');
 
   /// Contains 0+× Environment.
@@ -16975,7 +16975,7 @@ class EquipmentRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the equipment provision for this workplace before the computing, display, input and peripheral lists below. Cover the standard issue and what is granted only by exception.
   String get content => doc.content('$path/content') ?? '';
@@ -17014,7 +17014,7 @@ class ErrorBudgetTracking extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ErrorBudgetTrackingContentForm get content => ErrorBudgetTrackingContentForm(doc, '$path/content');
 
   /// Burn-rate monitoring thresholds.
@@ -17042,7 +17042,7 @@ class ErrorCodeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ErrorCodeEntryContentForm get content => ErrorCodeEntryContentForm(doc, '$path/content');
 }
 
@@ -17076,7 +17076,7 @@ class ErrorCodeRegistry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Catalogue the shared application error codes. Add one entry per code; each
   /// code is referenced by:
@@ -17114,7 +17114,7 @@ class ErrorHandling extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the error-handling experience before the validation, system-error and recovery subsections below. Cover the tone errors are written in and the balance struck between prevention and recovery.
   String get content => doc.content('$path/content') ?? '';
@@ -17172,7 +17172,7 @@ class ErrorHandlingStandards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ErrorHandlingStandardsContentForm get content => ErrorHandlingStandardsContentForm(doc, '$path/content');
 
   /// Exception type conventions.
@@ -17208,7 +17208,7 @@ class ErrorRecovery extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how a user gets back on track after an error before the preservation, retry and guided-recovery subsections below. Cover what work must never be lost.
   String get content => doc.content('$path/content') ?? '';
@@ -17268,7 +17268,7 @@ class EvaluationCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Evaluation Criteria (12.1.2)
   ///
@@ -17312,7 +17312,7 @@ class EvaluationCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EvaluationCriterionEntryContentForm get content => EvaluationCriterionEntryContentForm(doc, '$path/content');
 
   /// Scoring settings.
@@ -17339,7 +17339,7 @@ class EventAttributePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   EventAttributePolicyContentForm get content => EventAttributePolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -17362,7 +17362,7 @@ class ExecutiveSummaryDistribution extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** List of stakeholders who receive executive summaries only.
   /// These are typically senior executives and sponsors who need
@@ -17393,7 +17393,7 @@ class ExistingSystemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExistingSystemEntryContentForm get content => ExistingSystemEntryContentForm(doc, '$path/content');
 
   /// Technology stack details.
@@ -17442,7 +17442,7 @@ class ExistingSystemsLandscape extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17467,7 +17467,7 @@ class ExpectedImprovements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExpectedImprovementsContentForm get content => ExpectedImprovementsContentForm(doc, '$path/content');
 }
 
@@ -17485,7 +17485,7 @@ class ExperienceAndInterfaceDesign extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an executive overview of the User Interface Design, establishing the
   /// foundation for all visual and interactive aspects of the application.
@@ -17572,7 +17572,7 @@ class ExperienceCodeSpecs extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17627,7 +17627,7 @@ class ExperienceDesignFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17676,7 +17676,7 @@ class ExperienceLocalizationFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -17695,7 +17695,7 @@ class ExportFieldMappingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportFieldMappingEntryContentForm get content => ExportFieldMappingEntryContentForm(doc, '$path/content');
 
   /// Ordering and formatting settings.
@@ -17753,7 +17753,7 @@ class ExportFormatEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportFormatEntryContentForm get content => ExportFormatEntryContentForm(doc, '$path/content');
 
   /// Identity and data source.
@@ -17804,7 +17804,7 @@ class ExportSizeSettings extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportSizeSettingsContentForm get content => ExportSizeSettingsContentForm(doc, '$path/content');
 }
 
@@ -17819,7 +17819,7 @@ class ExportTemplateEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportTemplateEntryContentForm get content => ExportTemplateEntryContentForm(doc, '$path/content');
 
   /// Format configuration.
@@ -17851,7 +17851,7 @@ class ExtensionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExtensionEntryContentForm get content => ExtensionEntryContentForm(doc, '$path/content');
 
   /// Resume point — a promoted `@OneOf` case.
@@ -17880,7 +17880,7 @@ class ExtensionStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExtensionStepEntryContentForm get content => ExtensionStepEntryContentForm(doc, '$path/content');
 
   /// How this extension step's server call is carried out, step by step.
@@ -17916,7 +17916,7 @@ class ExternalActorEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalActorEntryContentForm get content => ExternalActorEntryContentForm(doc, '$path/content');
 
   /// Interaction cadence and exchanged information.
@@ -17950,7 +17950,7 @@ class ExternalActors extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -18010,7 +18010,7 @@ class ExternalConnectivitySection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of external connectivity landscape.
   ///
@@ -18074,7 +18074,7 @@ class ExternalInterfaceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this interface — the business need it serves and the partner behind it, beyond the technical, data and security facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -18142,7 +18142,7 @@ class ExternalInterfaces extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the external-integration landscape before the individual interfaces below. Cover the integration style favoured and the governance around adding one.
   String get content => doc.content('$path/content') ?? '';
@@ -18180,7 +18180,7 @@ class ExternalNetworkRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalNetworkRequirementsContentForm get content => ExternalNetworkRequirementsContentForm(doc, '$path/content');
 
   /// Public endpoint requirements.
@@ -18207,7 +18207,7 @@ class ExternalPartnerConnectionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalPartnerConnectionEntryContentForm get content => ExternalPartnerConnectionEntryContentForm(doc, '$path/content');
 
   /// Protocol and endpoint.
@@ -18242,7 +18242,7 @@ class ExternalPartnerOperations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalPartnerOperationsContentForm get content => ExternalPartnerOperationsContentForm(doc, '$path/content');
 }
 
@@ -18263,7 +18263,7 @@ class ExternalServiceDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe reliance on external services. Include vendor risk assessment, contract status, and contingency planning.
   String get content => doc.content('$path/content') ?? '';
@@ -18289,7 +18289,7 @@ class ExternalServiceDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalServiceDependencyEntryContentForm get content => ExternalServiceDependencyEntryContentForm(doc, '$path/content');
 
   /// Internal dependency and contract details.
@@ -18327,7 +18327,7 @@ class ExternalSystemContextEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalSystemContextEntryContentForm get content => ExternalSystemContextEntryContentForm(doc, '$path/content');
 
   /// Integration intent and exchanged information.
@@ -18362,7 +18362,7 @@ class ExternalSystemsContext extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -18383,7 +18383,7 @@ class FamilyComponentRef extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FamilyComponentRefContentForm get content => FamilyComponentRefContentForm(doc, '$path/content');
 }
 
@@ -18401,7 +18401,7 @@ class FeatureDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureDependenciesContentForm get content => FeatureDependenciesContentForm(doc, '$path/content');
 
   /// Dependency analysis narrative.
@@ -18429,7 +18429,7 @@ class FeatureDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureDependencyEntryContentForm get content => FeatureDependencyEntryContentForm(doc, '$path/content');
 }
 
@@ -18452,7 +18452,7 @@ class FeatureHookEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member.
   FeatureHookEntryContentForm get content => FeatureHookEntryContentForm(doc, '$path/content');
@@ -18474,7 +18474,7 @@ class FeatureModuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureModuleEntryContentForm get content => FeatureModuleEntryContentForm(doc, '$path/content');
 
   /// Purpose and value.
@@ -18510,7 +18510,7 @@ class FeaturePrioritization extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeaturePrioritizationContentForm get content => FeaturePrioritizationContentForm(doc, '$path/content');
 
   /// Methodology and scoring.
@@ -18567,7 +18567,7 @@ class FeaturePriorityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeaturePriorityEntryContentForm get content => FeaturePriorityEntryContentForm(doc, '$path/content');
 
   /// Feature identity.
@@ -18620,7 +18620,7 @@ class FeaturePriorityRegister extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeaturePriorityRegisterContentForm get content => FeaturePriorityRegisterContentForm(doc, '$path/content');
 
   /// Contains 1+× FeaturePriorityEntry.
@@ -18643,7 +18643,7 @@ class FeatureStageMapping extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStageMappingContentForm get content => FeatureStageMappingContentForm(doc, '$path/content');
 
   /// Stage assignment details.
@@ -18675,7 +18675,7 @@ class FeatureStageMatrix extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStageMatrixContentForm get content => FeatureStageMatrixContentForm(doc, '$path/content');
 
   /// Feature-Stage matrix narrative.
@@ -18700,7 +18700,7 @@ class FeatureStakeholders extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStakeholdersContentForm get content => FeatureStakeholdersContentForm(doc, '$path/content');
 }
 
@@ -18715,7 +18715,7 @@ class FeatureTourEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureTourEntryContentForm get content => FeatureTourEntryContentForm(doc, '$path/content');
 
   /// Tour steps.
@@ -18735,7 +18735,7 @@ class FieldHelpEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FieldHelpEntryContentForm get content => FieldHelpEntryContentForm(doc, '$path/content');
 }
 
@@ -18750,7 +18750,7 @@ class FieldValidationRule extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FieldValidationRuleContentForm get content => FieldValidationRuleContentForm(doc, '$path/content');
 }
 
@@ -18769,7 +18769,7 @@ class FileAccessControlPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.
   FileAccessControlPolicyContentForm get content => FileAccessControlPolicyContentForm(doc, '$path/content');
@@ -18797,7 +18797,7 @@ class FileAndStorageSecurity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define security controls for user-uploaded files, generated documents,
   /// and all stored media.
@@ -18876,7 +18876,7 @@ class FileDownloadSecurityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.
   FileDownloadSecurityPolicyContentForm get content => FileDownloadSecurityPolicyContentForm(doc, '$path/content');
@@ -18900,7 +18900,7 @@ class FileStorageEncryptionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.
   FileStorageEncryptionPolicyContentForm get content => FileStorageEncryptionPolicyContentForm(doc, '$path/content');
@@ -18925,7 +18925,7 @@ class FileUploadValidationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed.
   FileUploadValidationPolicyContentForm get content => FileUploadValidationPolicyContentForm(doc, '$path/content');
@@ -18945,7 +18945,7 @@ class FirewallRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FirewallRequirementsContentForm get content => FirewallRequirementsContentForm(doc, '$path/content');
 
   /// Rule definitions.
@@ -18972,7 +18972,7 @@ class Flexibility extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FlexibilityContentForm get content => FlexibilityContentForm(doc, '$path/content');
 
   /// Modularity and reuse goals.
@@ -19007,7 +19007,7 @@ class FlexibilityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce flexibility for this system before the adaptability and portability subsections below. Cover the changes the system is expected to absorb without redesign.
   String get content => doc.content('$path/content') ?? '';
@@ -19049,7 +19049,7 @@ class FormScreenAssignmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FormScreenAssignmentEntryContentForm get content => FormScreenAssignmentEntryContentForm(doc, '$path/content');
 }
 
@@ -19064,7 +19064,7 @@ class FrameworkRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FrameworkRequirementEntryContentForm get content => FrameworkRequirementEntryContentForm(doc, '$path/content');
 
   /// Identity details.
@@ -19102,7 +19102,7 @@ class FullDistribution extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** List of stakeholders who receive complete project documentation.
   /// These are typically core team members and key stakeholders who need
@@ -19132,7 +19132,7 @@ class FunctionDataMatrixEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionDataMatrixEntryContentForm get content => FunctionDataMatrixEntryContentForm(doc, '$path/content');
 }
 
@@ -19149,7 +19149,7 @@ class FunctionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionEntryContentForm get content => FunctionEntryContentForm(doc, '$path/content');
 
   /// Decomposition position and classification.
@@ -19183,7 +19183,7 @@ class FunctionModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the function model before the decomposition, matrix and rule lists below. Cover how deep the decomposition goes and how functions are mapped onto data.
   String get content => doc.content('$path/content') ?? '';
@@ -19239,7 +19239,7 @@ class FunctionalCompleteness extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionalCompletenessContentForm get content => FunctionalCompletenessContentForm(doc, '$path/content');
 
   /// Detailed functional completeness narrative.
@@ -19261,7 +19261,7 @@ class FunctionalRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionalRequirementEntryContentForm get content => FunctionalRequirementEntryContentForm(doc, '$path/content');
 
   /// Requirement details: description, type, category.
@@ -19325,7 +19325,7 @@ class FunctionalRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged.
   String get content => doc.content('$path/content') ?? '';
@@ -19356,7 +19356,7 @@ class FunctionalResponsibilities extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionalResponsibilitiesContentForm get content => FunctionalResponsibilitiesContentForm(doc, '$path/content');
 
   /// Responsibility matrix overview narrative.
@@ -19388,7 +19388,7 @@ class FunctionalSuitabilityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce functional suitability for this system before the completeness and correctness subsections below. Cover what "the right functions, done correctly" means here.
   String get content => doc.content('$path/content') ?? '';
@@ -19433,7 +19433,7 @@ class GapEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GapEntryContentForm get content => GapEntryContentForm(doc, '$path/content');
 
   /// Gap description and business impact.
@@ -19460,7 +19460,7 @@ class GeographicDistributionRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GeographicDistributionRequirementsContentForm get content => GeographicDistributionRequirementsContentForm(doc, '$path/content');
 
   /// CDN requirements.
@@ -19490,7 +19490,7 @@ class GlobalRoleExclusionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GlobalRoleExclusionEntryContentForm get content => GlobalRoleExclusionEntryContentForm(doc, '$path/content');
 }
 
@@ -19508,7 +19508,7 @@ class GlossaryAndAbbreviations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19529,7 +19529,7 @@ class GlossaryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GlossaryEntryContentForm get content => GlossaryEntryContentForm(doc, '$path/content');
 }
 
@@ -19551,7 +19551,7 @@ class GoalDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19572,7 +19572,7 @@ class GoalDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GoalDependencyEntryContentForm get content => GoalDependencyEntryContentForm(doc, '$path/content');
 
   /// The goal whose achievement this dependency blocks, named by section id.
@@ -19610,7 +19610,7 @@ class GoalKeyResults extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19631,7 +19631,7 @@ class GoalMilestoneEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GoalMilestoneEntryContentForm get content => GoalMilestoneEntryContentForm(doc, '$path/content');
 }
 
@@ -19653,7 +19653,7 @@ class GoalMilestones extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19681,7 +19681,7 @@ class GoalResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured.
   String get content => doc.content('$path/content') ?? '';
@@ -19707,7 +19707,7 @@ class GoalRiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GoalRiskEntryContentForm get content => GoalRiskEntryContentForm(doc, '$path/content');
 
   /// Risk assessment details.
@@ -19735,7 +19735,7 @@ class GoalRisks extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -19780,7 +19780,7 @@ class Goals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed.
   String get content => doc.content('$path/content') ?? '';
@@ -19813,7 +19813,7 @@ class GovernanceModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   GovernanceModelContentForm get content => GovernanceModelContentForm(doc, '$path/content');
 
   /// Decision authority matrix.
@@ -19838,7 +19838,7 @@ class GradedAccessLevelEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** One access state and what earns it.
   ///
@@ -19891,7 +19891,7 @@ class GradedAuthorizationRequirement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** The requirement for each access state, from the most permissive down.
   ///
@@ -19928,7 +19928,7 @@ class HandlingRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   HandlingRequirementEntryContentForm get content => HandlingRequirementEntryContentForm(doc, '$path/content');
 }
 
@@ -19972,7 +19972,7 @@ class HardwareRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of hardware strategy and infrastructure approach.
   ///
@@ -20013,7 +20013,7 @@ class HealthCheckEndpoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   HealthCheckEndpointsContentForm get content => HealthCheckEndpointsContentForm(doc, '$path/content');
 
   /// Response configuration.
@@ -20076,7 +20076,7 @@ class HealthChecksAndDiagnosticsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of health check and diagnostics strategy.
   ///
@@ -20126,7 +20126,7 @@ class HighAvailabilityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   HighAvailabilityRequirementsContentForm get content => HighAvailabilityRequirementsContentForm(doc, '$path/content');
 
   /// Redundancy model.
@@ -20157,7 +20157,7 @@ class HookMethodEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State what the member does and what it answers, in terms of the operations it calls and the entities it uses.
   HookMethodEntryContentForm get content => HookMethodEntryContentForm(doc, '$path/content');
@@ -20174,7 +20174,7 @@ class IdeRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdeRequirementEntryContentForm get content => IdeRequirementEntryContentForm(doc, '$path/content');
 
   /// Extension and workspace configuration.
@@ -20203,7 +20203,7 @@ class Identification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentificationContentForm get content => IdentificationContentForm(doc, '$path/content');
 
   /// Identity Sources — contains 0+× Identity Source.
@@ -20245,7 +20245,7 @@ class IdentificationAndAuthentication extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define how users prove their identity to the system. Authentication is the
   /// foundation of access control — all authorization decisions depend on reliable
@@ -20294,7 +20294,7 @@ class IdentityAttributeMappingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityAttributeMappingEntryContentForm get content => IdentityAttributeMappingEntryContentForm(doc, '$path/content');
 
   /// Transformation and defaulting behavior.
@@ -20318,7 +20318,7 @@ class IdentityProviderDetails extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityProviderDetailsContentForm get content => IdentityProviderDetailsContentForm(doc, '$path/content');
 }
 
@@ -20333,7 +20333,7 @@ class IdentityProviderEndpoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityProviderEndpointsContentForm get content => IdentityProviderEndpointsContentForm(doc, '$path/content');
 }
 
@@ -20351,7 +20351,7 @@ class IdentityProviderEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityProviderEntryContentForm get content => IdentityProviderEntryContentForm(doc, '$path/content');
 
   /// Provider details.
@@ -20388,7 +20388,7 @@ class IdentitySourceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentitySourceEntryContentForm get content => IdentitySourceEntryContentForm(doc, '$path/content');
 
   /// Connectivity and trust details.
@@ -20418,7 +20418,7 @@ class IdentityVerificationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityVerificationPolicyContentForm get content => IdentityVerificationPolicyContentForm(doc, '$path/content');
 
   /// Required proofing artifacts.
@@ -20451,7 +20451,7 @@ class ImpactLevelDefinitions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ImpactLevelDefinitionsContentForm get content => ImpactLevelDefinitionsContentForm(doc, '$path/content');
 }
 
@@ -20466,7 +20466,7 @@ class IncidentManagementRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IncidentManagementRequirementsContentForm get content => IncidentManagementRequirementsContentForm(doc, '$path/content');
 
   /// Communication requirements.
@@ -20493,7 +20493,7 @@ class IncidentResponsePlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IncidentResponsePlanContentForm get content => IncidentResponsePlanContentForm(doc, '$path/content');
 
   /// Response process.
@@ -20517,7 +20517,7 @@ class IndustryProtocolComplianceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IndustryProtocolComplianceEntryContentForm get content => IndustryProtocolComplianceEntryContentForm(doc, '$path/content');
 
   /// Compliance scope and features.
@@ -20544,7 +20544,7 @@ class IndustryStandardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IndustryStandardEntryContentForm get content => IndustryStandardEntryContentForm(doc, '$path/content');
 
   /// Scope details.
@@ -20577,7 +20577,7 @@ class InformationAndDataModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Conceptual overview of the business data the system manages. This chapter
   /// establishes the foundation for all data-related specifications and seeds the
@@ -20656,7 +20656,7 @@ class InformationArchitecture extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Information Architecture (10.2.2)
   ///
@@ -20716,7 +20716,7 @@ class InformationForUseRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20735,7 +20735,7 @@ class InfrastructureAsCode extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureAsCodeContentForm get content => InfrastructureAsCodeContentForm(doc, '$path/content');
 
   /// State management.
@@ -20762,7 +20762,7 @@ class InfrastructureComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureComponentEntryContentForm get content => InfrastructureComponentEntryContentForm(doc, '$path/content');
 
   /// Purpose and technology choices.
@@ -20792,7 +20792,7 @@ class InfrastructureMetricsSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureMetricsSpecContentForm get content => InfrastructureMetricsSpecContentForm(doc, '$path/content');
 
   /// Container and orchestration metrics.
@@ -20816,7 +20816,7 @@ class InfrastructureSecurityHardening extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureSecurityHardeningContentForm get content => InfrastructureSecurityHardeningContentForm(doc, '$path/content');
 
   /// Container security.
@@ -20847,7 +20847,7 @@ class InitialDevelopmentFlow extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describes how the initial-development phases hand off to each other:
   /// dependencies, parallel work streams, and synchronization points.
@@ -20874,7 +20874,7 @@ class InitialTrainingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InitialTrainingEntryContentForm get content => InitialTrainingEntryContentForm(doc, '$path/content');
 
   /// Target and prerequisites.
@@ -20904,7 +20904,7 @@ class InputDeviceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InputDeviceEntryContentForm get content => InputDeviceEntryContentForm(doc, '$path/content');
 }
 
@@ -20919,7 +20919,7 @@ class InsuranceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InsuranceEntryContentForm get content => InsuranceEntryContentForm(doc, '$path/content');
 }
 
@@ -20941,7 +20941,7 @@ class InsuranceLiabilityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -20967,7 +20967,7 @@ class IntegrationArchitecture extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationArchitectureContentForm get content => IntegrationArchitectureContentForm(doc, '$path/content');
 
   /// External system landscape.
@@ -21000,7 +21000,7 @@ class IntegrationConstraintEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationConstraintEntryContentForm get content => IntegrationConstraintEntryContentForm(doc, '$path/content');
 
   /// Constraint details.
@@ -21029,7 +21029,7 @@ class IntegrationHealthSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationHealthSummaryContentForm get content => IntegrationHealthSummaryContentForm(doc, '$path/content');
 
   /// Fragile integration points requiring attention.
@@ -21056,7 +21056,7 @@ class IntegrationPointEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationPointEntryContentForm get content => IntegrationPointEntryContentForm(doc, '$path/content');
 }
 
@@ -21077,7 +21077,7 @@ class Integrations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the integration patterns in use. Identify standards vs custom integrations, and areas of complexity.
   String get content => doc.content('$path/content') ?? '';
@@ -21105,7 +21105,7 @@ class IntegrityConstraints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Integrity rules that preserve invariants across the data model.
   /// Stronger guarantees than validation (which is typically user-facing);
@@ -21137,7 +21137,7 @@ class IntellectualPropertyRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IntellectualPropertyRequirementsContentForm get content => IntellectualPropertyRequirementsContentForm(doc, '$path/content');
 
   /// IP ownership details — contains 0+× IP Ownership Entry.
@@ -21157,7 +21157,7 @@ class InteractionBusinessRules extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InteractionBusinessRulesContentForm get content => InteractionBusinessRulesContentForm(doc, '$path/content');
 }
 
@@ -21180,7 +21180,7 @@ class InteractionCapabilityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce interaction capability for this system before the usability subsection below. Cover the user groups whose experience sets the bar.
   String get content => doc.content('$path/content') ?? '';
@@ -21226,7 +21226,7 @@ class InteractionCatalog extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Container for key interaction descriptions. Each interaction seeds a use case
   /// following Cockburn's fully dressed use case template.
@@ -21277,7 +21277,7 @@ class InteractionChannelEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InteractionChannelEntryContentForm get content => InteractionChannelEntryContentForm(doc, '$path/content');
 
   /// Platform and targeting.
@@ -21318,7 +21318,7 @@ class InteractionDependencyAnalysis extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** What happens when external interactions are slow or unavailable, and
   /// which of them lie on the critical path of user-facing flows.
@@ -21352,7 +21352,7 @@ class InteractionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this interaction — the situation it arises in and why it matters, beyond the scope, flow and rule facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -21422,7 +21422,7 @@ class InteractionPatternEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InteractionPatternEntryContentForm get content => InteractionPatternEntryContentForm(doc, '$path/content');
 
   /// Narrative summary and typical scenarios.
@@ -21457,7 +21457,7 @@ class InteractionPatterns extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -21484,7 +21484,7 @@ class InteractionTestingStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Strategy for testing boundary interactions specifically. Complements the
   /// broader system-wide test strategy.
@@ -21512,7 +21512,7 @@ class InterfaceBusinessContext extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceBusinessContextContentForm get content => InterfaceBusinessContextContentForm(doc, '$path/content');
 
   /// Business processes that depend on this interface.
@@ -21532,7 +21532,7 @@ class InterfaceBusinessProcessEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceBusinessProcessEntryContentForm get content => InterfaceBusinessProcessEntryContentForm(doc, '$path/content');
 }
 
@@ -21547,7 +21547,7 @@ class InterfaceDataEntityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceDataEntityEntryContentForm get content => InterfaceDataEntityEntryContentForm(doc, '$path/content');
 }
 
@@ -21562,7 +21562,7 @@ class InterfaceDataSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceDataSpecContentForm get content => InterfaceDataSpecContentForm(doc, '$path/content');
 
   /// Data entities exchanged.
@@ -21592,7 +21592,7 @@ class InterfaceErrorHandling extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceErrorHandlingContentForm get content => InterfaceErrorHandlingContentForm(doc, '$path/content');
 
   /// Non-retryable errors and retry strategy.
@@ -21621,7 +21621,7 @@ class InterfaceGovernance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceGovernanceContentForm get content => InterfaceGovernanceContentForm(doc, '$path/content');
 
   /// Contract and commercial terms.
@@ -21654,7 +21654,7 @@ class InterfaceOperationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceOperationEntryContentForm get content => InterfaceOperationEntryContentForm(doc, '$path/content');
 }
 
@@ -21669,7 +21669,7 @@ class InterfaceOperational extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceOperationalContentForm get content => InterfaceOperationalContentForm(doc, '$path/content');
 
   /// Rate limiting rules.
@@ -21698,7 +21698,7 @@ class InterfaceSecurity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceSecurityContentForm get content => InterfaceSecurityContentForm(doc, '$path/content');
 
   /// Authorization boundaries.
@@ -21725,7 +21725,7 @@ class InterfaceSpecificationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceSpecificationEntryContentForm get content => InterfaceSpecificationEntryContentForm(doc, '$path/content');
 
   /// Definition storage and validation.
@@ -21752,7 +21752,7 @@ class InterfaceTechnicalSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceTechnicalSpecContentForm get content => InterfaceTechnicalSpecContentForm(doc, '$path/content');
 
   /// Directionality and messaging pattern.
@@ -21781,7 +21781,7 @@ class InterfaceTestScenarioEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceTestScenarioEntryContentForm get content => InterfaceTestScenarioEntryContentForm(doc, '$path/content');
 }
 
@@ -21796,7 +21796,7 @@ class InterfaceTesting extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceTestingContentForm get content => InterfaceTestingContentForm(doc, '$path/content');
 
   /// Test data strategy.
@@ -21827,7 +21827,7 @@ class InternalDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the overall pattern of internal dependencies. Identify clusters of tightly coupled systems and potential cascading failure risks.
   String get content => doc.content('$path/content') ?? '';
@@ -21850,7 +21850,7 @@ class InternalNetworkRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InternalNetworkRequirementsContentForm get content => InternalNetworkRequirementsContentForm(doc, '$path/content');
 
   /// Segmentation and isolation.
@@ -21877,7 +21877,7 @@ class InteroperabilityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   InteroperabilityRequirementsContentForm get content => InteroperabilityRequirementsContentForm(doc, '$path/content');
 
   /// Data-exchange definitions.
@@ -21911,7 +21911,7 @@ class IntroductionAndScope extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive summary of the system being specified.
   /// Provide a high-level overview that allows readers to quickly understand:
@@ -21974,7 +21974,7 @@ class IpOwnershipEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   IpOwnershipEntryContentForm get content => IpOwnershipEntryContentForm(doc, '$path/content');
 }
 
@@ -22000,7 +22000,7 @@ class Iso25010Coverage extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -22021,7 +22021,7 @@ class Iso25010CoverageEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   Iso25010CoverageEntryContentForm get content => Iso25010CoverageEntryContentForm(doc, '$path/content');
 }
 
@@ -22044,7 +22044,7 @@ class ItLandscapePosition extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide a narrative overview of the system's position within the IT landscape before the structured details below.
   String get content => doc.content('$path/content') ?? '';
@@ -22065,7 +22065,7 @@ class ItSecurityOperations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ItSecurityOperationsContentForm get content => ItSecurityOperationsContentForm(doc, '$path/content');
 
   /// Access protection controls.
@@ -22137,7 +22137,7 @@ class ItSecurityStandardsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of IT security standards approach.
   ///
@@ -22192,7 +22192,7 @@ class ItStandardComplianceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ItStandardComplianceEntryContentForm get content => ItStandardComplianceEntryContentForm(doc, '$path/content');
 
   /// Applicability and priority.
@@ -22229,7 +22229,7 @@ class JobDescriptionsAndStaffing extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the role changes before the new, changed and removed role lists below. Cover the net headcount effect and the sourcing approach.
   String get content => doc.content('$path/content') ?? '';
@@ -22271,7 +22271,7 @@ class JourneyStageEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   JourneyStageEntryContentForm get content => JourneyStageEntryContentForm(doc, '$path/content');
 }
 
@@ -22288,7 +22288,7 @@ class KeyAttributeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyAttributeEntryContentForm get content => KeyAttributeEntryContentForm(doc, '$path/content');
 
   /// Key generation settings.
@@ -22327,7 +22327,7 @@ class KeyCompromiseRecoveryPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyCompromiseRecoveryPolicyContentForm get content => KeyCompromiseRecoveryPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -22345,7 +22345,7 @@ class KeyConceptEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyConceptEntryContentForm get content => KeyConceptEntryContentForm(doc, '$path/content');
 
   /// Detailed attribute definitions for this concept.
@@ -22374,7 +22374,7 @@ class KeyConcepts extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses.
   String get content => doc.content('$path/content') ?? '';
@@ -22407,7 +22407,7 @@ class KeyEscrowAndBackupPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyEscrowAndBackupPolicyContentForm get content => KeyEscrowAndBackupPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -22429,7 +22429,7 @@ class KeyGenerationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyGenerationPolicyContentForm get content => KeyGenerationPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -22455,7 +22455,7 @@ class KeyManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define policies for the complete lifecycle of cryptographic keys. Proper
   /// key management is essential — poor key management can negate all encryption.
@@ -22529,7 +22529,7 @@ class KeyManagementRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** The key hierarchy and how its keys are managed over their life.
   KeyManagementRequirementsContentForm get content => KeyManagementRequirementsContentForm(doc, '$path/content');
@@ -22546,7 +22546,7 @@ class KeyResultEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyResultEntryContentForm get content => KeyResultEntryContentForm(doc, '$path/content');
 }
 
@@ -22564,7 +22564,7 @@ class KeyRotationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyRotationPolicyContentForm get content => KeyRotationPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -22588,7 +22588,7 @@ class KeyScenarios extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** End-to-end scenario descriptions showing how users achieve business goals
   /// through sequences of interactions. Scenarios bridge the gap between individual
@@ -22639,7 +22639,7 @@ class KeyStoragePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyStoragePolicyContentForm get content => KeyStoragePolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -22663,7 +22663,7 @@ class KnowledgeTransfer extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Formal handover of system knowledge to operations and support teams.
   ///
@@ -22701,7 +22701,7 @@ class LanguageCountrySelection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the language and country picker before the default, persistence and fallback subsections below. Cover where the picker appears and when a user first meets it.
   String get content => doc.content('$path/content') ?? '';
@@ -22748,7 +22748,7 @@ class LayerCommunicationRules extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LayerCommunicationRulesContentForm get content => LayerCommunicationRulesContentForm(doc, '$path/content');
 
   /// Interface requirements between layers.
@@ -22806,7 +22806,7 @@ class LayeringAndModuleStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the layering and modularization strategy.
   ///
@@ -22881,7 +22881,7 @@ class LegacyCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LegacyCompatibilityEntryContentForm get content => LegacyCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Integration approach.
@@ -22917,7 +22917,7 @@ class LegalAndContractualRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -22953,7 +22953,7 @@ class LiabilityLimitations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LiabilityLimitationsContentForm get content => LiabilityLimitationsContentForm(doc, '$path/content');
 }
 
@@ -22970,7 +22970,7 @@ class LifecycleTransitionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LifecycleTransitionEntryContentForm get content => LifecycleTransitionEntryContentForm(doc, '$path/content');
 
   /// Triggering event details.
@@ -22994,7 +22994,7 @@ class LimitationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LimitationEntryContentForm get content => LimitationEntryContentForm(doc, '$path/content');
 }
 
@@ -23009,7 +23009,7 @@ class LoadProfileRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LoadProfileRequirementsContentForm get content => LoadProfileRequirementsContentForm(doc, '$path/content');
 
   /// Request volume assumptions.
@@ -23033,7 +23033,7 @@ class LocalDevelopmentSetup extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LocalDevelopmentSetupContentForm get content => LocalDevelopmentSetupContentForm(doc, '$path/content');
 
   /// Setup workflow.
@@ -23063,7 +23063,7 @@ class LocaleHandlingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LocaleHandlingRequirementsContentForm get content => LocaleHandlingRequirementsContentForm(doc, '$path/content');
 }
 
@@ -23083,7 +23083,7 @@ class LocalizationProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the localization workflow before the review, formatting and deployment subsections below. Cover how translatable content is identified and externalized.
   String get content => doc.content('$path/content') ?? '';
@@ -23129,7 +23129,7 @@ class LocalizationTranslationProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -23156,7 +23156,7 @@ class LocalizationTranslationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -23178,7 +23178,7 @@ class LogAggregationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LogAggregationRequirementsContentForm get content => LogAggregationRequirementsContentForm(doc, '$path/content');
 
   /// Dynamic configuration and collection settings.
@@ -23202,7 +23202,7 @@ class LogManagementRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LogManagementRequirementsContentForm get content => LogManagementRequirementsContentForm(doc, '$path/content');
 
   /// Collection method.
@@ -23231,7 +23231,7 @@ class LogProtectionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LogProtectionPolicyContentForm get content => LogProtectionPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -23251,7 +23251,7 @@ class LogRetentionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LogRetentionPolicyContentForm get content => LogRetentionPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -23271,7 +23271,7 @@ class LogStoragePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LogStoragePolicyContentForm get content => LogStoragePolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -23293,7 +23293,7 @@ class LoginFlowConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.
   LoginFlowConfigurationContentForm get content => LoginFlowConfigurationContentForm(doc, '$path/content');
@@ -23333,7 +23333,7 @@ class LoginFlowStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   LoginFlowStepEntryContentForm get content => LoginFlowStepEntryContentForm(doc, '$path/content');
 
   /// Inputs and validation behavior.
@@ -23359,7 +23359,7 @@ class MainScenarioStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MainScenarioStepEntryContentForm get content => MainScenarioStepEntryContentForm(doc, '$path/content');
 
   /// How this main-flow step's server call is carried out, step by step.
@@ -23396,7 +23396,7 @@ class MainSuccessScenario extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MainSuccessScenarioContentForm get content => MainSuccessScenarioContentForm(doc, '$path/content');
 
   /// Main scenario steps — contains 1+× Scenario Step.
@@ -23416,7 +23416,7 @@ class Maintainability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintainabilityContentForm get content => MaintainabilityContentForm(doc, '$path/content');
 
   /// Analyzability requirements.
@@ -23453,7 +23453,7 @@ class MaintainabilityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce maintainability for this system before the maintainability subsection below. Cover who will maintain it, and over what horizon.
   String get content => doc.content('$path/content') ?? '';
@@ -23492,7 +23492,7 @@ class MaintenanceChangeManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceChangeManagementContentForm get content => MaintenanceChangeManagementContentForm(doc, '$path/content');
 
   /// CAB cadence and documentation prerequisites.
@@ -23525,7 +23525,7 @@ class MaintenanceDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Maintenance Dependencies (12.5)
   ///
@@ -23568,7 +23568,7 @@ class MaintenanceDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceDependencyEntryContentForm get content => MaintenanceDependencyEntryContentForm(doc, '$path/content');
 
   /// Classification and purpose.
@@ -23592,7 +23592,7 @@ class MaintenanceProcedureEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** The steps of the procedure and what it depends on.
   MaintenanceProcedureEntryContentForm get content => MaintenanceProcedureEntryContentForm(doc, '$path/content');
@@ -23609,7 +23609,7 @@ class MaintenanceUserImpact extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceUserImpactContentForm get content => MaintenanceUserImpactContentForm(doc, '$path/content');
 
   /// Communication during maintenance.
@@ -23633,7 +23633,7 @@ class MaintenanceWindowEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceWindowEntryContentForm get content => MaintenanceWindowEntryContentForm(doc, '$path/content');
 
   /// Schedule details.
@@ -23700,7 +23700,7 @@ class MaintenanceWindowsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of maintenance strategy and policies.
   ///
@@ -23755,7 +23755,7 @@ class MasterDataDomainEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MasterDataDomainEntryContentForm get content => MasterDataDomainEntryContentForm(doc, '$path/content');
 
   /// Volume and quality indicators.
@@ -23785,7 +23785,7 @@ class MasterDataManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of master data management in the organization. Describe the MDM
   /// strategy, master data domains, golden record sources, and synchronization
@@ -23813,7 +23813,7 @@ class MessageFormatStandards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MessageFormatStandardsContentForm get content => MessageFormatStandardsContentForm(doc, '$path/content');
 
   /// Schema standards.
@@ -23846,7 +23846,7 @@ class MessageKeyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MessageKeyEntryContentForm get content => MessageKeyEntryContentForm(doc, '$path/content');
 
   /// 7.8.x. Locale Variants — one entry per non-default locale.
@@ -23891,7 +23891,7 @@ class MessageKeyRegistry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Catalogue the user-facing copy as message keys. Add one entry per key; each key
   /// carries its default (base-locale) copy and any per-locale variants.
@@ -23929,7 +23929,7 @@ class MessageLocaleVariantEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MessageLocaleVariantEntryContentForm get content => MessageLocaleVariantEntryContentForm(doc, '$path/content');
 }
 
@@ -23950,7 +23950,7 @@ class MetricsAndObservability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the observability approach before the application, infrastructure, business and tracing subsections below. Cover which questions the telemetry has to answer, and the retention and cost trade-off behind it.
   String get content => doc.content('$path/content') ?? '';
@@ -24003,7 +24003,7 @@ class MetricsBaselineEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MetricsBaselineEntryContentForm get content => MetricsBaselineEntryContentForm(doc, '$path/content');
 }
 
@@ -24021,7 +24021,7 @@ class MetricsBaselineTable extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Document how baseline metrics will be used to measure improvement. Include comparison periods and target improvement percentages.
   String get content => doc.content('$path/content') ?? '';
@@ -24044,7 +24044,7 @@ class MetricsCollectionRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MetricsCollectionRequirementsContentForm get content => MetricsCollectionRequirementsContentForm(doc, '$path/content');
 
   /// Container and cluster metrics.
@@ -24073,7 +24073,7 @@ class MetricsDashboardSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MetricsDashboardSummaryContentForm get content => MetricsDashboardSummaryContentForm(doc, '$path/content');
 }
 
@@ -24091,7 +24091,7 @@ class MfaCategoryRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MfaCategoryRequirementEntryContentForm get content => MfaCategoryRequirementEntryContentForm(doc, '$path/content');
 
   /// Allowed authenticators and phishing-resistance rules.
@@ -24118,7 +24118,7 @@ class MfaConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.
   MfaConfigurationContentForm get content => MfaConfigurationContentForm(doc, '$path/content');
@@ -24147,7 +24147,7 @@ class MigrationConsiderations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the portfolio-wide migration approach before the resource, risk and coordination subsections below. Cover the sequencing principle that applies across systems.
   String get content => doc.content('$path/content') ?? '';
@@ -24164,7 +24164,7 @@ class MigrationConsiderations extends SomNode {
   /// constraint it has to fit inside, and so that changing the sequencing is
   /// one edit rather than one per system.
   /// 
-  /// [strategyNarrative] carries the reasoning behind these answers; this band
+  /// `strategyNarrative` carries the reasoning behind these answers; this band
   /// carries the answers themselves, so a change of approach is a change here
   /// and not a rewrite of prose.
   MigrationConsiderationsStrategyContentForm get strategyContent => MigrationConsiderationsStrategyContentForm(doc, '$path/MIGCON-STRA');
@@ -24218,7 +24218,7 @@ class MigrationEnvironments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationEnvironmentsContentForm get content => MigrationEnvironmentsContentForm(doc, '$path/content');
 }
 
@@ -24240,7 +24240,7 @@ class MigrationInteractions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Transitional interactions that exist only during the migration window:
   /// dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
@@ -24270,7 +24270,7 @@ class MigrationMappingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationMappingEntryContentForm get content => MigrationMappingEntryContentForm(doc, '$path/content');
 }
 
@@ -24285,7 +24285,7 @@ class MigrationMilestoneEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationMilestoneEntryContentForm get content => MigrationMilestoneEntryContentForm(doc, '$path/content');
 }
 
@@ -24300,7 +24300,7 @@ class MigrationPhaseDryRuns extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhaseDryRunsContentForm get content => MigrationPhaseDryRunsContentForm(doc, '$path/content');
 }
 
@@ -24321,7 +24321,7 @@ class MigrationPhaseEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhaseEntryContentForm get content => MigrationPhaseEntryContentForm(doc, '$path/content');
 
   /// Phase identity details.
@@ -24373,7 +24373,7 @@ class MigrationPhaseResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhaseResourcesContentForm get content => MigrationPhaseResourcesContentForm(doc, '$path/content');
 }
 
@@ -24393,7 +24393,7 @@ class MigrationPhases extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhasesContentForm get content => MigrationPhasesContentForm(doc, '$path/content');
 
   /// Phase overview narrative.
@@ -24430,7 +24430,7 @@ class MigrationPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** System migration plan distinct from the per-data-entity migration
   /// mapping. Focuses on the execution plan.
@@ -24458,7 +24458,7 @@ class MigrationResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationResourcesContentForm get content => MigrationResourcesContentForm(doc, '$path/content');
 
   /// Resource timeline by phase.
@@ -24480,7 +24480,7 @@ class MigrationRiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationRiskEntryContentForm get content => MigrationRiskEntryContentForm(doc, '$path/content');
 
   /// Risk identification details.
@@ -24537,7 +24537,7 @@ class MigrationRiskIndicators extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationRiskIndicatorsContentForm get content => MigrationRiskIndicatorsContentForm(doc, '$path/content');
 }
 
@@ -24560,7 +24560,7 @@ class MigrationRisks extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the program-level migration risk framework before the governance, category and response subsections below. Cover the risk appetite the program works to.
   String get content => doc.content('$path/content') ?? '';
@@ -24654,7 +24654,7 @@ class MigrationStakeholders extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationStakeholdersContentForm get content => MigrationStakeholdersContentForm(doc, '$path/content');
 }
 
@@ -24669,7 +24669,7 @@ class MigrationSystems extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationSystemsContentForm get content => MigrationSystemsContentForm(doc, '$path/content');
 }
 
@@ -24689,7 +24689,7 @@ class MigrationTargetEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationTargetEntryContentForm get content => MigrationTargetEntryContentForm(doc, '$path/content');
 }
 
@@ -24704,7 +24704,7 @@ class MobileCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MobileCompatibilityEntryContentForm get content => MobileCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Supported devices.
@@ -24731,7 +24731,7 @@ class MobileDeviceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MobileDeviceEntryContentForm get content => MobileDeviceEntryContentForm(doc, '$path/content');
 
   /// Technical and management requirements.
@@ -24752,7 +24752,7 @@ class MobileDeviceRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MobileDeviceRequirementEntryContentForm get content => MobileDeviceRequirementEntryContentForm(doc, '$path/content');
 
   /// Support prioritization.
@@ -24779,7 +24779,7 @@ class ModuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ModuleEntryContentForm get content => ModuleEntryContentForm(doc, '$path/content');
 
   /// Purpose and API.
@@ -24809,7 +24809,7 @@ class ModuleVersioningStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ModuleVersioningStrategyContentForm get content => ModuleVersioningStrategyContentForm(doc, '$path/content');
 
   /// Compatibility policy.
@@ -24842,7 +24842,7 @@ class Monitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the monitoring approach before the health-check, alerting, metrics, dashboard and SLA subsections below. Cover what is monitored, who watches it, and how a finding reaches an operator.
   String get content => doc.content('$path/content') ?? '';
@@ -24939,7 +24939,7 @@ class MonitoringAndAlertingSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of monitoring and observability strategy.
   ///
@@ -25011,7 +25011,7 @@ class MonitoringDashboards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the dashboard landscape before the individual dashboards and templates below. Cover who each dashboard is for and what decision it supports.
   String get content => doc.content('$path/content') ?? '';
@@ -25056,7 +25056,7 @@ class MonitoringInfrastructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MonitoringInfrastructureContentForm get content => MonitoringInfrastructureContentForm(doc, '$path/content');
 
   /// Deployment model.
@@ -25085,7 +25085,7 @@ class MoscowAnalysis extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MoscowAnalysisContentForm get content => MoscowAnalysisContentForm(doc, '$path/content');
 
   /// MoSCoW rationale narrative.
@@ -25113,7 +25113,7 @@ class MoscowEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MoscowEntryContentForm get content => MoscowEntryContentForm(doc, '$path/content');
 
   /// MoSCoW classification details.
@@ -25145,7 +25145,7 @@ class MultiChannelExperience extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of how a consistent experience is maintained across channels and during channel switching.
   String get content => doc.content('$path/content') ?? '';
@@ -25175,7 +25175,7 @@ class MultiLanguageSupport extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce multi-language support before the selection and supported-locale subsections below. Cover which languages ship first and what drives adding another.
   String get content => doc.content('$path/content') ?? '';
@@ -25217,7 +25217,7 @@ class MustPassCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the must-pass criteria before the individual items below. Cover what makes a criterion must-pass rather than merely desirable.
   String get content => doc.content('$path/content') ?? '';
@@ -25256,7 +25256,7 @@ class MustPassCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   MustPassCriterionEntryContentForm get content => MustPassCriterionEntryContentForm(doc, '$path/content');
 
   /// Classification and intent of the criterion.
@@ -25292,7 +25292,7 @@ class MutualTlsPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.
   MutualTlsPolicyContentForm get content => MutualTlsPolicyContentForm(doc, '$path/content');
@@ -25312,7 +25312,7 @@ class NativeAppRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NativeAppRequirementsContentForm get content => NativeAppRequirementsContentForm(doc, '$path/content');
 
   /// Store presence requirements.
@@ -25341,7 +25341,7 @@ class NavigationGroupEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationGroupEntryContentForm get content => NavigationGroupEntryContentForm(doc, '$path/content');
 
   /// Display and expansion behavior.
@@ -25375,7 +25375,7 @@ class NavigationGuardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationGuardEntryContentForm get content => NavigationGuardEntryContentForm(doc, '$path/content');
 
   /// Covered routes and dialog resources.
@@ -25401,7 +25401,7 @@ class NavigationGuards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Navigation Guards (10.3.1.8)
   ///
@@ -25453,7 +25453,7 @@ class NavigationHierarchy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Navigation Hierarchy (10.3.1.2)
   ///
@@ -25500,7 +25500,7 @@ class NavigationItemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationItemEntryContentForm get content => NavigationItemEntryContentForm(doc, '$path/content');
 
   /// Display properties: icons, labels, descriptions.
@@ -25546,7 +25546,7 @@ class NavigationModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Navigation Model (10.3.1)
   ///
@@ -25608,7 +25608,7 @@ class NavigationOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationOverviewContentForm get content => NavigationOverviewContentForm(doc, '$path/content');
 
   /// Design rationale and open questions.
@@ -25626,7 +25626,7 @@ class NetworkAvailabilityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkAvailabilityRequirementsContentForm get content => NetworkAvailabilityRequirementsContentForm(doc, '$path/content');
 
   /// Redundancy configuration.
@@ -25653,7 +25653,7 @@ class NetworkLatencyRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkLatencyRequirementsContentForm get content => NetworkLatencyRequirementsContentForm(doc, '$path/content');
 
   /// Segment-level latency budgets.
@@ -25680,7 +25680,7 @@ class NetworkLoadBalancingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkLoadBalancingRequirementsContentForm get content => NetworkLoadBalancingRequirementsContentForm(doc, '$path/content');
 
   /// Routing strategy.
@@ -25747,7 +25747,7 @@ class NetworkRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of network strategy and architecture.
   ///
@@ -25817,7 +25817,7 @@ class NetworkSecurityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkSecurityPolicyContentForm get content => NetworkSecurityPolicyContentForm(doc, '$path/content');
 
   /// Firewall rule details.
@@ -25847,7 +25847,7 @@ class NetworkSecurityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkSecurityRequirementsContentForm get content => NetworkSecurityRequirementsContentForm(doc, '$path/content');
 
   /// Access-control settings.
@@ -25882,7 +25882,7 @@ class NewOrganizationStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the target organization structure before the change and transition-timeline subsections below. Cover the design principle behind the new shape.
   String get content => doc.content('$path/content') ?? '';
@@ -25917,7 +25917,7 @@ class NewRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this new role — why it is needed and how it fits the organization, beyond the responsibility, qualification and access facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -25956,7 +25956,7 @@ class NewRoleQualifications extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NewRoleQualificationsContentForm get content => NewRoleQualificationsContentForm(doc, '$path/content');
 
   /// Credential and mobility requirements.
@@ -25985,7 +25985,7 @@ class NewRoleResponsibilities extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce what this role is accountable for before the primary, secondary and decision-authority subsections below.
   String get content => doc.content('$path/content') ?? '';
@@ -26016,7 +26016,7 @@ class NotificationChannelEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NotificationChannelEntryContentForm get content => NotificationChannelEntryContentForm(doc, '$path/content');
 }
 
@@ -26039,7 +26039,7 @@ class NotificationModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -26070,7 +26070,7 @@ class NotificationTypeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   NotificationTypeEntryContentForm get content => NotificationTypeEntryContentForm(doc, '$path/content');
 }
 
@@ -26087,7 +26087,7 @@ class ObjectInvariantEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ObjectInvariantEntryContentForm get content => ObjectInvariantEntryContentForm(doc, '$path/content');
 }
 
@@ -26104,7 +26104,7 @@ class ObjectOperationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ObjectOperationEntryContentForm get content => ObjectOperationEntryContentForm(doc, '$path/content');
 
   /// Execution contract for this operation.
@@ -26130,7 +26130,7 @@ class ObjectStateEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ObjectStateEntryContentForm get content => ObjectStateEntryContentForm(doc, '$path/content');
 }
 
@@ -26145,7 +26145,7 @@ class OnCallProcedures extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OnCallProceduresContentForm get content => OnCallProceduresContentForm(doc, '$path/content');
 
   /// Team coverage.
@@ -26172,7 +26172,7 @@ class OnCallScheduleConfig extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OnCallScheduleConfigContentForm get content => OnCallScheduleConfigContentForm(doc, '$path/content');
 
   /// Override and coverage handling.
@@ -26196,7 +26196,7 @@ class OnboardingHelp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the onboarding experience before the tour, sample-data and checklist subsections below. Cover what a first-time user must reach before onboarding counts as done.
   String get content => doc.content('$path/content') ?? '';
@@ -26243,7 +26243,7 @@ class OngoingTrainingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OngoingTrainingEntryContentForm get content => OngoingTrainingEntryContentForm(doc, '$path/content');
 
   /// Scheduling and delivery.
@@ -26275,7 +26275,7 @@ class OperatingEnvironment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the environment the system will run in before the organizational, functional and technical subsections below. Cover the environmental factors that most constrain the design.
   String get content => doc.content('$path/content') ?? '';
@@ -26317,7 +26317,7 @@ class OperationBindingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found.
   OperationBindingEntryContentForm get content => OperationBindingEntryContentForm(doc, '$path/content');
@@ -26339,7 +26339,7 @@ class OperationalMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OperationalMonitoringContentForm get content => OperationalMonitoringContentForm(doc, '$path/content');
 
   /// Component monitoring coverage.
@@ -26375,7 +26375,7 @@ class OperationalPainPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of operational pain points affecting day-to-day activities.
   /// Include patterns of recurring issues, seasonal variations, and dependencies
@@ -26445,7 +26445,7 @@ class OperationsRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of operational philosophy and key requirements.
   ///
@@ -26497,7 +26497,7 @@ class OpportunityStatement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain.
   String get content => doc.content('$path/content') ?? '';
@@ -26518,7 +26518,7 @@ class OrgChangeRisks extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OrgChangeRisksContentForm get content => OrgChangeRisksContentForm(doc, '$path/content');
 }
 
@@ -26533,7 +26533,7 @@ class OrgImplementationActivity extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OrgImplementationActivityContentForm get content => OrgImplementationActivityContentForm(doc, '$path/content');
 }
 
@@ -26555,7 +26555,7 @@ class OrgRequirementImplementationPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start.
   String get content => doc.content('$path/content') ?? '';
@@ -26598,7 +26598,7 @@ class OrganizationAndProcessConcept extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -26623,7 +26623,7 @@ class OrganizationStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Insert project organization chart showing reporting lines. Describe the governance model: who decides what, escalation paths, meeting cadence.
   String get content => doc.content('$path/content') ?? '';
@@ -26650,7 +26650,7 @@ class OrganizationalChangeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OrganizationalChangeEntryContentForm get content => OrganizationalChangeEntryContentForm(doc, '$path/content');
 
   /// Change identification details.
@@ -26696,7 +26696,7 @@ class OrganizationalContext extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide a narrative overview of the organizational context before the structured organizational-unit entries below.
   String get content => doc.content('$path/content') ?? '';
@@ -26731,7 +26731,7 @@ class OrganizationalEnvironment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the organizational context before the structure, department and decision-making subsections below. Cover the reporting reality the project has to work within.
   String get content => doc.content('$path/content') ?? '';
@@ -26816,7 +26816,7 @@ class OrganizationalFramework extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the organizational changes the system requires before the structure, role and workplace subsections below. Cover the scale of the change and the organization's appetite for it.
   String get content => doc.content('$path/content') ?? '';
@@ -26865,7 +26865,7 @@ class OrganizationalRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OrganizationalRequirementEntryContentForm get content => OrganizationalRequirementEntryContentForm(doc, '$path/content');
 
   /// Requirement classification and source.
@@ -26908,7 +26908,7 @@ class OrganizationalRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do.
   String get content => doc.content('$path/content') ?? '';
@@ -26942,7 +26942,7 @@ class OrganizationalTransitionTimeline extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the organizational transition before the phase, readiness, communication and support subsections below. Cover the pace of change and what sets it.
   String get content => doc.content('$path/content') ?? '';
@@ -26990,7 +26990,7 @@ class OrganizationalUnitContextEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OrganizationalUnitContextEntryContentForm get content => OrganizationalUnitContextEntryContentForm(doc, '$path/content');
 }
 
@@ -27005,7 +27005,7 @@ class OsCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OsCompatibilityEntryContentForm get content => OsCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Support level and prioritization.
@@ -27032,7 +27032,7 @@ class OtherAgreementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OtherAgreementEntryContentForm get content => OtherAgreementEntryContentForm(doc, '$path/content');
 }
 
@@ -27054,7 +27054,7 @@ class OutOfScope extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the exclusions before the individual out-of-scope items below. Cover the principle by which something was excluded and where it might be picked up later.
   String get content => doc.content('$path/content') ?? '';
@@ -27082,7 +27082,7 @@ class OutOfScopeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   OutOfScopeEntryContentForm get content => OutOfScopeEntryContentForm(doc, '$path/content');
 
   /// Decision history and future reconsideration.
@@ -27103,7 +27103,7 @@ class PackageOrganization extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PackageOrganizationContentForm get content => PackageOrganizationContentForm(doc, '$path/content');
 
   /// Repository and directory structure.
@@ -27134,7 +27134,7 @@ class PainPointEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PainPointEntryContentForm get content => PainPointEntryContentForm(doc, '$path/content');
 
   /// Classification.
@@ -27175,7 +27175,7 @@ class PainPointGapCorrelation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Analysis of relationships between documented pain points and capability gaps.
   /// Shows which gaps cause which pain points, and which pain points indicate
@@ -27204,7 +27204,7 @@ class PainPointGapCorrelationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PainPointGapCorrelationEntryContentForm get content => PainPointGapCorrelationEntryContentForm(doc, '$path/content');
 }
 
@@ -27219,7 +27219,7 @@ class PainPointRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PainPointRelationshipsContentForm get content => PainPointRelationshipsContentForm(doc, '$path/content');
 }
 
@@ -27241,7 +27241,7 @@ class PainPointsAndGaps extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive overview of pain points and gaps in the current state.
   /// Summarize the most critical issues affecting operations, business outcomes,
@@ -27291,7 +27291,7 @@ class ParticipantEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ParticipantEntryContentForm get content => ParticipantEntryContentForm(doc, '$path/content');
 }
 
@@ -27314,7 +27314,7 @@ class PasswordAndCredentialPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the complete password and credential policy. NIST SP 800-63B (2024
   /// revision) emphasizes length over complexity and discourages forced rotation.
@@ -27392,7 +27392,7 @@ class PasswordLifecyclePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.
   PasswordLifecyclePolicyContentForm get content => PasswordLifecyclePolicyContentForm(doc, '$path/content');
@@ -27416,7 +27416,7 @@ class PasswordRequirementsPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.
   PasswordRequirementsPolicyContentForm get content => PasswordRequirementsPolicyContentForm(doc, '$path/content');
@@ -27439,7 +27439,7 @@ class PasswordStoragePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.
   PasswordStoragePolicyContentForm get content => PasswordStoragePolicyContentForm(doc, '$path/content');
@@ -27459,7 +27459,7 @@ class PeakLoadPatterns extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PeakLoadPatternsContentForm get content => PeakLoadPatternsContentForm(doc, '$path/content');
 
   /// Peak metrics.
@@ -27483,7 +27483,7 @@ class PenetrationTestingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PenetrationTestingRequirementsContentForm get content => PenetrationTestingRequirementsContentForm(doc, '$path/content');
 
   /// Frequency and scheduling.
@@ -27515,7 +27515,7 @@ class PerformanceEfficiencyCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce performance efficiency for this system before the efficiency subsection below. Cover the load profile the targets are stated against.
   String get content => doc.content('$path/content') ?? '';
@@ -27555,7 +27555,7 @@ class PeriodicReviewPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PeriodicReviewPolicyContentForm get content => PeriodicReviewPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -27573,7 +27573,7 @@ class PeripheralEquipmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PeripheralEquipmentEntryContentForm get content => PeripheralEquipmentEntryContentForm(doc, '$path/content');
 }
 
@@ -27591,7 +27591,7 @@ class PermissionCompositionStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.
   PermissionCompositionStrategyContentForm get content => PermissionCompositionStrategyContentForm(doc, '$path/content');
@@ -27614,7 +27614,7 @@ class PermissionEvaluationBehavior extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.
   PermissionEvaluationBehaviorContentForm get content => PermissionEvaluationBehaviorContentForm(doc, '$path/content');
@@ -27637,7 +27637,7 @@ class PermissionGranularityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.
   PermissionGranularityPolicyContentForm get content => PermissionGranularityPolicyContentForm(doc, '$path/content');
@@ -27657,7 +27657,7 @@ class PermissionMatrixEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PermissionMatrixEntryContentForm get content => PermissionMatrixEntryContentForm(doc, '$path/content');
 }
 
@@ -27674,7 +27674,7 @@ class PersonaEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaEntryContentForm get content => PersonaEntryContentForm(doc, '$path/content');
 
   /// Background and capability profile.
@@ -27707,7 +27707,7 @@ class PersonaGoalEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaGoalEntryContentForm get content => PersonaGoalEntryContentForm(doc, '$path/content');
 }
 
@@ -27725,7 +27725,7 @@ class PersonaGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Persona Goals (10.1.3.n.1)
   ///
@@ -27760,7 +27760,7 @@ class PersonaPainPointEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaPainPointEntryContentForm get content => PersonaPainPointEntryContentForm(doc, '$path/content');
 }
 
@@ -27778,7 +27778,7 @@ class PersonaPainPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Persona Pain Points (10.1.3.n.2)
   ///
@@ -27817,7 +27817,7 @@ class PersonaScenarioEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaScenarioEntryContentForm get content => PersonaScenarioEntryContentForm(doc, '$path/content');
 }
 
@@ -27837,7 +27837,7 @@ class PersonaScenarios extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Persona Scenarios (10.1.3.n.3)
   ///
@@ -27879,7 +27879,7 @@ class PhaseGateReviewEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PhaseGateReviewEntryContentForm get content => PhaseGateReviewEntryContentForm(doc, '$path/content');
 
   /// Gate identity.
@@ -27926,7 +27926,7 @@ class PhaseGateReviews extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PhaseGateReviewsContentForm get content => PhaseGateReviewsContentForm(doc, '$path/content');
 
   /// Standard participants and evidence package.
@@ -27957,7 +27957,7 @@ class PhysicalWorkplaceRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PhysicalWorkplaceRequirementsContentForm get content => PhysicalWorkplaceRequirementsContentForm(doc, '$path/content');
 
   /// Environmental conditions and controls.
@@ -27983,7 +27983,7 @@ class PilotPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Pilot definition: who participates, what is in/out of pilot scope, how
   /// success is measured, and the decision gate that authorizes rollout.
@@ -28011,7 +28011,7 @@ class PipelineJobEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PipelineJobEntryContentForm get content => PipelineJobEntryContentForm(doc, '$path/content');
 
   /// Execution environment.
@@ -28038,7 +28038,7 @@ class PipelineStageEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PipelineStageEntryContentForm get content => PipelineStageEntryContentForm(doc, '$path/content');
 
   /// Triggering conditions and approval gates.
@@ -28096,7 +28096,7 @@ class PlatformAndLanguage extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide a strategic overview of platform and technology selections.
   ///
@@ -28162,7 +28162,7 @@ class PolicyOwnershipEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** What the policy covers and how ownership is exercised.
   PolicyOwnershipEntryContentForm get content => PolicyOwnershipEntryContentForm(doc, '$path/content');
@@ -28179,7 +28179,7 @@ class Portability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PortabilityContentForm get content => PortabilityContentForm(doc, '$path/content');
 
   /// Detailed portability requirements narrative.
@@ -28197,7 +28197,7 @@ class PostMaintenanceValidation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PostMaintenanceValidationContentForm get content => PostMaintenanceValidationContentForm(doc, '$path/content');
 
   /// Monitoring requirements after maintenance.
@@ -28218,7 +28218,7 @@ class PostconditionsAndGuarantees extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PostconditionsAndGuaranteesContentForm get content => PostconditionsAndGuaranteesContentForm(doc, '$path/content');
 }
 
@@ -28233,7 +28233,7 @@ class PreconditionsAndTriggers extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PreconditionsAndTriggersContentForm get content => PreconditionsAndTriggersContentForm(doc, '$path/content');
 }
 
@@ -28251,7 +28251,7 @@ class PrimaryNavigation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrimaryNavigationContentForm get content => PrimaryNavigationContentForm(doc, '$path/content');
 
   /// Drawer and rail behavior.
@@ -28278,7 +28278,7 @@ class PrintAndExportLayout extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrintAndExportLayoutContentForm get content => PrintAndExportLayoutContentForm(doc, '$path/content');
 
   /// Page margins and setup.
@@ -28319,7 +28319,7 @@ class PrivacyImpactAssessmentProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrivacyImpactAssessmentProcessContentForm get content => PrivacyImpactAssessmentProcessContentForm(doc, '$path/content');
 
   /// Assessment process inputs.
@@ -28343,7 +28343,7 @@ class PrivacyRegulationCompliance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrivacyRegulationComplianceContentForm get content => PrivacyRegulationComplianceContentForm(doc, '$path/content');
 
   /// GDPR-specific requirements.
@@ -28372,7 +28372,7 @@ class PrivilegeUsageReporting extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrivilegeUsageReportingContentForm get content => PrivilegeUsageReportingContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -28398,7 +28398,7 @@ class ProblemStatement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is.
   String get content => doc.content('$path/content') ?? '';
@@ -28424,7 +28424,7 @@ class ProcessAdjustmentDetails extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessAdjustmentDetailsContentForm get content => ProcessAdjustmentDetailsContentForm(doc, '$path/content');
 }
 
@@ -28443,7 +28443,7 @@ class ProcessAdjustmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessAdjustmentEntryContentForm get content => ProcessAdjustmentEntryContentForm(doc, '$path/content');
 
   /// Identification details.
@@ -28486,7 +28486,7 @@ class ProcessAdjustments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of process adjustments for this project. Explain why standard
   /// process steps are modified, what project constraints drove the changes,
@@ -28523,7 +28523,7 @@ class ProcessCatalog extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the process catalog before the classification scheme and the process entries below. Cover the scope of the catalog and what is deliberately outside it.
   String get content => doc.content('$path/content') ?? '';
@@ -28552,7 +28552,7 @@ class ProcessCharacteristics extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessCharacteristicsContentForm get content => ProcessCharacteristicsContentForm(doc, '$path/content');
 
   /// Operational characteristics and automation level.
@@ -28573,7 +28573,7 @@ class ProcessControlEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessControlEntryContentForm get content => ProcessControlEntryContentForm(doc, '$path/content');
 
   /// Control operation and ownership.
@@ -28597,7 +28597,7 @@ class ProcessControls extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the control framework for this process before the individual controls below. Cover which risks the controls address and who tests them.
   String get content => doc.content('$path/content') ?? '';
@@ -28623,7 +28623,7 @@ class ProcessDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessDependencyEntryContentForm get content => ProcessDependencyEntryContentForm(doc, '$path/content');
 }
 
@@ -28638,7 +28638,7 @@ class ProcessDesignPrincipleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessDesignPrincipleEntryContentForm get content => ProcessDesignPrincipleEntryContentForm(doc, '$path/content');
 }
 
@@ -28658,7 +28658,7 @@ class ProcessDesignPrinciples extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the design principles before the individual principles below. Cover where they came from and how a conflict between two of them is resolved.
   String get content => doc.content('$path/content') ?? '';
@@ -28684,7 +28684,7 @@ class ProcessEndEventEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessEndEventEntryContentForm get content => ProcessEndEventEntryContentForm(doc, '$path/content');
 }
 
@@ -28699,7 +28699,7 @@ class ProcessExceptionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessExceptionEntryContentForm get content => ProcessExceptionEntryContentForm(doc, '$path/content');
 
   /// Likelihood, impact, and detection.
@@ -28725,7 +28725,7 @@ class ProcessExceptionHandling extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Handling of exceptions that interrupt a normal process flow. Distinct
   /// from UI-level error handling — this is about business
@@ -28756,7 +28756,7 @@ class ProcessExceptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the exception-handling philosophy for this process before the individual exception scenarios below. Cover what is handled in-process and what is escalated out of it.
   String get content => doc.content('$path/content') ?? '';
@@ -28782,7 +28782,7 @@ class ProcessIdentification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessIdentificationContentForm get content => ProcessIdentificationContentForm(doc, '$path/content');
 
   /// Position in the process hierarchy and taxonomy.
@@ -28806,7 +28806,7 @@ class ProcessImprovementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessImprovementEntryContentForm get content => ProcessImprovementEntryContentForm(doc, '$path/content');
 
   /// Target outcome and value case.
@@ -28832,7 +28832,7 @@ class ProcessImprovementSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the improvements expected over the current processes before the itemized improvements and the business case below. Cover the baseline they are measured against.
   String get content => doc.content('$path/content') ?? '';
@@ -28861,7 +28861,7 @@ class ProcessInputEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessInputEntryContentForm get content => ProcessInputEntryContentForm(doc, '$path/content');
 }
 
@@ -28879,7 +28879,7 @@ class ProcessInputsOutputs extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the data this process consumes and produces before the input and output lists below. Cover where the inputs originate and who consumes the outputs.
   String get content => doc.content('$path/content') ?? '';
@@ -28915,7 +28915,7 @@ class ProcessInterdependencyMatrix extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing.
   String get content => doc.content('$path/content') ?? '';
@@ -28944,7 +28944,7 @@ class ProcessKpiEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessKpiEntryContentForm get content => ProcessKpiEntryContentForm(doc, '$path/content');
 
   /// Measurement targets and thresholds.
@@ -28970,7 +28970,7 @@ class ProcessMetric extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** How each business process is measured for success once in production.
   ///
@@ -29001,7 +29001,7 @@ class ProcessMetricCategory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29026,7 +29026,7 @@ class ProcessMetricEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessMetricEntryContentForm get content => ProcessMetricEntryContentForm(doc, '$path/content');
 
   /// Measurement collection details.
@@ -29073,7 +29073,7 @@ class ProcessMetrics extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the overall approach to measuring process performance. Include data collection methods, measurement periods, and data quality notes.
   String get content => doc.content('$path/content') ?? '';
@@ -29127,7 +29127,7 @@ class ProcessOutputEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessOutputEntryContentForm get content => ProcessOutputEntryContentForm(doc, '$path/content');
 }
 
@@ -29147,7 +29147,7 @@ class ProcessOverviewDiagram extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the process landscape before the landscape, hierarchy and value-chain diagrams below. Cover the reading order and the level of detail each diagram shows.
   String get content => doc.content('$path/content') ?? '';
@@ -29182,7 +29182,7 @@ class ProcessPainPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29206,7 +29206,7 @@ class ProcessPerformance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how this process is measured before the KPI and SLA lists below. Cover the measurement period and the data source behind the numbers.
   String get content => doc.content('$path/content') ?? '';
@@ -29239,7 +29239,7 @@ class ProcessPerformanceSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessPerformanceSummaryContentForm get content => ProcessPerformanceSummaryContentForm(doc, '$path/content');
 
   /// Key metrics summary.
@@ -29259,7 +29259,7 @@ class ProcessRelationshipEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessRelationshipEntryContentForm get content => ProcessRelationshipEntryContentForm(doc, '$path/content');
 }
 
@@ -29277,7 +29277,7 @@ class ProcessRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Process relationships map dependencies, data flows, and sequencing between
   /// processes. Understanding these relationships is critical for integration
@@ -29314,7 +29314,7 @@ class ProcessRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessRoleEntryContentForm get content => ProcessRoleEntryContentForm(doc, '$path/content');
 
   /// Process participation and authority.
@@ -29338,7 +29338,7 @@ class ProcessRoles extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the participants in this process before the per-role entries below. Cover how responsibility is split and where the hand-offs occur.
   String get content => doc.content('$path/content') ?? '';
@@ -29364,7 +29364,7 @@ class ProcessScopeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessScopeEntryContentForm get content => ProcessScopeEntryContentForm(doc, '$path/content');
 }
 
@@ -29381,7 +29381,7 @@ class ProcessScopeSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessScopeSummaryContentForm get content => ProcessScopeSummaryContentForm(doc, '$path/content');
 
   /// Processes in scope.
@@ -29406,7 +29406,7 @@ class ProcessSlaEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessSlaEntryContentForm get content => ProcessSlaEntryContentForm(doc, '$path/content');
 }
 
@@ -29429,7 +29429,7 @@ class ProcessStepsAndActorInteractions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Key process steps with their actor interactions. Each interaction will be
   /// expanded into a full use case with alternate paths, preconditions, and
@@ -29485,7 +29485,7 @@ class ProcessStepsOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessStepsOverviewContentForm get content => ProcessStepsOverviewContentForm(doc, '$path/content');
 }
 
@@ -29500,7 +29500,7 @@ class ProcessTechnology extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessTechnologyContentForm get content => ProcessTechnologyContentForm(doc, '$path/content');
 
   /// Data, reporting, and document tooling.
@@ -29521,7 +29521,7 @@ class ProcessTriggerEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessTriggerEntryContentForm get content => ProcessTriggerEntryContentForm(doc, '$path/content');
 }
 
@@ -29539,7 +29539,7 @@ class ProcessTriggers extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how this process starts and ends before the trigger and end-event lists below. Cover whether it is event-, schedule- or request-driven.
   String get content => doc.content('$path/content') ?? '';
@@ -29575,7 +29575,7 @@ class ProcessVision extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the target-state process vision before the narrative, improvement and success-criteria subsections below. Cover what changes about how the work is done, and for whom.
   String get content => doc.content('$path/content') ?? '';
@@ -29607,7 +29607,7 @@ class ProgrammingLanguageEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProgrammingLanguageEntryContentForm get content => ProgrammingLanguageEntryContentForm(doc, '$path/content');
 
   /// Version requirements.
@@ -29640,7 +29640,7 @@ class ProjectOrganization extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of project organization structure including reporting lines,
   /// steering committee composition, and governance arrangements.
@@ -29673,7 +29673,7 @@ class ProjectOrganizationAndProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive summary of project-specific methodology deviations.
   /// Explain why this project requires deviations from standard TomSpecs practices,
@@ -29720,7 +29720,7 @@ class ProjectTeamStaffing extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -29749,7 +29749,7 @@ class ProtocolComplianceRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProtocolComplianceRequirementsContentForm get content => ProtocolComplianceRequirementsContentForm(doc, '$path/content');
 
   /// Caching requirements.
@@ -29773,7 +29773,7 @@ class ProtocolEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProtocolEntryContentForm get content => ProtocolEntryContentForm(doc, '$path/content');
 }
 
@@ -29794,7 +29794,7 @@ class ProtocolFeatureEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ProtocolFeatureEntryContentForm get content => ProtocolFeatureEntryContentForm(doc, '$path/content');
 
   /// 7.9.2.x. Hooks — the extension points of the feature the system
@@ -29850,7 +29850,7 @@ class ProtocolsAndStandardsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of protocol and standards approach.
   ///
@@ -29914,7 +29914,7 @@ class Prototype extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the prototype effort before the goal, feature-subset and type subsections below. Cover why a prototype is needed and which decision it is meant to inform.
   String get content => doc.content('$path/content') ?? '';
@@ -29966,7 +29966,7 @@ class PrototypeFeatureEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrototypeFeatureEntryContentForm get content => PrototypeFeatureEntryContentForm(doc, '$path/content');
 }
 
@@ -29986,7 +29986,7 @@ class PrototypeFeatureSubset extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the feature selection before the individual features below. Cover the criterion that put a feature in or left it out.
   String get content => doc.content('$path/content') ?? '';
@@ -30024,7 +30024,7 @@ class PrototypeGoalEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PrototypeGoalEntryContentForm get content => PrototypeGoalEntryContentForm(doc, '$path/content');
 }
 
@@ -30044,7 +30044,7 @@ class PrototypeGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce what the prototype must validate before the individual goals below. Cover the risk that makes the validation worth the effort.
   String get content => doc.content('$path/content') ?? '';
@@ -30087,7 +30087,7 @@ class PrototypeType extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the prototype classification before the reusable, training and throwaway subsections below. Cover which type applies and what follows from that choice.
   String get content => doc.content('$path/content') ?? '';
@@ -30120,7 +30120,7 @@ class PwaRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   PwaRequirementsContentForm get content => PwaRequirementsContentForm(doc, '$path/content');
 
   /// Icon requirements.
@@ -30150,7 +30150,7 @@ class QualityAndAcceptanceModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30179,7 +30179,7 @@ class QualityCategoryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityCategoryEntryContentForm get content => QualityCategoryEntryContentForm(doc, '$path/content');
 
   /// Description and priority context.
@@ -30217,7 +30217,7 @@ class QualityFramework extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the quality framework before the objective, category and verification subsections below. Cover how quality work is organized and governed.
   String get content => doc.content('$path/content') ?? '';
@@ -30276,7 +30276,7 @@ class QualityGateAdjustmentDetails extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityGateAdjustmentDetailsContentForm get content => QualityGateAdjustmentDetailsContentForm(doc, '$path/content');
 }
 
@@ -30295,7 +30295,7 @@ class QualityGateAdjustmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityGateAdjustmentEntryContentForm get content => QualityGateAdjustmentEntryContentForm(doc, '$path/content');
 
   /// Gate details.
@@ -30331,7 +30331,7 @@ class QualityGateAdjustments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of quality gate adjustments for this project. Explain why standard
   /// gates are modified, what project characteristics drove the changes, and
@@ -30363,7 +30363,7 @@ class QualityGateCheckEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityGateCheckEntryContentForm get content => QualityGateCheckEntryContentForm(doc, '$path/content');
 
   /// Check definition and categorization.
@@ -30398,7 +30398,7 @@ class QualityGateChecklist extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the quality gates before the individual checklist items below. Cover when each gate is run and who may waive one.
   String get content => doc.content('$path/content') ?? '';
@@ -30443,7 +30443,7 @@ class QualityPrioritization extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how quality attributes are ranked before the weighted-matrix and trade-off subsections below. Cover who decides the ranking and how a dispute is settled.
   String get content => doc.content('$path/content') ?? '';
@@ -30484,7 +30484,7 @@ class QualityScenarioEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityScenarioEntryContentForm get content => QualityScenarioEntryContentForm(doc, '$path/content');
 }
 
@@ -30507,7 +30507,7 @@ class QualityScenarios extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30528,7 +30528,7 @@ class QualityStandardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityStandardEntryContentForm get content => QualityStandardEntryContentForm(doc, '$path/content');
 
   /// Process coverage.
@@ -30555,7 +30555,7 @@ class QualityWeightEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityWeightEntryContentForm get content => QualityWeightEntryContentForm(doc, '$path/content');
 }
 
@@ -30570,7 +30570,7 @@ class RaciEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** What the activity is and why its responsibility is split this way.
   RaciEntryContentForm get content => RaciEntryContentForm(doc, '$path/content');
@@ -30587,7 +30587,7 @@ class RateLimitingPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RateLimitingPolicyContentForm get content => RateLimitingPolicyContentForm(doc, '$path/content');
 
   /// Rate-limit ceilings and burst handling.
@@ -30611,7 +30611,7 @@ class Readability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReadabilityContentForm get content => ReadabilityContentForm(doc, '$path/content');
 
   /// Identifiability and navigation.
@@ -30641,7 +30641,7 @@ class ReadinessCriteriaEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReadinessCriteriaEntryContentForm get content => ReadinessCriteriaEntryContentForm(doc, '$path/content');
 }
 
@@ -30656,7 +30656,7 @@ class RecoveryProcedures extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RecoveryProceduresContentForm get content => RecoveryProceduresContentForm(doc, '$path/content');
 
   /// Database recovery behavior.
@@ -30683,7 +30683,7 @@ class RecoveryScenarioEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RecoveryScenarioEntryContentForm get content => RecoveryScenarioEntryContentForm(doc, '$path/content');
 
   /// Detailed recovery flow.
@@ -30706,7 +30706,7 @@ class RedirectHandlingPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.
   RedirectHandlingPolicyContentForm get content => RedirectHandlingPolicyContentForm(doc, '$path/content');
@@ -30729,7 +30729,7 @@ class ReferenceDocumentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReferenceDocumentEntryContentForm get content => ReferenceDocumentEntryContentForm(doc, '$path/content');
 
   /// Document metadata and relevance.
@@ -30768,7 +30768,7 @@ class ReferenceDocuments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30791,7 +30791,7 @@ class RegulatoryAuditSupport extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RegulatoryAuditSupportContentForm get content => RegulatoryAuditSupportContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -30809,7 +30809,7 @@ class RegulatoryComplianceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RegulatoryComplianceEntryContentForm get content => RegulatoryComplianceEntryContentForm(doc, '$path/content');
 
   /// Applicability analysis.
@@ -30843,7 +30843,7 @@ class RegulatoryComplianceRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30877,7 +30877,7 @@ class RegulatoryContext extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -30898,7 +30898,7 @@ class RegulatoryRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RegulatoryRequirementEntryContentForm get content => RegulatoryRequirementEntryContentForm(doc, '$path/content');
 }
 
@@ -30913,7 +30913,7 @@ class RelatedDocumentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RelatedDocumentEntryContentForm get content => RelatedDocumentEntryContentForm(doc, '$path/content');
 }
 
@@ -30928,7 +30928,7 @@ class RelationshipAttributeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RelationshipAttributeEntryContentForm get content => RelationshipAttributeEntryContentForm(doc, '$path/content');
 }
 
@@ -30943,7 +30943,7 @@ class ReleaseStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReleaseStrategyContentForm get content => ReleaseStrategyContentForm(doc, '$path/content');
 
   /// Blue-green deployment configuration.
@@ -30970,7 +30970,7 @@ class RelevantSectionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RelevantSectionEntryContentForm get content => RelevantSectionEntryContentForm(doc, '$path/content');
 }
 
@@ -30985,7 +30985,7 @@ class Reliability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReliabilityContentForm get content => ReliabilityContentForm(doc, '$path/content');
 
   /// Recovery objectives.
@@ -31025,7 +31025,7 @@ class ReliabilityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce reliability for this system before the availability, service-level and monitoring subsections below. Cover the cost of downtime that justifies the targets.
   String get content => doc.content('$path/content') ?? '';
@@ -31076,7 +31076,7 @@ class RememberMePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.
   RememberMePolicyContentForm get content => RememberMePolicyContentForm(doc, '$path/content');
@@ -31098,7 +31098,7 @@ class RemovedRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RemovedRoleEntryContentForm get content => RemovedRoleEntryContentForm(doc, '$path/content');
 
   /// Incumbent transition planning.
@@ -31128,7 +31128,7 @@ class ReplacementInventory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the replacement inventory before the individual systems below. Cover the portfolio-level metrics and the sequencing logic.
   String get content => doc.content('$path/content') ?? '';
@@ -31161,7 +31161,7 @@ class ReplacementPhaseEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReplacementPhaseEntryContentForm get content => ReplacementPhaseEntryContentForm(doc, '$path/content');
 }
 
@@ -31178,7 +31178,7 @@ class ReplacementSystemDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReplacementSystemDependencyEntryContentForm get content => ReplacementSystemDependencyEntryContentForm(doc, '$path/content');
 }
 
@@ -31193,7 +31193,7 @@ class ReportChartAxes extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportChartAxesContentForm get content => ReportChartAxesContentForm(doc, '$path/content');
 }
 
@@ -31209,7 +31209,7 @@ class ReportChartEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportChartEntryContentForm get content => ReportChartEntryContentForm(doc, '$path/content');
 
   /// Axes configuration.
@@ -31242,7 +31242,7 @@ class ReportColumnEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportColumnEntryContentForm get content => ReportColumnEntryContentForm(doc, '$path/content');
 
   /// Data source and type.
@@ -31312,7 +31312,7 @@ class ReportDefinitions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31333,7 +31333,7 @@ class ReportDistributionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportDistributionEntryContentForm get content => ReportDistributionEntryContentForm(doc, '$path/content');
 
   /// Recipient and format settings.
@@ -31357,7 +31357,7 @@ class ReportEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportEntryContentForm get content => ReportEntryContentForm(doc, '$path/content');
 
   /// Identity and context.
@@ -31435,7 +31435,7 @@ class ReportFilterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportFilterEntryContentForm get content => ReportFilterEntryContentForm(doc, '$path/content');
 
   /// Input and value configuration.
@@ -31497,7 +31497,7 @@ class ReportRecipientEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportRecipientEntryContentForm get content => ReportRecipientEntryContentForm(doc, '$path/content');
 
   /// Recipient business context.
@@ -31522,7 +31522,7 @@ class ReportScheduleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportScheduleEntryContentForm get content => ReportScheduleEntryContentForm(doc, '$path/content');
 
   /// Timing configuration.
@@ -31549,7 +31549,7 @@ class ReportSectionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportSectionEntryContentForm get content => ReportSectionEntryContentForm(doc, '$path/content');
 
   /// Data source configuration.
@@ -31580,7 +31580,7 @@ class ReportSectionEntry extends SomNode {
 /// Testable conditions that must be met for the requirement to be accepted.
 /// Uses Given-When-Then format for clarity.
 ///
-/// **Authoring guidance.** Define clear, testable acceptance criteria. Use Given-When-Then format: Given [context], When [action], Then [expected result].
+/// **Authoring guidance.** Define clear, testable acceptance criteria. Use Given-When-Then format: Given _context_, When _action_, Then _expected result_.
 class RequirementAcceptanceCriteria extends SomNode {
   /// Names the `RequirementAcceptanceCriteria` section at [path] inside [doc].
   ///
@@ -31594,7 +31594,7 @@ class RequirementAcceptanceCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31615,7 +31615,7 @@ class RequirementBusinessRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementBusinessRuleEntryContentForm get content => RequirementBusinessRuleEntryContentForm(doc, '$path/content');
 }
 
@@ -31637,7 +31637,7 @@ class RequirementBusinessRules extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31663,7 +31663,7 @@ class RequirementCoverage extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Reports coverage of requirements from multiple angles to ensure nothing
   /// falls through.
@@ -31696,7 +31696,7 @@ class RequirementDataRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31724,7 +31724,7 @@ class RequirementDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31745,7 +31745,7 @@ class RequirementDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementDependencyEntryContentForm get content => RequirementDependencyEntryContentForm(doc, '$path/content');
 
   /// The other requirement in this dependency, named by section id.
@@ -31780,7 +31780,7 @@ class RequirementRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Explicit relationships between requirements: dependencies, conflicts,
   /// refinements, and derivations. Ties individual requirement entries from
@@ -31809,7 +31809,7 @@ class RequirementScreenActionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementScreenActionEntryContentForm get content => RequirementScreenActionEntryContentForm(doc, '$path/content');
 
   /// Action parameters — contains 0+× ActionParameterEntry.
@@ -31829,7 +31829,7 @@ class RequirementTestCaseEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementTestCaseEntryContentForm get content => RequirementTestCaseEntryContentForm(doc, '$path/content');
 
   /// Test execution details.
@@ -31871,7 +31871,7 @@ class RequirementTestCases extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -31899,7 +31899,7 @@ class RequirementTraceability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for.
   String get content => doc.content('$path/content') ?? '';
@@ -31935,7 +31935,7 @@ class RequirementUiSpecification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives.
   String get content => doc.content('$path/content') ?? '';
@@ -31995,7 +31995,7 @@ class Requirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -32032,7 +32032,7 @@ class RequirementsFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -32068,7 +32068,7 @@ class RequirementsOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.
   String get content => doc.content('$path/content') ?? '';
@@ -32115,7 +32115,7 @@ class ResourceAllocationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceAllocationEntryContentForm get content => ResourceAllocationEntryContentForm(doc, '$path/content');
 }
 
@@ -32130,7 +32130,7 @@ class ResourceCapacityBaselines extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceCapacityBaselinesContentForm get content => ResourceCapacityBaselinesContentForm(doc, '$path/content');
 
   /// Storage baselines.
@@ -32157,7 +32157,7 @@ class ResourceKeyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceKeyEntryContentForm get content => ResourceKeyEntryContentForm(doc, '$path/content');
 }
 
@@ -32172,7 +32172,7 @@ class ResourceKeyReferenceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceKeyReferenceEntryContentForm get content => ResourceKeyReferenceEntryContentForm(doc, '$path/content');
 }
 
@@ -32190,7 +32190,7 @@ class ResourceProtection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of resource protection strategies covering data, APIs, and file
   /// storage. Resource protection ensures that authenticated and authorized users
@@ -32241,7 +32241,7 @@ class ResourceRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceRequirementEntryContentForm get content => ResourceRequirementEntryContentForm(doc, '$path/content');
 }
 
@@ -32256,7 +32256,7 @@ class ResponsibilityChangeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityChangeEntryContentForm get content => ResponsibilityChangeEntryContentForm(doc, '$path/content');
 }
 
@@ -32271,7 +32271,7 @@ class ResponsibilityContacts extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityContactsContentForm get content => ResponsibilityContactsContentForm(doc, '$path/content');
 }
 
@@ -32286,7 +32286,7 @@ class ResponsibilityDetailEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityDetailEntryContentForm get content => ResponsibilityDetailEntryContentForm(doc, '$path/content');
 }
 
@@ -32305,7 +32305,7 @@ class ResponsibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityEntryContentForm get content => ResponsibilityEntryContentForm(doc, '$path/content');
 
   /// Function details and scope.
@@ -32341,7 +32341,7 @@ class ResponsibilityFunctionDetails extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityFunctionDetailsContentForm get content => ResponsibilityFunctionDetailsContentForm(doc, '$path/content');
 }
 
@@ -32356,7 +32356,7 @@ class ResponsibilityReferenceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityReferenceEntryContentForm get content => ResponsibilityReferenceEntryContentForm(doc, '$path/content');
 }
 
@@ -32371,7 +32371,7 @@ class ResponsibilitySystems extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilitySystemsContentForm get content => ResponsibilitySystemsContentForm(doc, '$path/content');
 }
 
@@ -32391,7 +32391,7 @@ class ResponsiveBehavior extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how the interface adapts across breakpoints before the layout, navigation and visibility subsections below. Cover what is hidden rather than reflowed, and why.
   String get content => doc.content('$path/content') ?? '';
@@ -32443,7 +32443,7 @@ class ResponsiveDesign extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the responsive strategy before the breakpoint and behaviour subsections below. Cover the device classes supported and which of them is designed for first.
   String get content => doc.content('$path/content') ?? '';
@@ -32478,7 +32478,7 @@ class ResponsiveScreenRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsiveScreenRuleEntryContentForm get content => ResponsiveScreenRuleEntryContentForm(doc, '$path/content');
 }
 
@@ -32507,7 +32507,7 @@ class ResultEnvelope extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResultEnvelopeContentForm get content => ResultEnvelopeContentForm(doc, '$path/content');
 
   /// 7.7.1. Field-Level Details — the per-field error detail the error arm may
@@ -32534,7 +32534,7 @@ class ResultFieldDetailEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ResultFieldDetailEntryContentForm get content => ResultFieldDetailEntryContentForm(doc, '$path/content');
 }
 
@@ -32549,7 +32549,7 @@ class RetentionPolicyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RetentionPolicyEntryContentForm get content => RetentionPolicyEntryContentForm(doc, '$path/content');
 
   /// Retention timing and legal basis.
@@ -32573,7 +32573,7 @@ class ReusabilityPrinciples extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReusabilityPrinciplesContentForm get content => ReusabilityPrinciplesContentForm(doc, '$path/content');
 
   /// Abstraction rules.
@@ -32637,7 +32637,7 @@ class ReusableComponentsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the reusability strategy and component library.
   ///
@@ -32711,7 +32711,7 @@ class ReusablePrototype extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the reusable prototype before the architecture, integration and transition subsections below. Cover the quality bar it must meet to survive into the product.
   String get content => doc.content('$path/content') ?? '';
@@ -32747,7 +32747,7 @@ class ReusableUiComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReusableUiComponentEntryContentForm get content => ReusableUiComponentEntryContentForm(doc, '$path/content');
 
   /// Description and use cases.
@@ -32780,7 +32780,7 @@ class ReuseGoalEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReuseGoalEntryContentForm get content => ReuseGoalEntryContentForm(doc, '$path/content');
 
   /// Measurement and scope.
@@ -32807,7 +32807,7 @@ class ReviewCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReviewCriterionEntryContentForm get content => ReviewCriterionEntryContentForm(doc, '$path/content');
 
   /// How this criterion is measured and weighted.
@@ -32831,7 +32831,7 @@ class ReviewTeam extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Who reviews this document. The most specific team replaces the others
   /// entirely: a document's own team, else the Solution Blueprint's team for its
@@ -32857,7 +32857,7 @@ class ReviewTeamMember extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReviewTeamMemberContentForm get content => ReviewTeamMemberContentForm(doc, '$path/content');
 }
 
@@ -32872,7 +32872,7 @@ class ReviewerRecord extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ReviewerRecordContentForm get content => ReviewerRecordContentForm(doc, '$path/content');
 }
 
@@ -32887,7 +32887,7 @@ class RevisionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RevisionEntryContentForm get content => RevisionEntryContentForm(doc, '$path/content');
 
   /// The review team the round leading to this revision started with.
@@ -32912,7 +32912,7 @@ class RiskBusinessImpact extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskBusinessImpactContentForm get content => RiskBusinessImpactContentForm(doc, '$path/content');
 
   /// Broader stakeholder and compliance impact.
@@ -32940,7 +32940,7 @@ class RiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this risk — how it would actually play out, beyond the analysis, response and monitoring facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -32981,7 +32981,7 @@ class RiskIdentification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskIdentificationContentForm get content => RiskIdentificationContentForm(doc, '$path/content');
 
   /// Identification source and ownership metadata.
@@ -33002,7 +33002,7 @@ class RiskMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskMonitoringContentForm get content => RiskMonitoringContentForm(doc, '$path/content');
 
   /// Trend and monitoring indicators.
@@ -33023,7 +33023,7 @@ class RiskRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskRelationshipsContentForm get content => RiskRelationshipsContentForm(doc, '$path/content');
 }
 
@@ -33038,7 +33038,7 @@ class RiskResponse extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskResponseContentForm get content => RiskResponseContentForm(doc, '$path/content');
 
   /// Residual and secondary risk expectations.
@@ -33074,7 +33074,7 @@ class RisksAndAssumptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the risk register before the individual risks below. Cover how risks are identified, how often the register is reviewed, and who owns it.
   String get content => doc.content('$path/content') ?? '';
@@ -33104,7 +33104,7 @@ class RoleAdjustmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleAdjustmentEntryContentForm get content => RoleAdjustmentEntryContentForm(doc, '$path/content');
 
   /// Adjustment details: name changes, affected responsibilities.
@@ -33141,7 +33141,7 @@ class RoleAdjustments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of role adjustments for this project. Explain why standard role
   /// definitions don't fit, what stakeholder or organizational factors drove
@@ -33176,7 +33176,7 @@ class RoleCertificationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.
   RoleCertificationPolicyContentForm get content => RoleCertificationPolicyContentForm(doc, '$path/content');
@@ -33199,7 +33199,7 @@ class RoleCombinationConstraintEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleCombinationConstraintEntryContentForm get content => RoleCombinationConstraintEntryContentForm(doc, '$path/content');
 }
 
@@ -33214,7 +33214,7 @@ class RoleCompetencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleCompetencyEntryContentForm get content => RoleCompetencyEntryContentForm(doc, '$path/content');
 }
 
@@ -33232,7 +33232,7 @@ class RoleDataScopeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleDataScopeEntryContentForm get content => RoleDataScopeEntryContentForm(doc, '$path/content');
 }
 
@@ -33247,7 +33247,7 @@ class RoleExclusionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleExclusionEntryContentForm get content => RoleExclusionEntryContentForm(doc, '$path/content');
 }
 
@@ -33269,7 +33269,7 @@ class RoleHierarchy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define role inheritance and combination rules. A well-designed role hierarchy
   /// simplifies administration and ensures consistent access control.
@@ -33344,7 +33344,7 @@ class RoleHierarchyPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.
   RoleHierarchyPolicyContentForm get content => RoleHierarchyPolicyContentForm(doc, '$path/content');
@@ -33364,7 +33364,7 @@ class RoleHolderEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleHolderEntryContentForm get content => RoleHolderEntryContentForm(doc, '$path/content');
 }
 
@@ -33382,7 +33382,7 @@ class RoleInheritanceRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleInheritanceRuleEntryContentForm get content => RoleInheritanceRuleEntryContentForm(doc, '$path/content');
 }
 
@@ -33403,7 +33403,7 @@ class RoleMatrix extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Authoritative mapping of system roles to the permissions they hold.
   /// Complements the User Authorization section which describes the
@@ -33436,7 +33436,7 @@ class RolePermissionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RolePermissionEntryContentForm get content => RolePermissionEntryContentForm(doc, '$path/content');
 }
 
@@ -33451,7 +33451,7 @@ class RoleReferenceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleReferenceEntryContentForm get content => RoleReferenceEntryContentForm(doc, '$path/content');
 }
 
@@ -33466,7 +33466,7 @@ class RollbackStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RollbackStrategyContentForm get content => RollbackStrategyContentForm(doc, '$path/content');
 
   /// Trigger and timing conditions.
@@ -33503,7 +33503,7 @@ class RolloutPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Rollout plan: sequencing, waves, and criteria for moving each cohort from
   /// pre-go-live to production.
@@ -33541,7 +33541,7 @@ class RolloutTrainingMaterial extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Training plan and materials: courses, content packages, trainers, and
   /// delivery mechanism. Complements the training-module catalogue which
@@ -33573,7 +33573,7 @@ class RowLevelSecurityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.
   RowLevelSecurityPolicyContentForm get content => RowLevelSecurityPolicyContentForm(doc, '$path/content');
@@ -33593,7 +33593,7 @@ class RpoRtoRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RpoRtoRequirementsContentForm get content => RpoRtoRequirementsContentForm(doc, '$path/content');
 
   /// Tier-based targets.
@@ -33619,7 +33619,7 @@ class RuleExampleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RuleExampleEntryContentForm get content => RuleExampleEntryContentForm(doc, '$path/content');
 }
 
@@ -33640,7 +33640,7 @@ class RuntimeDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Runtime Dependencies (12.4)
   ///
@@ -33684,7 +33684,7 @@ class RuntimeDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RuntimeDependencyEntryContentForm get content => RuntimeDependencyEntryContentForm(doc, '$path/content');
 
   /// Versioning and business criticality.
@@ -33714,7 +33714,7 @@ class RuntimeEnvironment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   RuntimeEnvironmentContentForm get content => RuntimeEnvironmentContentForm(doc, '$path/content');
 
   /// Memory limits.
@@ -33753,7 +33753,7 @@ class ScalabilityArchitecture extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScalabilityArchitectureContentForm get content => ScalabilityArchitectureContentForm(doc, '$path/content');
 
   /// Capacity planning assumptions.
@@ -33783,7 +33783,7 @@ class ScalingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScalingRequirementsContentForm get content => ScalingRequirementsContentForm(doc, '$path/content');
 
   /// Horizontal scaling configuration.
@@ -33810,7 +33810,7 @@ class ScalingTriggersAndThresholds extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScalingTriggersAndThresholdsContentForm get content => ScalingTriggersAndThresholdsContentForm(doc, '$path/content');
 
   /// Memory-based thresholds.
@@ -33842,7 +33842,7 @@ class ScenarioEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this scenario — the end-to-end story it tells, beyond the steps, data and timing recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -33885,7 +33885,7 @@ class ScenarioStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScenarioStepEntryContentForm get content => ScenarioStepEntryContentForm(doc, '$path/content');
 
   /// Expected outcome and referenced artifacts.
@@ -33958,7 +33958,7 @@ class ScheduledJobEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** One job the system runs off the request thread.
   ///
@@ -34069,7 +34069,7 @@ class ScheduledJobStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Say what the job does at this point in the sequence, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.
   ScheduledJobStepEntryContentForm get content => ScheduledJobStepEntryContentForm(doc, '$path/content');
@@ -34086,7 +34086,7 @@ class ScheduledMaintenancePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScheduledMaintenancePolicyContentForm get content => ScheduledMaintenancePolicyContentForm(doc, '$path/content');
 
   /// Scheduling preferences.
@@ -34118,7 +34118,7 @@ class SchemaMigrationStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** One artifact in the migration set.
   ///
@@ -34175,7 +34175,7 @@ class SchemaVersioningAndMigration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how the database schema is versioned and how schema changes are
   /// authored, ordered, and applied as the data model evolves across releases.
@@ -34246,7 +34246,7 @@ class ScopeBoundaries extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious.
   String get content => doc.content('$path/content') ?? '';
@@ -34284,7 +34284,7 @@ class ScopeItemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScopeItemEntryContentForm get content => ScopeItemEntryContentForm(doc, '$path/content');
 }
 
@@ -34301,7 +34301,7 @@ class ScreenActionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenActionEntryContentForm get content => ScreenActionEntryContentForm(doc, '$path/content');
 
   /// Visual presentation of the action.
@@ -34330,7 +34330,7 @@ class ScreenActions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen Actions (10.2.1.n.2)
   ///
@@ -34372,7 +34372,7 @@ class ScreenBehaviorEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenBehaviorEntryContentForm get content => ScreenBehaviorEntryContentForm(doc, '$path/content');
 }
 
@@ -34390,7 +34390,7 @@ class ScreenDescriptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen Descriptions (10.2)
   ///
@@ -34437,7 +34437,7 @@ class ScreenElementAction extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementActionContentForm get content => ScreenElementActionContentForm(doc, '$path/content');
 
   /// Confirmation and execution feedback behavior.
@@ -34460,7 +34460,7 @@ class ScreenElementDataDisplay extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementDataDisplayContentForm get content => ScreenElementDataDisplayContentForm(doc, '$path/content');
 
   /// Refresh and drill-down behavior.
@@ -34484,7 +34484,7 @@ class ScreenElementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementEntryContentForm get content => ScreenElementEntryContentForm(doc, '$path/content');
 
   /// Labels and icon resources.
@@ -34544,7 +34544,7 @@ class ScreenElementFieldSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementFieldSpecContentForm get content => ScreenElementFieldSpecContentForm(doc, '$path/content');
 
   /// Prefix, suffix, and formatting.
@@ -34602,7 +34602,7 @@ class ScreenEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenEntryContentForm get content => ScreenEntryContentForm(doc, '$path/content');
 
   /// Classification and routing metadata.
@@ -34663,7 +34663,7 @@ class ScreenFieldEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenFieldEntryContentForm get content => ScreenFieldEntryContentForm(doc, '$path/content');
 
   /// Data binding and defaults.
@@ -34723,7 +34723,7 @@ class ScreenFlowStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen Flow Structure (10.3)
   ///
@@ -34770,7 +34770,7 @@ class ScreenInventory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen Inventory (10.2.1)
   ///
@@ -34826,7 +34826,7 @@ class ScreenResponsiveRuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenResponsiveRuleEntryContentForm get content => ScreenResponsiveRuleEntryContentForm(doc, '$path/content');
 }
 
@@ -34841,7 +34841,7 @@ class ScreenRouteEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenRouteEntryContentForm get content => ScreenRouteEntryContentForm(doc, '$path/content');
 }
 
@@ -34869,7 +34869,7 @@ class ScreenRouteMap extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen Route Map (10.3.3)
   ///
@@ -34920,7 +34920,7 @@ class ScreenSectionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenSectionEntryContentForm get content => ScreenSectionEntryContentForm(doc, '$path/content');
 
   /// Layout and ordering for the section.
@@ -34951,7 +34951,7 @@ class ScreenSections extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen Sections (10.2.1.n.1)
   ///
@@ -35000,7 +35000,7 @@ class ScreenStateEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenStateEntryContentForm get content => ScreenStateEntryContentForm(doc, '$path/content');
 }
 
@@ -35020,7 +35020,7 @@ class ScreenStates extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Screen States (10.2.1.n.3)
   ///
@@ -35065,7 +35065,7 @@ class ScreenTransitionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenTransitionEntryContentForm get content => ScreenTransitionEntryContentForm(doc, '$path/content');
 }
 
@@ -35080,7 +35080,7 @@ class ScreenUserCategoryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenUserCategoryEntryContentForm get content => ScreenUserCategoryEntryContentForm(doc, '$path/content');
 }
 
@@ -35100,7 +35100,7 @@ class SecondaryNavigation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Secondary Navigation (10.3.1.4)
   ///
@@ -35146,7 +35146,7 @@ class Security extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityContentForm get content => SecurityContentForm(doc, '$path/content');
 
   /// Authentication controls.
@@ -35179,7 +35179,7 @@ class SecurityAndAccessModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide a high-level overview of the application's security architecture for
   /// protecting data and functions. This section serves as the entry point for all
@@ -35226,7 +35226,7 @@ class SecurityAuditEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityAuditEntryContentForm get content => SecurityAuditEntryContentForm(doc, '$path/content');
 
   /// Audit schedule and cadence.
@@ -35301,7 +35301,7 @@ class SecurityAuditRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of security audit strategy.
   ///
@@ -35360,7 +35360,7 @@ class SecurityCertificationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityCertificationRequirementsContentForm get content => SecurityCertificationRequirementsContentForm(doc, '$path/content');
 
   /// ISO 27001 requirements.
@@ -35394,7 +35394,7 @@ class SecurityCharacteristic extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the security quality expectations before the security and IT-security-operations subsections below. Cover the threat model the expectations answer to.
   String get content => doc.content('$path/content') ?? '';
@@ -35440,7 +35440,7 @@ class SecurityCodeReviewPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityCodeReviewPolicyContentForm get content => SecurityCodeReviewPolicyContentForm(doc, '$path/content');
 
   /// Reviewer qualification and independence rules.
@@ -35473,7 +35473,7 @@ class SecurityComplianceFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -35492,7 +35492,7 @@ class SecurityControlEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityControlEntryContentForm get content => SecurityControlEntryContentForm(doc, '$path/content');
 
   /// Control implementation details.
@@ -35520,7 +35520,7 @@ class SecurityControls extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -35541,7 +35541,7 @@ class SecurityDevelopmentLifecycle extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityDevelopmentLifecycleContentForm get content => SecurityDevelopmentLifecycleContentForm(doc, '$path/content');
 
   /// Development-phase controls.
@@ -35568,7 +35568,7 @@ class SecurityEventEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityEventEntryContentForm get content => SecurityEventEntryContentForm(doc, '$path/content');
 }
 
@@ -35586,7 +35586,7 @@ class SecurityEventLoggingPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityEventLoggingPolicyContentForm get content => SecurityEventLoggingPolicyContentForm(doc, '$path/content');
 
   /// Additional Notes (text).
@@ -35611,7 +35611,7 @@ class SecurityEventsDefinition extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define which security-relevant events must be captured in audit logs.
   /// Balance comprehensive coverage with log volume management.
@@ -35710,7 +35710,7 @@ class SecurityOperationsFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -35735,7 +35735,7 @@ class SecurityRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityRequirementEntryContentForm get content => SecurityRequirementEntryContentForm(doc, '$path/content');
 
   /// Category and classification.
@@ -35784,7 +35784,7 @@ class SecurityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from.
   String get content => doc.content('$path/content') ?? '';
@@ -35810,7 +35810,7 @@ class SecurityStandardComplianceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityStandardComplianceEntryContentForm get content => SecurityStandardComplianceEntryContentForm(doc, '$path/content');
 
   /// Scope details.
@@ -35837,7 +35837,7 @@ class SecurityStandardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityStandardEntryContentForm get content => SecurityStandardEntryContentForm(doc, '$path/content');
 
   /// Applicability and regulatory scope.
@@ -35864,7 +35864,7 @@ class SecurityTestingAutomation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityTestingAutomationContentForm get content => SecurityTestingAutomationContentForm(doc, '$path/content');
 
   /// Dynamic analysis configuration.
@@ -35897,7 +35897,7 @@ class SelfRegistrationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SelfRegistrationPolicyContentForm get content => SelfRegistrationPolicyContentForm(doc, '$path/content');
 
   /// Field configuration.
@@ -35933,7 +35933,7 @@ class SelfServiceAccountManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.
   SelfServiceAccountManagementContentForm get content => SelfServiceAccountManagementContentForm(doc, '$path/content');
@@ -35956,7 +35956,7 @@ class SensitiveDataEncryption extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define encryption requirements for sensitive data both at rest and in transit.
   /// Encryption is a critical defense-in-depth layer that protects data even when
@@ -36043,7 +36043,7 @@ class ServerCallStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.
   ServerCallStepEntryContentForm get content => ServerCallStepEntryContentForm(doc, '$path/content');
@@ -36072,7 +36072,7 @@ class ServerConfigurationSettingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerConfigurationSettingEntryContentForm get content => ServerConfigurationSettingEntryContentForm(doc, '$path/content');
 }
 
@@ -36087,7 +36087,7 @@ class ServerEnvironmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerEnvironmentEntryContentForm get content => ServerEnvironmentEntryContentForm(doc, '$path/content');
 
   /// Location details.
@@ -36125,7 +36125,7 @@ class ServerOperationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerOperationEntryContentForm get content => ServerOperationEntryContentForm(doc, '$path/content');
 
   /// 7.9.x. Authorization — what a caller must satisfy to invoke this
@@ -36182,7 +36182,7 @@ class ServerOperationMemberEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerOperationMemberEntryContentForm get content => ServerOperationMemberEntryContentForm(doc, '$path/content');
 }
 
@@ -36231,7 +36231,7 @@ class ServerOperationRegistry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Catalogue the operations the system itself answers. Add one entry per
   /// operation; each one declares:
@@ -36279,7 +36279,7 @@ class ServerOsRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerOsRequirementsContentForm get content => ServerOsRequirementsContentForm(doc, '$path/content');
 
   /// Hardening requirements.
@@ -36344,7 +36344,7 @@ class ServerRequirementsSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of server infrastructure strategy.
   ///
@@ -36416,7 +36416,7 @@ class ServerRoleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerRoleEntryContentForm get content => ServerRoleEntryContentForm(doc, '$path/content');
 
   /// Software stack details.
@@ -36443,7 +36443,7 @@ class ServerStorageRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerStorageRequirementsContentForm get content => ServerStorageRequirementsContentForm(doc, '$path/content');
 
   /// Database storage requirements.
@@ -36473,7 +36473,7 @@ class ServiceAccountCredentialPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.
   ServiceAccountCredentialPolicyContentForm get content => ServiceAccountCredentialPolicyContentForm(doc, '$path/content');
@@ -36496,7 +36496,7 @@ class ServiceAccountLifecycle extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.
   ServiceAccountLifecycleContentForm get content => ServiceAccountLifecycleContentForm(doc, '$path/content');
@@ -36516,7 +36516,7 @@ class ServiceLevel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceLevelContentForm get content => ServiceLevelContentForm(doc, '$path/content');
 
   /// Remaining response targets.
@@ -36554,7 +36554,7 @@ class ServiceLevelAgreementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceLevelAgreementEntryContentForm get content => ServiceLevelAgreementEntryContentForm(doc, '$path/content');
 }
 
@@ -36569,7 +36569,7 @@ class ServiceLevelIndicators extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceLevelIndicatorsContentForm get content => ServiceLevelIndicatorsContentForm(doc, '$path/content');
 
   /// Latency and throughput indicators.
@@ -36593,7 +36593,7 @@ class ServiceMeshAndGateway extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceMeshAndGatewayContentForm get content => ServiceMeshAndGatewayContentForm(doc, '$path/content');
 
   /// Service mesh configuration.
@@ -36617,7 +36617,7 @@ class SessionCreationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.
   SessionCreationPolicyContentForm get content => SessionCreationPolicyContentForm(doc, '$path/content');
@@ -36641,7 +36641,7 @@ class SessionLifecycleMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.
   SessionLifecycleMonitoringContentForm get content => SessionLifecycleMonitoringContentForm(doc, '$path/content');
@@ -36670,7 +36670,7 @@ class SessionManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define session management policies that balance security with user experience.
   ///
@@ -36746,7 +36746,7 @@ class SessionModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of the session management approach for the system.
   String get content => doc.content('$path/content') ?? '';
@@ -36777,7 +36777,7 @@ class SessionRevocationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.
   SessionRevocationPolicyContentForm get content => SessionRevocationPolicyContentForm(doc, '$path/content');
@@ -36801,7 +36801,7 @@ class SessionSecurityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.
   SessionSecurityPolicyContentForm get content => SessionSecurityPolicyContentForm(doc, '$path/content');
@@ -36826,7 +36826,7 @@ class SessionTimeoutPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.
   SessionTimeoutPolicyContentForm get content => SessionTimeoutPolicyContentForm(doc, '$path/content');
@@ -36851,7 +36851,7 @@ class SharedInfrastructureDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe shared infrastructure components (networks, databases, messaging systems, identity providers) that multiple systems depend on. Identify single points of failure.
   String get content => doc.content('$path/content') ?? '';
@@ -36876,7 +36876,7 @@ class SharedInfrastructureEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SharedInfrastructureEntryContentForm get content => SharedInfrastructureEntryContentForm(doc, '$path/content');
 
   /// Criticality and resilience.
@@ -36900,7 +36900,7 @@ class SharedLibraryComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SharedLibraryComponentEntryContentForm get content => SharedLibraryComponentEntryContentForm(doc, '$path/content');
 
   /// Purpose and consumers.
@@ -36927,7 +36927,7 @@ class SharedLibraryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SharedLibraryEntryContentForm get content => SharedLibraryEntryContentForm(doc, '$path/content');
 
   /// Description and usage.
@@ -36955,7 +36955,7 @@ class SignOffProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SignOffProcessContentForm get content => SignOffProcessContentForm(doc, '$path/content');
 
   /// Signatory and quorum governance.
@@ -36993,7 +36993,7 @@ class SingleSignOnPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SingleSignOnPolicyContentForm get content => SingleSignOnPolicyContentForm(doc, '$path/content');
 
   /// Gateway and federation setup.
@@ -37028,7 +37028,7 @@ class SlaAndSloMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the service-level regime before the SLI, SLO and error-budget subsections below. Cover which agreements are contractual and which are internal objectives.
   String get content => doc.content('$path/content') ?? '';
@@ -37074,7 +37074,7 @@ class SlaMonitoringRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SlaMonitoringRequirementsContentForm get content => SlaMonitoringRequirementsContentForm(doc, '$path/content');
 
   /// Monitoring mechanics.
@@ -37101,7 +37101,7 @@ class SloEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SloEntryContentForm get content => SloEntryContentForm(doc, '$path/content');
 
   /// Objective target and budget definition.
@@ -37125,7 +37125,7 @@ class SoftwareDeliverables extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Software deliverables: application components, libraries, tools, scripts,
   /// configuration files, deployment artifacts. Define for each:
@@ -37179,7 +37179,7 @@ class SoftwareDesignRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of software design approach and key decisions.
   ///
@@ -37223,7 +37223,7 @@ class SoftwareLayerEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SoftwareLayerEntryContentForm get content => SoftwareLayerEntryContentForm(doc, '$path/content');
 
   /// Responsibilities and constraints.
@@ -37253,7 +37253,7 @@ class SolutionArchitectureAndTechnology extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -37288,7 +37288,7 @@ class SolutionArchitectureFollowUp extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -37307,7 +37307,7 @@ class SpecializedEquipmentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SpecializedEquipmentEntryContentForm get content => SpecializedEquipmentEntryContentForm(doc, '$path/content');
 
   /// Technical and compliance characteristics.
@@ -37331,7 +37331,7 @@ class SsoPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.
   SsoPolicyContentForm get content => SsoPolicyContentForm(doc, '$path/content');
@@ -37351,7 +37351,7 @@ class StaffingBudget extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StaffingBudgetContentForm get content => StaffingBudgetContentForm(doc, '$path/content');
 
   /// Recruitment and enablement cost categories.
@@ -37375,7 +37375,7 @@ class StaffingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StaffingEntryContentForm get content => StaffingEntryContentForm(doc, '$path/content');
 
   /// Organization and employment placement.
@@ -37405,7 +37405,7 @@ class StaffingPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the staffing approach before the budget, position and timeline subsections below. Cover build-versus-buy and the constraints on hiring.
   String get content => doc.content('$path/content') ?? '';
@@ -37437,7 +37437,7 @@ class StageDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageDependenciesContentForm get content => StageDependenciesContentForm(doc, '$path/content');
 }
 
@@ -37458,7 +37458,7 @@ class StageEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageEntryContentForm get content => StageEntryContentForm(doc, '$path/content');
 
   /// Identity and classification.
@@ -37531,7 +37531,7 @@ class StageGovernance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageGovernanceContentForm get content => StageGovernanceContentForm(doc, '$path/content');
 
   /// Governance model details.
@@ -37578,7 +37578,7 @@ class StageMigrationResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageMigrationResourcesContentForm get content => StageMigrationResourcesContentForm(doc, '$path/content');
 }
 
@@ -37598,7 +37598,7 @@ class StageMigrationRiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageMigrationRiskEntryContentForm get content => StageMigrationRiskEntryContentForm(doc, '$path/content');
 
   /// Risk identity and description.
@@ -37641,7 +37641,7 @@ class StageMigrationRisks extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageMigrationRisksContentForm get content => StageMigrationRisksContentForm(doc, '$path/content');
 
   /// Risk summary narrative.
@@ -37673,7 +37673,7 @@ class StageOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageOverviewContentForm get content => StageOverviewContentForm(doc, '$path/content');
 
   /// Summary metrics across all stages.
@@ -37754,7 +37754,7 @@ class StageResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageResourcesContentForm get content => StageResourcesContentForm(doc, '$path/content');
 }
 
@@ -37769,7 +37769,7 @@ class StageStakeholders extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageStakeholdersContentForm get content => StageStakeholdersContentForm(doc, '$path/content');
 }
 
@@ -37788,7 +37788,7 @@ class StageSuccessCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSuccessCriterionEntryContentForm get content => StageSuccessCriterionEntryContentForm(doc, '$path/content');
 
   /// Measurement targets.
@@ -37812,7 +37812,7 @@ class StageSummaryDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSummaryDependenciesContentForm get content => StageSummaryDependenciesContentForm(doc, '$path/content');
 }
 
@@ -37834,7 +37834,7 @@ class StageSummaryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSummaryEntryContentForm get content => StageSummaryEntryContentForm(doc, '$path/content');
 
   /// Identity and theme.
@@ -37870,7 +37870,7 @@ class StageSummaryResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSummaryResourcesContentForm get content => StageSummaryResourcesContentForm(doc, '$path/content');
 }
 
@@ -37885,7 +37885,7 @@ class StagingDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StagingDependenciesContentForm get content => StagingDependenciesContentForm(doc, '$path/content');
 }
 
@@ -37900,7 +37900,7 @@ class StagingDrivers extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StagingDriversContentForm get content => StagingDriversContentForm(doc, '$path/content');
 }
 
@@ -37922,7 +37922,7 @@ class StagingStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StagingStrategyContentForm get content => StagingStrategyContentForm(doc, '$path/content');
 
   /// Approach selection details.
@@ -38001,7 +38001,7 @@ class StakeholderEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StakeholderEntryContentForm get content => StakeholderEntryContentForm(doc, '$path/content');
 }
 
@@ -38019,7 +38019,7 @@ class StakeholderRegisterEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StakeholderRegisterEntryContentForm get content => StakeholderRegisterEntryContentForm(doc, '$path/content');
 }
 
@@ -38045,7 +38045,7 @@ class StakeholdersAndBeneficiaries extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -38074,7 +38074,7 @@ class StakeholdersAndGovernance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive summary of the project's stakeholder and governance arrangements.
   /// Describe the overall governance model, communication approach, and key
@@ -38134,7 +38134,7 @@ class StakeholdersAndInterests extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   StakeholdersAndInterestsContentForm get content => StakeholdersAndInterestsContentForm(doc, '$path/content');
 }
 
@@ -38178,7 +38178,7 @@ class StandardSoftwareRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of standard software requirements approach.
   ///
@@ -38249,7 +38249,7 @@ class StandardsComplianceSection extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of standards compliance strategy and roadmap.
   ///
@@ -38338,7 +38338,7 @@ class SteeringCommittee extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -38365,7 +38365,7 @@ class StepUpAuthenticationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.
   StepUpAuthenticationPolicyContentForm get content => StepUpAuthenticationPolicyContentForm(doc, '$path/content');
@@ -38391,7 +38391,7 @@ class StorageEncryptionPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.
   StorageEncryptionPolicyContentForm get content => StorageEncryptionPolicyContentForm(doc, '$path/content');
@@ -38415,7 +38415,7 @@ class StorageLifecyclePolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.
   StorageLifecyclePolicyContentForm get content => StorageLifecyclePolicyContentForm(doc, '$path/content');
@@ -38443,7 +38443,7 @@ class StrategicAlignment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so.
   String get content => doc.content('$path/content') ?? '';
@@ -38466,7 +38466,7 @@ class SubFunctionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SubFunctionEntryContentForm get content => SubFunctionEntryContentForm(doc, '$path/content');
 }
 
@@ -38485,7 +38485,7 @@ class SubStageEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SubStageEntryContentForm get content => SubStageEntryContentForm(doc, '$path/content');
 
   /// Description and objectives.
@@ -38525,7 +38525,7 @@ class SuccessCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of how project success is determined and which dimensions the criteria collectively cover.
   String get content => doc.content('$path/content') ?? '';
@@ -38569,7 +38569,7 @@ class SuccessCriteriaByCategory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the success criteria before the per-category buckets below. Cover who judges success and at what point the judgement is made.
   String get content => doc.content('$path/content') ?? '';
@@ -38620,7 +38620,7 @@ class SuccessCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SuccessCriterionEntryContentForm get content => SuccessCriterionEntryContentForm(doc, '$path/content');
 
   /// Identification details.
@@ -38655,7 +38655,7 @@ class SuccessCriterionRelationships extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SuccessCriterionRelationshipsContentForm get content => SuccessCriterionRelationshipsContentForm(doc, '$path/content');
 }
 
@@ -38673,7 +38673,7 @@ class SupportAccess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how users reach support before the help-centre, live-support and ticket subsections below. Cover which channels exist and when each is available.
   String get content => doc.content('$path/content') ?? '';
@@ -38718,7 +38718,7 @@ class SupportDeliverables extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Support deliverables: transition support during go-live, warranty support
   /// post-acceptance, knowledge transfer sessions, escalation contacts,
@@ -38744,7 +38744,7 @@ class SupportedLocaleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SupportedLocaleEntryContentForm get content => SupportedLocaleEntryContentForm(doc, '$path/content');
 
   /// Formatting and direction rules for the locale.
@@ -38774,7 +38774,7 @@ class SystemArchitectureSpec extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** System-level architecture description: layering, package structure,
   /// significant design patterns, boundary definitions, and architectural
@@ -38814,7 +38814,7 @@ class SystemBoundaries extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the system boundary before the interface, out-of-scope and assumption subsections below. Cover what sits inside the boundary and what the system merely talks to.
   String get content => doc.content('$path/content') ?? '';
@@ -38873,7 +38873,7 @@ class SystemBusinessCriticality extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemBusinessCriticalityContentForm get content => SystemBusinessCriticalityContentForm(doc, '$path/content');
 
   /// Usage scale and commercial impact.
@@ -38904,7 +38904,7 @@ class SystemBusinessProcessEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemBusinessProcessEntryContentForm get content => SystemBusinessProcessEntryContentForm(doc, '$path/content');
 }
 
@@ -38919,7 +38919,7 @@ class SystemBusinessUnitEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemBusinessUnitEntryContentForm get content => SystemBusinessUnitEntryContentForm(doc, '$path/content');
 }
 
@@ -38934,7 +38934,7 @@ class SystemConfigurationManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemConfigurationManagementContentForm get content => SystemConfigurationManagementContentForm(doc, '$path/content');
 
   /// Dynamic configuration and rollback behavior.
@@ -38972,7 +38972,7 @@ class SystemContext extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -39012,7 +39012,7 @@ class SystemCostAnalysis extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemCostAnalysisContentForm get content => SystemCostAnalysisContentForm(doc, '$path/content');
 
   /// Current-state support and total annual cost.
@@ -39046,7 +39046,7 @@ class SystemDataScope extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemDataScopeContentForm get content => SystemDataScopeContentForm(doc, '$path/content');
 
   /// Data sensitivity and quality posture.
@@ -39081,7 +39081,7 @@ class SystemDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemDependencyEntryContentForm get content => SystemDependencyEntryContentForm(doc, '$path/content');
 
   /// Mechanism and coupling.
@@ -39134,7 +39134,7 @@ class SystemDescription extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Concise description of the system to be created.
   /// Describe the primary purpose of the system and the business domain it
@@ -39176,7 +39176,7 @@ class SystemDiagnosticTools extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemDiagnosticToolsContentForm get content => SystemDiagnosticToolsContentForm(doc, '$path/content');
 
   /// Trace and dependency inspection tools.
@@ -39200,7 +39200,7 @@ class SystemErrorCodeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemErrorCodeEntryContentForm get content => SystemErrorCodeEntryContentForm(doc, '$path/content');
 
   /// Recovery and display guidance.
@@ -39227,7 +39227,7 @@ class SystemErrorDisplay extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how system-side failures are presented before the error-type, display and fallback subsections below. Cover what the user is told and what is deliberately withheld.
   String get content => doc.content('$path/content') ?? '';
@@ -39282,7 +39282,7 @@ class SystemIntegrationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemIntegrationEntryContentForm get content => SystemIntegrationEntryContentForm(doc, '$path/content');
 
   /// Protocol and transport details.
@@ -39339,7 +39339,7 @@ class SystemInventory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -39360,7 +39360,7 @@ class SystemKnowledgeTransfer extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemKnowledgeTransferContentForm get content => SystemKnowledgeTransferContentForm(doc, '$path/content');
 
   /// Critical knowledge areas to preserve.
@@ -39390,7 +39390,7 @@ class SystemLandscapeInventory extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Enumerates every external system the target system interacts with, with
   /// enough metadata to support dependency and impact analysis across the
@@ -39419,7 +39419,7 @@ class SystemMigrationPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemMigrationPlanContentForm get content => SystemMigrationPlanContentForm(doc, '$path/content');
 
   /// Migration execution and validation details.
@@ -39455,7 +39455,7 @@ class SystemMigrationRiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemMigrationRiskEntryContentForm get content => SystemMigrationRiskEntryContentForm(doc, '$path/content');
 }
 
@@ -39505,7 +39505,7 @@ class SystemOperation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of system operation approach.
   ///
@@ -39580,7 +39580,7 @@ class SystemOperationAndMonitoring extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of operational approach and responsibilities.
   ///
@@ -39630,7 +39630,7 @@ class SystemPurpose extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail.
   String get content => doc.content('$path/content') ?? '';
@@ -39681,7 +39681,7 @@ class SystemQualityGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the quality goals before the governance, per-characteristic and acceptance subsections below. Cover which quality attributes matter most for this system, and why.
   String get content => doc.content('$path/content') ?? '';
@@ -39787,7 +39787,7 @@ class SystemReplacementStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemReplacementStrategyContentForm get content => SystemReplacementStrategyContentForm(doc, '$path/content');
 
   /// Replacement timeline milestones.
@@ -39826,7 +39826,7 @@ class SystemRollout extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Executive summary of the rollout approach: from pilot through phased
   /// rollout, migration, user enablement, cutover, knowledge transfer, and
@@ -39888,7 +39888,7 @@ class SystemStagePlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemStagePlanContentForm get content => SystemStagePlanContentForm(doc, '$path/content');
 
   /// Overall schedule and buffer model.
@@ -39936,7 +39936,7 @@ class SystemSummary extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemSummaryContentForm get content => SystemSummaryContentForm(doc, '$path/content');
 
   /// System classification.
@@ -39966,7 +39966,7 @@ class SystemTaskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemTaskEntryContentForm get content => SystemTaskEntryContentForm(doc, '$path/content');
 
   /// Timing, complexity, and trigger details.
@@ -40016,7 +40016,7 @@ class SystemTechnicalAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemTechnicalAssessmentContentForm get content => SystemTechnicalAssessmentContentForm(doc, '$path/content');
 
   /// Platform and age details.
@@ -40058,7 +40058,7 @@ class SystemToReplaceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this legacy system — its history and the reason it is being replaced, beyond the technical, business and migration facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -40124,7 +40124,7 @@ class SystemTrainingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemTrainingEntryContentForm get content => SystemTrainingEntryContentForm(doc, '$path/content');
 
   /// Functional training coverage.
@@ -40148,7 +40148,7 @@ class SystemUserImpact extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemUserImpactContentForm get content => SystemUserImpactContentForm(doc, '$path/content');
 
   /// User-facing change profile.
@@ -40185,7 +40185,7 @@ class SystemsToReplace extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the replacement portfolio before the inventory and migration-considerations subsections below. Cover the rationalization strategy behind the selection.
   String get content => doc.content('$path/content') ?? '';
@@ -40216,7 +40216,7 @@ class TabBarDefinitionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TabBarDefinitionEntryContentForm get content => TabBarDefinitionEntryContentForm(doc, '$path/content');
 
   /// Position and selection behavior.
@@ -40242,7 +40242,7 @@ class TabItemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TabItemEntryContentForm get content => TabItemEntryContentForm(doc, '$path/content');
 
   /// Access control — what a caller must satisfy to reach this tab.
@@ -40270,7 +40270,7 @@ class TargetOperatingModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -40292,7 +40292,7 @@ class TargetPlatformEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TargetPlatformEntryContentForm get content => TargetPlatformEntryContentForm(doc, '$path/content');
 
   /// Version requirements.
@@ -40324,7 +40324,7 @@ class TeamMemberEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberEntryContentForm get content => TeamMemberEntryContentForm(doc, '$path/content');
 
   /// Allocation and scheduling details.
@@ -40359,7 +40359,7 @@ class TeamMemberResponsibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberResponsibilityEntryContentForm get content => TeamMemberResponsibilityEntryContentForm(doc, '$path/content');
 }
 
@@ -40374,7 +40374,7 @@ class TeamMemberSkillEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberSkillEntryContentForm get content => TeamMemberSkillEntryContentForm(doc, '$path/content');
 }
 
@@ -40389,7 +40389,7 @@ class TeamMemberSkills extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberSkillsContentForm get content => TeamMemberSkillsContentForm(doc, '$path/content');
 
   /// Individual skill entries.
@@ -40409,7 +40409,7 @@ class TeamStructureOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamStructureOverviewContentForm get content => TeamStructureOverviewContentForm(doc, '$path/content');
 
   /// Team structure diagram.
@@ -40427,7 +40427,7 @@ class TechnicalCharacteristicEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalCharacteristicEntryContentForm get content => TechnicalCharacteristicEntryContentForm(doc, '$path/content');
 }
 
@@ -40442,7 +40442,7 @@ class TechnicalConstraintEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalConstraintEntryContentForm get content => TechnicalConstraintEntryContentForm(doc, '$path/content');
 }
 
@@ -40457,7 +40457,7 @@ class TechnicalDependencyEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalDependencyEntryContentForm get content => TechnicalDependencyEntryContentForm(doc, '$path/content');
 }
 
@@ -40481,7 +40481,7 @@ class TechnicalEnvironment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the pre-existing technical landscape before the governance, standards and infrastructure subsections below. Cover what is mandated and what is merely current practice.
   String get content => doc.content('$path/content') ?? '';
@@ -40562,7 +40562,7 @@ class TechnicalEnvironmentNetwork extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalEnvironmentNetworkContentForm get content => TechnicalEnvironmentNetworkContentForm(doc, '$path/content');
 
   /// DevOps and deployment standards.
@@ -40618,7 +40618,7 @@ class TechnicalFrameworkConcept extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an executive summary of the technical framework approach.
   ///
@@ -40684,7 +40684,7 @@ class TechnicalGoalConstraints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -40712,7 +40712,7 @@ class TechnicalGoalDependencies extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -40736,7 +40736,7 @@ class TechnicalGoalEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalGoalEntryContentForm get content => TechnicalGoalEntryContentForm(doc, '$path/content');
 
   /// Success measurement details.
@@ -40769,7 +40769,7 @@ class TechnicalGoalTestCaseEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalGoalTestCaseEntryContentForm get content => TechnicalGoalTestCaseEntryContentForm(doc, '$path/content');
 }
 
@@ -40791,7 +40791,7 @@ class TechnicalGoalTestCriteria extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Summarize the overall testing approach for verifying this technical goal.
   String get content => doc.content('$path/content') ?? '';
@@ -40826,7 +40826,7 @@ class TechnicalGoals extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -40850,7 +40850,7 @@ class TechnicalInfrastructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the technical infrastructure this workplace depends on before the connectivity, software and remote-access subsections below.
   String get content => doc.content('$path/content') ?? '';
@@ -40887,7 +40887,7 @@ class TechnicalPainPoints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Overview of technical pain points affecting system development, maintenance,
   /// and evolution. Include technology obsolescence risks, security posture,
@@ -40920,7 +40920,7 @@ class TechnicalRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalRequirementEntryContentForm get content => TechnicalRequirementEntryContentForm(doc, '$path/content');
 
   /// Requirement details: description, category, priority.
@@ -40969,7 +40969,7 @@ class TechnicalRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable.
   String get content => doc.content('$path/content') ?? '';
@@ -41031,7 +41031,7 @@ class TechnicalSecurityRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Provide an overview of security approach and governance.
   ///
@@ -41075,7 +41075,7 @@ class TechnologyDataVariations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnologyDataVariationsContentForm get content => TechnologyDataVariationsContentForm(doc, '$path/content');
 }
 
@@ -41093,7 +41093,7 @@ class TechnologyStandardEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnologyStandardEntryContentForm get content => TechnologyStandardEntryContentForm(doc, '$path/content');
 
   /// Standard details and sources.
@@ -41125,7 +41125,7 @@ class TenantBoundaryEnforcementPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.
   TenantBoundaryEnforcementPolicyContentForm get content => TenantBoundaryEnforcementPolicyContentForm(doc, '$path/content');
@@ -41151,7 +41151,7 @@ class TenantContextPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.
   TenantContextPolicyContentForm get content => TenantContextPolicyContentForm(doc, '$path/content');
@@ -41175,7 +41175,7 @@ class TenantCustomizationEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TenantCustomizationEntryContentForm get content => TenantCustomizationEntryContentForm(doc, '$path/content');
 }
 
@@ -41193,7 +41193,7 @@ class TenantDataIsolationPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.
   TenantDataIsolationPolicyContentForm get content => TenantDataIsolationPolicyContentForm(doc, '$path/content');
@@ -41224,7 +41224,7 @@ class TenantIsolation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define how multi-tenant authorization is structured at the application layer.
   /// Complements data-level tenant isolation.
@@ -41297,7 +41297,7 @@ class TenantOnboardingPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.
   TenantOnboardingPolicyContentForm get content => TenantOnboardingPolicyContentForm(doc, '$path/content');
@@ -41317,7 +41317,7 @@ class TestLevelEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** What the level verifies and how it fits the levels around it.
   TestLevelEntryContentForm get content => TestLevelEntryContentForm(doc, '$path/content');
@@ -41339,7 +41339,7 @@ class TestScenarioEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TestScenarioEntryContentForm get content => TestScenarioEntryContentForm(doc, '$path/content');
 
   /// Identification.
@@ -41382,7 +41382,7 @@ class TestScenarioNotes extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TestScenarioNotesContentForm get content => TestScenarioNotesContentForm(doc, '$path/content');
 }
 
@@ -41402,7 +41402,7 @@ class TestStrategy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** High-level strategy for verifying quality across the system. Distinct
   /// from the acceptance plan and from the per-quality-attribute
@@ -41438,7 +41438,7 @@ class TestingStandards extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TestingStandardsContentForm get content => TestingStandardsContentForm(doc, '$path/content');
 
   /// Additional test types and organization.
@@ -41465,7 +41465,7 @@ class ThirdPartyApiIntegrations extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ThirdPartyApiIntegrationsContentForm get content => ThirdPartyApiIntegrationsContentForm(doc, '$path/content');
 
   /// Analytics and monitoring providers.
@@ -41498,7 +41498,7 @@ class ThirdPartyCompatibilityEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ThirdPartyCompatibilityEntryContentForm get content => ThirdPartyCompatibilityEntryContentForm(doc, '$path/content');
 
   /// Compatibility characteristics.
@@ -41525,7 +41525,7 @@ class ThirdPartyLibraryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ThirdPartyLibraryEntryContentForm get content => ThirdPartyLibraryEntryContentForm(doc, '$path/content');
 
   /// Evaluation and selection.
@@ -41560,7 +41560,7 @@ class ThrowawayPrototype extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the throwaway prototype before the findings, disposition and value subsections below. Cover how the findings are captured before the artifact is discarded.
   String get content => doc.content('$path/content') ?? '';
@@ -41600,7 +41600,7 @@ class TlsProtocolPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.
   TlsProtocolPolicyContentForm get content => TlsProtocolPolicyContentForm(doc, '$path/content');
@@ -41620,7 +41620,7 @@ class TlsRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TlsRequirementsContentForm get content => TlsRequirementsContentForm(doc, '$path/content');
 
   /// Cipher suite policy.
@@ -41650,7 +41650,7 @@ class TokenManagementPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.
   TokenManagementPolicyContentForm get content => TokenManagementPolicyContentForm(doc, '$path/content');
@@ -41676,7 +41676,7 @@ class ToolEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ToolEntryContentForm get content => ToolEntryContentForm(doc, '$path/content');
 
   /// Identity and classification details.
@@ -41741,7 +41741,7 @@ class Tooling extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ToolingContentForm get content => ToolingContentForm(doc, '$path/content');
 
   /// Stack composition and selection policies.
@@ -41778,7 +41778,7 @@ class ToolingAndEnvironments extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -41800,7 +41800,7 @@ class TourStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TourStepEntryContentForm get content => TourStepEntryContentForm(doc, '$path/content');
 }
 
@@ -41815,7 +41815,7 @@ class TradeOffDecisionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TradeOffDecisionEntryContentForm get content => TradeOffDecisionEntryContentForm(doc, '$path/content');
 
   /// Qualities in conflict.
@@ -41855,7 +41855,7 @@ class TradeOffDecisions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the trade-off decisions before the individual items below. Cover how a trade-off is raised, decided and revisited.
   String get content => doc.content('$path/content') ?? '';
@@ -41894,7 +41894,7 @@ class TrainingAssessment extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingAssessmentContentForm get content => TrainingAssessmentContentForm(doc, '$path/content');
 
   /// Retention and effectiveness evaluation.
@@ -41929,7 +41929,7 @@ class TrainingDeliverableRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the end-user training deliverables before the module catalogue below. Cover the audiences, the delivery mode, and when training happens relative to rollout.
   String get content => doc.content('$path/content') ?? '';
@@ -41964,7 +41964,7 @@ class TrainingDeliverables extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Training deliverables: instructor-led sessions, e-learning modules,
   /// train-the-trainer programs, quick reference cards, video tutorials,
@@ -42011,7 +42011,7 @@ class TrainingMaterials extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingMaterialsContentForm get content => TrainingMaterialsContentForm(doc, '$path/content');
 
   /// Practice and reference resources.
@@ -42035,7 +42035,7 @@ class TrainingModuleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingModuleEntryContentForm get content => TrainingModuleEntryContentForm(doc, '$path/content');
 }
 
@@ -42055,7 +42055,7 @@ class TrainingPrototype extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the training prototype before the disposition and output subsections below. Cover which concepts are meant to carry forward once the code does not.
   String get content => doc.content('$path/content') ?? '';
@@ -42094,7 +42094,7 @@ class TrainingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the training program for this workplace before the initial, ongoing, certification and assessment subsections below. Cover the learning objectives it is built around.
   String get content => doc.content('$path/content') ?? '';
@@ -42133,7 +42133,7 @@ class TrainingTopicEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingTopicEntryContentForm get content => TrainingTopicEntryContentForm(doc, '$path/content');
 }
 
@@ -42148,7 +42148,7 @@ class TransitionCommunicationChannels extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionCommunicationChannelsContentForm get content => TransitionCommunicationChannelsContentForm(doc, '$path/content');
 }
 
@@ -42166,7 +42166,7 @@ class TransitionCommunicationPlan extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the communication approach before the event and channel lists below. Cover the key messages and who delivers them.
   String get content => doc.content('$path/content') ?? '';
@@ -42197,7 +42197,7 @@ class TransitionEscalationPaths extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionEscalationPathsContentForm get content => TransitionEscalationPathsContentForm(doc, '$path/content');
 }
 
@@ -42212,7 +42212,7 @@ class TransitionMetricEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionMetricEntryContentForm get content => TransitionMetricEntryContentForm(doc, '$path/content');
 
   /// Measurement operations.
@@ -42233,7 +42233,7 @@ class TransitionMilestoneEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionMilestoneEntryContentForm get content => TransitionMilestoneEntryContentForm(doc, '$path/content');
 
   /// Deliverables and decisioning.
@@ -42257,7 +42257,7 @@ class TransitionOverview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionOverviewContentForm get content => TransitionOverviewContentForm(doc, '$path/content');
 
   /// Timeline and cutover planning.
@@ -42278,7 +42278,7 @@ class TransitionPhaseActivities extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionPhaseActivitiesContentForm get content => TransitionPhaseActivitiesContentForm(doc, '$path/content');
 }
 
@@ -42298,7 +42298,7 @@ class TransitionPhaseEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this transition phase — what it looks like on the ground, beyond the activity, stakeholder and exit-criteria facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -42332,7 +42332,7 @@ class TransitionPhaseIdentification extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionPhaseIdentificationContentForm get content => TransitionPhaseIdentificationContentForm(doc, '$path/content');
 
   /// Timeline and sequencing details.
@@ -42353,7 +42353,7 @@ class TransitionPhaseStakeholders extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionPhaseStakeholdersContentForm get content => TransitionPhaseStakeholdersContentForm(doc, '$path/content');
 }
 
@@ -42368,7 +42368,7 @@ class TransitionRiskEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionRiskEntryContentForm get content => TransitionRiskEntryContentForm(doc, '$path/content');
 
   /// Risk assessment and exposure details.
@@ -42392,7 +42392,7 @@ class TransitionSuccessMetrics extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how transition success is judged before the individual metrics below. Cover the baseline and the point at which the measurement is taken.
   String get content => doc.content('$path/content') ?? '';
@@ -42418,7 +42418,7 @@ class TransitionSupportResourceEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionSupportResourceEntryContentForm get content => TransitionSupportResourceEntryContentForm(doc, '$path/content');
 }
 
@@ -42436,7 +42436,7 @@ class TransitionSupportStructure extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the transition support model before the resource and escalation lists below. Cover how long enhanced support lasts.
   String get content => doc.content('$path/content') ?? '';
@@ -42472,7 +42472,7 @@ class TranslationProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the translation workflow before the tooling, quality, terminology and vendor subsections below. Cover who translates and how translation quality is judged.
   String get content => doc.content('$path/content') ?? '';
@@ -42521,7 +42521,7 @@ class TranslationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the internationalization framework before the RTL, formatting and technical subsections below. Cover the string-externalization format and the locale-resolution rule.
   String get content => doc.content('$path/content') ?? '';
@@ -42560,7 +42560,7 @@ class TranslationVendorEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TranslationVendorEntryContentForm get content => TranslationVendorEntryContentForm(doc, '$path/content');
 }
 
@@ -42579,7 +42579,7 @@ class TransportSecurityPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.
   TransportSecurityPolicyContentForm get content => TransportSecurityPolicyContentForm(doc, '$path/content');
@@ -42599,7 +42599,7 @@ class TroubleshootingCapabilities extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TroubleshootingCapabilitiesContentForm get content => TroubleshootingCapabilitiesContentForm(doc, '$path/content');
 
   /// Runbook and remediation support.
@@ -42631,7 +42631,7 @@ class TrustBoundaries extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -42652,7 +42652,7 @@ class TrustBoundaryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TrustBoundaryEntryContentForm get content => TrustBoundaryEntryContentForm(doc, '$path/content');
 }
 
@@ -42667,7 +42667,7 @@ class TypographyStyleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   TypographyStyleEntryContentForm get content => TypographyStyleEntryContentForm(doc, '$path/content');
 }
 
@@ -42682,7 +42682,7 @@ class UIRequirementsPreview extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UIRequirementsPreviewContentForm get content => UIRequirementsPreviewContentForm(doc, '$path/content');
 
   /// UI mockup/wireframe reference.
@@ -42704,7 +42704,7 @@ class UatTestCycleEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UatTestCycleEntryContentForm get content => UatTestCycleEntryContentForm(doc, '$path/content');
 
   /// Scope and pass criteria for this cycle.
@@ -42729,7 +42729,7 @@ class UatTestStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UatTestStepEntryContentForm get content => UatTestStepEntryContentForm(doc, '$path/content');
 }
 
@@ -42751,7 +42751,7 @@ class UiComponentEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this component — what it is for and when to reach for it, beyond the visual, behaviour and data-binding facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -42883,7 +42883,7 @@ class UiComponents extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the component library before the design system, per-component specifications and family lists below. Cover what is reused, what is built, and the rule for adding a new component.
   String get content => doc.content('$path/content') ?? '';
@@ -42936,7 +42936,7 @@ class UpgradeCycleFramework extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Framework that governs the upgrade cycle once initial development
   /// finishes. Provides the project-specific bridge to the static
@@ -42965,7 +42965,7 @@ class Usability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UsabilityContentForm get content => UsabilityContentForm(doc, '$path/content');
 
   /// Operability verification and ergonomics goals.
@@ -42998,7 +42998,7 @@ class UseCaseExtensions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UseCaseExtensionsContentForm get content => UseCaseExtensionsContentForm(doc, '$path/content');
 
   /// Extension entries — contains 0+× Extension.
@@ -43023,7 +43023,7 @@ class UseCaseTraceability extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Traceability matrix linking use cases to requirements, processes, and
   /// tests. Ensures every use case is justified and covered.
@@ -43054,7 +43054,7 @@ class UserAcceptanceTesting extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserAcceptanceTestingContentForm get content => UserAcceptanceTestingContentForm(doc, '$path/content');
 
   /// Scope and objectives.
@@ -43124,7 +43124,7 @@ class UserAccessPermissions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant.
   String get content => doc.content('$path/content') ?? '';
@@ -43163,7 +43163,7 @@ class UserAccessibilityNeeds extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to.
   String get content => doc.content('$path/content') ?? '';
@@ -43187,7 +43187,7 @@ class UserAccountStatesDefinition extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.
   UserAccountStatesDefinitionContentForm get content => UserAccountStatesDefinitionContentForm(doc, '$path/content');
@@ -43213,7 +43213,7 @@ class UserAssistance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the in-app help system before the contextual-help, onboarding and support-access subsections below. Cover when help is offered unprompted and when it has to be sought.
   String get content => doc.content('$path/content') ?? '';
@@ -43262,7 +43262,7 @@ class UserAttributeEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserAttributeEntryContentForm get content => UserAttributeEntryContentForm(doc, '$path/content');
 
   /// How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
@@ -43283,7 +43283,7 @@ class UserAttributes extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the user profile attributes captured and managed by the system. These
   /// attributes support authentication, authorization, personalization, and
@@ -43338,7 +43338,7 @@ class UserAuthorization extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Define the complete authorization structure that controls what users can do.
   /// Aligned with Tom Core authorization model.
@@ -43419,7 +43419,7 @@ class UserCategoryDefinition extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserCategoryDefinitionContentForm get content => UserCategoryDefinitionContentForm(doc, '$path/content');
 }
 
@@ -43437,7 +43437,7 @@ class UserCategoryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserCategoryEntryContentForm get content => UserCategoryEntryContentForm(doc, '$path/content');
 
   /// Interaction profile and scale indicators.
@@ -43491,7 +43491,7 @@ class UserDocumentationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the end-user documentation deliverables before the format and localization subsections below. Cover the audiences served and the channel each deliverable reaches them through.
   String get content => doc.content('$path/content') ?? '';
@@ -43524,7 +43524,7 @@ class UserGroupImpactEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserGroupImpactEntryContentForm get content => UserGroupImpactEntryContentForm(doc, '$path/content');
 }
 
@@ -43539,7 +43539,7 @@ class UserGrowthProjections extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserGrowthProjectionsContentForm get content => UserGrowthProjectionsContentForm(doc, '$path/content');
 
   /// Growth-rate assumptions and time-based projections.
@@ -43573,7 +43573,7 @@ class UserInteractionModel extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -43630,7 +43630,7 @@ class UserJourney extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Map this category's touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks.
   String get content => doc.content('$path/content') ?? '';
@@ -43680,7 +43680,7 @@ class UserLifecycle extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Document the complete lifecycle of user accounts from creation to permanent
   /// deletion. A well-defined lifecycle ensures proper access control, auditability,
@@ -43752,7 +43752,7 @@ class UserLifecycleTransitionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserLifecycleTransitionEntryContentForm get content => UserLifecycleTransitionEntryContentForm(doc, '$path/content');
 
   /// Approval requirements.
@@ -43779,7 +43779,7 @@ class UserLifecycleTransitions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.
   UserLifecycleTransitionsContentForm get content => UserLifecycleTransitionsContentForm(doc, '$path/content');
@@ -43810,7 +43810,7 @@ class UserManagement extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Describe how users are organized, categorized, and managed throughout their
   /// relationship with the system. This section establishes the foundation for
@@ -43862,7 +43862,7 @@ class UserManual extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** User manual deliverables: what documents are produced, for which user
   /// categories, in which languages, on what delivery channel (in-app help,
@@ -43912,7 +43912,7 @@ class UserPersonaDetails extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them.
   String get content => doc.content('$path/content') ?? '';
@@ -43957,7 +43957,7 @@ class UserPersonas extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## User Personas (10.1.3)
   ///
@@ -44006,7 +44006,7 @@ class UserProvisioningTools extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserProvisioningToolsContentForm get content => UserProvisioningToolsContentForm(doc, '$path/content');
 
   /// Account lifecycle management.
@@ -44034,7 +44034,7 @@ class UserRegistrationProcess extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk.
   UserRegistrationProcessContentForm get content => UserRegistrationProcessContentForm(doc, '$path/content');
@@ -44061,7 +44061,7 @@ class UserSettingEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UserSettingEntryContentForm get content => UserSettingEntryContentForm(doc, '$path/content');
 }
 
@@ -44090,7 +44090,7 @@ class UserSettings extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Summarise which settings follow the user rather than the device — the choices
   /// a user expects to find already applied the first time they sign in on a new
@@ -44125,7 +44125,7 @@ class UserTrainingRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off.
   String get content => doc.content('$path/content') ?? '';
@@ -44153,7 +44153,7 @@ class UtilityMenuItemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UtilityMenuItemEntryContentForm get content => UtilityMenuItemEntryContentForm(doc, '$path/content');
 
   /// Routing and action references.
@@ -44184,7 +44184,7 @@ class UtilityNavigation extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** ## Utility Navigation (10.3.1.5)
   ///
@@ -44230,7 +44230,7 @@ class UtilityNavigationItemEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   UtilityNavigationItemEntryContentForm get content => UtilityNavigationItemEntryContentForm(doc, '$path/content');
 
   /// Ordering and rendering.
@@ -44268,7 +44268,7 @@ class ValidationConstraints extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Business-level validation rules enforced on data. Distinct from schema
   /// constraints (which are database-level) and from per-field form hints
@@ -44301,7 +44301,7 @@ class ValidationFeedback extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce how input errors are surfaced before the placement, message and rule subsections below. Cover when validation runs — on change, on blur, or on submit.
   String get content => doc.content('$path/content') ?? '';
@@ -44352,7 +44352,7 @@ class ValidationMessageTemplate extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ValidationMessageTemplateContentForm get content => ValidationMessageTemplateContentForm(doc, '$path/content');
 }
 
@@ -44375,7 +44375,7 @@ class ValueProposition extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on.
   String get content => doc.content('$path/content') ?? '';
@@ -44407,7 +44407,7 @@ class VersionControlConfiguration extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   VersionControlConfigurationContentForm get content => VersionControlConfigurationContentForm(doc, '$path/content');
 
   /// Repository structure settings.
@@ -44434,7 +44434,7 @@ class VirtualizationRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   VirtualizationRequirementsContentForm get content => VirtualizationRequirementsContentForm(doc, '$path/content');
 
   /// VM requirements.
@@ -44461,7 +44461,7 @@ class VolumeMetricEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   VolumeMetricEntryContentForm get content => VolumeMetricEntryContentForm(doc, '$path/content');
 }
 
@@ -44476,7 +44476,7 @@ class VpnRequirementEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   VpnRequirementEntryContentForm get content => VpnRequirementEntryContentForm(doc, '$path/content');
 
   /// Endpoint configuration.
@@ -44503,7 +44503,7 @@ class VulnerabilityManagementPolicy extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   VulnerabilityManagementPolicyContentForm get content => VulnerabilityManagementPolicyContentForm(doc, '$path/content');
 
   /// Severity classification.
@@ -44533,7 +44533,7 @@ class WarrantyAndSupport extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Terms governing the warranty window that follows acceptance. Distinct
   /// from the long-term operations SLA (the acceptance-plan warranty section
@@ -44561,7 +44561,7 @@ class WarrantyServiceLevels extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WarrantyServiceLevelsContentForm get content => WarrantyServiceLevelsContentForm(doc, '$path/content');
 }
 
@@ -44579,7 +44579,7 @@ class WarrantyTerms extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WarrantyTermsContentForm get content => WarrantyTermsContentForm(doc, '$path/content');
 
   /// Duration and activation.
@@ -44622,7 +44622,7 @@ class WcagCompliance extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the WCAG conformance target before the per-principle subsections and the success-criteria list below. Cover the level claimed and any documented exception to it.
   String get content => doc.content('$path/content') ?? '';
@@ -44663,7 +44663,7 @@ class WcagSuccessCriterionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WcagSuccessCriterionEntryContentForm get content => WcagSuccessCriterionEntryContentForm(doc, '$path/content');
 }
 
@@ -44681,7 +44681,7 @@ class WeightedQualityMatrix extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the weighting scheme before the individual weights below. Cover the scale used and how stakeholder input was gathered.
   String get content => doc.content('$path/content') ?? '';
@@ -44732,7 +44732,7 @@ class WireframesAndMockups extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Catalog of wireframes and mockups across the UI. Complements the
   /// per-screen content in the screen-design section with cross-cutting,
@@ -44764,7 +44764,7 @@ class WorkflowActorEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowActorEntryContentForm get content => WorkflowActorEntryContentForm(doc, '$path/content');
 
   /// Steps this actor participates in.
@@ -44782,7 +44782,7 @@ class WorkflowBusinessRule extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowBusinessRuleContentForm get content => WorkflowBusinessRuleContentForm(doc, '$path/content');
 }
 
@@ -44797,7 +44797,7 @@ class WorkflowDecisionPoint extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowDecisionPointContentForm get content => WorkflowDecisionPointContentForm(doc, '$path/content');
 }
 
@@ -44823,7 +44823,7 @@ class WorkflowDescriptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context.
   String get content => doc.content('$path/content') ?? '';
@@ -44855,7 +44855,7 @@ class WorkflowExceptionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowExceptionEntryContentForm get content => WorkflowExceptionEntryContentForm(doc, '$path/content');
 }
 
@@ -44875,7 +44875,7 @@ class WorkflowExceptions extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -44896,7 +44896,7 @@ class WorkflowInputEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowInputEntryContentForm get content => WorkflowInputEntryContentForm(doc, '$path/content');
 }
 
@@ -44911,7 +44911,7 @@ class WorkflowOutputEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowOutputEntryContentForm get content => WorkflowOutputEntryContentForm(doc, '$path/content');
 }
 
@@ -44930,7 +44930,7 @@ class WorkflowStepEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowStepEntryContentForm get content => WorkflowStepEntryContentForm(doc, '$path/content');
 
   /// Systems used in this step.
@@ -44970,7 +44970,7 @@ class WorkflowStepIssue extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowStepIssueContentForm get content => WorkflowStepIssueContentForm(doc, '$path/content');
 }
 
@@ -44988,7 +44988,7 @@ class WorkflowStepSystem extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Notes on how this workflow step uses the named system — the function it performs there, and any limitation of the system that shapes the step.
   String get content => doc.content('$path/content') ?? '';
@@ -45021,7 +45021,7 @@ class WorkflowSummaryEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowSummaryEntryContentForm get content => WorkflowSummaryEntryContentForm(doc, '$path/content');
 }
 
@@ -45038,7 +45038,7 @@ class WorkflowSummaryTable extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowSummaryTableContentForm get content => WorkflowSummaryTableContentForm(doc, '$path/content');
 
   /// Summary entries per workflow.
@@ -45058,7 +45058,7 @@ class WorkflowTriggerEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowTriggerEntryContentForm get content => WorkflowTriggerEntryContentForm(doc, '$path/content');
 }
 
@@ -45078,7 +45078,7 @@ class WorkflowTriggers extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
@@ -45106,7 +45106,7 @@ class WorkplaceDescriptionEntry extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   ///
   /// **Authoring guidance.** Narrative for this workplace category — how these users actually work, beyond the physical, equipment, infrastructure and training facets recorded below.
   String get content => doc.content('$path/content') ?? '';
@@ -45142,7 +45142,7 @@ class WorkplaceSoftwareRequirements extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkplaceSoftwareRequirementsContentForm get content => WorkplaceSoftwareRequirementsContentForm(doc, '$path/content');
 
   /// Security and collaboration software stack.
@@ -45163,7 +45163,7 @@ class WorkplaceSupportResources extends SomNode {
 
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
-  /// §11.4 rule 7); the field values themselves live in [form].
+  /// §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkplaceSupportResourcesContentForm get content => WorkplaceSupportResourcesContentForm(doc, '$path/content');
 
   /// Extended support channels.
@@ -68007,7 +68007,7 @@ class DataAttributeConstraintEntryContentForm extends SomNode {
 
   /// Pattern/Regex.
   ///
-  /// Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)
+  /// Regex for validation (e.g., `^[A-Z]{2}-\d{6}$` for order IDs)
   String get patternRegex => doc.formField(path, 'patternRegex') ?? '';
   set patternRegex(String value) => doc.setFormField(path, 'patternRegex', value);
 }

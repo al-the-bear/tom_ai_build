@@ -4089,7 +4089,7 @@ impl AcceptanceCriteriaList {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4138,7 +4138,7 @@ impl AcceptanceCriteriaSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4210,7 +4210,7 @@ impl AcceptanceCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AcceptanceCriterionEntryContentForm {
         AcceptanceCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4236,7 +4236,7 @@ impl AcceptancePlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4301,7 +4301,7 @@ impl AcceptanceProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AcceptanceProcessContentForm {
         AcceptanceProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4373,7 +4373,7 @@ impl AcceptanceStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AcceptanceStepEntryContentForm {
         AcceptanceStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4412,7 +4412,7 @@ impl AccessChannels {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4467,7 +4467,7 @@ impl AccessConstraintPolicies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessConstraintPoliciesContentForm {
         AccessConstraintPoliciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4504,7 +4504,7 @@ impl AccessControlModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4563,7 +4563,7 @@ impl AccessControlModelSelection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessControlModelSelectionContentForm {
         AccessControlModelSelectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4593,7 +4593,7 @@ impl AccessHandlerEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessHandlerEntryContentForm {
         AccessHandlerEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4619,7 +4619,7 @@ impl AccessLevelEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessLevelEntryContentForm {
         AccessLevelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4663,7 +4663,7 @@ impl AccessLevels {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4726,7 +4726,7 @@ impl AccessRestrictionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessRestrictionEntryContentForm {
         AccessRestrictionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4752,7 +4752,7 @@ impl AccessUserCategories {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4796,7 +4796,7 @@ impl Accessibility {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4873,7 +4873,7 @@ impl AccessibilityCheckEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessibilityCheckEntryContentForm {
         AccessibilityCheckEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -4916,7 +4916,7 @@ impl AccessibilityChecklist {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -4968,7 +4968,7 @@ impl AccessibilityStandardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccessibilityStandardEntryContentForm {
         AccessibilityStandardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5017,7 +5017,7 @@ impl AccountActivationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccountActivationPolicyContentForm {
         AccountActivationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5050,7 +5050,7 @@ impl AccountDeactivationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccountDeactivationPolicyContentForm {
         AccountDeactivationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5082,7 +5082,7 @@ impl AccountDeletionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccountDeletionPolicyContentForm {
         AccountDeletionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5115,7 +5115,7 @@ impl AccountLockoutPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccountLockoutPolicyContentForm {
         AccountLockoutPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5147,7 +5147,7 @@ impl AccountModificationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AccountModificationPolicyContentForm {
         AccountModificationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5176,7 +5176,7 @@ impl ActionParameterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ActionParameterEntryContentForm {
         ActionParameterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5202,7 +5202,7 @@ impl ActorCharacteristics {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ActorCharacteristicsContentForm {
         ActorCharacteristicsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5240,7 +5240,7 @@ impl ActorEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -5311,7 +5311,7 @@ impl ActorGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ActorGoalsContentForm {
         ActorGoalsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5340,7 +5340,7 @@ impl ActorOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -5391,7 +5391,7 @@ impl ActorPermissions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ActorPermissionsContentForm {
         ActorPermissionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5417,7 +5417,7 @@ impl ActorRelationshipDiagram {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -5459,7 +5459,7 @@ impl AdminInterfaceRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AdminInterfaceRequirementsContentForm {
         AdminInterfaceRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5500,7 +5500,7 @@ impl AdministrationRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -5566,7 +5566,7 @@ impl AdministrativeEventPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AdministrativeEventPolicyContentForm {
         AdministrativeEventPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5595,7 +5595,7 @@ impl AffectedDepartmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AffectedDepartmentEntryContentForm {
         AffectedDepartmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5623,7 +5623,7 @@ impl AffectedFunctionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AffectedFunctionEntryContentForm {
         AffectedFunctionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5662,7 +5662,7 @@ impl AffectedObjectEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AffectedObjectEntryContentForm {
         AffectedObjectEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5700,7 +5700,7 @@ impl AlertDefinitionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlertDefinitionEntryContentForm {
         AlertDefinitionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5741,7 +5741,7 @@ impl AlertEscalationPolicies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlertEscalationPoliciesContentForm {
         AlertEscalationPoliciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5782,7 +5782,7 @@ impl AlertNotificationChannels {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlertNotificationChannelsContentForm {
         AlertNotificationChannelsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5823,7 +5823,7 @@ impl AlertRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlertRuleEntryContentForm {
         AlertRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5864,7 +5864,7 @@ impl AlertSuppressionRules {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlertSuppressionRulesContentForm {
         AlertSuppressionRulesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -5893,7 +5893,7 @@ impl AlertingConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -5979,7 +5979,7 @@ impl AlertingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlertingRequirementsContentForm {
         AlertingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6025,7 +6025,7 @@ impl AlternativeFlowEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlternativeFlowEntryContentForm {
         AlternativeFlowEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6072,7 +6072,7 @@ impl AlternativeStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AlternativeStepEntryContentForm {
         AlternativeStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6128,7 +6128,7 @@ impl AnomalyDetectionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AnomalyDetectionPolicyContentForm {
         AnomalyDetectionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6162,7 +6162,7 @@ impl ApiAbuseProtection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiAbuseProtectionContentForm {
         ApiAbuseProtectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6194,7 +6194,7 @@ impl ApiAuthenticationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiAuthenticationPolicyContentForm {
         ApiAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6227,7 +6227,7 @@ impl ApiAuthorizationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiAuthorizationPolicyContentForm {
         ApiAuthorizationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6256,7 +6256,7 @@ impl ApiCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiCompatibilityEntryContentForm {
         ApiCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6307,7 +6307,7 @@ impl ApiCorsSecurity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiCorsSecurityContentForm {
         ApiCorsSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6339,7 +6339,7 @@ impl ApiKeyManagementPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiKeyManagementPolicyContentForm {
         ApiKeyManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6373,7 +6373,7 @@ impl ApiRequestValidationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiRequestValidationPolicyContentForm {
         ApiRequestValidationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6407,7 +6407,7 @@ impl ApiSecurity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -6477,7 +6477,7 @@ impl ApiSecurityMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiSecurityMonitoringContentForm {
         ApiSecurityMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6506,7 +6506,7 @@ impl ApiVersioningStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApiVersioningStrategyContentForm {
         ApiVersioningStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6547,7 +6547,7 @@ impl ApplicableRegulationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApplicableRegulationEntryContentForm {
         ApplicableRegulationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6583,7 +6583,7 @@ impl ApplicationDiagnostics {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApplicationDiagnosticsContentForm {
         ApplicationDiagnosticsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6624,7 +6624,7 @@ impl ApplicationMetricsSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApplicationMetricsSpecContentForm {
         ApplicationMetricsSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6665,7 +6665,7 @@ impl ApplicationPerformanceMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApplicationPerformanceMonitoringContentForm {
         ApplicationPerformanceMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6711,7 +6711,7 @@ impl ApplicationSecurityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApplicationSecurityRequirementsContentForm {
         ApplicationSecurityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6752,7 +6752,7 @@ impl ApprovalRecord {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ApprovalRecordContentForm {
         ApprovalRecordContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6778,7 +6778,7 @@ impl ArchitectureComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ArchitectureComponentEntryContentForm {
         ArchitectureComponentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6829,7 +6829,7 @@ impl ArchitectureDecisionRecord {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ArchitectureDecisionRecordContentForm {
         ArchitectureDecisionRecordContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6875,7 +6875,7 @@ impl ArchitectureOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ArchitectureOverviewContentForm {
         ArchitectureOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6921,7 +6921,7 @@ impl ArchitecturePrincipleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ArchitecturePrincipleEntryContentForm {
         ArchitecturePrincipleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -6962,7 +6962,7 @@ impl ArchitectureStyle {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7058,7 +7058,7 @@ impl AssumptionConstraintDependencyRegister {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7123,7 +7123,7 @@ impl AssumptionRegisterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AssumptionRegisterEntryContentForm {
         AssumptionRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7149,7 +7149,7 @@ impl AssumptionsConstraintsDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7197,7 +7197,7 @@ impl AuditAndLogging {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7238,7 +7238,7 @@ impl AuditEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuditEntryContentForm {
         AuditEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7264,7 +7264,7 @@ impl AuditEvidenceRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuditEvidenceRequirementsContentForm {
         AuditEvidenceRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7300,7 +7300,7 @@ impl AuditEvidenceTypeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuditEvidenceTypeEntryContentForm {
         AuditEvidenceTypeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7329,7 +7329,7 @@ impl AuditLogFormat {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7385,7 +7385,7 @@ impl AuditRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7431,7 +7431,7 @@ impl Authentication {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7485,7 +7485,7 @@ impl AuthenticationErrorHandling {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthenticationErrorHandlingContentForm {
         AuthenticationErrorHandlingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7516,7 +7516,7 @@ impl AuthenticationEventPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthenticationEventPolicyContentForm {
         AuthenticationEventPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7550,7 +7550,7 @@ impl AuthenticationFlow {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7630,7 +7630,7 @@ impl AuthenticationMethodEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthenticationMethodEntryContentForm {
         AuthenticationMethodEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7681,7 +7681,7 @@ impl AuthenticationMethods {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7758,7 +7758,7 @@ impl AuthorizationComplianceFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7794,7 +7794,7 @@ impl AuthorizationEventPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthorizationEventPolicyContentForm {
         AuthorizationEventPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7823,7 +7823,7 @@ impl AuthorizationGroupEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthorizationGroupEntryContentForm {
         AuthorizationGroupEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7864,7 +7864,7 @@ impl AuthorizationModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -7928,7 +7928,7 @@ impl AuthorizationRequirementSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthorizationRequirementSpecContentForm {
         AuthorizationRequirementSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -7988,7 +7988,7 @@ impl AuthorizationRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AuthorizationRoleEntryContentForm {
         AuthorizationRoleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8094,7 +8094,7 @@ impl Availability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> AvailabilityContentForm {
         AvailabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8146,7 +8146,7 @@ impl BackupAndRecoverySection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -8225,7 +8225,7 @@ impl BackupCompliance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackupComplianceContentForm {
         BackupComplianceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8266,7 +8266,7 @@ impl BackupDataClassification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackupDataClassificationContentForm {
         BackupDataClassificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8306,7 +8306,7 @@ impl BackupEncryptionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackupEncryptionPolicyContentForm {
         BackupEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8335,7 +8335,7 @@ impl BackupInfrastructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackupInfrastructureContentForm {
         BackupInfrastructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8381,7 +8381,7 @@ impl BackupPolicyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackupPolicyEntryContentForm {
         BackupPolicyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8427,7 +8427,7 @@ impl BackupVerification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackupVerificationContentForm {
         BackupVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8468,7 +8468,7 @@ impl BackwardsCompatibilityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BackwardsCompatibilityRequirementsContentForm {
         BackwardsCompatibilityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8514,7 +8514,7 @@ impl BandwidthRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BandwidthRequirementsContentForm {
         BandwidthRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8560,7 +8560,7 @@ impl BasicTechnicalRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -8617,7 +8617,7 @@ impl BatchJobManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BatchJobManagementContentForm {
         BatchJobManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8702,7 +8702,7 @@ impl BehaviorRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BehaviorRuleEntryContentForm {
         BehaviorRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8732,7 +8732,7 @@ impl BindingParameterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BindingParameterEntryContentForm {
         BindingParameterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8762,7 +8762,7 @@ impl BiometricAuthenticationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BiometricAuthenticationPolicyContentForm {
         BiometricAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8791,7 +8791,7 @@ impl BoundaryAssumptionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BoundaryAssumptionEntryContentForm {
         BoundaryAssumptionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8832,7 +8832,7 @@ impl BoundaryAssumptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -8880,7 +8880,7 @@ impl BoundaryInteractionPatterns {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -8916,7 +8916,7 @@ impl BoundedContextEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BoundedContextEntryContentForm {
         BoundedContextEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -8974,7 +8974,7 @@ impl BreakpointConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9023,7 +9023,7 @@ impl BreakpointEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BreakpointEntryContentForm {
         BreakpointEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9059,7 +9059,7 @@ impl BrowserCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BrowserCompatibilityEntryContentForm {
         BrowserCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9105,7 +9105,7 @@ impl BrowserRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BrowserRequirementEntryContentForm {
         BrowserRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9151,7 +9151,7 @@ impl BuildToolchainEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BuildToolchainEntryContentForm {
         BuildToolchainEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9207,7 +9207,7 @@ impl BuildToolsConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BuildToolsConfigurationContentForm {
         BuildToolsConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9253,7 +9253,7 @@ impl BusinessComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BusinessComponentEntryContentForm {
         BusinessComponentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9309,7 +9309,7 @@ impl BusinessDomain {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9378,7 +9378,7 @@ impl BusinessGoalEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BusinessGoalEntryContentForm {
         BusinessGoalEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9461,7 +9461,7 @@ impl BusinessGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9502,7 +9502,7 @@ impl BusinessMetricsSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BusinessMetricsSpecContentForm {
         BusinessMetricsSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9551,7 +9551,7 @@ impl BusinessObjectAttributeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BusinessObjectAttributeEntryContentForm {
         BusinessObjectAttributeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -9596,7 +9596,7 @@ impl BusinessObjectEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9776,7 +9776,7 @@ impl BusinessObjectModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9823,7 +9823,7 @@ impl BusinessPainPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9873,7 +9873,7 @@ impl BusinessProcessDescriptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -9966,7 +9966,7 @@ impl BusinessProcessEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -10047,7 +10047,7 @@ impl BusinessRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -10189,7 +10189,7 @@ impl BusinessRuleReferenceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> BusinessRuleReferenceEntryContentForm {
         BusinessRuleReferenceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10227,7 +10227,7 @@ impl CapacityPlanningSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -10291,7 +10291,7 @@ impl CapacityReviewProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CapacityReviewProcessContentForm {
         CapacityReviewProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10332,7 +10332,7 @@ impl CcbMemberEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CcbMemberEntryContentForm {
         CcbMemberEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10361,7 +10361,7 @@ impl CertificateAuthenticationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CertificateAuthenticationPolicyContentForm {
         CertificateAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10390,7 +10390,7 @@ impl CertificateManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CertificateManagementContentForm {
         CertificateManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10440,7 +10440,7 @@ impl CertificateManagementPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CertificateManagementPolicyContentForm {
         CertificateManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10469,7 +10469,7 @@ impl CertificationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CertificationEntryContentForm {
         CertificationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10520,7 +10520,7 @@ impl CertificationRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CertificationRequirementsSectionContentForm {
         CertificationRequirementsSectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10568,7 +10568,7 @@ impl ChangeCategoryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeCategoryEntryContentForm {
         ChangeCategoryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10611,7 +10611,7 @@ impl ChangeControlBoard {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeControlBoardContentForm {
         ChangeControlBoardContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10665,7 +10665,7 @@ impl ChangeImpactCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -10718,7 +10718,7 @@ impl ChangeImpactCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeImpactCriterionEntryContentForm {
         ChangeImpactCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10764,7 +10764,7 @@ impl ChangeNotificationRules {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeNotificationRulesContentForm {
         ChangeNotificationRulesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10794,7 +10794,7 @@ impl ChangeProcedure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -10858,7 +10858,7 @@ impl ChangeProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeProcessContentForm {
         ChangeProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10922,7 +10922,7 @@ impl ChangeReadinessAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -10968,7 +10968,7 @@ impl ChangeRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeRoleEntryContentForm {
         ChangeRoleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -10996,7 +10996,7 @@ impl ChangeStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangeStepEntryContentForm {
         ChangeStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11045,7 +11045,7 @@ impl ChangedRoleCompetencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -11114,7 +11114,7 @@ impl ChangedRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -11175,7 +11175,7 @@ impl ChangedRoleIdentification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangedRoleIdentificationContentForm {
         ChangedRoleIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11211,7 +11211,7 @@ impl ChangedRoleResponsibilities {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -11277,7 +11277,7 @@ impl ChangedRoleTransition {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ChangedRoleTransitionContentForm {
         ChangedRoleTransitionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11317,7 +11317,7 @@ impl ChangesFromCurrentStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -11341,7 +11341,7 @@ impl ChangesFromCurrentStructure {
     ///
     /// It is a summary and stays one: the impact figure here is the total, while
     /// per-department detail belongs to the individual change entries.
-    /// [changeNarrative] carries the story; this band carries the facts that must
+    /// `changeNarrative` carries the story; this band carries the facts that must
     /// stay stable while the story is rewritten.
     pub fn overview_content(&self) -> ChangesFromCurrentStructureOverviewContentForm {
         ChangesFromCurrentStructureOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "OCCHG-OVER"))
@@ -11408,7 +11408,7 @@ impl CiCdPipelineConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CiCdPipelineConfigurationContentForm {
         CiCdPipelineConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11464,7 +11464,7 @@ impl CiCdPipelineRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CiCdPipelineRequirementsContentForm {
         CiCdPipelineRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11510,7 +11510,7 @@ impl ClientAccessibilityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ClientAccessibilityRequirementsContentForm {
         ClientAccessibilityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11578,7 +11578,7 @@ impl ClientApplicationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ClientApplicationEntryContentForm {
         ClientApplicationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11610,7 +11610,7 @@ impl ClientConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -11656,7 +11656,7 @@ impl ClientConfigurationSettingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ClientConfigurationSettingEntryContentForm {
         ClientConfigurationSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11682,7 +11682,7 @@ impl ClientHardwareRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ClientHardwareRequirementsContentForm {
         ClientHardwareRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11728,7 +11728,7 @@ impl ClientNetworkRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ClientNetworkRequirementsContentForm {
         ClientNetworkRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11787,7 +11787,7 @@ impl ClientRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -11911,7 +11911,7 @@ impl ClientSecurityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ClientSecurityRequirementsContentForm {
         ClientSecurityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -11957,7 +11957,7 @@ impl CloudProviderRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CloudProviderRequirementsContentForm {
         CloudProviderRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12003,7 +12003,7 @@ impl CloudServiceIntegrations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CloudServiceIntegrationsContentForm {
         CloudServiceIntegrationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12044,7 +12044,7 @@ impl CodeQualityMetrics {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CodeQualityMetricsContentForm {
         CodeQualityMetricsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12095,7 +12095,7 @@ impl CodeReviewProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CodeReviewProcessContentForm {
         CodeReviewProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12141,7 +12141,7 @@ impl CodingStandardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CodingStandardEntryContentForm {
         CodingStandardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12187,7 +12187,7 @@ impl CodingStandardsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CodingStandardsSectionContentForm {
         CodingStandardsSectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12238,7 +12238,7 @@ impl ColorPaletteEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ColorPaletteEntryContentForm {
         ColorPaletteEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12267,7 +12267,7 @@ impl ColumnLevelSecurityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ColumnLevelSecurityPolicyContentForm {
         ColumnLevelSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12296,7 +12296,7 @@ impl CommitteeCharter {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommitteeCharterContentForm {
         CommitteeCharterContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12324,7 +12324,7 @@ impl CommitteeMemberEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommitteeMemberEntryContentForm {
         CommitteeMemberEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12360,7 +12360,7 @@ impl CommitteeResponsibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommitteeResponsibilityEntryContentForm {
         CommitteeResponsibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12392,7 +12392,7 @@ impl CommunicationChannelEncryptionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommunicationChannelEncryptionEntryContentForm {
         CommunicationChannelEncryptionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12418,7 +12418,7 @@ impl CommunicationEventEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommunicationEventEntryContentForm {
         CommunicationEventEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12454,7 +12454,7 @@ impl CommunicationMatrix {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommunicationMatrixContentForm {
         CommunicationMatrixContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12500,7 +12500,7 @@ impl CommunicationPatterns {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommunicationPatternsContentForm {
         CommunicationPatternsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12551,7 +12551,7 @@ impl CommunicationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -12592,7 +12592,7 @@ impl CommunicationToolsRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommunicationToolsRequirementsContentForm {
         CommunicationToolsRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12618,7 +12618,7 @@ impl CommunicationTypeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CommunicationTypeEntryContentForm {
         CommunicationTypeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12649,7 +12649,7 @@ impl CompatibilityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -12699,7 +12699,7 @@ impl CompatibilityRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -12828,7 +12828,7 @@ impl CompetencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CompetencyEntryContentForm {
         CompetencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12854,7 +12854,7 @@ impl CompetencyFramework {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -12920,7 +12920,7 @@ impl CompetencyLevelChangeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CompetencyLevelChangeEntryContentForm {
         CompetencyLevelChangeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12946,7 +12946,7 @@ impl ComplianceAuditSchedule {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComplianceAuditScheduleContentForm {
         ComplianceAuditScheduleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -12991,7 +12991,7 @@ impl ComplianceFramework {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -13022,7 +13022,7 @@ impl ComplianceMilestoneEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComplianceMilestoneEntryContentForm {
         ComplianceMilestoneEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13059,7 +13059,7 @@ impl ComplianceReporting {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -13113,7 +13113,7 @@ impl ComplianceRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComplianceRequirementEntryContentForm {
         ComplianceRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13139,7 +13139,7 @@ impl ComplianceVerificationSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComplianceVerificationSectionContentForm {
         ComplianceVerificationSectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13192,7 +13192,7 @@ impl ComponentActionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentActionEntryContentForm {
         ComponentActionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13228,7 +13228,7 @@ impl ComponentDocs {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentDocsContentForm {
         ComponentDocsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13258,7 +13258,7 @@ impl ComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentEntryContentForm {
         ComponentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13364,7 +13364,7 @@ impl ComponentFamilyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentFamilyEntryContentForm {
         ComponentFamilyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13403,7 +13403,7 @@ impl ComponentGovernance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentGovernanceContentForm {
         ComponentGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13452,7 +13452,7 @@ impl ComponentInterfaceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentInterfaceEntryContentForm {
         ComponentInterfaceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13505,7 +13505,7 @@ impl ComponentLibrary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -13603,7 +13603,7 @@ impl ComponentLicensingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentLicensingEntryContentForm {
         ComponentLicensingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13654,7 +13654,7 @@ impl ComponentOrganization {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentOrganizationContentForm {
         ComponentOrganizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13702,7 +13702,7 @@ impl ComponentPropertyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentPropertyEntryContentForm {
         ComponentPropertyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13728,7 +13728,7 @@ impl ComponentRegistry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentRegistryContentForm {
         ComponentRegistryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13777,7 +13777,7 @@ impl ComponentResponsibilitiesEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentResponsibilitiesEntryContentForm {
         ComponentResponsibilitiesEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13826,7 +13826,7 @@ impl ComponentRiskAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -13875,7 +13875,7 @@ impl ComponentRiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentRiskEntryContentForm {
         ComponentRiskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13928,7 +13928,7 @@ impl ComponentSlotEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentSlotEntryContentForm {
         ComponentSlotEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -13956,7 +13956,7 @@ impl ComponentStateEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentStateEntryContentForm {
         ComponentStateEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14004,7 +14004,7 @@ impl ComponentStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentStrategyContentForm {
         ComponentStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14072,7 +14072,7 @@ impl ComponentVariantEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComponentVariantEntryContentForm {
         ComponentVariantEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14116,7 +14116,7 @@ impl ComponentsAndDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14180,7 +14180,7 @@ impl ComputeResourceRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComputeResourceRequirementsContentForm {
         ComputeResourceRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14221,7 +14221,7 @@ impl ComputingEquipmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ComputingEquipmentEntryContentForm {
         ComputingEquipmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14266,7 +14266,7 @@ impl ConcurrentSessionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConcurrentSessionPolicyContentForm {
         ConcurrentSessionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14295,7 +14295,7 @@ impl ConfidentialInfoCategoryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConfidentialInfoCategoryEntryContentForm {
         ConfidentialInfoCategoryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14323,7 +14323,7 @@ impl ConfidentialityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConfidentialityRequirementsContentForm {
         ConfidentialityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14364,7 +14364,7 @@ impl ConfigurationManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConfigurationManagementContentForm {
         ConfigurationManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14410,7 +14410,7 @@ impl ConnectivityResilience {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConnectivityResilienceContentForm {
         ConnectivityResilienceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14451,7 +14451,7 @@ impl ConsentManagementRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConsentManagementRequirementsContentForm {
         ConsentManagementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14505,7 +14505,7 @@ impl ConstraintRegisterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ConstraintRegisterEntryContentForm {
         ConstraintRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14535,7 +14535,7 @@ impl ContentScanningPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ContentScanningPolicyContentForm {
         ContentScanningPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14567,7 +14567,7 @@ impl ContextDiagram {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14618,7 +14618,7 @@ impl ContextRelationshipEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ContextRelationshipEntryContentForm {
         ContextRelationshipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14644,7 +14644,7 @@ impl ContextualHelp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14719,7 +14719,7 @@ impl ContextualNavigation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14764,7 +14764,7 @@ impl ContingencyPlanEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ContingencyPlanEntryContentForm {
         ContingencyPlanEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14817,7 +14817,7 @@ impl ContingencyPlans {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -14858,7 +14858,7 @@ impl Correctness {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CorrectnessContentForm {
         CorrectnessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14905,7 +14905,7 @@ impl CredentialCompromiseDetectionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CredentialCompromiseDetectionPolicyContentForm {
         CredentialCompromiseDetectionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14937,7 +14937,7 @@ impl CredentialRecoveryPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CredentialRecoveryPolicyContentForm {
         CredentialRecoveryPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -14969,7 +14969,7 @@ impl CrossBoundaryErrorHandling {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15004,7 +15004,7 @@ impl CrossBoundaryOperationalConsiderations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15035,7 +15035,7 @@ impl CrossCuttingConcerns {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CrossCuttingConcernsContentForm {
         CrossCuttingConcernsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15089,7 +15089,7 @@ impl CrossProcessAnalysis {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15125,7 +15125,7 @@ impl CrossTenantAccessPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CrossTenantAccessPolicyContentForm {
         CrossTenantAccessPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15157,7 +15157,7 @@ impl CurrentArchitecture {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15231,7 +15231,7 @@ impl CurrentBusinessProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CurrentBusinessProcessContentForm {
         CurrentBusinessProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15282,7 +15282,7 @@ impl CurrentBusinessProcesses {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15351,7 +15351,7 @@ impl CurrentDataClassification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15411,7 +15411,7 @@ impl CurrentDataLandscape {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15520,7 +15520,7 @@ impl CurrentLandscape {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15590,7 +15590,7 @@ impl CurrentOperationalMetric {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15621,7 +15621,7 @@ impl CurrentProcessImprovementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CurrentProcessImprovementEntryContentForm {
         CurrentProcessImprovementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15650,7 +15650,7 @@ impl CurrentStateRiskAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15684,7 +15684,7 @@ impl CurrentWorkflowEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CurrentWorkflowEntryContentForm {
         CurrentWorkflowEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15795,7 +15795,7 @@ impl CustomDistributionGroup {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CustomDistributionGroupContentForm {
         CustomDistributionGroupContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15831,7 +15831,7 @@ impl CustomMetricEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> CustomMetricEntryContentForm {
         CustomMetricEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -15860,7 +15860,7 @@ impl CutoverProcedure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -15934,7 +15934,7 @@ impl D00SolutionBlueprint {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -16079,7 +16079,7 @@ impl D01CurrentLandscapeAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -16221,7 +16221,7 @@ impl D02TargetOperatingModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -16379,7 +16379,7 @@ impl D03InformationModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -16612,7 +16612,7 @@ impl D04RequirementsSpecification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -16758,7 +16758,7 @@ impl D05InteractionScenarios {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -16896,7 +16896,7 @@ impl D06ArchitectureTechnologySpecification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -17053,7 +17053,7 @@ impl D07IntegrationInterfaceSpecification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -17216,7 +17216,7 @@ impl D08SecurityAccessSpecification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -17366,7 +17366,7 @@ impl D09ExperienceDesignSpecification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -17529,7 +17529,7 @@ impl D10QualityAcceptancePlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -17722,7 +17722,7 @@ impl D11DeliveryRoadmap {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -17870,7 +17870,7 @@ impl D12TransitionRolloutPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -18038,7 +18038,7 @@ impl D13CodeSpecsProjection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -18256,7 +18256,7 @@ impl DashboardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DashboardEntryContentForm {
         DashboardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18292,7 +18292,7 @@ impl DashboardRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DashboardRequirementsContentForm {
         DashboardRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18338,7 +18338,7 @@ impl DashboardTemplates {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DashboardTemplatesContentForm {
         DashboardTemplatesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18367,7 +18367,7 @@ impl DataAccessAuditPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataAccessAuditPolicyContentForm {
         DataAccessAuditPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18398,7 +18398,7 @@ impl DataAccessEventPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataAccessEventPolicyContentForm {
         DataAccessEventPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18427,7 +18427,7 @@ impl DataArchitecture {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataArchitectureContentForm {
         DataArchitectureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18478,7 +18478,7 @@ impl DataAttributeConstraintEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataAttributeConstraintEntryContentForm {
         DataAttributeConstraintEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18506,7 +18506,7 @@ impl DataAttributeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -18725,7 +18725,7 @@ impl DataClassification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -18781,7 +18781,7 @@ impl DataClassificationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -18902,7 +18902,7 @@ impl DataClassificationLevelEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataClassificationLevelEntryContentForm {
         DataClassificationLevelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18928,7 +18928,7 @@ impl DataClassificationStatusEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataClassificationStatusEntryContentForm {
         DataClassificationStatusEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -18957,7 +18957,7 @@ impl DataDictionary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -18991,7 +18991,7 @@ impl DataDuplicationAnalysis {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19047,7 +19047,7 @@ impl DataDuplicationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataDuplicationEntryContentForm {
         DataDuplicationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19107,7 +19107,7 @@ impl DataEntityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19234,7 +19234,7 @@ impl DataEntityMigrationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataEntityMigrationEntryContentForm {
         DataEntityMigrationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19260,7 +19260,7 @@ impl DataEntityReferenceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataEntityReferenceEntryContentForm {
         DataEntityReferenceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19302,7 +19302,7 @@ impl DataFormatCompatibility {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataFormatCompatibilityContentForm {
         DataFormatCompatibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19350,7 +19350,7 @@ impl DataGovernance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19406,7 +19406,7 @@ impl DataGovernancePolicyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataGovernancePolicyEntryContentForm {
         DataGovernancePolicyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19442,7 +19442,7 @@ impl DataGrowthProjections {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataGrowthProjectionsContentForm {
         DataGrowthProjectionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19488,7 +19488,7 @@ impl DataIntegrationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataIntegrationEntryContentForm {
         DataIntegrationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19537,7 +19537,7 @@ impl DataIntegrationPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19598,7 +19598,7 @@ impl DataLevelSecurity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19666,7 +19666,7 @@ impl DataMaskingPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataMaskingPolicyContentForm {
         DataMaskingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19701,7 +19701,7 @@ impl DataMigrationStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataMigrationStrategyContentForm {
         DataMigrationStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -19825,7 +19825,7 @@ impl DataModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19904,7 +19904,7 @@ impl DataModelFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -19951,7 +19951,7 @@ impl DataOwnership {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -20007,7 +20007,7 @@ impl DataOwnershipEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataOwnershipEntryContentForm {
         DataOwnershipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20043,7 +20043,7 @@ impl DataProcessingAgreementRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataProcessingAgreementRequirementsContentForm {
         DataProcessingAgreementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20094,7 +20094,7 @@ impl DataProtectionAndPrivacySection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -20166,7 +20166,7 @@ impl DataProtectionClassification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataProtectionClassificationContentForm {
         DataProtectionClassificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20215,7 +20215,7 @@ impl DataQualityAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -20281,7 +20281,7 @@ impl DataQualityInitiativeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataQualityInitiativeEntryContentForm {
         DataQualityInitiativeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20307,7 +20307,7 @@ impl DataQualityIssueEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataQualityIssueEntryContentForm {
         DataQualityIssueEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20348,7 +20348,7 @@ impl DataResidencyRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataResidencyRequirementsContentForm {
         DataResidencyRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20392,7 +20392,7 @@ impl DataRetentionPolicies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -20438,7 +20438,7 @@ impl DataSourceEntityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataSourceEntityEntryContentForm {
         DataSourceEntityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20467,7 +20467,7 @@ impl DataSourceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataSourceEntryContentForm {
         DataSourceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20546,7 +20546,7 @@ impl DataSourceInventory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -20600,7 +20600,7 @@ impl DataSubjectRightsManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataSubjectRightsManagementContentForm {
         DataSubjectRightsManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20656,7 +20656,7 @@ impl DataVolumeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataVolumeEntryContentForm {
         DataVolumeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20682,7 +20682,7 @@ impl DataVolumeSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DataVolumeSummaryContentForm {
         DataVolumeSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20726,7 +20726,7 @@ impl DataVolumesAndGrowth {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -20786,7 +20786,7 @@ impl DatabaseAccessPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DatabaseAccessPolicyContentForm {
         DatabaseAccessPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20815,7 +20815,7 @@ impl DatabaseCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DatabaseCompatibilityEntryContentForm {
         DatabaseCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20865,7 +20865,7 @@ impl DatabaseEncryptionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DatabaseEncryptionPolicyContentForm {
         DatabaseEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20894,7 +20894,7 @@ impl DebuggingConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DebuggingConfigurationContentForm {
         DebuggingConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20945,7 +20945,7 @@ impl DecisionAuthorityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DecisionAuthorityEntryContentForm {
         DecisionAuthorityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -20971,7 +20971,7 @@ impl DecisionMakerEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DecisionMakerEntryContentForm {
         DecisionMakerEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21000,7 +21000,7 @@ impl DecisionOptionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DecisionOptionEntryContentForm {
         DecisionOptionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21050,7 +21050,7 @@ impl DecisionPointEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DecisionPointEntryContentForm {
         DecisionPointEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21096,7 +21096,7 @@ impl DecisionPointEntryResolution {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DecisionPointEntryResolutionContentForm {
         DecisionPointEntryResolutionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21140,7 +21140,7 @@ impl DecisionPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DecisionPointsContentForm {
         DecisionPointsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21179,7 +21179,7 @@ impl DeepLinkPatternEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeepLinkPatternEntryContentForm {
         DeepLinkPatternEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21216,7 +21216,7 @@ impl DeepLinking {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -21264,7 +21264,7 @@ impl DefectResolution {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DefectResolutionContentForm {
         DefectResolutionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21313,7 +21313,7 @@ impl DeferredScopeItemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeferredScopeItemEntryContentForm {
         DeferredScopeItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21339,7 +21339,7 @@ impl DeliverableDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeliverableDependenciesContentForm {
         DeliverableDependenciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21369,7 +21369,7 @@ impl DeliverableEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeliverableEntryContentForm {
         DeliverableEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21444,7 +21444,7 @@ impl DeliveryAcceptanceCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeliveryAcceptanceCriterionEntryContentForm {
         DeliveryAcceptanceCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21495,7 +21495,7 @@ impl DeliveryScope {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -21546,7 +21546,7 @@ impl DeliveryScopeAndAcceptance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -21587,7 +21587,7 @@ impl DeliveryTransitionAndRollout {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -21644,7 +21644,7 @@ impl DependenciesAndIntegrations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -21710,7 +21710,7 @@ impl DependencyHealthMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DependencyHealthMonitoringContentForm {
         DependencyHealthMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21756,7 +21756,7 @@ impl DependencyInjectionStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DependencyInjectionStructureContentForm {
         DependencyInjectionStructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21802,7 +21802,7 @@ impl DependencyManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DependencyManagementContentForm {
         DependencyManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21854,7 +21854,7 @@ impl DependencyRegisterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DependencyRegisterEntryContentForm {
         DependencyRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21880,7 +21880,7 @@ impl DependencyScanningRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DependencyScanningRequirementsContentForm {
         DependencyScanningRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -21929,7 +21929,7 @@ impl DeploymentContext {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -21965,7 +21965,7 @@ impl DeploymentEnvironmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeploymentEnvironmentEntryContentForm {
         DeploymentEnvironmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22011,7 +22011,7 @@ impl DeploymentModelRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeploymentModelRequirementsContentForm {
         DeploymentModelRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22057,7 +22057,7 @@ impl DeploymentSecurity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeploymentSecurityContentForm {
         DeploymentSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22101,7 +22101,7 @@ impl DeploymentStrategySection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22175,7 +22175,7 @@ impl DeploymentTargetEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeploymentTargetEntryContentForm {
         DeploymentTargetEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22226,7 +22226,7 @@ impl DeploymentTopology {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeploymentTopologyContentForm {
         DeploymentTopologyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22277,7 +22277,7 @@ impl DesignFoundationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DesignFoundationEntryContentForm {
         DesignFoundationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22305,7 +22305,7 @@ impl DesignGoalEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DesignGoalEntryContentForm {
         DesignGoalEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22334,7 +22334,7 @@ impl DesignGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22378,7 +22378,7 @@ impl DesignPatternEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DesignPatternEntryContentForm {
         DesignPatternEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22432,7 +22432,7 @@ impl DesignPatternsAndStandards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22528,7 +22528,7 @@ impl DesignPrincipleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DesignPrincipleEntryContentForm {
         DesignPrincipleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22557,7 +22557,7 @@ impl DesignPrinciples {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22604,7 +22604,7 @@ impl DesignVision {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22650,7 +22650,7 @@ impl DesktopOsRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DesktopOsRequirementEntryContentForm {
         DesktopOsRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22699,7 +22699,7 @@ impl DetailedProcessWorkflow {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22730,7 +22730,7 @@ impl DeveloperOnboarding {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeveloperOnboardingContentForm {
         DeveloperOnboardingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22782,7 +22782,7 @@ impl DevelopmentConventionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DevelopmentConventionEntryContentForm {
         DevelopmentConventionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22836,7 +22836,7 @@ impl DevelopmentEnvironment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -22925,7 +22925,7 @@ impl DevelopmentQualityGates {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DevelopmentQualityGatesContentForm {
         DevelopmentQualityGatesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -22985,7 +22985,7 @@ impl DeviceSettingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DeviceSettingEntryContentForm {
         DeviceSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23019,7 +23019,7 @@ impl DeviceSettings {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -23060,7 +23060,7 @@ impl DisasterRecoveryRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DisasterRecoveryRequirementsContentForm {
         DisasterRecoveryRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23106,7 +23106,7 @@ impl DisplayEquipmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DisplayEquipmentEntryContentForm {
         DisplayEquipmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23147,7 +23147,7 @@ impl DisplayPropertyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DisplayPropertyEntryContentForm {
         DisplayPropertyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23173,7 +23173,7 @@ impl DisplayRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DisplayRequirementsContentForm {
         DisplayRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23219,7 +23219,7 @@ impl DistributedTracingSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DistributedTracingSpecContentForm {
         DistributedTracingSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23260,7 +23260,7 @@ impl DistributionGroupSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DistributionGroupSummaryContentForm {
         DistributionGroupSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23290,7 +23290,7 @@ impl DistributionList {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -23349,7 +23349,7 @@ impl DistributionRecipientEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DistributionRecipientEntryContentForm {
         DistributionRecipientEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23405,7 +23405,7 @@ impl DistributionRecipientPreferences {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DistributionRecipientPreferencesContentForm {
         DistributionRecipientPreferencesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23431,7 +23431,7 @@ impl DnsRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DnsRequirementsContentForm {
         DnsRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23477,7 +23477,7 @@ impl DocChangeability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocChangeabilityContentForm {
         DocChangeabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23521,7 +23521,7 @@ impl DocCompleteness {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocCompletenessContentForm {
         DocCompletenessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23550,7 +23550,7 @@ impl DocCorrectness {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocCorrectnessContentForm {
         DocCorrectnessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23593,7 +23593,7 @@ impl DocumentControl {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -23641,8 +23641,8 @@ impl DocumentControl {
 ///
 /// All fields are optional strings representing the document's form fields.
 ///
-/// A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
-/// an unchanged header by identity and [cloneShallow] needs no child handling.
+/// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
+/// an unchanged header by identity and `cloneShallow` needs no child handling.
 pub struct DocumentHeader {
     pub node: som::SomNode,
 }
@@ -23662,7 +23662,7 @@ impl DocumentHeader {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocumentHeaderContentForm {
         DocumentHeaderContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23688,7 +23688,7 @@ impl DocumentRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -23729,7 +23729,7 @@ impl DocumentRelevantSections {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocumentRelevantSectionsContentForm {
         DocumentRelevantSectionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23765,7 +23765,7 @@ impl DocumentReviewTeamEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocumentReviewTeamEntryContentForm {
         DocumentReviewTeamEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23801,7 +23801,7 @@ impl DocumentationDeliverables {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -23850,7 +23850,7 @@ impl DocumentationQualityCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -23918,7 +23918,7 @@ impl DocumentationStandards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocumentationStandardsContentForm {
         DocumentationStandardsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -23969,7 +23969,7 @@ impl DocumentationStandardsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DocumentationStandardsSectionContentForm {
         DocumentationStandardsSectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24018,7 +24018,7 @@ impl DomainBoundaries {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24089,7 +24089,7 @@ impl DomainBusinessRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainBusinessRuleEntryContentForm {
         DomainBusinessRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24128,7 +24128,7 @@ impl DomainBusinessRules {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24175,7 +24175,7 @@ impl DomainEnumEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainEnumEntryContentForm {
         DomainEnumEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24231,7 +24231,7 @@ impl DomainEnumRegistry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24279,7 +24279,7 @@ impl DomainEnumValueEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainEnumValueEntryContentForm {
         DomainEnumValueEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24305,7 +24305,7 @@ impl DomainEventEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainEventEntryContentForm {
         DomainEventEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24334,7 +24334,7 @@ impl DomainEvents {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24375,7 +24375,7 @@ impl DomainInterfaceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainInterfaceEntryContentForm {
         DomainInterfaceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24404,7 +24404,7 @@ impl DomainOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24440,7 +24440,7 @@ impl DomainProcessEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainProcessEntryContentForm {
         DomainProcessEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24482,7 +24482,7 @@ impl DomainProcesses {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24533,7 +24533,7 @@ impl DomainTermEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> DomainTermEntryContentForm {
         DomainTermEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24562,7 +24562,7 @@ impl DomainVocabulary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24603,7 +24603,7 @@ impl Efficiency {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EfficiencyContentForm {
         EfficiencyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24647,7 +24647,7 @@ impl ElementValidationRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ElementValidationRuleEntryContentForm {
         ElementValidationRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24673,7 +24673,7 @@ impl EmergencyMaintenanceProcedures {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EmergencyMaintenanceProceduresContentForm {
         EmergencyMaintenanceProceduresContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24719,7 +24719,7 @@ impl EncryptedDataCategoryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EncryptedDataCategoryEntryContentForm {
         EncryptedDataCategoryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24751,7 +24751,7 @@ impl EncryptionAtRest {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24819,7 +24819,7 @@ impl EncryptionAtRestPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EncryptionAtRestPolicyContentForm {
         EncryptionAtRestPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24853,7 +24853,7 @@ impl EncryptionInTransit {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24920,7 +24920,7 @@ impl EndToEndTestScenario {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -24951,7 +24951,7 @@ impl EnterpriseSystemCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EnterpriseSystemCompatibilityEntryContentForm {
         EnterpriseSystemCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -24997,7 +24997,7 @@ impl EntitlementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EntitlementEntryContentForm {
         EntitlementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25033,7 +25033,7 @@ impl EntitlementReferenceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EntitlementReferenceEntryContentForm {
         EntitlementReferenceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25061,7 +25061,7 @@ impl EntityConstraintEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EntityConstraintEntryContentForm {
         EntityConstraintEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25090,7 +25090,7 @@ impl EntityFollowUpEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -25218,7 +25218,7 @@ impl EntityIndexEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EntityIndexEntryContentForm {
         EntityIndexEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25247,7 +25247,7 @@ impl EntityRelationshipEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -25393,7 +25393,7 @@ impl EntityRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -25434,7 +25434,7 @@ impl EntryPointEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EntryPointEntryContentForm {
         EntryPointEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25466,7 +25466,7 @@ impl EnvironmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EnvironmentEntryContentForm {
         EnvironmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25552,7 +25552,7 @@ impl EnvironmentManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EnvironmentManagementContentForm {
         EnvironmentManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25598,7 +25598,7 @@ impl EnvironmentStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EnvironmentStrategyContentForm {
         EnvironmentStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25654,7 +25654,7 @@ impl Environments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EnvironmentsContentForm {
         EnvironmentsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25692,7 +25692,7 @@ impl EquipmentRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -25788,7 +25788,7 @@ impl ErrorBudgetTracking {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ErrorBudgetTrackingContentForm {
         ErrorBudgetTrackingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25831,7 +25831,7 @@ impl ErrorCodeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ErrorCodeEntryContentForm {
         ErrorCodeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -25873,7 +25873,7 @@ impl ErrorCodeRegistry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -25918,7 +25918,7 @@ impl ErrorHandling {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -25997,7 +25997,7 @@ impl ErrorHandlingStandards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ErrorHandlingStandardsContentForm {
         ErrorHandlingStandardsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26051,7 +26051,7 @@ impl ErrorRecovery {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26141,7 +26141,7 @@ impl EvaluationCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26185,7 +26185,7 @@ impl EvaluationCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EvaluationCriterionEntryContentForm {
         EvaluationCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26229,7 +26229,7 @@ impl EventAttributePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> EventAttributePolicyContentForm {
         EventAttributePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26260,7 +26260,7 @@ impl ExecutiveSummaryDistribution {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26309,7 +26309,7 @@ impl ExistingSystemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExistingSystemEntryContentForm {
         ExistingSystemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26383,7 +26383,7 @@ impl ExistingSystemsLandscape {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26429,7 +26429,7 @@ impl ExpectedImprovements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExpectedImprovementsContentForm {
         ExpectedImprovementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26455,7 +26455,7 @@ impl ExperienceAndInterfaceDesign {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26520,7 +26520,7 @@ impl ExperienceCodeSpecs {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26597,7 +26597,7 @@ impl ExperienceDesignFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26670,7 +26670,7 @@ impl ExperienceLocalizationFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -26706,7 +26706,7 @@ impl ExportFieldMappingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExportFieldMappingEntryContentForm {
         ExportFieldMappingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26793,7 +26793,7 @@ impl ExportFormatEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExportFormatEntryContentForm {
         ExportFormatEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26881,7 +26881,7 @@ impl ExportSizeSettings {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExportSizeSettingsContentForm {
         ExportSizeSettingsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26907,7 +26907,7 @@ impl ExportTemplateEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExportTemplateEntryContentForm {
         ExportTemplateEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -26960,7 +26960,7 @@ impl ExtensionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExtensionEntryContentForm {
         ExtensionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27007,7 +27007,7 @@ impl ExtensionStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExtensionStepEntryContentForm {
         ExtensionStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27059,7 +27059,7 @@ impl ExternalActorEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExternalActorEntryContentForm {
         ExternalActorEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27108,7 +27108,7 @@ impl ExternalActors {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -27149,7 +27149,7 @@ impl ExternalConnectivitySection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -27224,7 +27224,7 @@ impl ExternalInterfaceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -27320,7 +27320,7 @@ impl ExternalInterfaces {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -27370,7 +27370,7 @@ impl ExternalNetworkRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExternalNetworkRequirementsContentForm {
         ExternalNetworkRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27416,7 +27416,7 @@ impl ExternalPartnerConnectionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExternalPartnerConnectionEntryContentForm {
         ExternalPartnerConnectionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27477,7 +27477,7 @@ impl ExternalPartnerOperations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExternalPartnerOperationsContentForm {
         ExternalPartnerOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27506,7 +27506,7 @@ impl ExternalServiceDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -27550,7 +27550,7 @@ impl ExternalServiceDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExternalServiceDependencyEntryContentForm {
         ExternalServiceDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27607,7 +27607,7 @@ impl ExternalSystemContextEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ExternalSystemContextEntryContentForm {
         ExternalSystemContextEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27660,7 +27660,7 @@ impl ExternalSystemsContext {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -27701,7 +27701,7 @@ impl FamilyComponentRef {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FamilyComponentRefContentForm {
         FamilyComponentRefContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27730,7 +27730,7 @@ impl FeatureDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureDependenciesContentForm {
         FeatureDependenciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27772,7 +27772,7 @@ impl FeatureDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureDependencyEntryContentForm {
         FeatureDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27806,7 +27806,7 @@ impl FeatureHookEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureHookEntryContentForm {
         FeatureHookEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27842,7 +27842,7 @@ impl FeatureModuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureModuleEntryContentForm {
         FeatureModuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27899,7 +27899,7 @@ impl FeaturePrioritization {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeaturePrioritizationContentForm {
         FeaturePrioritizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -27985,7 +27985,7 @@ impl FeaturePriorityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeaturePriorityEntryContentForm {
         FeaturePriorityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28070,7 +28070,7 @@ impl FeaturePriorityRegister {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeaturePriorityRegisterContentForm {
         FeaturePriorityRegisterContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28109,7 +28109,7 @@ impl FeatureStageMapping {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureStageMappingContentForm {
         FeatureStageMappingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28160,7 +28160,7 @@ impl FeatureStageMatrix {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureStageMatrixContentForm {
         FeatureStageMatrixContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28199,7 +28199,7 @@ impl FeatureStakeholders {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureStakeholdersContentForm {
         FeatureStakeholdersContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28225,7 +28225,7 @@ impl FeatureTourEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FeatureTourEntryContentForm {
         FeatureTourEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28261,7 +28261,7 @@ impl FieldHelpEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FieldHelpEntryContentForm {
         FieldHelpEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28287,7 +28287,7 @@ impl FieldValidationRule {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FieldValidationRuleContentForm {
         FieldValidationRuleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28317,7 +28317,7 @@ impl FileAccessControlPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FileAccessControlPolicyContentForm {
         FileAccessControlPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28351,7 +28351,7 @@ impl FileAndStorageSecurity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -28419,7 +28419,7 @@ impl FileDownloadSecurityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FileDownloadSecurityPolicyContentForm {
         FileDownloadSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28452,7 +28452,7 @@ impl FileStorageEncryptionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FileStorageEncryptionPolicyContentForm {
         FileStorageEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28486,7 +28486,7 @@ impl FileUploadValidationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FileUploadValidationPolicyContentForm {
         FileUploadValidationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28515,7 +28515,7 @@ impl FirewallRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FirewallRequirementsContentForm {
         FirewallRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28561,7 +28561,7 @@ impl Flexibility {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FlexibilityContentForm {
         FlexibilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28610,7 +28610,7 @@ impl FlexibilityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -28669,7 +28669,7 @@ impl FormScreenAssignmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FormScreenAssignmentEntryContentForm {
         FormScreenAssignmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28695,7 +28695,7 @@ impl FrameworkRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FrameworkRequirementEntryContentForm {
         FrameworkRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28753,7 +28753,7 @@ impl FullDistribution {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -28801,7 +28801,7 @@ impl FunctionDataMatrixEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FunctionDataMatrixEntryContentForm {
         FunctionDataMatrixEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28829,7 +28829,7 @@ impl FunctionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FunctionEntryContentForm {
         FunctionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -28882,7 +28882,7 @@ impl FunctionModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -28970,7 +28970,7 @@ impl FunctionalCompleteness {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FunctionalCompletenessContentForm {
         FunctionalCompletenessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29003,7 +29003,7 @@ impl FunctionalRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FunctionalRequirementEntryContentForm {
         FunctionalRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29099,7 +29099,7 @@ impl FunctionalRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29150,7 +29150,7 @@ impl FunctionalResponsibilities {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> FunctionalResponsibilitiesContentForm {
         FunctionalResponsibilitiesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29193,7 +29193,7 @@ impl FunctionalSuitabilityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29255,7 +29255,7 @@ impl GapEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GapEntryContentForm {
         GapEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29301,7 +29301,7 @@ impl GeographicDistributionRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GeographicDistributionRequirementsContentForm {
         GeographicDistributionRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29350,7 +29350,7 @@ impl GlobalRoleExclusionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GlobalRoleExclusionEntryContentForm {
         GlobalRoleExclusionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29376,7 +29376,7 @@ impl GlossaryAndAbbreviations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29417,7 +29417,7 @@ impl GlossaryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GlossaryEntryContentForm {
         GlossaryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29445,7 +29445,7 @@ impl GoalDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29486,7 +29486,7 @@ impl GoalDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GoalDependencyEntryContentForm {
         GoalDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29532,7 +29532,7 @@ impl GoalKeyResults {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29573,7 +29573,7 @@ impl GoalMilestoneEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GoalMilestoneEntryContentForm {
         GoalMilestoneEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29601,7 +29601,7 @@ impl GoalMilestones {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29644,7 +29644,7 @@ impl GoalResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29690,7 +29690,7 @@ impl GoalRiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GoalRiskEntryContentForm {
         GoalRiskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29728,7 +29728,7 @@ impl GoalRisks {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29788,7 +29788,7 @@ impl Goals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -29844,7 +29844,7 @@ impl GovernanceModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GovernanceModelContentForm {
         GovernanceModelContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29885,7 +29885,7 @@ impl GradedAccessLevelEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GradedAccessLevelEntryContentForm {
         GradedAccessLevelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29953,7 +29953,7 @@ impl GradedAuthorizationRequirement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> GradedAuthorizationRequirementContentForm {
         GradedAuthorizationRequirementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -29991,7 +29991,7 @@ impl HandlingRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> HandlingRequirementEntryContentForm {
         HandlingRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30017,7 +30017,7 @@ impl HardwareRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -30063,7 +30063,7 @@ impl HealthCheckEndpoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> HealthCheckEndpointsContentForm {
         HealthCheckEndpointsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30104,7 +30104,7 @@ impl HealthChecksAndDiagnosticsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -30163,7 +30163,7 @@ impl HighAvailabilityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> HighAvailabilityRequirementsContentForm {
         HighAvailabilityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30213,7 +30213,7 @@ impl HookMethodEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> HookMethodEntryContentForm {
         HookMethodEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30239,7 +30239,7 @@ impl IdeRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdeRequirementEntryContentForm {
         IdeRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30285,7 +30285,7 @@ impl Identification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentificationContentForm {
         IdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30356,7 +30356,7 @@ impl IdentificationAndAuthentication {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -30400,7 +30400,7 @@ impl IdentityAttributeMappingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentityAttributeMappingEntryContentForm {
         IdentityAttributeMappingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30441,7 +30441,7 @@ impl IdentityProviderDetails {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentityProviderDetailsContentForm {
         IdentityProviderDetailsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30467,7 +30467,7 @@ impl IdentityProviderEndpoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentityProviderEndpointsContentForm {
         IdentityProviderEndpointsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30496,7 +30496,7 @@ impl IdentityProviderEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentityProviderEntryContentForm {
         IdentityProviderEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30560,7 +30560,7 @@ impl IdentitySourceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentitySourceEntryContentForm {
         IdentitySourceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30609,7 +30609,7 @@ impl IdentityVerificationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IdentityVerificationPolicyContentForm {
         IdentityVerificationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30663,7 +30663,7 @@ impl ImpactLevelDefinitions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ImpactLevelDefinitionsContentForm {
         ImpactLevelDefinitionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30689,7 +30689,7 @@ impl IncidentManagementRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IncidentManagementRequirementsContentForm {
         IncidentManagementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30735,7 +30735,7 @@ impl IncidentResponsePlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IncidentResponsePlanContentForm {
         IncidentResponsePlanContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30776,7 +30776,7 @@ impl IndustryProtocolComplianceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IndustryProtocolComplianceEntryContentForm {
         IndustryProtocolComplianceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30822,7 +30822,7 @@ impl IndustryStandardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IndustryStandardEntryContentForm {
         IndustryStandardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -30873,7 +30873,7 @@ impl InformationAndDataModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -30968,7 +30968,7 @@ impl InformationArchitecture {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31028,7 +31028,7 @@ impl InformationForUseRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31064,7 +31064,7 @@ impl InfrastructureAsCode {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InfrastructureAsCodeContentForm {
         InfrastructureAsCodeContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31110,7 +31110,7 @@ impl InfrastructureComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InfrastructureComponentEntryContentForm {
         InfrastructureComponentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31161,7 +31161,7 @@ impl InfrastructureMetricsSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InfrastructureMetricsSpecContentForm {
         InfrastructureMetricsSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31202,7 +31202,7 @@ impl InfrastructureSecurityHardening {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InfrastructureSecurityHardeningContentForm {
         InfrastructureSecurityHardeningContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31247,7 +31247,7 @@ impl InitialDevelopmentFlow {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31278,7 +31278,7 @@ impl InitialTrainingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InitialTrainingEntryContentForm {
         InitialTrainingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31329,7 +31329,7 @@ impl InputDeviceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InputDeviceEntryContentForm {
         InputDeviceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31355,7 +31355,7 @@ impl InsuranceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InsuranceEntryContentForm {
         InsuranceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31383,7 +31383,7 @@ impl InsuranceLiabilityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31434,7 +31434,7 @@ impl IntegrationArchitecture {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IntegrationArchitectureContentForm {
         IntegrationArchitectureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31488,7 +31488,7 @@ impl IntegrationConstraintEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IntegrationConstraintEntryContentForm {
         IntegrationConstraintEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31536,7 +31536,7 @@ impl IntegrationHealthSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IntegrationHealthSummaryContentForm {
         IntegrationHealthSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31579,7 +31579,7 @@ impl IntegrationPointEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IntegrationPointEntryContentForm {
         IntegrationPointEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31608,7 +31608,7 @@ impl Integrations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31651,7 +31651,7 @@ impl IntegrityConstraints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31684,7 +31684,7 @@ impl IntellectualPropertyRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IntellectualPropertyRequirementsContentForm {
         IntellectualPropertyRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31720,7 +31720,7 @@ impl InteractionBusinessRules {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InteractionBusinessRulesContentForm {
         InteractionBusinessRulesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31751,7 +31751,7 @@ impl InteractionCapabilityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31809,7 +31809,7 @@ impl InteractionCatalog {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31863,7 +31863,7 @@ impl InteractionChannelEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InteractionChannelEntryContentForm {
         InteractionChannelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -31927,7 +31927,7 @@ impl InteractionDependencyAnalysis {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -31961,7 +31961,7 @@ impl InteractionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -32085,7 +32085,7 @@ impl InteractionPatternEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InteractionPatternEntryContentForm {
         InteractionPatternEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32134,7 +32134,7 @@ impl InteractionPatterns {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -32178,7 +32178,7 @@ impl InteractionTestingStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -32209,7 +32209,7 @@ impl InterfaceBusinessContext {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceBusinessContextContentForm {
         InterfaceBusinessContextContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32245,7 +32245,7 @@ impl InterfaceBusinessProcessEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceBusinessProcessEntryContentForm {
         InterfaceBusinessProcessEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32271,7 +32271,7 @@ impl InterfaceDataEntityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceDataEntityEntryContentForm {
         InterfaceDataEntityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32297,7 +32297,7 @@ impl InterfaceDataSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceDataSpecContentForm {
         InterfaceDataSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32353,7 +32353,7 @@ impl InterfaceErrorHandling {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceErrorHandlingContentForm {
         InterfaceErrorHandlingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32404,7 +32404,7 @@ impl InterfaceGovernance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceGovernanceContentForm {
         InterfaceGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32452,7 +32452,7 @@ impl InterfaceOperationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceOperationEntryContentForm {
         InterfaceOperationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32478,7 +32478,7 @@ impl InterfaceOperational {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceOperationalContentForm {
         InterfaceOperationalContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32529,7 +32529,7 @@ impl InterfaceSecurity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceSecurityContentForm {
         InterfaceSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32573,7 +32573,7 @@ impl InterfaceSpecificationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceSpecificationEntryContentForm {
         InterfaceSpecificationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32619,7 +32619,7 @@ impl InterfaceTechnicalSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceTechnicalSpecContentForm {
         InterfaceTechnicalSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32670,7 +32670,7 @@ impl InterfaceTestScenarioEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceTestScenarioEntryContentForm {
         InterfaceTestScenarioEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32696,7 +32696,7 @@ impl InterfaceTesting {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InterfaceTestingContentForm {
         InterfaceTestingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32744,7 +32744,7 @@ impl InternalDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -32785,7 +32785,7 @@ impl InternalNetworkRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InternalNetworkRequirementsContentForm {
         InternalNetworkRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32831,7 +32831,7 @@ impl InteroperabilityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> InteroperabilityRequirementsContentForm {
         InteroperabilityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -32881,7 +32881,7 @@ impl IntroductionAndScope {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -32970,7 +32970,7 @@ impl IpOwnershipEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> IpOwnershipEntryContentForm {
         IpOwnershipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33004,7 +33004,7 @@ impl Iso25010Coverage {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33045,7 +33045,7 @@ impl Iso25010CoverageEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> Iso25010CoverageEntryContentForm {
         Iso25010CoverageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33074,7 +33074,7 @@ impl ItLandscapePosition {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33110,7 +33110,7 @@ impl ItSecurityOperations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ItSecurityOperationsContentForm {
         ItSecurityOperationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33159,7 +33159,7 @@ impl ItSecurityStandardsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33228,7 +33228,7 @@ impl ItStandardComplianceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ItStandardComplianceEntryContentForm {
         ItStandardComplianceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33283,7 +33283,7 @@ impl JobDescriptionsAndStaffing {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33359,7 +33359,7 @@ impl JourneyStageEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> JourneyStageEntryContentForm {
         JourneyStageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33387,7 +33387,7 @@ impl KeyAttributeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyAttributeEntryContentForm {
         KeyAttributeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33445,7 +33445,7 @@ impl KeyCompromiseRecoveryPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyCompromiseRecoveryPolicyContentForm {
         KeyCompromiseRecoveryPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33474,7 +33474,7 @@ impl KeyConceptEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyConceptEntryContentForm {
         KeyConceptEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33509,7 +33509,7 @@ impl KeyConcepts {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33564,7 +33564,7 @@ impl KeyEscrowAndBackupPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyEscrowAndBackupPolicyContentForm {
         KeyEscrowAndBackupPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33597,7 +33597,7 @@ impl KeyGenerationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyGenerationPolicyContentForm {
         KeyGenerationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33631,7 +33631,7 @@ impl KeyManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33691,7 +33691,7 @@ impl KeyManagementRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyManagementRequirementsContentForm {
         KeyManagementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33717,7 +33717,7 @@ impl KeyResultEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyResultEntryContentForm {
         KeyResultEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33746,7 +33746,7 @@ impl KeyRotationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyRotationPolicyContentForm {
         KeyRotationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33778,7 +33778,7 @@ impl KeyScenarios {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33829,7 +33829,7 @@ impl KeyStoragePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> KeyStoragePolicyContentForm {
         KeyStoragePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -33861,7 +33861,7 @@ impl KnowledgeTransfer {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33901,7 +33901,7 @@ impl LanguageCountrySelection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -33971,7 +33971,7 @@ impl LayerCommunicationRules {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LayerCommunicationRulesContentForm {
         LayerCommunicationRulesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34016,7 +34016,7 @@ impl LayeringAndModuleStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -34125,7 +34125,7 @@ impl LegacyCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LegacyCompatibilityEntryContentForm {
         LegacyCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34175,7 +34175,7 @@ impl LegalAndContractualRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -34241,7 +34241,7 @@ impl LiabilityLimitations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LiabilityLimitationsContentForm {
         LiabilityLimitationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34269,7 +34269,7 @@ impl LifecycleTransitionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LifecycleTransitionEntryContentForm {
         LifecycleTransitionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34310,7 +34310,7 @@ impl LimitationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LimitationEntryContentForm {
         LimitationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34336,7 +34336,7 @@ impl LoadProfileRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LoadProfileRequirementsContentForm {
         LoadProfileRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34377,7 +34377,7 @@ impl LocalDevelopmentSetup {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LocalDevelopmentSetupContentForm {
         LocalDevelopmentSetupContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34428,7 +34428,7 @@ impl LocaleHandlingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LocaleHandlingRequirementsContentForm {
         LocaleHandlingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34456,7 +34456,7 @@ impl LocalizationProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -34520,7 +34520,7 @@ impl LocalizationTranslationProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -34563,7 +34563,7 @@ impl LocalizationTranslationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -34604,7 +34604,7 @@ impl LogAggregationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LogAggregationRequirementsContentForm {
         LogAggregationRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34645,7 +34645,7 @@ impl LogManagementRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LogManagementRequirementsContentForm {
         LogManagementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34693,7 +34693,7 @@ impl LogProtectionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LogProtectionPolicyContentForm {
         LogProtectionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34724,7 +34724,7 @@ impl LogRetentionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LogRetentionPolicyContentForm {
         LogRetentionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34755,7 +34755,7 @@ impl LogStoragePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LogStoragePolicyContentForm {
         LogStoragePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34788,7 +34788,7 @@ impl LoginFlowConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LoginFlowConfigurationContentForm {
         LoginFlowConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34837,7 +34837,7 @@ impl LoginFlowStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> LoginFlowStepEntryContentForm {
         LoginFlowStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34878,7 +34878,7 @@ impl MainScenarioStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MainScenarioStepEntryContentForm {
         MainScenarioStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34931,7 +34931,7 @@ impl MainSuccessScenario {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MainSuccessScenarioContentForm {
         MainSuccessScenarioContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -34967,7 +34967,7 @@ impl Maintainability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MaintainabilityContentForm {
         MaintainabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35020,7 +35020,7 @@ impl MaintainabilityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35074,7 +35074,7 @@ impl MaintenanceChangeManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MaintenanceChangeManagementContentForm {
         MaintenanceChangeManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35123,7 +35123,7 @@ impl MaintenanceDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35167,7 +35167,7 @@ impl MaintenanceDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MaintenanceDependencyEntryContentForm {
         MaintenanceDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35208,7 +35208,7 @@ impl MaintenanceProcedureEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MaintenanceProcedureEntryContentForm {
         MaintenanceProcedureEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35234,7 +35234,7 @@ impl MaintenanceUserImpact {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MaintenanceUserImpactContentForm {
         MaintenanceUserImpactContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35275,7 +35275,7 @@ impl MaintenanceWindowEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MaintenanceWindowEntryContentForm {
         MaintenanceWindowEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35324,7 +35324,7 @@ impl MaintenanceWindowsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35393,7 +35393,7 @@ impl MasterDataDomainEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MasterDataDomainEntryContentForm {
         MasterDataDomainEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35437,7 +35437,7 @@ impl MasterDataManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35483,7 +35483,7 @@ impl MessageFormatStandards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MessageFormatStandardsContentForm {
         MessageFormatStandardsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35535,7 +35535,7 @@ impl MessageKeyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MessageKeyEntryContentForm {
         MessageKeyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35593,7 +35593,7 @@ impl MessageKeyRegistry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35639,7 +35639,7 @@ impl MessageLocaleVariantEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MessageLocaleVariantEntryContentForm {
         MessageLocaleVariantEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35668,7 +35668,7 @@ impl MetricsAndObservability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35749,7 +35749,7 @@ impl MetricsBaselineEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MetricsBaselineEntryContentForm {
         MetricsBaselineEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35775,7 +35775,7 @@ impl MetricsBaselineTable {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35816,7 +35816,7 @@ impl MetricsCollectionRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MetricsCollectionRequirementsContentForm {
         MetricsCollectionRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35862,7 +35862,7 @@ impl MetricsDashboardSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MetricsDashboardSummaryContentForm {
         MetricsDashboardSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35891,7 +35891,7 @@ impl MfaCategoryRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MfaCategoryRequirementEntryContentForm {
         MfaCategoryRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35935,7 +35935,7 @@ impl MfaConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MfaConfigurationContentForm {
         MfaConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -35975,7 +35975,7 @@ impl MigrationConsiderations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -35996,7 +35996,7 @@ impl MigrationConsiderations {
     /// constraint it has to fit inside, and so that changing the sequencing is
     /// one edit rather than one per system.
     ///
-    /// [strategyNarrative] carries the reasoning behind these answers; this band
+    /// `strategyNarrative` carries the reasoning behind these answers; this band
     /// carries the answers themselves, so a change of approach is a change here
     /// and not a rewrite of prose.
     pub fn strategy_content(&self) -> MigrationConsiderationsStrategyContentForm {
@@ -36075,7 +36075,7 @@ impl MigrationEnvironments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationEnvironmentsContentForm {
         MigrationEnvironmentsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36105,7 +36105,7 @@ impl MigrationInteractions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -36138,7 +36138,7 @@ impl MigrationMappingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationMappingEntryContentForm {
         MigrationMappingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36164,7 +36164,7 @@ impl MigrationMilestoneEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationMilestoneEntryContentForm {
         MigrationMilestoneEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36190,7 +36190,7 @@ impl MigrationPhaseDryRuns {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationPhaseDryRunsContentForm {
         MigrationPhaseDryRunsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36222,7 +36222,7 @@ impl MigrationPhaseEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationPhaseEntryContentForm {
         MigrationPhaseEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36313,7 +36313,7 @@ impl MigrationPhaseResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationPhaseResourcesContentForm {
         MigrationPhaseResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36344,7 +36344,7 @@ impl MigrationPhases {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationPhasesContentForm {
         MigrationPhasesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36392,7 +36392,7 @@ impl MigrationPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -36423,7 +36423,7 @@ impl MigrationResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationResourcesContentForm {
         MigrationResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36456,7 +36456,7 @@ impl MigrationRiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationRiskEntryContentForm {
         MigrationRiskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36543,7 +36543,7 @@ impl MigrationRiskIndicators {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationRiskIndicatorsContentForm {
         MigrationRiskIndicatorsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36574,7 +36574,7 @@ impl MigrationRisks {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -36706,7 +36706,7 @@ impl MigrationStakeholders {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationStakeholdersContentForm {
         MigrationStakeholdersContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36732,7 +36732,7 @@ impl MigrationSystems {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationSystemsContentForm {
         MigrationSystemsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36763,7 +36763,7 @@ impl MigrationTargetEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MigrationTargetEntryContentForm {
         MigrationTargetEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36789,7 +36789,7 @@ impl MobileCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MobileCompatibilityEntryContentForm {
         MobileCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36835,7 +36835,7 @@ impl MobileDeviceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MobileDeviceEntryContentForm {
         MobileDeviceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36871,7 +36871,7 @@ impl MobileDeviceRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MobileDeviceRequirementEntryContentForm {
         MobileDeviceRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36917,7 +36917,7 @@ impl ModuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ModuleEntryContentForm {
         ModuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -36968,7 +36968,7 @@ impl ModuleVersioningStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ModuleVersioningStrategyContentForm {
         ModuleVersioningStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37017,7 +37017,7 @@ impl Monitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37096,7 +37096,7 @@ impl MonitoringAndAlertingSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37187,7 +37187,7 @@ impl MonitoringDashboards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37257,7 +37257,7 @@ impl MonitoringInfrastructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MonitoringInfrastructureContentForm {
         MonitoringInfrastructureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37303,7 +37303,7 @@ impl MoscowAnalysis {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MoscowAnalysisContentForm {
         MoscowAnalysisContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37345,7 +37345,7 @@ impl MoscowEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MoscowEntryContentForm {
         MoscowEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37389,7 +37389,7 @@ impl MultiChannelExperience {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37431,7 +37431,7 @@ impl MultiLanguageSupport {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37490,7 +37490,7 @@ impl MustPassCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37547,7 +37547,7 @@ impl MustPassCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MustPassCriterionEntryContentForm {
         MustPassCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37600,7 +37600,7 @@ impl MutualTlsPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> MutualTlsPolicyContentForm {
         MutualTlsPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37629,7 +37629,7 @@ impl NativeAppRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NativeAppRequirementsContentForm {
         NativeAppRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37677,7 +37677,7 @@ impl NavigationGroupEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NavigationGroupEntryContentForm {
         NavigationGroupEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37733,7 +37733,7 @@ impl NavigationGuardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NavigationGuardEntryContentForm {
         NavigationGuardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37771,7 +37771,7 @@ impl NavigationGuards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37818,7 +37818,7 @@ impl NavigationHierarchy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -37864,7 +37864,7 @@ impl NavigationItemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NavigationItemEntryContentForm {
         NavigationItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -37930,7 +37930,7 @@ impl NavigationModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38003,7 +38003,7 @@ impl NavigationOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NavigationOverviewContentForm {
         NavigationOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38032,7 +38032,7 @@ impl NetworkAvailabilityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NetworkAvailabilityRequirementsContentForm {
         NetworkAvailabilityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38078,7 +38078,7 @@ impl NetworkLatencyRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NetworkLatencyRequirementsContentForm {
         NetworkLatencyRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38124,7 +38124,7 @@ impl NetworkLoadBalancingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NetworkLoadBalancingRequirementsContentForm {
         NetworkLoadBalancingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38173,7 +38173,7 @@ impl NetworkRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38267,7 +38267,7 @@ impl NetworkSecurityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NetworkSecurityPolicyContentForm {
         NetworkSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38318,7 +38318,7 @@ impl NetworkSecurityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NetworkSecurityRequirementsContentForm {
         NetworkSecurityRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38369,7 +38369,7 @@ impl NewOrganizationStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38416,7 +38416,7 @@ impl NewRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38482,7 +38482,7 @@ impl NewRoleQualifications {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NewRoleQualificationsContentForm {
         NewRoleQualificationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38528,7 +38528,7 @@ impl NewRoleResponsibilities {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38584,7 +38584,7 @@ impl NotificationChannelEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NotificationChannelEntryContentForm {
         NotificationChannelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38613,7 +38613,7 @@ impl NotificationModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38674,7 +38674,7 @@ impl NotificationTypeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> NotificationTypeEntryContentForm {
         NotificationTypeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38702,7 +38702,7 @@ impl ObjectInvariantEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ObjectInvariantEntryContentForm {
         ObjectInvariantEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38730,7 +38730,7 @@ impl ObjectOperationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ObjectOperationEntryContentForm {
         ObjectOperationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38773,7 +38773,7 @@ impl ObjectStateEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ObjectStateEntryContentForm {
         ObjectStateEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38799,7 +38799,7 @@ impl OnCallProcedures {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OnCallProceduresContentForm {
         OnCallProceduresContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38845,7 +38845,7 @@ impl OnCallScheduleConfig {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OnCallScheduleConfigContentForm {
         OnCallScheduleConfigContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -38881,7 +38881,7 @@ impl OnboardingHelp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -38958,7 +38958,7 @@ impl OngoingTrainingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OngoingTrainingEntryContentForm {
         OngoingTrainingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39004,7 +39004,7 @@ impl OperatingEnvironment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39069,7 +39069,7 @@ impl OperationBindingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OperationBindingEntryContentForm {
         OperationBindingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39105,7 +39105,7 @@ impl OperationalMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OperationalMonitoringContentForm {
         OperationalMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39157,7 +39157,7 @@ impl OperationalPainPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39203,7 +39203,7 @@ impl OperationsRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39257,7 +39257,7 @@ impl OpportunityStatement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39293,7 +39293,7 @@ impl OrgChangeRisks {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OrgChangeRisksContentForm {
         OrgChangeRisksContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39319,7 +39319,7 @@ impl OrgImplementationActivity {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OrgImplementationActivityContentForm {
         OrgImplementationActivityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39347,7 +39347,7 @@ impl OrgRequirementImplementationPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39407,7 +39407,7 @@ impl OrganizationAndProcessConcept {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39448,7 +39448,7 @@ impl OrganizationStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39490,7 +39490,7 @@ impl OrganizationalChangeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OrganizationalChangeEntryContentForm {
         OrganizationalChangeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39559,7 +39559,7 @@ impl OrganizationalContext {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39615,7 +39615,7 @@ impl OrganizationalEnvironment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39735,7 +39735,7 @@ impl OrganizationalFramework {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39816,7 +39816,7 @@ impl OrganizationalRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OrganizationalRequirementEntryContentForm {
         OrganizationalRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -39877,7 +39877,7 @@ impl OrganizationalRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -39928,7 +39928,7 @@ impl OrganizationalTransitionTimeline {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -40014,7 +40014,7 @@ impl OrganizationalUnitContextEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OrganizationalUnitContextEntryContentForm {
         OrganizationalUnitContextEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40040,7 +40040,7 @@ impl OsCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OsCompatibilityEntryContentForm {
         OsCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40086,7 +40086,7 @@ impl OtherAgreementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OtherAgreementEntryContentForm {
         OtherAgreementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40116,7 +40116,7 @@ impl OutOfScope {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -40160,7 +40160,7 @@ impl OutOfScopeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> OutOfScopeEntryContentForm {
         OutOfScopeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40196,7 +40196,7 @@ impl PackageOrganization {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PackageOrganizationContentForm {
         PackageOrganizationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40246,7 +40246,7 @@ impl PainPointEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PainPointEntryContentForm {
         PainPointEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40312,7 +40312,7 @@ impl PainPointGapCorrelation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -40363,7 +40363,7 @@ impl PainPointGapCorrelationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PainPointGapCorrelationEntryContentForm {
         PainPointGapCorrelationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40389,7 +40389,7 @@ impl PainPointRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PainPointRelationshipsContentForm {
         PainPointRelationshipsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40419,7 +40419,7 @@ impl PainPointsAndGaps {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -40505,7 +40505,7 @@ impl ParticipantEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ParticipantEntryContentForm {
         ParticipantEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40536,7 +40536,7 @@ impl PasswordAndCredentialPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -40619,7 +40619,7 @@ impl PasswordLifecyclePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PasswordLifecyclePolicyContentForm {
         PasswordLifecyclePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40652,7 +40652,7 @@ impl PasswordRequirementsPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PasswordRequirementsPolicyContentForm {
         PasswordRequirementsPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40684,7 +40684,7 @@ impl PasswordStoragePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PasswordStoragePolicyContentForm {
         PasswordStoragePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40713,7 +40713,7 @@ impl PeakLoadPatterns {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PeakLoadPatternsContentForm {
         PeakLoadPatternsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40754,7 +40754,7 @@ impl PenetrationTestingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PenetrationTestingRequirementsContentForm {
         PenetrationTestingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40800,7 +40800,7 @@ impl PerformanceEfficiencyCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -40855,7 +40855,7 @@ impl PeriodicReviewPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PeriodicReviewPolicyContentForm {
         PeriodicReviewPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40884,7 +40884,7 @@ impl PeripheralEquipmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PeripheralEquipmentEntryContentForm {
         PeripheralEquipmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40913,7 +40913,7 @@ impl PermissionCompositionStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PermissionCompositionStrategyContentForm {
         PermissionCompositionStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40945,7 +40945,7 @@ impl PermissionEvaluationBehavior {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PermissionEvaluationBehaviorContentForm {
         PermissionEvaluationBehaviorContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -40977,7 +40977,7 @@ impl PermissionGranularityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PermissionGranularityPolicyContentForm {
         PermissionGranularityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41006,7 +41006,7 @@ impl PermissionMatrixEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PermissionMatrixEntryContentForm {
         PermissionMatrixEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41034,7 +41034,7 @@ impl PersonaEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PersonaEntryContentForm {
         PersonaEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41090,7 +41090,7 @@ impl PersonaGoalEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PersonaGoalEntryContentForm {
         PersonaGoalEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41116,7 +41116,7 @@ impl PersonaGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -41157,7 +41157,7 @@ impl PersonaPainPointEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PersonaPainPointEntryContentForm {
         PersonaPainPointEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41183,7 +41183,7 @@ impl PersonaPainPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -41224,7 +41224,7 @@ impl PersonaScenarioEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PersonaScenarioEntryContentForm {
         PersonaScenarioEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41252,7 +41252,7 @@ impl PersonaScenarios {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -41296,7 +41296,7 @@ impl PhaseGateReviewEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PhaseGateReviewEntryContentForm {
         PhaseGateReviewEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41369,7 +41369,7 @@ impl PhaseGateReviews {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PhaseGateReviewsContentForm {
         PhaseGateReviewsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41418,7 +41418,7 @@ impl PhysicalWorkplaceRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PhysicalWorkplaceRequirementsContentForm {
         PhysicalWorkplaceRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41456,7 +41456,7 @@ impl PilotPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -41487,7 +41487,7 @@ impl PipelineJobEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PipelineJobEntryContentForm {
         PipelineJobEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41533,7 +41533,7 @@ impl PipelineStageEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PipelineStageEntryContentForm {
         PipelineStageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41582,7 +41582,7 @@ impl PlatformAndLanguage {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -41676,7 +41676,7 @@ impl PolicyOwnershipEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PolicyOwnershipEntryContentForm {
         PolicyOwnershipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41702,7 +41702,7 @@ impl Portability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PortabilityContentForm {
         PortabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41731,7 +41731,7 @@ impl PostMaintenanceValidation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PostMaintenanceValidationContentForm {
         PostMaintenanceValidationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41767,7 +41767,7 @@ impl PostconditionsAndGuarantees {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PostconditionsAndGuaranteesContentForm {
         PostconditionsAndGuaranteesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41793,7 +41793,7 @@ impl PreconditionsAndTriggers {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PreconditionsAndTriggersContentForm {
         PreconditionsAndTriggersContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41822,7 +41822,7 @@ impl PrimaryNavigation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrimaryNavigationContentForm {
         PrimaryNavigationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41866,7 +41866,7 @@ impl PrintAndExportLayout {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrintAndExportLayoutContentForm {
         PrintAndExportLayoutContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41938,7 +41938,7 @@ impl PrivacyImpactAssessmentProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrivacyImpactAssessmentProcessContentForm {
         PrivacyImpactAssessmentProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -41979,7 +41979,7 @@ impl PrivacyRegulationCompliance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrivacyRegulationComplianceContentForm {
         PrivacyRegulationComplianceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42027,7 +42027,7 @@ impl PrivilegeUsageReporting {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrivilegeUsageReportingContentForm {
         PrivilegeUsageReportingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42059,7 +42059,7 @@ impl ProblemStatement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42105,7 +42105,7 @@ impl ProcessAdjustmentDetails {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessAdjustmentDetailsContentForm {
         ProcessAdjustmentDetailsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42135,7 +42135,7 @@ impl ProcessAdjustmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessAdjustmentEntryContentForm {
         ProcessAdjustmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42201,7 +42201,7 @@ impl ProcessAdjustments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42259,7 +42259,7 @@ impl ProcessCatalog {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42310,7 +42310,7 @@ impl ProcessCharacteristics {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessCharacteristicsContentForm {
         ProcessCharacteristicsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42346,7 +42346,7 @@ impl ProcessControlEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessControlEntryContentForm {
         ProcessControlEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42382,7 +42382,7 @@ impl ProcessControls {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42428,7 +42428,7 @@ impl ProcessDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessDependencyEntryContentForm {
         ProcessDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42454,7 +42454,7 @@ impl ProcessDesignPrincipleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessDesignPrincipleEntryContentForm {
         ProcessDesignPrincipleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42482,7 +42482,7 @@ impl ProcessDesignPrinciples {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42528,7 +42528,7 @@ impl ProcessEndEventEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessEndEventEntryContentForm {
         ProcessEndEventEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42554,7 +42554,7 @@ impl ProcessExceptionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessExceptionEntryContentForm {
         ProcessExceptionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42592,7 +42592,7 @@ impl ProcessExceptionHandling {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42623,7 +42623,7 @@ impl ProcessExceptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42669,7 +42669,7 @@ impl ProcessIdentification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessIdentificationContentForm {
         ProcessIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42710,7 +42710,7 @@ impl ProcessImprovementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessImprovementEntryContentForm {
         ProcessImprovementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42748,7 +42748,7 @@ impl ProcessImprovementSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42799,7 +42799,7 @@ impl ProcessInputEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessInputEntryContentForm {
         ProcessInputEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42825,7 +42825,7 @@ impl ProcessInputsOutputs {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42881,7 +42881,7 @@ impl ProcessInterdependencyMatrix {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -42932,7 +42932,7 @@ impl ProcessKpiEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessKpiEntryContentForm {
         ProcessKpiEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -42970,7 +42970,7 @@ impl ProcessMetric {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43001,7 +43001,7 @@ impl ProcessMetricCategory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43044,7 +43044,7 @@ impl ProcessMetricEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessMetricEntryContentForm {
         ProcessMetricEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43099,7 +43099,7 @@ impl ProcessMetrics {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43200,7 +43200,7 @@ impl ProcessOutputEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessOutputEntryContentForm {
         ProcessOutputEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43228,7 +43228,7 @@ impl ProcessOverviewDiagram {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43273,7 +43273,7 @@ impl ProcessPainPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43314,7 +43314,7 @@ impl ProcessPerformance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43370,7 +43370,7 @@ impl ProcessPerformanceSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessPerformanceSummaryContentForm {
         ProcessPerformanceSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43406,7 +43406,7 @@ impl ProcessRelationshipEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessRelationshipEntryContentForm {
         ProcessRelationshipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43432,7 +43432,7 @@ impl ProcessRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43473,7 +43473,7 @@ impl ProcessRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessRoleEntryContentForm {
         ProcessRoleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43509,7 +43509,7 @@ impl ProcessRoles {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43555,7 +43555,7 @@ impl ProcessScopeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessScopeEntryContentForm {
         ProcessScopeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43581,7 +43581,7 @@ impl ProcessScopeSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessScopeSummaryContentForm {
         ProcessScopeSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43627,7 +43627,7 @@ impl ProcessSlaEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessSlaEntryContentForm {
         ProcessSlaEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43658,7 +43658,7 @@ impl ProcessStepsAndActorInteractions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43729,7 +43729,7 @@ impl ProcessStepsOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessStepsOverviewContentForm {
         ProcessStepsOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43755,7 +43755,7 @@ impl ProcessTechnology {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessTechnologyContentForm {
         ProcessTechnologyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43791,7 +43791,7 @@ impl ProcessTriggerEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProcessTriggerEntryContentForm {
         ProcessTriggerEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43817,7 +43817,7 @@ impl ProcessTriggers {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43875,7 +43875,7 @@ impl ProcessVision {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -43929,7 +43929,7 @@ impl ProgrammingLanguageEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProgrammingLanguageEntryContentForm {
         ProgrammingLanguageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -43980,7 +43980,7 @@ impl ProjectOrganization {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44025,7 +44025,7 @@ impl ProjectOrganizationAndProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44094,7 +44094,7 @@ impl ProjectTeamStaffing {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44150,7 +44150,7 @@ impl ProtocolComplianceRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProtocolComplianceRequirementsContentForm {
         ProtocolComplianceRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44191,7 +44191,7 @@ impl ProtocolEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProtocolEntryContentForm {
         ProtocolEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44223,7 +44223,7 @@ impl ProtocolFeatureEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ProtocolFeatureEntryContentForm {
         ProtocolFeatureEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44260,7 +44260,7 @@ impl ProtocolsAndStandardsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44337,7 +44337,7 @@ impl Prototype {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44412,7 +44412,7 @@ impl PrototypeFeatureEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrototypeFeatureEntryContentForm {
         PrototypeFeatureEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44440,7 +44440,7 @@ impl PrototypeFeatureSubset {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44502,7 +44502,7 @@ impl PrototypeGoalEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PrototypeGoalEntryContentForm {
         PrototypeGoalEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44530,7 +44530,7 @@ impl PrototypeGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44594,7 +44594,7 @@ impl PrototypeType {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44648,7 +44648,7 @@ impl PwaRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> PwaRequirementsContentForm {
         PwaRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44694,7 +44694,7 @@ impl QualityAndAcceptanceModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44744,7 +44744,7 @@ impl QualityCategoryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityCategoryEntryContentForm {
         QualityCategoryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44796,7 +44796,7 @@ impl QualityFramework {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -44882,7 +44882,7 @@ impl QualityGateAdjustmentDetails {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityGateAdjustmentDetailsContentForm {
         QualityGateAdjustmentDetailsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44912,7 +44912,7 @@ impl QualityGateAdjustmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityGateAdjustmentEntryContentForm {
         QualityGateAdjustmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -44967,7 +44967,7 @@ impl QualityGateAdjustments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45023,7 +45023,7 @@ impl QualityGateCheckEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityGateCheckEntryContentForm {
         QualityGateCheckEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45076,7 +45076,7 @@ impl QualityGateChecklist {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45136,7 +45136,7 @@ impl QualityPrioritization {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45194,7 +45194,7 @@ impl QualityScenarioEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityScenarioEntryContentForm {
         QualityScenarioEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45223,7 +45223,7 @@ impl QualityScenarios {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45264,7 +45264,7 @@ impl QualityStandardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityStandardEntryContentForm {
         QualityStandardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45310,7 +45310,7 @@ impl QualityWeightEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> QualityWeightEntryContentForm {
         QualityWeightEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45336,7 +45336,7 @@ impl RaciEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RaciEntryContentForm {
         RaciEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45362,7 +45362,7 @@ impl RateLimitingPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RateLimitingPolicyContentForm {
         RateLimitingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45403,7 +45403,7 @@ impl Readability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReadabilityContentForm {
         ReadabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45452,7 +45452,7 @@ impl ReadinessCriteriaEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReadinessCriteriaEntryContentForm {
         ReadinessCriteriaEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45478,7 +45478,7 @@ impl RecoveryProcedures {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RecoveryProceduresContentForm {
         RecoveryProceduresContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45524,7 +45524,7 @@ impl RecoveryScenarioEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RecoveryScenarioEntryContentForm {
         RecoveryScenarioEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45556,7 +45556,7 @@ impl RedirectHandlingPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RedirectHandlingPolicyContentForm {
         RedirectHandlingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45588,7 +45588,7 @@ impl ReferenceDocumentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReferenceDocumentEntryContentForm {
         ReferenceDocumentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45643,7 +45643,7 @@ impl ReferenceDocuments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45686,7 +45686,7 @@ impl RegulatoryAuditSupport {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RegulatoryAuditSupportContentForm {
         RegulatoryAuditSupportContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45715,7 +45715,7 @@ impl RegulatoryComplianceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RegulatoryComplianceEntryContentForm {
         RegulatoryComplianceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45763,7 +45763,7 @@ impl RegulatoryComplianceRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45817,7 +45817,7 @@ impl RegulatoryContext {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -45858,7 +45858,7 @@ impl RegulatoryRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RegulatoryRequirementEntryContentForm {
         RegulatoryRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45884,7 +45884,7 @@ impl RelatedDocumentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RelatedDocumentEntryContentForm {
         RelatedDocumentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45910,7 +45910,7 @@ impl RelationshipAttributeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RelationshipAttributeEntryContentForm {
         RelationshipAttributeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45936,7 +45936,7 @@ impl ReleaseStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReleaseStrategyContentForm {
         ReleaseStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -45982,7 +45982,7 @@ impl RelevantSectionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RelevantSectionEntryContentForm {
         RelevantSectionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46008,7 +46008,7 @@ impl Reliability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReliabilityContentForm {
         ReliabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46064,7 +46064,7 @@ impl ReliabilityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -46136,7 +46136,7 @@ impl RememberMePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RememberMePolicyContentForm {
         RememberMePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46167,7 +46167,7 @@ impl RemovedRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RemovedRoleEntryContentForm {
         RemovedRoleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46211,7 +46211,7 @@ impl ReplacementInventory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -46258,7 +46258,7 @@ impl ReplacementPhaseEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReplacementPhaseEntryContentForm {
         ReplacementPhaseEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46286,7 +46286,7 @@ impl ReplacementSystemDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReplacementSystemDependencyEntryContentForm {
         ReplacementSystemDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46312,7 +46312,7 @@ impl ReportChartAxes {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportChartAxesContentForm {
         ReportChartAxesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46339,7 +46339,7 @@ impl ReportChartEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportChartEntryContentForm {
         ReportChartEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46396,7 +46396,7 @@ impl ReportColumnEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportColumnEntryContentForm {
         ReportColumnEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46494,7 +46494,7 @@ impl ReportDefinitions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -46535,7 +46535,7 @@ impl ReportDistributionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportDistributionEntryContentForm {
         ReportDistributionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46576,7 +46576,7 @@ impl ReportEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportEntryContentForm {
         ReportEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46714,7 +46714,7 @@ impl ReportFilterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportFilterEntryContentForm {
         ReportFilterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46805,7 +46805,7 @@ impl ReportRecipientEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportRecipientEntryContentForm {
         ReportRecipientEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46847,7 +46847,7 @@ impl ReportScheduleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportScheduleEntryContentForm {
         ReportScheduleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46893,7 +46893,7 @@ impl ReportSectionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReportSectionEntryContentForm {
         ReportSectionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -46962,7 +46962,7 @@ impl RequirementAcceptanceCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47003,7 +47003,7 @@ impl RequirementBusinessRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RequirementBusinessRuleEntryContentForm {
         RequirementBusinessRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47031,7 +47031,7 @@ impl RequirementBusinessRules {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47074,7 +47074,7 @@ impl RequirementCoverage {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47107,7 +47107,7 @@ impl RequirementDataRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47150,7 +47150,7 @@ impl RequirementDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47191,7 +47191,7 @@ impl RequirementDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RequirementDependencyEntryContentForm {
         RequirementDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47236,7 +47236,7 @@ impl RequirementRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47269,7 +47269,7 @@ impl RequirementScreenActionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RequirementScreenActionEntryContentForm {
         RequirementScreenActionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47305,7 +47305,7 @@ impl RequirementTestCaseEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RequirementTestCaseEntryContentForm {
         RequirementTestCaseEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47359,7 +47359,7 @@ impl RequirementTestCases {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47402,7 +47402,7 @@ impl RequirementTraceability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47452,7 +47452,7 @@ impl RequirementUiSpecification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47549,7 +47549,7 @@ impl Requirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47600,7 +47600,7 @@ impl RequirementsFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47652,7 +47652,7 @@ impl RequirementsOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47733,7 +47733,7 @@ impl ResourceAllocationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResourceAllocationEntryContentForm {
         ResourceAllocationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47759,7 +47759,7 @@ impl ResourceCapacityBaselines {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResourceCapacityBaselinesContentForm {
         ResourceCapacityBaselinesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47805,7 +47805,7 @@ impl ResourceKeyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResourceKeyEntryContentForm {
         ResourceKeyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47831,7 +47831,7 @@ impl ResourceKeyReferenceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResourceKeyReferenceEntryContentForm {
         ResourceKeyReferenceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47857,7 +47857,7 @@ impl ResourceProtection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -47903,7 +47903,7 @@ impl ResourceRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResourceRequirementEntryContentForm {
         ResourceRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47929,7 +47929,7 @@ impl ResponsibilityChangeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilityChangeEntryContentForm {
         ResponsibilityChangeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47955,7 +47955,7 @@ impl ResponsibilityContacts {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilityContactsContentForm {
         ResponsibilityContactsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -47981,7 +47981,7 @@ impl ResponsibilityDetailEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilityDetailEntryContentForm {
         ResponsibilityDetailEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48011,7 +48011,7 @@ impl ResponsibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilityEntryContentForm {
         ResponsibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48077,7 +48077,7 @@ impl ResponsibilityFunctionDetails {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilityFunctionDetailsContentForm {
         ResponsibilityFunctionDetailsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48103,7 +48103,7 @@ impl ResponsibilityReferenceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilityReferenceEntryContentForm {
         ResponsibilityReferenceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48129,7 +48129,7 @@ impl ResponsibilitySystems {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsibilitySystemsContentForm {
         ResponsibilitySystemsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48157,7 +48157,7 @@ impl ResponsiveBehavior {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -48232,7 +48232,7 @@ impl ResponsiveDesign {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -48284,7 +48284,7 @@ impl ResponsiveScreenRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResponsiveScreenRuleEntryContentForm {
         ResponsiveScreenRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48324,7 +48324,7 @@ impl ResultEnvelope {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResultEnvelopeContentForm {
         ResultEnvelopeContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48367,7 +48367,7 @@ impl ResultFieldDetailEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ResultFieldDetailEntryContentForm {
         ResultFieldDetailEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48393,7 +48393,7 @@ impl RetentionPolicyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RetentionPolicyEntryContentForm {
         RetentionPolicyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48434,7 +48434,7 @@ impl ReusabilityPrinciples {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReusabilityPrinciplesContentForm {
         ReusabilityPrinciplesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48483,7 +48483,7 @@ impl ReusableComponentsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -48584,7 +48584,7 @@ impl ReusablePrototype {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -48641,7 +48641,7 @@ impl ReusableUiComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReusableUiComponentEntryContentForm {
         ReusableUiComponentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48695,7 +48695,7 @@ impl ReuseGoalEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReuseGoalEntryContentForm {
         ReuseGoalEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48739,7 +48739,7 @@ impl ReviewCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReviewCriterionEntryContentForm {
         ReviewCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48775,7 +48775,7 @@ impl ReviewTeam {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -48816,7 +48816,7 @@ impl ReviewTeamMember {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReviewTeamMemberContentForm {
         ReviewTeamMemberContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48842,7 +48842,7 @@ impl ReviewerRecord {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ReviewerRecordContentForm {
         ReviewerRecordContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48868,7 +48868,7 @@ impl RevisionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RevisionEntryContentForm {
         RevisionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48914,7 +48914,7 @@ impl RiskBusinessImpact {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RiskBusinessImpactContentForm {
         RiskBusinessImpactContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -48954,7 +48954,7 @@ impl RiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49025,7 +49025,7 @@ impl RiskIdentification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RiskIdentificationContentForm {
         RiskIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49061,7 +49061,7 @@ impl RiskMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RiskMonitoringContentForm {
         RiskMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49097,7 +49097,7 @@ impl RiskRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RiskRelationshipsContentForm {
         RiskRelationshipsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49123,7 +49123,7 @@ impl RiskResponse {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RiskResponseContentForm {
         RiskResponseContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49171,7 +49171,7 @@ impl RisksAndAssumptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49221,7 +49221,7 @@ impl RoleAdjustmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleAdjustmentEntryContentForm {
         RoleAdjustmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49276,7 +49276,7 @@ impl RoleAdjustments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49335,7 +49335,7 @@ impl RoleCertificationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleCertificationPolicyContentForm {
         RoleCertificationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49367,7 +49367,7 @@ impl RoleCombinationConstraintEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleCombinationConstraintEntryContentForm {
         RoleCombinationConstraintEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49393,7 +49393,7 @@ impl RoleCompetencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleCompetencyEntryContentForm {
         RoleCompetencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49422,7 +49422,7 @@ impl RoleDataScopeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleDataScopeEntryContentForm {
         RoleDataScopeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49448,7 +49448,7 @@ impl RoleExclusionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleExclusionEntryContentForm {
         RoleExclusionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49478,7 +49478,7 @@ impl RoleHierarchy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49555,7 +49555,7 @@ impl RoleHierarchyPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleHierarchyPolicyContentForm {
         RoleHierarchyPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49584,7 +49584,7 @@ impl RoleHolderEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleHolderEntryContentForm {
         RoleHolderEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49613,7 +49613,7 @@ impl RoleInheritanceRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleInheritanceRuleEntryContentForm {
         RoleInheritanceRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49642,7 +49642,7 @@ impl RoleMatrix {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49677,7 +49677,7 @@ impl RolePermissionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RolePermissionEntryContentForm {
         RolePermissionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49703,7 +49703,7 @@ impl RoleReferenceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RoleReferenceEntryContentForm {
         RoleReferenceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49729,7 +49729,7 @@ impl RollbackStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RollbackStrategyContentForm {
         RollbackStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49784,7 +49784,7 @@ impl RolloutPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49823,7 +49823,7 @@ impl RolloutTrainingMaterial {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -49858,7 +49858,7 @@ impl RowLevelSecurityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RowLevelSecurityPolicyContentForm {
         RowLevelSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49887,7 +49887,7 @@ impl RpoRtoRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RpoRtoRequirementsContentForm {
         RpoRtoRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49930,7 +49930,7 @@ impl RuleExampleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RuleExampleEntryContentForm {
         RuleExampleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -49959,7 +49959,7 @@ impl RuntimeDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -50003,7 +50003,7 @@ impl RuntimeDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RuntimeDependencyEntryContentForm {
         RuntimeDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50054,7 +50054,7 @@ impl RuntimeEnvironment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> RuntimeEnvironmentContentForm {
         RuntimeEnvironmentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50120,7 +50120,7 @@ impl ScalabilityArchitecture {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScalabilityArchitectureContentForm {
         ScalabilityArchitectureContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50171,7 +50171,7 @@ impl ScalingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScalingRequirementsContentForm {
         ScalingRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50217,7 +50217,7 @@ impl ScalingTriggersAndThresholds {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScalingTriggersAndThresholdsContentForm {
         ScalingTriggersAndThresholdsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50265,7 +50265,7 @@ impl ScenarioEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -50341,7 +50341,7 @@ impl ScenarioStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScenarioStepEntryContentForm {
         ScenarioStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50434,7 +50434,7 @@ impl ScheduledJobEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScheduledJobEntryContentForm {
         ScheduledJobEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50558,7 +50558,7 @@ impl ScheduledJobStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScheduledJobStepEntryContentForm {
         ScheduledJobStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50584,7 +50584,7 @@ impl ScheduledMaintenancePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScheduledMaintenancePolicyContentForm {
         ScheduledMaintenancePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50635,7 +50635,7 @@ impl SchemaMigrationStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SchemaMigrationStepEntryContentForm {
         SchemaMigrationStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50696,7 +50696,7 @@ impl SchemaVersioningAndMigration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SchemaVersioningAndMigrationContentForm {
         SchemaVersioningAndMigrationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50746,7 +50746,7 @@ impl ScopeBoundaries {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -50817,7 +50817,7 @@ impl ScopeItemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScopeItemEntryContentForm {
         ScopeItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50845,7 +50845,7 @@ impl ScreenActionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenActionEntryContentForm {
         ScreenActionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50888,7 +50888,7 @@ impl ScreenActions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -50932,7 +50932,7 @@ impl ScreenBehaviorEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenBehaviorEntryContentForm {
         ScreenBehaviorEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -50958,7 +50958,7 @@ impl ScreenDescriptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51001,7 +51001,7 @@ impl ScreenElementAction {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenElementActionContentForm {
         ScreenElementActionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51039,7 +51039,7 @@ impl ScreenElementDataDisplay {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenElementDataDisplayContentForm {
         ScreenElementDataDisplayContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51078,7 +51078,7 @@ impl ScreenElementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenElementEntryContentForm {
         ScreenElementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51170,7 +51170,7 @@ impl ScreenElementFieldSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenElementFieldSpecContentForm {
         ScreenElementFieldSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51253,7 +51253,7 @@ impl ScreenEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenEntryContentForm {
         ScreenEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51354,7 +51354,7 @@ impl ScreenFieldEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenFieldEntryContentForm {
         ScreenFieldEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51445,7 +51445,7 @@ impl ScreenFlowStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51492,7 +51492,7 @@ impl ScreenInventory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51538,7 +51538,7 @@ impl ScreenResponsiveRuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenResponsiveRuleEntryContentForm {
         ScreenResponsiveRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51564,7 +51564,7 @@ impl ScreenRouteEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenRouteEntryContentForm {
         ScreenRouteEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51600,7 +51600,7 @@ impl ScreenRouteMap {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51666,7 +51666,7 @@ impl ScreenSectionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenSectionEntryContentForm {
         ScreenSectionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51714,7 +51714,7 @@ impl ScreenSections {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51758,7 +51758,7 @@ impl ScreenStateEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenStateEntryContentForm {
         ScreenStateEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51786,7 +51786,7 @@ impl ScreenStates {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51827,7 +51827,7 @@ impl ScreenTransitionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenTransitionEntryContentForm {
         ScreenTransitionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51853,7 +51853,7 @@ impl ScreenUserCategoryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ScreenUserCategoryEntryContentForm {
         ScreenUserCategoryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51881,7 +51881,7 @@ impl SecondaryNavigation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -51925,7 +51925,7 @@ impl Security {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityContentForm {
         SecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -51974,7 +51974,7 @@ impl SecurityAndAccessModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52025,7 +52025,7 @@ impl SecurityAuditEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityAuditEntryContentForm {
         SecurityAuditEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52070,7 +52070,7 @@ impl SecurityAuditRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52145,7 +52145,7 @@ impl SecurityCertificationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityCertificationRequirementsContentForm {
         SecurityCertificationRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52195,7 +52195,7 @@ impl SecurityCharacteristic {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52258,7 +52258,7 @@ impl SecurityCodeReviewPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityCodeReviewPolicyContentForm {
         SecurityCodeReviewPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52305,7 +52305,7 @@ impl SecurityComplianceFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52341,7 +52341,7 @@ impl SecurityControlEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityControlEntryContentForm {
         SecurityControlEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52379,7 +52379,7 @@ impl SecurityControls {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52420,7 +52420,7 @@ impl SecurityDevelopmentLifecycle {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityDevelopmentLifecycleContentForm {
         SecurityDevelopmentLifecycleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52464,7 +52464,7 @@ impl SecurityEventEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityEventEntryContentForm {
         SecurityEventEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52493,7 +52493,7 @@ impl SecurityEventLoggingPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityEventLoggingPolicyContentForm {
         SecurityEventLoggingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52526,7 +52526,7 @@ impl SecurityEventsDefinition {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52613,7 +52613,7 @@ impl SecurityOperationsFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52657,7 +52657,7 @@ impl SecurityRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityRequirementEntryContentForm {
         SecurityRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52728,7 +52728,7 @@ impl SecurityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -52774,7 +52774,7 @@ impl SecurityStandardComplianceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityStandardComplianceEntryContentForm {
         SecurityStandardComplianceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52820,7 +52820,7 @@ impl SecurityStandardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityStandardEntryContentForm {
         SecurityStandardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52864,7 +52864,7 @@ impl SecurityTestingAutomation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SecurityTestingAutomationContentForm {
         SecurityTestingAutomationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52918,7 +52918,7 @@ impl SelfRegistrationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SelfRegistrationPolicyContentForm {
         SelfRegistrationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -52975,7 +52975,7 @@ impl SelfServiceAccountManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SelfServiceAccountManagementContentForm {
         SelfServiceAccountManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53004,7 +53004,7 @@ impl SensitiveDataEncryption {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -53079,7 +53079,7 @@ impl ServerCallStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerCallStepEntryContentForm {
         ServerCallStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53117,7 +53117,7 @@ impl ServerConfigurationSettingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerConfigurationSettingEntryContentForm {
         ServerConfigurationSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53143,7 +53143,7 @@ impl ServerEnvironmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerEnvironmentEntryContentForm {
         ServerEnvironmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53200,7 +53200,7 @@ impl ServerOperationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerOperationEntryContentForm {
         ServerOperationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53287,7 +53287,7 @@ impl ServerOperationMemberEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerOperationMemberEntryContentForm {
         ServerOperationMemberEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53344,7 +53344,7 @@ impl ServerOperationRegistry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -53397,7 +53397,7 @@ impl ServerOsRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerOsRequirementsContentForm {
         ServerOsRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53446,7 +53446,7 @@ impl ServerRequirementsSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -53545,7 +53545,7 @@ impl ServerRoleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerRoleEntryContentForm {
         ServerRoleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53591,7 +53591,7 @@ impl ServerStorageRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServerStorageRequirementsContentForm {
         ServerStorageRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53640,7 +53640,7 @@ impl ServiceAccountCredentialPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServiceAccountCredentialPolicyContentForm {
         ServiceAccountCredentialPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53672,7 +53672,7 @@ impl ServiceAccountLifecycle {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServiceAccountLifecycleContentForm {
         ServiceAccountLifecycleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53701,7 +53701,7 @@ impl ServiceLevel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServiceLevelContentForm {
         ServiceLevelContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53765,7 +53765,7 @@ impl ServiceLevelAgreementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServiceLevelAgreementEntryContentForm {
         ServiceLevelAgreementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53791,7 +53791,7 @@ impl ServiceLevelIndicators {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServiceLevelIndicatorsContentForm {
         ServiceLevelIndicatorsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53832,7 +53832,7 @@ impl ServiceMeshAndGateway {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ServiceMeshAndGatewayContentForm {
         ServiceMeshAndGatewayContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53871,7 +53871,7 @@ impl SessionCreationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SessionCreationPolicyContentForm {
         SessionCreationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53904,7 +53904,7 @@ impl SessionLifecycleMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SessionLifecycleMonitoringContentForm {
         SessionLifecycleMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -53939,7 +53939,7 @@ impl SessionManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54006,7 +54006,7 @@ impl SessionModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54056,7 +54056,7 @@ impl SessionRevocationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SessionRevocationPolicyContentForm {
         SessionRevocationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54089,7 +54089,7 @@ impl SessionSecurityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SessionSecurityPolicyContentForm {
         SessionSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54123,7 +54123,7 @@ impl SessionTimeoutPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SessionTimeoutPolicyContentForm {
         SessionTimeoutPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54154,7 +54154,7 @@ impl SharedInfrastructureDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54197,7 +54197,7 @@ impl SharedInfrastructureEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SharedInfrastructureEntryContentForm {
         SharedInfrastructureEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54238,7 +54238,7 @@ impl SharedLibraryComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SharedLibraryComponentEntryContentForm {
         SharedLibraryComponentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54284,7 +54284,7 @@ impl SharedLibraryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SharedLibraryEntryContentForm {
         SharedLibraryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54329,7 +54329,7 @@ impl SignOffProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SignOffProcessContentForm {
         SignOffProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54386,7 +54386,7 @@ impl SingleSignOnPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SingleSignOnPolicyContentForm {
         SingleSignOnPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54437,7 +54437,7 @@ impl SlaAndSloMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54507,7 +54507,7 @@ impl SlaMonitoringRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SlaMonitoringRequirementsContentForm {
         SlaMonitoringRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54553,7 +54553,7 @@ impl SloEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SloEntryContentForm {
         SloEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54589,7 +54589,7 @@ impl SoftwareDeliverables {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54630,7 +54630,7 @@ impl SoftwareDesignRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54681,7 +54681,7 @@ impl SoftwareLayerEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SoftwareLayerEntryContentForm {
         SoftwareLayerEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54727,7 +54727,7 @@ impl SolutionArchitectureAndTechnology {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54778,7 +54778,7 @@ impl SolutionArchitectureFollowUp {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -54814,7 +54814,7 @@ impl SpecializedEquipmentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SpecializedEquipmentEntryContentForm {
         SpecializedEquipmentEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54853,7 +54853,7 @@ impl SsoPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SsoPolicyContentForm {
         SsoPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54882,7 +54882,7 @@ impl StaffingBudget {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StaffingBudgetContentForm {
         StaffingBudgetContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54921,7 +54921,7 @@ impl StaffingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StaffingEntryContentForm {
         StaffingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -54967,7 +54967,7 @@ impl StaffingPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -55023,7 +55023,7 @@ impl StageDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageDependenciesContentForm {
         StageDependenciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55055,7 +55055,7 @@ impl StageEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageEntryContentForm {
         StageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55182,7 +55182,7 @@ impl StageGovernance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageGovernanceContentForm {
         StageGovernanceContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55256,7 +55256,7 @@ impl StageMigrationResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageMigrationResourcesContentForm {
         StageMigrationResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55287,7 +55287,7 @@ impl StageMigrationRiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageMigrationRiskEntryContentForm {
         StageMigrationRiskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55357,7 +55357,7 @@ impl StageMigrationRisks {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageMigrationRisksContentForm {
         StageMigrationRisksContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55403,7 +55403,7 @@ impl StageOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageOverviewContentForm {
         StageOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55512,7 +55512,7 @@ impl StageResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageResourcesContentForm {
         StageResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55538,7 +55538,7 @@ impl StageStakeholders {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageStakeholdersContentForm {
         StageStakeholdersContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55568,7 +55568,7 @@ impl StageSuccessCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageSuccessCriterionEntryContentForm {
         StageSuccessCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55609,7 +55609,7 @@ impl StageSummaryDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageSummaryDependenciesContentForm {
         StageSummaryDependenciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55642,7 +55642,7 @@ impl StageSummaryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageSummaryEntryContentForm {
         StageSummaryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55713,7 +55713,7 @@ impl StageSummaryResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StageSummaryResourcesContentForm {
         StageSummaryResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55739,7 +55739,7 @@ impl StagingDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StagingDependenciesContentForm {
         StagingDependenciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55765,7 +55765,7 @@ impl StagingDrivers {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StagingDriversContentForm {
         StagingDriversContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55798,7 +55798,7 @@ impl StagingStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StagingStrategyContentForm {
         StagingStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55924,7 +55924,7 @@ impl StakeholderEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StakeholderEntryContentForm {
         StakeholderEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55953,7 +55953,7 @@ impl StakeholderRegisterEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StakeholderRegisterEntryContentForm {
         StakeholderRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -55985,7 +55985,7 @@ impl StakeholdersAndBeneficiaries {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56036,7 +56036,7 @@ impl StakeholdersAndGovernance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56132,7 +56132,7 @@ impl StakeholdersAndInterests {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StakeholdersAndInterestsContentForm {
         StakeholdersAndInterestsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56158,7 +56158,7 @@ impl StandardSoftwareRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56202,7 +56202,7 @@ impl StandardsComplianceSection {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56328,7 +56328,7 @@ impl SteeringCommittee {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56377,7 +56377,7 @@ impl StepUpAuthenticationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StepUpAuthenticationPolicyContentForm {
         StepUpAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56417,7 +56417,7 @@ impl StorageEncryptionPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StorageEncryptionPolicyContentForm {
         StorageEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56450,7 +56450,7 @@ impl StorageLifecyclePolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> StorageLifecyclePolicyContentForm {
         StorageLifecyclePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56482,7 +56482,7 @@ impl StrategicAlignment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56520,7 +56520,7 @@ impl SubFunctionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SubFunctionEntryContentForm {
         SubFunctionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56550,7 +56550,7 @@ impl SubStageEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SubStageEntryContentForm {
         SubStageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56606,7 +56606,7 @@ impl SuccessCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56677,7 +56677,7 @@ impl SuccessCriteriaByCategory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56761,7 +56761,7 @@ impl SuccessCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SuccessCriterionEntryContentForm {
         SuccessCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56822,7 +56822,7 @@ impl SuccessCriterionRelationships {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SuccessCriterionRelationshipsContentForm {
         SuccessCriterionRelationshipsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56848,7 +56848,7 @@ impl SupportAccess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56915,7 +56915,7 @@ impl SupportDeliverables {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -56956,7 +56956,7 @@ impl SupportedLocaleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SupportedLocaleEntryContentForm {
         SupportedLocaleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -56998,7 +56998,7 @@ impl SystemArchitectureSpec {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57039,7 +57039,7 @@ impl SystemBoundaries {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57138,7 +57138,7 @@ impl SystemBusinessCriticality {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemBusinessCriticalityContentForm {
         SystemBusinessCriticalityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57194,7 +57194,7 @@ impl SystemBusinessProcessEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemBusinessProcessEntryContentForm {
         SystemBusinessProcessEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57220,7 +57220,7 @@ impl SystemBusinessUnitEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemBusinessUnitEntryContentForm {
         SystemBusinessUnitEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57246,7 +57246,7 @@ impl SystemConfigurationManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemConfigurationManagementContentForm {
         SystemConfigurationManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57301,7 +57301,7 @@ impl SystemContext {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57372,7 +57372,7 @@ impl SystemCostAnalysis {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemCostAnalysisContentForm {
         SystemCostAnalysisContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57426,7 +57426,7 @@ impl SystemDataScope {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemDataScopeContentForm {
         SystemDataScopeContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57486,7 +57486,7 @@ impl SystemDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemDependencyEntryContentForm {
         SystemDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57559,7 +57559,7 @@ impl SystemDescription {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57625,7 +57625,7 @@ impl SystemDiagnosticTools {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemDiagnosticToolsContentForm {
         SystemDiagnosticToolsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57666,7 +57666,7 @@ impl SystemErrorCodeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemErrorCodeEntryContentForm {
         SystemErrorCodeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57705,7 +57705,7 @@ impl SystemErrorDisplay {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57791,7 +57791,7 @@ impl SystemIntegrationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemIntegrationEntryContentForm {
         SystemIntegrationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57870,7 +57870,7 @@ impl SystemInventory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57911,7 +57911,7 @@ impl SystemKnowledgeTransfer {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemKnowledgeTransferContentForm {
         SystemKnowledgeTransferContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -57952,7 +57952,7 @@ impl SystemLandscapeInventory {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -57983,7 +57983,7 @@ impl SystemMigrationPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemMigrationPlanContentForm {
         SystemMigrationPlanContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58035,7 +58035,7 @@ impl SystemMigrationRiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemMigrationRiskEntryContentForm {
         SystemMigrationRiskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58061,7 +58061,7 @@ impl SystemOperation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -58107,7 +58107,7 @@ impl SystemOperationAndMonitoring {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -58157,7 +58157,7 @@ impl SystemPurpose {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -58234,7 +58234,7 @@ impl SystemQualityGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -58386,7 +58386,7 @@ impl SystemReplacementStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemReplacementStrategyContentForm {
         SystemReplacementStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58445,7 +58445,7 @@ impl SystemRollout {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -58533,7 +58533,7 @@ impl SystemStagePlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemStagePlanContentForm {
         SystemStagePlanContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58619,7 +58619,7 @@ impl SystemSummary {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemSummaryContentForm {
         SystemSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58668,7 +58668,7 @@ impl SystemTaskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemTaskEntryContentForm {
         SystemTaskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58747,7 +58747,7 @@ impl SystemTechnicalAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemTechnicalAssessmentContentForm {
         SystemTechnicalAssessmentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58813,7 +58813,7 @@ impl SystemToReplaceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -58919,7 +58919,7 @@ impl SystemTrainingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemTrainingEntryContentForm {
         SystemTrainingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -58960,7 +58960,7 @@ impl SystemUserImpact {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> SystemUserImpactContentForm {
         SystemUserImpactContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59016,7 +59016,7 @@ impl SystemsToReplace {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59062,7 +59062,7 @@ impl TabBarDefinitionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TabBarDefinitionEntryContentForm {
         TabBarDefinitionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59108,7 +59108,7 @@ impl TabItemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TabItemEntryContentForm {
         TabItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59146,7 +59146,7 @@ impl TargetOperatingModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59187,7 +59187,7 @@ impl TargetPlatformEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TargetPlatformEntryContentForm {
         TargetPlatformEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59236,7 +59236,7 @@ impl TeamMemberEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TeamMemberEntryContentForm {
         TeamMemberEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59297,7 +59297,7 @@ impl TeamMemberResponsibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TeamMemberResponsibilityEntryContentForm {
         TeamMemberResponsibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59323,7 +59323,7 @@ impl TeamMemberSkillEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TeamMemberSkillEntryContentForm {
         TeamMemberSkillEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59349,7 +59349,7 @@ impl TeamMemberSkills {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TeamMemberSkillsContentForm {
         TeamMemberSkillsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59385,7 +59385,7 @@ impl TeamStructureOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TeamStructureOverviewContentForm {
         TeamStructureOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59414,7 +59414,7 @@ impl TechnicalCharacteristicEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalCharacteristicEntryContentForm {
         TechnicalCharacteristicEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59440,7 +59440,7 @@ impl TechnicalConstraintEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalConstraintEntryContentForm {
         TechnicalConstraintEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59466,7 +59466,7 @@ impl TechnicalDependencyEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalDependencyEntryContentForm {
         TechnicalDependencyEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59498,7 +59498,7 @@ impl TechnicalEnvironment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59609,7 +59609,7 @@ impl TechnicalEnvironmentNetwork {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalEnvironmentNetworkContentForm {
         TechnicalEnvironmentNetworkContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59658,7 +59658,7 @@ impl TechnicalFrameworkConcept {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59736,7 +59736,7 @@ impl TechnicalGoalConstraints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59779,7 +59779,7 @@ impl TechnicalGoalDependencies {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59823,7 +59823,7 @@ impl TechnicalGoalEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalGoalEntryContentForm {
         TechnicalGoalEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59879,7 +59879,7 @@ impl TechnicalGoalTestCaseEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalGoalTestCaseEntryContentForm {
         TechnicalGoalTestCaseEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -59907,7 +59907,7 @@ impl TechnicalGoalTestCriteria {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59957,7 +59957,7 @@ impl TechnicalGoals {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -59998,7 +59998,7 @@ impl TechnicalInfrastructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -60058,7 +60058,7 @@ impl TechnicalPainPoints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -60107,7 +60107,7 @@ impl TechnicalRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnicalRequirementEntryContentForm {
         TechnicalRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60178,7 +60178,7 @@ impl TechnicalRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -60224,7 +60224,7 @@ impl TechnicalSecurityRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -60275,7 +60275,7 @@ impl TechnologyDataVariations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnologyDataVariationsContentForm {
         TechnologyDataVariationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60304,7 +60304,7 @@ impl TechnologyStandardEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TechnologyStandardEntryContentForm {
         TechnologyStandardEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60355,7 +60355,7 @@ impl TenantBoundaryEnforcementPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TenantBoundaryEnforcementPolicyContentForm {
         TenantBoundaryEnforcementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60390,7 +60390,7 @@ impl TenantContextPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TenantContextPolicyContentForm {
         TenantContextPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60423,7 +60423,7 @@ impl TenantCustomizationEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TenantCustomizationEntryContentForm {
         TenantCustomizationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60452,7 +60452,7 @@ impl TenantDataIsolationPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TenantDataIsolationPolicyContentForm {
         TenantDataIsolationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60489,7 +60489,7 @@ impl TenantIsolation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -60558,7 +60558,7 @@ impl TenantOnboardingPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TenantOnboardingPolicyContentForm {
         TenantOnboardingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60587,7 +60587,7 @@ impl TestLevelEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TestLevelEntryContentForm {
         TestLevelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60618,7 +60618,7 @@ impl TestScenarioEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TestScenarioEntryContentForm {
         TestScenarioEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60694,7 +60694,7 @@ impl TestScenarioNotes {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TestScenarioNotesContentForm {
         TestScenarioNotesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60722,7 +60722,7 @@ impl TestStrategy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -60763,7 +60763,7 @@ impl TestingStandards {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TestingStandardsContentForm {
         TestingStandardsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60809,7 +60809,7 @@ impl ThirdPartyApiIntegrations {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ThirdPartyApiIntegrationsContentForm {
         ThirdPartyApiIntegrationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60865,7 +60865,7 @@ impl ThirdPartyCompatibilityEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ThirdPartyCompatibilityEntryContentForm {
         ThirdPartyCompatibilityEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60911,7 +60911,7 @@ impl ThirdPartyLibraryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ThirdPartyLibraryEntryContentForm {
         ThirdPartyLibraryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -60964,7 +60964,7 @@ impl ThrowawayPrototype {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61025,7 +61025,7 @@ impl TlsProtocolPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TlsProtocolPolicyContentForm {
         TlsProtocolPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61054,7 +61054,7 @@ impl TlsRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TlsRequirementsContentForm {
         TlsRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61103,7 +61103,7 @@ impl TokenManagementPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TokenManagementPolicyContentForm {
         TokenManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61138,7 +61138,7 @@ impl ToolEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ToolEntryContentForm {
         ToolEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61242,7 +61242,7 @@ impl Tooling {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ToolingContentForm {
         ToolingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61296,7 +61296,7 @@ impl ToolingAndEnvironments {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61337,7 +61337,7 @@ impl TourStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TourStepEntryContentForm {
         TourStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61363,7 +61363,7 @@ impl TradeOffDecisionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TradeOffDecisionEntryContentForm {
         TradeOffDecisionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61419,7 +61419,7 @@ impl TradeOffDecisions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61476,7 +61476,7 @@ impl TrainingAssessment {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TrainingAssessmentContentForm {
         TrainingAssessmentContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61525,7 +61525,7 @@ impl TrainingDeliverableRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61577,7 +61577,7 @@ impl TrainingDeliverables {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61652,7 +61652,7 @@ impl TrainingMaterials {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TrainingMaterialsContentForm {
         TrainingMaterialsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61693,7 +61693,7 @@ impl TrainingModuleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TrainingModuleEntryContentForm {
         TrainingModuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61721,7 +61721,7 @@ impl TrainingPrototype {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61776,7 +61776,7 @@ impl TrainingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61862,7 +61862,7 @@ impl TrainingTopicEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TrainingTopicEntryContentForm {
         TrainingTopicEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61888,7 +61888,7 @@ impl TransitionCommunicationChannels {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionCommunicationChannelsContentForm {
         TransitionCommunicationChannelsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61914,7 +61914,7 @@ impl TransitionCommunicationPlan {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -61970,7 +61970,7 @@ impl TransitionEscalationPaths {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionEscalationPathsContentForm {
         TransitionEscalationPathsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -61996,7 +61996,7 @@ impl TransitionMetricEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionMetricEntryContentForm {
         TransitionMetricEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62032,7 +62032,7 @@ impl TransitionMilestoneEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionMilestoneEntryContentForm {
         TransitionMilestoneEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62073,7 +62073,7 @@ impl TransitionOverview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionOverviewContentForm {
         TransitionOverviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62109,7 +62109,7 @@ impl TransitionPhaseActivities {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionPhaseActivitiesContentForm {
         TransitionPhaseActivitiesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62137,7 +62137,7 @@ impl TransitionPhaseEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -62198,7 +62198,7 @@ impl TransitionPhaseIdentification {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionPhaseIdentificationContentForm {
         TransitionPhaseIdentificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62234,7 +62234,7 @@ impl TransitionPhaseStakeholders {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionPhaseStakeholdersContentForm {
         TransitionPhaseStakeholdersContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62260,7 +62260,7 @@ impl TransitionRiskEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionRiskEntryContentForm {
         TransitionRiskEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62296,7 +62296,7 @@ impl TransitionSuccessMetrics {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -62342,7 +62342,7 @@ impl TransitionSupportResourceEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransitionSupportResourceEntryContentForm {
         TransitionSupportResourceEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62368,7 +62368,7 @@ impl TransitionSupportStructure {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -62426,7 +62426,7 @@ impl TranslationProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -62500,7 +62500,7 @@ impl TranslationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -62562,7 +62562,7 @@ impl TranslationVendorEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TranslationVendorEntryContentForm {
         TranslationVendorEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62592,7 +62592,7 @@ impl TransportSecurityPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TransportSecurityPolicyContentForm {
         TransportSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62621,7 +62621,7 @@ impl TroubleshootingCapabilities {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TroubleshootingCapabilitiesContentForm {
         TroubleshootingCapabilitiesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62665,7 +62665,7 @@ impl TrustBoundaries {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -62706,7 +62706,7 @@ impl TrustBoundaryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TrustBoundaryEntryContentForm {
         TrustBoundaryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62732,7 +62732,7 @@ impl TypographyStyleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> TypographyStyleEntryContentForm {
         TypographyStyleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62758,7 +62758,7 @@ impl UIRequirementsPreview {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UIRequirementsPreviewContentForm {
         UIRequirementsPreviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62791,7 +62791,7 @@ impl UatTestCycleEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UatTestCycleEntryContentForm {
         UatTestCycleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62831,7 +62831,7 @@ impl UatTestStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UatTestStepEntryContentForm {
         UatTestStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -62861,7 +62861,7 @@ impl UiComponentEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63056,7 +63056,7 @@ impl UiComponents {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63139,7 +63139,7 @@ impl UpgradeCycleFramework {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63170,7 +63170,7 @@ impl Usability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UsabilityContentForm {
         UsabilityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63224,7 +63224,7 @@ impl UseCaseExtensions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UseCaseExtensionsContentForm {
         UseCaseExtensionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63262,7 +63262,7 @@ impl UseCaseTraceability {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63298,7 +63298,7 @@ impl UserAcceptanceTesting {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserAcceptanceTestingContentForm {
         UserAcceptanceTestingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63404,7 +63404,7 @@ impl UserAccessPermissions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63462,7 +63462,7 @@ impl UserAccessibilityNeeds {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63501,7 +63501,7 @@ impl UserAccountStatesDefinition {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserAccountStatesDefinitionContentForm {
         UserAccountStatesDefinitionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63533,7 +63533,7 @@ impl UserAssistance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63603,7 +63603,7 @@ impl UserAttributeEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserAttributeEntryContentForm {
         UserAttributeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63634,7 +63634,7 @@ impl UserAttributes {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63678,7 +63678,7 @@ impl UserAuthorization {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63778,7 +63778,7 @@ impl UserCategoryDefinition {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserCategoryDefinitionContentForm {
         UserCategoryDefinitionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63807,7 +63807,7 @@ impl UserCategoryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserCategoryEntryContentForm {
         UserCategoryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63890,7 +63890,7 @@ impl UserDocumentationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -63942,7 +63942,7 @@ impl UserGroupImpactEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserGroupImpactEntryContentForm {
         UserGroupImpactEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -63968,7 +63968,7 @@ impl UserGrowthProjections {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserGrowthProjectionsContentForm {
         UserGrowthProjectionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64014,7 +64014,7 @@ impl UserInteractionModel {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64106,7 +64106,7 @@ impl UserJourney {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64191,7 +64191,7 @@ impl UserLifecycle {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64278,7 +64278,7 @@ impl UserLifecycleTransitionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserLifecycleTransitionEntryContentForm {
         UserLifecycleTransitionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64322,7 +64322,7 @@ impl UserLifecycleTransitions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserLifecycleTransitionsContentForm {
         UserLifecycleTransitionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64364,7 +64364,7 @@ impl UserManagement {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64418,7 +64418,7 @@ impl UserManual {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64476,7 +64476,7 @@ impl UserPersonaDetails {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64550,7 +64550,7 @@ impl UserPersonas {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64594,7 +64594,7 @@ impl UserProvisioningTools {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserProvisioningToolsContentForm {
         UserProvisioningToolsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64639,7 +64639,7 @@ impl UserRegistrationProcess {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserRegistrationProcessContentForm {
         UserRegistrationProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64675,7 +64675,7 @@ impl UserSettingEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UserSettingEntryContentForm {
         UserSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64712,7 +64712,7 @@ impl UserSettings {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64755,7 +64755,7 @@ impl UserTrainingRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64803,7 +64803,7 @@ impl UtilityMenuItemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UtilityMenuItemEntryContentForm {
         UtilityMenuItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64848,7 +64848,7 @@ impl UtilityNavigation {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64892,7 +64892,7 @@ impl UtilityNavigationItemEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> UtilityNavigationItemEntryContentForm {
         UtilityNavigationItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -64949,7 +64949,7 @@ impl ValidationConstraints {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -64982,7 +64982,7 @@ impl ValidationFeedback {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65064,7 +65064,7 @@ impl ValidationMessageTemplate {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> ValidationMessageTemplateContentForm {
         ValidationMessageTemplateContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65093,7 +65093,7 @@ impl ValueProposition {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65149,7 +65149,7 @@ impl VersionControlConfiguration {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> VersionControlConfigurationContentForm {
         VersionControlConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65195,7 +65195,7 @@ impl VirtualizationRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> VirtualizationRequirementsContentForm {
         VirtualizationRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65241,7 +65241,7 @@ impl VolumeMetricEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> VolumeMetricEntryContentForm {
         VolumeMetricEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65267,7 +65267,7 @@ impl VpnRequirementEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> VpnRequirementEntryContentForm {
         VpnRequirementEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65313,7 +65313,7 @@ impl VulnerabilityManagementPolicy {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> VulnerabilityManagementPolicyContentForm {
         VulnerabilityManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65357,7 +65357,7 @@ impl WarrantyAndSupport {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65388,7 +65388,7 @@ impl WarrantyServiceLevels {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WarrantyServiceLevelsContentForm {
         WarrantyServiceLevelsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65417,7 +65417,7 @@ impl WarrantyTerms {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WarrantyTermsContentForm {
         WarrantyTermsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65481,7 +65481,7 @@ impl WcagCompliance {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65548,7 +65548,7 @@ impl WcagSuccessCriterionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WcagSuccessCriterionEntryContentForm {
         WcagSuccessCriterionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65574,7 +65574,7 @@ impl WeightedQualityMatrix {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65638,7 +65638,7 @@ impl WireframesAndMockups {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65671,7 +65671,7 @@ impl WorkflowActorEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowActorEntryContentForm {
         WorkflowActorEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65702,7 +65702,7 @@ impl WorkflowBusinessRule {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowBusinessRuleContentForm {
         WorkflowBusinessRuleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65728,7 +65728,7 @@ impl WorkflowDecisionPoint {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowDecisionPointContentForm {
         WorkflowDecisionPointContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65760,7 +65760,7 @@ impl WorkflowDescriptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65816,7 +65816,7 @@ impl WorkflowExceptionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowExceptionEntryContentForm {
         WorkflowExceptionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65842,7 +65842,7 @@ impl WorkflowExceptions {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -65883,7 +65883,7 @@ impl WorkflowInputEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowInputEntryContentForm {
         WorkflowInputEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65909,7 +65909,7 @@ impl WorkflowOutputEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowOutputEntryContentForm {
         WorkflowOutputEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -65937,7 +65937,7 @@ impl WorkflowStepEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowStepEntryContentForm {
         WorkflowStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -66013,7 +66013,7 @@ impl WorkflowStepIssue {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowStepIssueContentForm {
         WorkflowStepIssueContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -66039,7 +66039,7 @@ impl WorkflowStepSystem {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -66089,7 +66089,7 @@ impl WorkflowSummaryEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowSummaryEntryContentForm {
         WorkflowSummaryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -66115,7 +66115,7 @@ impl WorkflowSummaryTable {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowSummaryTableContentForm {
         WorkflowSummaryTableContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -66151,7 +66151,7 @@ impl WorkflowTriggerEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkflowTriggerEntryContentForm {
         WorkflowTriggerEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -66177,7 +66177,7 @@ impl WorkflowTriggers {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -66222,7 +66222,7 @@ impl WorkplaceDescriptionEntry {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
     }
@@ -66283,7 +66283,7 @@ impl WorkplaceSoftwareRequirements {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkplaceSoftwareRequirementsContentForm {
         WorkplaceSoftwareRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
@@ -66319,7 +66319,7 @@ impl WorkplaceSupportResources {
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
-    /// §11.4 rule 7); the field values themselves live in [form].
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
     pub fn content(&self) -> WorkplaceSupportResourcesContentForm {
         WorkplaceSupportResourcesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }

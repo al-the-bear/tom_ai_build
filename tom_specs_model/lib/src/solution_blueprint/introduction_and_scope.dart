@@ -8678,7 +8678,7 @@ class FunctionalRequirementEntry extends DocSpecsSection {
 )
 @ContentHelp(
   'Define clear, testable acceptance criteria. Use Given-When-Then '
-  'format: Given [context], When [action], Then [expected result].',
+  'format: Given _context_, When _action_, Then _expected result_.',
 )
 @SectionId('RAC')
 @NoArtifact(
@@ -13563,7 +13563,7 @@ class MigrationConsiderations extends DocSpecsSection {
   /// constraint it has to fit inside, and so that changing the sequencing is
   /// one edit rather than one per system.
   ///
-  /// [strategyNarrative] carries the reasoning behind these answers; this band
+  /// `strategyNarrative` carries the reasoning behind these answers; this band
   /// carries the answers themselves, so a change of approach is a change here
   /// and not a rewrite of prose.
   @SectionId('MIGCON-STRA')

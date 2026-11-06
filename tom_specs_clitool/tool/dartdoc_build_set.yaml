@@ -8,18 +8,14 @@
 #
 # Paths are container-root-relative.
 #
-# Not here, and why: tom_som_dart_v0 reports 1268 unresolved references, all
-# from doc text the generator copies out of the model (1261 of them one
-# `[form]` in tom_specs_core's DocSpecsSection.content). Fixing them changes
-# the model's content hash and regenerates every language's facade, a SOM
-# model change that waits for a decision (todo wonecmpd3). The other SOM
-# packages are not Dart.
+# The other SOM packages are not Dart.
 packages:
   - tom_ai/ai_build/tom_core_codespecs
   - tom_ai/ai_build/tom_code_specs
   - tom_ai/ai_build/tom_doc_scanner
   - tom_ai/ai_build/tom_doc_specs
   - tom_ai/ai_build/tom_som_dart_runtime
+  - tom_ai/ai_build/tom_som_dart_v0
   - tom_ai/ai_build/tom_spec_engine
   - tom_ai/ai_build/tom_specs_clitool
   - tom_ai/ai_build/tom_specs_core

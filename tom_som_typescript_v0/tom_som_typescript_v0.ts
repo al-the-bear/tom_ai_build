@@ -1877,7 +1877,7 @@ export class AcceptanceCriteriaList extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -1912,7 +1912,7 @@ export class AcceptanceCriteriaSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -1971,7 +1971,7 @@ export class AcceptanceCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AcceptanceCriterionEntryContentForm {
     return new AcceptanceCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -1989,7 +1989,7 @@ export class AcceptancePlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2041,7 +2041,7 @@ export class AcceptanceProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AcceptanceProcessContentForm {
     return new AcceptanceProcessContentForm(this.doc, this.path + "/content");
   }
@@ -2096,7 +2096,7 @@ export class AcceptanceStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AcceptanceStepEntryContentForm {
     return new AcceptanceStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2127,7 +2127,7 @@ export class AccessChannels extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2163,7 +2163,7 @@ export class AccessConstraintPolicies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessConstraintPoliciesContentForm {
     return new AccessConstraintPoliciesContentForm(this.doc, this.path + "/content");
   }
@@ -2192,7 +2192,7 @@ export class AccessControlModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2238,7 +2238,7 @@ export class AccessControlModelSelection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessControlModelSelectionContentForm {
     return new AccessControlModelSelectionContentForm(this.doc, this.path + "/content");
   }
@@ -2256,7 +2256,7 @@ export class AccessHandlerEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessHandlerEntryContentForm {
     return new AccessHandlerEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2270,7 +2270,7 @@ export class AccessLevelEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessLevelEntryContentForm {
     return new AccessLevelEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2306,7 +2306,7 @@ export class AccessLevels extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2349,7 +2349,7 @@ export class AccessRestrictionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessRestrictionEntryContentForm {
     return new AccessRestrictionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2367,7 +2367,7 @@ export class AccessUserCategories extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2397,7 +2397,7 @@ export class Accessibility extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2461,7 +2461,7 @@ export class AccessibilityCheckEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessibilityCheckEntryContentForm {
     return new AccessibilityCheckEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2496,7 +2496,7 @@ export class AccessibilityChecklist extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2530,7 +2530,7 @@ export class AccessibilityStandardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccessibilityStandardEntryContentForm {
     return new AccessibilityStandardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2567,7 +2567,7 @@ export class AccountActivationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccountActivationPolicyContentForm {
     return new AccountActivationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -2588,7 +2588,7 @@ export class AccountDeactivationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccountDeactivationPolicyContentForm {
     return new AccountDeactivationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -2608,7 +2608,7 @@ export class AccountDeletionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccountDeletionPolicyContentForm {
     return new AccountDeletionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -2629,7 +2629,7 @@ export class AccountLockoutPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccountLockoutPolicyContentForm {
     return new AccountLockoutPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -2649,7 +2649,7 @@ export class AccountModificationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AccountModificationPolicyContentForm {
     return new AccountModificationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -2666,7 +2666,7 @@ export class ActionParameterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ActionParameterEntryContentForm {
     return new ActionParameterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2680,7 +2680,7 @@ export class ActorCharacteristics extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ActorCharacteristicsContentForm {
     return new ActorCharacteristicsContentForm(this.doc, this.path + "/content");
   }
@@ -2710,7 +2710,7 @@ export class ActorEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2758,7 +2758,7 @@ export class ActorGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ActorGoalsContentForm {
     return new ActorGoalsContentForm(this.doc, this.path + "/content");
   }
@@ -2779,7 +2779,7 @@ export class ActorOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2812,7 +2812,7 @@ export class ActorPermissions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ActorPermissionsContentForm {
     return new ActorPermissionsContentForm(this.doc, this.path + "/content");
   }
@@ -2830,7 +2830,7 @@ export class ActorRelationshipDiagram extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2859,7 +2859,7 @@ export class AdminInterfaceRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AdminInterfaceRequirementsContentForm {
     return new AdminInterfaceRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -2892,7 +2892,7 @@ export class AdministrationRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -2945,7 +2945,7 @@ export class AdministrativeEventPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AdministrativeEventPolicyContentForm {
     return new AdministrativeEventPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -2962,7 +2962,7 @@ export class AffectedDepartmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AffectedDepartmentEntryContentForm {
     return new AffectedDepartmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -2978,7 +2978,7 @@ export class AffectedFunctionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AffectedFunctionEntryContentForm {
     return new AffectedFunctionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3005,7 +3005,7 @@ export class AffectedObjectEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AffectedObjectEntryContentForm {
     return new AffectedObjectEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3031,7 +3031,7 @@ export class AlertDefinitionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlertDefinitionEntryContentForm {
     return new AlertDefinitionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3060,7 +3060,7 @@ export class AlertEscalationPolicies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlertEscalationPoliciesContentForm {
     return new AlertEscalationPoliciesContentForm(this.doc, this.path + "/content");
   }
@@ -3089,7 +3089,7 @@ export class AlertNotificationChannels extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlertNotificationChannelsContentForm {
     return new AlertNotificationChannelsContentForm(this.doc, this.path + "/content");
   }
@@ -3118,7 +3118,7 @@ export class AlertRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlertRuleEntryContentForm {
     return new AlertRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3147,7 +3147,7 @@ export class AlertSuppressionRules extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlertSuppressionRulesContentForm {
     return new AlertSuppressionRulesContentForm(this.doc, this.path + "/content");
   }
@@ -3168,7 +3168,7 @@ export class AlertingConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -3231,7 +3231,7 @@ export class AlertingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlertingRequirementsContentForm {
     return new AlertingRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -3265,7 +3265,7 @@ export class AlternativeFlowEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlternativeFlowEntryContentForm {
     return new AlternativeFlowEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3295,7 +3295,7 @@ export class AlternativeStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AlternativeStepEntryContentForm {
     return new AlternativeStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3334,7 +3334,7 @@ export class AnomalyDetectionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AnomalyDetectionPolicyContentForm {
     return new AnomalyDetectionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -3356,7 +3356,7 @@ export class ApiAbuseProtection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiAbuseProtectionContentForm {
     return new ApiAbuseProtectionContentForm(this.doc, this.path + "/content");
   }
@@ -3376,7 +3376,7 @@ export class ApiAuthenticationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiAuthenticationPolicyContentForm {
     return new ApiAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -3397,7 +3397,7 @@ export class ApiAuthorizationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiAuthorizationPolicyContentForm {
     return new ApiAuthorizationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -3414,7 +3414,7 @@ export class ApiCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiCompatibilityEntryContentForm {
     return new ApiCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3453,7 +3453,7 @@ export class ApiCorsSecurity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiCorsSecurityContentForm {
     return new ApiCorsSecurityContentForm(this.doc, this.path + "/content");
   }
@@ -3473,7 +3473,7 @@ export class ApiKeyManagementPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiKeyManagementPolicyContentForm {
     return new ApiKeyManagementPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -3495,7 +3495,7 @@ export class ApiRequestValidationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiRequestValidationPolicyContentForm {
     return new ApiRequestValidationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -3521,7 +3521,7 @@ export class ApiSecurity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -3578,7 +3578,7 @@ export class ApiSecurityMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiSecurityMonitoringContentForm {
     return new ApiSecurityMonitoringContentForm(this.doc, this.path + "/content");
   }
@@ -3595,7 +3595,7 @@ export class ApiVersioningStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApiVersioningStrategyContentForm {
     return new ApiVersioningStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -3624,7 +3624,7 @@ export class ApplicableRegulationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApplicableRegulationEntryContentForm {
     return new ApplicableRegulationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3643,7 +3643,7 @@ export class ApplicationDiagnostics extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApplicationDiagnosticsContentForm {
     return new ApplicationDiagnosticsContentForm(this.doc, this.path + "/content");
   }
@@ -3672,7 +3672,7 @@ export class ApplicationMetricsSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApplicationMetricsSpecContentForm {
     return new ApplicationMetricsSpecContentForm(this.doc, this.path + "/content");
   }
@@ -3701,7 +3701,7 @@ export class ApplicationPerformanceMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApplicationPerformanceMonitoringContentForm {
     return new ApplicationPerformanceMonitoringContentForm(this.doc, this.path + "/content");
   }
@@ -3735,7 +3735,7 @@ export class ApplicationSecurityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApplicationSecurityRequirementsContentForm {
     return new ApplicationSecurityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -3764,7 +3764,7 @@ export class ApprovalRecord extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ApprovalRecordContentForm {
     return new ApprovalRecordContentForm(this.doc, this.path + "/content");
   }
@@ -3778,7 +3778,7 @@ export class ArchitectureComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ArchitectureComponentEntryContentForm {
     return new ArchitectureComponentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3817,7 +3817,7 @@ export class ArchitectureDecisionRecord extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ArchitectureDecisionRecordContentForm {
     return new ArchitectureDecisionRecordContentForm(this.doc, this.path + "/content");
   }
@@ -3851,7 +3851,7 @@ export class ArchitectureOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ArchitectureOverviewContentForm {
     return new ArchitectureOverviewContentForm(this.doc, this.path + "/content");
   }
@@ -3885,7 +3885,7 @@ export class ArchitecturePrincipleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ArchitecturePrincipleEntryContentForm {
     return new ArchitecturePrincipleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -3918,7 +3918,7 @@ export class ArchitectureStyle extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -3990,7 +3990,7 @@ export class AssumptionConstraintDependencyRegister extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4027,7 +4027,7 @@ export class AssumptionRegisterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AssumptionRegisterEntryContentForm {
     return new AssumptionRegisterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4045,7 +4045,7 @@ export class AssumptionsConstraintsDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4084,7 +4084,7 @@ export class AuditAndLogging extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4112,7 +4112,7 @@ export class AuditEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuditEntryContentForm {
     return new AuditEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4126,7 +4126,7 @@ export class AuditEvidenceRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuditEvidenceRequirementsContentForm {
     return new AuditEvidenceRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -4145,7 +4145,7 @@ export class AuditEvidenceTypeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuditEvidenceTypeEntryContentForm {
     return new AuditEvidenceTypeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4166,7 +4166,7 @@ export class AuditLogFormat extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4213,7 +4213,7 @@ export class AuditRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4245,7 +4245,7 @@ export class Authentication extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4286,7 +4286,7 @@ export class AuthenticationErrorHandling extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthenticationErrorHandlingContentForm {
     return new AuthenticationErrorHandlingContentForm(this.doc, this.path + "/content");
   }
@@ -4305,7 +4305,7 @@ export class AuthenticationEventPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthenticationEventPolicyContentForm {
     return new AuthenticationEventPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -4331,7 +4331,7 @@ export class AuthenticationFlow extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4393,7 +4393,7 @@ export class AuthenticationMethodEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthenticationMethodEntryContentForm {
     return new AuthenticationMethodEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4436,7 +4436,7 @@ export class AuthenticationMethods extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4499,7 +4499,7 @@ export class AuthorizationComplianceFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4522,7 +4522,7 @@ export class AuthorizationEventPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthorizationEventPolicyContentForm {
     return new AuthorizationEventPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -4539,7 +4539,7 @@ export class AuthorizationGroupEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthorizationGroupEntryContentForm {
     return new AuthorizationGroupEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4567,7 +4567,7 @@ export class AuthorizationModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4618,7 +4618,7 @@ export class AuthorizationRequirementSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthorizationRequirementSpecContentForm {
     return new AuthorizationRequirementSpecContentForm(this.doc, this.path + "/content");
   }
@@ -4666,7 +4666,7 @@ export class AuthorizationRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AuthorizationRoleEntryContentForm {
     return new AuthorizationRoleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4730,7 +4730,7 @@ export class Availability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): AvailabilityContentForm {
     return new AvailabilityContentForm(this.doc, this.path + "/content");
   }
@@ -4774,7 +4774,7 @@ export class BackupAndRecoverySection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -4835,7 +4835,7 @@ export class BackupCompliance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackupComplianceContentForm {
     return new BackupComplianceContentForm(this.doc, this.path + "/content");
   }
@@ -4864,7 +4864,7 @@ export class BackupDataClassification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackupDataClassificationContentForm {
     return new BackupDataClassificationContentForm(this.doc, this.path + "/content");
   }
@@ -4892,7 +4892,7 @@ export class BackupEncryptionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackupEncryptionPolicyContentForm {
     return new BackupEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -4909,7 +4909,7 @@ export class BackupInfrastructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackupInfrastructureContentForm {
     return new BackupInfrastructureContentForm(this.doc, this.path + "/content");
   }
@@ -4943,7 +4943,7 @@ export class BackupPolicyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackupPolicyEntryContentForm {
     return new BackupPolicyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -4977,7 +4977,7 @@ export class BackupVerification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackupVerificationContentForm {
     return new BackupVerificationContentForm(this.doc, this.path + "/content");
   }
@@ -5006,7 +5006,7 @@ export class BackwardsCompatibilityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BackwardsCompatibilityRequirementsContentForm {
     return new BackwardsCompatibilityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -5040,7 +5040,7 @@ export class BandwidthRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BandwidthRequirementsContentForm {
     return new BandwidthRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -5078,7 +5078,7 @@ export class BasicTechnicalRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5122,7 +5122,7 @@ export class BatchJobManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BatchJobManagementContentForm {
     return new BatchJobManagementContentForm(this.doc, this.path + "/content");
   }
@@ -5189,7 +5189,7 @@ export class BehaviorRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BehaviorRuleEntryContentForm {
     return new BehaviorRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5207,7 +5207,7 @@ export class BindingParameterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BindingParameterEntryContentForm {
     return new BindingParameterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5225,7 +5225,7 @@ export class BiometricAuthenticationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BiometricAuthenticationPolicyContentForm {
     return new BiometricAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -5242,7 +5242,7 @@ export class BoundaryAssumptionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BoundaryAssumptionEntryContentForm {
     return new BoundaryAssumptionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5275,7 +5275,7 @@ export class BoundaryAssumptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5309,7 +5309,7 @@ export class BoundaryInteractionPatterns extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5332,7 +5332,7 @@ export class BoundedContextEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BoundedContextEntryContentForm {
     return new BoundedContextEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5377,7 +5377,7 @@ export class BreakpointConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5408,7 +5408,7 @@ export class BreakpointEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BreakpointEntryContentForm {
     return new BreakpointEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5432,7 +5432,7 @@ export class BrowserCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BrowserCompatibilityEntryContentForm {
     return new BrowserCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5466,7 +5466,7 @@ export class BrowserRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BrowserRequirementEntryContentForm {
     return new BrowserRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5500,7 +5500,7 @@ export class BuildToolchainEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BuildToolchainEntryContentForm {
     return new BuildToolchainEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5544,7 +5544,7 @@ export class BuildToolsConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BuildToolsConfigurationContentForm {
     return new BuildToolsConfigurationContentForm(this.doc, this.path + "/content");
   }
@@ -5578,7 +5578,7 @@ export class BusinessComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BusinessComponentEntryContentForm {
     return new BusinessComponentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5626,7 +5626,7 @@ export class BusinessDomain extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5682,7 +5682,7 @@ export class BusinessGoalEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BusinessGoalEntryContentForm {
     return new BusinessGoalEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5757,7 +5757,7 @@ export class BusinessGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5780,7 +5780,7 @@ export class BusinessMetricsSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BusinessMetricsSpecContentForm {
     return new BusinessMetricsSpecContentForm(this.doc, this.path + "/content");
   }
@@ -5817,7 +5817,7 @@ export class BusinessObjectAttributeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BusinessObjectAttributeEntryContentForm {
     return new BusinessObjectAttributeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -5854,7 +5854,7 @@ export class BusinessObjectEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -5985,7 +5985,7 @@ export class BusinessObjectModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6018,7 +6018,7 @@ export class BusinessPainPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6054,7 +6054,7 @@ export class BusinessProcessDescriptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6128,7 +6128,7 @@ export class BusinessProcessEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6200,7 +6200,7 @@ export class BusinessRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6314,7 +6314,7 @@ export class BusinessRuleReferenceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): BusinessRuleReferenceEntryContentForm {
     return new BusinessRuleReferenceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6344,7 +6344,7 @@ export class CapacityPlanningSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6395,7 +6395,7 @@ export class CapacityReviewProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CapacityReviewProcessContentForm {
     return new CapacityReviewProcessContentForm(this.doc, this.path + "/content");
   }
@@ -6424,7 +6424,7 @@ export class CcbMemberEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CcbMemberEntryContentForm {
     return new CcbMemberEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6441,7 +6441,7 @@ export class CertificateAuthenticationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CertificateAuthenticationPolicyContentForm {
     return new CertificateAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -6458,7 +6458,7 @@ export class CertificateManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CertificateManagementContentForm {
     return new CertificateManagementContentForm(this.doc, this.path + "/content");
   }
@@ -6496,7 +6496,7 @@ export class CertificateManagementPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CertificateManagementPolicyContentForm {
     return new CertificateManagementPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -6513,7 +6513,7 @@ export class CertificationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CertificationEntryContentForm {
     return new CertificationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6552,7 +6552,7 @@ export class CertificationRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CertificationRequirementsSectionContentForm {
     return new CertificationRequirementsSectionContentForm(this.doc, this.path + "/content");
   }
@@ -6588,7 +6588,7 @@ export class ChangeCategoryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeCategoryEntryContentForm {
     return new ChangeCategoryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6619,7 +6619,7 @@ export class ChangeControlBoard extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeControlBoardContentForm {
     return new ChangeControlBoardContentForm(this.doc, this.path + "/content");
   }
@@ -6660,7 +6660,7 @@ export class ChangeImpactCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6690,7 +6690,7 @@ export class ChangeImpactCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeImpactCriterionEntryContentForm {
     return new ChangeImpactCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6724,7 +6724,7 @@ export class ChangeNotificationRules extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeNotificationRulesContentForm {
     return new ChangeNotificationRulesContentForm(this.doc, this.path + "/content");
   }
@@ -6746,7 +6746,7 @@ export class ChangeProcedure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6792,7 +6792,7 @@ export class ChangeProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeProcessContentForm {
     return new ChangeProcessContentForm(this.doc, this.path + "/content");
   }
@@ -6833,7 +6833,7 @@ export class ChangeReadinessAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6861,7 +6861,7 @@ export class ChangeRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeRoleEntryContentForm {
     return new ChangeRoleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6877,7 +6877,7 @@ export class ChangeStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangeStepEntryContentForm {
     return new ChangeStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -6918,7 +6918,7 @@ export class ChangedRoleCompetencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -6963,7 +6963,7 @@ export class ChangedRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7011,7 +7011,7 @@ export class ChangedRoleIdentification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangedRoleIdentificationContentForm {
     return new ChangedRoleIdentificationContentForm(this.doc, this.path + "/content");
   }
@@ -7039,7 +7039,7 @@ export class ChangedRoleResponsibilities extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7077,7 +7077,7 @@ export class ChangedRoleTransition extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ChangedRoleTransitionContentForm {
     return new ChangedRoleTransitionContentForm(this.doc, this.path + "/content");
   }
@@ -7109,7 +7109,7 @@ export class ChangesFromCurrentStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7132,7 +7132,7 @@ export class ChangesFromCurrentStructure extends SomNode {
   //
   // It is a summary and stays one: the impact figure here is the total, while
   // per-department detail belongs to the individual change entries.
-  // [changeNarrative] carries the story; this band carries the facts that must
+  // `changeNarrative` carries the story; this band carries the facts that must
   // stay stable while the story is rewritten.
   get overviewContent(): ChangesFromCurrentStructureOverviewContentForm {
     return new ChangesFromCurrentStructureOverviewContentForm(this.doc, this.path + "/OCCHG-OVER");
@@ -7170,7 +7170,7 @@ export class CiCdPipelineConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CiCdPipelineConfigurationContentForm {
     return new CiCdPipelineConfigurationContentForm(this.doc, this.path + "/content");
   }
@@ -7199,7 +7199,7 @@ export class CiCdPipelineRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CiCdPipelineRequirementsContentForm {
     return new CiCdPipelineRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -7233,7 +7233,7 @@ export class ClientAccessibilityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ClientAccessibilityRequirementsContentForm {
     return new ClientAccessibilityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -7289,7 +7289,7 @@ export class ClientApplicationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ClientApplicationEntryContentForm {
     return new ClientApplicationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7313,7 +7313,7 @@ export class ClientConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7341,7 +7341,7 @@ export class ClientConfigurationSettingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ClientConfigurationSettingEntryContentForm {
     return new ClientConfigurationSettingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7355,7 +7355,7 @@ export class ClientHardwareRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ClientHardwareRequirementsContentForm {
     return new ClientHardwareRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -7389,7 +7389,7 @@ export class ClientNetworkRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ClientNetworkRequirementsContentForm {
     return new ClientNetworkRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -7440,7 +7440,7 @@ export class ClientRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -7531,7 +7531,7 @@ export class ClientSecurityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ClientSecurityRequirementsContentForm {
     return new ClientSecurityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -7565,7 +7565,7 @@ export class CloudProviderRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CloudProviderRequirementsContentForm {
     return new CloudProviderRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -7599,7 +7599,7 @@ export class CloudServiceIntegrations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CloudServiceIntegrationsContentForm {
     return new CloudServiceIntegrationsContentForm(this.doc, this.path + "/content");
   }
@@ -7628,7 +7628,7 @@ export class CodeQualityMetrics extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CodeQualityMetricsContentForm {
     return new CodeQualityMetricsContentForm(this.doc, this.path + "/content");
   }
@@ -7667,7 +7667,7 @@ export class CodeReviewProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CodeReviewProcessContentForm {
     return new CodeReviewProcessContentForm(this.doc, this.path + "/content");
   }
@@ -7701,7 +7701,7 @@ export class CodingStandardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CodingStandardEntryContentForm {
     return new CodingStandardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7735,7 +7735,7 @@ export class CodingStandardsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CodingStandardsSectionContentForm {
     return new CodingStandardsSectionContentForm(this.doc, this.path + "/content");
   }
@@ -7774,7 +7774,7 @@ export class ColorPaletteEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ColorPaletteEntryContentForm {
     return new ColorPaletteEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7791,7 +7791,7 @@ export class ColumnLevelSecurityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ColumnLevelSecurityPolicyContentForm {
     return new ColumnLevelSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -7808,7 +7808,7 @@ export class CommitteeCharter extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommitteeCharterContentForm {
     return new CommitteeCharterContentForm(this.doc, this.path + "/content");
   }
@@ -7824,7 +7824,7 @@ export class CommitteeMemberEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommitteeMemberEntryContentForm {
     return new CommitteeMemberEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7843,7 +7843,7 @@ export class CommitteeResponsibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommitteeResponsibilityEntryContentForm {
     return new CommitteeResponsibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7863,7 +7863,7 @@ export class CommunicationChannelEncryptionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommunicationChannelEncryptionEntryContentForm {
     return new CommunicationChannelEncryptionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7877,7 +7877,7 @@ export class CommunicationEventEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommunicationEventEntryContentForm {
     return new CommunicationEventEntryContentForm(this.doc, this.path + "/content");
   }
@@ -7901,7 +7901,7 @@ export class CommunicationMatrix extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommunicationMatrixContentForm {
     return new CommunicationMatrixContentForm(this.doc, this.path + "/content");
   }
@@ -7929,7 +7929,7 @@ export class CommunicationPatterns extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommunicationPatternsContentForm {
     return new CommunicationPatternsContentForm(this.doc, this.path + "/content");
   }
@@ -7972,7 +7972,7 @@ export class CommunicationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8000,7 +8000,7 @@ export class CommunicationToolsRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommunicationToolsRequirementsContentForm {
     return new CommunicationToolsRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -8014,7 +8014,7 @@ export class CommunicationTypeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CommunicationTypeEntryContentForm {
     return new CommunicationTypeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8037,7 +8037,7 @@ export class CompatibilityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8078,7 +8078,7 @@ export class CompatibilityRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8154,7 +8154,7 @@ export class CompetencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CompetencyEntryContentForm {
     return new CompetencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8172,7 +8172,7 @@ export class CompetencyFramework extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8210,7 +8210,7 @@ export class CompetencyLevelChangeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CompetencyLevelChangeEntryContentForm {
     return new CompetencyLevelChangeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8224,7 +8224,7 @@ export class ComplianceAuditSchedule extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComplianceAuditScheduleContentForm {
     return new ComplianceAuditScheduleContentForm(this.doc, this.path + "/content");
   }
@@ -8261,7 +8261,7 @@ export class ComplianceFramework extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8279,7 +8279,7 @@ export class ComplianceMilestoneEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComplianceMilestoneEntryContentForm {
     return new ComplianceMilestoneEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8308,7 +8308,7 @@ export class ComplianceReporting extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8349,7 +8349,7 @@ export class ComplianceRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComplianceRequirementEntryContentForm {
     return new ComplianceRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8363,7 +8363,7 @@ export class ComplianceVerificationSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComplianceVerificationSectionContentForm {
     return new ComplianceVerificationSectionContentForm(this.doc, this.path + "/content");
   }
@@ -8404,7 +8404,7 @@ export class ComponentActionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentActionEntryContentForm {
     return new ComponentActionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8428,7 +8428,7 @@ export class ComponentDocs extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentDocsContentForm {
     return new ComponentDocsContentForm(this.doc, this.path + "/content");
   }
@@ -8446,7 +8446,7 @@ export class ComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentEntryContentForm {
     return new ComponentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8525,7 +8525,7 @@ export class ComponentFamilyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentFamilyEntryContentForm {
     return new ComponentFamilyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8547,7 +8547,7 @@ export class ComponentGovernance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentGovernanceContentForm {
     return new ComponentGovernanceContentForm(this.doc, this.path + "/content");
   }
@@ -8584,7 +8584,7 @@ export class ComponentInterfaceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentInterfaceEntryContentForm {
     return new ComponentInterfaceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8629,7 +8629,7 @@ export class ComponentLibrary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8699,7 +8699,7 @@ export class ComponentLicensingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentLicensingEntryContentForm {
     return new ComponentLicensingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8738,7 +8738,7 @@ export class ComponentOrganization extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentOrganizationContentForm {
     return new ComponentOrganizationContentForm(this.doc, this.path + "/content");
   }
@@ -8774,7 +8774,7 @@ export class ComponentPropertyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentPropertyEntryContentForm {
     return new ComponentPropertyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8788,7 +8788,7 @@ export class ComponentRegistry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentRegistryContentForm {
     return new ComponentRegistryContentForm(this.doc, this.path + "/content");
   }
@@ -8825,7 +8825,7 @@ export class ComponentResponsibilitiesEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentResponsibilitiesEntryContentForm {
     return new ComponentResponsibilitiesEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8866,7 +8866,7 @@ export class ComponentRiskAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -8897,7 +8897,7 @@ export class ComponentRiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentRiskEntryContentForm {
     return new ComponentRiskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8938,7 +8938,7 @@ export class ComponentSlotEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentSlotEntryContentForm {
     return new ComponentSlotEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8954,7 +8954,7 @@ export class ComponentStateEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentStateEntryContentForm {
     return new ComponentStateEntryContentForm(this.doc, this.path + "/content");
   }
@@ -8990,7 +8990,7 @@ export class ComponentStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentStrategyContentForm {
     return new ComponentStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -9041,7 +9041,7 @@ export class ComponentVariantEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComponentVariantEntryContentForm {
     return new ComponentVariantEntryContentForm(this.doc, this.path + "/content");
   }
@@ -9077,7 +9077,7 @@ export class ComponentsAndDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9123,7 +9123,7 @@ export class ComputeResourceRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComputeResourceRequirementsContentForm {
     return new ComputeResourceRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -9152,7 +9152,7 @@ export class ComputingEquipmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ComputingEquipmentEntryContentForm {
     return new ComputingEquipmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -9185,7 +9185,7 @@ export class ConcurrentSessionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConcurrentSessionPolicyContentForm {
     return new ConcurrentSessionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -9202,7 +9202,7 @@ export class ConfidentialInfoCategoryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConfidentialInfoCategoryEntryContentForm {
     return new ConfidentialInfoCategoryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -9218,7 +9218,7 @@ export class ConfidentialityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConfidentialityRequirementsContentForm {
     return new ConfidentialityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -9242,7 +9242,7 @@ export class ConfigurationManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConfigurationManagementContentForm {
     return new ConfigurationManagementContentForm(this.doc, this.path + "/content");
   }
@@ -9276,7 +9276,7 @@ export class ConnectivityResilience extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConnectivityResilienceContentForm {
     return new ConnectivityResilienceContentForm(this.doc, this.path + "/content");
   }
@@ -9305,7 +9305,7 @@ export class ConsentManagementRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConsentManagementRequirementsContentForm {
     return new ConsentManagementRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -9347,7 +9347,7 @@ export class ConstraintRegisterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ConstraintRegisterEntryContentForm {
     return new ConstraintRegisterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -9365,7 +9365,7 @@ export class ContentScanningPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ContentScanningPolicyContentForm {
     return new ContentScanningPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -9389,7 +9389,7 @@ export class ContextDiagram extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9425,7 +9425,7 @@ export class ContextRelationshipEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ContextRelationshipEntryContentForm {
     return new ContextRelationshipEntryContentForm(this.doc, this.path + "/content");
   }
@@ -9443,7 +9443,7 @@ export class ContextualHelp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9504,7 +9504,7 @@ export class ContextualNavigation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9536,7 +9536,7 @@ export class ContingencyPlanEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ContingencyPlanEntryContentForm {
     return new ContingencyPlanEntryContentForm(this.doc, this.path + "/content");
   }
@@ -9581,7 +9581,7 @@ export class ContingencyPlans extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9604,7 +9604,7 @@ export class Correctness extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CorrectnessContentForm {
     return new CorrectnessContentForm(this.doc, this.path + "/content");
   }
@@ -9639,7 +9639,7 @@ export class CredentialCompromiseDetectionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CredentialCompromiseDetectionPolicyContentForm {
     return new CredentialCompromiseDetectionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -9659,7 +9659,7 @@ export class CredentialRecoveryPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CredentialRecoveryPolicyContentForm {
     return new CredentialRecoveryPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -9683,7 +9683,7 @@ export class CrossBoundaryErrorHandling extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9709,7 +9709,7 @@ export class CrossBoundaryOperationalConsiderations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9727,7 +9727,7 @@ export class CrossCuttingConcerns extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CrossCuttingConcernsContentForm {
     return new CrossCuttingConcernsContentForm(this.doc, this.path + "/content");
   }
@@ -9773,7 +9773,7 @@ export class CrossProcessAnalysis extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9796,7 +9796,7 @@ export class CrossTenantAccessPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CrossTenantAccessPolicyContentForm {
     return new CrossTenantAccessPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -9820,7 +9820,7 @@ export class CurrentArchitecture extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9869,7 +9869,7 @@ export class CurrentBusinessProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CurrentBusinessProcessContentForm {
     return new CurrentBusinessProcessContentForm(this.doc, this.path + "/content");
   }
@@ -9912,7 +9912,7 @@ export class CurrentBusinessProcesses extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -9966,7 +9966,7 @@ export class CurrentDataClassification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10007,7 +10007,7 @@ export class CurrentDataLandscape extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10105,7 +10105,7 @@ export class CurrentLandscape extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10161,7 +10161,7 @@ export class CurrentOperationalMetric extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10179,7 +10179,7 @@ export class CurrentProcessImprovementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CurrentProcessImprovementEntryContentForm {
     return new CurrentProcessImprovementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -10200,7 +10200,7 @@ export class CurrentStateRiskAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10221,7 +10221,7 @@ export class CurrentWorkflowEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CurrentWorkflowEntryContentForm {
     return new CurrentWorkflowEntryContentForm(this.doc, this.path + "/content");
   }
@@ -10289,7 +10289,7 @@ export class CustomDistributionGroup extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CustomDistributionGroupContentForm {
     return new CustomDistributionGroupContentForm(this.doc, this.path + "/content");
   }
@@ -10308,7 +10308,7 @@ export class CustomMetricEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): CustomMetricEntryContentForm {
     return new CustomMetricEntryContentForm(this.doc, this.path + "/content");
   }
@@ -10329,7 +10329,7 @@ export class CutoverProcedure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10388,7 +10388,7 @@ export class D00SolutionBlueprint extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10518,7 +10518,7 @@ export class D01CurrentLandscapeAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10635,7 +10635,7 @@ export class D02TargetOperatingModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10763,7 +10763,7 @@ export class D03InformationModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -10951,7 +10951,7 @@ export class D04RequirementsSpecification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11071,7 +11071,7 @@ export class D05InteractionScenarios extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11184,7 +11184,7 @@ export class D06ArchitectureTechnologySpecification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11321,7 +11321,7 @@ export class D07IntegrationInterfaceSpecification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11449,7 +11449,7 @@ export class D08SecurityAccessSpecification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11579,7 +11579,7 @@ export class D09ExperienceDesignSpecification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11722,7 +11722,7 @@ export class D10QualityAcceptancePlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -11895,7 +11895,7 @@ export class D11DeliveryRoadmap extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12018,7 +12018,7 @@ export class D12TransitionRolloutPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12166,7 +12166,7 @@ export class D13CodeSpecsProjection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12371,7 +12371,7 @@ export class DashboardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DashboardEntryContentForm {
     return new DashboardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -12395,7 +12395,7 @@ export class DashboardRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DashboardRequirementsContentForm {
     return new DashboardRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -12429,7 +12429,7 @@ export class DashboardTemplates extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DashboardTemplatesContentForm {
     return new DashboardTemplatesContentForm(this.doc, this.path + "/content");
   }
@@ -12446,7 +12446,7 @@ export class DataAccessAuditPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataAccessAuditPolicyContentForm {
     return new DataAccessAuditPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -12465,7 +12465,7 @@ export class DataAccessEventPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataAccessEventPolicyContentForm {
     return new DataAccessEventPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -12482,7 +12482,7 @@ export class DataArchitecture extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataArchitectureContentForm {
     return new DataArchitectureContentForm(this.doc, this.path + "/content");
   }
@@ -12521,7 +12521,7 @@ export class DataAttributeConstraintEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataAttributeConstraintEntryContentForm {
     return new DataAttributeConstraintEntryContentForm(this.doc, this.path + "/content");
   }
@@ -12541,7 +12541,7 @@ export class DataAttributeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12741,7 +12741,7 @@ export class DataClassification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12783,7 +12783,7 @@ export class DataClassificationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12881,7 +12881,7 @@ export class DataClassificationLevelEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataClassificationLevelEntryContentForm {
     return new DataClassificationLevelEntryContentForm(this.doc, this.path + "/content");
   }
@@ -12895,7 +12895,7 @@ export class DataClassificationStatusEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataClassificationStatusEntryContentForm {
     return new DataClassificationStatusEntryContentForm(this.doc, this.path + "/content");
   }
@@ -12916,7 +12916,7 @@ export class DataDictionary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12941,7 +12941,7 @@ export class DataDuplicationAnalysis extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -12978,7 +12978,7 @@ export class DataDuplicationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataDuplicationEntryContentForm {
     return new DataDuplicationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13030,7 +13030,7 @@ export class DataEntityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13124,7 +13124,7 @@ export class DataEntityMigrationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataEntityMigrationEntryContentForm {
     return new DataEntityMigrationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13138,7 +13138,7 @@ export class DataEntityReferenceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataEntityReferenceEntryContentForm {
     return new DataEntityReferenceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13168,7 +13168,7 @@ export class DataFormatCompatibility extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataFormatCompatibilityContentForm {
     return new DataFormatCompatibilityContentForm(this.doc, this.path + "/content");
   }
@@ -13208,7 +13208,7 @@ export class DataGovernance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13245,7 +13245,7 @@ export class DataGovernancePolicyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataGovernancePolicyEntryContentForm {
     return new DataGovernancePolicyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13269,7 +13269,7 @@ export class DataGrowthProjections extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataGrowthProjectionsContentForm {
     return new DataGrowthProjectionsContentForm(this.doc, this.path + "/content");
   }
@@ -13303,7 +13303,7 @@ export class DataIntegrationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataIntegrationEntryContentForm {
     return new DataIntegrationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13344,7 +13344,7 @@ export class DataIntegrationPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13390,7 +13390,7 @@ export class DataLevelSecurity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13445,7 +13445,7 @@ export class DataMaskingPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataMaskingPolicyContentForm {
     return new DataMaskingPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -13468,7 +13468,7 @@ export class DataMigrationStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataMigrationStrategyContentForm {
     return new DataMigrationStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -13564,7 +13564,7 @@ export class DataModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13629,7 +13629,7 @@ export class DataModelFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13662,7 +13662,7 @@ export class DataOwnership extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13699,7 +13699,7 @@ export class DataOwnershipEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataOwnershipEntryContentForm {
     return new DataOwnershipEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13723,7 +13723,7 @@ export class DataProcessingAgreementRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataProcessingAgreementRequirementsContentForm {
     return new DataProcessingAgreementRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -13766,7 +13766,7 @@ export class DataProtectionAndPrivacySection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13825,7 +13825,7 @@ export class DataProtectionClassification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataProtectionClassificationContentForm {
     return new DataProtectionClassificationContentForm(this.doc, this.path + "/content");
   }
@@ -13866,7 +13866,7 @@ export class DataQualityAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -13908,7 +13908,7 @@ export class DataQualityInitiativeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataQualityInitiativeEntryContentForm {
     return new DataQualityInitiativeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13922,7 +13922,7 @@ export class DataQualityIssueEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataQualityIssueEntryContentForm {
     return new DataQualityIssueEntryContentForm(this.doc, this.path + "/content");
   }
@@ -13951,7 +13951,7 @@ export class DataResidencyRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataResidencyRequirementsContentForm {
     return new DataResidencyRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -13987,7 +13987,7 @@ export class DataRetentionPolicies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14015,7 +14015,7 @@ export class DataSourceEntityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataSourceEntityEntryContentForm {
     return new DataSourceEntityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14032,7 +14032,7 @@ export class DataSourceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataSourceEntryContentForm {
     return new DataSourceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14098,7 +14098,7 @@ export class DataSourceInventory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14133,7 +14133,7 @@ export class DataSubjectRightsManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataSubjectRightsManagementContentForm {
     return new DataSubjectRightsManagementContentForm(this.doc, this.path + "/content");
   }
@@ -14177,7 +14177,7 @@ export class DataVolumeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataVolumeEntryContentForm {
     return new DataVolumeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14191,7 +14191,7 @@ export class DataVolumeSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DataVolumeSummaryContentForm {
     return new DataVolumeSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -14227,7 +14227,7 @@ export class DataVolumesAndGrowth extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14268,7 +14268,7 @@ export class DatabaseAccessPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DatabaseAccessPolicyContentForm {
     return new DatabaseAccessPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -14285,7 +14285,7 @@ export class DatabaseCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DatabaseCompatibilityEntryContentForm {
     return new DatabaseCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14323,7 +14323,7 @@ export class DatabaseEncryptionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DatabaseEncryptionPolicyContentForm {
     return new DatabaseEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -14340,7 +14340,7 @@ export class DebuggingConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DebuggingConfigurationContentForm {
     return new DebuggingConfigurationContentForm(this.doc, this.path + "/content");
   }
@@ -14379,7 +14379,7 @@ export class DecisionAuthorityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DecisionAuthorityEntryContentForm {
     return new DecisionAuthorityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14393,7 +14393,7 @@ export class DecisionMakerEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DecisionMakerEntryContentForm {
     return new DecisionMakerEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14410,7 +14410,7 @@ export class DecisionOptionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DecisionOptionEntryContentForm {
     return new DecisionOptionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14448,7 +14448,7 @@ export class DecisionPointEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DecisionPointEntryContentForm {
     return new DecisionPointEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14482,7 +14482,7 @@ export class DecisionPointEntryResolution extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DecisionPointEntryResolutionContentForm {
     return new DecisionPointEntryResolutionContentForm(this.doc, this.path + "/content");
   }
@@ -14509,7 +14509,7 @@ export class DecisionPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DecisionPointsContentForm {
     return new DecisionPointsContentForm(this.doc, this.path + "/content");
   }
@@ -14531,7 +14531,7 @@ export class DeepLinkPatternEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeepLinkPatternEntryContentForm {
     return new DeepLinkPatternEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14560,7 +14560,7 @@ export class DeepLinking extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14590,7 +14590,7 @@ export class DefectResolution extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DefectResolutionContentForm {
     return new DefectResolutionContentForm(this.doc, this.path + "/content");
   }
@@ -14627,7 +14627,7 @@ export class DeferredScopeItemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeferredScopeItemEntryContentForm {
     return new DeferredScopeItemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14641,7 +14641,7 @@ export class DeliverableDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeliverableDependenciesContentForm {
     return new DeliverableDependenciesContentForm(this.doc, this.path + "/content");
   }
@@ -14659,7 +14659,7 @@ export class DeliverableEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeliverableEntryContentForm {
     return new DeliverableEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14717,7 +14717,7 @@ export class DeliveryAcceptanceCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeliveryAcceptanceCriterionEntryContentForm {
     return new DeliveryAcceptanceCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -14760,7 +14760,7 @@ export class DeliveryScope extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14802,7 +14802,7 @@ export class DeliveryScopeAndAcceptance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14834,7 +14834,7 @@ export class DeliveryTransitionAndRollout extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14882,7 +14882,7 @@ export class DependenciesAndIntegrations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -14934,7 +14934,7 @@ export class DependencyHealthMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DependencyHealthMonitoringContentForm {
     return new DependencyHealthMonitoringContentForm(this.doc, this.path + "/content");
   }
@@ -14968,7 +14968,7 @@ export class DependencyInjectionStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DependencyInjectionStructureContentForm {
     return new DependencyInjectionStructureContentForm(this.doc, this.path + "/content");
   }
@@ -15002,7 +15002,7 @@ export class DependencyManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DependencyManagementContentForm {
     return new DependencyManagementContentForm(this.doc, this.path + "/content");
   }
@@ -15042,7 +15042,7 @@ export class DependencyRegisterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DependencyRegisterEntryContentForm {
     return new DependencyRegisterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15056,7 +15056,7 @@ export class DependencyScanningRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DependencyScanningRequirementsContentForm {
     return new DependencyScanningRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -15097,7 +15097,7 @@ export class DeploymentContext extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15120,7 +15120,7 @@ export class DeploymentEnvironmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeploymentEnvironmentEntryContentForm {
     return new DeploymentEnvironmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15154,7 +15154,7 @@ export class DeploymentModelRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeploymentModelRequirementsContentForm {
     return new DeploymentModelRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -15188,7 +15188,7 @@ export class DeploymentSecurity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeploymentSecurityContentForm {
     return new DeploymentSecurityContentForm(this.doc, this.path + "/content");
   }
@@ -15224,7 +15224,7 @@ export class DeploymentStrategySection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15285,7 +15285,7 @@ export class DeploymentTargetEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeploymentTargetEntryContentForm {
     return new DeploymentTargetEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15324,7 +15324,7 @@ export class DeploymentTopology extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeploymentTopologyContentForm {
     return new DeploymentTopologyContentForm(this.doc, this.path + "/content");
   }
@@ -15363,7 +15363,7 @@ export class DesignFoundationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DesignFoundationEntryContentForm {
     return new DesignFoundationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15379,7 +15379,7 @@ export class DesignGoalEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DesignGoalEntryContentForm {
     return new DesignGoalEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15400,7 +15400,7 @@ export class DesignGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15426,7 +15426,7 @@ export class DesignPatternEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DesignPatternEntryContentForm {
     return new DesignPatternEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15472,7 +15472,7 @@ export class DesignPatternsAndStandards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15535,7 +15535,7 @@ export class DesignPrincipleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DesignPrincipleEntryContentForm {
     return new DesignPrincipleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15556,7 +15556,7 @@ export class DesignPrinciples extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15589,7 +15589,7 @@ export class DesignVision extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15622,7 +15622,7 @@ export class DesktopOsRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DesktopOsRequirementEntryContentForm {
     return new DesktopOsRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15663,7 +15663,7 @@ export class DetailedProcessWorkflow extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15681,7 +15681,7 @@ export class DeveloperOnboarding extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeveloperOnboardingContentForm {
     return new DeveloperOnboardingContentForm(this.doc, this.path + "/content");
   }
@@ -15721,7 +15721,7 @@ export class DevelopmentConventionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DevelopmentConventionEntryContentForm {
     return new DevelopmentConventionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15767,7 +15767,7 @@ export class DevelopmentEnvironment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15838,7 +15838,7 @@ export class DevelopmentQualityGates extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DevelopmentQualityGatesContentForm {
     return new DevelopmentQualityGatesContentForm(this.doc, this.path + "/content");
   }
@@ -15886,7 +15886,7 @@ export class DeviceSettingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DeviceSettingEntryContentForm {
     return new DeviceSettingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15912,7 +15912,7 @@ export class DeviceSettings extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -15935,7 +15935,7 @@ export class DisasterRecoveryRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DisasterRecoveryRequirementsContentForm {
     return new DisasterRecoveryRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -15969,7 +15969,7 @@ export class DisplayEquipmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DisplayEquipmentEntryContentForm {
     return new DisplayEquipmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -15998,7 +15998,7 @@ export class DisplayPropertyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DisplayPropertyEntryContentForm {
     return new DisplayPropertyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16012,7 +16012,7 @@ export class DisplayRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DisplayRequirementsContentForm {
     return new DisplayRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -16046,7 +16046,7 @@ export class DistributedTracingSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DistributedTracingSpecContentForm {
     return new DistributedTracingSpecContentForm(this.doc, this.path + "/content");
   }
@@ -16075,7 +16075,7 @@ export class DistributionGroupSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DistributionGroupSummaryContentForm {
     return new DistributionGroupSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -16097,7 +16097,7 @@ export class DistributionList extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16138,7 +16138,7 @@ export class DistributionRecipientEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DistributionRecipientEntryContentForm {
     return new DistributionRecipientEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16177,7 +16177,7 @@ export class DistributionRecipientPreferences extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DistributionRecipientPreferencesContentForm {
     return new DistributionRecipientPreferencesContentForm(this.doc, this.path + "/content");
   }
@@ -16191,7 +16191,7 @@ export class DnsRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DnsRequirementsContentForm {
     return new DnsRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -16225,7 +16225,7 @@ export class DocChangeability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocChangeabilityContentForm {
     return new DocChangeabilityContentForm(this.doc, this.path + "/content");
   }
@@ -16257,7 +16257,7 @@ export class DocCompleteness extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocCompletenessContentForm {
     return new DocCompletenessContentForm(this.doc, this.path + "/content");
   }
@@ -16274,7 +16274,7 @@ export class DocCorrectness extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocCorrectnessContentForm {
     return new DocCorrectnessContentForm(this.doc, this.path + "/content");
   }
@@ -16309,7 +16309,7 @@ export class DocumentControl extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16346,8 +16346,8 @@ export class DocumentControl extends SomNode {
 //
 // All fields are optional strings representing the document's form fields.
 //
-// A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
-// an unchanged header by identity and [cloneShallow] needs no child handling.
+// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
+// an unchanged header by identity and `cloneShallow` needs no child handling.
 export class DocumentHeader extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -16355,7 +16355,7 @@ export class DocumentHeader extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocumentHeaderContentForm {
     return new DocumentHeaderContentForm(this.doc, this.path + "/content");
   }
@@ -16373,7 +16373,7 @@ export class DocumentRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16396,7 +16396,7 @@ export class DocumentRelevantSections extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocumentRelevantSectionsContentForm {
     return new DocumentRelevantSectionsContentForm(this.doc, this.path + "/content");
   }
@@ -16415,7 +16415,7 @@ export class DocumentReviewTeamEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocumentReviewTeamEntryContentForm {
     return new DocumentReviewTeamEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16438,7 +16438,7 @@ export class DocumentationDeliverables extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16473,7 +16473,7 @@ export class DocumentationQualityCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16528,7 +16528,7 @@ export class DocumentationStandards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocumentationStandardsContentForm {
     return new DocumentationStandardsContentForm(this.doc, this.path + "/content");
   }
@@ -16567,7 +16567,7 @@ export class DocumentationStandardsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DocumentationStandardsSectionContentForm {
     return new DocumentationStandardsSectionContentForm(this.doc, this.path + "/content");
   }
@@ -16608,7 +16608,7 @@ export class DomainBoundaries extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16658,7 +16658,7 @@ export class DomainBusinessRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainBusinessRuleEntryContentForm {
     return new DomainBusinessRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16689,7 +16689,7 @@ export class DomainBusinessRules extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16718,7 +16718,7 @@ export class DomainEnumEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainEnumEntryContentForm {
     return new DomainEnumEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16761,7 +16761,7 @@ export class DomainEnumRegistry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16791,7 +16791,7 @@ export class DomainEnumValueEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainEnumValueEntryContentForm {
     return new DomainEnumValueEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16805,7 +16805,7 @@ export class DomainEventEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainEventEntryContentForm {
     return new DomainEventEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16826,7 +16826,7 @@ export class DomainEvents extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16849,7 +16849,7 @@ export class DomainInterfaceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainInterfaceEntryContentForm {
     return new DomainInterfaceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16870,7 +16870,7 @@ export class DomainOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16893,7 +16893,7 @@ export class DomainProcessEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainProcessEntryContentForm {
     return new DomainProcessEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16927,7 +16927,7 @@ export class DomainProcesses extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -16959,7 +16959,7 @@ export class DomainTermEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): DomainTermEntryContentForm {
     return new DomainTermEntryContentForm(this.doc, this.path + "/content");
   }
@@ -16980,7 +16980,7 @@ export class DomainVocabulary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17003,7 +17003,7 @@ export class Efficiency extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EfficiencyContentForm {
     return new EfficiencyContentForm(this.doc, this.path + "/content");
   }
@@ -17035,7 +17035,7 @@ export class ElementValidationRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ElementValidationRuleEntryContentForm {
     return new ElementValidationRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17049,7 +17049,7 @@ export class EmergencyMaintenanceProcedures extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EmergencyMaintenanceProceduresContentForm {
     return new EmergencyMaintenanceProceduresContentForm(this.doc, this.path + "/content");
   }
@@ -17083,7 +17083,7 @@ export class EncryptedDataCategoryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EncryptedDataCategoryEntryContentForm {
     return new EncryptedDataCategoryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17107,7 +17107,7 @@ export class EncryptionAtRest extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17157,7 +17157,7 @@ export class EncryptionAtRestPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EncryptionAtRestPolicyContentForm {
     return new EncryptionAtRestPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -17183,7 +17183,7 @@ export class EncryptionInTransit extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17236,7 +17236,7 @@ export class EndToEndTestScenario extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17254,7 +17254,7 @@ export class EnterpriseSystemCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EnterpriseSystemCompatibilityEntryContentForm {
     return new EnterpriseSystemCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17288,7 +17288,7 @@ export class EntitlementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EntitlementEntryContentForm {
     return new EntitlementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17307,7 +17307,7 @@ export class EntitlementReferenceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EntitlementReferenceEntryContentForm {
     return new EntitlementReferenceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17323,7 +17323,7 @@ export class EntityConstraintEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EntityConstraintEntryContentForm {
     return new EntityConstraintEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17344,7 +17344,7 @@ export class EntityFollowUpEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17439,7 +17439,7 @@ export class EntityIndexEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EntityIndexEntryContentForm {
     return new EntityIndexEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17460,7 +17460,7 @@ export class EntityRelationshipEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17587,7 +17587,7 @@ export class EntityRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17610,7 +17610,7 @@ export class EntryPointEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EntryPointEntryContentForm {
     return new EntryPointEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17630,7 +17630,7 @@ export class EnvironmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EnvironmentEntryContentForm {
     return new EnvironmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17704,7 +17704,7 @@ export class EnvironmentManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EnvironmentManagementContentForm {
     return new EnvironmentManagementContentForm(this.doc, this.path + "/content");
   }
@@ -17738,7 +17738,7 @@ export class EnvironmentStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EnvironmentStrategyContentForm {
     return new EnvironmentStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -17782,7 +17782,7 @@ export class Environments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EnvironmentsContentForm {
     return new EnvironmentsContentForm(this.doc, this.path + "/content");
   }
@@ -17807,7 +17807,7 @@ export class EquipmentRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17860,7 +17860,7 @@ export class ErrorBudgetTracking extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ErrorBudgetTrackingContentForm {
     return new ErrorBudgetTrackingContentForm(this.doc, this.path + "/content");
   }
@@ -17891,7 +17891,7 @@ export class ErrorCodeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ErrorCodeEntryContentForm {
     return new ErrorCodeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -17925,7 +17925,7 @@ export class ErrorCodeRegistry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -17956,7 +17956,7 @@ export class ErrorHandling extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18022,7 +18022,7 @@ export class ErrorHandlingStandards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ErrorHandlingStandardsContentForm {
     return new ErrorHandlingStandardsContentForm(this.doc, this.path + "/content");
   }
@@ -18068,7 +18068,7 @@ export class ErrorRecovery extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18139,7 +18139,7 @@ export class EvaluationCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18165,7 +18165,7 @@ export class EvaluationCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EvaluationCriterionEntryContentForm {
     return new EvaluationCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18197,7 +18197,7 @@ export class EventAttributePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): EventAttributePolicyContentForm {
     return new EventAttributePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -18220,7 +18220,7 @@ export class ExecutiveSummaryDistribution extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18251,7 +18251,7 @@ export class ExistingSystemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExistingSystemEntryContentForm {
     return new ExistingSystemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18312,7 +18312,7 @@ export class ExistingSystemsLandscape extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18345,7 +18345,7 @@ export class ExpectedImprovements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExpectedImprovementsContentForm {
     return new ExpectedImprovementsContentForm(this.doc, this.path + "/content");
   }
@@ -18363,7 +18363,7 @@ export class ExperienceAndInterfaceDesign extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18419,7 +18419,7 @@ export class ExperienceCodeSpecs extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18487,7 +18487,7 @@ export class ExperienceDesignFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18551,7 +18551,7 @@ export class ExperienceLocalizationFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18574,7 +18574,7 @@ export class ExportFieldMappingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExportFieldMappingEntryContentForm {
     return new ExportFieldMappingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18649,7 +18649,7 @@ export class ExportFormatEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExportFormatEntryContentForm {
     return new ExportFormatEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18715,7 +18715,7 @@ export class ExportSizeSettings extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExportSizeSettingsContentForm {
     return new ExportSizeSettingsContentForm(this.doc, this.path + "/content");
   }
@@ -18729,7 +18729,7 @@ export class ExportTemplateEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExportTemplateEntryContentForm {
     return new ExportTemplateEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18770,7 +18770,7 @@ export class ExtensionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExtensionEntryContentForm {
     return new ExtensionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18800,7 +18800,7 @@ export class ExtensionStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExtensionStepEntryContentForm {
     return new ExtensionStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18835,7 +18835,7 @@ export class ExternalActorEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExternalActorEntryContentForm {
     return new ExternalActorEntryContentForm(this.doc, this.path + "/content");
   }
@@ -18871,7 +18871,7 @@ export class ExternalActors extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18898,7 +18898,7 @@ export class ExternalConnectivitySection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -18959,7 +18959,7 @@ export class ExternalInterfaceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19046,7 +19046,7 @@ export class ExternalInterfaces extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19078,7 +19078,7 @@ export class ExternalNetworkRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExternalNetworkRequirementsContentForm {
     return new ExternalNetworkRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -19112,7 +19112,7 @@ export class ExternalPartnerConnectionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExternalPartnerConnectionEntryContentForm {
     return new ExternalPartnerConnectionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19156,7 +19156,7 @@ export class ExternalPartnerOperations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExternalPartnerOperationsContentForm {
     return new ExternalPartnerOperationsContentForm(this.doc, this.path + "/content");
   }
@@ -19177,7 +19177,7 @@ export class ExternalServiceDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19203,7 +19203,7 @@ export class ExternalServiceDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExternalServiceDependencyEntryContentForm {
     return new ExternalServiceDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19248,7 +19248,7 @@ export class ExternalSystemContextEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ExternalSystemContextEntryContentForm {
     return new ExternalSystemContextEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19292,7 +19292,7 @@ export class ExternalSystemsContext extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19315,7 +19315,7 @@ export class FamilyComponentRef extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FamilyComponentRefContentForm {
     return new FamilyComponentRefContentForm(this.doc, this.path + "/content");
   }
@@ -19332,7 +19332,7 @@ export class FeatureDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureDependenciesContentForm {
     return new FeatureDependenciesContentForm(this.doc, this.path + "/content");
   }
@@ -19357,7 +19357,7 @@ export class FeatureDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureDependencyEntryContentForm {
     return new FeatureDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19379,7 +19379,7 @@ export class FeatureHookEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureHookEntryContentForm {
     return new FeatureHookEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19398,7 +19398,7 @@ export class FeatureModuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureModuleEntryContentForm {
     return new FeatureModuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19443,7 +19443,7 @@ export class FeaturePrioritization extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeaturePrioritizationContentForm {
     return new FeaturePrioritizationContentForm(this.doc, this.path + "/content");
   }
@@ -19517,7 +19517,7 @@ export class FeaturePriorityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeaturePriorityEntryContentForm {
     return new FeaturePriorityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19585,7 +19585,7 @@ export class FeaturePriorityRegister extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeaturePriorityRegisterContentForm {
     return new FeaturePriorityRegisterContentForm(this.doc, this.path + "/content");
   }
@@ -19607,7 +19607,7 @@ export class FeatureStageMapping extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureStageMappingContentForm {
     return new FeatureStageMappingContentForm(this.doc, this.path + "/content");
   }
@@ -19646,7 +19646,7 @@ export class FeatureStageMatrix extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureStageMatrixContentForm {
     return new FeatureStageMatrixContentForm(this.doc, this.path + "/content");
   }
@@ -19668,7 +19668,7 @@ export class FeatureStakeholders extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureStakeholdersContentForm {
     return new FeatureStakeholdersContentForm(this.doc, this.path + "/content");
   }
@@ -19682,7 +19682,7 @@ export class FeatureTourEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FeatureTourEntryContentForm {
     return new FeatureTourEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19701,7 +19701,7 @@ export class FieldHelpEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FieldHelpEntryContentForm {
     return new FieldHelpEntryContentForm(this.doc, this.path + "/content");
   }
@@ -19715,7 +19715,7 @@ export class FieldValidationRule extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FieldValidationRuleContentForm {
     return new FieldValidationRuleContentForm(this.doc, this.path + "/content");
   }
@@ -19733,7 +19733,7 @@ export class FileAccessControlPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FileAccessControlPolicyContentForm {
     return new FileAccessControlPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -19759,7 +19759,7 @@ export class FileAndStorageSecurity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19814,7 +19814,7 @@ export class FileDownloadSecurityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FileDownloadSecurityPolicyContentForm {
     return new FileDownloadSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -19835,7 +19835,7 @@ export class FileStorageEncryptionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FileStorageEncryptionPolicyContentForm {
     return new FileStorageEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -19857,7 +19857,7 @@ export class FileUploadValidationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FileUploadValidationPolicyContentForm {
     return new FileUploadValidationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -19874,7 +19874,7 @@ export class FirewallRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FirewallRequirementsContentForm {
     return new FirewallRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -19908,7 +19908,7 @@ export class Flexibility extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FlexibilityContentForm {
     return new FlexibilityContentForm(this.doc, this.path + "/content");
   }
@@ -19949,7 +19949,7 @@ export class FlexibilityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -19995,7 +19995,7 @@ export class FormScreenAssignmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FormScreenAssignmentEntryContentForm {
     return new FormScreenAssignmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20009,7 +20009,7 @@ export class FrameworkRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FrameworkRequirementEntryContentForm {
     return new FrameworkRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20059,7 +20059,7 @@ export class FullDistribution extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20089,7 +20089,7 @@ export class FunctionDataMatrixEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FunctionDataMatrixEntryContentForm {
     return new FunctionDataMatrixEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20105,7 +20105,7 @@ export class FunctionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FunctionEntryContentForm {
     return new FunctionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20145,7 +20145,7 @@ export class FunctionModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20205,7 +20205,7 @@ export class FunctionalCompleteness extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FunctionalCompletenessContentForm {
     return new FunctionalCompletenessContentForm(this.doc, this.path + "/content");
   }
@@ -20226,7 +20226,7 @@ export class FunctionalRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FunctionalRequirementEntryContentForm {
     return new FunctionalRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20314,7 +20314,7 @@ export class FunctionalRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20347,7 +20347,7 @@ export class FunctionalResponsibilities extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): FunctionalResponsibilitiesContentForm {
     return new FunctionalResponsibilitiesContentForm(this.doc, this.path + "/content");
   }
@@ -20377,7 +20377,7 @@ export class FunctionalSuitabilityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20426,7 +20426,7 @@ export class GapEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GapEntryContentForm {
     return new GapEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20460,7 +20460,7 @@ export class GeographicDistributionRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GeographicDistributionRequirementsContentForm {
     return new GeographicDistributionRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -20497,7 +20497,7 @@ export class GlobalRoleExclusionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GlobalRoleExclusionEntryContentForm {
     return new GlobalRoleExclusionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20515,7 +20515,7 @@ export class GlossaryAndAbbreviations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20538,7 +20538,7 @@ export class GlossaryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GlossaryEntryContentForm {
     return new GlossaryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20558,7 +20558,7 @@ export class GoalDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20581,7 +20581,7 @@ export class GoalDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GoalDependencyEntryContentForm {
     return new GoalDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20619,7 +20619,7 @@ export class GoalKeyResults extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20642,7 +20642,7 @@ export class GoalMilestoneEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GoalMilestoneEntryContentForm {
     return new GoalMilestoneEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20662,7 +20662,7 @@ export class GoalMilestones extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20691,7 +20691,7 @@ export class GoalResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20719,7 +20719,7 @@ export class GoalRiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GoalRiskEntryContentForm {
     return new GoalRiskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20749,7 +20749,7 @@ export class GoalRisks extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20795,7 +20795,7 @@ export class Goals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20837,7 +20837,7 @@ export class GovernanceModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GovernanceModelContentForm {
     return new GovernanceModelContentForm(this.doc, this.path + "/content");
   }
@@ -20861,7 +20861,7 @@ export class GradedAccessLevelEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GradedAccessLevelEntryContentForm {
     return new GradedAccessLevelEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20917,7 +20917,7 @@ export class GradedAuthorizationRequirement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): GradedAuthorizationRequirementContentForm {
     return new GradedAuthorizationRequirementContentForm(this.doc, this.path + "/content");
   }
@@ -20938,7 +20938,7 @@ export class HandlingRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): HandlingRequirementEntryContentForm {
     return new HandlingRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -20956,7 +20956,7 @@ export class HardwareRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -20989,7 +20989,7 @@ export class HealthCheckEndpoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): HealthCheckEndpointsContentForm {
     return new HealthCheckEndpointsContentForm(this.doc, this.path + "/content");
   }
@@ -21022,7 +21022,7 @@ export class HealthChecksAndDiagnosticsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21068,7 +21068,7 @@ export class HighAvailabilityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): HighAvailabilityRequirementsContentForm {
     return new HighAvailabilityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -21106,7 +21106,7 @@ export class HookMethodEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): HookMethodEntryContentForm {
     return new HookMethodEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21120,7 +21120,7 @@ export class IdeRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdeRequirementEntryContentForm {
     return new IdeRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21154,7 +21154,7 @@ export class Identification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentificationContentForm {
     return new IdentificationContentForm(this.doc, this.path + "/content");
   }
@@ -21202,7 +21202,7 @@ export class IdentificationAndAuthentication extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21233,7 +21233,7 @@ export class IdentityAttributeMappingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentityAttributeMappingEntryContentForm {
     return new IdentityAttributeMappingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21262,7 +21262,7 @@ export class IdentityProviderDetails extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentityProviderDetailsContentForm {
     return new IdentityProviderDetailsContentForm(this.doc, this.path + "/content");
   }
@@ -21276,7 +21276,7 @@ export class IdentityProviderEndpoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentityProviderEndpointsContentForm {
     return new IdentityProviderEndpointsContentForm(this.doc, this.path + "/content");
   }
@@ -21293,7 +21293,7 @@ export class IdentityProviderEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentityProviderEntryContentForm {
     return new IdentityProviderEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21335,7 +21335,7 @@ export class IdentitySourceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentitySourceEntryContentForm {
     return new IdentitySourceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21372,7 +21372,7 @@ export class IdentityVerificationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IdentityVerificationPolicyContentForm {
     return new IdentityVerificationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -21414,7 +21414,7 @@ export class ImpactLevelDefinitions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ImpactLevelDefinitionsContentForm {
     return new ImpactLevelDefinitionsContentForm(this.doc, this.path + "/content");
   }
@@ -21428,7 +21428,7 @@ export class IncidentManagementRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IncidentManagementRequirementsContentForm {
     return new IncidentManagementRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -21462,7 +21462,7 @@ export class IncidentResponsePlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IncidentResponsePlanContentForm {
     return new IncidentResponsePlanContentForm(this.doc, this.path + "/content");
   }
@@ -21491,7 +21491,7 @@ export class IndustryProtocolComplianceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IndustryProtocolComplianceEntryContentForm {
     return new IndustryProtocolComplianceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21525,7 +21525,7 @@ export class IndustryStandardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IndustryStandardEntryContentForm {
     return new IndustryStandardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21568,7 +21568,7 @@ export class InformationAndDataModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21654,7 +21654,7 @@ export class InformationArchitecture extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21700,7 +21700,7 @@ export class InformationForUseRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21723,7 +21723,7 @@ export class InfrastructureAsCode extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InfrastructureAsCodeContentForm {
     return new InfrastructureAsCodeContentForm(this.doc, this.path + "/content");
   }
@@ -21757,7 +21757,7 @@ export class InfrastructureComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InfrastructureComponentEntryContentForm {
     return new InfrastructureComponentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21796,7 +21796,7 @@ export class InfrastructureMetricsSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InfrastructureMetricsSpecContentForm {
     return new InfrastructureMetricsSpecContentForm(this.doc, this.path + "/content");
   }
@@ -21825,7 +21825,7 @@ export class InfrastructureSecurityHardening extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InfrastructureSecurityHardeningContentForm {
     return new InfrastructureSecurityHardeningContentForm(this.doc, this.path + "/content");
   }
@@ -21862,7 +21862,7 @@ export class InitialDevelopmentFlow extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21880,7 +21880,7 @@ export class InitialTrainingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InitialTrainingEntryContentForm {
     return new InitialTrainingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21919,7 +21919,7 @@ export class InputDeviceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InputDeviceEntryContentForm {
     return new InputDeviceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21933,7 +21933,7 @@ export class InsuranceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InsuranceEntryContentForm {
     return new InsuranceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -21953,7 +21953,7 @@ export class InsuranceLiabilityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -21981,7 +21981,7 @@ export class IntegrationArchitecture extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IntegrationArchitectureContentForm {
     return new IntegrationArchitectureContentForm(this.doc, this.path + "/content");
   }
@@ -22023,7 +22023,7 @@ export class IntegrationConstraintEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IntegrationConstraintEntryContentForm {
     return new IntegrationConstraintEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22059,7 +22059,7 @@ export class IntegrationHealthSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IntegrationHealthSummaryContentForm {
     return new IntegrationHealthSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -22085,7 +22085,7 @@ export class IntegrationPointEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IntegrationPointEntryContentForm {
     return new IntegrationPointEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22106,7 +22106,7 @@ export class Integrations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22135,7 +22135,7 @@ export class IntegrityConstraints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22155,7 +22155,7 @@ export class IntellectualPropertyRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IntellectualPropertyRequirementsContentForm {
     return new IntellectualPropertyRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -22174,7 +22174,7 @@ export class InteractionBusinessRules extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InteractionBusinessRulesContentForm {
     return new InteractionBusinessRulesContentForm(this.doc, this.path + "/content");
   }
@@ -22197,7 +22197,7 @@ export class InteractionCapabilityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22246,7 +22246,7 @@ export class InteractionCatalog extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22282,7 +22282,7 @@ export class InteractionChannelEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InteractionChannelEntryContentForm {
     return new InteractionChannelEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22333,7 +22333,7 @@ export class InteractionDependencyAnalysis extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22358,7 +22358,7 @@ export class InteractionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22444,7 +22444,7 @@ export class InteractionPatternEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InteractionPatternEntryContentForm {
     return new InteractionPatternEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22485,7 +22485,7 @@ export class InteractionPatterns extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22515,7 +22515,7 @@ export class InteractionTestingStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22533,7 +22533,7 @@ export class InterfaceBusinessContext extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceBusinessContextContentForm {
     return new InterfaceBusinessContextContentForm(this.doc, this.path + "/content");
   }
@@ -22552,7 +22552,7 @@ export class InterfaceBusinessProcessEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceBusinessProcessEntryContentForm {
     return new InterfaceBusinessProcessEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22566,7 +22566,7 @@ export class InterfaceDataEntityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceDataEntityEntryContentForm {
     return new InterfaceDataEntityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22580,7 +22580,7 @@ export class InterfaceDataSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceDataSpecContentForm {
     return new InterfaceDataSpecContentForm(this.doc, this.path + "/content");
   }
@@ -22609,7 +22609,7 @@ export class InterfaceErrorHandling extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceErrorHandlingContentForm {
     return new InterfaceErrorHandlingContentForm(this.doc, this.path + "/content");
   }
@@ -22643,7 +22643,7 @@ export class InterfaceGovernance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceGovernanceContentForm {
     return new InterfaceGovernanceContentForm(this.doc, this.path + "/content");
   }
@@ -22679,7 +22679,7 @@ export class InterfaceOperationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceOperationEntryContentForm {
     return new InterfaceOperationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22693,7 +22693,7 @@ export class InterfaceOperational extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceOperationalContentForm {
     return new InterfaceOperationalContentForm(this.doc, this.path + "/content");
   }
@@ -22727,7 +22727,7 @@ export class InterfaceSecurity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceSecurityContentForm {
     return new InterfaceSecurityContentForm(this.doc, this.path + "/content");
   }
@@ -22759,7 +22759,7 @@ export class InterfaceSpecificationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceSpecificationEntryContentForm {
     return new InterfaceSpecificationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22793,7 +22793,7 @@ export class InterfaceTechnicalSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceTechnicalSpecContentForm {
     return new InterfaceTechnicalSpecContentForm(this.doc, this.path + "/content");
   }
@@ -22827,7 +22827,7 @@ export class InterfaceTestScenarioEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceTestScenarioEntryContentForm {
     return new InterfaceTestScenarioEntryContentForm(this.doc, this.path + "/content");
   }
@@ -22841,7 +22841,7 @@ export class InterfaceTesting extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InterfaceTestingContentForm {
     return new InterfaceTestingContentForm(this.doc, this.path + "/content");
   }
@@ -22876,7 +22876,7 @@ export class InternalDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -22899,7 +22899,7 @@ export class InternalNetworkRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InternalNetworkRequirementsContentForm {
     return new InternalNetworkRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -22933,7 +22933,7 @@ export class InteroperabilityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): InteroperabilityRequirementsContentForm {
     return new InteroperabilityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -22975,7 +22975,7 @@ export class IntroductionAndScope extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23050,7 +23050,7 @@ export class IpOwnershipEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): IpOwnershipEntryContentForm {
     return new IpOwnershipEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23076,7 +23076,7 @@ export class Iso25010Coverage extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23099,7 +23099,7 @@ export class Iso25010CoverageEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): Iso25010CoverageEntryContentForm {
     return new Iso25010CoverageEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23120,7 +23120,7 @@ export class ItLandscapePosition extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23143,7 +23143,7 @@ export class ItSecurityOperations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ItSecurityOperationsContentForm {
     return new ItSecurityOperationsContentForm(this.doc, this.path + "/content");
   }
@@ -23184,7 +23184,7 @@ export class ItSecurityStandardsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23235,7 +23235,7 @@ export class ItStandardComplianceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ItStandardComplianceEntryContentForm {
     return new ItStandardComplianceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23282,7 +23282,7 @@ export class JobDescriptionsAndStaffing extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23330,7 +23330,7 @@ export class JourneyStageEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): JourneyStageEntryContentForm {
     return new JourneyStageEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23346,7 +23346,7 @@ export class KeyAttributeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyAttributeEntryContentForm {
     return new KeyAttributeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23392,7 +23392,7 @@ export class KeyCompromiseRecoveryPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyCompromiseRecoveryPolicyContentForm {
     return new KeyCompromiseRecoveryPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -23409,7 +23409,7 @@ export class KeyConceptEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyConceptEntryContentForm {
     return new KeyConceptEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23436,7 +23436,7 @@ export class KeyConcepts extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23472,7 +23472,7 @@ export class KeyEscrowAndBackupPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyEscrowAndBackupPolicyContentForm {
     return new KeyEscrowAndBackupPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -23493,7 +23493,7 @@ export class KeyGenerationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyGenerationPolicyContentForm {
     return new KeyGenerationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -23519,7 +23519,7 @@ export class KeyManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23566,7 +23566,7 @@ export class KeyManagementRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyManagementRequirementsContentForm {
     return new KeyManagementRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -23580,7 +23580,7 @@ export class KeyResultEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyResultEntryContentForm {
     return new KeyResultEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23597,7 +23597,7 @@ export class KeyRotationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyRotationPolicyContentForm {
     return new KeyRotationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -23621,7 +23621,7 @@ export class KeyScenarios extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23654,7 +23654,7 @@ export class KeyStoragePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): KeyStoragePolicyContentForm {
     return new KeyStoragePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -23678,7 +23678,7 @@ export class KnowledgeTransfer extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23709,7 +23709,7 @@ export class LanguageCountrySelection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23766,7 +23766,7 @@ export class LayerCommunicationRules extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LayerCommunicationRulesContentForm {
     return new LayerCommunicationRulesContentForm(this.doc, this.path + "/content");
   }
@@ -23803,7 +23803,7 @@ export class LayeringAndModuleStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23874,7 +23874,7 @@ export class LegacyCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LegacyCompatibilityEntryContentForm {
     return new LegacyCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -23916,7 +23916,7 @@ export class LegalAndContractualRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -23964,7 +23964,7 @@ export class LiabilityLimitations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LiabilityLimitationsContentForm {
     return new LiabilityLimitationsContentForm(this.doc, this.path + "/content");
   }
@@ -23980,7 +23980,7 @@ export class LifecycleTransitionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LifecycleTransitionEntryContentForm {
     return new LifecycleTransitionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24009,7 +24009,7 @@ export class LimitationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LimitationEntryContentForm {
     return new LimitationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24023,7 +24023,7 @@ export class LoadProfileRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LoadProfileRequirementsContentForm {
     return new LoadProfileRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -24052,7 +24052,7 @@ export class LocalDevelopmentSetup extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LocalDevelopmentSetupContentForm {
     return new LocalDevelopmentSetupContentForm(this.doc, this.path + "/content");
   }
@@ -24091,7 +24091,7 @@ export class LocaleHandlingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LocaleHandlingRequirementsContentForm {
     return new LocaleHandlingRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -24111,7 +24111,7 @@ export class LocalizationProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24166,7 +24166,7 @@ export class LocalizationTranslationProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24200,7 +24200,7 @@ export class LocalizationTranslationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24228,7 +24228,7 @@ export class LogAggregationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LogAggregationRequirementsContentForm {
     return new LogAggregationRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -24257,7 +24257,7 @@ export class LogManagementRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LogManagementRequirementsContentForm {
     return new LogManagementRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -24293,7 +24293,7 @@ export class LogProtectionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LogProtectionPolicyContentForm {
     return new LogProtectionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -24312,7 +24312,7 @@ export class LogRetentionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LogRetentionPolicyContentForm {
     return new LogRetentionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -24331,7 +24331,7 @@ export class LogStoragePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LogStoragePolicyContentForm {
     return new LogStoragePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -24352,7 +24352,7 @@ export class LoginFlowConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LoginFlowConfigurationContentForm {
     return new LoginFlowConfigurationContentForm(this.doc, this.path + "/content");
   }
@@ -24389,7 +24389,7 @@ export class LoginFlowStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): LoginFlowStepEntryContentForm {
     return new LoginFlowStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24418,7 +24418,7 @@ export class MainScenarioStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MainScenarioStepEntryContentForm {
     return new MainScenarioStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24454,7 +24454,7 @@ export class MainSuccessScenario extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MainSuccessScenarioContentForm {
     return new MainSuccessScenarioContentForm(this.doc, this.path + "/content");
   }
@@ -24473,7 +24473,7 @@ export class Maintainability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MaintainabilityContentForm {
     return new MaintainabilityContentForm(this.doc, this.path + "/content");
   }
@@ -24518,7 +24518,7 @@ export class MaintainabilityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24559,7 +24559,7 @@ export class MaintenanceChangeManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MaintenanceChangeManagementContentForm {
     return new MaintenanceChangeManagementContentForm(this.doc, this.path + "/content");
   }
@@ -24600,7 +24600,7 @@ export class MaintenanceDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24626,7 +24626,7 @@ export class MaintenanceDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MaintenanceDependencyEntryContentForm {
     return new MaintenanceDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24655,7 +24655,7 @@ export class MaintenanceProcedureEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MaintenanceProcedureEntryContentForm {
     return new MaintenanceProcedureEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24669,7 +24669,7 @@ export class MaintenanceUserImpact extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MaintenanceUserImpactContentForm {
     return new MaintenanceUserImpactContentForm(this.doc, this.path + "/content");
   }
@@ -24698,7 +24698,7 @@ export class MaintenanceWindowEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MaintenanceWindowEntryContentForm {
     return new MaintenanceWindowEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24739,7 +24739,7 @@ export class MaintenanceWindowsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24790,7 +24790,7 @@ export class MasterDataDomainEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MasterDataDomainEntryContentForm {
     return new MasterDataDomainEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24826,7 +24826,7 @@ export class MasterDataManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24854,7 +24854,7 @@ export class MessageFormatStandards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MessageFormatStandardsContentForm {
     return new MessageFormatStandardsContentForm(this.doc, this.path + "/content");
   }
@@ -24894,7 +24894,7 @@ export class MessageKeyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MessageKeyEntryContentForm {
     return new MessageKeyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24939,7 +24939,7 @@ export class MessageKeyRegistry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -24967,7 +24967,7 @@ export class MessageLocaleVariantEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MessageLocaleVariantEntryContentForm {
     return new MessageLocaleVariantEntryContentForm(this.doc, this.path + "/content");
   }
@@ -24988,7 +24988,7 @@ export class MetricsAndObservability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25051,7 +25051,7 @@ export class MetricsBaselineEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MetricsBaselineEntryContentForm {
     return new MetricsBaselineEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25069,7 +25069,7 @@ export class MetricsBaselineTable extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25092,7 +25092,7 @@ export class MetricsCollectionRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MetricsCollectionRequirementsContentForm {
     return new MetricsCollectionRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -25126,7 +25126,7 @@ export class MetricsDashboardSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MetricsDashboardSummaryContentForm {
     return new MetricsDashboardSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -25143,7 +25143,7 @@ export class MfaCategoryRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MfaCategoryRequirementEntryContentForm {
     return new MfaCategoryRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25175,7 +25175,7 @@ export class MfaConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MfaConfigurationContentForm {
     return new MfaConfigurationContentForm(this.doc, this.path + "/content");
   }
@@ -25202,7 +25202,7 @@ export class MigrationConsiderations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25222,7 +25222,7 @@ export class MigrationConsiderations extends SomNode {
   // constraint it has to fit inside, and so that changing the sequencing is
   // one edit rather than one per system.
   //
-  // [strategyNarrative] carries the reasoning behind these answers; this band
+  // `strategyNarrative` carries the reasoning behind these answers; this band
   // carries the answers themselves, so a change of approach is a change here
   // and not a rewrite of prose.
   get strategyContent(): MigrationConsiderationsStrategyContentForm {
@@ -25279,7 +25279,7 @@ export class MigrationEnvironments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationEnvironmentsContentForm {
     return new MigrationEnvironmentsContentForm(this.doc, this.path + "/content");
   }
@@ -25301,7 +25301,7 @@ export class MigrationInteractions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25321,7 +25321,7 @@ export class MigrationMappingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationMappingEntryContentForm {
     return new MigrationMappingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25335,7 +25335,7 @@ export class MigrationMilestoneEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationMilestoneEntryContentForm {
     return new MigrationMilestoneEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25349,7 +25349,7 @@ export class MigrationPhaseDryRuns extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationPhaseDryRunsContentForm {
     return new MigrationPhaseDryRunsContentForm(this.doc, this.path + "/content");
   }
@@ -25369,7 +25369,7 @@ export class MigrationPhaseEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationPhaseEntryContentForm {
     return new MigrationPhaseEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25438,7 +25438,7 @@ export class MigrationPhaseResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationPhaseResourcesContentForm {
     return new MigrationPhaseResourcesContentForm(this.doc, this.path + "/content");
   }
@@ -25457,7 +25457,7 @@ export class MigrationPhases extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationPhasesContentForm {
     return new MigrationPhasesContentForm(this.doc, this.path + "/content");
   }
@@ -25492,7 +25492,7 @@ export class MigrationPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25510,7 +25510,7 @@ export class MigrationResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationResourcesContentForm {
     return new MigrationResourcesContentForm(this.doc, this.path + "/content");
   }
@@ -25531,7 +25531,7 @@ export class MigrationRiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationRiskEntryContentForm {
     return new MigrationRiskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25601,7 +25601,7 @@ export class MigrationRiskIndicators extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationRiskIndicatorsContentForm {
     return new MigrationRiskIndicatorsContentForm(this.doc, this.path + "/content");
   }
@@ -25624,7 +25624,7 @@ export class MigrationRisks extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -25718,7 +25718,7 @@ export class MigrationStakeholders extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationStakeholdersContentForm {
     return new MigrationStakeholdersContentForm(this.doc, this.path + "/content");
   }
@@ -25732,7 +25732,7 @@ export class MigrationSystems extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationSystemsContentForm {
     return new MigrationSystemsContentForm(this.doc, this.path + "/content");
   }
@@ -25751,7 +25751,7 @@ export class MigrationTargetEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MigrationTargetEntryContentForm {
     return new MigrationTargetEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25765,7 +25765,7 @@ export class MobileCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MobileCompatibilityEntryContentForm {
     return new MobileCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25799,7 +25799,7 @@ export class MobileDeviceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MobileDeviceEntryContentForm {
     return new MobileDeviceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25823,7 +25823,7 @@ export class MobileDeviceRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MobileDeviceRequirementEntryContentForm {
     return new MobileDeviceRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25857,7 +25857,7 @@ export class ModuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ModuleEntryContentForm {
     return new ModuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -25896,7 +25896,7 @@ export class ModuleVersioningStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ModuleVersioningStrategyContentForm {
     return new ModuleVersioningStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -25937,7 +25937,7 @@ export class Monitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26007,7 +26007,7 @@ export class MonitoringAndAlertingSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26084,7 +26084,7 @@ export class MonitoringDashboards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26131,7 +26131,7 @@ export class MonitoringInfrastructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MonitoringInfrastructureContentForm {
     return new MonitoringInfrastructureContentForm(this.doc, this.path + "/content");
   }
@@ -26165,7 +26165,7 @@ export class MoscowAnalysis extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MoscowAnalysisContentForm {
     return new MoscowAnalysisContentForm(this.doc, this.path + "/content");
   }
@@ -26190,7 +26190,7 @@ export class MoscowEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MoscowEntryContentForm {
     return new MoscowEntryContentForm(this.doc, this.path + "/content");
   }
@@ -26226,7 +26226,7 @@ export class MultiChannelExperience extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26259,7 +26259,7 @@ export class MultiLanguageSupport extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26304,7 +26304,7 @@ export class MustPassCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26343,7 +26343,7 @@ export class MustPassCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MustPassCriterionEntryContentForm {
     return new MustPassCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -26384,7 +26384,7 @@ export class MutualTlsPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): MutualTlsPolicyContentForm {
     return new MutualTlsPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -26401,7 +26401,7 @@ export class NativeAppRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NativeAppRequirementsContentForm {
     return new NativeAppRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -26437,7 +26437,7 @@ export class NavigationGroupEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NavigationGroupEntryContentForm {
     return new NavigationGroupEntryContentForm(this.doc, this.path + "/content");
   }
@@ -26476,7 +26476,7 @@ export class NavigationGuardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NavigationGuardEntryContentForm {
     return new NavigationGuardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -26506,7 +26506,7 @@ export class NavigationGuards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26539,7 +26539,7 @@ export class NavigationHierarchy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26567,7 +26567,7 @@ export class NavigationItemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NavigationItemEntryContentForm {
     return new NavigationItemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -26625,7 +26625,7 @@ export class NavigationModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26685,7 +26685,7 @@ export class NavigationOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NavigationOverviewContentForm {
     return new NavigationOverviewContentForm(this.doc, this.path + "/content");
   }
@@ -26702,7 +26702,7 @@ export class NetworkAvailabilityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NetworkAvailabilityRequirementsContentForm {
     return new NetworkAvailabilityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -26736,7 +26736,7 @@ export class NetworkLatencyRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NetworkLatencyRequirementsContentForm {
     return new NetworkLatencyRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -26770,7 +26770,7 @@ export class NetworkLoadBalancingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NetworkLoadBalancingRequirementsContentForm {
     return new NetworkLoadBalancingRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -26811,7 +26811,7 @@ export class NetworkRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -26887,7 +26887,7 @@ export class NetworkSecurityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NetworkSecurityPolicyContentForm {
     return new NetworkSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -26926,7 +26926,7 @@ export class NetworkSecurityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NetworkSecurityRequirementsContentForm {
     return new NetworkSecurityRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -26969,7 +26969,7 @@ export class NewOrganizationStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27007,7 +27007,7 @@ export class NewRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27060,7 +27060,7 @@ export class NewRoleQualifications extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NewRoleQualificationsContentForm {
     return new NewRoleQualificationsContentForm(this.doc, this.path + "/content");
   }
@@ -27093,7 +27093,7 @@ export class NewRoleResponsibilities extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27126,7 +27126,7 @@ export class NotificationChannelEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NotificationChannelEntryContentForm {
     return new NotificationChannelEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27147,7 +27147,7 @@ export class NotificationModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27180,7 +27180,7 @@ export class NotificationTypeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): NotificationTypeEntryContentForm {
     return new NotificationTypeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27196,7 +27196,7 @@ export class ObjectInvariantEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ObjectInvariantEntryContentForm {
     return new ObjectInvariantEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27212,7 +27212,7 @@ export class ObjectOperationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ObjectOperationEntryContentForm {
     return new ObjectOperationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27243,7 +27243,7 @@ export class ObjectStateEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ObjectStateEntryContentForm {
     return new ObjectStateEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27257,7 +27257,7 @@ export class OnCallProcedures extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OnCallProceduresContentForm {
     return new OnCallProceduresContentForm(this.doc, this.path + "/content");
   }
@@ -27291,7 +27291,7 @@ export class OnCallScheduleConfig extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OnCallScheduleConfigContentForm {
     return new OnCallScheduleConfigContentForm(this.doc, this.path + "/content");
   }
@@ -27319,7 +27319,7 @@ export class OnboardingHelp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27378,7 +27378,7 @@ export class OngoingTrainingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OngoingTrainingEntryContentForm {
     return new OngoingTrainingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27416,7 +27416,7 @@ export class OperatingEnvironment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27467,7 +27467,7 @@ export class OperationBindingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OperationBindingEntryContentForm {
     return new OperationBindingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27486,7 +27486,7 @@ export class OperationalMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OperationalMonitoringContentForm {
     return new OperationalMonitoringContentForm(this.doc, this.path + "/content");
   }
@@ -27530,7 +27530,7 @@ export class OperationalPainPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27562,7 +27562,7 @@ export class OperationsRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27607,7 +27607,7 @@ export class OpportunityStatement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27630,7 +27630,7 @@ export class OrgChangeRisks extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OrgChangeRisksContentForm {
     return new OrgChangeRisksContentForm(this.doc, this.path + "/content");
   }
@@ -27644,7 +27644,7 @@ export class OrgImplementationActivity extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OrgImplementationActivityContentForm {
     return new OrgImplementationActivityContentForm(this.doc, this.path + "/content");
   }
@@ -27664,7 +27664,7 @@ export class OrgRequirementImplementationPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27710,7 +27710,7 @@ export class OrganizationAndProcessConcept extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27742,7 +27742,7 @@ export class OrganizationStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27771,7 +27771,7 @@ export class OrganizationalChangeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OrganizationalChangeEntryContentForm {
     return new OrganizationalChangeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -27827,7 +27827,7 @@ export class OrganizationalContext extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27868,7 +27868,7 @@ export class OrganizationalEnvironment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -27954,7 +27954,7 @@ export class OrganizationalFramework extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28007,7 +28007,7 @@ export class OrganizationalRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OrganizationalRequirementEntryContentForm {
     return new OrganizationalRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28060,7 +28060,7 @@ export class OrganizationalRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28097,7 +28097,7 @@ export class OrganizationalTransitionTimeline extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28155,7 +28155,7 @@ export class OrganizationalUnitContextEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OrganizationalUnitContextEntryContentForm {
     return new OrganizationalUnitContextEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28169,7 +28169,7 @@ export class OsCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OsCompatibilityEntryContentForm {
     return new OsCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28203,7 +28203,7 @@ export class OtherAgreementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OtherAgreementEntryContentForm {
     return new OtherAgreementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28225,7 +28225,7 @@ export class OutOfScope extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28251,7 +28251,7 @@ export class OutOfScopeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): OutOfScopeEntryContentForm {
     return new OutOfScopeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28275,7 +28275,7 @@ export class PackageOrganization extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PackageOrganizationContentForm {
     return new PackageOrganizationContentForm(this.doc, this.path + "/content");
   }
@@ -28313,7 +28313,7 @@ export class PainPointEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PainPointEntryContentForm {
     return new PainPointEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28366,7 +28366,7 @@ export class PainPointGapCorrelation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28398,7 +28398,7 @@ export class PainPointGapCorrelationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PainPointGapCorrelationEntryContentForm {
     return new PainPointGapCorrelationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28412,7 +28412,7 @@ export class PainPointRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PainPointRelationshipsContentForm {
     return new PainPointRelationshipsContentForm(this.doc, this.path + "/content");
   }
@@ -28434,7 +28434,7 @@ export class PainPointsAndGaps extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28500,7 +28500,7 @@ export class ParticipantEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ParticipantEntryContentForm {
     return new ParticipantEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28523,7 +28523,7 @@ export class PasswordAndCredentialPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28588,7 +28588,7 @@ export class PasswordLifecyclePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PasswordLifecyclePolicyContentForm {
     return new PasswordLifecyclePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -28609,7 +28609,7 @@ export class PasswordRequirementsPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PasswordRequirementsPolicyContentForm {
     return new PasswordRequirementsPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -28629,7 +28629,7 @@ export class PasswordStoragePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PasswordStoragePolicyContentForm {
     return new PasswordStoragePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -28646,7 +28646,7 @@ export class PeakLoadPatterns extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PeakLoadPatternsContentForm {
     return new PeakLoadPatternsContentForm(this.doc, this.path + "/content");
   }
@@ -28675,7 +28675,7 @@ export class PenetrationTestingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PenetrationTestingRequirementsContentForm {
     return new PenetrationTestingRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -28713,7 +28713,7 @@ export class PerformanceEfficiencyCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28755,7 +28755,7 @@ export class PeriodicReviewPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PeriodicReviewPolicyContentForm {
     return new PeriodicReviewPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -28772,7 +28772,7 @@ export class PeripheralEquipmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PeripheralEquipmentEntryContentForm {
     return new PeripheralEquipmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28789,7 +28789,7 @@ export class PermissionCompositionStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PermissionCompositionStrategyContentForm {
     return new PermissionCompositionStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -28809,7 +28809,7 @@ export class PermissionEvaluationBehavior extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PermissionEvaluationBehaviorContentForm {
     return new PermissionEvaluationBehaviorContentForm(this.doc, this.path + "/content");
   }
@@ -28829,7 +28829,7 @@ export class PermissionGranularityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PermissionGranularityPolicyContentForm {
     return new PermissionGranularityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -28846,7 +28846,7 @@ export class PermissionMatrixEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PermissionMatrixEntryContentForm {
     return new PermissionMatrixEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28862,7 +28862,7 @@ export class PersonaEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PersonaEntryContentForm {
     return new PersonaEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28906,7 +28906,7 @@ export class PersonaGoalEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PersonaGoalEntryContentForm {
     return new PersonaGoalEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28924,7 +28924,7 @@ export class PersonaGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28947,7 +28947,7 @@ export class PersonaPainPointEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PersonaPainPointEntryContentForm {
     return new PersonaPainPointEntryContentForm(this.doc, this.path + "/content");
   }
@@ -28965,7 +28965,7 @@ export class PersonaPainPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -28988,7 +28988,7 @@ export class PersonaScenarioEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PersonaScenarioEntryContentForm {
     return new PersonaScenarioEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29008,7 +29008,7 @@ export class PersonaScenarios extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29034,7 +29034,7 @@ export class PhaseGateReviewEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PhaseGateReviewEntryContentForm {
     return new PhaseGateReviewEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29090,7 +29090,7 @@ export class PhaseGateReviews extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PhaseGateReviewsContentForm {
     return new PhaseGateReviewsContentForm(this.doc, this.path + "/content");
   }
@@ -29122,7 +29122,7 @@ export class PhysicalWorkplaceRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PhysicalWorkplaceRequirementsContentForm {
     return new PhysicalWorkplaceRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -29152,7 +29152,7 @@ export class PilotPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29170,7 +29170,7 @@ export class PipelineJobEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PipelineJobEntryContentForm {
     return new PipelineJobEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29204,7 +29204,7 @@ export class PipelineStageEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PipelineStageEntryContentForm {
     return new PipelineStageEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29245,7 +29245,7 @@ export class PlatformAndLanguage extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29301,7 +29301,7 @@ export class PolicyOwnershipEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PolicyOwnershipEntryContentForm {
     return new PolicyOwnershipEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29315,7 +29315,7 @@ export class Portability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PortabilityContentForm {
     return new PortabilityContentForm(this.doc, this.path + "/content");
   }
@@ -29332,7 +29332,7 @@ export class PostMaintenanceValidation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PostMaintenanceValidationContentForm {
     return new PostMaintenanceValidationContentForm(this.doc, this.path + "/content");
   }
@@ -29356,7 +29356,7 @@ export class PostconditionsAndGuarantees extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PostconditionsAndGuaranteesContentForm {
     return new PostconditionsAndGuaranteesContentForm(this.doc, this.path + "/content");
   }
@@ -29370,7 +29370,7 @@ export class PreconditionsAndTriggers extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PreconditionsAndTriggersContentForm {
     return new PreconditionsAndTriggersContentForm(this.doc, this.path + "/content");
   }
@@ -29387,7 +29387,7 @@ export class PrimaryNavigation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrimaryNavigationContentForm {
     return new PrimaryNavigationContentForm(this.doc, this.path + "/content");
   }
@@ -29419,7 +29419,7 @@ export class PrintAndExportLayout extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrintAndExportLayoutContentForm {
     return new PrintAndExportLayoutContentForm(this.doc, this.path + "/content");
   }
@@ -29469,7 +29469,7 @@ export class PrivacyImpactAssessmentProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrivacyImpactAssessmentProcessContentForm {
     return new PrivacyImpactAssessmentProcessContentForm(this.doc, this.path + "/content");
   }
@@ -29498,7 +29498,7 @@ export class PrivacyRegulationCompliance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrivacyRegulationComplianceContentForm {
     return new PrivacyRegulationComplianceContentForm(this.doc, this.path + "/content");
   }
@@ -29534,7 +29534,7 @@ export class PrivilegeUsageReporting extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrivilegeUsageReportingContentForm {
     return new PrivilegeUsageReportingContentForm(this.doc, this.path + "/content");
   }
@@ -29558,7 +29558,7 @@ export class ProblemStatement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29586,7 +29586,7 @@ export class ProcessAdjustmentDetails extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessAdjustmentDetailsContentForm {
     return new ProcessAdjustmentDetailsContentForm(this.doc, this.path + "/content");
   }
@@ -29604,7 +29604,7 @@ export class ProcessAdjustmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessAdjustmentEntryContentForm {
     return new ProcessAdjustmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29657,7 +29657,7 @@ export class ProcessAdjustments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29700,7 +29700,7 @@ export class ProcessCatalog extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29733,7 +29733,7 @@ export class ProcessCharacteristics extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessCharacteristicsContentForm {
     return new ProcessCharacteristicsContentForm(this.doc, this.path + "/content");
   }
@@ -29757,7 +29757,7 @@ export class ProcessControlEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessControlEntryContentForm {
     return new ProcessControlEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29785,7 +29785,7 @@ export class ProcessControls extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29813,7 +29813,7 @@ export class ProcessDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessDependencyEntryContentForm {
     return new ProcessDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29827,7 +29827,7 @@ export class ProcessDesignPrincipleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessDesignPrincipleEntryContentForm {
     return new ProcessDesignPrincipleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29847,7 +29847,7 @@ export class ProcessDesignPrinciples extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29875,7 +29875,7 @@ export class ProcessEndEventEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessEndEventEntryContentForm {
     return new ProcessEndEventEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29889,7 +29889,7 @@ export class ProcessExceptionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessExceptionEntryContentForm {
     return new ProcessExceptionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -29919,7 +29919,7 @@ export class ProcessExceptionHandling extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29941,7 +29941,7 @@ export class ProcessExceptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -29969,7 +29969,7 @@ export class ProcessIdentification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessIdentificationContentForm {
     return new ProcessIdentificationContentForm(this.doc, this.path + "/content");
   }
@@ -29998,7 +29998,7 @@ export class ProcessImprovementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessImprovementEntryContentForm {
     return new ProcessImprovementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30028,7 +30028,7 @@ export class ProcessImprovementSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30061,7 +30061,7 @@ export class ProcessInputEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessInputEntryContentForm {
     return new ProcessInputEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30079,7 +30079,7 @@ export class ProcessInputsOutputs extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30116,7 +30116,7 @@ export class ProcessInterdependencyMatrix extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30148,7 +30148,7 @@ export class ProcessKpiEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessKpiEntryContentForm {
     return new ProcessKpiEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30178,7 +30178,7 @@ export class ProcessMetric extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30200,7 +30200,7 @@ export class ProcessMetricCategory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30225,7 +30225,7 @@ export class ProcessMetricEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessMetricEntryContentForm {
     return new ProcessMetricEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30272,7 +30272,7 @@ export class ProcessMetrics extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30330,7 +30330,7 @@ export class ProcessOutputEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessOutputEntryContentForm {
     return new ProcessOutputEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30350,7 +30350,7 @@ export class ProcessOverviewDiagram extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30386,7 +30386,7 @@ export class ProcessPainPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30413,7 +30413,7 @@ export class ProcessPerformance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30446,7 +30446,7 @@ export class ProcessPerformanceSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessPerformanceSummaryContentForm {
     return new ProcessPerformanceSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -30465,7 +30465,7 @@ export class ProcessRelationshipEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessRelationshipEntryContentForm {
     return new ProcessRelationshipEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30483,7 +30483,7 @@ export class ProcessRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30506,7 +30506,7 @@ export class ProcessRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessRoleEntryContentForm {
     return new ProcessRoleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30534,7 +30534,7 @@ export class ProcessRoles extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30562,7 +30562,7 @@ export class ProcessScopeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessScopeEntryContentForm {
     return new ProcessScopeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30576,7 +30576,7 @@ export class ProcessScopeSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessScopeSummaryContentForm {
     return new ProcessScopeSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -30600,7 +30600,7 @@ export class ProcessSlaEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessSlaEntryContentForm {
     return new ProcessSlaEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30623,7 +30623,7 @@ export class ProcessStepsAndActorInteractions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30676,7 +30676,7 @@ export class ProcessStepsOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessStepsOverviewContentForm {
     return new ProcessStepsOverviewContentForm(this.doc, this.path + "/content");
   }
@@ -30690,7 +30690,7 @@ export class ProcessTechnology extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessTechnologyContentForm {
     return new ProcessTechnologyContentForm(this.doc, this.path + "/content");
   }
@@ -30714,7 +30714,7 @@ export class ProcessTriggerEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProcessTriggerEntryContentForm {
     return new ProcessTriggerEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30732,7 +30732,7 @@ export class ProcessTriggers extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30771,7 +30771,7 @@ export class ProcessVision extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30807,7 +30807,7 @@ export class ProgrammingLanguageEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProgrammingLanguageEntryContentForm {
     return new ProgrammingLanguageEntryContentForm(this.doc, this.path + "/content");
   }
@@ -30850,7 +30850,7 @@ export class ProjectOrganization extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30886,7 +30886,7 @@ export class ProjectOrganizationAndProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30945,7 +30945,7 @@ export class ProjectTeamStaffing extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -30978,7 +30978,7 @@ export class ProtocolComplianceRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProtocolComplianceRequirementsContentForm {
     return new ProtocolComplianceRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -31007,7 +31007,7 @@ export class ProtocolEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProtocolEntryContentForm {
     return new ProtocolEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31027,7 +31027,7 @@ export class ProtocolFeatureEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ProtocolFeatureEntryContentForm {
     return new ProtocolFeatureEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31051,7 +31051,7 @@ export class ProtocolsAndStandardsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31114,7 +31114,7 @@ export class Prototype extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31176,7 +31176,7 @@ export class PrototypeFeatureEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrototypeFeatureEntryContentForm {
     return new PrototypeFeatureEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31196,7 +31196,7 @@ export class PrototypeFeatureSubset extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31240,7 +31240,7 @@ export class PrototypeGoalEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PrototypeGoalEntryContentForm {
     return new PrototypeGoalEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31260,7 +31260,7 @@ export class PrototypeGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31310,7 +31310,7 @@ export class PrototypeType extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31351,7 +31351,7 @@ export class PwaRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): PwaRequirementsContentForm {
     return new PwaRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -31389,7 +31389,7 @@ export class QualityAndAcceptanceModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31426,7 +31426,7 @@ export class QualityCategoryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityCategoryEntryContentForm {
     return new QualityCategoryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31470,7 +31470,7 @@ export class QualityFramework extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31533,7 +31533,7 @@ export class QualityGateAdjustmentDetails extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityGateAdjustmentDetailsContentForm {
     return new QualityGateAdjustmentDetailsContentForm(this.doc, this.path + "/content");
   }
@@ -31551,7 +31551,7 @@ export class QualityGateAdjustmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityGateAdjustmentEntryContentForm {
     return new QualityGateAdjustmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31593,7 +31593,7 @@ export class QualityGateAdjustments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31630,7 +31630,7 @@ export class QualityGateCheckEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityGateCheckEntryContentForm {
     return new QualityGateCheckEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31675,7 +31675,7 @@ export class QualityGateChecklist extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31721,7 +31721,7 @@ export class QualityPrioritization extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31766,7 +31766,7 @@ export class QualityScenarioEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityScenarioEntryContentForm {
     return new QualityScenarioEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31787,7 +31787,7 @@ export class QualityScenarios extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -31810,7 +31810,7 @@ export class QualityStandardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityStandardEntryContentForm {
     return new QualityStandardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31844,7 +31844,7 @@ export class QualityWeightEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): QualityWeightEntryContentForm {
     return new QualityWeightEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31858,7 +31858,7 @@ export class RaciEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RaciEntryContentForm {
     return new RaciEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31872,7 +31872,7 @@ export class RateLimitingPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RateLimitingPolicyContentForm {
     return new RateLimitingPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -31901,7 +31901,7 @@ export class Readability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReadabilityContentForm {
     return new ReadabilityContentForm(this.doc, this.path + "/content");
   }
@@ -31938,7 +31938,7 @@ export class ReadinessCriteriaEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReadinessCriteriaEntryContentForm {
     return new ReadinessCriteriaEntryContentForm(this.doc, this.path + "/content");
   }
@@ -31952,7 +31952,7 @@ export class RecoveryProcedures extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RecoveryProceduresContentForm {
     return new RecoveryProceduresContentForm(this.doc, this.path + "/content");
   }
@@ -31986,7 +31986,7 @@ export class RecoveryScenarioEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RecoveryScenarioEntryContentForm {
     return new RecoveryScenarioEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32006,7 +32006,7 @@ export class RedirectHandlingPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RedirectHandlingPolicyContentForm {
     return new RedirectHandlingPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -32026,7 +32026,7 @@ export class ReferenceDocumentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReferenceDocumentEntryContentForm {
     return new ReferenceDocumentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32073,7 +32073,7 @@ export class ReferenceDocuments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32098,7 +32098,7 @@ export class RegulatoryAuditSupport extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RegulatoryAuditSupportContentForm {
     return new RegulatoryAuditSupportContentForm(this.doc, this.path + "/content");
   }
@@ -32115,7 +32115,7 @@ export class RegulatoryComplianceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RegulatoryComplianceEntryContentForm {
     return new RegulatoryComplianceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32155,7 +32155,7 @@ export class RegulatoryComplianceRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32190,7 +32190,7 @@ export class RegulatoryContext extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32213,7 +32213,7 @@ export class RegulatoryRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RegulatoryRequirementEntryContentForm {
     return new RegulatoryRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32227,7 +32227,7 @@ export class RelatedDocumentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RelatedDocumentEntryContentForm {
     return new RelatedDocumentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32241,7 +32241,7 @@ export class RelationshipAttributeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RelationshipAttributeEntryContentForm {
     return new RelationshipAttributeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32255,7 +32255,7 @@ export class ReleaseStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReleaseStrategyContentForm {
     return new ReleaseStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -32289,7 +32289,7 @@ export class RelevantSectionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RelevantSectionEntryContentForm {
     return new RelevantSectionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32303,7 +32303,7 @@ export class Reliability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReliabilityContentForm {
     return new ReliabilityContentForm(this.doc, this.path + "/content");
   }
@@ -32351,7 +32351,7 @@ export class ReliabilityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32410,7 +32410,7 @@ export class RememberMePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RememberMePolicyContentForm {
     return new RememberMePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -32429,7 +32429,7 @@ export class RemovedRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RemovedRoleEntryContentForm {
     return new RemovedRoleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32465,7 +32465,7 @@ export class ReplacementInventory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32494,7 +32494,7 @@ export class ReplacementPhaseEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReplacementPhaseEntryContentForm {
     return new ReplacementPhaseEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32510,7 +32510,7 @@ export class ReplacementSystemDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReplacementSystemDependencyEntryContentForm {
     return new ReplacementSystemDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32524,7 +32524,7 @@ export class ReportChartAxes extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportChartAxesContentForm {
     return new ReportChartAxesContentForm(this.doc, this.path + "/content");
   }
@@ -32539,7 +32539,7 @@ export class ReportChartEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportChartEntryContentForm {
     return new ReportChartEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32579,7 +32579,7 @@ export class ReportColumnEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportColumnEntryContentForm {
     return new ReportColumnEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32669,7 +32669,7 @@ export class ReportDefinitions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -32692,7 +32692,7 @@ export class ReportDistributionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportDistributionEntryContentForm {
     return new ReportDistributionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32721,7 +32721,7 @@ export class ReportEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportEntryContentForm {
     return new ReportEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32822,7 +32822,7 @@ export class ReportFilterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportFilterEntryContentForm {
     return new ReportFilterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32901,7 +32901,7 @@ export class ReportRecipientEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportRecipientEntryContentForm {
     return new ReportRecipientEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32931,7 +32931,7 @@ export class ReportScheduleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportScheduleEntryContentForm {
     return new ReportScheduleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -32965,7 +32965,7 @@ export class ReportSectionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReportSectionEntryContentForm {
     return new ReportSectionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33016,7 +33016,7 @@ export class RequirementAcceptanceCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33039,7 +33039,7 @@ export class RequirementBusinessRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RequirementBusinessRuleEntryContentForm {
     return new RequirementBusinessRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33059,7 +33059,7 @@ export class RequirementBusinessRules extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33088,7 +33088,7 @@ export class RequirementCoverage extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33112,7 +33112,7 @@ export class RequirementDataRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33141,7 +33141,7 @@ export class RequirementDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33164,7 +33164,7 @@ export class RequirementDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RequirementDependencyEntryContentForm {
     return new RequirementDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33201,7 +33201,7 @@ export class RequirementRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33221,7 +33221,7 @@ export class RequirementScreenActionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RequirementScreenActionEntryContentForm {
     return new RequirementScreenActionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33240,7 +33240,7 @@ export class RequirementTestCaseEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RequirementTestCaseEntryContentForm {
     return new RequirementTestCaseEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33286,7 +33286,7 @@ export class RequirementTestCases extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33315,7 +33315,7 @@ export class RequirementTraceability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33356,7 +33356,7 @@ export class RequirementUiSpecification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33427,7 +33427,7 @@ export class Requirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33469,7 +33469,7 @@ export class RequirementsFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33512,7 +33512,7 @@ export class RequirementsOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33574,7 +33574,7 @@ export class ResourceAllocationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResourceAllocationEntryContentForm {
     return new ResourceAllocationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33588,7 +33588,7 @@ export class ResourceCapacityBaselines extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResourceCapacityBaselinesContentForm {
     return new ResourceCapacityBaselinesContentForm(this.doc, this.path + "/content");
   }
@@ -33622,7 +33622,7 @@ export class ResourceKeyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResourceKeyEntryContentForm {
     return new ResourceKeyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33636,7 +33636,7 @@ export class ResourceKeyReferenceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResourceKeyReferenceEntryContentForm {
     return new ResourceKeyReferenceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33654,7 +33654,7 @@ export class ResourceProtection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33687,7 +33687,7 @@ export class ResourceRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResourceRequirementEntryContentForm {
     return new ResourceRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33701,7 +33701,7 @@ export class ResponsibilityChangeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilityChangeEntryContentForm {
     return new ResponsibilityChangeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33715,7 +33715,7 @@ export class ResponsibilityContacts extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilityContactsContentForm {
     return new ResponsibilityContactsContentForm(this.doc, this.path + "/content");
   }
@@ -33729,7 +33729,7 @@ export class ResponsibilityDetailEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilityDetailEntryContentForm {
     return new ResponsibilityDetailEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33747,7 +33747,7 @@ export class ResponsibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilityEntryContentForm {
     return new ResponsibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33786,7 +33786,7 @@ export class ResponsibilityFunctionDetails extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilityFunctionDetailsContentForm {
     return new ResponsibilityFunctionDetailsContentForm(this.doc, this.path + "/content");
   }
@@ -33800,7 +33800,7 @@ export class ResponsibilityReferenceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilityReferenceEntryContentForm {
     return new ResponsibilityReferenceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33814,7 +33814,7 @@ export class ResponsibilitySystems extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsibilitySystemsContentForm {
     return new ResponsibilitySystemsContentForm(this.doc, this.path + "/content");
   }
@@ -33834,7 +33834,7 @@ export class ResponsiveBehavior extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33895,7 +33895,7 @@ export class ResponsiveDesign extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -33934,7 +33934,7 @@ export class ResponsiveScreenRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResponsiveScreenRuleEntryContentForm {
     return new ResponsiveScreenRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -33962,7 +33962,7 @@ export class ResultEnvelope extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResultEnvelopeContentForm {
     return new ResultEnvelopeContentForm(this.doc, this.path + "/content");
   }
@@ -33988,7 +33988,7 @@ export class ResultFieldDetailEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ResultFieldDetailEntryContentForm {
     return new ResultFieldDetailEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34002,7 +34002,7 @@ export class RetentionPolicyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RetentionPolicyEntryContentForm {
     return new RetentionPolicyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34031,7 +34031,7 @@ export class ReusabilityPrinciples extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReusabilityPrinciplesContentForm {
     return new ReusabilityPrinciplesContentForm(this.doc, this.path + "/content");
   }
@@ -34072,7 +34072,7 @@ export class ReusableComponentsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34139,7 +34139,7 @@ export class ReusablePrototype extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34183,7 +34183,7 @@ export class ReusableUiComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReusableUiComponentEntryContentForm {
     return new ReusableUiComponentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34225,7 +34225,7 @@ export class ReuseGoalEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReuseGoalEntryContentForm {
     return new ReuseGoalEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34257,7 +34257,7 @@ export class ReviewCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReviewCriterionEntryContentForm {
     return new ReviewCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34285,7 +34285,7 @@ export class ReviewTeam extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34308,7 +34308,7 @@ export class ReviewTeamMember extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReviewTeamMemberContentForm {
     return new ReviewTeamMemberContentForm(this.doc, this.path + "/content");
   }
@@ -34322,7 +34322,7 @@ export class ReviewerRecord extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ReviewerRecordContentForm {
     return new ReviewerRecordContentForm(this.doc, this.path + "/content");
   }
@@ -34336,7 +34336,7 @@ export class RevisionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RevisionEntryContentForm {
     return new RevisionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34360,7 +34360,7 @@ export class RiskBusinessImpact extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RiskBusinessImpactContentForm {
     return new RiskBusinessImpactContentForm(this.doc, this.path + "/content");
   }
@@ -34392,7 +34392,7 @@ export class RiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34445,7 +34445,7 @@ export class RiskIdentification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RiskIdentificationContentForm {
     return new RiskIdentificationContentForm(this.doc, this.path + "/content");
   }
@@ -34469,7 +34469,7 @@ export class RiskMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RiskMonitoringContentForm {
     return new RiskMonitoringContentForm(this.doc, this.path + "/content");
   }
@@ -34493,7 +34493,7 @@ export class RiskRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RiskRelationshipsContentForm {
     return new RiskRelationshipsContentForm(this.doc, this.path + "/content");
   }
@@ -34507,7 +34507,7 @@ export class RiskResponse extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RiskResponseContentForm {
     return new RiskResponseContentForm(this.doc, this.path + "/content");
   }
@@ -34547,7 +34547,7 @@ export class RisksAndAssumptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34579,7 +34579,7 @@ export class RoleAdjustmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleAdjustmentEntryContentForm {
     return new RoleAdjustmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34626,7 +34626,7 @@ export class RoleAdjustments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34666,7 +34666,7 @@ export class RoleCertificationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleCertificationPolicyContentForm {
     return new RoleCertificationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -34686,7 +34686,7 @@ export class RoleCombinationConstraintEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleCombinationConstraintEntryContentForm {
     return new RoleCombinationConstraintEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34700,7 +34700,7 @@ export class RoleCompetencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleCompetencyEntryContentForm {
     return new RoleCompetencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34717,7 +34717,7 @@ export class RoleDataScopeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleDataScopeEntryContentForm {
     return new RoleDataScopeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34731,7 +34731,7 @@ export class RoleExclusionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleExclusionEntryContentForm {
     return new RoleExclusionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34753,7 +34753,7 @@ export class RoleHierarchy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34802,7 +34802,7 @@ export class RoleHierarchyPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleHierarchyPolicyContentForm {
     return new RoleHierarchyPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -34819,7 +34819,7 @@ export class RoleHolderEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleHolderEntryContentForm {
     return new RoleHolderEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34836,7 +34836,7 @@ export class RoleInheritanceRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleInheritanceRuleEntryContentForm {
     return new RoleInheritanceRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34857,7 +34857,7 @@ export class RoleMatrix extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34879,7 +34879,7 @@ export class RolePermissionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RolePermissionEntryContentForm {
     return new RolePermissionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34893,7 +34893,7 @@ export class RoleReferenceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RoleReferenceEntryContentForm {
     return new RoleReferenceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -34907,7 +34907,7 @@ export class RollbackStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RollbackStrategyContentForm {
     return new RollbackStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -34954,7 +34954,7 @@ export class RolloutPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -34984,7 +34984,7 @@ export class RolloutTrainingMaterial extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35006,7 +35006,7 @@ export class RowLevelSecurityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RowLevelSecurityPolicyContentForm {
     return new RowLevelSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -35023,7 +35023,7 @@ export class RpoRtoRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RpoRtoRequirementsContentForm {
     return new RpoRtoRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -35054,7 +35054,7 @@ export class RuleExampleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RuleExampleEntryContentForm {
     return new RuleExampleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35075,7 +35075,7 @@ export class RuntimeDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35101,7 +35101,7 @@ export class RuntimeDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RuntimeDependencyEntryContentForm {
     return new RuntimeDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35140,7 +35140,7 @@ export class RuntimeEnvironment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): RuntimeEnvironmentContentForm {
     return new RuntimeEnvironmentContentForm(this.doc, this.path + "/content");
   }
@@ -35194,7 +35194,7 @@ export class ScalabilityArchitecture extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScalabilityArchitectureContentForm {
     return new ScalabilityArchitectureContentForm(this.doc, this.path + "/content");
   }
@@ -35233,7 +35233,7 @@ export class ScalingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScalingRequirementsContentForm {
     return new ScalingRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -35267,7 +35267,7 @@ export class ScalingTriggersAndThresholds extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScalingTriggersAndThresholdsContentForm {
     return new ScalingTriggersAndThresholdsContentForm(this.doc, this.path + "/content");
   }
@@ -35307,7 +35307,7 @@ export class ScenarioEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35360,7 +35360,7 @@ export class ScenarioStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScenarioStepEntryContentForm {
     return new ScenarioStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35436,7 +35436,7 @@ export class ScheduledJobEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScheduledJobEntryContentForm {
     return new ScheduledJobEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35543,7 +35543,7 @@ export class ScheduledJobStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScheduledJobStepEntryContentForm {
     return new ScheduledJobStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35557,7 +35557,7 @@ export class ScheduledMaintenancePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScheduledMaintenancePolicyContentForm {
     return new ScheduledMaintenancePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -35596,7 +35596,7 @@ export class SchemaMigrationStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SchemaMigrationStepEntryContentForm {
     return new SchemaMigrationStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35645,7 +35645,7 @@ export class SchemaVersioningAndMigration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SchemaVersioningAndMigrationContentForm {
     return new SchemaVersioningAndMigrationContentForm(this.doc, this.path + "/content");
   }
@@ -35677,7 +35677,7 @@ export class ScopeBoundaries extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35715,7 +35715,7 @@ export class ScopeItemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScopeItemEntryContentForm {
     return new ScopeItemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35731,7 +35731,7 @@ export class ScreenActionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenActionEntryContentForm {
     return new ScreenActionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35766,7 +35766,7 @@ export class ScreenActions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35792,7 +35792,7 @@ export class ScreenBehaviorEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenBehaviorEntryContentForm {
     return new ScreenBehaviorEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35810,7 +35810,7 @@ export class ScreenDescriptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -35840,7 +35840,7 @@ export class ScreenElementAction extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenElementActionContentForm {
     return new ScreenElementActionContentForm(this.doc, this.path + "/content");
   }
@@ -35866,7 +35866,7 @@ export class ScreenElementDataDisplay extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenElementDataDisplayContentForm {
     return new ScreenElementDataDisplayContentForm(this.doc, this.path + "/content");
   }
@@ -35893,7 +35893,7 @@ export class ScreenElementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenElementEntryContentForm {
     return new ScreenElementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -35968,7 +35968,7 @@ export class ScreenElementFieldSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenElementFieldSpecContentForm {
     return new ScreenElementFieldSpecContentForm(this.doc, this.path + "/content");
   }
@@ -36039,7 +36039,7 @@ export class ScreenEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenEntryContentForm {
     return new ScreenEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36113,7 +36113,7 @@ export class ScreenFieldEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenFieldEntryContentForm {
     return new ScreenFieldEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36191,7 +36191,7 @@ export class ScreenFlowStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36229,7 +36229,7 @@ export class ScreenInventory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36257,7 +36257,7 @@ export class ScreenResponsiveRuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenResponsiveRuleEntryContentForm {
     return new ScreenResponsiveRuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36271,7 +36271,7 @@ export class ScreenRouteEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenRouteEntryContentForm {
     return new ScreenRouteEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36299,7 +36299,7 @@ export class ScreenRouteMap extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36337,7 +36337,7 @@ export class ScreenSectionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenSectionEntryContentForm {
     return new ScreenSectionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36372,7 +36372,7 @@ export class ScreenSections extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36398,7 +36398,7 @@ export class ScreenStateEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenStateEntryContentForm {
     return new ScreenStateEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36418,7 +36418,7 @@ export class ScreenStates extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36441,7 +36441,7 @@ export class ScreenTransitionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenTransitionEntryContentForm {
     return new ScreenTransitionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36455,7 +36455,7 @@ export class ScreenUserCategoryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ScreenUserCategoryEntryContentForm {
     return new ScreenUserCategoryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36475,7 +36475,7 @@ export class SecondaryNavigation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36501,7 +36501,7 @@ export class Security extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityContentForm {
     return new SecurityContentForm(this.doc, this.path + "/content");
   }
@@ -36542,7 +36542,7 @@ export class SecurityAndAccessModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36580,7 +36580,7 @@ export class SecurityAuditEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityAuditEntryContentForm {
     return new SecurityAuditEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36617,7 +36617,7 @@ export class SecurityAuditRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36674,7 +36674,7 @@ export class SecurityCertificationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityCertificationRequirementsContentForm {
     return new SecurityCertificationRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -36716,7 +36716,7 @@ export class SecurityCharacteristic extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36766,7 +36766,7 @@ export class SecurityCodeReviewPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityCodeReviewPolicyContentForm {
     return new SecurityCodeReviewPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -36805,7 +36805,7 @@ export class SecurityComplianceFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36828,7 +36828,7 @@ export class SecurityControlEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityControlEntryContentForm {
     return new SecurityControlEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36858,7 +36858,7 @@ export class SecurityControls extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -36881,7 +36881,7 @@ export class SecurityDevelopmentLifecycle extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityDevelopmentLifecycleContentForm {
     return new SecurityDevelopmentLifecycleContentForm(this.doc, this.path + "/content");
   }
@@ -36913,7 +36913,7 @@ export class SecurityEventEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityEventEntryContentForm {
     return new SecurityEventEntryContentForm(this.doc, this.path + "/content");
   }
@@ -36930,7 +36930,7 @@ export class SecurityEventLoggingPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityEventLoggingPolicyContentForm {
     return new SecurityEventLoggingPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -36955,7 +36955,7 @@ export class SecurityEventsDefinition extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37028,7 +37028,7 @@ export class SecurityOperationsFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37059,7 +37059,7 @@ export class SecurityRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityRequirementEntryContentForm {
     return new SecurityRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37122,7 +37122,7 @@ export class SecurityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37150,7 +37150,7 @@ export class SecurityStandardComplianceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityStandardComplianceEntryContentForm {
     return new SecurityStandardComplianceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37184,7 +37184,7 @@ export class SecurityStandardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityStandardEntryContentForm {
     return new SecurityStandardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37216,7 +37216,7 @@ export class SecurityTestingAutomation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SecurityTestingAutomationContentForm {
     return new SecurityTestingAutomationContentForm(this.doc, this.path + "/content");
   }
@@ -37258,7 +37258,7 @@ export class SelfRegistrationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SelfRegistrationPolicyContentForm {
     return new SelfRegistrationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -37303,7 +37303,7 @@ export class SelfServiceAccountManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SelfServiceAccountManagementContentForm {
     return new SelfServiceAccountManagementContentForm(this.doc, this.path + "/content");
   }
@@ -37324,7 +37324,7 @@ export class SensitiveDataEncryption extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37386,7 +37386,7 @@ export class ServerCallStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerCallStepEntryContentForm {
     return new ServerCallStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37412,7 +37412,7 @@ export class ServerConfigurationSettingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerConfigurationSettingEntryContentForm {
     return new ServerConfigurationSettingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37426,7 +37426,7 @@ export class ServerEnvironmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerEnvironmentEntryContentForm {
     return new ServerEnvironmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37471,7 +37471,7 @@ export class ServerOperationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerOperationEntryContentForm {
     return new ServerOperationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37531,7 +37531,7 @@ export class ServerOperationMemberEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerOperationMemberEntryContentForm {
     return new ServerOperationMemberEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37580,7 +37580,7 @@ export class ServerOperationRegistry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37610,7 +37610,7 @@ export class ServerOsRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerOsRequirementsContentForm {
     return new ServerOsRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -37651,7 +37651,7 @@ export class ServerRequirementsSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -37727,7 +37727,7 @@ export class ServerRoleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerRoleEntryContentForm {
     return new ServerRoleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37761,7 +37761,7 @@ export class ServerStorageRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServerStorageRequirementsContentForm {
     return new ServerStorageRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -37798,7 +37798,7 @@ export class ServiceAccountCredentialPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServiceAccountCredentialPolicyContentForm {
     return new ServiceAccountCredentialPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -37818,7 +37818,7 @@ export class ServiceAccountLifecycle extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServiceAccountLifecycleContentForm {
     return new ServiceAccountLifecycleContentForm(this.doc, this.path + "/content");
   }
@@ -37835,7 +37835,7 @@ export class ServiceLevel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServiceLevelContentForm {
     return new ServiceLevelContentForm(this.doc, this.path + "/content");
   }
@@ -37882,7 +37882,7 @@ export class ServiceLevelAgreementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServiceLevelAgreementEntryContentForm {
     return new ServiceLevelAgreementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -37896,7 +37896,7 @@ export class ServiceLevelIndicators extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServiceLevelIndicatorsContentForm {
     return new ServiceLevelIndicatorsContentForm(this.doc, this.path + "/content");
   }
@@ -37925,7 +37925,7 @@ export class ServiceMeshAndGateway extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ServiceMeshAndGatewayContentForm {
     return new ServiceMeshAndGatewayContentForm(this.doc, this.path + "/content");
   }
@@ -37952,7 +37952,7 @@ export class SessionCreationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SessionCreationPolicyContentForm {
     return new SessionCreationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -37973,7 +37973,7 @@ export class SessionLifecycleMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SessionLifecycleMonitoringContentForm {
     return new SessionLifecycleMonitoringContentForm(this.doc, this.path + "/content");
   }
@@ -38000,7 +38000,7 @@ export class SessionManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38058,7 +38058,7 @@ export class SessionModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38095,7 +38095,7 @@ export class SessionRevocationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SessionRevocationPolicyContentForm {
     return new SessionRevocationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -38116,7 +38116,7 @@ export class SessionSecurityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SessionSecurityPolicyContentForm {
     return new SessionSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -38138,7 +38138,7 @@ export class SessionTimeoutPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SessionTimeoutPolicyContentForm {
     return new SessionTimeoutPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -38161,7 +38161,7 @@ export class SharedInfrastructureDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38186,7 +38186,7 @@ export class SharedInfrastructureEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SharedInfrastructureEntryContentForm {
     return new SharedInfrastructureEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38215,7 +38215,7 @@ export class SharedLibraryComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SharedLibraryComponentEntryContentForm {
     return new SharedLibraryComponentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38249,7 +38249,7 @@ export class SharedLibraryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SharedLibraryEntryContentForm {
     return new SharedLibraryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38282,7 +38282,7 @@ export class SignOffProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SignOffProcessContentForm {
     return new SignOffProcessContentForm(this.doc, this.path + "/content");
   }
@@ -38327,7 +38327,7 @@ export class SingleSignOnPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SingleSignOnPolicyContentForm {
     return new SingleSignOnPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -38370,7 +38370,7 @@ export class SlaAndSloMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38422,7 +38422,7 @@ export class SlaMonitoringRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SlaMonitoringRequirementsContentForm {
     return new SlaMonitoringRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -38456,7 +38456,7 @@ export class SloEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SloEntryContentForm {
     return new SloEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38484,7 +38484,7 @@ export class SoftwareDeliverables extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38511,7 +38511,7 @@ export class SoftwareDesignRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38549,7 +38549,7 @@ export class SoftwareLayerEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SoftwareLayerEntryContentForm {
     return new SoftwareLayerEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38587,7 +38587,7 @@ export class SolutionArchitectureAndTechnology extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38629,7 +38629,7 @@ export class SolutionArchitectureFollowUp extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38652,7 +38652,7 @@ export class SpecializedEquipmentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SpecializedEquipmentEntryContentForm {
     return new SpecializedEquipmentEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38679,7 +38679,7 @@ export class SsoPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SsoPolicyContentForm {
     return new SsoPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -38696,7 +38696,7 @@ export class StaffingBudget extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StaffingBudgetContentForm {
     return new StaffingBudgetContentForm(this.doc, this.path + "/content");
   }
@@ -38723,7 +38723,7 @@ export class StaffingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StaffingEntryContentForm {
     return new StaffingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38761,7 +38761,7 @@ export class StaffingPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -38799,7 +38799,7 @@ export class StageDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageDependenciesContentForm {
     return new StageDependenciesContentForm(this.doc, this.path + "/content");
   }
@@ -38819,7 +38819,7 @@ export class StageEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageEntryContentForm {
     return new StageEntryContentForm(this.doc, this.path + "/content");
   }
@@ -38909,7 +38909,7 @@ export class StageGovernance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageGovernanceContentForm {
     return new StageGovernanceContentForm(this.doc, this.path + "/content");
   }
@@ -38971,7 +38971,7 @@ export class StageMigrationResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageMigrationResourcesContentForm {
     return new StageMigrationResourcesContentForm(this.doc, this.path + "/content");
   }
@@ -38990,7 +38990,7 @@ export class StageMigrationRiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageMigrationRiskEntryContentForm {
     return new StageMigrationRiskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39048,7 +39048,7 @@ export class StageMigrationRisks extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageMigrationRisksContentForm {
     return new StageMigrationRisksContentForm(this.doc, this.path + "/content");
   }
@@ -39077,7 +39077,7 @@ export class StageOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageOverviewContentForm {
     return new StageOverviewContentForm(this.doc, this.path + "/content");
   }
@@ -39169,7 +39169,7 @@ export class StageResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageResourcesContentForm {
     return new StageResourcesContentForm(this.doc, this.path + "/content");
   }
@@ -39183,7 +39183,7 @@ export class StageStakeholders extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageStakeholdersContentForm {
     return new StageStakeholdersContentForm(this.doc, this.path + "/content");
   }
@@ -39201,7 +39201,7 @@ export class StageSuccessCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageSuccessCriterionEntryContentForm {
     return new StageSuccessCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39230,7 +39230,7 @@ export class StageSummaryDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageSummaryDependenciesContentForm {
     return new StageSummaryDependenciesContentForm(this.doc, this.path + "/content");
   }
@@ -39251,7 +39251,7 @@ export class StageSummaryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageSummaryEntryContentForm {
     return new StageSummaryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39300,7 +39300,7 @@ export class StageSummaryResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StageSummaryResourcesContentForm {
     return new StageSummaryResourcesContentForm(this.doc, this.path + "/content");
   }
@@ -39314,7 +39314,7 @@ export class StagingDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StagingDependenciesContentForm {
     return new StagingDependenciesContentForm(this.doc, this.path + "/content");
   }
@@ -39328,7 +39328,7 @@ export class StagingDrivers extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StagingDriversContentForm {
     return new StagingDriversContentForm(this.doc, this.path + "/content");
   }
@@ -39349,7 +39349,7 @@ export class StagingStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StagingStrategyContentForm {
     return new StagingStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -39443,7 +39443,7 @@ export class StakeholderEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StakeholderEntryContentForm {
     return new StakeholderEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39460,7 +39460,7 @@ export class StakeholderRegisterEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StakeholderRegisterEntryContentForm {
     return new StakeholderRegisterEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39484,7 +39484,7 @@ export class StakeholdersAndBeneficiaries extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39516,7 +39516,7 @@ export class StakeholdersAndGovernance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39589,7 +39589,7 @@ export class StakeholdersAndInterests extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StakeholdersAndInterestsContentForm {
     return new StakeholdersAndInterestsContentForm(this.doc, this.path + "/content");
   }
@@ -39607,7 +39607,7 @@ export class StandardSoftwareRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39642,7 +39642,7 @@ export class StandardsComplianceSection extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39724,7 +39724,7 @@ export class SteeringCommittee extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39755,7 +39755,7 @@ export class StepUpAuthenticationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StepUpAuthenticationPolicyContentForm {
     return new StepUpAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -39778,7 +39778,7 @@ export class StorageEncryptionPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StorageEncryptionPolicyContentForm {
     return new StorageEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -39799,7 +39799,7 @@ export class StorageLifecyclePolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): StorageLifecyclePolicyContentForm {
     return new StorageLifecyclePolicyContentForm(this.doc, this.path + "/content");
   }
@@ -39823,7 +39823,7 @@ export class StrategicAlignment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39848,7 +39848,7 @@ export class SubFunctionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SubFunctionEntryContentForm {
     return new SubFunctionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39866,7 +39866,7 @@ export class SubStageEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SubStageEntryContentForm {
     return new SubStageEntryContentForm(this.doc, this.path + "/content");
   }
@@ -39914,7 +39914,7 @@ export class SuccessCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -39970,7 +39970,7 @@ export class SuccessCriteriaByCategory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40036,7 +40036,7 @@ export class SuccessCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SuccessCriterionEntryContentForm {
     return new SuccessCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40080,7 +40080,7 @@ export class SuccessCriterionRelationships extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SuccessCriterionRelationshipsContentForm {
     return new SuccessCriterionRelationshipsContentForm(this.doc, this.path + "/content");
   }
@@ -40098,7 +40098,7 @@ export class SupportAccess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40156,7 +40156,7 @@ export class SupportDeliverables extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40179,7 +40179,7 @@ export class SupportedLocaleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SupportedLocaleEntryContentForm {
     return new SupportedLocaleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40213,7 +40213,7 @@ export class SystemArchitectureSpec extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40245,7 +40245,7 @@ export class SystemBoundaries extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40316,7 +40316,7 @@ export class SystemBusinessCriticality extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemBusinessCriticalityContentForm {
     return new SystemBusinessCriticalityContentForm(this.doc, this.path + "/content");
   }
@@ -40350,7 +40350,7 @@ export class SystemBusinessProcessEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemBusinessProcessEntryContentForm {
     return new SystemBusinessProcessEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40364,7 +40364,7 @@ export class SystemBusinessUnitEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemBusinessUnitEntryContentForm {
     return new SystemBusinessUnitEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40378,7 +40378,7 @@ export class SystemConfigurationManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemConfigurationManagementContentForm {
     return new SystemConfigurationManagementContentForm(this.doc, this.path + "/content");
   }
@@ -40420,7 +40420,7 @@ export class SystemContext extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40478,7 +40478,7 @@ export class SystemCostAnalysis extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemCostAnalysisContentForm {
     return new SystemCostAnalysisContentForm(this.doc, this.path + "/content");
   }
@@ -40515,7 +40515,7 @@ export class SystemDataScope extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemDataScopeContentForm {
     return new SystemDataScopeContentForm(this.doc, this.path + "/content");
   }
@@ -40553,7 +40553,7 @@ export class SystemDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemDependencyEntryContentForm {
     return new SystemDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40618,7 +40618,7 @@ export class SystemDescription extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40666,7 +40666,7 @@ export class SystemDiagnosticTools extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemDiagnosticToolsContentForm {
     return new SystemDiagnosticToolsContentForm(this.doc, this.path + "/content");
   }
@@ -40695,7 +40695,7 @@ export class SystemErrorCodeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemErrorCodeEntryContentForm {
     return new SystemErrorCodeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40726,7 +40726,7 @@ export class SystemErrorDisplay extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40789,7 +40789,7 @@ export class SystemIntegrationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemIntegrationEntryContentForm {
     return new SystemIntegrationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40860,7 +40860,7 @@ export class SystemInventory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40883,7 +40883,7 @@ export class SystemKnowledgeTransfer extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemKnowledgeTransferContentForm {
     return new SystemKnowledgeTransferContentForm(this.doc, this.path + "/content");
   }
@@ -40911,7 +40911,7 @@ export class SystemLandscapeInventory extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -40929,7 +40929,7 @@ export class SystemMigrationPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemMigrationPlanContentForm {
     return new SystemMigrationPlanContentForm(this.doc, this.path + "/content");
   }
@@ -40964,7 +40964,7 @@ export class SystemMigrationRiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemMigrationRiskEntryContentForm {
     return new SystemMigrationRiskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -40982,7 +40982,7 @@ export class SystemOperation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41014,7 +41014,7 @@ export class SystemOperationAndMonitoring extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41055,7 +41055,7 @@ export class SystemPurpose extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41122,7 +41122,7 @@ export class SystemQualityGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41256,7 +41256,7 @@ export class SystemReplacementStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemReplacementStrategyContentForm {
     return new SystemReplacementStrategyContentForm(this.doc, this.path + "/content");
   }
@@ -41297,7 +41297,7 @@ export class SystemRollout extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41372,7 +41372,7 @@ export class SystemStagePlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemStagePlanContentForm {
     return new SystemStagePlanContentForm(this.doc, this.path + "/content");
   }
@@ -41441,7 +41441,7 @@ export class SystemSummary extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemSummaryContentForm {
     return new SystemSummaryContentForm(this.doc, this.path + "/content");
   }
@@ -41478,7 +41478,7 @@ export class SystemTaskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemTaskEntryContentForm {
     return new SystemTaskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41535,7 +41535,7 @@ export class SystemTechnicalAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemTechnicalAssessmentContentForm {
     return new SystemTechnicalAssessmentContentForm(this.doc, this.path + "/content");
   }
@@ -41583,7 +41583,7 @@ export class SystemToReplaceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41671,7 +41671,7 @@ export class SystemTrainingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemTrainingEntryContentForm {
     return new SystemTrainingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41700,7 +41700,7 @@ export class SystemUserImpact extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): SystemUserImpactContentForm {
     return new SystemUserImpactContentForm(this.doc, this.path + "/content");
   }
@@ -41743,7 +41743,7 @@ export class SystemsToReplace extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41776,7 +41776,7 @@ export class TabBarDefinitionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TabBarDefinitionEntryContentForm {
     return new TabBarDefinitionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41805,7 +41805,7 @@ export class TabItemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TabItemEntryContentForm {
     return new TabItemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41835,7 +41835,7 @@ export class TargetOperatingModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -41863,7 +41863,7 @@ export class TargetPlatformEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TargetPlatformEntryContentForm {
     return new TargetPlatformEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41900,7 +41900,7 @@ export class TeamMemberEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TeamMemberEntryContentForm {
     return new TeamMemberEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41944,7 +41944,7 @@ export class TeamMemberResponsibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TeamMemberResponsibilityEntryContentForm {
     return new TeamMemberResponsibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41958,7 +41958,7 @@ export class TeamMemberSkillEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TeamMemberSkillEntryContentForm {
     return new TeamMemberSkillEntryContentForm(this.doc, this.path + "/content");
   }
@@ -41972,7 +41972,7 @@ export class TeamMemberSkills extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TeamMemberSkillsContentForm {
     return new TeamMemberSkillsContentForm(this.doc, this.path + "/content");
   }
@@ -41991,7 +41991,7 @@ export class TeamStructureOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TeamStructureOverviewContentForm {
     return new TeamStructureOverviewContentForm(this.doc, this.path + "/content");
   }
@@ -42008,7 +42008,7 @@ export class TechnicalCharacteristicEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalCharacteristicEntryContentForm {
     return new TechnicalCharacteristicEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42022,7 +42022,7 @@ export class TechnicalConstraintEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalConstraintEntryContentForm {
     return new TechnicalConstraintEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42036,7 +42036,7 @@ export class TechnicalDependencyEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalDependencyEntryContentForm {
     return new TechnicalDependencyEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42060,7 +42060,7 @@ export class TechnicalEnvironment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42143,7 +42143,7 @@ export class TechnicalEnvironmentNetwork extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalEnvironmentNetworkContentForm {
     return new TechnicalEnvironmentNetworkContentForm(this.doc, this.path + "/content");
   }
@@ -42174,7 +42174,7 @@ export class TechnicalFrameworkConcept extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42243,7 +42243,7 @@ export class TechnicalGoalConstraints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42272,7 +42272,7 @@ export class TechnicalGoalDependencies extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42298,7 +42298,7 @@ export class TechnicalGoalEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalGoalEntryContentForm {
     return new TechnicalGoalEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42342,7 +42342,7 @@ export class TechnicalGoalTestCaseEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalGoalTestCaseEntryContentForm {
     return new TechnicalGoalTestCaseEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42362,7 +42362,7 @@ export class TechnicalGoalTestCriteria extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42398,7 +42398,7 @@ export class TechnicalGoals extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42425,7 +42425,7 @@ export class TechnicalInfrastructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42471,7 +42471,7 @@ export class TechnicalPainPoints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42502,7 +42502,7 @@ export class TechnicalRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnicalRequirementEntryContentForm {
     return new TechnicalRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42565,7 +42565,7 @@ export class TechnicalRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42597,7 +42597,7 @@ export class TechnicalSecurityRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42635,7 +42635,7 @@ export class TechnologyDataVariations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnologyDataVariationsContentForm {
     return new TechnologyDataVariationsContentForm(this.doc, this.path + "/content");
   }
@@ -42652,7 +42652,7 @@ export class TechnologyStandardEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TechnologyStandardEntryContentForm {
     return new TechnologyStandardEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42691,7 +42691,7 @@ export class TenantBoundaryEnforcementPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TenantBoundaryEnforcementPolicyContentForm {
     return new TenantBoundaryEnforcementPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -42714,7 +42714,7 @@ export class TenantContextPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TenantContextPolicyContentForm {
     return new TenantContextPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -42735,7 +42735,7 @@ export class TenantCustomizationEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TenantCustomizationEntryContentForm {
     return new TenantCustomizationEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42752,7 +42752,7 @@ export class TenantDataIsolationPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TenantDataIsolationPolicyContentForm {
     return new TenantDataIsolationPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -42781,7 +42781,7 @@ export class TenantIsolation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42832,7 +42832,7 @@ export class TenantOnboardingPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TenantOnboardingPolicyContentForm {
     return new TenantOnboardingPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -42849,7 +42849,7 @@ export class TestLevelEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TestLevelEntryContentForm {
     return new TestLevelEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42868,7 +42868,7 @@ export class TestScenarioEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TestScenarioEntryContentForm {
     return new TestScenarioEntryContentForm(this.doc, this.path + "/content");
   }
@@ -42922,7 +42922,7 @@ export class TestScenarioNotes extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TestScenarioNotesContentForm {
     return new TestScenarioNotesContentForm(this.doc, this.path + "/content");
   }
@@ -42942,7 +42942,7 @@ export class TestStrategy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -42965,7 +42965,7 @@ export class TestingStandards extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TestingStandardsContentForm {
     return new TestingStandardsContentForm(this.doc, this.path + "/content");
   }
@@ -42999,7 +42999,7 @@ export class ThirdPartyApiIntegrations extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ThirdPartyApiIntegrationsContentForm {
     return new ThirdPartyApiIntegrationsContentForm(this.doc, this.path + "/content");
   }
@@ -43043,7 +43043,7 @@ export class ThirdPartyCompatibilityEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ThirdPartyCompatibilityEntryContentForm {
     return new ThirdPartyCompatibilityEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43077,7 +43077,7 @@ export class ThirdPartyLibraryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ThirdPartyLibraryEntryContentForm {
     return new ThirdPartyLibraryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43122,7 +43122,7 @@ export class ThrowawayPrototype extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43170,7 +43170,7 @@ export class TlsProtocolPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TlsProtocolPolicyContentForm {
     return new TlsProtocolPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -43187,7 +43187,7 @@ export class TlsRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TlsRequirementsContentForm {
     return new TlsRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -43224,7 +43224,7 @@ export class TokenManagementPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TokenManagementPolicyContentForm {
     return new TokenManagementPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -43247,7 +43247,7 @@ export class ToolEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ToolEntryContentForm {
     return new ToolEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43339,7 +43339,7 @@ export class Tooling extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ToolingContentForm {
     return new ToolingContentForm(this.doc, this.path + "/content");
   }
@@ -43380,7 +43380,7 @@ export class ToolingAndEnvironments extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43408,7 +43408,7 @@ export class TourStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TourStepEntryContentForm {
     return new TourStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43422,7 +43422,7 @@ export class TradeOffDecisionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TradeOffDecisionEntryContentForm {
     return new TradeOffDecisionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43470,7 +43470,7 @@ export class TradeOffDecisions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43509,7 +43509,7 @@ export class TrainingAssessment extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TrainingAssessmentContentForm {
     return new TrainingAssessmentContentForm(this.doc, this.path + "/content");
   }
@@ -43550,7 +43550,7 @@ export class TrainingDeliverableRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43588,7 +43588,7 @@ export class TrainingDeliverables extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43633,7 +43633,7 @@ export class TrainingMaterials extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TrainingMaterialsContentForm {
     return new TrainingMaterialsContentForm(this.doc, this.path + "/content");
   }
@@ -43662,7 +43662,7 @@ export class TrainingModuleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TrainingModuleEntryContentForm {
     return new TrainingModuleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43682,7 +43682,7 @@ export class TrainingPrototype extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43728,7 +43728,7 @@ export class TrainingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43781,7 +43781,7 @@ export class TrainingTopicEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TrainingTopicEntryContentForm {
     return new TrainingTopicEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43795,7 +43795,7 @@ export class TransitionCommunicationChannels extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionCommunicationChannelsContentForm {
     return new TransitionCommunicationChannelsContentForm(this.doc, this.path + "/content");
   }
@@ -43813,7 +43813,7 @@ export class TransitionCommunicationPlan extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43846,7 +43846,7 @@ export class TransitionEscalationPaths extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionEscalationPathsContentForm {
     return new TransitionEscalationPathsContentForm(this.doc, this.path + "/content");
   }
@@ -43860,7 +43860,7 @@ export class TransitionMetricEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionMetricEntryContentForm {
     return new TransitionMetricEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43884,7 +43884,7 @@ export class TransitionMilestoneEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionMilestoneEntryContentForm {
     return new TransitionMilestoneEntryContentForm(this.doc, this.path + "/content");
   }
@@ -43913,7 +43913,7 @@ export class TransitionOverview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionOverviewContentForm {
     return new TransitionOverviewContentForm(this.doc, this.path + "/content");
   }
@@ -43937,7 +43937,7 @@ export class TransitionPhaseActivities extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionPhaseActivitiesContentForm {
     return new TransitionPhaseActivitiesContentForm(this.doc, this.path + "/content");
   }
@@ -43957,7 +43957,7 @@ export class TransitionPhaseEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -43995,7 +43995,7 @@ export class TransitionPhaseIdentification extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionPhaseIdentificationContentForm {
     return new TransitionPhaseIdentificationContentForm(this.doc, this.path + "/content");
   }
@@ -44019,7 +44019,7 @@ export class TransitionPhaseStakeholders extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionPhaseStakeholdersContentForm {
     return new TransitionPhaseStakeholdersContentForm(this.doc, this.path + "/content");
   }
@@ -44033,7 +44033,7 @@ export class TransitionRiskEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionRiskEntryContentForm {
     return new TransitionRiskEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44061,7 +44061,7 @@ export class TransitionSuccessMetrics extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44089,7 +44089,7 @@ export class TransitionSupportResourceEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransitionSupportResourceEntryContentForm {
     return new TransitionSupportResourceEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44107,7 +44107,7 @@ export class TransitionSupportStructure extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44146,7 +44146,7 @@ export class TranslationProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44206,7 +44206,7 @@ export class TranslationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44255,7 +44255,7 @@ export class TranslationVendorEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TranslationVendorEntryContentForm {
     return new TranslationVendorEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44273,7 +44273,7 @@ export class TransportSecurityPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TransportSecurityPolicyContentForm {
     return new TransportSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -44290,7 +44290,7 @@ export class TroubleshootingCapabilities extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TroubleshootingCapabilitiesContentForm {
     return new TroubleshootingCapabilitiesContentForm(this.doc, this.path + "/content");
   }
@@ -44326,7 +44326,7 @@ export class TrustBoundaries extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44349,7 +44349,7 @@ export class TrustBoundaryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TrustBoundaryEntryContentForm {
     return new TrustBoundaryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44363,7 +44363,7 @@ export class TypographyStyleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): TypographyStyleEntryContentForm {
     return new TypographyStyleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44377,7 +44377,7 @@ export class UIRequirementsPreview extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UIRequirementsPreviewContentForm {
     return new UIRequirementsPreviewContentForm(this.doc, this.path + "/content");
   }
@@ -44398,7 +44398,7 @@ export class UatTestCycleEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UatTestCycleEntryContentForm {
     return new UatTestCycleEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44426,7 +44426,7 @@ export class UatTestStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UatTestStepEntryContentForm {
     return new UatTestStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -44448,7 +44448,7 @@ export class UiComponentEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44609,7 +44609,7 @@ export class UiComponents extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44673,7 +44673,7 @@ export class UpgradeCycleFramework extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44691,7 +44691,7 @@ export class Usability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UsabilityContentForm {
     return new UsabilityContentForm(this.doc, this.path + "/content");
   }
@@ -44733,7 +44733,7 @@ export class UseCaseExtensions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UseCaseExtensionsContentForm {
     return new UseCaseExtensionsContentForm(this.doc, this.path + "/content");
   }
@@ -44758,7 +44758,7 @@ export class UseCaseTraceability extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44781,7 +44781,7 @@ export class UserAcceptanceTesting extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserAcceptanceTestingContentForm {
     return new UserAcceptanceTestingContentForm(this.doc, this.path + "/content");
   }
@@ -44869,7 +44869,7 @@ export class UserAccessPermissions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44913,7 +44913,7 @@ export class UserAccessibilityNeeds extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -44939,7 +44939,7 @@ export class UserAccountStatesDefinition extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserAccountStatesDefinitionContentForm {
     return new UserAccountStatesDefinitionContentForm(this.doc, this.path + "/content");
   }
@@ -44963,7 +44963,7 @@ export class UserAssistance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45020,7 +45020,7 @@ export class UserAttributeEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserAttributeEntryContentForm {
     return new UserAttributeEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45043,7 +45043,7 @@ export class UserAttributes extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45073,7 +45073,7 @@ export class UserAuthorization extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45135,7 +45135,7 @@ export class UserCategoryDefinition extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserCategoryDefinitionContentForm {
     return new UserCategoryDefinitionContentForm(this.doc, this.path + "/content");
   }
@@ -45152,7 +45152,7 @@ export class UserCategoryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserCategoryEntryContentForm {
     return new UserCategoryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45222,7 +45222,7 @@ export class UserDocumentationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45261,7 +45261,7 @@ export class UserGroupImpactEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserGroupImpactEntryContentForm {
     return new UserGroupImpactEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45275,7 +45275,7 @@ export class UserGrowthProjections extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserGrowthProjectionsContentForm {
     return new UserGrowthProjectionsContentForm(this.doc, this.path + "/content");
   }
@@ -45313,7 +45313,7 @@ export class UserInteractionModel extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45384,7 +45384,7 @@ export class UserJourney extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45443,7 +45443,7 @@ export class UserLifecycle extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45512,7 +45512,7 @@ export class UserLifecycleTransitionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserLifecycleTransitionEntryContentForm {
     return new UserLifecycleTransitionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45544,7 +45544,7 @@ export class UserLifecycleTransitions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserLifecycleTransitionsContentForm {
     return new UserLifecycleTransitionsContentForm(this.doc, this.path + "/content");
   }
@@ -45573,7 +45573,7 @@ export class UserManagement extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45618,7 +45618,7 @@ export class UserManual extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45655,7 +45655,7 @@ export class UserPersonaDetails extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45714,7 +45714,7 @@ export class UserPersonas extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45740,7 +45740,7 @@ export class UserProvisioningTools extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserProvisioningToolsContentForm {
     return new UserProvisioningToolsContentForm(this.doc, this.path + "/content");
   }
@@ -45773,7 +45773,7 @@ export class UserRegistrationProcess extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserRegistrationProcessContentForm {
     return new UserRegistrationProcessContentForm(this.doc, this.path + "/content");
   }
@@ -45797,7 +45797,7 @@ export class UserSettingEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UserSettingEntryContentForm {
     return new UserSettingEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45826,7 +45826,7 @@ export class UserSettings extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45855,7 +45855,7 @@ export class UserTrainingRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45885,7 +45885,7 @@ export class UtilityMenuItemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UtilityMenuItemEntryContentForm {
     return new UtilityMenuItemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45922,7 +45922,7 @@ export class UtilityNavigation extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -45948,7 +45948,7 @@ export class UtilityNavigationItemEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): UtilityNavigationItemEntryContentForm {
     return new UtilityNavigationItemEntryContentForm(this.doc, this.path + "/content");
   }
@@ -45992,7 +45992,7 @@ export class ValidationConstraints extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46016,7 +46016,7 @@ export class ValidationFeedback extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46075,7 +46075,7 @@ export class ValidationMessageTemplate extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): ValidationMessageTemplateContentForm {
     return new ValidationMessageTemplateContentForm(this.doc, this.path + "/content");
   }
@@ -46096,7 +46096,7 @@ export class ValueProposition extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46134,7 +46134,7 @@ export class VersionControlConfiguration extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): VersionControlConfigurationContentForm {
     return new VersionControlConfigurationContentForm(this.doc, this.path + "/content");
   }
@@ -46168,7 +46168,7 @@ export class VirtualizationRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): VirtualizationRequirementsContentForm {
     return new VirtualizationRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -46202,7 +46202,7 @@ export class VolumeMetricEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): VolumeMetricEntryContentForm {
     return new VolumeMetricEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46216,7 +46216,7 @@ export class VpnRequirementEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): VpnRequirementEntryContentForm {
     return new VpnRequirementEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46250,7 +46250,7 @@ export class VulnerabilityManagementPolicy extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): VulnerabilityManagementPolicyContentForm {
     return new VulnerabilityManagementPolicyContentForm(this.doc, this.path + "/content");
   }
@@ -46286,7 +46286,7 @@ export class WarrantyAndSupport extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46304,7 +46304,7 @@ export class WarrantyServiceLevels extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WarrantyServiceLevelsContentForm {
     return new WarrantyServiceLevelsContentForm(this.doc, this.path + "/content");
   }
@@ -46321,7 +46321,7 @@ export class WarrantyTerms extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WarrantyTermsContentForm {
     return new WarrantyTermsContentForm(this.doc, this.path + "/content");
   }
@@ -46372,7 +46372,7 @@ export class WcagCompliance extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46421,7 +46421,7 @@ export class WcagSuccessCriterionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WcagSuccessCriterionEntryContentForm {
     return new WcagSuccessCriterionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46439,7 +46439,7 @@ export class WeightedQualityMatrix extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46489,7 +46489,7 @@ export class WireframesAndMockups extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46509,7 +46509,7 @@ export class WorkflowActorEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowActorEntryContentForm {
     return new WorkflowActorEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46528,7 +46528,7 @@ export class WorkflowBusinessRule extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowBusinessRuleContentForm {
     return new WorkflowBusinessRuleContentForm(this.doc, this.path + "/content");
   }
@@ -46542,7 +46542,7 @@ export class WorkflowDecisionPoint extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowDecisionPointContentForm {
     return new WorkflowDecisionPointContentForm(this.doc, this.path + "/content");
   }
@@ -46566,7 +46566,7 @@ export class WorkflowDescriptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46603,7 +46603,7 @@ export class WorkflowExceptionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowExceptionEntryContentForm {
     return new WorkflowExceptionEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46621,7 +46621,7 @@ export class WorkflowExceptions extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46644,7 +46644,7 @@ export class WorkflowInputEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowInputEntryContentForm {
     return new WorkflowInputEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46658,7 +46658,7 @@ export class WorkflowOutputEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowOutputEntryContentForm {
     return new WorkflowOutputEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46674,7 +46674,7 @@ export class WorkflowStepEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowStepEntryContentForm {
     return new WorkflowStepEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46713,7 +46713,7 @@ export class WorkflowStepIssue extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowStepIssueContentForm {
     return new WorkflowStepIssueContentForm(this.doc, this.path + "/content");
   }
@@ -46731,7 +46731,7 @@ export class WorkflowStepSystem extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46767,7 +46767,7 @@ export class WorkflowSummaryEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowSummaryEntryContentForm {
     return new WorkflowSummaryEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46781,7 +46781,7 @@ export class WorkflowSummaryTable extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowSummaryTableContentForm {
     return new WorkflowSummaryTableContentForm(this.doc, this.path + "/content");
   }
@@ -46800,7 +46800,7 @@ export class WorkflowTriggerEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkflowTriggerEntryContentForm {
     return new WorkflowTriggerEntryContentForm(this.doc, this.path + "/content");
   }
@@ -46818,7 +46818,7 @@ export class WorkflowTriggers extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46849,7 +46849,7 @@ export class WorkplaceDescriptionEntry extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): string {
     return this.doc.content(this.path + "/content") || '';
   }
@@ -46897,7 +46897,7 @@ export class WorkplaceSoftwareRequirements extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkplaceSoftwareRequirementsContentForm {
     return new WorkplaceSoftwareRequirementsContentForm(this.doc, this.path + "/content");
   }
@@ -46921,7 +46921,7 @@ export class WorkplaceSupportResources extends SomNode {
 
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   get content(): WorkplaceSupportResourcesContentForm {
     return new WorkplaceSupportResourcesContentForm(this.doc, this.path + "/content");
   }

@@ -97,6 +97,25 @@ const Map<String, _HeldBack> _heldBackVersions = <String, _HeldBack>{
         'tom_spec_engine reaches it through tom_d4rt_generator 1.52.0 '
         '(tom_analyzer_shared ^0.7.6) and tom_d4rt, both on analyzer ^10',
   ),
+  'tom_d4rt': _HeldBack(
+    from: '1.230.0',
+    owner:
+        'tom_specs uamtcc2_akfd-spec-engine-onto-analyzer-14 (after d4rt '
+        'vstdm3_akex-d4rt-repo-to-analyzer-14)',
+    reason:
+        'tom_d4rt 1.230.0 requires analyzer ^14.5, and tom_spec_engine pins '
+        'analyzer <11 and reaches tom_d4rt through tom_d4rt_generator 1.52.0, '
+        'on analyzer ^10',
+  ),
+  'tom_d4rt_dcli': _HeldBack(
+    from: '1.12.0',
+    owner:
+        'tom_specs uamtcc2_akfd-spec-engine-onto-analyzer-14 (after d4rt '
+        'vstdm3_akex-d4rt-repo-to-analyzer-14)',
+    reason:
+        'tom_d4rt_dcli 1.12.0 requires tom_d4rt ^1.230.0, which is held back '
+        'above (analyzer ^14.5)',
+  ),
 };
 
 /// The packages whose floors F-SCC45-4 holds sample and example pubspecs to:

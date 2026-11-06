@@ -644,7 +644,7 @@ section-types:
     subsection-types:
       ace-crit-lst:
         max-count: 1
-    description: "Define clear, testable acceptance criteria. Use Given-When-Then format: Given [context], When [action], Then [expected result]."
+    description: "Define clear, testable acceptance criteria. Use Given-When-Then format: Given _context_, When _action_, Then _expected result_."
   rbr:
     prefix: RBR
     subsection-types:

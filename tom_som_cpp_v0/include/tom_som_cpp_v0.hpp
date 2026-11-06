@@ -5499,7 +5499,7 @@ class AcceptanceCriteriaList : public som::SomNode {
   AcceptanceCriteriaList(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× DeliveryAcceptanceCriterion.
@@ -5525,7 +5525,7 @@ class AcceptanceCriteriaSummary : public som::SomNode {
   AcceptanceCriteriaSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The shape of acceptance: who signs, over what scope, in which environment,
@@ -5567,7 +5567,7 @@ class AcceptanceCriterionEntry : public som::SomNode {
   AcceptanceCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AcceptanceCriterionEntryContentForm content() const;
 };
 
@@ -5577,7 +5577,7 @@ class AcceptancePlan : public som::SomNode {
   AcceptancePlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 14.2.1. Acceptance Criteria.
@@ -5608,7 +5608,7 @@ class AcceptanceProcess : public som::SomNode {
   AcceptanceProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AcceptanceProcessContentForm content() const;
   // Process overview.
   AcceptanceProcessOverviewForm overview() const;
@@ -5638,7 +5638,7 @@ class AcceptanceStepEntry : public som::SomNode {
   AcceptanceStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AcceptanceStepEntryContentForm content() const;
   // Participants and execution flow.
   AcceptanceStepEntryFlowForm flow() const;
@@ -5655,7 +5655,7 @@ class AccessChannels : public som::SomNode {
   AccessChannels(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Channel architecture diagram.
@@ -5680,7 +5680,7 @@ class AccessConstraintPolicies : public som::SomNode {
   AccessConstraintPolicies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessConstraintPoliciesContentForm content() const;
   // Access Constraint Details (text).
   // (skipped: accessConstraintDetails has no target type)
@@ -5700,7 +5700,7 @@ class AccessControlModel : public som::SomNode {
   AccessControlModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.1.1. User Management.
@@ -5728,7 +5728,7 @@ class AccessControlModelSelection : public som::SomNode {
   AccessControlModelSelection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessControlModelSelectionContentForm content() const;
   // Access Control Model Details (text).
   // (skipped: accessControlModelDetails has no target type)
@@ -5741,7 +5741,7 @@ class AccessHandlerEntry : public som::SomNode {
   AccessHandlerEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessHandlerEntryContentForm content() const;
 };
 
@@ -5751,7 +5751,7 @@ class AccessLevelEntry : public som::SomNode {
   AccessLevelEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessLevelEntryContentForm content() const;
   // Scope and hierarchy of this access level.
   AccessLevelEntryScopeForm scope() const;
@@ -5770,7 +5770,7 @@ class AccessLevels : public som::SomNode {
   AccessLevels(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Access level hierarchy diagram.
@@ -5796,7 +5796,7 @@ class AccessRestrictionEntry : public som::SomNode {
   AccessRestrictionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessRestrictionEntryContentForm content() const;
 };
 
@@ -5806,7 +5806,7 @@ class AccessUserCategories : public som::SomNode {
   AccessUserCategories(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× UserCategoryDefinition.
@@ -5827,7 +5827,7 @@ class Accessibility : public som::SomNode {
   Accessibility(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The accessibility commitment and its scope, before the specific conformance
@@ -5866,7 +5866,7 @@ class AccessibilityCheckEntry : public som::SomNode {
   AccessibilityCheckEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessibilityCheckEntryContentForm content() const;
   // WCAG mapping and compliance classification.
   AccessibilityCheckEntryComplianceForm compliance() const;
@@ -5884,7 +5884,7 @@ class AccessibilityChecklist : public som::SomNode {
   AccessibilityChecklist(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How conformance is verified, as opposed to claimed.
@@ -5909,7 +5909,7 @@ class AccessibilityStandardEntry : public som::SomNode {
   AccessibilityStandardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccessibilityStandardEntryContentForm content() const;
   // Scope and affected users.
   AccessibilityStandardEntryScopeForm scope() const;
@@ -5930,7 +5930,7 @@ class AccountActivationPolicy : public som::SomNode {
   AccountActivationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccountActivationPolicyContentForm content() const;
   // Activation Flow Description (text).
   // (skipped: activationFlowDescription has no target type)
@@ -5946,7 +5946,7 @@ class AccountDeactivationPolicy : public som::SomNode {
   AccountDeactivationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccountDeactivationPolicyContentForm content() const;
   // Deactivation Process Description (text).
   // (skipped: deactivationProcessDescription has no target type)
@@ -5961,7 +5961,7 @@ class AccountDeletionPolicy : public som::SomNode {
   AccountDeletionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccountDeletionPolicyContentForm content() const;
   // Deletion Process Description (text).
   // (skipped: deletionProcessDescription has no target type)
@@ -5977,7 +5977,7 @@ class AccountLockoutPolicy : public som::SomNode {
   AccountLockoutPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccountLockoutPolicyContentForm content() const;
   // Account Lockout Details (text).
   // (skipped: accountLockoutDetails has no target type)
@@ -5992,7 +5992,7 @@ class AccountModificationPolicy : public som::SomNode {
   AccountModificationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AccountModificationPolicyContentForm content() const;
   // Modification Rules Description (text).
   // (skipped: modificationRulesDescription has no target type)
@@ -6004,7 +6004,7 @@ class ActionParameterEntry : public som::SomNode {
   ActionParameterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ActionParameterEntryContentForm content() const;
 };
 
@@ -6014,7 +6014,7 @@ class ActorCharacteristics : public som::SomNode {
   ActorCharacteristics(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ActorCharacteristicsContentForm content() const;
   // Usage patterns and decision scope.
   ActorCharacteristicsUsageForm usage() const;
@@ -6030,7 +6030,7 @@ class ActorEntry : public som::SomNode {
   ActorEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Actor identification.
@@ -6059,7 +6059,7 @@ class ActorGoals : public som::SomNode {
   ActorGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ActorGoalsContentForm content() const;
 };
 
@@ -6072,7 +6072,7 @@ class ActorOverview : public som::SomNode {
   ActorOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Actor overview narrative.
@@ -6094,7 +6094,7 @@ class ActorPermissions : public som::SomNode {
   ActorPermissions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ActorPermissionsContentForm content() const;
 };
 
@@ -6104,7 +6104,7 @@ class ActorRelationshipDiagram : public som::SomNode {
   ActorRelationshipDiagram(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Diagram overview.
@@ -6125,7 +6125,7 @@ class AdminInterfaceRequirements : public som::SomNode {
   AdminInterfaceRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AdminInterfaceRequirementsContentForm content() const;
   // Dashboard widget requirements.
   AdminInterfaceRequirementsDashboardForm dashboard() const;
@@ -6141,7 +6141,7 @@ class AdministrationRequirementsSection : public som::SomNode {
   AdministrationRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of administration requirements.
@@ -6172,7 +6172,7 @@ class AdministrativeEventPolicy : public som::SomNode {
   AdministrativeEventPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AdministrativeEventPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -6184,7 +6184,7 @@ class AffectedDepartmentEntry : public som::SomNode {
   AffectedDepartmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AffectedDepartmentEntryContentForm content() const;
 };
 
@@ -6196,7 +6196,7 @@ class AffectedFunctionEntry : public som::SomNode {
   AffectedFunctionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AffectedFunctionEntryContentForm content() const;
   // The resolved link to the function in which this rule fires.
   //
@@ -6216,7 +6216,7 @@ class AffectedObjectEntry : public som::SomNode {
   AffectedObjectEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AffectedObjectEntryContentForm content() const;
   // The resolved link to the business object this rule acts on.
   //
@@ -6235,7 +6235,7 @@ class AlertDefinitionEntry : public som::SomNode {
   AlertDefinitionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertDefinitionEntryContentForm content() const;
   // Trigger conditions.
   AlertDefinitionEntryConditionForm condition() const;
@@ -6251,7 +6251,7 @@ class AlertEscalationPolicies : public som::SomNode {
   AlertEscalationPolicies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertEscalationPoliciesContentForm content() const;
   // Management escalation path and timing thresholds.
   AlertEscalationPoliciesTimingForm timing() const;
@@ -6267,7 +6267,7 @@ class AlertNotificationChannels : public som::SomNode {
   AlertNotificationChannels(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertNotificationChannelsContentForm content() const;
   // Secondary and escalation delivery methods.
   AlertNotificationChannelsDeliveryForm delivery() const;
@@ -6283,7 +6283,7 @@ class AlertRuleEntry : public som::SomNode {
   AlertRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertRuleEntryContentForm content() const;
   // Trigger conditions.
   AlertRuleEntryTriggerForm trigger() const;
@@ -6299,7 +6299,7 @@ class AlertSuppressionRules : public som::SomNode {
   AlertSuppressionRules(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertSuppressionRulesContentForm content() const;
 };
 
@@ -6312,7 +6312,7 @@ class AlertingConfiguration : public som::SomNode {
   AlertingConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What is worth waking someone for, and how quickly a human is expected to
@@ -6355,7 +6355,7 @@ class AlertingRequirements : public som::SomNode {
   AlertingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlertingRequirementsContentForm content() const;
   // Routing rules.
   AlertingRequirementsRoutingForm routing() const;
@@ -6373,7 +6373,7 @@ class AlternativeFlowEntry : public som::SomNode {
   AlternativeFlowEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlternativeFlowEntryContentForm content() const;
   // Resume point — a promoted `@OneOf` case.
   //
@@ -6394,7 +6394,7 @@ class AlternativeStepEntry : public som::SomNode {
   AlternativeStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AlternativeStepEntryContentForm content() const;
   // How this alternative-flow step's server call is carried out, step by
   // step.
@@ -6427,7 +6427,7 @@ class AnomalyDetectionPolicy : public som::SomNode {
   AnomalyDetectionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AnomalyDetectionPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -6444,7 +6444,7 @@ class ApiAbuseProtection : public som::SomNode {
   ApiAbuseProtection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiAbuseProtectionContentForm content() const;
   // Abuse Protection Details (text).
   // (skipped: abuseProtectionDetails has no target type)
@@ -6459,7 +6459,7 @@ class ApiAuthenticationPolicy : public som::SomNode {
   ApiAuthenticationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiAuthenticationPolicyContentForm content() const;
   // API Authentication Details (text).
   // (skipped: apiAuthenticationDetails has no target type)
@@ -6475,7 +6475,7 @@ class ApiAuthorizationPolicy : public som::SomNode {
   ApiAuthorizationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiAuthorizationPolicyContentForm content() const;
   // API Authorization Details (text).
   // (skipped: apiAuthorizationDetails has no target type)
@@ -6487,7 +6487,7 @@ class ApiCompatibilityEntry : public som::SomNode {
   ApiCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiCompatibilityEntryContentForm content() const;
   // Compatibility policy.
   ApiCompatibilityEntryPolicyForm policy() const;
@@ -6510,7 +6510,7 @@ class ApiCorsSecurity : public som::SomNode {
   ApiCorsSecurity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiCorsSecurityContentForm content() const;
   // CORS Security Details (text).
   // (skipped: corsSecurityDetails has no target type)
@@ -6525,7 +6525,7 @@ class ApiKeyManagementPolicy : public som::SomNode {
   ApiKeyManagementPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiKeyManagementPolicyContentForm content() const;
   // API Key Management Details (text).
   // (skipped: apiKeyDetails has no target type)
@@ -6542,7 +6542,7 @@ class ApiRequestValidationPolicy : public som::SomNode {
   ApiRequestValidationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiRequestValidationPolicyContentForm content() const;
   // Request Validation Details (text).
   // (skipped: requestValidationDetails has no target type)
@@ -6559,7 +6559,7 @@ class ApiSecurity : public som::SomNode {
   ApiSecurity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // API Security Overview (text).
@@ -6594,7 +6594,7 @@ class ApiSecurityMonitoring : public som::SomNode {
   ApiSecurityMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiSecurityMonitoringContentForm content() const;
   // API Security Monitoring Details (text).
   // (skipped: apiSecurityMonitoringDetails has no target type)
@@ -6606,7 +6606,7 @@ class ApiVersioningStrategy : public som::SomNode {
   ApiVersioningStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApiVersioningStrategyContentForm content() const;
   // Supported versions and deprecation commitments.
   ApiVersioningStrategySupportForm support() const;
@@ -6622,7 +6622,7 @@ class ApplicableRegulationEntry : public som::SomNode {
   ApplicableRegulationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicableRegulationEntryContentForm content() const;
   // Specific compliance measures for this regulation.
   // Returns the list view; element type: scalar (construct from item paths).
@@ -6635,7 +6635,7 @@ class ApplicationDiagnostics : public som::SomNode {
   ApplicationDiagnostics(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationDiagnosticsContentForm content() const;
   // On-demand profiling and slow-request tracing.
   ApplicationDiagnosticsPerformanceForm performance() const;
@@ -6651,7 +6651,7 @@ class ApplicationMetricsSpec : public som::SomNode {
   ApplicationMetricsSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationMetricsSpecContentForm content() const;
   // USE metrics.
   ApplicationMetricsSpecResourcesForm resources() const;
@@ -6667,7 +6667,7 @@ class ApplicationPerformanceMonitoring : public som::SomNode {
   ApplicationPerformanceMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationPerformanceMonitoringContentForm content() const;
   // Tracing settings.
   ApplicationPerformanceMonitoringTracingForm tracing() const;
@@ -6685,7 +6685,7 @@ class ApplicationSecurityRequirements : public som::SomNode {
   ApplicationSecurityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApplicationSecurityRequirementsContentForm content() const;
   // Core protection controls.
   ApplicationSecurityRequirementsControlsForm controls() const;
@@ -6701,7 +6701,7 @@ class ApprovalRecord : public som::SomNode {
   ApprovalRecord(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ApprovalRecordContentForm content() const;
 };
 
@@ -6711,7 +6711,7 @@ class ArchitectureComponentEntry : public som::SomNode {
   ArchitectureComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitectureComponentEntryContentForm content() const;
   // Purpose and ownership boundaries.
   ArchitectureComponentEntryPurposeForm purpose() const;
@@ -6731,7 +6731,7 @@ class ArchitectureDecisionRecord : public som::SomNode {
   ArchitectureDecisionRecord(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitectureDecisionRecordContentForm content() const;
   // Decision context and constraints.
   ArchitectureDecisionRecordContextDetailsForm contextDetails() const;
@@ -6749,7 +6749,7 @@ class ArchitectureOverview : public som::SomNode {
   ArchitectureOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitectureOverviewContentForm content() const;
   // Architecture drivers.
   ArchitectureOverviewDriversForm drivers() const;
@@ -6767,7 +6767,7 @@ class ArchitecturePrincipleEntry : public som::SomNode {
   ArchitecturePrincipleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ArchitecturePrincipleEntryContentForm content() const;
   // Rationale and practical implications.
   ArchitecturePrincipleEntryGuidanceForm guidance() const;
@@ -6786,7 +6786,7 @@ class ArchitectureStyle : public som::SomNode {
   ArchitectureStyle(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Architecture overview and primary style selection.
@@ -6824,7 +6824,7 @@ class AssumptionConstraintDependencyRegister : public som::SomNode {
   AssumptionConstraintDependencyRegister(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Assumptions the solution depends on being true.
@@ -6852,7 +6852,7 @@ class AssumptionRegisterEntry : public som::SomNode {
   AssumptionRegisterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AssumptionRegisterEntryContentForm content() const;
 };
 
@@ -6862,7 +6862,7 @@ class AssumptionsConstraintsDependencies : public som::SomNode {
   AssumptionsConstraintsDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The consolidated assumption / constraint register.
@@ -6891,7 +6891,7 @@ class AuditAndLogging : public som::SomNode {
   AuditAndLogging(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.6.1. Security Events — the CE-LG declared half.
@@ -6910,7 +6910,7 @@ class AuditEntry : public som::SomNode {
   AuditEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuditEntryContentForm content() const;
 };
 
@@ -6920,7 +6920,7 @@ class AuditEvidenceRequirements : public som::SomNode {
   AuditEvidenceRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuditEvidenceRequirementsContentForm content() const;
   // Evidence types required.
   // Returns the list view; element type: AuditEvidenceTypeEntry (construct from item paths).
@@ -6933,7 +6933,7 @@ class AuditEvidenceTypeEntry : public som::SomNode {
   AuditEvidenceTypeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuditEvidenceTypeEntryContentForm content() const;
 };
 
@@ -6946,7 +6946,7 @@ class AuditLogFormat : public som::SomNode {
   AuditLogFormat(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Event Attribute Policy.
@@ -6973,7 +6973,7 @@ class AuditRequirements : public som::SomNode {
   AuditRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Planned audits — contains 0+× Audit Entry.
@@ -6993,7 +6993,7 @@ class Authentication : public som::SomNode {
   Authentication(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.2.2.1. Authentication Methods.
@@ -7019,7 +7019,7 @@ class AuthenticationErrorHandling : public som::SomNode {
   AuthenticationErrorHandling(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthenticationErrorHandlingContentForm content() const;
   // Error Handling Details (text).
   // (skipped: errorHandlingDetails has no target type)
@@ -7033,7 +7033,7 @@ class AuthenticationEventPolicy : public som::SomNode {
   AuthenticationEventPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthenticationEventPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -7050,7 +7050,7 @@ class AuthenticationFlow : public som::SomNode {
   AuthenticationFlow(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Authentication Flow Overview (text).
@@ -7087,7 +7087,7 @@ class AuthenticationMethodEntry : public som::SomNode {
   AuthenticationMethodEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthenticationMethodEntryContentForm content() const;
   // Security posture of the authentication method.
   AuthenticationMethodEntrySecurityForm security() const;
@@ -7110,7 +7110,7 @@ class AuthenticationMethods : public som::SomNode {
   AuthenticationMethods(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Authentication Methods Overview (text).
@@ -7148,7 +7148,7 @@ class AuthorizationComplianceFollowUp : public som::SomNode {
   AuthorizationComplianceFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.5.1. Authorization Compliance.
@@ -7167,7 +7167,7 @@ class AuthorizationEventPolicy : public som::SomNode {
   AuthorizationEventPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationEventPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -7179,7 +7179,7 @@ class AuthorizationGroupEntry : public som::SomNode {
   AuthorizationGroupEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationGroupEntryContentForm content() const;
   // Contains 0+× RoleReference.
   // Returns the list view; element type: RoleReferenceEntry (construct from item paths).
@@ -7197,7 +7197,7 @@ class AuthorizationModel : public som::SomNode {
   AuthorizationModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Access Control Model Selection.
@@ -7229,7 +7229,7 @@ class AuthorizationRequirementSpec : public som::SomNode {
   AuthorizationRequirementSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationRequirementSpecContentForm content() const;
   // Role requirement payload — a promoted `@OneOf` case.
   AuthorizationRequirementSpecRoleRequirementForm roleRequirement() const;
@@ -7255,7 +7255,7 @@ class AuthorizationRoleEntry : public som::SomNode {
   AuthorizationRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AuthorizationRoleEntryContentForm content() const;
   // Scope and inheritance metadata.
   AuthorizationRoleEntryStructureForm structure() const;
@@ -7291,7 +7291,7 @@ class Availability : public som::SomNode {
   Availability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   AvailabilityContentForm content() const;
   // Operating-hour expectations.
   AvailabilityOperatingHoursDetailsForm operatingHoursDetails() const;
@@ -7314,7 +7314,7 @@ class BackupAndRecoverySection : public som::SomNode {
   BackupAndRecoverySection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of backup and recovery strategy.
@@ -7348,7 +7348,7 @@ class BackupCompliance : public som::SomNode {
   BackupCompliance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupComplianceContentForm content() const;
   // Audit controls.
   BackupComplianceAuditForm audit() const;
@@ -7364,7 +7364,7 @@ class BackupDataClassification : public som::SomNode {
   BackupDataClassification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupDataClassificationContentForm content() const;
   // Included data categories.
   BackupDataClassificationCategoriesForm categories() const;
@@ -7382,7 +7382,7 @@ class BackupEncryptionPolicy : public som::SomNode {
   BackupEncryptionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupEncryptionPolicyContentForm content() const;
   // Backup Encryption Details (text).
   // (skipped: backupEncryptionDetails has no target type)
@@ -7394,7 +7394,7 @@ class BackupInfrastructure : public som::SomNode {
   BackupInfrastructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupInfrastructureContentForm content() const;
   // Performance and secondary storage.
   BackupInfrastructureStorageForm storage() const;
@@ -7412,7 +7412,7 @@ class BackupPolicyEntry : public som::SomNode {
   BackupPolicyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupPolicyEntryContentForm content() const;
   // Backup type configuration.
   BackupPolicyEntryBackupTypeForm backupType() const;
@@ -7430,7 +7430,7 @@ class BackupVerification : public som::SomNode {
   BackupVerification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackupVerificationContentForm content() const;
   // Recovery testing.
   BackupVerificationRecoveryForm recovery() const;
@@ -7446,7 +7446,7 @@ class BackwardsCompatibilityRequirements : public som::SomNode {
   BackwardsCompatibilityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BackwardsCompatibilityRequirementsContentForm content() const;
   // Data compatibility requirements.
   BackwardsCompatibilityRequirementsDataForm data() const;
@@ -7464,7 +7464,7 @@ class BandwidthRequirements : public som::SomNode {
   BandwidthRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BandwidthRequirementsContentForm content() const;
   // Directional bandwidth requirements.
   BandwidthRequirementsDirectionForm direction() const;
@@ -7482,7 +7482,7 @@ class BasicTechnicalRequirements : public som::SomNode {
   BasicTechnicalRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.1.1. Platform and Language.
@@ -7514,7 +7514,7 @@ class BatchJobManagement : public som::SomNode {
   BatchJobManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BatchJobManagementContentForm content() const;
   // Workload shape — orientation above the job list, deliberately narrative.
   //
@@ -7563,7 +7563,7 @@ class BehaviorRuleEntry : public som::SomNode {
   BehaviorRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BehaviorRuleEntryContentForm content() const;
 };
 
@@ -7577,7 +7577,7 @@ class BindingParameterEntry : public som::SomNode {
   BindingParameterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BindingParameterEntryContentForm content() const;
 };
 
@@ -7591,7 +7591,7 @@ class BiometricAuthenticationPolicy : public som::SomNode {
   BiometricAuthenticationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BiometricAuthenticationPolicyContentForm content() const;
   // Biometric Implementation Details (text).
   // (skipped: biometricDetails has no target type)
@@ -7603,7 +7603,7 @@ class BoundaryAssumptionEntry : public som::SomNode {
   BoundaryAssumptionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BoundaryAssumptionEntryContentForm content() const;
   // Validation ownership and confidence.
   BoundaryAssumptionEntryValidationForm validation() const;
@@ -7622,7 +7622,7 @@ class BoundaryAssumptions : public som::SomNode {
   BoundaryAssumptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of assumption categories and validation approach.
@@ -7646,7 +7646,7 @@ class BoundaryInteractionPatterns : public som::SomNode {
   BoundaryInteractionPatterns(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -7666,7 +7666,7 @@ class BoundedContextEntry : public som::SomNode {
   BoundedContextEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BoundedContextEntryContentForm content() const;
   // Scope and language definitions.
   BoundedContextEntryScopeForm scope() const;
@@ -7689,7 +7689,7 @@ class BreakpointConfiguration : public som::SomNode {
   BreakpointConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The breakpoint set the layout switches at.
@@ -7712,7 +7712,7 @@ class BreakpointEntry : public som::SomNode {
   BreakpointEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BreakpointEntryContentForm content() const;
   // Grid and layout rules for this breakpoint.
   BreakpointEntryLayoutForm layout() const;
@@ -7726,7 +7726,7 @@ class BrowserCompatibilityEntry : public som::SomNode {
   BrowserCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BrowserCompatibilityEntryContentForm content() const;
   // Support level and priority.
   BrowserCompatibilityEntrySupportForm support() const;
@@ -7744,7 +7744,7 @@ class BrowserRequirementEntry : public som::SomNode {
   BrowserRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BrowserRequirementEntryContentForm content() const;
   // Support level and user share.
   BrowserRequirementEntrySupportForm support() const;
@@ -7762,7 +7762,7 @@ class BuildToolchainEntry : public som::SomNode {
   BuildToolchainEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BuildToolchainEntryContentForm content() const;
   // Version requirements.
   BuildToolchainEntryVersionsForm versions() const;
@@ -7784,7 +7784,7 @@ class BuildToolsConfiguration : public som::SomNode {
   BuildToolsConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BuildToolsConfigurationContentForm content() const;
   // Build system settings.
   BuildToolsConfigurationBuildSystemSettingsForm buildSystemSettings() const;
@@ -7802,7 +7802,7 @@ class BusinessComponentEntry : public som::SomNode {
   BusinessComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessComponentEntryContentForm content() const;
   // Purpose and business rules.
   BusinessComponentEntryDescriptionForm description() const;
@@ -7827,7 +7827,7 @@ class BusinessDomain : public som::SomNode {
   BusinessDomain(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 4.1.3.1. Domain Overview.
@@ -7859,7 +7859,7 @@ class BusinessGoalEntry : public som::SomNode {
   BusinessGoalEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessGoalEntryContentForm content() const;
   // Goal definition and priority.
   BusinessGoalEntryDefinitionForm definition() const;
@@ -7899,7 +7899,7 @@ class BusinessGoals : public som::SomNode {
   BusinessGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Business goals list — contains 1+× Business Goal.
@@ -7917,7 +7917,7 @@ class BusinessMetricsSpec : public som::SomNode {
   BusinessMetricsSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessMetricsSpecContentForm content() const;
   // Transaction and revenue metrics.
   BusinessMetricsSpecTransactionsForm transactions() const;
@@ -7938,7 +7938,7 @@ class BusinessObjectAttributeEntry : public som::SomNode {
   BusinessObjectAttributeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessObjectAttributeEntryContentForm content() const;
   // Format and requirement details.
   BusinessObjectAttributeEntryDefinitionForm definition() const;
@@ -7958,7 +7958,7 @@ class BusinessObjectEntry : public som::SomNode {
   BusinessObjectEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What this business object is called in the business, and which pattern it
@@ -8054,7 +8054,7 @@ class BusinessObjectModel : public som::SomNode {
   BusinessObjectModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.2.1. Object Catalog — contains 1+× Business Object.
@@ -8077,7 +8077,7 @@ class BusinessPainPoints : public som::SomNode {
   BusinessPainPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Category-level summary for business pain points.
@@ -8101,7 +8101,7 @@ class BusinessProcessDescriptions : public som::SomNode {
   BusinessProcessDescriptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 6.1.1. Process Vision.
@@ -8140,7 +8140,7 @@ class BusinessProcessEntry : public som::SomNode {
   BusinessProcessEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process identification.
@@ -8177,7 +8177,7 @@ class BusinessRuleEntry : public som::SomNode {
   BusinessRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The rule's own statement, in the words of the business, and its version.
@@ -8264,7 +8264,7 @@ class BusinessRuleReferenceEntry : public som::SomNode {
   BusinessRuleReferenceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   BusinessRuleReferenceEntryContentForm content() const;
   // The resolved link to the business rule this entry cites.
   //
@@ -8283,7 +8283,7 @@ class CapacityPlanningSection : public som::SomNode {
   CapacityPlanningSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of capacity planning strategy.
@@ -8312,7 +8312,7 @@ class CapacityReviewProcess : public som::SomNode {
   CapacityReviewProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CapacityReviewProcessContentForm content() const;
   // Monitoring and forecasting inputs.
   CapacityReviewProcessMonitoringForm monitoring() const;
@@ -8328,7 +8328,7 @@ class CcbMemberEntry : public som::SomNode {
   CcbMemberEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CcbMemberEntryContentForm content() const;
 };
 
@@ -8341,7 +8341,7 @@ class CertificateAuthenticationPolicy : public som::SomNode {
   CertificateAuthenticationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificateAuthenticationPolicyContentForm content() const;
   // Certificate Authentication Details (text).
   // (skipped: certificateDetails has no target type)
@@ -8353,7 +8353,7 @@ class CertificateManagement : public som::SomNode {
   CertificateManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificateManagementContentForm content() const;
   // Key specifications.
   CertificateManagementKeysForm keys() const;
@@ -8375,7 +8375,7 @@ class CertificateManagementPolicy : public som::SomNode {
   CertificateManagementPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificateManagementPolicyContentForm content() const;
   // Certificate Management Details (text).
   // (skipped: certificateManagementDetails has no target type)
@@ -8387,7 +8387,7 @@ class CertificationEntry : public som::SomNode {
   CertificationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificationEntryContentForm content() const;
   // Description and audience.
   CertificationEntryOverviewForm overview() const;
@@ -8407,7 +8407,7 @@ class CertificationRequirementsSection : public som::SomNode {
   CertificationRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CertificationRequirementsSectionContentForm content() const;
   // Certification process.
   CertificationRequirementsSectionProcessForm process() const;
@@ -8427,7 +8427,7 @@ class ChangeCategoryEntry : public som::SomNode {
   ChangeCategoryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeCategoryEntryContentForm content() const;
   // Scope and example changes.
   ChangeCategoryEntryScopeDetailsForm scopeDetails() const;
@@ -8445,7 +8445,7 @@ class ChangeControlBoard : public som::SomNode {
   ChangeControlBoard(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeControlBoardContentForm content() const;
   // Regular meeting cadence details.
   ChangeControlBoardMeetingsForm meetings() const;
@@ -8467,7 +8467,7 @@ class ChangeImpactCriteria : public som::SomNode {
   ChangeImpactCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Impact level definitions.
@@ -8490,7 +8490,7 @@ class ChangeImpactCriterionEntry : public som::SomNode {
   ChangeImpactCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeImpactCriterionEntryContentForm content() const;
   // Threshold levels.
   ChangeImpactCriterionEntryThresholdsForm thresholds() const;
@@ -8508,7 +8508,7 @@ class ChangeNotificationRules : public som::SomNode {
   ChangeNotificationRules(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeNotificationRulesContentForm content() const;
 };
 
@@ -8522,7 +8522,7 @@ class ChangeProcedure : public som::SomNode {
   ChangeProcedure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Change procedure summary.
@@ -8551,7 +8551,7 @@ class ChangeProcess : public som::SomNode {
   ChangeProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeProcessContentForm content() const;
   // Overview diagram (e.g. Mermaid or image reference).
   // (skipped: overviewDiagram has no target type)
@@ -8574,7 +8574,7 @@ class ChangeReadinessAssessment : public som::SomNode {
   ChangeReadinessAssessment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of readiness assessment approach.
@@ -8594,7 +8594,7 @@ class ChangeRoleEntry : public som::SomNode {
   ChangeRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeRoleEntryContentForm content() const;
 };
 
@@ -8606,7 +8606,7 @@ class ChangeStepEntry : public som::SomNode {
   ChangeStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangeStepEntryContentForm content() const;
   // Responsibility assignments.
   ChangeStepEntryResponsibilityForm responsibility() const;
@@ -8626,7 +8626,7 @@ class ChangedRoleCompetencies : public som::SomNode {
   ChangedRoleCompetencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // New competencies required.
@@ -8655,7 +8655,7 @@ class ChangedRoleEntry : public som::SomNode {
   ChangedRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Changed role identification.
@@ -8682,7 +8682,7 @@ class ChangedRoleIdentification : public som::SomNode {
   ChangedRoleIdentification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangedRoleIdentificationContentForm content() const;
   // Current and future organizational placement.
   ChangedRoleIdentificationStructureForm structure() const;
@@ -8696,7 +8696,7 @@ class ChangedRoleResponsibilities : public som::SomNode {
   ChangedRoleResponsibilities(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Responsibilities being added.
@@ -8722,7 +8722,7 @@ class ChangedRoleTransition : public som::SomNode {
   ChangedRoleTransition(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ChangedRoleTransitionContentForm content() const;
   // Training preparation for the transition.
   ChangedRoleTransitionTrainingForm training() const;
@@ -8740,7 +8740,7 @@ class ChangesFromCurrentStructure : public som::SomNode {
   ChangesFromCurrentStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The reorganization in summary — how far it reaches, what is driving it,
@@ -8757,7 +8757,7 @@ class ChangesFromCurrentStructure : public som::SomNode {
   //
   // It is a summary and stays one: the impact figure here is the total, while
   // per-department detail belongs to the individual change entries.
-  // [changeNarrative] carries the story; this band carries the facts that must
+  // `changeNarrative` carries the story; this band carries the facts that must
   // stay stable while the story is rewritten.
   ChangesFromCurrentStructureOverviewContentForm overviewContent() const;
   // Detailed description of structural changes.
@@ -8787,7 +8787,7 @@ class CiCdPipelineConfiguration : public som::SomNode {
   CiCdPipelineConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CiCdPipelineConfigurationContentForm content() const;
   // Pipeline stages.
   // Returns the list view; element type: PipelineStageEntry (construct from item paths).
@@ -8806,7 +8806,7 @@ class CiCdPipelineRequirements : public som::SomNode {
   CiCdPipelineRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CiCdPipelineRequirementsContentForm content() const;
   // Build stage settings.
   CiCdPipelineRequirementsBuildForm build() const;
@@ -8824,7 +8824,7 @@ class ClientAccessibilityRequirements : public som::SomNode {
   ClientAccessibilityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientAccessibilityRequirementsContentForm content() const;
   // Visual accessibility support.
   ClientAccessibilityRequirementsVisualForm visual() const;
@@ -8864,7 +8864,7 @@ class ClientApplicationEntry : public som::SomNode {
   ClientApplicationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientApplicationEntryContentForm content() const;
 };
 
@@ -8880,7 +8880,7 @@ class ClientConfiguration : public som::SomNode {
   ClientConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The declared client configuration settings.
@@ -8903,7 +8903,7 @@ class ClientConfigurationSettingEntry : public som::SomNode {
   ClientConfigurationSettingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientConfigurationSettingEntryContentForm content() const;
 };
 
@@ -8913,7 +8913,7 @@ class ClientHardwareRequirements : public som::SomNode {
   ClientHardwareRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientHardwareRequirementsContentForm content() const;
   // Memory requirements.
   ClientHardwareRequirementsMemoryForm memory() const;
@@ -8931,7 +8931,7 @@ class ClientNetworkRequirements : public som::SomNode {
   ClientNetworkRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientNetworkRequirementsContentForm content() const;
   // Latency requirements.
   ClientNetworkRequirementsLatencyForm latency() const;
@@ -8962,7 +8962,7 @@ class ClientRequirementsSection : public som::SomNode {
   ClientRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of client requirements strategy.
@@ -9011,7 +9011,7 @@ class ClientSecurityRequirements : public som::SomNode {
   ClientSecurityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ClientSecurityRequirementsContentForm content() const;
   // Authentication requirements.
   ClientSecurityRequirementsAuthenticationForm authentication() const;
@@ -9029,7 +9029,7 @@ class CloudProviderRequirements : public som::SomNode {
   CloudProviderRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CloudProviderRequirementsContentForm content() const;
   // Account-structure requirements.
   CloudProviderRequirementsAccountsForm accounts() const;
@@ -9047,7 +9047,7 @@ class CloudServiceIntegrations : public som::SomNode {
   CloudServiceIntegrations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CloudServiceIntegrationsContentForm content() const;
   // Managed services catalog.
   CloudServiceIntegrationsServicesForm services() const;
@@ -9063,7 +9063,7 @@ class CodeQualityMetrics : public som::SomNode {
   CodeQualityMetrics(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CodeQualityMetricsContentForm content() const;
   // Complexity limits.
   CodeQualityMetricsComplexityForm complexity() const;
@@ -9083,7 +9083,7 @@ class CodeReviewProcess : public som::SomNode {
   CodeReviewProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CodeReviewProcessContentForm content() const;
   // Reviewer requirements.
   CodeReviewProcessRequirementsForm requirements() const;
@@ -9101,7 +9101,7 @@ class CodingStandardEntry : public som::SomNode {
   CodingStandardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CodingStandardEntryContentForm content() const;
   // Rule description.
   CodingStandardEntryRuleDetailsForm ruleDetails() const;
@@ -9119,7 +9119,7 @@ class CodingStandardsSection : public som::SomNode {
   CodingStandardsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CodingStandardsSectionContentForm content() const;
   // Formatting and layout rules.
   CodingStandardsSectionFormattingForm formatting() const;
@@ -9139,7 +9139,7 @@ class ColorPaletteEntry : public som::SomNode {
   ColorPaletteEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ColorPaletteEntryContentForm content() const;
 };
 
@@ -9152,7 +9152,7 @@ class ColumnLevelSecurityPolicy : public som::SomNode {
   ColumnLevelSecurityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ColumnLevelSecurityPolicyContentForm content() const;
   // Column-Level Security Details (text).
   // (skipped: columnLevelSecurityDetails has no target type)
@@ -9164,7 +9164,7 @@ class CommitteeCharter : public som::SomNode {
   CommitteeCharter(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommitteeCharterContentForm content() const;
 };
 
@@ -9176,7 +9176,7 @@ class CommitteeMemberEntry : public som::SomNode {
   CommitteeMemberEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommitteeMemberEntryContentForm content() const;
   // Specific responsibilities of this member.
   // Returns the list view; element type: CommitteeResponsibilityEntry (construct from item paths).
@@ -9189,7 +9189,7 @@ class CommitteeResponsibilityEntry : public som::SomNode {
   CommitteeResponsibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommitteeResponsibilityEntryContentForm content() const;
 };
 
@@ -9205,7 +9205,7 @@ class CommunicationChannelEncryptionEntry : public som::SomNode {
   CommunicationChannelEncryptionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationChannelEncryptionEntryContentForm content() const;
 };
 
@@ -9215,7 +9215,7 @@ class CommunicationEventEntry : public som::SomNode {
   CommunicationEventEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationEventEntryContentForm content() const;
   // Delivery ownership.
   CommunicationEventEntryDeliveryForm delivery() const;
@@ -9229,7 +9229,7 @@ class CommunicationMatrix : public som::SomNode {
   CommunicationMatrix(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationMatrixContentForm content() const;
   // Communication matrix diagram.
   std::string communicationFlowDiagram() const;
@@ -9245,7 +9245,7 @@ class CommunicationPatterns : public som::SomNode {
   CommunicationPatterns(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationPatternsContentForm content() const;
   // Synchronous communication details.
   CommunicationPatternsSynchronousForm synchronous() const;
@@ -9265,7 +9265,7 @@ class CommunicationRequirements : public som::SomNode {
   CommunicationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.6.1. Protocols and Standards.
@@ -9284,7 +9284,7 @@ class CommunicationToolsRequirements : public som::SomNode {
   CommunicationToolsRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationToolsRequirementsContentForm content() const;
 };
 
@@ -9294,7 +9294,7 @@ class CommunicationTypeEntry : public som::SomNode {
   CommunicationTypeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CommunicationTypeEntryContentForm content() const;
 };
 
@@ -9309,7 +9309,7 @@ class CompatibilityCharacteristic : public som::SomNode {
   CompatibilityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What the system must co-exist with, and what it must interoperate with.
@@ -9339,7 +9339,7 @@ class CompatibilityRequirementsSection : public som::SomNode {
   CompatibilityRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of compatibility strategy.
@@ -9386,7 +9386,7 @@ class CompetencyEntry : public som::SomNode {
   CompetencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CompetencyEntryContentForm content() const;
 };
 
@@ -9396,7 +9396,7 @@ class CompetencyFramework : public som::SomNode {
   CompetencyFramework(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Framework overview.
@@ -9422,7 +9422,7 @@ class CompetencyLevelChangeEntry : public som::SomNode {
   CompetencyLevelChangeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CompetencyLevelChangeEntryContentForm content() const;
 };
 
@@ -9432,7 +9432,7 @@ class ComplianceAuditSchedule : public som::SomNode {
   ComplianceAuditSchedule(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceAuditScheduleContentForm content() const;
   // Annual planning and scoping rules.
   ComplianceAuditSchedulePlanningForm planning() const;
@@ -9452,7 +9452,7 @@ class ComplianceFramework : public som::SomNode {
   ComplianceFramework(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -9467,7 +9467,7 @@ class ComplianceMilestoneEntry : public som::SomNode {
   ComplianceMilestoneEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceMilestoneEntryContentForm content() const;
 };
 
@@ -9488,7 +9488,7 @@ class ComplianceReporting : public som::SomNode {
   ComplianceReporting(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Periodic Review Policy.
@@ -9513,7 +9513,7 @@ class ComplianceRequirementEntry : public som::SomNode {
   ComplianceRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceRequirementEntryContentForm content() const;
 };
 
@@ -9523,7 +9523,7 @@ class ComplianceVerificationSection : public som::SomNode {
   ComplianceVerificationSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComplianceVerificationSectionContentForm content() const;
   // Manual review procedures.
   ComplianceVerificationSectionReviewForm review() const;
@@ -9545,7 +9545,7 @@ class ComponentActionEntry : public som::SomNode {
   ComponentActionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentActionEntryContentForm content() const;
   // Authorization and confirmation behavior.
   ComponentActionEntryGovernanceForm governance() const;
@@ -9559,7 +9559,7 @@ class ComponentDocs : public som::SomNode {
   ComponentDocs(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentDocsContentForm content() const;
 };
 
@@ -9573,7 +9573,7 @@ class ComponentEntry : public som::SomNode {
   ComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentEntryContentForm content() const;
   // Vendor information.
   ComponentEntryVendorForm vendor() const;
@@ -9614,7 +9614,7 @@ class ComponentFamilyEntry : public som::SomNode {
   ComponentFamilyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentFamilyEntryContentForm content() const;
   // Family narrative.
   // (skipped: familyNarrative has no target type)
@@ -9629,7 +9629,7 @@ class ComponentGovernance : public som::SomNode {
   ComponentGovernance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentGovernanceContentForm content() const;
   // Contribution governance.
   ComponentGovernanceContributionForm contribution() const;
@@ -9650,7 +9650,7 @@ class ComponentInterfaceEntry : public som::SomNode {
   ComponentInterfaceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentInterfaceEntryContentForm content() const;
   // Network configuration.
   ComponentInterfaceEntryNetworkForm network() const;
@@ -9672,7 +9672,7 @@ class ComponentLibrary : public som::SomNode {
   ComponentLibrary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The design tokens every component draws on — colour, type, spacing, motion.
@@ -9716,7 +9716,7 @@ class ComponentLicensingEntry : public som::SomNode {
   ComponentLicensingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentLicensingEntryContentForm content() const;
   // Cost and renewal details.
   ComponentLicensingEntryCostsForm costs() const;
@@ -9736,7 +9736,7 @@ class ComponentOrganization : public som::SomNode {
   ComponentOrganization(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentOrganizationContentForm content() const;
   // Layering rules.
   ComponentOrganizationLayeringForm layering() const;
@@ -9756,7 +9756,7 @@ class ComponentPropertyEntry : public som::SomNode {
   ComponentPropertyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentPropertyEntryContentForm content() const;
 };
 
@@ -9766,7 +9766,7 @@ class ComponentRegistry : public som::SomNode {
   ComponentRegistry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentRegistryContentForm content() const;
   // Metadata requirements.
   ComponentRegistryMetadataForm metadata() const;
@@ -9787,7 +9787,7 @@ class ComponentResponsibilitiesEntry : public som::SomNode {
   ComponentResponsibilitiesEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentResponsibilitiesEntryContentForm content() const;
   // Vendor support details.
   ComponentResponsibilitiesEntrySupportForm support() const;
@@ -9808,7 +9808,7 @@ class ComponentRiskAssessment : public som::SomNode {
   ComponentRiskAssessment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 12.6.1. Component Risks — contains 0+× Risk.
@@ -9831,7 +9831,7 @@ class ComponentRiskEntry : public som::SomNode {
   ComponentRiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentRiskEntryContentForm content() const;
   // Risk description and categorization.
   ComponentRiskEntryDescriptionForm description() const;
@@ -9853,7 +9853,7 @@ class ComponentSlotEntry : public som::SomNode {
   ComponentSlotEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentSlotEntryContentForm content() const;
 };
 
@@ -9865,7 +9865,7 @@ class ComponentStateEntry : public som::SomNode {
   ComponentStateEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentStateEntryContentForm content() const;
   // Visual appearance in this state.
   ComponentStateEntryVisualForm visual() const;
@@ -9887,7 +9887,7 @@ class ComponentStrategy : public som::SomNode {
   ComponentStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentStrategyContentForm content() const;
   // Vendor preferences and exceptions.
   ComponentStrategyVendorsForm vendors() const;
@@ -9914,7 +9914,7 @@ class ComponentVariantEntry : public som::SomNode {
   ComponentVariantEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComponentVariantEntryContentForm content() const;
   // Visual styling details.
   ComponentVariantEntryVisualForm visual() const;
@@ -9935,7 +9935,7 @@ class ComponentsAndDependencies : public som::SomNode {
   ComponentsAndDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 12.1. Component Strategy.
@@ -9963,7 +9963,7 @@ class ComputeResourceRequirements : public som::SomNode {
   ComputeResourceRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComputeResourceRequirementsContentForm content() const;
   // Memory requirements.
   ComputeResourceRequirementsMemoryForm memory() const;
@@ -9979,7 +9979,7 @@ class ComputingEquipmentEntry : public som::SomNode {
   ComputingEquipmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ComputingEquipmentEntryContentForm content() const;
   // Hardware specifications.
   ComputingEquipmentEntryHardwareForm hardware() const;
@@ -9999,7 +9999,7 @@ class ConcurrentSessionPolicy : public som::SomNode {
   ConcurrentSessionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConcurrentSessionPolicyContentForm content() const;
   // Concurrent Session Details (text).
   // (skipped: concurrentSessionDetails has no target type)
@@ -10011,7 +10011,7 @@ class ConfidentialInfoCategoryEntry : public som::SomNode {
   ConfidentialInfoCategoryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConfidentialInfoCategoryEntryContentForm content() const;
 };
 
@@ -10023,7 +10023,7 @@ class ConfidentialityRequirements : public som::SomNode {
   ConfidentialityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConfidentialityRequirementsContentForm content() const;
   // Confidential information categories.
   // Returns the list view; element type: ConfidentialInfoCategoryEntry (construct from item paths).
@@ -10038,7 +10038,7 @@ class ConfigurationManagement : public som::SomNode {
   ConfigurationManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConfigurationManagementContentForm content() const;
   // Environment-configuration rules.
   ConfigurationManagementEnvironmentForm environment() const;
@@ -10056,7 +10056,7 @@ class ConnectivityResilience : public som::SomNode {
   ConnectivityResilience(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConnectivityResilienceContentForm content() const;
   // Circuit breaking and isolation strategy.
   ConnectivityResilienceProtectionForm protection() const;
@@ -10072,7 +10072,7 @@ class ConsentManagementRequirements : public som::SomNode {
   ConsentManagementRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConsentManagementRequirementsContentForm content() const;
   // Collection requirements.
   ConsentManagementRequirementsCollectionForm collection() const;
@@ -10095,7 +10095,7 @@ class ConstraintRegisterEntry : public som::SomNode {
   ConstraintRegisterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ConstraintRegisterEntryContentForm content() const;
 };
 
@@ -10109,7 +10109,7 @@ class ContentScanningPolicy : public som::SomNode {
   ContentScanningPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ContentScanningPolicyContentForm content() const;
   // Content Scanning Details (text).
   // (skipped: contentScanningDetails has no target type)
@@ -10124,7 +10124,7 @@ class ContextDiagram : public som::SomNode {
   ContextDiagram(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Context diagram in Mermaid format.
@@ -10145,7 +10145,7 @@ class ContextRelationshipEntry : public som::SomNode {
   ContextRelationshipEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ContextRelationshipEntryContentForm content() const;
 };
 
@@ -10155,7 +10155,7 @@ class ContextualHelp : public som::SomNode {
   ContextualHelp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Help delivered in place, at the moment of use.
@@ -10191,7 +10191,7 @@ class ContextualNavigation : public som::SomNode {
   ContextualNavigation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.3.1.6.1. Breadcrumb Configuration.
@@ -10215,7 +10215,7 @@ class ContingencyPlanEntry : public som::SomNode {
   ContingencyPlanEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ContingencyPlanEntryContentForm content() const;
   // Reference links to risk and component.
   ContingencyPlanEntryReferencesForm references() const;
@@ -10237,7 +10237,7 @@ class ContingencyPlans : public som::SomNode {
   ContingencyPlans(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× ContingencyPlan.
@@ -10255,7 +10255,7 @@ class Correctness : public som::SomNode {
   Correctness(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CorrectnessContentForm content() const;
   // Data integrity expectations.
   CorrectnessIntegrityForm integrity() const;
@@ -10276,7 +10276,7 @@ class CredentialCompromiseDetectionPolicy : public som::SomNode {
   CredentialCompromiseDetectionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CredentialCompromiseDetectionPolicyContentForm content() const;
   // Compromise Detection Details (text).
   // (skipped: compromiseDetectionDetails has no target type)
@@ -10291,7 +10291,7 @@ class CredentialRecoveryPolicy : public som::SomNode {
   CredentialRecoveryPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CredentialRecoveryPolicyContentForm content() const;
   // Credential Recovery Details (text).
   // (skipped: credentialRecoveryDetails has no target type)
@@ -10306,7 +10306,7 @@ class CrossBoundaryErrorHandling : public som::SomNode {
   CrossBoundaryErrorHandling(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10325,7 +10325,7 @@ class CrossBoundaryOperationalConsiderations : public som::SomNode {
   CrossBoundaryOperationalConsiderations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10340,7 +10340,7 @@ class CrossCuttingConcerns : public som::SomNode {
   CrossCuttingConcerns(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CrossCuttingConcernsContentForm content() const;
   // Error handling concerns.
   CrossCuttingConcernsErrorsForm errors() const;
@@ -10363,7 +10363,7 @@ class CrossProcessAnalysis : public som::SomNode {
   CrossProcessAnalysis(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10383,7 +10383,7 @@ class CrossTenantAccessPolicy : public som::SomNode {
   CrossTenantAccessPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CrossTenantAccessPolicyContentForm content() const;
   // Cross-Tenant Access Policy Details (text).
   // (skipped: crossTenantAccessPolicyDetails has no target type)
@@ -10398,7 +10398,7 @@ class CurrentArchitecture : public som::SomNode {
   CurrentArchitecture(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Architecture overview diagram.
@@ -10428,7 +10428,7 @@ class CurrentBusinessProcess : public som::SomNode {
   CurrentBusinessProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CurrentBusinessProcessContentForm content() const;
   // Process context and purpose.
   CurrentBusinessProcessProcessContextForm processContext() const;
@@ -10451,7 +10451,7 @@ class CurrentBusinessProcesses : public som::SomNode {
   CurrentBusinessProcesses(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process landscape diagram.
@@ -10481,7 +10481,7 @@ class CurrentDataClassification : public som::SomNode {
   CurrentDataClassification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Classification framework summary.
@@ -10508,7 +10508,7 @@ class CurrentDataLandscape : public som::SomNode {
   CurrentDataLandscape(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Visual representation of the data landscape.
@@ -10554,7 +10554,7 @@ class CurrentLandscape : public som::SomNode {
   CurrentLandscape(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 1.1. Existing Systems Landscape.
@@ -10586,7 +10586,7 @@ class CurrentOperationalMetric : public som::SomNode {
   CurrentOperationalMetric(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10601,7 +10601,7 @@ class CurrentProcessImprovementEntry : public som::SomNode {
   CurrentProcessImprovementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CurrentProcessImprovementEntryContentForm content() const;
 };
 
@@ -10614,7 +10614,7 @@ class CurrentStateRiskAssessment : public som::SomNode {
   CurrentStateRiskAssessment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10632,7 +10632,7 @@ class CurrentWorkflowEntry : public som::SomNode {
   CurrentWorkflowEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CurrentWorkflowEntryContentForm content() const;
   // Workflow diagram.
   std::string workflowDiagram() const;
@@ -10669,7 +10669,7 @@ class CustomDistributionGroup : public som::SomNode {
   CustomDistributionGroup(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CustomDistributionGroupContentForm content() const;
   // Group members.
   // Returns the list view; element type: DistributionRecipientEntry (construct from item paths).
@@ -10682,7 +10682,7 @@ class CustomMetricEntry : public som::SomNode {
   CustomMetricEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   CustomMetricEntryContentForm content() const;
 };
 
@@ -10695,7 +10695,7 @@ class CutoverProcedure : public som::SomNode {
   CutoverProcedure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10735,7 +10735,7 @@ class D00SolutionBlueprint : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // SBP.1 Document Control (header + revision history + approvals).
@@ -10804,7 +10804,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -10871,7 +10871,7 @@ class D02TargetOperatingModel : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -10944,7 +10944,7 @@ class D03InformationModel : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11060,7 +11060,7 @@ class D04RequirementsSpecification : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11130,7 +11130,7 @@ class D05InteractionScenarios : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11196,7 +11196,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11270,7 +11270,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11344,7 +11344,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11420,7 +11420,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11497,7 +11497,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11586,7 +11586,7 @@ class D11DeliveryRoadmap : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11656,7 +11656,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11741,7 +11741,7 @@ class D13CodeSpecsProjection : public som::SomNode {
   static som::SomEditability editabilityFor(const std::string& documentVersion);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
@@ -11892,7 +11892,7 @@ class DashboardEntry : public som::SomNode {
   DashboardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DashboardEntryContentForm content() const;
   // Refresh and data composition details.
   DashboardEntryConfigurationForm configuration() const;
@@ -11906,7 +11906,7 @@ class DashboardRequirements : public som::SomNode {
   DashboardRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DashboardRequirementsContentForm content() const;
   // Standard dashboards.
   DashboardRequirementsStandardForm standard() const;
@@ -11924,7 +11924,7 @@ class DashboardTemplates : public som::SomNode {
   DashboardTemplates(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DashboardTemplatesContentForm content() const;
 };
 
@@ -11937,7 +11937,7 @@ class DataAccessAuditPolicy : public som::SomNode {
   DataAccessAuditPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataAccessAuditPolicyContentForm content() const;
   // Data Access Audit Details (text).
   // (skipped: dataAccessAuditDetails has no target type)
@@ -11951,7 +11951,7 @@ class DataAccessEventPolicy : public som::SomNode {
   DataAccessEventPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataAccessEventPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -11963,7 +11963,7 @@ class DataArchitecture : public som::SomNode {
   DataArchitecture(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataArchitectureContentForm content() const;
   // Storage decisions.
   DataArchitectureStorageForm storage() const;
@@ -11983,7 +11983,7 @@ class DataAttributeConstraintEntry : public som::SomNode {
   DataAttributeConstraintEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataAttributeConstraintEntryContentForm content() const;
 };
 
@@ -11995,7 +11995,7 @@ class DataAttributeEntry : public som::SomNode {
   DataAttributeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What this attribute is called and what it means, in business terms.
@@ -12151,7 +12151,7 @@ class DataClassification : public som::SomNode {
   DataClassification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The framework the classification levels are drawn from, and who maintains
@@ -12181,7 +12181,7 @@ class DataClassificationEntry : public som::SomNode {
   DataClassificationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What this level means and what belongs in it.
@@ -12257,7 +12257,7 @@ class DataClassificationLevelEntry : public som::SomNode {
   DataClassificationLevelEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataClassificationLevelEntryContentForm content() const;
 };
 
@@ -12267,7 +12267,7 @@ class DataClassificationStatusEntry : public som::SomNode {
   DataClassificationStatusEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataClassificationStatusEntryContentForm content() const;
 };
 
@@ -12280,7 +12280,7 @@ class DataDictionary : public som::SomNode {
   DataDictionary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -12298,7 +12298,7 @@ class DataDuplicationAnalysis : public som::SomNode {
   DataDuplicationAnalysis(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Duplication analysis summary.
@@ -12321,7 +12321,7 @@ class DataDuplicationEntry : public som::SomNode {
   DataDuplicationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataDuplicationEntryContentForm content() const;
   // Sources and duplication shape.
   DataDuplicationEntrySourcesForm sources() const;
@@ -12356,7 +12356,7 @@ class DataEntityEntry : public som::SomNode {
   DataEntityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What this entity is called, in each vocabulary that needs a name for it.
@@ -12427,7 +12427,7 @@ class DataEntityMigrationEntry : public som::SomNode {
   DataEntityMigrationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataEntityMigrationEntryContentForm content() const;
 };
 
@@ -12437,7 +12437,7 @@ class DataEntityReferenceEntry : public som::SomNode {
   DataEntityReferenceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataEntityReferenceEntryContentForm content() const;
   // The data-model entity these operations act on, named by section id.
   //
@@ -12460,7 +12460,7 @@ class DataFormatCompatibility : public som::SomNode {
   DataFormatCompatibility(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataFormatCompatibilityContentForm content() const;
   // Data format compatibility.
   DataFormatCompatibilityFormatsForm formats() const;
@@ -12480,7 +12480,7 @@ class DataGovernance : public som::SomNode {
   DataGovernance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Governance maturity assessment.
@@ -12503,7 +12503,7 @@ class DataGovernancePolicyEntry : public som::SomNode {
   DataGovernancePolicyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataGovernancePolicyEntryContentForm content() const;
   // Policy lifecycle and applicability.
   DataGovernancePolicyEntryLifecycleForm lifecycle() const;
@@ -12517,7 +12517,7 @@ class DataGrowthProjections : public som::SomNode {
   DataGrowthProjections(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataGrowthProjectionsContentForm content() const;
   // Growth-rate assumptions.
   DataGrowthProjectionsGrowthForm growth() const;
@@ -12535,7 +12535,7 @@ class DataIntegrationEntry : public som::SomNode {
   DataIntegrationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataIntegrationEntryContentForm content() const;
   // Endpoints and type.
   DataIntegrationEntryEndpointsForm endpoints() const;
@@ -12556,7 +12556,7 @@ class DataIntegrationPoints : public som::SomNode {
   DataIntegrationPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Integration summary.
@@ -12584,7 +12584,7 @@ class DataLevelSecurity : public som::SomNode {
   DataLevelSecurity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Data-Level Security Overview (text).
@@ -12617,7 +12617,7 @@ class DataMaskingPolicy : public som::SomNode {
   DataMaskingPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataMaskingPolicyContentForm content() const;
   // Data Masking Details (text).
   // (skipped: dataMaskingDetails has no target type)
@@ -12635,7 +12635,7 @@ class DataMigrationStrategy : public som::SomNode {
   DataMigrationStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataMigrationStrategyContentForm content() const;
   // Strategic approach details.
   DataMigrationStrategyApproachForm approach() const;
@@ -12681,7 +12681,7 @@ class DataModel : public som::SomNode {
   DataModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.1.1. Entity Overview — contains 1+× Data Entity.
@@ -12722,7 +12722,7 @@ class DataModelFollowUp : public som::SomNode {
   DataModelFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.10.1. Entity-Relationship Diagram (mermaid).
@@ -12745,7 +12745,7 @@ class DataOwnership : public som::SomNode {
   DataOwnership(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Ownership model summary.
@@ -12768,7 +12768,7 @@ class DataOwnershipEntry : public som::SomNode {
   DataOwnershipEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataOwnershipEntryContentForm content() const;
   // Stewardship and custodianship assignments.
   DataOwnershipEntryStewardshipForm stewardship() const;
@@ -12782,7 +12782,7 @@ class DataProcessingAgreementRequirements : public som::SomNode {
   DataProcessingAgreementRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataProcessingAgreementRequirementsContentForm content() const;
   // Agreement-management details.
   DataProcessingAgreementRequirementsManagementForm management() const;
@@ -12805,7 +12805,7 @@ class DataProtectionAndPrivacySection : public som::SomNode {
   DataProtectionAndPrivacySection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of data protection and privacy strategy.
@@ -12839,7 +12839,7 @@ class DataProtectionClassification : public som::SomNode {
   DataProtectionClassification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataProtectionClassificationContentForm content() const;
   // Handling rules.
   DataProtectionClassificationHandlingForm handling() const;
@@ -12860,7 +12860,7 @@ class DataQualityAssessment : public som::SomNode {
   DataQualityAssessment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Data quality dimensions summary.
@@ -12886,7 +12886,7 @@ class DataQualityInitiativeEntry : public som::SomNode {
   DataQualityInitiativeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataQualityInitiativeEntryContentForm content() const;
 };
 
@@ -12896,7 +12896,7 @@ class DataQualityIssueEntry : public som::SomNode {
   DataQualityIssueEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataQualityIssueEntryContentForm content() const;
   // Classification and severity.
   DataQualityIssueEntryClassificationForm classification() const;
@@ -12912,7 +12912,7 @@ class DataResidencyRequirements : public som::SomNode {
   DataResidencyRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataResidencyRequirementsContentForm content() const;
   // Governing regulation and sovereignty constraints.
   DataResidencyRequirementsSovereigntyForm sovereignty() const;
@@ -12931,7 +12931,7 @@ class DataRetentionPolicies : public som::SomNode {
   DataRetentionPolicies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Retention policy summary.
@@ -12951,7 +12951,7 @@ class DataSourceEntityEntry : public som::SomNode {
   DataSourceEntityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataSourceEntityEntryContentForm content() const;
 };
 
@@ -12964,7 +12964,7 @@ class DataSourceEntry : public som::SomNode {
   DataSourceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataSourceEntryContentForm content() const;
   // Classification.
   DataSourceEntryClassificationForm classification() const;
@@ -12996,7 +12996,7 @@ class DataSourceInventory : public som::SomNode {
   DataSourceInventory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Visual map of data sources by domain/category.
@@ -13020,7 +13020,7 @@ class DataSubjectRightsManagement : public som::SomNode {
   DataSubjectRightsManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataSubjectRightsManagementContentForm content() const;
   // Access and rectification handling.
   DataSubjectRightsManagementAccessForm access() const;
@@ -13042,7 +13042,7 @@ class DataVolumeEntry : public som::SomNode {
   DataVolumeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataVolumeEntryContentForm content() const;
 };
 
@@ -13052,7 +13052,7 @@ class DataVolumeSummary : public som::SomNode {
   DataVolumeSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DataVolumeSummaryContentForm content() const;
   // Historical growth behavior.
   DataVolumeSummaryGrowthForm growth() const;
@@ -13071,7 +13071,7 @@ class DataVolumesAndGrowth : public som::SomNode {
   DataVolumesAndGrowth(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Volume and growth summary.
@@ -13098,7 +13098,7 @@ class DatabaseAccessPolicy : public som::SomNode {
   DatabaseAccessPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DatabaseAccessPolicyContentForm content() const;
   // Database Access Policy Details (text).
   // (skipped: databaseAccessDetails has no target type)
@@ -13110,7 +13110,7 @@ class DatabaseCompatibilityEntry : public som::SomNode {
   DatabaseCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DatabaseCompatibilityEntryContentForm content() const;
   // Support options.
   DatabaseCompatibilityEntrySupportForm support() const;
@@ -13132,7 +13132,7 @@ class DatabaseEncryptionPolicy : public som::SomNode {
   DatabaseEncryptionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DatabaseEncryptionPolicyContentForm content() const;
   // Database Encryption Details (text).
   // (skipped: databaseEncryptionDetails has no target type)
@@ -13144,7 +13144,7 @@ class DebuggingConfiguration : public som::SomNode {
   DebuggingConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DebuggingConfigurationContentForm content() const;
   // Breakpoint and watch setup.
   DebuggingConfigurationBreakpointsForm breakpoints() const;
@@ -13164,7 +13164,7 @@ class DecisionAuthorityEntry : public som::SomNode {
   DecisionAuthorityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionAuthorityEntryContentForm content() const;
 };
 
@@ -13174,7 +13174,7 @@ class DecisionMakerEntry : public som::SomNode {
   DecisionMakerEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionMakerEntryContentForm content() const;
 };
 
@@ -13187,7 +13187,7 @@ class DecisionOptionEntry : public som::SomNode {
   DecisionOptionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionOptionEntryContentForm content() const;
   // Recommendation flags.
   DecisionOptionEntrySelectionForm selection() const;
@@ -13209,7 +13209,7 @@ class DecisionPointEntry : public som::SomNode {
   DecisionPointEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionPointEntryContentForm content() const;
   // Context and timing information.
   DecisionPointEntryContextForm context() const;
@@ -13227,7 +13227,7 @@ class DecisionPointEntryResolution : public som::SomNode {
   DecisionPointEntryResolution(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionPointEntryResolutionContentForm content() const;
   // Decision context narrative.
   // (skipped: decisionNarrative has no target type)
@@ -13247,7 +13247,7 @@ class DecisionPoints : public som::SomNode {
   DecisionPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DecisionPointsContentForm content() const;
   // Decision framework narrative.
   // (skipped: decisionFrameworkNarrative has no target type)
@@ -13262,7 +13262,7 @@ class DeepLinkPatternEntry : public som::SomNode {
   DeepLinkPatternEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeepLinkPatternEntryContentForm content() const;
   // Access control — what a caller must satisfy to follow this deep link.
   //
@@ -13280,7 +13280,7 @@ class DeepLinking : public som::SomNode {
   DeepLinking(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Deep linking strategy overview.
@@ -13304,7 +13304,7 @@ class DefectResolution : public som::SomNode {
   DefectResolution(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DefectResolutionContentForm content() const;
   // Classification refinement and SLA targets.
   DefectResolutionSlaForm sla() const;
@@ -13324,7 +13324,7 @@ class DeferredScopeItemEntry : public som::SomNode {
   DeferredScopeItemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeferredScopeItemEntryContentForm content() const;
 };
 
@@ -13334,7 +13334,7 @@ class DeliverableDependencies : public som::SomNode {
   DeliverableDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeliverableDependenciesContentForm content() const;
 };
 
@@ -13348,7 +13348,7 @@ class DeliverableEntry : public som::SomNode {
   DeliverableEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeliverableEntryContentForm content() const;
   // Identification details.
   DeliverableEntryIdentityForm identity() const;
@@ -13379,7 +13379,7 @@ class DeliveryAcceptanceCriterionEntry : public som::SomNode {
   DeliveryAcceptanceCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeliveryAcceptanceCriterionEntryContentForm content() const;
   // Priority and description.
   DeliveryAcceptanceCriterionEntryDefinitionForm definition() const;
@@ -13399,7 +13399,7 @@ class DeliveryScope : public som::SomNode {
   DeliveryScope(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 14.1.1. Software Deliverables.
@@ -13422,7 +13422,7 @@ class DeliveryScopeAndAcceptance : public som::SomNode {
   DeliveryScopeAndAcceptance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 14.1. Delivery and Service Scope.
@@ -13441,7 +13441,7 @@ class DeliveryTransitionAndRollout : public som::SomNode {
   DeliveryTransitionAndRollout(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Staged delivery / phase plan.
@@ -13470,7 +13470,7 @@ class DependenciesAndIntegrations : public som::SomNode {
   DependenciesAndIntegrations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Dependency matrix diagram.
@@ -13498,7 +13498,7 @@ class DependencyHealthMonitoring : public som::SomNode {
   DependencyHealthMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyHealthMonitoringContentForm content() const;
   // Cache subsystem checks.
   DependencyHealthMonitoringCacheForm cache() const;
@@ -13516,7 +13516,7 @@ class DependencyInjectionStructure : public som::SomNode {
   DependencyInjectionStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyInjectionStructureContentForm content() const;
   // Registration organization.
   DependencyInjectionStructureRegistrationForm registration() const;
@@ -13534,7 +13534,7 @@ class DependencyManagement : public som::SomNode {
   DependencyManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyManagementContentForm content() const;
   // Versioning and update policy.
   DependencyManagementVersioningForm versioning() const;
@@ -13558,7 +13558,7 @@ class DependencyRegisterEntry : public som::SomNode {
   DependencyRegisterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyRegisterEntryContentForm content() const;
 };
 
@@ -13568,7 +13568,7 @@ class DependencyScanningRequirements : public som::SomNode {
   DependencyScanningRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DependencyScanningRequirementsContentForm content() const;
   // Vulnerability-management rules.
   DependencyScanningRequirementsVulnerabilitiesForm vulnerabilities() const;
@@ -13589,7 +13589,7 @@ class DeploymentContext : public som::SomNode {
   DeploymentContext(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Deployment Context Details (form).
@@ -13606,7 +13606,7 @@ class DeploymentEnvironmentEntry : public som::SomNode {
   DeploymentEnvironmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentEnvironmentEntryContentForm content() const;
   // Deployment method and rollback controls.
   DeploymentEnvironmentEntryDeploymentForm deployment() const;
@@ -13624,7 +13624,7 @@ class DeploymentModelRequirements : public som::SomNode {
   DeploymentModelRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentModelRequirementsContentForm content() const;
   // Container image policies.
   DeploymentModelRequirementsContainerForm container() const;
@@ -13642,7 +13642,7 @@ class DeploymentSecurity : public som::SomNode {
   DeploymentSecurity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentSecurityContentForm content() const;
   // Supply-chain security.
   DeploymentSecuritySupplyChainForm supplyChain() const;
@@ -13661,7 +13661,7 @@ class DeploymentStrategySection : public som::SomNode {
   DeploymentStrategySection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of deployment strategy.
@@ -13694,7 +13694,7 @@ class DeploymentTargetEntry : public som::SomNode {
   DeploymentTargetEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentTargetEntryContentForm content() const;
   // Platform specifics.
   DeploymentTargetEntryPlatformForm platform() const;
@@ -13714,7 +13714,7 @@ class DeploymentTopology : public som::SomNode {
   DeploymentTopology(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeploymentTopologyContentForm content() const;
   // Infrastructure layout.
   DeploymentTopologyInfrastructureForm infrastructure() const;
@@ -13734,7 +13734,7 @@ class DesignFoundationEntry : public som::SomNode {
   DesignFoundationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignFoundationEntryContentForm content() const;
 };
 
@@ -13746,7 +13746,7 @@ class DesignGoalEntry : public som::SomNode {
   DesignGoalEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignGoalEntryContentForm content() const;
 };
 
@@ -13759,7 +13759,7 @@ class DesignGoals : public som::SomNode {
   DesignGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the design goal framework and prioritization approach.
@@ -13779,7 +13779,7 @@ class DesignPatternEntry : public som::SomNode {
   DesignPatternEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignPatternEntryContentForm content() const;
   // Applicability guidance.
   DesignPatternEntryApplicabilityForm applicability() const;
@@ -13802,7 +13802,7 @@ class DesignPatternsAndStandards : public som::SomNode {
   DesignPatternsAndStandards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of design patterns and standards approach.
@@ -13841,7 +13841,7 @@ class DesignPrincipleEntry : public som::SomNode {
   DesignPrincipleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DesignPrincipleEntryContentForm content() const;
 };
 
@@ -13854,7 +13854,7 @@ class DesignPrinciples : public som::SomNode {
   DesignPrinciples(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the design principle framework.
@@ -13877,7 +13877,7 @@ class DesignVision : public som::SomNode {
   DesignVision(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.1.1. Design Goals.
@@ -13898,7 +13898,7 @@ class DesktopOsRequirementEntry : public som::SomNode {
   DesktopOsRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DesktopOsRequirementEntryContentForm content() const;
   // Support prioritization.
   DesktopOsRequirementEntrySupportForm support() const;
@@ -13919,7 +13919,7 @@ class DetailedProcessWorkflow : public som::SomNode {
   DetailedProcessWorkflow(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -13934,7 +13934,7 @@ class DeveloperOnboarding : public som::SomNode {
   DeveloperOnboarding(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeveloperOnboardingContentForm content() const;
   // Setup expectations.
   DeveloperOnboardingSetupForm setup() const;
@@ -13955,7 +13955,7 @@ class DevelopmentConventionEntry : public som::SomNode {
   DevelopmentConventionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DevelopmentConventionEntryContentForm content() const;
   // Background and workflow.
   DevelopmentConventionEntryOverviewForm overview() const;
@@ -13978,7 +13978,7 @@ class DevelopmentEnvironment : public som::SomNode {
   DevelopmentEnvironment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of development environment requirements.
@@ -14016,7 +14016,7 @@ class DevelopmentQualityGates : public som::SomNode {
   DevelopmentQualityGates(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DevelopmentQualityGatesContentForm content() const;
   // Coverage requirements.
   DevelopmentQualityGatesCoverageForm coverage() const;
@@ -14045,7 +14045,7 @@ class DeviceSettingEntry : public som::SomNode {
   DeviceSettingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DeviceSettingEntryContentForm content() const;
 };
 
@@ -14063,7 +14063,7 @@ class DeviceSettings : public som::SomNode {
   DeviceSettings(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The declared device settings.
@@ -14081,7 +14081,7 @@ class DisasterRecoveryRequirements : public som::SomNode {
   DisasterRecoveryRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DisasterRecoveryRequirementsContentForm content() const;
   // Failover execution.
   DisasterRecoveryRequirementsFailoverForm failover() const;
@@ -14099,7 +14099,7 @@ class DisplayEquipmentEntry : public som::SomNode {
   DisplayEquipmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DisplayEquipmentEntryContentForm content() const;
   // Display quality and connection properties.
   DisplayEquipmentEntryVisualForm visual() const;
@@ -14115,7 +14115,7 @@ class DisplayPropertyEntry : public som::SomNode {
   DisplayPropertyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DisplayPropertyEntryContentForm content() const;
 };
 
@@ -14125,7 +14125,7 @@ class DisplayRequirements : public som::SomNode {
   DisplayRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DisplayRequirementsContentForm content() const;
   // Aspect ratio and layout support.
   DisplayRequirementsLayoutForm layout() const;
@@ -14143,7 +14143,7 @@ class DistributedTracingSpec : public som::SomNode {
   DistributedTracingSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributedTracingSpecContentForm content() const;
   // Sampling strategy.
   DistributedTracingSpecSamplingForm sampling() const;
@@ -14159,7 +14159,7 @@ class DistributionGroupSummary : public som::SomNode {
   DistributionGroupSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributionGroupSummaryContentForm content() const;
 };
 
@@ -14173,7 +14173,7 @@ class DistributionList : public som::SomNode {
   DistributionList(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Communication matrix overview.
@@ -14200,7 +14200,7 @@ class DistributionRecipientEntry : public som::SomNode {
   DistributionRecipientEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributionRecipientEntryContentForm content() const;
   // Contact information.
   DistributionRecipientEntryContactForm contact() const;
@@ -14221,7 +14221,7 @@ class DistributionRecipientPreferences : public som::SomNode {
   DistributionRecipientPreferences(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DistributionRecipientPreferencesContentForm content() const;
 };
 
@@ -14231,7 +14231,7 @@ class DnsRequirements : public som::SomNode {
   DnsRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DnsRequirementsContentForm content() const;
   // Zone requirements.
   DnsRequirementsZonesForm zones() const;
@@ -14249,7 +14249,7 @@ class DocChangeability : public som::SomNode {
   DocChangeability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocChangeabilityContentForm content() const;
   // Extensibility and localization readiness.
   DocChangeabilityExtensibilityForm extensibility() const;
@@ -14267,7 +14267,7 @@ class DocCompleteness : public som::SomNode {
   DocCompleteness(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocCompletenessContentForm content() const;
   // Detailed completeness requirements narrative.
   // (skipped: narrative has no target type)
@@ -14279,7 +14279,7 @@ class DocCorrectness : public som::SomNode {
   DocCorrectness(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocCorrectnessContentForm content() const;
   // Formatting and implementation alignment.
   DocCorrectnessAlignmentForm alignment() const;
@@ -14299,7 +14299,7 @@ class DocumentControl : public som::SomNode {
   DocumentControl(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Document header form (id, project, version, date, author, status).
@@ -14325,14 +14325,14 @@ class DocumentControl : public som::SomNode {
 //
 // All fields are optional strings representing the document's form fields.
 //
-// A leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share
-// an unchanged header by identity and [cloneShallow] needs no child handling.
+// A leaf `SpecNode`: it owns only a scalar [content] field, so snapshots share
+// an unchanged header by identity and `cloneShallow` needs no child handling.
 class DocumentHeader : public som::SomNode {
  public:
   DocumentHeader(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentHeaderContentForm content() const;
 };
 
@@ -14342,7 +14342,7 @@ class DocumentRelationships : public som::SomNode {
   DocumentRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Related document entries.
@@ -14360,7 +14360,7 @@ class DocumentRelevantSections : public som::SomNode {
   DocumentRelevantSections(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentRelevantSectionsContentForm content() const;
   // Individual relevant section entries.
   // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
@@ -14373,7 +14373,7 @@ class DocumentReviewTeamEntry : public som::SomNode {
   DocumentReviewTeamEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentReviewTeamEntryContentForm content() const;
   // The members of the team.
   // Returns the list view; element type: ReviewTeamMember (construct from item paths).
@@ -14386,7 +14386,7 @@ class DocumentationDeliverables : public som::SomNode {
   DocumentationDeliverables(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Deliverable.
@@ -14412,7 +14412,7 @@ class DocumentationQualityCriteria : public som::SomNode {
   DocumentationQualityCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How documentation is produced and kept current — strategy, ownership,
@@ -14448,7 +14448,7 @@ class DocumentationStandards : public som::SomNode {
   DocumentationStandards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentationStandardsContentForm content() const;
   // Code documentation requirements.
   DocumentationStandardsCodeDocsForm codeDocs() const;
@@ -14468,7 +14468,7 @@ class DocumentationStandardsSection : public som::SomNode {
   DocumentationStandardsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DocumentationStandardsSectionContentForm content() const;
   // Technical documentation standards.
   DocumentationStandardsSectionTechnicalForm technical() const;
@@ -14489,7 +14489,7 @@ class DomainBoundaries : public som::SomNode {
   DomainBoundaries(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Context map showing domain boundaries.
@@ -14516,7 +14516,7 @@ class DomainBusinessRuleEntry : public som::SomNode {
   DomainBusinessRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainBusinessRuleEntryContentForm content() const;
   // Formal definition and applicability.
   DomainBusinessRuleEntryDefinitionForm definition() const;
@@ -14533,7 +14533,7 @@ class DomainBusinessRules : public som::SomNode {
   DomainBusinessRules(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Business rule entries — contains 0+× BusinessRuleEntry.
@@ -14557,7 +14557,7 @@ class DomainEnumEntry : public som::SomNode {
   DomainEnumEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainEnumEntryContentForm content() const;
   // 7.5.x. Enum Values — one entry per member of the value set.
   // Returns the list view; element type: DomainEnumValueEntry (construct from item paths).
@@ -14590,7 +14590,7 @@ class DomainEnumRegistry : public som::SomNode {
   DomainEnumRegistry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.5.1. Domain Enums — one entry per closed value set.
@@ -14615,7 +14615,7 @@ class DomainEnumValueEntry : public som::SomNode {
   DomainEnumValueEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainEnumValueEntryContentForm content() const;
 };
 
@@ -14625,7 +14625,7 @@ class DomainEventEntry : public som::SomNode {
   DomainEventEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainEventEntryContentForm content() const;
 };
 
@@ -14638,7 +14638,7 @@ class DomainEvents : public som::SomNode {
   DomainEvents(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Domain event entries — contains 0+× DomainEventEntry.
@@ -14656,7 +14656,7 @@ class DomainInterfaceEntry : public som::SomNode {
   DomainInterfaceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainInterfaceEntryContentForm content() const;
 };
 
@@ -14669,7 +14669,7 @@ class DomainOverview : public som::SomNode {
   DomainOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Domain Overview Details (form).
@@ -14686,7 +14686,7 @@ class DomainProcessEntry : public som::SomNode {
   DomainProcessEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainProcessEntryContentForm content() const;
   // Inputs, outputs, and participant flow.
   DomainProcessEntryFlowForm flow() const;
@@ -14705,7 +14705,7 @@ class DomainProcesses : public som::SomNode {
   DomainProcesses(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process overview diagram.
@@ -14726,7 +14726,7 @@ class DomainTermEntry : public som::SomNode {
   DomainTermEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   DomainTermEntryContentForm content() const;
 };
 
@@ -14739,7 +14739,7 @@ class DomainVocabulary : public som::SomNode {
   DomainVocabulary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Vocabulary entries — contains 1+× DomainTermEntry.
@@ -14757,7 +14757,7 @@ class Efficiency : public som::SomNode {
   Efficiency(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EfficiencyContentForm content() const;
   // Throughput and scale targets.
   EfficiencyThroughputForm throughput() const;
@@ -14775,7 +14775,7 @@ class ElementValidationRuleEntry : public som::SomNode {
   ElementValidationRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ElementValidationRuleEntryContentForm content() const;
 };
 
@@ -14785,7 +14785,7 @@ class EmergencyMaintenanceProcedures : public som::SomNode {
   EmergencyMaintenanceProcedures(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EmergencyMaintenanceProceduresContentForm content() const;
   // Approval and documentation workflow.
   EmergencyMaintenanceProceduresGovernanceForm governance() const;
@@ -14806,7 +14806,7 @@ class EncryptedDataCategoryEntry : public som::SomNode {
   EncryptedDataCategoryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EncryptedDataCategoryEntryContentForm content() const;
 };
 
@@ -14822,7 +14822,7 @@ class EncryptionAtRest : public som::SomNode {
   EncryptionAtRest(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Encryption At Rest Policy.
@@ -14854,7 +14854,7 @@ class EncryptionAtRestPolicy : public som::SomNode {
   EncryptionAtRestPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EncryptionAtRestPolicyContentForm content() const;
   // Encryption At Rest Policy Details (text).
   // (skipped: encryptionAtRestPolicyDetails has no target type)
@@ -14871,7 +14871,7 @@ class EncryptionInTransit : public som::SomNode {
   EncryptionInTransit(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // TLS Protocol Policy.
@@ -14902,7 +14902,7 @@ class EndToEndTestScenario : public som::SomNode {
   EndToEndTestScenario(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -14917,7 +14917,7 @@ class EnterpriseSystemCompatibilityEntry : public som::SomNode {
   EnterpriseSystemCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EnterpriseSystemCompatibilityEntryContentForm content() const;
   // Integration details.
   EnterpriseSystemCompatibilityEntryIntegrationForm integration() const;
@@ -14935,7 +14935,7 @@ class EntitlementEntry : public som::SomNode {
   EntitlementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EntitlementEntryContentForm content() const;
   // Contains 0+× ResourceKeyReference.
   // Returns the list view; element type: ResourceKeyReferenceEntry (construct from item paths).
@@ -14948,7 +14948,7 @@ class EntitlementReferenceEntry : public som::SomNode {
   EntitlementReferenceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EntitlementReferenceEntryContentForm content() const;
 };
 
@@ -14960,7 +14960,7 @@ class EntityConstraintEntry : public som::SomNode {
   EntityConstraintEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EntityConstraintEntryContentForm content() const;
 };
 
@@ -14973,7 +14973,7 @@ class EntityFollowUpEntry : public som::SomNode {
   EntityFollowUpEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which entity these follow-up facets describe.
@@ -15054,7 +15054,7 @@ class EntityIndexEntry : public som::SomNode {
   EntityIndexEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EntityIndexEntryContentForm content() const;
 };
 
@@ -15067,7 +15067,7 @@ class EntityRelationshipEntry : public som::SomNode {
   EntityRelationshipEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What kind of relationship this is, and why it exists.
@@ -15165,7 +15165,7 @@ class EntityRelationships : public som::SomNode {
   EntityRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× EntityRelationship.
@@ -15183,7 +15183,7 @@ class EntryPointEntry : public som::SomNode {
   EntryPointEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EntryPointEntryContentForm content() const;
 };
 
@@ -15199,7 +15199,7 @@ class EnvironmentEntry : public som::SomNode {
   EnvironmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentEntryContentForm content() const;
   // Identity and classification details.
   EnvironmentEntryIdentityForm identity() const;
@@ -15233,7 +15233,7 @@ class EnvironmentManagement : public som::SomNode {
   EnvironmentManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentManagementContentForm content() const;
   // Configuration settings.
   EnvironmentManagementConfigurationForm configuration() const;
@@ -15251,7 +15251,7 @@ class EnvironmentStrategy : public som::SomNode {
   EnvironmentStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentStrategyContentForm content() const;
   // Development environment setup.
   EnvironmentStrategyDevelopmentForm development() const;
@@ -15276,7 +15276,7 @@ class Environments : public som::SomNode {
   Environments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EnvironmentsContentForm content() const;
   // Contains 0+× Environment.
   // Returns the list view; element type: EnvironmentEntry (construct from item paths).
@@ -15291,7 +15291,7 @@ class EquipmentRequirements : public som::SomNode {
   EquipmentRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Equipment overview.
@@ -15326,7 +15326,7 @@ class ErrorBudgetTracking : public som::SomNode {
   ErrorBudgetTracking(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ErrorBudgetTrackingContentForm content() const;
   // Burn-rate monitoring thresholds.
   ErrorBudgetTrackingMonitoringForm monitoring() const;
@@ -15347,7 +15347,7 @@ class ErrorCodeEntry : public som::SomNode {
   ErrorCodeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ErrorCodeEntryContentForm content() const;
 };
 
@@ -15373,7 +15373,7 @@ class ErrorCodeRegistry : public som::SomNode {
   ErrorCodeRegistry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.6.1. Error Codes — one entry per shared application error code.
@@ -15395,7 +15395,7 @@ class ErrorHandling : public som::SomNode {
   ErrorHandling(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The stance errors are written from, before the concrete categories below.
@@ -15434,7 +15434,7 @@ class ErrorHandlingStandards : public som::SomNode {
   ErrorHandlingStandards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ErrorHandlingStandardsContentForm content() const;
   // Exception type conventions.
   ErrorHandlingStandardsExceptionsForm exceptions() const;
@@ -15457,7 +15457,7 @@ class ErrorRecovery : public som::SomNode {
   ErrorRecovery(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What the system offers after an error, so the user is not left stranded.
@@ -15498,7 +15498,7 @@ class EvaluationCriteria : public som::SomNode {
   EvaluationCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× EvaluationCriterion.
@@ -15519,7 +15519,7 @@ class EvaluationCriterionEntry : public som::SomNode {
   EvaluationCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EvaluationCriterionEntryContentForm content() const;
   // Scoring settings.
   EvaluationCriterionEntryScoringForm scoring() const;
@@ -15538,7 +15538,7 @@ class EventAttributePolicy : public som::SomNode {
   EventAttributePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   EventAttributePolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -15552,7 +15552,7 @@ class ExecutiveSummaryDistribution : public som::SomNode {
   ExecutiveSummaryDistribution(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Executive distribution summary.
@@ -15575,7 +15575,7 @@ class ExistingSystemEntry : public som::SomNode {
   ExistingSystemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExistingSystemEntryContentForm content() const;
   // Technology stack details.
   ExistingSystemEntryTechnologyForm technology() const;
@@ -15605,7 +15605,7 @@ class ExistingSystemsLandscape : public som::SomNode {
   ExistingSystemsLandscape(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 1.1.1. System Inventory.
@@ -15626,7 +15626,7 @@ class ExpectedImprovements : public som::SomNode {
   ExpectedImprovements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExpectedImprovementsContentForm content() const;
 };
 
@@ -15636,7 +15636,7 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   ExperienceAndInterfaceDesign(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
@@ -15670,7 +15670,7 @@ class ExperienceCodeSpecs : public som::SomNode {
   ExperienceCodeSpecs(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.1.1. Screen Descriptions. Seeds → XDS.
@@ -15715,7 +15715,7 @@ class ExperienceDesignFollowUp : public som::SomNode {
   ExperienceDesignFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.3.1. Design Vision. Seeds → XDS.
@@ -15754,7 +15754,7 @@ class ExperienceLocalizationFollowUp : public som::SomNode {
   ExperienceLocalizationFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.4.1. Multi-language Support.
@@ -15771,7 +15771,7 @@ class ExportFieldMappingEntry : public som::SomNode {
   ExportFieldMappingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportFieldMappingEntryContentForm content() const;
   // Ordering and formatting settings.
   ExportFieldMappingEntryFormattingForm formatting() const;
@@ -15815,7 +15815,7 @@ class ExportFormatEntry : public som::SomNode {
   ExportFormatEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportFormatEntryContentForm content() const;
   // Identity and data source.
   ExportFormatEntryIdentityForm identity() const;
@@ -15849,7 +15849,7 @@ class ExportSizeSettings : public som::SomNode {
   ExportSizeSettings(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportSizeSettingsContentForm content() const;
 };
 
@@ -15859,7 +15859,7 @@ class ExportTemplateEntry : public som::SomNode {
   ExportTemplateEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExportTemplateEntryContentForm content() const;
   // Format configuration.
   ExportTemplateEntryFormatForm format() const;
@@ -15881,7 +15881,7 @@ class ExtensionEntry : public som::SomNode {
   ExtensionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExtensionEntryContentForm content() const;
   // Resume point — a promoted `@OneOf` case.
   //
@@ -15902,7 +15902,7 @@ class ExtensionStepEntry : public som::SomNode {
   ExtensionStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExtensionStepEntryContentForm content() const;
   // How this extension step's server call is carried out, step by step.
   //
@@ -15931,7 +15931,7 @@ class ExternalActorEntry : public som::SomNode {
   ExternalActorEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalActorEntryContentForm content() const;
   // Interaction cadence and exchanged information.
   ExternalActorEntryInteractionForm interaction() const;
@@ -15951,7 +15951,7 @@ class ExternalActors : public som::SomNode {
   ExternalActors(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Actor entries — contains 1+× ExternalActorEntry.
@@ -15969,7 +15969,7 @@ class ExternalConnectivitySection : public som::SomNode {
   ExternalConnectivitySection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of external connectivity requirements.
@@ -16005,7 +16005,7 @@ class ExternalInterfaceEntry : public som::SomNode {
   ExternalInterfaceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which external system this interface reaches, and what kind of
@@ -16058,7 +16058,7 @@ class ExternalInterfaces : public som::SomNode {
   ExternalInterfaces(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Summary of the integration landscape.
@@ -16082,7 +16082,7 @@ class ExternalNetworkRequirements : public som::SomNode {
   ExternalNetworkRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalNetworkRequirementsContentForm content() const;
   // Public endpoint requirements.
   ExternalNetworkRequirementsPublicEndpointsConfigForm publicEndpointsConfig() const;
@@ -16100,7 +16100,7 @@ class ExternalPartnerConnectionEntry : public som::SomNode {
   ExternalPartnerConnectionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalPartnerConnectionEntryContentForm content() const;
   // Protocol and endpoint.
   ExternalPartnerConnectionEntryProtocolForm protocol() const;
@@ -16123,7 +16123,7 @@ class ExternalPartnerOperations : public som::SomNode {
   ExternalPartnerOperations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalPartnerOperationsContentForm content() const;
 };
 
@@ -16136,7 +16136,7 @@ class ExternalServiceDependencies : public som::SomNode {
   ExternalServiceDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× External Service Dependency.
@@ -16157,7 +16157,7 @@ class ExternalServiceDependencyEntry : public som::SomNode {
   ExternalServiceDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalServiceDependencyEntryContentForm content() const;
   // Internal dependency and contract details.
   ExternalServiceDependencyEntryRelationshipForm relationship() const;
@@ -16186,7 +16186,7 @@ class ExternalSystemContextEntry : public som::SomNode {
   ExternalSystemContextEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ExternalSystemContextEntryContentForm content() const;
   // Integration intent and exchanged information.
   ExternalSystemContextEntryIntegrationForm integration() const;
@@ -16207,7 +16207,7 @@ class ExternalSystemsContext : public som::SomNode {
   ExternalSystemsContext(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // External system entries — contains 0+× ExternalSystemContextEntry.
@@ -16225,7 +16225,7 @@ class FamilyComponentRef : public som::SomNode {
   FamilyComponentRef(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FamilyComponentRefContentForm content() const;
 };
 
@@ -16238,7 +16238,7 @@ class FeatureDependencies : public som::SomNode {
   FeatureDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureDependenciesContentForm content() const;
   // Dependency analysis narrative.
   // (skipped: dependencyAnalysis has no target type)
@@ -16256,7 +16256,7 @@ class FeatureDependencyEntry : public som::SomNode {
   FeatureDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureDependencyEntryContentForm content() const;
 };
 
@@ -16274,7 +16274,7 @@ class FeatureHookEntry : public som::SomNode {
   FeatureHookEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureHookEntryContentForm content() const;
   // 7.9.2.x. Methods — what each member of the hook contract does.
   // Returns the list view; element type: HookMethodEntry (construct from item paths).
@@ -16287,7 +16287,7 @@ class FeatureModuleEntry : public som::SomNode {
   FeatureModuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureModuleEntryContentForm content() const;
   // Purpose and value.
   FeatureModuleEntryDescriptionForm description() const;
@@ -16313,7 +16313,7 @@ class FeaturePrioritization : public som::SomNode {
   FeaturePrioritization(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeaturePrioritizationContentForm content() const;
   // Methodology and scoring.
   FeaturePrioritizationMethodologyForm methodology() const;
@@ -16352,7 +16352,7 @@ class FeaturePriorityEntry : public som::SomNode {
   FeaturePriorityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeaturePriorityEntryContentForm content() const;
   // Feature identity.
   FeaturePriorityEntryIdentityForm identity() const;
@@ -16390,7 +16390,7 @@ class FeaturePriorityRegister : public som::SomNode {
   FeaturePriorityRegister(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeaturePriorityRegisterContentForm content() const;
   // Contains 1+× FeaturePriorityEntry.
   // Returns the list view; element type: FeaturePriorityEntry (construct from item paths).
@@ -16406,7 +16406,7 @@ class FeatureStageMapping : public som::SomNode {
   FeatureStageMapping(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStageMappingContentForm content() const;
   // Stage assignment details.
   FeatureStageMappingAssignmentForm assignment() const;
@@ -16429,7 +16429,7 @@ class FeatureStageMatrix : public som::SomNode {
   FeatureStageMatrix(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStageMatrixContentForm content() const;
   // Feature-Stage matrix narrative.
   // (skipped: matrixNarrative has no target type)
@@ -16444,7 +16444,7 @@ class FeatureStakeholders : public som::SomNode {
   FeatureStakeholders(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureStakeholdersContentForm content() const;
 };
 
@@ -16454,7 +16454,7 @@ class FeatureTourEntry : public som::SomNode {
   FeatureTourEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FeatureTourEntryContentForm content() const;
   // Tour steps.
   // Returns the list view; element type: TourStepEntry (construct from item paths).
@@ -16467,7 +16467,7 @@ class FieldHelpEntry : public som::SomNode {
   FieldHelpEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FieldHelpEntryContentForm content() const;
 };
 
@@ -16477,7 +16477,7 @@ class FieldValidationRule : public som::SomNode {
   FieldValidationRule(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FieldValidationRuleContentForm content() const;
 };
 
@@ -16491,7 +16491,7 @@ class FileAccessControlPolicy : public som::SomNode {
   FileAccessControlPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FileAccessControlPolicyContentForm content() const;
   // File Access Control Details (text).
   // (skipped: fileAccessControlDetails has no target type)
@@ -16508,7 +16508,7 @@ class FileAndStorageSecurity : public som::SomNode {
   FileAndStorageSecurity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // File and Storage Security Overview (text).
@@ -16541,7 +16541,7 @@ class FileDownloadSecurityPolicy : public som::SomNode {
   FileDownloadSecurityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FileDownloadSecurityPolicyContentForm content() const;
   // Download Security Details (text).
   // (skipped: downloadSecurityDetails has no target type)
@@ -16557,7 +16557,7 @@ class FileStorageEncryptionPolicy : public som::SomNode {
   FileStorageEncryptionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FileStorageEncryptionPolicyContentForm content() const;
   // File Storage Encryption Details (text).
   // (skipped: fileStorageEncryptionDetails has no target type)
@@ -16574,7 +16574,7 @@ class FileUploadValidationPolicy : public som::SomNode {
   FileUploadValidationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FileUploadValidationPolicyContentForm content() const;
   // Upload Validation Details (text).
   // (skipped: uploadValidationDetails has no target type)
@@ -16586,7 +16586,7 @@ class FirewallRequirements : public som::SomNode {
   FirewallRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FirewallRequirementsContentForm content() const;
   // Rule definitions.
   FirewallRequirementsRulesForm rules() const;
@@ -16604,7 +16604,7 @@ class Flexibility : public som::SomNode {
   Flexibility(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FlexibilityContentForm content() const;
   // Modularity and reuse goals.
   FlexibilityModularityForm modularity() const;
@@ -16627,7 +16627,7 @@ class FlexibilityCharacteristic : public som::SomNode {
   FlexibilityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The changes the system must absorb without redesign, and the environments
@@ -16660,7 +16660,7 @@ class FormScreenAssignmentEntry : public som::SomNode {
   FormScreenAssignmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FormScreenAssignmentEntryContentForm content() const;
 };
 
@@ -16670,7 +16670,7 @@ class FrameworkRequirementEntry : public som::SomNode {
   FrameworkRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FrameworkRequirementEntryContentForm content() const;
   // Identity details.
   FrameworkRequirementEntryIdentityForm identity() const;
@@ -16694,7 +16694,7 @@ class FullDistribution : public som::SomNode {
   FullDistribution(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Full distribution summary.
@@ -16716,7 +16716,7 @@ class FunctionDataMatrixEntry : public som::SomNode {
   FunctionDataMatrixEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionDataMatrixEntryContentForm content() const;
 };
 
@@ -16728,7 +16728,7 @@ class FunctionEntry : public som::SomNode {
   FunctionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionEntryContentForm content() const;
   // Decomposition position and classification.
   FunctionEntryClassificationForm classification() const;
@@ -16749,7 +16749,7 @@ class FunctionModel : public som::SomNode {
   FunctionModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How the function hierarchy was cut, and how deep it goes.
@@ -16794,7 +16794,7 @@ class FunctionalCompleteness : public som::SomNode {
   FunctionalCompleteness(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionalCompletenessContentForm content() const;
   // Detailed functional completeness narrative.
   // (skipped: narrative has no target type)
@@ -16810,7 +16810,7 @@ class FunctionalRequirementEntry : public som::SomNode {
   FunctionalRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionalRequirementEntryContentForm content() const;
   // Requirement details: description, type, category.
   FunctionalRequirementEntryDetailsForm details() const;
@@ -16851,7 +16851,7 @@ class FunctionalRequirements : public som::SomNode {
   FunctionalRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Functional requirements summary form.
@@ -16876,7 +16876,7 @@ class FunctionalResponsibilities : public som::SomNode {
   FunctionalResponsibilities(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   FunctionalResponsibilitiesContentForm content() const;
   // Responsibility matrix overview narrative.
   // (skipped: matrixOverview has no target type)
@@ -16895,7 +16895,7 @@ class FunctionalSuitabilityCharacteristic : public som::SomNode {
   FunctionalSuitabilityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The bar for "the right functions, working correctly" — the coverage target
@@ -16931,7 +16931,7 @@ class GapEntry : public som::SomNode {
   GapEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GapEntryContentForm content() const;
   // Gap description and business impact.
   GapEntryDescriptionForm description() const;
@@ -16949,7 +16949,7 @@ class GeographicDistributionRequirements : public som::SomNode {
   GeographicDistributionRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GeographicDistributionRequirementsContentForm content() const;
   // CDN requirements.
   GeographicDistributionRequirementsCdnForm cdn() const;
@@ -16970,7 +16970,7 @@ class GlobalRoleExclusionEntry : public som::SomNode {
   GlobalRoleExclusionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GlobalRoleExclusionEntryContentForm content() const;
 };
 
@@ -16980,7 +16980,7 @@ class GlossaryAndAbbreviations : public som::SomNode {
   GlossaryAndAbbreviations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The set of defined terms and abbreviations.
@@ -16998,7 +16998,7 @@ class GlossaryEntry : public som::SomNode {
   GlossaryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GlossaryEntryContentForm content() const;
 };
 
@@ -17010,7 +17010,7 @@ class GoalDependencies : public som::SomNode {
   GoalDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Dependency entries — contains 0+× GoalDependencyEntry.
@@ -17028,7 +17028,7 @@ class GoalDependencyEntry : public som::SomNode {
   GoalDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GoalDependencyEntryContentForm content() const;
   // The goal whose achievement this dependency blocks, named by section id.
   //
@@ -17055,7 +17055,7 @@ class GoalKeyResults : public som::SomNode {
   GoalKeyResults(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Key result entries — contains 0+× KeyResultEntry.
@@ -17073,7 +17073,7 @@ class GoalMilestoneEntry : public som::SomNode {
   GoalMilestoneEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GoalMilestoneEntryContentForm content() const;
 };
 
@@ -17085,7 +17085,7 @@ class GoalMilestones : public som::SomNode {
   GoalMilestones(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Milestone entries — contains 0+× GoalMilestoneEntry.
@@ -17105,7 +17105,7 @@ class GoalResources : public som::SomNode {
   GoalResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Resource requirement form.
@@ -17125,7 +17125,7 @@ class GoalRiskEntry : public som::SomNode {
   GoalRiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GoalRiskEntryContentForm content() const;
   // Risk assessment details.
   GoalRiskEntryAssessmentForm assessment() const;
@@ -17141,7 +17141,7 @@ class GoalRisks : public som::SomNode {
   GoalRisks(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Risk entries — contains 0+× GoalRiskEntry.
@@ -17178,7 +17178,7 @@ class Goals : public som::SomNode {
   Goals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Goal hierarchy diagram.
@@ -17202,7 +17202,7 @@ class GovernanceModel : public som::SomNode {
   GovernanceModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GovernanceModelContentForm content() const;
   // Decision authority matrix.
   // Returns the list view; element type: DecisionAuthorityEntry (construct from item paths).
@@ -17220,7 +17220,7 @@ class GradedAccessLevelEntry : public som::SomNode {
   GradedAccessLevelEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GradedAccessLevelEntryContentForm content() const;
   // Role requirement payload — a promoted `@OneOf` case.
   GradedAccessLevelEntryRoleRequirementForm roleRequirement() const;
@@ -17257,7 +17257,7 @@ class GradedAuthorizationRequirement : public som::SomNode {
   GradedAuthorizationRequirement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   GradedAuthorizationRequirementContentForm content() const;
   // The authored rungs of the ladder — contains 1..3× Graded Access Level.
   // Returns the list view; element type: GradedAccessLevelEntry (construct from item paths).
@@ -17272,7 +17272,7 @@ class HandlingRequirementEntry : public som::SomNode {
   HandlingRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   HandlingRequirementEntryContentForm content() const;
 };
 
@@ -17282,7 +17282,7 @@ class HardwareRequirements : public som::SomNode {
   HardwareRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.4.1. Server Requirements.
@@ -17303,7 +17303,7 @@ class HealthCheckEndpoints : public som::SomNode {
   HealthCheckEndpoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   HealthCheckEndpointsContentForm content() const;
   // Response configuration.
   HealthCheckEndpointsConfigurationForm configuration() const;
@@ -17319,7 +17319,7 @@ class HealthChecksAndDiagnosticsSection : public som::SomNode {
   HealthChecksAndDiagnosticsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of health check and diagnostic strategy.
@@ -17346,7 +17346,7 @@ class HighAvailabilityRequirements : public som::SomNode {
   HighAvailabilityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   HighAvailabilityRequirementsContentForm content() const;
   // Redundancy model.
   HighAvailabilityRequirementsRedundancyForm redundancy() const;
@@ -17368,7 +17368,7 @@ class HookMethodEntry : public som::SomNode {
   HookMethodEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   HookMethodEntryContentForm content() const;
 };
 
@@ -17378,7 +17378,7 @@ class IdeRequirementEntry : public som::SomNode {
   IdeRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdeRequirementEntryContentForm content() const;
   // Extension and workspace configuration.
   IdeRequirementEntryConfigurationForm configuration() const;
@@ -17399,7 +17399,7 @@ class Identification : public som::SomNode {
   Identification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentificationContentForm content() const;
   // Identity Sources — contains 0+× Identity Source.
   // Returns the list view; element type: IdentitySourceEntry (construct from item paths).
@@ -17424,7 +17424,7 @@ class IdentificationAndAuthentication : public som::SomNode {
   IdentificationAndAuthentication(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.2.1. Identification.
@@ -17446,7 +17446,7 @@ class IdentityAttributeMappingEntry : public som::SomNode {
   IdentityAttributeMappingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityAttributeMappingEntryContentForm content() const;
   // Transformation and defaulting behavior.
   IdentityAttributeMappingEntryTransformationForm transformation() const;
@@ -17462,7 +17462,7 @@ class IdentityProviderDetails : public som::SomNode {
   IdentityProviderDetails(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityProviderDetailsContentForm content() const;
 };
 
@@ -17472,7 +17472,7 @@ class IdentityProviderEndpoints : public som::SomNode {
   IdentityProviderEndpoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityProviderEndpointsContentForm content() const;
 };
 
@@ -17485,7 +17485,7 @@ class IdentityProviderEntry : public som::SomNode {
   IdentityProviderEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityProviderEntryContentForm content() const;
   // Provider details.
   // Returns the list view; element type: IdentityProviderDetails (construct from item paths).
@@ -17510,7 +17510,7 @@ class IdentitySourceEntry : public som::SomNode {
   IdentitySourceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentitySourceEntryContentForm content() const;
   // Connectivity and trust details.
   IdentitySourceEntryConnectionForm connection() const;
@@ -17531,7 +17531,7 @@ class IdentityVerificationPolicy : public som::SomNode {
   IdentityVerificationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IdentityVerificationPolicyContentForm content() const;
   // Required proofing artifacts.
   IdentityVerificationPolicyDocumentsForm documents() const;
@@ -17553,7 +17553,7 @@ class ImpactLevelDefinitions : public som::SomNode {
   ImpactLevelDefinitions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ImpactLevelDefinitionsContentForm content() const;
 };
 
@@ -17563,7 +17563,7 @@ class IncidentManagementRequirements : public som::SomNode {
   IncidentManagementRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IncidentManagementRequirementsContentForm content() const;
   // Communication requirements.
   IncidentManagementRequirementsCommunicationForm communication() const;
@@ -17581,7 +17581,7 @@ class IncidentResponsePlan : public som::SomNode {
   IncidentResponsePlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IncidentResponsePlanContentForm content() const;
   // Response process.
   IncidentResponsePlanProcessForm process() const;
@@ -17597,7 +17597,7 @@ class IndustryProtocolComplianceEntry : public som::SomNode {
   IndustryProtocolComplianceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IndustryProtocolComplianceEntryContentForm content() const;
   // Compliance scope and features.
   IndustryProtocolComplianceEntryScopeForm scope() const;
@@ -17615,7 +17615,7 @@ class IndustryStandardEntry : public som::SomNode {
   IndustryStandardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IndustryStandardEntryContentForm content() const;
   // Scope details.
   IndustryStandardEntryScopeForm scope() const;
@@ -17635,7 +17635,7 @@ class InformationAndDataModel : public som::SomNode {
   InformationAndDataModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.1. Data Model.
@@ -17684,7 +17684,7 @@ class InformationArchitecture : public som::SomNode {
   InformationArchitecture(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Site map overview.
@@ -17717,7 +17717,7 @@ class InformationForUseRequirements : public som::SomNode {
   InformationForUseRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // User documentation requirements (doc half of the former DOANTR).
@@ -17734,7 +17734,7 @@ class InfrastructureAsCode : public som::SomNode {
   InfrastructureAsCode(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureAsCodeContentForm content() const;
   // State management.
   InfrastructureAsCodeStateForm state() const;
@@ -17752,7 +17752,7 @@ class InfrastructureComponentEntry : public som::SomNode {
   InfrastructureComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureComponentEntryContentForm content() const;
   // Purpose and technology choices.
   InfrastructureComponentEntryDescriptionForm description() const;
@@ -17772,7 +17772,7 @@ class InfrastructureMetricsSpec : public som::SomNode {
   InfrastructureMetricsSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureMetricsSpecContentForm content() const;
   // Container and orchestration metrics.
   InfrastructureMetricsSpecKubernetesForm kubernetes() const;
@@ -17788,7 +17788,7 @@ class InfrastructureSecurityHardening : public som::SomNode {
   InfrastructureSecurityHardening(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InfrastructureSecurityHardeningContentForm content() const;
   // Container security.
   InfrastructureSecurityHardeningContainerForm container() const;
@@ -17808,7 +17808,7 @@ class InitialDevelopmentFlow : public som::SomNode {
   InitialDevelopmentFlow(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -17823,7 +17823,7 @@ class InitialTrainingEntry : public som::SomNode {
   InitialTrainingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InitialTrainingEntryContentForm content() const;
   // Target and prerequisites.
   InitialTrainingEntryAudienceForm audience() const;
@@ -17843,7 +17843,7 @@ class InputDeviceEntry : public som::SomNode {
   InputDeviceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InputDeviceEntryContentForm content() const;
 };
 
@@ -17853,7 +17853,7 @@ class InsuranceEntry : public som::SomNode {
   InsuranceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InsuranceEntryContentForm content() const;
 };
 
@@ -17865,7 +17865,7 @@ class InsuranceLiabilityRequirements : public som::SomNode {
   InsuranceLiabilityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Insurance requirements — contains 0+× Insurance Entry.
@@ -17886,7 +17886,7 @@ class IntegrationArchitecture : public som::SomNode {
   IntegrationArchitecture(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationArchitectureContentForm content() const;
   // External system landscape.
   IntegrationArchitectureSystemsForm systems() const;
@@ -17909,7 +17909,7 @@ class IntegrationConstraintEntry : public som::SomNode {
   IntegrationConstraintEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationConstraintEntryContentForm content() const;
   // Constraint details.
   IntegrationConstraintEntryDetailsForm details() const;
@@ -17929,7 +17929,7 @@ class IntegrationHealthSummary : public som::SomNode {
   IntegrationHealthSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationHealthSummaryContentForm content() const;
   // Fragile integration points requiring attention.
   // Returns the list view; element type: scalar (construct from item paths).
@@ -17949,7 +17949,7 @@ class IntegrationPointEntry : public som::SomNode {
   IntegrationPointEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IntegrationPointEntryContentForm content() const;
 };
 
@@ -17962,7 +17962,7 @@ class Integrations : public som::SomNode {
   Integrations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× SystemIntegration.
@@ -17982,7 +17982,7 @@ class IntegrityConstraints : public som::SomNode {
   IntegrityConstraints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -17999,7 +17999,7 @@ class IntellectualPropertyRequirements : public som::SomNode {
   IntellectualPropertyRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IntellectualPropertyRequirementsContentForm content() const;
   // IP ownership details — contains 0+× IP Ownership Entry.
   // Returns the list view; element type: IpOwnershipEntry (construct from item paths).
@@ -18012,7 +18012,7 @@ class InteractionBusinessRules : public som::SomNode {
   InteractionBusinessRules(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InteractionBusinessRulesContentForm content() const;
 };
 
@@ -18027,7 +18027,7 @@ class InteractionCapabilityCharacteristic : public som::SomNode {
   InteractionCapabilityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The user population whose experience sets the bar, and the level of
@@ -18062,7 +18062,7 @@ class InteractionCatalog : public som::SomNode {
   InteractionCatalog(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Interaction catalog overview.
@@ -18087,7 +18087,7 @@ class InteractionChannelEntry : public som::SomNode {
   InteractionChannelEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InteractionChannelEntryContentForm content() const;
   // Platform and targeting.
   InteractionChannelEntryPlatformForm platform() const;
@@ -18113,7 +18113,7 @@ class InteractionDependencyAnalysis : public som::SomNode {
   InteractionDependencyAnalysis(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -18131,7 +18131,7 @@ class InteractionEntry : public som::SomNode {
   InteractionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Interaction identification (use case header).
@@ -18180,7 +18180,7 @@ class InteractionPatternEntry : public som::SomNode {
   InteractionPatternEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InteractionPatternEntryContentForm content() const;
   // Narrative summary and typical scenarios.
   InteractionPatternEntryDefinitionForm definition() const;
@@ -18201,7 +18201,7 @@ class InteractionPatterns : public som::SomNode {
   InteractionPatterns(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Pattern entries — contains 1+× InteractionPatternEntry.
@@ -18222,7 +18222,7 @@ class InteractionTestingStrategy : public som::SomNode {
   InteractionTestingStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -18237,7 +18237,7 @@ class InterfaceBusinessContext : public som::SomNode {
   InterfaceBusinessContext(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceBusinessContextContentForm content() const;
   // Business processes that depend on this interface.
   // Returns the list view; element type: InterfaceBusinessProcessEntry (construct from item paths).
@@ -18250,7 +18250,7 @@ class InterfaceBusinessProcessEntry : public som::SomNode {
   InterfaceBusinessProcessEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceBusinessProcessEntryContentForm content() const;
 };
 
@@ -18260,7 +18260,7 @@ class InterfaceDataEntityEntry : public som::SomNode {
   InterfaceDataEntityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceDataEntityEntryContentForm content() const;
 };
 
@@ -18270,7 +18270,7 @@ class InterfaceDataSpec : public som::SomNode {
   InterfaceDataSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceDataSpecContentForm content() const;
   // Data entities exchanged.
   // Returns the list view; element type: InterfaceDataEntityEntry (construct from item paths).
@@ -18289,7 +18289,7 @@ class InterfaceErrorHandling : public som::SomNode {
   InterfaceErrorHandling(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceErrorHandlingContentForm content() const;
   // Non-retryable errors and retry strategy.
   InterfaceErrorHandlingRetryForm retry() const;
@@ -18308,7 +18308,7 @@ class InterfaceGovernance : public som::SomNode {
   InterfaceGovernance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceGovernanceContentForm content() const;
   // Contract and commercial terms.
   InterfaceGovernanceContractForm contract() const;
@@ -18333,7 +18333,7 @@ class InterfaceOperationEntry : public som::SomNode {
   InterfaceOperationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceOperationEntryContentForm content() const;
 };
 
@@ -18343,7 +18343,7 @@ class InterfaceOperational : public som::SomNode {
   InterfaceOperational(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceOperationalContentForm content() const;
   // Rate limiting rules.
   InterfaceOperationalRateLimitingForm rateLimiting() const;
@@ -18362,7 +18362,7 @@ class InterfaceSecurity : public som::SomNode {
   InterfaceSecurity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceSecurityContentForm content() const;
   // Authorization boundaries.
   InterfaceSecurityAuthorizationForm authorization() const;
@@ -18380,7 +18380,7 @@ class InterfaceSpecificationEntry : public som::SomNode {
   InterfaceSpecificationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceSpecificationEntryContentForm content() const;
   // Definition storage and validation.
   InterfaceSpecificationEntryDefinitionForm definition() const;
@@ -18398,7 +18398,7 @@ class InterfaceTechnicalSpec : public som::SomNode {
   InterfaceTechnicalSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceTechnicalSpecContentForm content() const;
   // Directionality and messaging pattern.
   InterfaceTechnicalSpecCommunicationForm communication() const;
@@ -18417,7 +18417,7 @@ class InterfaceTestScenarioEntry : public som::SomNode {
   InterfaceTestScenarioEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceTestScenarioEntryContentForm content() const;
 };
 
@@ -18427,7 +18427,7 @@ class InterfaceTesting : public som::SomNode {
   InterfaceTesting(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InterfaceTestingContentForm content() const;
   // Test data strategy.
   InterfaceTestingDataForm data() const;
@@ -18446,7 +18446,7 @@ class InternalDependencies : public som::SomNode {
   InternalDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Internal System Dependency.
@@ -18464,7 +18464,7 @@ class InternalNetworkRequirements : public som::SomNode {
   InternalNetworkRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InternalNetworkRequirementsContentForm content() const;
   // Segmentation and isolation.
   InternalNetworkRequirementsSegmentationForm segmentation() const;
@@ -18482,7 +18482,7 @@ class InteroperabilityRequirements : public som::SomNode {
   InteroperabilityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   InteroperabilityRequirementsContentForm content() const;
   // Data-exchange definitions.
   InteroperabilityRequirementsDataExchangeForm dataExchange() const;
@@ -18504,7 +18504,7 @@ class IntroductionAndScope : public som::SomNode {
   IntroductionAndScope(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // System overview summary statistics.
@@ -18546,7 +18546,7 @@ class IpOwnershipEntry : public som::SomNode {
   IpOwnershipEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   IpOwnershipEntryContentForm content() const;
 };
 
@@ -18564,7 +18564,7 @@ class Iso25010Coverage : public som::SomNode {
   Iso25010Coverage(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // One entry per ISO/IEC 25010:2023 characteristic addressed.
@@ -18582,7 +18582,7 @@ class Iso25010CoverageEntry : public som::SomNode {
   Iso25010CoverageEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   Iso25010CoverageEntryContentForm content() const;
 };
 
@@ -18595,7 +18595,7 @@ class ItLandscapePosition : public som::SomNode {
   ItLandscapePosition(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // IT Landscape Position Details (form).
@@ -18612,7 +18612,7 @@ class ItSecurityOperations : public som::SomNode {
   ItSecurityOperations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ItSecurityOperationsContentForm content() const;
   // Access protection controls.
   ItSecurityOperationsAccessForm access() const;
@@ -18632,7 +18632,7 @@ class ItSecurityStandardsSection : public som::SomNode {
   ItSecurityStandardsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of IT security standards strategy.
@@ -18662,7 +18662,7 @@ class ItStandardComplianceEntry : public som::SomNode {
   ItStandardComplianceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ItStandardComplianceEntryContentForm content() const;
   // Applicability and priority.
   ItStandardComplianceEntryScopeForm scope() const;
@@ -18686,7 +18686,7 @@ class JobDescriptionsAndStaffing : public som::SomNode {
   JobDescriptionsAndStaffing(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the job architecture and role design approach.
@@ -18716,7 +18716,7 @@ class JourneyStageEntry : public som::SomNode {
   JourneyStageEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   JourneyStageEntryContentForm content() const;
 };
 
@@ -18728,7 +18728,7 @@ class KeyAttributeEntry : public som::SomNode {
   KeyAttributeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyAttributeEntryContentForm content() const;
   // Key generation settings.
   KeyAttributeEntryGenerationForm generation() const;
@@ -18758,7 +18758,7 @@ class KeyCompromiseRecoveryPolicy : public som::SomNode {
   KeyCompromiseRecoveryPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyCompromiseRecoveryPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -18770,7 +18770,7 @@ class KeyConceptEntry : public som::SomNode {
   KeyConceptEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyConceptEntryContentForm content() const;
   // Detailed attribute definitions for this concept.
   // (skipped: attributeDetails has no target type)
@@ -18787,7 +18787,7 @@ class KeyConcepts : public som::SomNode {
   KeyConcepts(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Conceptual domain model diagram.
@@ -18812,7 +18812,7 @@ class KeyEscrowAndBackupPolicy : public som::SomNode {
   KeyEscrowAndBackupPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyEscrowAndBackupPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -18828,7 +18828,7 @@ class KeyGenerationPolicy : public som::SomNode {
   KeyGenerationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyGenerationPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -18845,7 +18845,7 @@ class KeyManagement : public som::SomNode {
   KeyManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Key Generation Policy.
@@ -18873,7 +18873,7 @@ class KeyManagementRequirements : public som::SomNode {
   KeyManagementRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyManagementRequirementsContentForm content() const;
 };
 
@@ -18883,7 +18883,7 @@ class KeyResultEntry : public som::SomNode {
   KeyResultEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyResultEntryContentForm content() const;
 };
 
@@ -18896,7 +18896,7 @@ class KeyRotationPolicy : public som::SomNode {
   KeyRotationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyRotationPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -18911,7 +18911,7 @@ class KeyScenarios : public som::SomNode {
   KeyScenarios(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Scenario overview.
@@ -18936,7 +18936,7 @@ class KeyStoragePolicy : public som::SomNode {
   KeyStoragePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   KeyStoragePolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -18951,7 +18951,7 @@ class KnowledgeTransfer : public som::SomNode {
   KnowledgeTransfer(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -18975,7 +18975,7 @@ class LanguageCountrySelection : public som::SomNode {
   LanguageCountrySelection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How a user's language is chosen and changed.
@@ -19012,7 +19012,7 @@ class LayerCommunicationRules : public som::SomNode {
   LayerCommunicationRules(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LayerCommunicationRulesContentForm content() const;
   // Interface requirements between layers.
   LayerCommunicationRulesInterfacesForm interfaces() const;
@@ -19032,7 +19032,7 @@ class LayeringAndModuleStructure : public som::SomNode {
   LayeringAndModuleStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the layering and modularization approach.
@@ -19074,7 +19074,7 @@ class LegacyCompatibilityEntry : public som::SomNode {
   LegacyCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LegacyCompatibilityEntryContentForm content() const;
   // Integration approach.
   LegacyCompatibilityEntryIntegrationForm integration() const;
@@ -19096,7 +19096,7 @@ class LegalAndContractualRequirements : public som::SomNode {
   LegalAndContractualRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 3.6.1. Intellectual Property.
@@ -19124,7 +19124,7 @@ class LiabilityLimitations : public som::SomNode {
   LiabilityLimitations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LiabilityLimitationsContentForm content() const;
 };
 
@@ -19136,7 +19136,7 @@ class LifecycleTransitionEntry : public som::SomNode {
   LifecycleTransitionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LifecycleTransitionEntryContentForm content() const;
   // Triggering event details.
   LifecycleTransitionEntryTriggerForm trigger() const;
@@ -19152,7 +19152,7 @@ class LimitationEntry : public som::SomNode {
   LimitationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LimitationEntryContentForm content() const;
 };
 
@@ -19162,7 +19162,7 @@ class LoadProfileRequirements : public som::SomNode {
   LoadProfileRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LoadProfileRequirementsContentForm content() const;
   // Request volume assumptions.
   LoadProfileRequirementsRequestLoadForm requestLoad() const;
@@ -19178,7 +19178,7 @@ class LocalDevelopmentSetup : public som::SomNode {
   LocalDevelopmentSetup(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LocalDevelopmentSetupContentForm content() const;
   // Setup workflow.
   LocalDevelopmentSetupWorkflowForm workflow() const;
@@ -19198,7 +19198,7 @@ class LocaleHandlingRequirements : public som::SomNode {
   LocaleHandlingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LocaleHandlingRequirementsContentForm content() const;
 };
 
@@ -19210,7 +19210,7 @@ class LocalizationProcess : public som::SomNode {
   LocalizationProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How locale-specific adaptation is carried out beyond translation.
@@ -19244,7 +19244,7 @@ class LocalizationTranslationProcess : public som::SomNode {
   LocalizationTranslationProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Localization workflow (content identification, externalization, review).
@@ -19265,7 +19265,7 @@ class LocalizationTranslationRequirements : public som::SomNode {
   LocalizationTranslationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Technical internationalization requirements (re-homed from MLAR).
@@ -19284,7 +19284,7 @@ class LogAggregationRequirements : public som::SomNode {
   LogAggregationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LogAggregationRequirementsContentForm content() const;
   // Dynamic configuration and collection settings.
   LogAggregationRequirementsCollectionForm collection() const;
@@ -19300,7 +19300,7 @@ class LogManagementRequirements : public som::SomNode {
   LogManagementRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LogManagementRequirementsContentForm content() const;
   // Collection method.
   LogManagementRequirementsCollectionForm collection() const;
@@ -19320,7 +19320,7 @@ class LogProtectionPolicy : public som::SomNode {
   LogProtectionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LogProtectionPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -19334,7 +19334,7 @@ class LogRetentionPolicy : public som::SomNode {
   LogRetentionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LogRetentionPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -19348,7 +19348,7 @@ class LogStoragePolicy : public som::SomNode {
   LogStoragePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LogStoragePolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -19364,7 +19364,7 @@ class LoginFlowConfiguration : public som::SomNode {
   LoginFlowConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LoginFlowConfigurationContentForm content() const;
   // Login Flow Details (text).
   // (skipped: loginFlowDetails has no target type)
@@ -19396,7 +19396,7 @@ class LoginFlowStepEntry : public som::SomNode {
   LoginFlowStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   LoginFlowStepEntryContentForm content() const;
   // Inputs and validation behavior.
   LoginFlowStepEntryValidationForm validation() const;
@@ -19412,7 +19412,7 @@ class MainScenarioStepEntry : public som::SomNode {
   MainScenarioStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MainScenarioStepEntryContentForm content() const;
   // How this main-flow step's server call is carried out, step by step.
   //
@@ -19442,7 +19442,7 @@ class MainSuccessScenario : public som::SomNode {
   MainSuccessScenario(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MainSuccessScenarioContentForm content() const;
   // Main scenario steps — contains 1+× Scenario Step.
   // Returns the list view; element type: MainScenarioStepEntry (construct from item paths).
@@ -19455,7 +19455,7 @@ class Maintainability : public som::SomNode {
   Maintainability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintainabilityContentForm content() const;
   // Analyzability requirements.
   MaintainabilityAnalyzabilityForm analyzability() const;
@@ -19479,7 +19479,7 @@ class MaintainabilityCharacteristic : public som::SomNode {
   MaintainabilityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What modification must cost, and the structural thresholds that keep it
@@ -19510,7 +19510,7 @@ class MaintenanceChangeManagement : public som::SomNode {
   MaintenanceChangeManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceChangeManagementContentForm content() const;
   // CAB cadence and documentation prerequisites.
   MaintenanceChangeManagementGovernanceForm governance() const;
@@ -19531,7 +19531,7 @@ class MaintenanceDependencies : public som::SomNode {
   MaintenanceDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Maintenance Dependency.
@@ -19552,7 +19552,7 @@ class MaintenanceDependencyEntry : public som::SomNode {
   MaintenanceDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceDependencyEntryContentForm content() const;
   // Classification and purpose.
   MaintenanceDependencyEntryClassificationForm classification() const;
@@ -19568,7 +19568,7 @@ class MaintenanceProcedureEntry : public som::SomNode {
   MaintenanceProcedureEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceProcedureEntryContentForm content() const;
 };
 
@@ -19578,7 +19578,7 @@ class MaintenanceUserImpact : public som::SomNode {
   MaintenanceUserImpact(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceUserImpactContentForm content() const;
   // Communication during maintenance.
   MaintenanceUserImpactDuringForm during() const;
@@ -19594,7 +19594,7 @@ class MaintenanceWindowEntry : public som::SomNode {
   MaintenanceWindowEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MaintenanceWindowEntryContentForm content() const;
   // Schedule details.
   MaintenanceWindowEntryScheduleForm schedule() const;
@@ -19615,7 +19615,7 @@ class MaintenanceWindowsSection : public som::SomNode {
   MaintenanceWindowsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of maintenance strategy.
@@ -19645,7 +19645,7 @@ class MasterDataDomainEntry : public som::SomNode {
   MasterDataDomainEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MasterDataDomainEntryContentForm content() const;
   // Volume and quality indicators.
   MasterDataDomainEntryQualityForm quality() const;
@@ -19664,7 +19664,7 @@ class MasterDataManagement : public som::SomNode {
   MasterDataManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // MDM maturity and status summary.
@@ -19684,7 +19684,7 @@ class MessageFormatStandards : public som::SomNode {
   MessageFormatStandards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MessageFormatStandardsContentForm content() const;
   // Schema standards.
   MessageFormatStandardsSchemaForm schema() const;
@@ -19708,7 +19708,7 @@ class MessageKeyEntry : public som::SomNode {
   MessageKeyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MessageKeyEntryContentForm content() const;
   // 7.8.x. Locale Variants — one entry per non-default locale.
   // Returns the list view; element type: MessageLocaleVariantEntry (construct from item paths).
@@ -19743,7 +19743,7 @@ class MessageKeyRegistry : public som::SomNode {
   MessageKeyRegistry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.8.1. Message Keys — one entry per author-once copy string.
@@ -19766,7 +19766,7 @@ class MessageLocaleVariantEntry : public som::SomNode {
   MessageLocaleVariantEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MessageLocaleVariantEntryContentForm content() const;
 };
 
@@ -19779,7 +19779,7 @@ class MetricsAndObservability : public som::SomNode {
   MetricsAndObservability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which telemetry signals are collected at all, in what format, and at what
@@ -19821,7 +19821,7 @@ class MetricsBaselineEntry : public som::SomNode {
   MetricsBaselineEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MetricsBaselineEntryContentForm content() const;
 };
 
@@ -19831,7 +19831,7 @@ class MetricsBaselineTable : public som::SomNode {
   MetricsBaselineTable(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Baseline entries.
@@ -19849,7 +19849,7 @@ class MetricsCollectionRequirements : public som::SomNode {
   MetricsCollectionRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MetricsCollectionRequirementsContentForm content() const;
   // Container and cluster metrics.
   MetricsCollectionRequirementsContainerForm container() const;
@@ -19867,7 +19867,7 @@ class MetricsDashboardSummary : public som::SomNode {
   MetricsDashboardSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MetricsDashboardSummaryContentForm content() const;
 };
 
@@ -19880,7 +19880,7 @@ class MfaCategoryRequirementEntry : public som::SomNode {
   MfaCategoryRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MfaCategoryRequirementEntryContentForm content() const;
   // Allowed authenticators and phishing-resistance rules.
   MfaCategoryRequirementEntryAuthenticatorsForm authenticators() const;
@@ -19899,7 +19899,7 @@ class MfaConfiguration : public som::SomNode {
   MfaConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MfaConfigurationContentForm content() const;
   // MFA Implementation Details (text).
   // Returns the list view; element type: scalar (construct from item paths).
@@ -19916,7 +19916,7 @@ class MigrationConsiderations : public som::SomNode {
   MigrationConsiderations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The portfolio-wide cutover approach — the decisions that bound every
@@ -19930,7 +19930,7 @@ class MigrationConsiderations : public som::SomNode {
   // constraint it has to fit inside, and so that changing the sequencing is
   // one edit rather than one per system.
   //
-  // [strategyNarrative] carries the reasoning behind these answers; this band
+  // `strategyNarrative` carries the reasoning behind these answers; this band
   // carries the answers themselves, so a change of approach is a change here
   // and not a rewrite of prose.
   MigrationConsiderationsStrategyContentForm strategyContent() const;
@@ -19970,7 +19970,7 @@ class MigrationEnvironments : public som::SomNode {
   MigrationEnvironments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationEnvironmentsContentForm content() const;
 };
 
@@ -19984,7 +19984,7 @@ class MigrationInteractions : public som::SomNode {
   MigrationInteractions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -20001,7 +20001,7 @@ class MigrationMappingEntry : public som::SomNode {
   MigrationMappingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationMappingEntryContentForm content() const;
 };
 
@@ -20011,7 +20011,7 @@ class MigrationMilestoneEntry : public som::SomNode {
   MigrationMilestoneEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationMilestoneEntryContentForm content() const;
 };
 
@@ -20021,7 +20021,7 @@ class MigrationPhaseDryRuns : public som::SomNode {
   MigrationPhaseDryRuns(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhaseDryRunsContentForm content() const;
 };
 
@@ -20037,7 +20037,7 @@ class MigrationPhaseEntry : public som::SomNode {
   MigrationPhaseEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhaseEntryContentForm content() const;
   // Phase identity details.
   MigrationPhaseEntryIdentityForm identity() const;
@@ -20071,7 +20071,7 @@ class MigrationPhaseResources : public som::SomNode {
   MigrationPhaseResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhaseResourcesContentForm content() const;
 };
 
@@ -20086,7 +20086,7 @@ class MigrationPhases : public som::SomNode {
   MigrationPhases(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationPhasesContentForm content() const;
   // Phase overview narrative.
   // (skipped: phaseOverview has no target type)
@@ -20110,7 +20110,7 @@ class MigrationPlan : public som::SomNode {
   MigrationPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -20125,7 +20125,7 @@ class MigrationResources : public som::SomNode {
   MigrationResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationResourcesContentForm content() const;
   // Resource timeline by phase.
   // (skipped: resourceTimeline has no target type)
@@ -20141,7 +20141,7 @@ class MigrationRiskEntry : public som::SomNode {
   MigrationRiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationRiskEntryContentForm content() const;
   // Risk identification details.
   MigrationRiskEntryIdentificationForm identification() const;
@@ -20176,7 +20176,7 @@ class MigrationRiskIndicators : public som::SomNode {
   MigrationRiskIndicators(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationRiskIndicatorsContentForm content() const;
 };
 
@@ -20191,7 +20191,7 @@ class MigrationRisks : public som::SomNode {
   MigrationRisks(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Who owns migration risk, and how often it is looked at.
@@ -20252,7 +20252,7 @@ class MigrationStakeholders : public som::SomNode {
   MigrationStakeholders(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationStakeholdersContentForm content() const;
 };
 
@@ -20262,7 +20262,7 @@ class MigrationSystems : public som::SomNode {
   MigrationSystems(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationSystemsContentForm content() const;
 };
 
@@ -20277,7 +20277,7 @@ class MigrationTargetEntry : public som::SomNode {
   MigrationTargetEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MigrationTargetEntryContentForm content() const;
 };
 
@@ -20287,7 +20287,7 @@ class MobileCompatibilityEntry : public som::SomNode {
   MobileCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MobileCompatibilityEntryContentForm content() const;
   // Supported devices.
   MobileCompatibilityEntryDevicesForm devices() const;
@@ -20305,7 +20305,7 @@ class MobileDeviceEntry : public som::SomNode {
   MobileDeviceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MobileDeviceEntryContentForm content() const;
   // Technical and management requirements.
   MobileDeviceEntryCapabilitiesForm capabilities() const;
@@ -20319,7 +20319,7 @@ class MobileDeviceRequirementEntry : public som::SomNode {
   MobileDeviceRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MobileDeviceRequirementEntryContentForm content() const;
   // Support prioritization.
   MobileDeviceRequirementEntrySupportForm support() const;
@@ -20337,7 +20337,7 @@ class ModuleEntry : public som::SomNode {
   ModuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ModuleEntryContentForm content() const;
   // Purpose and API.
   ModuleEntryDescriptionForm description() const;
@@ -20357,7 +20357,7 @@ class ModuleVersioningStrategy : public som::SomNode {
   ModuleVersioningStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ModuleVersioningStrategyContentForm content() const;
   // Compatibility policy.
   ModuleVersioningStrategyCompatibilityForm compatibility() const;
@@ -20378,7 +20378,7 @@ class Monitoring : public som::SomNode {
   Monitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The monitoring posture as a whole — the strategy, the platforms it runs
@@ -20422,7 +20422,7 @@ class MonitoringAndAlertingSection : public som::SomNode {
   MonitoringAndAlertingSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of monitoring strategy.
@@ -20462,7 +20462,7 @@ class MonitoringDashboards : public som::SomNode {
   MonitoringDashboards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The ground rules for the dashboard estate — platform, access, and the
@@ -20498,7 +20498,7 @@ class MonitoringInfrastructure : public som::SomNode {
   MonitoringInfrastructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MonitoringInfrastructureContentForm content() const;
   // Deployment model.
   MonitoringInfrastructureDeploymentForm deployment() const;
@@ -20519,7 +20519,7 @@ class MoscowAnalysis : public som::SomNode {
   MoscowAnalysis(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MoscowAnalysisContentForm content() const;
   // MoSCoW rationale narrative.
   // (skipped: moscowRationale has no target type)
@@ -20537,7 +20537,7 @@ class MoscowEntry : public som::SomNode {
   MoscowEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MoscowEntryContentForm content() const;
   // MoSCoW classification details.
   MoscowEntryClassificationForm classification() const;
@@ -20556,7 +20556,7 @@ class MultiChannelExperience : public som::SomNode {
   MultiChannelExperience(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Multi-channel configuration.
@@ -20579,7 +20579,7 @@ class MultiLanguageSupport : public som::SomNode {
   MultiLanguageSupport(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which languages are supported and what support means.
@@ -20608,7 +20608,7 @@ class MustPassCriteria : public som::SomNode {
   MustPassCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What qualifies a criterion as must-pass, how many there are, and whether
@@ -20638,7 +20638,7 @@ class MustPassCriterionEntry : public som::SomNode {
   MustPassCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MustPassCriterionEntryContentForm content() const;
   // Classification and intent of the criterion.
   MustPassCriterionEntryDefinitionForm definition() const;
@@ -20662,7 +20662,7 @@ class MutualTlsPolicy : public som::SomNode {
   MutualTlsPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   MutualTlsPolicyContentForm content() const;
   // Mutual TLS Policy Details (text).
   // (skipped: mutualTlsPolicyDetails has no target type)
@@ -20674,7 +20674,7 @@ class NativeAppRequirements : public som::SomNode {
   NativeAppRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NativeAppRequirementsContentForm content() const;
   // Store presence requirements.
   NativeAppRequirementsStoresForm stores() const;
@@ -20694,7 +20694,7 @@ class NavigationGroupEntry : public som::SomNode {
   NavigationGroupEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationGroupEntryContentForm content() const;
   // Display and expansion behavior.
   NavigationGroupEntryDisplayForm display() const;
@@ -20718,7 +20718,7 @@ class NavigationGuardEntry : public som::SomNode {
   NavigationGuardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationGuardEntryContentForm content() const;
   // Covered routes and dialog resources.
   NavigationGuardEntryDialogForm dialog() const;
@@ -20734,7 +20734,7 @@ class NavigationGuards : public som::SomNode {
   NavigationGuards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of navigation guard strategy.
@@ -20757,7 +20757,7 @@ class NavigationHierarchy : public som::SomNode {
   NavigationHierarchy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the navigation hierarchy structure.
@@ -20779,7 +20779,7 @@ class NavigationItemEntry : public som::SomNode {
   NavigationItemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationItemEntryContentForm content() const;
   // Display properties: icons, labels, descriptions.
   NavigationItemEntryDisplayForm display() const;
@@ -20811,7 +20811,7 @@ class NavigationModel : public som::SomNode {
   NavigationModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.3.1.1. Navigation Overview.
@@ -20844,7 +20844,7 @@ class NavigationOverview : public som::SomNode {
   NavigationOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NavigationOverviewContentForm content() const;
   // Design rationale and open questions.
   // (skipped: designNotes has no target type)
@@ -20856,7 +20856,7 @@ class NetworkAvailabilityRequirements : public som::SomNode {
   NetworkAvailabilityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkAvailabilityRequirementsContentForm content() const;
   // Redundancy configuration.
   NetworkAvailabilityRequirementsRedundancyForm redundancy() const;
@@ -20874,7 +20874,7 @@ class NetworkLatencyRequirements : public som::SomNode {
   NetworkLatencyRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkLatencyRequirementsContentForm content() const;
   // Segment-level latency budgets.
   NetworkLatencyRequirementsSegmentsForm segments() const;
@@ -20892,7 +20892,7 @@ class NetworkLoadBalancingRequirements : public som::SomNode {
   NetworkLoadBalancingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkLoadBalancingRequirementsContentForm content() const;
   // Routing strategy.
   NetworkLoadBalancingRequirementsRoutingForm routing() const;
@@ -20913,7 +20913,7 @@ class NetworkRequirementsSection : public som::SomNode {
   NetworkRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of network infrastructure strategy.
@@ -20953,7 +20953,7 @@ class NetworkSecurityPolicy : public som::SomNode {
   NetworkSecurityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkSecurityPolicyContentForm content() const;
   // Firewall rule details.
   NetworkSecurityPolicyFirewallForm firewall() const;
@@ -20973,7 +20973,7 @@ class NetworkSecurityRequirements : public som::SomNode {
   NetworkSecurityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NetworkSecurityRequirementsContentForm content() const;
   // Access-control settings.
   NetworkSecurityRequirementsAccessForm access() const;
@@ -20996,7 +20996,7 @@ class NewOrganizationStructure : public som::SomNode {
   NewOrganizationStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the target organization structure.
@@ -21020,7 +21020,7 @@ class NewRoleEntry : public som::SomNode {
   NewRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Role identification and overview.
@@ -21049,7 +21049,7 @@ class NewRoleQualifications : public som::SomNode {
   NewRoleQualifications(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NewRoleQualificationsContentForm content() const;
   // Credential and mobility requirements.
   NewRoleQualificationsCredentialsForm credentials() const;
@@ -21066,7 +21066,7 @@ class NewRoleResponsibilities : public som::SomNode {
   NewRoleResponsibilities(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Primary responsibilities (key accountabilities).
@@ -21089,7 +21089,7 @@ class NotificationChannelEntry : public som::SomNode {
   NotificationChannelEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NotificationChannelEntryContentForm content() const;
 };
 
@@ -21102,7 +21102,7 @@ class NotificationModel : public som::SomNode {
   NotificationModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Notification channel entries — contains 1+× NotificationChannelEntry.
@@ -21126,7 +21126,7 @@ class NotificationTypeEntry : public som::SomNode {
   NotificationTypeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   NotificationTypeEntryContentForm content() const;
 };
 
@@ -21138,7 +21138,7 @@ class ObjectInvariantEntry : public som::SomNode {
   ObjectInvariantEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ObjectInvariantEntryContentForm content() const;
 };
 
@@ -21150,7 +21150,7 @@ class ObjectOperationEntry : public som::SomNode {
   ObjectOperationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ObjectOperationEntryContentForm content() const;
   // Execution contract for this operation.
   ObjectOperationEntryExecutionForm execution() const;
@@ -21168,7 +21168,7 @@ class ObjectStateEntry : public som::SomNode {
   ObjectStateEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ObjectStateEntryContentForm content() const;
 };
 
@@ -21178,7 +21178,7 @@ class OnCallProcedures : public som::SomNode {
   OnCallProcedures(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OnCallProceduresContentForm content() const;
   // Team coverage.
   OnCallProceduresTeamsForm teams() const;
@@ -21196,7 +21196,7 @@ class OnCallScheduleConfig : public som::SomNode {
   OnCallScheduleConfig(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OnCallScheduleConfigContentForm content() const;
   // Override and coverage handling.
   OnCallScheduleConfigCoverageForm coverage() const;
@@ -21210,7 +21210,7 @@ class OnboardingHelp : public som::SomNode {
   OnboardingHelp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The guided first-run experience for a new user.
@@ -21245,7 +21245,7 @@ class OngoingTrainingEntry : public som::SomNode {
   OngoingTrainingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OngoingTrainingEntryContentForm content() const;
   // Scheduling and delivery.
   OngoingTrainingEntryScheduleForm schedule() const;
@@ -21266,7 +21266,7 @@ class OperatingEnvironment : public som::SomNode {
   OperatingEnvironment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Framework conditions overview.
@@ -21298,7 +21298,7 @@ class OperationBindingEntry : public som::SomNode {
   OperationBindingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OperationBindingEntryContentForm content() const;
   // 7.9.x. Parameters — where the binding finds each request member.
   // Returns the list view; element type: BindingParameterEntry (construct from item paths).
@@ -21311,7 +21311,7 @@ class OperationalMonitoring : public som::SomNode {
   OperationalMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OperationalMonitoringContentForm content() const;
   // Component monitoring coverage.
   OperationalMonitoringCoverageForm coverage() const;
@@ -21334,7 +21334,7 @@ class OperationalPainPoints : public som::SomNode {
   OperationalPainPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Category-level summary for operational pain points.
@@ -21354,7 +21354,7 @@ class OperationsRequirements : public som::SomNode {
   OperationsRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.5.1. Backup And Recovery.
@@ -21380,7 +21380,7 @@ class OpportunityStatement : public som::SomNode {
   OpportunityStatement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Opportunity Details Form.
@@ -21397,7 +21397,7 @@ class OrgChangeRisks : public som::SomNode {
   OrgChangeRisks(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OrgChangeRisksContentForm content() const;
 };
 
@@ -21407,7 +21407,7 @@ class OrgImplementationActivity : public som::SomNode {
   OrgImplementationActivity(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OrgImplementationActivityContentForm content() const;
 };
 
@@ -21419,7 +21419,7 @@ class OrgRequirementImplementationPlan : public som::SomNode {
   OrgRequirementImplementationPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Implementation plan form.
@@ -21453,7 +21453,7 @@ class OrganizationAndProcessConcept : public som::SomNode {
   OrganizationAndProcessConcept(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Target organizational structure and roles.
@@ -21472,7 +21472,7 @@ class OrganizationStructure : public som::SomNode {
   OrganizationStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Governance model details.
@@ -21494,7 +21494,7 @@ class OrganizationalChangeEntry : public som::SomNode {
   OrganizationalChangeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OrganizationalChangeEntryContentForm content() const;
   // Change identification details.
   OrganizationalChangeEntryIdentificationForm identification() const;
@@ -21522,7 +21522,7 @@ class OrganizationalContext : public som::SomNode {
   OrganizationalContext(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
@@ -21548,7 +21548,7 @@ class OrganizationalEnvironment : public som::SomNode {
   OrganizationalEnvironment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Who the organization is — the facts that set the scale everything else in
@@ -21605,7 +21605,7 @@ class OrganizationalFramework : public som::SomNode {
   OrganizationalFramework(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of organizational changes required for the new system.
@@ -21642,7 +21642,7 @@ class OrganizationalRequirementEntry : public som::SomNode {
   OrganizationalRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OrganizationalRequirementEntryContentForm content() const;
   // Requirement classification and source.
   OrganizationalRequirementEntryClassificationForm classification() const;
@@ -21669,7 +21669,7 @@ class OrganizationalRequirements : public som::SomNode {
   OrganizationalRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Organizational requirements summary form.
@@ -21694,7 +21694,7 @@ class OrganizationalTransitionTimeline : public som::SomNode {
   OrganizationalTransitionTimeline(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the transition approach and guiding principles.
@@ -21728,7 +21728,7 @@ class OrganizationalUnitContextEntry : public som::SomNode {
   OrganizationalUnitContextEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OrganizationalUnitContextEntryContentForm content() const;
 };
 
@@ -21738,7 +21738,7 @@ class OsCompatibilityEntry : public som::SomNode {
   OsCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OsCompatibilityEntryContentForm content() const;
   // Support level and prioritization.
   OsCompatibilityEntrySupportForm support() const;
@@ -21756,7 +21756,7 @@ class OtherAgreementEntry : public som::SomNode {
   OtherAgreementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OtherAgreementEntryContentForm content() const;
 };
 
@@ -21770,7 +21770,7 @@ class OutOfScope : public som::SomNode {
   OutOfScope(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of scope exclusion approach.
@@ -21790,7 +21790,7 @@ class OutOfScopeEntry : public som::SomNode {
   OutOfScopeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   OutOfScopeEntryContentForm content() const;
   // Decision history and future reconsideration.
   OutOfScopeEntryDecisionForm decision() const;
@@ -21804,7 +21804,7 @@ class PackageOrganization : public som::SomNode {
   PackageOrganization(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PackageOrganizationContentForm content() const;
   // Repository and directory structure.
   PackageOrganizationStructureForm structure() const;
@@ -21826,7 +21826,7 @@ class PainPointEntry : public som::SomNode {
   PainPointEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PainPointEntryContentForm content() const;
   // Classification.
   PainPointEntryClassificationForm classification() const;
@@ -21851,7 +21851,7 @@ class PainPointGapCorrelation : public som::SomNode {
   PainPointGapCorrelation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Visual correlation between pain points and gaps.
@@ -21872,7 +21872,7 @@ class PainPointGapCorrelationEntry : public som::SomNode {
   PainPointGapCorrelationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PainPointGapCorrelationEntryContentForm content() const;
 };
 
@@ -21882,7 +21882,7 @@ class PainPointRelationships : public som::SomNode {
   PainPointRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PainPointRelationshipsContentForm content() const;
 };
 
@@ -21896,7 +21896,7 @@ class PainPointsAndGaps : public som::SomNode {
   PainPointsAndGaps(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Visual mapping of pain points and their relationships.
@@ -21930,7 +21930,7 @@ class ParticipantEntry : public som::SomNode {
   ParticipantEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ParticipantEntryContentForm content() const;
 };
 
@@ -21945,7 +21945,7 @@ class PasswordAndCredentialPolicy : public som::SomNode {
   PasswordAndCredentialPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Password and Credential Policy Overview (text).
@@ -21983,7 +21983,7 @@ class PasswordLifecyclePolicy : public som::SomNode {
   PasswordLifecyclePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PasswordLifecyclePolicyContentForm content() const;
   // Password Lifecycle Details (text).
   // (skipped: passwordLifecycleDetails has no target type)
@@ -21999,7 +21999,7 @@ class PasswordRequirementsPolicy : public som::SomNode {
   PasswordRequirementsPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PasswordRequirementsPolicyContentForm content() const;
   // Password Requirements Details (text).
   // (skipped: passwordRequirementsDetails has no target type)
@@ -22014,7 +22014,7 @@ class PasswordStoragePolicy : public som::SomNode {
   PasswordStoragePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PasswordStoragePolicyContentForm content() const;
   // Password Storage Details (text).
   // (skipped: passwordStorageDetails has no target type)
@@ -22026,7 +22026,7 @@ class PeakLoadPatterns : public som::SomNode {
   PeakLoadPatterns(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PeakLoadPatternsContentForm content() const;
   // Peak metrics.
   PeakLoadPatternsMetricsForm metrics() const;
@@ -22042,7 +22042,7 @@ class PenetrationTestingRequirements : public som::SomNode {
   PenetrationTestingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PenetrationTestingRequirementsContentForm content() const;
   // Frequency and scheduling.
   PenetrationTestingRequirementsSchedulingForm scheduling() const;
@@ -22063,7 +22063,7 @@ class PerformanceEfficiencyCharacteristic : public som::SomNode {
   PerformanceEfficiencyCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The engineering stance the performance and structural targets are set
@@ -22095,7 +22095,7 @@ class PeriodicReviewPolicy : public som::SomNode {
   PeriodicReviewPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PeriodicReviewPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -22107,7 +22107,7 @@ class PeripheralEquipmentEntry : public som::SomNode {
   PeripheralEquipmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PeripheralEquipmentEntryContentForm content() const;
 };
 
@@ -22120,7 +22120,7 @@ class PermissionCompositionStrategy : public som::SomNode {
   PermissionCompositionStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PermissionCompositionStrategyContentForm content() const;
   // Permission Composition Details (text).
   // (skipped: permissionCompositionDetails has no target type)
@@ -22135,7 +22135,7 @@ class PermissionEvaluationBehavior : public som::SomNode {
   PermissionEvaluationBehavior(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PermissionEvaluationBehaviorContentForm content() const;
   // Permission Evaluation Details (text).
   // (skipped: permissionEvaluationDetails has no target type)
@@ -22150,7 +22150,7 @@ class PermissionGranularityPolicy : public som::SomNode {
   PermissionGranularityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PermissionGranularityPolicyContentForm content() const;
   // Permission Granularity Details (text).
   // (skipped: permissionGranularityDetails has no target type)
@@ -22162,7 +22162,7 @@ class PermissionMatrixEntry : public som::SomNode {
   PermissionMatrixEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PermissionMatrixEntryContentForm content() const;
 };
 
@@ -22174,7 +22174,7 @@ class PersonaEntry : public som::SomNode {
   PersonaEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaEntryContentForm content() const;
   // Background and capability profile.
   PersonaEntryProfileForm profile() const;
@@ -22196,7 +22196,7 @@ class PersonaGoalEntry : public som::SomNode {
   PersonaGoalEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaGoalEntryContentForm content() const;
 };
 
@@ -22206,7 +22206,7 @@ class PersonaGoals : public som::SomNode {
   PersonaGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× PersonaGoal.
@@ -22224,7 +22224,7 @@ class PersonaPainPointEntry : public som::SomNode {
   PersonaPainPointEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaPainPointEntryContentForm content() const;
 };
 
@@ -22234,7 +22234,7 @@ class PersonaPainPoints : public som::SomNode {
   PersonaPainPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× PersonaPainPoint.
@@ -22252,7 +22252,7 @@ class PersonaScenarioEntry : public som::SomNode {
   PersonaScenarioEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PersonaScenarioEntryContentForm content() const;
 };
 
@@ -22264,7 +22264,7 @@ class PersonaScenarios : public som::SomNode {
   PersonaScenarios(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× PersonaScenario.
@@ -22285,7 +22285,7 @@ class PhaseGateReviewEntry : public som::SomNode {
   PhaseGateReviewEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PhaseGateReviewEntryContentForm content() const;
   // Gate identity.
   PhaseGateReviewEntryIdentityForm identity() const;
@@ -22316,7 +22316,7 @@ class PhaseGateReviews : public som::SomNode {
   PhaseGateReviews(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PhaseGateReviewsContentForm content() const;
   // Standard participants and evidence package.
   PhaseGateReviewsPreparationForm preparation() const;
@@ -22335,7 +22335,7 @@ class PhysicalWorkplaceRequirements : public som::SomNode {
   PhysicalWorkplaceRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PhysicalWorkplaceRequirementsContentForm content() const;
   // Environmental conditions and controls.
   PhysicalWorkplaceRequirementsEnvironmentForm environment() const;
@@ -22351,7 +22351,7 @@ class PilotPlan : public som::SomNode {
   PilotPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -22366,7 +22366,7 @@ class PipelineJobEntry : public som::SomNode {
   PipelineJobEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PipelineJobEntryContentForm content() const;
   // Execution environment.
   PipelineJobEntryEnvironmentForm environment() const;
@@ -22384,7 +22384,7 @@ class PipelineStageEntry : public som::SomNode {
   PipelineStageEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PipelineStageEntryContentForm content() const;
   // Triggering conditions and approval gates.
   PipelineStageEntryTriggerForm trigger() const;
@@ -22405,7 +22405,7 @@ class PlatformAndLanguage : public som::SomNode {
   PlatformAndLanguage(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // General platform and technology overview.
@@ -22441,7 +22441,7 @@ class PolicyOwnershipEntry : public som::SomNode {
   PolicyOwnershipEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PolicyOwnershipEntryContentForm content() const;
 };
 
@@ -22451,7 +22451,7 @@ class Portability : public som::SomNode {
   Portability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PortabilityContentForm content() const;
   // Detailed portability requirements narrative.
   // (skipped: narrative has no target type)
@@ -22463,7 +22463,7 @@ class PostMaintenanceValidation : public som::SomNode {
   PostMaintenanceValidation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PostMaintenanceValidationContentForm content() const;
   // Monitoring requirements after maintenance.
   PostMaintenanceValidationMonitoringForm monitoring() const;
@@ -22477,7 +22477,7 @@ class PostconditionsAndGuarantees : public som::SomNode {
   PostconditionsAndGuarantees(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PostconditionsAndGuaranteesContentForm content() const;
 };
 
@@ -22487,7 +22487,7 @@ class PreconditionsAndTriggers : public som::SomNode {
   PreconditionsAndTriggers(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PreconditionsAndTriggersContentForm content() const;
 };
 
@@ -22500,7 +22500,7 @@ class PrimaryNavigation : public som::SomNode {
   PrimaryNavigation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrimaryNavigationContentForm content() const;
   // Drawer and rail behavior.
   PrimaryNavigationDrawerForm drawer() const;
@@ -22518,7 +22518,7 @@ class PrintAndExportLayout : public som::SomNode {
   PrintAndExportLayout(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrintAndExportLayoutContentForm content() const;
   // Page margins and setup.
   PrintAndExportLayoutPageSetupForm pageSetup() const;
@@ -22545,7 +22545,7 @@ class PrivacyImpactAssessmentProcess : public som::SomNode {
   PrivacyImpactAssessmentProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrivacyImpactAssessmentProcessContentForm content() const;
   // Assessment process inputs.
   PrivacyImpactAssessmentProcessAssessmentForm assessment() const;
@@ -22561,7 +22561,7 @@ class PrivacyRegulationCompliance : public som::SomNode {
   PrivacyRegulationCompliance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrivacyRegulationComplianceContentForm content() const;
   // GDPR-specific requirements.
   PrivacyRegulationComplianceGdprForm gdpr() const;
@@ -22581,7 +22581,7 @@ class PrivilegeUsageReporting : public som::SomNode {
   PrivilegeUsageReporting(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrivilegeUsageReportingContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -22596,7 +22596,7 @@ class ProblemStatement : public som::SomNode {
   ProblemStatement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Problem Description Form.
@@ -22616,7 +22616,7 @@ class ProcessAdjustmentDetails : public som::SomNode {
   ProcessAdjustmentDetails(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessAdjustmentDetailsContentForm content() const;
 };
 
@@ -22630,7 +22630,7 @@ class ProcessAdjustmentEntry : public som::SomNode {
   ProcessAdjustmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessAdjustmentEntryContentForm content() const;
   // Identification details.
   ProcessAdjustmentEntryIdentityForm identity() const;
@@ -22658,7 +22658,7 @@ class ProcessAdjustments : public som::SomNode {
   ProcessAdjustments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process adjustment summary.
@@ -22683,7 +22683,7 @@ class ProcessCatalog : public som::SomNode {
   ProcessCatalog(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process catalog overview.
@@ -22705,7 +22705,7 @@ class ProcessCharacteristics : public som::SomNode {
   ProcessCharacteristics(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessCharacteristicsContentForm content() const;
   // Operational characteristics and automation level.
   ProcessCharacteristicsOperationsForm operations() const;
@@ -22719,7 +22719,7 @@ class ProcessControlEntry : public som::SomNode {
   ProcessControlEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessControlEntryContentForm content() const;
   // Control operation and ownership.
   ProcessControlEntryOperationForm operation() const;
@@ -22733,7 +22733,7 @@ class ProcessControls : public som::SomNode {
   ProcessControls(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Controls overview.
@@ -22753,7 +22753,7 @@ class ProcessDependencyEntry : public som::SomNode {
   ProcessDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessDependencyEntryContentForm content() const;
 };
 
@@ -22763,7 +22763,7 @@ class ProcessDesignPrincipleEntry : public som::SomNode {
   ProcessDesignPrincipleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessDesignPrincipleEntryContentForm content() const;
 };
 
@@ -22775,7 +22775,7 @@ class ProcessDesignPrinciples : public som::SomNode {
   ProcessDesignPrinciples(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Design principles overview.
@@ -22795,7 +22795,7 @@ class ProcessEndEventEntry : public som::SomNode {
   ProcessEndEventEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessEndEventEntryContentForm content() const;
 };
 
@@ -22805,7 +22805,7 @@ class ProcessExceptionEntry : public som::SomNode {
   ProcessExceptionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessExceptionEntryContentForm content() const;
   // Likelihood, impact, and detection.
   ProcessExceptionEntryAssessmentForm assessment() const;
@@ -22821,7 +22821,7 @@ class ProcessExceptionHandling : public som::SomNode {
   ProcessExceptionHandling(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -22836,7 +22836,7 @@ class ProcessExceptions : public som::SomNode {
   ProcessExceptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Exceptions overview.
@@ -22856,7 +22856,7 @@ class ProcessIdentification : public som::SomNode {
   ProcessIdentification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessIdentificationContentForm content() const;
   // Position in the process hierarchy and taxonomy.
   ProcessIdentificationClassificationForm classification() const;
@@ -22872,7 +22872,7 @@ class ProcessImprovementEntry : public som::SomNode {
   ProcessImprovementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessImprovementEntryContentForm content() const;
   // Target outcome and value case.
   ProcessImprovementEntryBenefitsForm benefits() const;
@@ -22888,7 +22888,7 @@ class ProcessImprovementSummary : public som::SomNode {
   ProcessImprovementSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Improvement overview.
@@ -22910,7 +22910,7 @@ class ProcessInputEntry : public som::SomNode {
   ProcessInputEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessInputEntryContentForm content() const;
 };
 
@@ -22920,7 +22920,7 @@ class ProcessInputsOutputs : public som::SomNode {
   ProcessInputsOutputs(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Inputs overview.
@@ -22943,7 +22943,7 @@ class ProcessInterdependencyMatrix : public som::SomNode {
   ProcessInterdependencyMatrix(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Interdependency diagram.
@@ -22964,7 +22964,7 @@ class ProcessKpiEntry : public som::SomNode {
   ProcessKpiEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessKpiEntryContentForm content() const;
   // Measurement targets and thresholds.
   ProcessKpiEntryMeasurementForm measurement() const;
@@ -22980,7 +22980,7 @@ class ProcessMetric : public som::SomNode {
   ProcessMetric(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -22995,7 +22995,7 @@ class ProcessMetricCategory : public som::SomNode {
   ProcessMetricCategory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Metrics in this category.
@@ -23015,7 +23015,7 @@ class ProcessMetricEntry : public som::SomNode {
   ProcessMetricEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessMetricEntryContentForm content() const;
   // Measurement collection details.
   ProcessMetricEntryMeasurementForm measurement() const;
@@ -23045,7 +23045,7 @@ class ProcessMetrics : public som::SomNode {
   ProcessMetrics(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Metrics dashboard summary.
@@ -23082,7 +23082,7 @@ class ProcessOutputEntry : public som::SomNode {
   ProcessOutputEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessOutputEntryContentForm content() const;
 };
 
@@ -23094,7 +23094,7 @@ class ProcessOverviewDiagram : public som::SomNode {
   ProcessOverviewDiagram(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Diagram overview.
@@ -23117,7 +23117,7 @@ class ProcessPainPoints : public som::SomNode {
   ProcessPainPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process improvement opportunities.
@@ -23135,7 +23135,7 @@ class ProcessPerformance : public som::SomNode {
   ProcessPerformance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Performance overview.
@@ -23158,7 +23158,7 @@ class ProcessPerformanceSummary : public som::SomNode {
   ProcessPerformanceSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessPerformanceSummaryContentForm content() const;
   // Key metrics summary.
   // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
@@ -23171,7 +23171,7 @@ class ProcessRelationshipEntry : public som::SomNode {
   ProcessRelationshipEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessRelationshipEntryContentForm content() const;
 };
 
@@ -23181,7 +23181,7 @@ class ProcessRelationships : public som::SomNode {
   ProcessRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× process relationship.
@@ -23199,7 +23199,7 @@ class ProcessRoleEntry : public som::SomNode {
   ProcessRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessRoleEntryContentForm content() const;
   // Process participation and authority.
   ProcessRoleEntryExecutionForm execution() const;
@@ -23213,7 +23213,7 @@ class ProcessRoles : public som::SomNode {
   ProcessRoles(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Roles overview.
@@ -23233,7 +23233,7 @@ class ProcessScopeEntry : public som::SomNode {
   ProcessScopeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessScopeEntryContentForm content() const;
 };
 
@@ -23243,7 +23243,7 @@ class ProcessScopeSummary : public som::SomNode {
   ProcessScopeSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessScopeSummaryContentForm content() const;
   // Processes in scope.
   // Returns the list view; element type: ProcessScopeEntry (construct from item paths).
@@ -23259,7 +23259,7 @@ class ProcessSlaEntry : public som::SomNode {
   ProcessSlaEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessSlaEntryContentForm content() const;
 };
 
@@ -23274,7 +23274,7 @@ class ProcessStepsAndActorInteractions : public som::SomNode {
   ProcessStepsAndActorInteractions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Section overview.
@@ -23304,7 +23304,7 @@ class ProcessStepsOverview : public som::SomNode {
   ProcessStepsOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessStepsOverviewContentForm content() const;
 };
 
@@ -23314,7 +23314,7 @@ class ProcessTechnology : public som::SomNode {
   ProcessTechnology(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessTechnologyContentForm content() const;
   // Data, reporting, and document tooling.
   ProcessTechnologyInformationForm information() const;
@@ -23328,7 +23328,7 @@ class ProcessTriggerEntry : public som::SomNode {
   ProcessTriggerEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProcessTriggerEntryContentForm content() const;
 };
 
@@ -23338,7 +23338,7 @@ class ProcessTriggers : public som::SomNode {
   ProcessTriggers(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Main trigger overview.
@@ -23363,7 +23363,7 @@ class ProcessVision : public som::SomNode {
   ProcessVision(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Process vision overview.
@@ -23387,7 +23387,7 @@ class ProgrammingLanguageEntry : public som::SomNode {
   ProgrammingLanguageEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProgrammingLanguageEntryContentForm content() const;
   // Version requirements.
   ProgrammingLanguageEntryVersionForm version() const;
@@ -23407,7 +23407,7 @@ class ProjectOrganization : public som::SomNode {
   ProjectOrganization(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 3.1.1. Organization Structure.
@@ -23430,7 +23430,7 @@ class ProjectOrganizationAndProcess : public som::SomNode {
   ProjectOrganizationAndProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Visual overview of methodology deviations.
@@ -23461,7 +23461,7 @@ class ProjectTeamStaffing : public som::SomNode {
   ProjectTeamStaffing(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Team structure overview.
@@ -23484,7 +23484,7 @@ class ProtocolComplianceRequirements : public som::SomNode {
   ProtocolComplianceRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProtocolComplianceRequirementsContentForm content() const;
   // Caching requirements.
   ProtocolComplianceRequirementsCachingForm caching() const;
@@ -23500,7 +23500,7 @@ class ProtocolEntry : public som::SomNode {
   ProtocolEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProtocolEntryContentForm content() const;
 };
 
@@ -23516,7 +23516,7 @@ class ProtocolFeatureEntry : public som::SomNode {
   ProtocolFeatureEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ProtocolFeatureEntryContentForm content() const;
   // 7.9.2.x. Hooks — the extension points of the feature the system
   // implements.
@@ -23530,7 +23530,7 @@ class ProtocolsAndStandardsSection : public som::SomNode {
   ProtocolsAndStandardsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of communication protocols and standards.
@@ -23565,7 +23565,7 @@ class Prototype : public som::SomNode {
   Prototype(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What the prototype is for and what it is not.
@@ -23601,7 +23601,7 @@ class PrototypeFeatureEntry : public som::SomNode {
   PrototypeFeatureEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrototypeFeatureEntryContentForm content() const;
 };
 
@@ -23613,7 +23613,7 @@ class PrototypeFeatureSubset : public som::SomNode {
   PrototypeFeatureSubset(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which features the prototype includes, and the criteria that chose them.
@@ -23642,7 +23642,7 @@ class PrototypeGoalEntry : public som::SomNode {
   PrototypeGoalEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PrototypeGoalEntryContentForm content() const;
 };
 
@@ -23654,7 +23654,7 @@ class PrototypeGoals : public som::SomNode {
   PrototypeGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The questions the prototype is built to answer.
@@ -23685,7 +23685,7 @@ class PrototypeType : public som::SomNode {
   PrototypeType(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Whether the prototype is reusable or throwaway, and why.
@@ -23711,7 +23711,7 @@ class PwaRequirements : public som::SomNode {
   PwaRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   PwaRequirementsContentForm content() const;
   // Icon requirements.
   PwaRequirementsIconsForm icons() const;
@@ -23729,7 +23729,7 @@ class QualityAndAcceptanceModel : public som::SomNode {
   QualityAndAcceptanceModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Quality goals and attributes.
@@ -23754,7 +23754,7 @@ class QualityCategoryEntry : public som::SomNode {
   QualityCategoryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityCategoryEntryContentForm content() const;
   // Description and priority context.
   QualityCategoryEntryDefinitionForm definition() const;
@@ -23777,7 +23777,7 @@ class QualityFramework : public som::SomNode {
   QualityFramework(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which published quality model this chapter's structure comes from, at
@@ -23819,7 +23819,7 @@ class QualityGateAdjustmentDetails : public som::SomNode {
   QualityGateAdjustmentDetails(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityGateAdjustmentDetailsContentForm content() const;
 };
 
@@ -23833,7 +23833,7 @@ class QualityGateAdjustmentEntry : public som::SomNode {
   QualityGateAdjustmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityGateAdjustmentEntryContentForm content() const;
   // Gate details.
   // Returns the list view; element type: QualityGateAdjustmentDetails (construct from item paths).
@@ -23856,7 +23856,7 @@ class QualityGateAdjustments : public som::SomNode {
   QualityGateAdjustments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Quality gate adjustment summary.
@@ -23879,7 +23879,7 @@ class QualityGateCheckEntry : public som::SomNode {
   QualityGateCheckEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityGateCheckEntryContentForm content() const;
   // Check definition and categorization.
   QualityGateCheckEntryDefinitionForm definition() const;
@@ -23901,7 +23901,7 @@ class QualityGateChecklist : public som::SomNode {
   QualityGateChecklist(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What the checklist is used for, how completely it must be worked, and who
@@ -23934,7 +23934,7 @@ class QualityPrioritization : public som::SomNode {
   QualityPrioritization(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How quality attributes are ranked against one another, by whom, and how
@@ -23966,7 +23966,7 @@ class QualityScenarioEntry : public som::SomNode {
   QualityScenarioEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityScenarioEntryContentForm content() const;
 };
 
@@ -23979,7 +23979,7 @@ class QualityScenarios : public som::SomNode {
   QualityScenarios(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Quality scenario entries — contains 0+× QualityScenarioEntry.
@@ -23997,7 +23997,7 @@ class QualityStandardEntry : public som::SomNode {
   QualityStandardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityStandardEntryContentForm content() const;
   // Process coverage.
   QualityStandardEntryProcessesForm processes() const;
@@ -24015,7 +24015,7 @@ class QualityWeightEntry : public som::SomNode {
   QualityWeightEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   QualityWeightEntryContentForm content() const;
 };
 
@@ -24025,7 +24025,7 @@ class RaciEntry : public som::SomNode {
   RaciEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RaciEntryContentForm content() const;
 };
 
@@ -24035,7 +24035,7 @@ class RateLimitingPolicy : public som::SomNode {
   RateLimitingPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RateLimitingPolicyContentForm content() const;
   // Rate-limit ceilings and burst handling.
   RateLimitingPolicyLimitsForm limits() const;
@@ -24051,7 +24051,7 @@ class Readability : public som::SomNode {
   Readability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReadabilityContentForm content() const;
   // Identifiability and navigation.
   ReadabilityNavigationForm navigation() const;
@@ -24071,7 +24071,7 @@ class ReadinessCriteriaEntry : public som::SomNode {
   ReadinessCriteriaEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReadinessCriteriaEntryContentForm content() const;
 };
 
@@ -24081,7 +24081,7 @@ class RecoveryProcedures : public som::SomNode {
   RecoveryProcedures(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RecoveryProceduresContentForm content() const;
   // Database recovery behavior.
   RecoveryProceduresDatabaseForm database() const;
@@ -24099,7 +24099,7 @@ class RecoveryScenarioEntry : public som::SomNode {
   RecoveryScenarioEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RecoveryScenarioEntryContentForm content() const;
   // Detailed recovery flow.
   // (skipped: detailedFlow has no target type)
@@ -24114,7 +24114,7 @@ class RedirectHandlingPolicy : public som::SomNode {
   RedirectHandlingPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RedirectHandlingPolicyContentForm content() const;
   // Redirect Handling Details (text).
   // (skipped: redirectDetails has no target type)
@@ -24129,7 +24129,7 @@ class ReferenceDocumentEntry : public som::SomNode {
   ReferenceDocumentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReferenceDocumentEntryContentForm content() const;
   // Document metadata and relevance.
   ReferenceDocumentEntryMetadataForm metadata() const;
@@ -24153,7 +24153,7 @@ class ReferenceDocuments : public som::SomNode {
   ReferenceDocuments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Reference document entries — contains 0+× Reference Document.
@@ -24173,7 +24173,7 @@ class RegulatoryAuditSupport : public som::SomNode {
   RegulatoryAuditSupport(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RegulatoryAuditSupportContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -24185,7 +24185,7 @@ class RegulatoryComplianceEntry : public som::SomNode {
   RegulatoryComplianceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RegulatoryComplianceEntryContentForm content() const;
   // Applicability analysis.
   RegulatoryComplianceEntryApplicabilityForm applicability() const;
@@ -24205,7 +24205,7 @@ class RegulatoryComplianceRequirements : public som::SomNode {
   RegulatoryComplianceRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Regulatory requirements — contains 0+× Regulatory Requirement.
@@ -24229,7 +24229,7 @@ class RegulatoryContext : public som::SomNode {
   RegulatoryContext(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Applicable regulations — contains 0+× ApplicableRegulationEntry.
@@ -24247,7 +24247,7 @@ class RegulatoryRequirementEntry : public som::SomNode {
   RegulatoryRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RegulatoryRequirementEntryContentForm content() const;
 };
 
@@ -24257,7 +24257,7 @@ class RelatedDocumentEntry : public som::SomNode {
   RelatedDocumentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RelatedDocumentEntryContentForm content() const;
 };
 
@@ -24267,7 +24267,7 @@ class RelationshipAttributeEntry : public som::SomNode {
   RelationshipAttributeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RelationshipAttributeEntryContentForm content() const;
 };
 
@@ -24277,7 +24277,7 @@ class ReleaseStrategy : public som::SomNode {
   ReleaseStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReleaseStrategyContentForm content() const;
   // Blue-green deployment configuration.
   ReleaseStrategyBlueGreenForm blueGreen() const;
@@ -24295,7 +24295,7 @@ class RelevantSectionEntry : public som::SomNode {
   RelevantSectionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RelevantSectionEntryContentForm content() const;
 };
 
@@ -24305,7 +24305,7 @@ class Reliability : public som::SomNode {
   Reliability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReliabilityContentForm content() const;
   // Recovery objectives.
   ReliabilityRecoveryForm recovery() const;
@@ -24332,7 +24332,7 @@ class ReliabilityCharacteristic : public som::SomNode {
   ReliabilityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How the system will be run: the operating model, the responsible party,
@@ -24372,7 +24372,7 @@ class RememberMePolicy : public som::SomNode {
   RememberMePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RememberMePolicyContentForm content() const;
   // Remember-Me Policy Details (text).
   // (skipped: rememberMeDetails has no target type)
@@ -24386,7 +24386,7 @@ class RemovedRoleEntry : public som::SomNode {
   RemovedRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RemovedRoleEntryContentForm content() const;
   // Incumbent transition planning.
   RemovedRoleEntryTransitionForm transition() const;
@@ -24405,7 +24405,7 @@ class ReplacementInventory : public som::SomNode {
   ReplacementInventory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Portfolio summary before listing individual systems.
@@ -24427,7 +24427,7 @@ class ReplacementPhaseEntry : public som::SomNode {
   ReplacementPhaseEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReplacementPhaseEntryContentForm content() const;
 };
 
@@ -24439,7 +24439,7 @@ class ReplacementSystemDependencyEntry : public som::SomNode {
   ReplacementSystemDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReplacementSystemDependencyEntryContentForm content() const;
 };
 
@@ -24449,7 +24449,7 @@ class ReportChartAxes : public som::SomNode {
   ReportChartAxes(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportChartAxesContentForm content() const;
 };
 
@@ -24460,7 +24460,7 @@ class ReportChartEntry : public som::SomNode {
   ReportChartEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportChartEntryContentForm content() const;
   // Axes configuration.
   // Returns the list view; element type: ReportChartAxes (construct from item paths).
@@ -24482,7 +24482,7 @@ class ReportColumnEntry : public som::SomNode {
   ReportColumnEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportColumnEntryContentForm content() const;
   // Data source and type.
   ReportColumnEntryDataSourceForm dataSource() const;
@@ -24534,7 +24534,7 @@ class ReportDefinitions : public som::SomNode {
   ReportDefinitions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.2.1. Reports — contains 0+× Report.
@@ -24552,7 +24552,7 @@ class ReportDistributionEntry : public som::SomNode {
   ReportDistributionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportDistributionEntryContentForm content() const;
   // Recipient and format settings.
   ReportDistributionEntryRecipientsForm recipients() const;
@@ -24568,7 +24568,7 @@ class ReportEntry : public som::SomNode {
   ReportEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportEntryContentForm content() const;
   // Identity and context.
   ReportEntryIdentityForm identity() const;
@@ -24619,7 +24619,7 @@ class ReportFilterEntry : public som::SomNode {
   ReportFilterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportFilterEntryContentForm content() const;
   // Input and value configuration.
   ReportFilterEntryInputForm input() const;
@@ -24667,7 +24667,7 @@ class ReportRecipientEntry : public som::SomNode {
   ReportRecipientEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportRecipientEntryContentForm content() const;
   // Recipient business context.
   ReportRecipientEntryContextForm context() const;
@@ -24684,7 +24684,7 @@ class ReportScheduleEntry : public som::SomNode {
   ReportScheduleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportScheduleEntryContentForm content() const;
   // Timing configuration.
   ReportScheduleEntryTimingForm timing() const;
@@ -24702,7 +24702,7 @@ class ReportSectionEntry : public som::SomNode {
   ReportSectionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReportSectionEntryContentForm content() const;
   // Data source configuration.
   ReportSectionEntryDataForm data() const;
@@ -24729,7 +24729,7 @@ class RequirementAcceptanceCriteria : public som::SomNode {
   RequirementAcceptanceCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
@@ -24747,7 +24747,7 @@ class RequirementBusinessRuleEntry : public som::SomNode {
   RequirementBusinessRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementBusinessRuleEntryContentForm content() const;
 };
 
@@ -24759,7 +24759,7 @@ class RequirementBusinessRules : public som::SomNode {
   RequirementBusinessRules(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Business rule entries — contains 0+× RequirementBusinessRuleEntry.
@@ -24779,7 +24779,7 @@ class RequirementCoverage : public som::SomNode {
   RequirementCoverage(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -24796,7 +24796,7 @@ class RequirementDataRequirements : public som::SomNode {
   RequirementDataRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Data entity entries — contains 0+× DataEntityReferenceEntry.
@@ -24816,7 +24816,7 @@ class RequirementDependencies : public som::SomNode {
   RequirementDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Dependency entries — contains 0+× RequirementDependencyEntry.
@@ -24834,7 +24834,7 @@ class RequirementDependencyEntry : public som::SomNode {
   RequirementDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementDependencyEntryContentForm content() const;
   // The other requirement in this dependency, named by section id.
   //
@@ -24860,7 +24860,7 @@ class RequirementRelationships : public som::SomNode {
   RequirementRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -24877,7 +24877,7 @@ class RequirementScreenActionEntry : public som::SomNode {
   RequirementScreenActionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementScreenActionEntryContentForm content() const;
   // Action parameters — contains 0+× ActionParameterEntry.
   // Returns the list view; element type: ActionParameterEntry (construct from item paths).
@@ -24890,7 +24890,7 @@ class RequirementTestCaseEntry : public som::SomNode {
   RequirementTestCaseEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RequirementTestCaseEntryContentForm content() const;
   // Test execution details.
   RequirementTestCaseEntryExecutionForm execution() const;
@@ -24919,7 +24919,7 @@ class RequirementTestCases : public som::SomNode {
   RequirementTestCases(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Test case entries — contains 0+× RequirementTestCaseEntry.
@@ -24939,7 +24939,7 @@ class RequirementTraceability : public som::SomNode {
   RequirementTraceability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Traceability links form.
@@ -24964,7 +24964,7 @@ class RequirementUiSpecification : public som::SomNode {
   RequirementUiSpecification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // UI specification form.
@@ -25007,7 +25007,7 @@ class Requirements : public som::SomNode {
   Requirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
@@ -25039,7 +25039,7 @@ class RequirementsFollowUp : public som::SomNode {
   RequirementsFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Localization & Translation requirements (NFR-L10N-NNN).
@@ -25066,7 +25066,7 @@ class RequirementsOverview : public som::SomNode {
   RequirementsOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Requirements overview form.
@@ -25099,7 +25099,7 @@ class ResourceAllocationEntry : public som::SomNode {
   ResourceAllocationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceAllocationEntryContentForm content() const;
 };
 
@@ -25109,7 +25109,7 @@ class ResourceCapacityBaselines : public som::SomNode {
   ResourceCapacityBaselines(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceCapacityBaselinesContentForm content() const;
   // Storage baselines.
   ResourceCapacityBaselinesStorageForm storage() const;
@@ -25127,7 +25127,7 @@ class ResourceKeyEntry : public som::SomNode {
   ResourceKeyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceKeyEntryContentForm content() const;
 };
 
@@ -25137,7 +25137,7 @@ class ResourceKeyReferenceEntry : public som::SomNode {
   ResourceKeyReferenceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceKeyReferenceEntryContentForm content() const;
 };
 
@@ -25147,7 +25147,7 @@ class ResourceProtection : public som::SomNode {
   ResourceProtection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.3.1. Data-Level Security.
@@ -25168,7 +25168,7 @@ class ResourceRequirementEntry : public som::SomNode {
   ResourceRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResourceRequirementEntryContentForm content() const;
 };
 
@@ -25178,7 +25178,7 @@ class ResponsibilityChangeEntry : public som::SomNode {
   ResponsibilityChangeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityChangeEntryContentForm content() const;
 };
 
@@ -25188,7 +25188,7 @@ class ResponsibilityContacts : public som::SomNode {
   ResponsibilityContacts(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityContactsContentForm content() const;
 };
 
@@ -25198,7 +25198,7 @@ class ResponsibilityDetailEntry : public som::SomNode {
   ResponsibilityDetailEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityDetailEntryContentForm content() const;
 };
 
@@ -25212,7 +25212,7 @@ class ResponsibilityEntry : public som::SomNode {
   ResponsibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityEntryContentForm content() const;
   // Function details and scope.
   // Returns the list view; element type: ResponsibilityFunctionDetails (construct from item paths).
@@ -25235,7 +25235,7 @@ class ResponsibilityFunctionDetails : public som::SomNode {
   ResponsibilityFunctionDetails(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityFunctionDetailsContentForm content() const;
 };
 
@@ -25245,7 +25245,7 @@ class ResponsibilityReferenceEntry : public som::SomNode {
   ResponsibilityReferenceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilityReferenceEntryContentForm content() const;
 };
 
@@ -25255,7 +25255,7 @@ class ResponsibilitySystems : public som::SomNode {
   ResponsibilitySystems(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsibilitySystemsContentForm content() const;
 };
 
@@ -25267,7 +25267,7 @@ class ResponsiveBehavior : public som::SomNode {
   ResponsiveBehavior(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What actually changes at each breakpoint.
@@ -25303,7 +25303,7 @@ class ResponsiveDesign : public som::SomNode {
   ResponsiveDesign(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The responsive strategy: which approach the product takes and why.
@@ -25329,7 +25329,7 @@ class ResponsiveScreenRuleEntry : public som::SomNode {
   ResponsiveScreenRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResponsiveScreenRuleEntryContentForm content() const;
 };
 
@@ -25353,7 +25353,7 @@ class ResultEnvelope : public som::SomNode {
   ResultEnvelope(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResultEnvelopeContentForm content() const;
   // 7.7.1. Field-Level Details — the per-field error detail the error arm may
   // carry (e.g. form-validation failures).
@@ -25373,7 +25373,7 @@ class ResultFieldDetailEntry : public som::SomNode {
   ResultFieldDetailEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ResultFieldDetailEntryContentForm content() const;
 };
 
@@ -25383,7 +25383,7 @@ class RetentionPolicyEntry : public som::SomNode {
   RetentionPolicyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RetentionPolicyEntryContentForm content() const;
   // Retention timing and legal basis.
   RetentionPolicyEntryRequirementsForm requirements() const;
@@ -25399,7 +25399,7 @@ class ReusabilityPrinciples : public som::SomNode {
   ReusabilityPrinciples(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReusabilityPrinciplesContentForm content() const;
   // Abstraction rules.
   ReusabilityPrinciplesAbstractionForm abstraction() const;
@@ -25420,7 +25420,7 @@ class ReusableComponentsSection : public som::SomNode {
   ReusableComponentsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of reusability strategy.
@@ -25460,7 +25460,7 @@ class ReusablePrototype : public som::SomNode {
   ReusablePrototype(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The standards a reusable prototype must meet to graduate into the product.
@@ -25488,7 +25488,7 @@ class ReusableUiComponentEntry : public som::SomNode {
   ReusableUiComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReusableUiComponentEntryContentForm content() const;
   // Description and use cases.
   ReusableUiComponentEntryDescriptionForm description() const;
@@ -25511,7 +25511,7 @@ class ReuseGoalEntry : public som::SomNode {
   ReuseGoalEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReuseGoalEntryContentForm content() const;
   // Measurement and scope.
   ReuseGoalEntryMeasurementForm measurement() const;
@@ -25530,7 +25530,7 @@ class ReviewCriterionEntry : public som::SomNode {
   ReviewCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReviewCriterionEntryContentForm content() const;
   // How this criterion is measured and weighted.
   ReviewCriterionEntryAssessmentForm assessment() const;
@@ -25544,7 +25544,7 @@ class ReviewTeam : public som::SomNode {
   ReviewTeam(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The members of the team.
@@ -25562,7 +25562,7 @@ class ReviewTeamMember : public som::SomNode {
   ReviewTeamMember(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReviewTeamMemberContentForm content() const;
 };
 
@@ -25572,7 +25572,7 @@ class ReviewerRecord : public som::SomNode {
   ReviewerRecord(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ReviewerRecordContentForm content() const;
 };
 
@@ -25582,7 +25582,7 @@ class RevisionEntry : public som::SomNode {
   RevisionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RevisionEntryContentForm content() const;
   // The review team the round leading to this revision started with.
   // Returns the list view; element type: ReviewerRecord (construct from item paths).
@@ -25598,7 +25598,7 @@ class RiskBusinessImpact : public som::SomNode {
   RiskBusinessImpact(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskBusinessImpactContentForm content() const;
   // Broader stakeholder and compliance impact.
   RiskBusinessImpactStakeholdersForm stakeholders() const;
@@ -25616,7 +25616,7 @@ class RiskEntry : public som::SomNode {
   RiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Risk identification — unique identifier and basic description.
@@ -25646,7 +25646,7 @@ class RiskIdentification : public som::SomNode {
   RiskIdentification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskIdentificationContentForm content() const;
   // Identification source and ownership metadata.
   RiskIdentificationSourceDetailsForm sourceDetails() const;
@@ -25660,7 +25660,7 @@ class RiskMonitoring : public som::SomNode {
   RiskMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskMonitoringContentForm content() const;
   // Trend and monitoring indicators.
   RiskMonitoringTrendDetailsForm trendDetails() const;
@@ -25674,7 +25674,7 @@ class RiskRelationships : public som::SomNode {
   RiskRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskRelationshipsContentForm content() const;
 };
 
@@ -25684,7 +25684,7 @@ class RiskResponse : public som::SomNode {
   RiskResponse(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RiskResponseContentForm content() const;
   // Residual and secondary risk expectations.
   RiskResponseResidualForm residual() const;
@@ -25710,7 +25710,7 @@ class RisksAndAssumptions : public som::SomNode {
   RisksAndAssumptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the risk management approach for this project.
@@ -25734,7 +25734,7 @@ class RoleAdjustmentEntry : public som::SomNode {
   RoleAdjustmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleAdjustmentEntryContentForm content() const;
   // Adjustment details: name changes, affected responsibilities.
   RoleAdjustmentEntryDetailsForm details() const;
@@ -25758,7 +25758,7 @@ class RoleAdjustments : public som::SomNode {
   RoleAdjustments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Role adjustment summary statistics.
@@ -25784,7 +25784,7 @@ class RoleCertificationPolicy : public som::SomNode {
   RoleCertificationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleCertificationPolicyContentForm content() const;
   // Role Certification Details (text).
   // (skipped: roleCertificationDetails has no target type)
@@ -25799,7 +25799,7 @@ class RoleCombinationConstraintEntry : public som::SomNode {
   RoleCombinationConstraintEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleCombinationConstraintEntryContentForm content() const;
 };
 
@@ -25809,7 +25809,7 @@ class RoleCompetencyEntry : public som::SomNode {
   RoleCompetencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleCompetencyEntryContentForm content() const;
 };
 
@@ -25822,7 +25822,7 @@ class RoleDataScopeEntry : public som::SomNode {
   RoleDataScopeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleDataScopeEntryContentForm content() const;
 };
 
@@ -25832,7 +25832,7 @@ class RoleExclusionEntry : public som::SomNode {
   RoleExclusionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleExclusionEntryContentForm content() const;
 };
 
@@ -25846,7 +25846,7 @@ class RoleHierarchy : public som::SomNode {
   RoleHierarchy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Role Hierarchy Policy.
@@ -25879,7 +25879,7 @@ class RoleHierarchyPolicy : public som::SomNode {
   RoleHierarchyPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleHierarchyPolicyContentForm content() const;
   // Role Hierarchy Policy Details (text).
   // (skipped: roleHierarchyPolicyDetails has no target type)
@@ -25891,7 +25891,7 @@ class RoleHolderEntry : public som::SomNode {
   RoleHolderEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleHolderEntryContentForm content() const;
 };
 
@@ -25904,7 +25904,7 @@ class RoleInheritanceRuleEntry : public som::SomNode {
   RoleInheritanceRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleInheritanceRuleEntryContentForm content() const;
 };
 
@@ -25917,7 +25917,7 @@ class RoleMatrix : public som::SomNode {
   RoleMatrix(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -25936,7 +25936,7 @@ class RolePermissionEntry : public som::SomNode {
   RolePermissionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RolePermissionEntryContentForm content() const;
 };
 
@@ -25946,7 +25946,7 @@ class RoleReferenceEntry : public som::SomNode {
   RoleReferenceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RoleReferenceEntryContentForm content() const;
 };
 
@@ -25956,7 +25956,7 @@ class RollbackStrategy : public som::SomNode {
   RollbackStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RollbackStrategyContentForm content() const;
   // Trigger and timing conditions.
   RollbackStrategyTriggersForm triggers() const;
@@ -25980,7 +25980,7 @@ class RolloutPlan : public som::SomNode {
   RolloutPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -26003,7 +26003,7 @@ class RolloutTrainingMaterial : public som::SomNode {
   RolloutTrainingMaterial(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -26022,7 +26022,7 @@ class RowLevelSecurityPolicy : public som::SomNode {
   RowLevelSecurityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RowLevelSecurityPolicyContentForm content() const;
   // Row-Level Security Details (text).
   // (skipped: rowLevelSecurityDetails has no target type)
@@ -26034,7 +26034,7 @@ class RpoRtoRequirements : public som::SomNode {
   RpoRtoRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RpoRtoRequirementsContentForm content() const;
   // Tier-based targets.
   RpoRtoRequirementsByTierForm byTier() const;
@@ -26052,7 +26052,7 @@ class RuleExampleEntry : public som::SomNode {
   RuleExampleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RuleExampleEntryContentForm content() const;
 };
 
@@ -26065,7 +26065,7 @@ class RuntimeDependencies : public som::SomNode {
   RuntimeDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Runtime Dependency.
@@ -26086,7 +26086,7 @@ class RuntimeDependencyEntry : public som::SomNode {
   RuntimeDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RuntimeDependencyEntryContentForm content() const;
   // Versioning and business criticality.
   RuntimeDependencyEntryClassificationForm classification() const;
@@ -26106,7 +26106,7 @@ class RuntimeEnvironment : public som::SomNode {
   RuntimeEnvironment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   RuntimeEnvironmentContentForm content() const;
   // Memory limits.
   RuntimeEnvironmentMemoryForm memory() const;
@@ -26132,7 +26132,7 @@ class ScalabilityArchitecture : public som::SomNode {
   ScalabilityArchitecture(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScalabilityArchitectureContentForm content() const;
   // Capacity planning assumptions.
   ScalabilityArchitectureCapacityForm capacity() const;
@@ -26152,7 +26152,7 @@ class ScalingRequirements : public som::SomNode {
   ScalingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScalingRequirementsContentForm content() const;
   // Horizontal scaling configuration.
   ScalingRequirementsHorizontalForm horizontal() const;
@@ -26170,7 +26170,7 @@ class ScalingTriggersAndThresholds : public som::SomNode {
   ScalingTriggersAndThresholds(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScalingTriggersAndThresholdsContentForm content() const;
   // Memory-based thresholds.
   ScalingTriggersAndThresholdsMemoryForm memory() const;
@@ -26190,7 +26190,7 @@ class ScenarioEntry : public som::SomNode {
   ScenarioEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Scenario identification.
@@ -26221,7 +26221,7 @@ class ScenarioStepEntry : public som::SomNode {
   ScenarioStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScenarioStepEntryContentForm content() const;
   // Expected outcome and referenced artifacts.
   ScenarioStepEntryContextForm context() const;
@@ -26285,7 +26285,7 @@ class ScheduledJobEntry : public som::SomNode {
   ScheduledJobEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScheduledJobEntryContentForm content() const;
   // Cron trigger — a promoted `@OneOf` case.
   //
@@ -26368,7 +26368,7 @@ class ScheduledJobStepEntry : public som::SomNode {
   ScheduledJobStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScheduledJobStepEntryContentForm content() const;
 };
 
@@ -26378,7 +26378,7 @@ class ScheduledMaintenancePolicy : public som::SomNode {
   ScheduledMaintenancePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScheduledMaintenancePolicyContentForm content() const;
   // Scheduling preferences.
   ScheduledMaintenancePolicySchedulingForm scheduling() const;
@@ -26401,7 +26401,7 @@ class SchemaMigrationStepEntry : public som::SomNode {
   SchemaMigrationStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SchemaMigrationStepEntryContentForm content() const;
   // Baseline schema definition — a promoted `@OneOf` case.
   //
@@ -26437,7 +26437,7 @@ class SchemaVersioningAndMigration : public som::SomNode {
   SchemaVersioningAndMigration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SchemaVersioningAndMigrationContentForm content() const;
   // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply
   // to.
@@ -26457,7 +26457,7 @@ class ScopeBoundaries : public som::SomNode {
   ScopeBoundaries(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // In-Scope Items — contains 1+× ScopeItem.
@@ -26484,7 +26484,7 @@ class ScopeItemEntry : public som::SomNode {
   ScopeItemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScopeItemEntryContentForm content() const;
 };
 
@@ -26496,7 +26496,7 @@ class ScreenActionEntry : public som::SomNode {
   ScreenActionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenActionEntryContentForm content() const;
   // Visual presentation of the action.
   ScreenActionEntryVisualForm visual() const;
@@ -26514,7 +26514,7 @@ class ScreenActions : public som::SomNode {
   ScreenActions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× ScreenAction.
@@ -26535,7 +26535,7 @@ class ScreenBehaviorEntry : public som::SomNode {
   ScreenBehaviorEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenBehaviorEntryContentForm content() const;
 };
 
@@ -26545,7 +26545,7 @@ class ScreenDescriptions : public som::SomNode {
   ScreenDescriptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.2.1. Screen Inventory.
@@ -26566,7 +26566,7 @@ class ScreenElementAction : public som::SomNode {
   ScreenElementAction(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementActionContentForm content() const;
   // Confirmation and execution feedback behavior.
   ScreenElementActionExecutionForm execution() const;
@@ -26582,7 +26582,7 @@ class ScreenElementDataDisplay : public som::SomNode {
   ScreenElementDataDisplay(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementDataDisplayContentForm content() const;
   // Refresh and drill-down behavior.
   ScreenElementDataDisplayBehaviorForm behavior() const;
@@ -26599,7 +26599,7 @@ class ScreenElementEntry : public som::SomNode {
   ScreenElementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementEntryContentForm content() const;
   // Labels and icon resources.
   ScreenElementEntryResourcesForm resources() const;
@@ -26644,7 +26644,7 @@ class ScreenElementFieldSpec : public som::SomNode {
   ScreenElementFieldSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenElementFieldSpecContentForm content() const;
   // Prefix, suffix, and formatting.
   ScreenElementFieldSpecFormattingForm formatting() const;
@@ -26690,7 +26690,7 @@ class ScreenEntry : public som::SomNode {
   ScreenEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenEntryContentForm content() const;
   // Classification and routing metadata.
   ScreenEntryClassificationForm classification() const;
@@ -26732,7 +26732,7 @@ class ScreenFieldEntry : public som::SomNode {
   ScreenFieldEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenFieldEntryContentForm content() const;
   // Data binding and defaults.
   ScreenFieldEntryDataBindingForm dataBinding() const;
@@ -26773,7 +26773,7 @@ class ScreenFlowStructure : public som::SomNode {
   ScreenFlowStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 10.3.1. Navigation Model.
@@ -26797,7 +26797,7 @@ class ScreenInventory : public som::SomNode {
   ScreenInventory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the screen inventory structure and conventions.
@@ -26819,7 +26819,7 @@ class ScreenResponsiveRuleEntry : public som::SomNode {
   ScreenResponsiveRuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenResponsiveRuleEntryContentForm content() const;
 };
 
@@ -26829,7 +26829,7 @@ class ScreenRouteEntry : public som::SomNode {
   ScreenRouteEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenRouteEntryContentForm content() const;
 };
 
@@ -26849,7 +26849,7 @@ class ScreenRouteMap : public som::SomNode {
   ScreenRouteMap(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the route map and its conventions.
@@ -26877,7 +26877,7 @@ class ScreenSectionEntry : public som::SomNode {
   ScreenSectionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenSectionEntryContentForm content() const;
   // Layout and ordering for the section.
   ScreenSectionEntryLayoutForm layout() const;
@@ -26896,7 +26896,7 @@ class ScreenSections : public som::SomNode {
   ScreenSections(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× ScreenSection.
@@ -26917,7 +26917,7 @@ class ScreenStateEntry : public som::SomNode {
   ScreenStateEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenStateEntryContentForm content() const;
 };
 
@@ -26929,7 +26929,7 @@ class ScreenStates : public som::SomNode {
   ScreenStates(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× ScreenState.
@@ -26947,7 +26947,7 @@ class ScreenTransitionEntry : public som::SomNode {
   ScreenTransitionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenTransitionEntryContentForm content() const;
 };
 
@@ -26957,7 +26957,7 @@ class ScreenUserCategoryEntry : public som::SomNode {
   ScreenUserCategoryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ScreenUserCategoryEntryContentForm content() const;
 };
 
@@ -26969,7 +26969,7 @@ class SecondaryNavigation : public som::SomNode {
   SecondaryNavigation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of secondary navigation patterns.
@@ -26989,7 +26989,7 @@ class Security : public som::SomNode {
   Security(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityContentForm content() const;
   // Authentication controls.
   SecurityAuthenticationForm authentication() const;
@@ -27009,7 +27009,7 @@ class SecurityAndAccessModel : public som::SomNode {
   SecurityAndAccessModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
@@ -27032,7 +27032,7 @@ class SecurityAuditEntry : public som::SomNode {
   SecurityAuditEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityAuditEntryContentForm content() const;
   // Audit schedule and cadence.
   SecurityAuditEntrySchedulingForm scheduling() const;
@@ -27052,7 +27052,7 @@ class SecurityAuditRequirementsSection : public som::SomNode {
   SecurityAuditRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of security audit strategy and approach.
@@ -27085,7 +27085,7 @@ class SecurityCertificationRequirements : public som::SomNode {
   SecurityCertificationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityCertificationRequirementsContentForm content() const;
   // ISO 27001 requirements.
   SecurityCertificationRequirementsIso27001Form iso27001() const;
@@ -27107,7 +27107,7 @@ class SecurityCharacteristic : public som::SomNode {
   SecurityCharacteristic(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The security posture the system is built to, and the compliance regime
@@ -27144,7 +27144,7 @@ class SecurityCodeReviewPolicy : public som::SomNode {
   SecurityCodeReviewPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityCodeReviewPolicyContentForm content() const;
   // Reviewer qualification and independence rules.
   SecurityCodeReviewPolicyReviewersForm reviewers() const;
@@ -27166,7 +27166,7 @@ class SecurityComplianceFollowUp : public som::SomNode {
   SecurityComplianceFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.3.1. Compliance Framework.
@@ -27183,7 +27183,7 @@ class SecurityControlEntry : public som::SomNode {
   SecurityControlEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityControlEntryContentForm content() const;
   // Control implementation details.
   SecurityControlEntryImplementationForm implementation() const;
@@ -27199,7 +27199,7 @@ class SecurityControls : public som::SomNode {
   SecurityControls(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Security control entries — contains 0+× SecurityControlEntry.
@@ -27217,7 +27217,7 @@ class SecurityDevelopmentLifecycle : public som::SomNode {
   SecurityDevelopmentLifecycle(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityDevelopmentLifecycleContentForm content() const;
   // Development-phase controls.
   SecurityDevelopmentLifecycleDevelopmentForm development() const;
@@ -27236,7 +27236,7 @@ class SecurityEventEntry : public som::SomNode {
   SecurityEventEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityEventEntryContentForm content() const;
 };
 
@@ -27249,7 +27249,7 @@ class SecurityEventLoggingPolicy : public som::SomNode {
   SecurityEventLoggingPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityEventLoggingPolicyContentForm content() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
@@ -27265,7 +27265,7 @@ class SecurityEventsDefinition : public som::SomNode {
   SecurityEventsDefinition(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Security Event Logging Policy.
@@ -27314,7 +27314,7 @@ class SecurityOperationsFollowUp : public som::SomNode {
   SecurityOperationsFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.3.1. Sensitive Data Encryption.
@@ -27336,7 +27336,7 @@ class SecurityRequirementEntry : public som::SomNode {
   SecurityRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityRequirementEntryContentForm content() const;
   // Category and classification.
   SecurityRequirementEntryClassificationForm classification() const;
@@ -27367,7 +27367,7 @@ class SecurityRequirements : public som::SomNode {
   SecurityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Security requirements summary form.
@@ -27387,7 +27387,7 @@ class SecurityStandardComplianceEntry : public som::SomNode {
   SecurityStandardComplianceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityStandardComplianceEntryContentForm content() const;
   // Scope details.
   SecurityStandardComplianceEntryScopeForm scope() const;
@@ -27405,7 +27405,7 @@ class SecurityStandardEntry : public som::SomNode {
   SecurityStandardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityStandardEntryContentForm content() const;
   // Applicability and regulatory scope.
   SecurityStandardEntryScopeForm scope() const;
@@ -27424,7 +27424,7 @@ class SecurityTestingAutomation : public som::SomNode {
   SecurityTestingAutomation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SecurityTestingAutomationContentForm content() const;
   // Dynamic analysis configuration.
   SecurityTestingAutomationDastForm dast() const;
@@ -27447,7 +27447,7 @@ class SelfRegistrationPolicy : public som::SomNode {
   SelfRegistrationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SelfRegistrationPolicyContentForm content() const;
   // Field configuration.
   SelfRegistrationPolicyFieldsForm fields() const;
@@ -27472,7 +27472,7 @@ class SelfServiceAccountManagement : public som::SomNode {
   SelfServiceAccountManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SelfServiceAccountManagementContentForm content() const;
   // Self-Service Capabilities Description (text).
   // (skipped: selfServiceDescription has no target type)
@@ -27484,7 +27484,7 @@ class SensitiveDataEncryption : public som::SomNode {
   SensitiveDataEncryption(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.5.1. Encryption At Rest.
@@ -27534,7 +27534,7 @@ class ServerCallStepEntry : public som::SomNode {
   ServerCallStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerCallStepEntryContentForm content() const;
 };
 
@@ -27556,7 +27556,7 @@ class ServerConfigurationSettingEntry : public som::SomNode {
   ServerConfigurationSettingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerConfigurationSettingEntryContentForm content() const;
 };
 
@@ -27566,7 +27566,7 @@ class ServerEnvironmentEntry : public som::SomNode {
   ServerEnvironmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerEnvironmentEntryContentForm content() const;
   // Location details.
   ServerEnvironmentEntryLocationForm location() const;
@@ -27595,7 +27595,7 @@ class ServerOperationEntry : public som::SomNode {
   ServerOperationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerOperationEntryContentForm content() const;
   // 7.9.x. Authorization — what a caller must satisfy to invoke this
   // operation.
@@ -27639,7 +27639,7 @@ class ServerOperationMemberEntry : public som::SomNode {
   ServerOperationMemberEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerOperationMemberEntryContentForm content() const;
 };
 
@@ -27680,7 +27680,7 @@ class ServerOperationRegistry : public som::SomNode {
   ServerOperationRegistry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 7.9.1. Operations — one entry per operation the system answers.
@@ -27703,7 +27703,7 @@ class ServerOsRequirements : public som::SomNode {
   ServerOsRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerOsRequirementsContentForm content() const;
   // Hardening requirements.
   ServerOsRequirementsHardeningForm hardening() const;
@@ -27724,7 +27724,7 @@ class ServerRequirementsSection : public som::SomNode {
   ServerRequirementsSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of server infrastructure strategy.
@@ -27765,7 +27765,7 @@ class ServerRoleEntry : public som::SomNode {
   ServerRoleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerRoleEntryContentForm content() const;
   // Software stack details.
   ServerRoleEntrySoftwareForm software() const;
@@ -27783,7 +27783,7 @@ class ServerStorageRequirements : public som::SomNode {
   ServerStorageRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServerStorageRequirementsContentForm content() const;
   // Database storage requirements.
   ServerStorageRequirementsDatabaseForm database() const;
@@ -27804,7 +27804,7 @@ class ServiceAccountCredentialPolicy : public som::SomNode {
   ServiceAccountCredentialPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceAccountCredentialPolicyContentForm content() const;
   // Service Account Credential Details (text).
   // (skipped: serviceAccountDetails has no target type)
@@ -27819,7 +27819,7 @@ class ServiceAccountLifecycle : public som::SomNode {
   ServiceAccountLifecycle(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceAccountLifecycleContentForm content() const;
   // Service Account Management Description (text).
   // (skipped: serviceAccountDescription has no target type)
@@ -27831,7 +27831,7 @@ class ServiceLevel : public som::SomNode {
   ServiceLevel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceLevelContentForm content() const;
   // Remaining response targets.
   ServiceLevelResponseForm response() const;
@@ -27856,7 +27856,7 @@ class ServiceLevelAgreementEntry : public som::SomNode {
   ServiceLevelAgreementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceLevelAgreementEntryContentForm content() const;
 };
 
@@ -27866,7 +27866,7 @@ class ServiceLevelIndicators : public som::SomNode {
   ServiceLevelIndicators(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceLevelIndicatorsContentForm content() const;
   // Latency and throughput indicators.
   ServiceLevelIndicatorsPerformanceForm performance() const;
@@ -27882,7 +27882,7 @@ class ServiceMeshAndGateway : public som::SomNode {
   ServiceMeshAndGateway(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ServiceMeshAndGatewayContentForm content() const;
   // Service mesh configuration.
   ServiceMeshAndGatewayMeshForm mesh() const;
@@ -27899,7 +27899,7 @@ class SessionCreationPolicy : public som::SomNode {
   SessionCreationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SessionCreationPolicyContentForm content() const;
   // Session Creation Details (text).
   // (skipped: sessionCreationDetails has no target type)
@@ -27915,7 +27915,7 @@ class SessionLifecycleMonitoring : public som::SomNode {
   SessionLifecycleMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SessionLifecycleMonitoringContentForm content() const;
   // Session Lifecycle Monitoring Details (text).
   // (skipped: sessionLifecycleDetails has no target type)
@@ -27933,7 +27933,7 @@ class SessionManagement : public som::SomNode {
   SessionManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Session Management Overview (text).
@@ -27965,7 +27965,7 @@ class SessionModel : public som::SomNode {
   SessionModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Session configuration.
@@ -27990,7 +27990,7 @@ class SessionRevocationPolicy : public som::SomNode {
   SessionRevocationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SessionRevocationPolicyContentForm content() const;
   // Session Revocation Details (text).
   // (skipped: sessionRevocationDetails has no target type)
@@ -28006,7 +28006,7 @@ class SessionSecurityPolicy : public som::SomNode {
   SessionSecurityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SessionSecurityPolicyContentForm content() const;
   // Session Security Details (text).
   // (skipped: sessionSecurityDetails has no target type)
@@ -28023,7 +28023,7 @@ class SessionTimeoutPolicy : public som::SomNode {
   SessionTimeoutPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SessionTimeoutPolicyContentForm content() const;
   // Session Timeout Details (text).
   // (skipped: sessionTimeoutDetails has no target type)
@@ -28037,7 +28037,7 @@ class SharedInfrastructureDependencies : public som::SomNode {
   SharedInfrastructureDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Shared Infrastructure Component.
@@ -28057,7 +28057,7 @@ class SharedInfrastructureEntry : public som::SomNode {
   SharedInfrastructureEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SharedInfrastructureEntryContentForm content() const;
   // Criticality and resilience.
   SharedInfrastructureEntryResilienceForm resilience() const;
@@ -28073,7 +28073,7 @@ class SharedLibraryComponentEntry : public som::SomNode {
   SharedLibraryComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SharedLibraryComponentEntryContentForm content() const;
   // Purpose and consumers.
   SharedLibraryComponentEntryDescriptionForm description() const;
@@ -28091,7 +28091,7 @@ class SharedLibraryEntry : public som::SomNode {
   SharedLibraryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SharedLibraryEntryContentForm content() const;
   // Description and usage.
   SharedLibraryEntryDescriptionForm description() const;
@@ -28111,7 +28111,7 @@ class SignOffProcess : public som::SomNode {
   SignOffProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SignOffProcessContentForm content() const;
   // Signatory and quorum governance.
   SignOffProcessGovernanceForm governance() const;
@@ -28136,7 +28136,7 @@ class SingleSignOnPolicy : public som::SomNode {
   SingleSignOnPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SingleSignOnPolicyContentForm content() const;
   // Gateway and federation setup.
   SingleSignOnPolicyFederationForm federation() const;
@@ -28158,7 +28158,7 @@ class SlaAndSloMonitoring : public som::SomNode {
   SlaAndSloMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The service-level regime — the framework, the error-budget policy, and
@@ -28195,7 +28195,7 @@ class SlaMonitoringRequirements : public som::SomNode {
   SlaMonitoringRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SlaMonitoringRequirementsContentForm content() const;
   // Monitoring mechanics.
   SlaMonitoringRequirementsMonitoringForm monitoring() const;
@@ -28213,7 +28213,7 @@ class SloEntry : public som::SomNode {
   SloEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SloEntryContentForm content() const;
   // Objective target and budget definition.
   SloEntryTargetForm target() const;
@@ -28227,7 +28227,7 @@ class SoftwareDeliverables : public som::SomNode {
   SoftwareDeliverables(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Deliverable.
@@ -28245,7 +28245,7 @@ class SoftwareDesignRequirements : public som::SomNode {
   SoftwareDesignRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.2.1. Layering and Module Structure.
@@ -28268,7 +28268,7 @@ class SoftwareLayerEntry : public som::SomNode {
   SoftwareLayerEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SoftwareLayerEntryContentForm content() const;
   // Responsibilities and constraints.
   SoftwareLayerEntryResponsibilitiesForm responsibilities() const;
@@ -28286,7 +28286,7 @@ class SolutionArchitectureAndTechnology : public som::SomNode {
   SolutionArchitectureAndTechnology(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Technical framework and platform concept — the CodeSpecs-relevant
@@ -28315,7 +28315,7 @@ class SolutionArchitectureFollowUp : public som::SomNode {
   SolutionArchitectureFollowUp(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Components, libraries, and services to reuse.
@@ -28332,7 +28332,7 @@ class SpecializedEquipmentEntry : public som::SomNode {
   SpecializedEquipmentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SpecializedEquipmentEntryContentForm content() const;
   // Technical and compliance characteristics.
   SpecializedEquipmentEntryTechnicalForm technical() const;
@@ -28349,7 +28349,7 @@ class SsoPolicy : public som::SomNode {
   SsoPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SsoPolicyContentForm content() const;
   // SSO Implementation Details (text).
   // (skipped: ssoDetails has no target type)
@@ -28361,7 +28361,7 @@ class StaffingBudget : public som::SomNode {
   StaffingBudget(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StaffingBudgetContentForm content() const;
   // Recruitment and enablement cost categories.
   StaffingBudgetAllocationsForm allocations() const;
@@ -28378,7 +28378,7 @@ class StaffingEntry : public som::SomNode {
   StaffingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StaffingEntryContentForm content() const;
   // Organization and employment placement.
   StaffingEntryOrganizationForm organization() const;
@@ -28396,7 +28396,7 @@ class StaffingPlan : public som::SomNode {
   StaffingPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Staffing plan overview.
@@ -28420,7 +28420,7 @@ class StageDependencies : public som::SomNode {
   StageDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageDependenciesContentForm content() const;
 };
 
@@ -28436,7 +28436,7 @@ class StageEntry : public som::SomNode {
   StageEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageEntryContentForm content() const;
   // Identity and classification.
   StageEntryIdentityForm identity() const;
@@ -28488,7 +28488,7 @@ class StageGovernance : public som::SomNode {
   StageGovernance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageGovernanceContentForm content() const;
   // Governance model details.
   StageGovernanceModelForm model() const;
@@ -28518,7 +28518,7 @@ class StageMigrationResources : public som::SomNode {
   StageMigrationResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageMigrationResourcesContentForm content() const;
 };
 
@@ -28533,7 +28533,7 @@ class StageMigrationRiskEntry : public som::SomNode {
   StageMigrationRiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageMigrationRiskEntryContentForm content() const;
   // Risk identity and description.
   StageMigrationRiskEntryIdentityForm identity() const;
@@ -28563,7 +28563,7 @@ class StageMigrationRisks : public som::SomNode {
   StageMigrationRisks(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageMigrationRisksContentForm content() const;
   // Risk summary narrative.
   // (skipped: riskSummary has no target type)
@@ -28585,7 +28585,7 @@ class StageOverview : public som::SomNode {
   StageOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageOverviewContentForm content() const;
   // Summary metrics across all stages.
   StageOverviewMetricsForm metrics() const;
@@ -28633,7 +28633,7 @@ class StageResources : public som::SomNode {
   StageResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageResourcesContentForm content() const;
 };
 
@@ -28643,7 +28643,7 @@ class StageStakeholders : public som::SomNode {
   StageStakeholders(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageStakeholdersContentForm content() const;
 };
 
@@ -28657,7 +28657,7 @@ class StageSuccessCriterionEntry : public som::SomNode {
   StageSuccessCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSuccessCriterionEntryContentForm content() const;
   // Measurement targets.
   StageSuccessCriterionEntryMeasurementForm measurement() const;
@@ -28673,7 +28673,7 @@ class StageSummaryDependencies : public som::SomNode {
   StageSummaryDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSummaryDependenciesContentForm content() const;
 };
 
@@ -28690,7 +28690,7 @@ class StageSummaryEntry : public som::SomNode {
   StageSummaryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSummaryEntryContentForm content() const;
   // Identity and theme.
   StageSummaryEntryIdentityForm identity() const;
@@ -28716,7 +28716,7 @@ class StageSummaryResources : public som::SomNode {
   StageSummaryResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StageSummaryResourcesContentForm content() const;
 };
 
@@ -28726,7 +28726,7 @@ class StagingDependencies : public som::SomNode {
   StagingDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StagingDependenciesContentForm content() const;
 };
 
@@ -28736,7 +28736,7 @@ class StagingDrivers : public som::SomNode {
   StagingDrivers(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StagingDriversContentForm content() const;
 };
 
@@ -28753,7 +28753,7 @@ class StagingStrategy : public som::SomNode {
   StagingStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StagingStrategyContentForm content() const;
   // Approach selection details.
   StagingStrategyApproachSelectionForm approachSelection() const;
@@ -28803,7 +28803,7 @@ class StakeholderEntry : public som::SomNode {
   StakeholderEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StakeholderEntryContentForm content() const;
 };
 
@@ -28816,7 +28816,7 @@ class StakeholderRegisterEntry : public som::SomNode {
   StakeholderRegisterEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StakeholderRegisterEntryContentForm content() const;
 };
 
@@ -28832,7 +28832,7 @@ class StakeholdersAndBeneficiaries : public som::SomNode {
   StakeholdersAndBeneficiaries(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
@@ -28853,7 +28853,7 @@ class StakeholdersAndGovernance : public som::SomNode {
   StakeholdersAndGovernance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Governance overview summary statistics (folded in from the former
@@ -28895,7 +28895,7 @@ class StakeholdersAndInterests : public som::SomNode {
   StakeholdersAndInterests(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StakeholdersAndInterestsContentForm content() const;
 };
 
@@ -28905,7 +28905,7 @@ class StandardSoftwareRequirements : public som::SomNode {
   StandardSoftwareRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.3.1. Compatibility Requirements.
@@ -28927,7 +28927,7 @@ class StandardsComplianceSection : public som::SomNode {
   StandardsComplianceSection(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of standards compliance strategy.
@@ -28975,7 +28975,7 @@ class SteeringCommittee : public som::SomNode {
   SteeringCommittee(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Committee charter and rules.
@@ -28998,7 +28998,7 @@ class StepUpAuthenticationPolicy : public som::SomNode {
   StepUpAuthenticationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StepUpAuthenticationPolicyContentForm content() const;
   // Step-Up Authentication Details (text).
   // Returns the list view; element type: scalar (construct from item paths).
@@ -29015,7 +29015,7 @@ class StorageEncryptionPolicy : public som::SomNode {
   StorageEncryptionPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StorageEncryptionPolicyContentForm content() const;
   // Storage Encryption Details (text).
   // (skipped: storageEncryptionDetails has no target type)
@@ -29031,7 +29031,7 @@ class StorageLifecyclePolicy : public som::SomNode {
   StorageLifecyclePolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   StorageLifecyclePolicyContentForm content() const;
   // Storage Lifecycle Details (text).
   // (skipped: storageLifecycleDetails has no target type)
@@ -29046,7 +29046,7 @@ class StrategicAlignment : public som::SomNode {
   StrategicAlignment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Strategic Alignment Details (form).
@@ -29065,7 +29065,7 @@ class SubFunctionEntry : public som::SomNode {
   SubFunctionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SubFunctionEntryContentForm content() const;
 };
 
@@ -29079,7 +29079,7 @@ class SubStageEntry : public som::SomNode {
   SubStageEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SubStageEntryContentForm content() const;
   // Description and objectives.
   SubStageEntryOverviewForm overview() const;
@@ -29104,7 +29104,7 @@ class SuccessCriteria : public som::SomNode {
   SuccessCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Success criteria summary.
@@ -29133,7 +29133,7 @@ class SuccessCriteriaByCategory : public som::SomNode {
   SuccessCriteriaByCategory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Business outcome criteria overview.
@@ -29166,7 +29166,7 @@ class SuccessCriterionEntry : public som::SomNode {
   SuccessCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SuccessCriterionEntryContentForm content() const;
   // Identification details.
   SuccessCriterionEntryIdentityForm identity() const;
@@ -29189,7 +29189,7 @@ class SuccessCriterionRelationships : public som::SomNode {
   SuccessCriterionRelationships(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SuccessCriterionRelationshipsContentForm content() const;
 };
 
@@ -29199,7 +29199,7 @@ class SupportAccess : public som::SomNode {
   SupportAccess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How a user reaches a human when the product's own help runs out.
@@ -29231,7 +29231,7 @@ class SupportDeliverables : public som::SomNode {
   SupportDeliverables(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Deliverable.
@@ -29249,7 +29249,7 @@ class SupportedLocaleEntry : public som::SomNode {
   SupportedLocaleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SupportedLocaleEntryContentForm content() const;
   // Formatting and direction rules for the locale.
   SupportedLocaleEntryFormattingForm formatting() const;
@@ -29269,7 +29269,7 @@ class SystemArchitectureSpec : public som::SomNode {
   SystemArchitectureSpec(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The decisions behind the views described here. The views and trade-offs stay in the text; each decision is an architecture decision record (`ARDE`), named here.
@@ -29291,7 +29291,7 @@ class SystemBoundaries : public som::SomNode {
   SystemBoundaries(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of system boundaries and scope definition approach.
@@ -29331,7 +29331,7 @@ class SystemBusinessCriticality : public som::SomNode {
   SystemBusinessCriticality(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemBusinessCriticalityContentForm content() const;
   // Usage scale and commercial impact.
   SystemBusinessCriticalityOperationsForm operations() const;
@@ -29351,7 +29351,7 @@ class SystemBusinessProcessEntry : public som::SomNode {
   SystemBusinessProcessEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemBusinessProcessEntryContentForm content() const;
 };
 
@@ -29361,7 +29361,7 @@ class SystemBusinessUnitEntry : public som::SomNode {
   SystemBusinessUnitEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemBusinessUnitEntryContentForm content() const;
 };
 
@@ -29371,7 +29371,7 @@ class SystemConfigurationManagement : public som::SomNode {
   SystemConfigurationManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemConfigurationManagementContentForm content() const;
   // Dynamic configuration and rollback behavior.
   SystemConfigurationManagementDynamicForm dynamic() const;
@@ -29394,7 +29394,7 @@ class SystemContext : public som::SomNode {
   SystemContext(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 4.1.2.1. Context Diagram.
@@ -29425,7 +29425,7 @@ class SystemCostAnalysis : public som::SomNode {
   SystemCostAnalysis(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemCostAnalysisContentForm content() const;
   // Current-state support and total annual cost.
   SystemCostAnalysisCurrentCostsForm currentCosts() const;
@@ -29446,7 +29446,7 @@ class SystemDataScope : public som::SomNode {
   SystemDataScope(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemDataScopeContentForm content() const;
   // Data sensitivity and quality posture.
   SystemDataScopeGovernanceForm governance() const;
@@ -29470,7 +29470,7 @@ class SystemDependencyEntry : public som::SomNode {
   SystemDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemDependencyEntryContentForm content() const;
   // Mechanism and coupling.
   SystemDependencyEntryMechanismForm mechanism() const;
@@ -29509,7 +29509,7 @@ class SystemDescription : public som::SomNode {
   SystemDescription(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // System description summary.
@@ -29537,7 +29537,7 @@ class SystemDiagnosticTools : public som::SomNode {
   SystemDiagnosticTools(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemDiagnosticToolsContentForm content() const;
   // Trace and dependency inspection tools.
   SystemDiagnosticToolsTracingForm tracing() const;
@@ -29553,7 +29553,7 @@ class SystemErrorCodeEntry : public som::SomNode {
   SystemErrorCodeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemErrorCodeEntryContentForm content() const;
   // Recovery and display guidance.
   SystemErrorCodeEntryHandlingForm handling() const;
@@ -29570,7 +29570,7 @@ class SystemErrorDisplay : public som::SomNode {
   SystemErrorDisplay(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How failures the user cannot correct are surfaced.
@@ -29610,7 +29610,7 @@ class SystemIntegrationEntry : public som::SomNode {
   SystemIntegrationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemIntegrationEntryContentForm content() const;
   // Protocol and transport details.
   SystemIntegrationEntryProtocolForm protocol() const;
@@ -29649,7 +29649,7 @@ class SystemInventory : public som::SomNode {
   SystemInventory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 1+× Existing System.
@@ -29667,7 +29667,7 @@ class SystemKnowledgeTransfer : public som::SomNode {
   SystemKnowledgeTransfer(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemKnowledgeTransferContentForm content() const;
   // Critical knowledge areas to preserve.
   // Returns the list view; element type: scalar (construct from item paths).
@@ -29684,7 +29684,7 @@ class SystemLandscapeInventory : public som::SomNode {
   SystemLandscapeInventory(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -29699,7 +29699,7 @@ class SystemMigrationPlan : public som::SomNode {
   SystemMigrationPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemMigrationPlanContentForm content() const;
   // Migration execution and validation details.
   SystemMigrationPlanExecutionForm execution() const;
@@ -29720,7 +29720,7 @@ class SystemMigrationRiskEntry : public som::SomNode {
   SystemMigrationRiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemMigrationRiskEntryContentForm content() const;
 };
 
@@ -29730,7 +29730,7 @@ class SystemOperation : public som::SomNode {
   SystemOperation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.7.1.1. Administration Requirements.
@@ -29750,7 +29750,7 @@ class SystemOperationAndMonitoring : public som::SomNode {
   SystemOperationAndMonitoring(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.7.1. System Operation.
@@ -29775,7 +29775,7 @@ class SystemPurpose : public som::SomNode {
   SystemPurpose(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Vision Statement.
@@ -29811,7 +29811,7 @@ class SystemQualityGoals : public som::SomNode {
   SystemQualityGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The project's quality stance: the philosophy it works to, the standards it
@@ -29882,7 +29882,7 @@ class SystemReplacementStrategy : public som::SomNode {
   SystemReplacementStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemReplacementStrategyContentForm content() const;
   // Replacement timeline milestones.
   SystemReplacementStrategyTimelineForm timeline() const;
@@ -29904,7 +29904,7 @@ class SystemRollout : public som::SomNode {
   SystemRollout(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 15.1. Rollout Plan.
@@ -29952,7 +29952,7 @@ class SystemStagePlan : public som::SomNode {
   SystemStagePlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemStagePlanContentForm content() const;
   // Overall schedule and buffer model.
   SystemStagePlanTimelineForm timeline() const;
@@ -29985,7 +29985,7 @@ class SystemSummary : public som::SomNode {
   SystemSummary(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemSummaryContentForm content() const;
   // System classification.
   SystemSummaryClassificationForm classification() const;
@@ -30006,7 +30006,7 @@ class SystemTaskEntry : public som::SomNode {
   SystemTaskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemTaskEntryContentForm content() const;
   // Timing, complexity, and trigger details.
   SystemTaskEntryExecutionForm execution() const;
@@ -30043,7 +30043,7 @@ class SystemTechnicalAssessment : public som::SomNode {
   SystemTechnicalAssessment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemTechnicalAssessmentContentForm content() const;
   // Platform and age details.
   SystemTechnicalAssessmentPlatformForm platform() const;
@@ -30070,7 +30070,7 @@ class SystemToReplaceEntry : public som::SomNode {
   SystemToReplaceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which legacy system this entry is about.
@@ -30120,7 +30120,7 @@ class SystemTrainingEntry : public som::SomNode {
   SystemTrainingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemTrainingEntryContentForm content() const;
   // Functional training coverage.
   SystemTrainingEntryFunctionalForm functional() const;
@@ -30136,7 +30136,7 @@ class SystemUserImpact : public som::SomNode {
   SystemUserImpact(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   SystemUserImpactContentForm content() const;
   // User-facing change profile.
   SystemUserImpactChangeProfileForm changeProfile() const;
@@ -30160,7 +30160,7 @@ class SystemsToReplace : public som::SomNode {
   SystemsToReplace(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of the systems replacement scope and strategy.
@@ -30183,7 +30183,7 @@ class TabBarDefinitionEntry : public som::SomNode {
   TabBarDefinitionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TabBarDefinitionEntryContentForm content() const;
   // Position and selection behavior.
   TabBarDefinitionEntryBehaviorForm behavior() const;
@@ -30200,7 +30200,7 @@ class TabItemEntry : public som::SomNode {
   TabItemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TabItemEntryContentForm content() const;
   // Access control — what a caller must satisfy to reach this tab.
   //
@@ -30219,7 +30219,7 @@ class TargetOperatingModel : public som::SomNode {
   TargetOperatingModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // ORG/OPS follow-up subtree: target organization + process narrative.
@@ -30238,7 +30238,7 @@ class TargetPlatformEntry : public som::SomNode {
   TargetPlatformEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TargetPlatformEntryContentForm content() const;
   // Version requirements.
   TargetPlatformEntryVersionForm version() const;
@@ -30259,7 +30259,7 @@ class TeamMemberEntry : public som::SomNode {
   TeamMemberEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberEntryContentForm content() const;
   // Allocation and scheduling details.
   TeamMemberEntryAllocationDetailsForm allocationDetails() const;
@@ -30282,7 +30282,7 @@ class TeamMemberResponsibilityEntry : public som::SomNode {
   TeamMemberResponsibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberResponsibilityEntryContentForm content() const;
 };
 
@@ -30292,7 +30292,7 @@ class TeamMemberSkillEntry : public som::SomNode {
   TeamMemberSkillEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberSkillEntryContentForm content() const;
 };
 
@@ -30302,7 +30302,7 @@ class TeamMemberSkills : public som::SomNode {
   TeamMemberSkills(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamMemberSkillsContentForm content() const;
   // Individual skill entries.
   // Returns the list view; element type: TeamMemberSkillEntry (construct from item paths).
@@ -30315,7 +30315,7 @@ class TeamStructureOverview : public som::SomNode {
   TeamStructureOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TeamStructureOverviewContentForm content() const;
   // Team structure diagram.
   // (skipped: teamDiagram has no target type)
@@ -30327,7 +30327,7 @@ class TechnicalCharacteristicEntry : public som::SomNode {
   TechnicalCharacteristicEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalCharacteristicEntryContentForm content() const;
 };
 
@@ -30337,7 +30337,7 @@ class TechnicalConstraintEntry : public som::SomNode {
   TechnicalConstraintEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalConstraintEntryContentForm content() const;
 };
 
@@ -30347,7 +30347,7 @@ class TechnicalDependencyEntry : public som::SomNode {
   TechnicalDependencyEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalDependencyEntryContentForm content() const;
 };
 
@@ -30363,7 +30363,7 @@ class TechnicalEnvironment : public som::SomNode {
   TechnicalEnvironment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Where the organization stands technically today, before anything is said
@@ -30418,7 +30418,7 @@ class TechnicalEnvironmentNetwork : public som::SomNode {
   TechnicalEnvironmentNetwork(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalEnvironmentNetworkContentForm content() const;
   // DevOps and deployment standards.
   // Returns the list view; element type: scalar (construct from item paths).
@@ -30436,7 +30436,7 @@ class TechnicalFrameworkConcept : public som::SomNode {
   TechnicalFrameworkConcept(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.1. Basic Technical Requirements.
@@ -30471,7 +30471,7 @@ class TechnicalGoalConstraints : public som::SomNode {
   TechnicalGoalConstraints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Constraint entries — contains 0+× TechnicalConstraintEntry.
@@ -30491,7 +30491,7 @@ class TechnicalGoalDependencies : public som::SomNode {
   TechnicalGoalDependencies(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Dependency entries — contains 0+× TechnicalDependencyEntry.
@@ -30512,7 +30512,7 @@ class TechnicalGoalEntry : public som::SomNode {
   TechnicalGoalEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalGoalEntryContentForm content() const;
   // Success measurement details.
   TechnicalGoalEntryMeasurementForm measurement() const;
@@ -30534,7 +30534,7 @@ class TechnicalGoalTestCaseEntry : public som::SomNode {
   TechnicalGoalTestCaseEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalGoalTestCaseEntryContentForm content() const;
 };
 
@@ -30546,7 +30546,7 @@ class TechnicalGoalTestCriteria : public som::SomNode {
   TechnicalGoalTestCriteria(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Test criteria form.
@@ -30570,7 +30570,7 @@ class TechnicalGoals : public som::SomNode {
   TechnicalGoals(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Technical goals list — contains 1+× Technical Goal.
@@ -30588,7 +30588,7 @@ class TechnicalInfrastructure : public som::SomNode {
   TechnicalInfrastructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Network connectivity requirements.
@@ -30616,7 +30616,7 @@ class TechnicalPainPoints : public som::SomNode {
   TechnicalPainPoints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Category-level summary for technical pain points.
@@ -30639,7 +30639,7 @@ class TechnicalRequirementEntry : public som::SomNode {
   TechnicalRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnicalRequirementEntryContentForm content() const;
   // Requirement details: description, category, priority.
   TechnicalRequirementEntryDetailsForm details() const;
@@ -30670,7 +30670,7 @@ class TechnicalRequirements : public som::SomNode {
   TechnicalRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Technical requirements summary form.
@@ -30690,7 +30690,7 @@ class TechnicalSecurityRequirements : public som::SomNode {
   TechnicalSecurityRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 8.8.1. IT Security Standards.
@@ -30713,7 +30713,7 @@ class TechnologyDataVariations : public som::SomNode {
   TechnologyDataVariations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnologyDataVariationsContentForm content() const;
 };
 
@@ -30726,7 +30726,7 @@ class TechnologyStandardEntry : public som::SomNode {
   TechnologyStandardEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TechnologyStandardEntryContentForm content() const;
   // Standard details and sources.
   TechnologyStandardEntryDetailsForm details() const;
@@ -30749,7 +30749,7 @@ class TenantBoundaryEnforcementPolicy : public som::SomNode {
   TenantBoundaryEnforcementPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TenantBoundaryEnforcementPolicyContentForm content() const;
   // Tenant Boundary Enforcement Details (text).
   // (skipped: boundaryEnforcementDetails has no target type)
@@ -30767,7 +30767,7 @@ class TenantContextPolicy : public som::SomNode {
   TenantContextPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TenantContextPolicyContentForm content() const;
   // Tenant Context Policy Details (text).
   // (skipped: tenantContextPolicyDetails has no target type)
@@ -30783,7 +30783,7 @@ class TenantCustomizationEntry : public som::SomNode {
   TenantCustomizationEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TenantCustomizationEntryContentForm content() const;
 };
 
@@ -30796,7 +30796,7 @@ class TenantDataIsolationPolicy : public som::SomNode {
   TenantDataIsolationPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TenantDataIsolationPolicyContentForm content() const;
   // Tenant Data Isolation Details (text).
   // (skipped: tenantDataIsolationDetails has no target type)
@@ -30816,7 +30816,7 @@ class TenantIsolation : public som::SomNode {
   TenantIsolation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Tenant Context Policy.
@@ -30849,7 +30849,7 @@ class TenantOnboardingPolicy : public som::SomNode {
   TenantOnboardingPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TenantOnboardingPolicyContentForm content() const;
   // Tenant Onboarding Policy Details (text).
   // (skipped: tenantOnboardingPolicyDetails has no target type)
@@ -30861,7 +30861,7 @@ class TestLevelEntry : public som::SomNode {
   TestLevelEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TestLevelEntryContentForm content() const;
 };
 
@@ -30876,7 +30876,7 @@ class TestScenarioEntry : public som::SomNode {
   TestScenarioEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TestScenarioEntryContentForm content() const;
   // Identification.
   TestScenarioEntryIdentificationForm identification() const;
@@ -30904,7 +30904,7 @@ class TestScenarioNotes : public som::SomNode {
   TestScenarioNotes(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TestScenarioNotesContentForm content() const;
 };
 
@@ -30916,7 +30916,7 @@ class TestStrategy : public som::SomNode {
   TestStrategy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Test levels — contains 0+× test level.
@@ -30934,7 +30934,7 @@ class TestingStandards : public som::SomNode {
   TestingStandards(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TestingStandardsContentForm content() const;
   // Additional test types and organization.
   TestingStandardsOrganizationForm organization() const;
@@ -30952,7 +30952,7 @@ class ThirdPartyApiIntegrations : public som::SomNode {
   ThirdPartyApiIntegrations(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ThirdPartyApiIntegrationsContentForm content() const;
   // Analytics and monitoring providers.
   ThirdPartyApiIntegrationsAnalyticsForm analytics() const;
@@ -30974,7 +30974,7 @@ class ThirdPartyCompatibilityEntry : public som::SomNode {
   ThirdPartyCompatibilityEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ThirdPartyCompatibilityEntryContentForm content() const;
   // Compatibility characteristics.
   ThirdPartyCompatibilityEntryCompatibilityForm compatibility() const;
@@ -30992,7 +30992,7 @@ class ThirdPartyLibraryEntry : public som::SomNode {
   ThirdPartyLibraryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ThirdPartyLibraryEntryContentForm content() const;
   // Evaluation and selection.
   ThirdPartyLibraryEntryEvaluationForm evaluation() const;
@@ -31014,7 +31014,7 @@ class ThrowawayPrototype : public som::SomNode {
   ThrowawayPrototype(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The explicit disposal terms for a throwaway prototype.
@@ -31046,7 +31046,7 @@ class TlsProtocolPolicy : public som::SomNode {
   TlsProtocolPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TlsProtocolPolicyContentForm content() const;
   // TLS Protocol Policy Details (text).
   // (skipped: tlsProtocolPolicyDetails has no target type)
@@ -31058,7 +31058,7 @@ class TlsRequirements : public som::SomNode {
   TlsRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TlsRequirementsContentForm content() const;
   // Cipher suite policy.
   TlsRequirementsCipherSuitesForm cipherSuites() const;
@@ -31079,7 +31079,7 @@ class TokenManagementPolicy : public som::SomNode {
   TokenManagementPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TokenManagementPolicyContentForm content() const;
   // Token Management Details (text).
   // (skipped: tokenManagementDetails has no target type)
@@ -31097,7 +31097,7 @@ class ToolEntry : public som::SomNode {
   ToolEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ToolEntryContentForm content() const;
   // Identity and classification details.
   ToolEntryIdentityForm identity() const;
@@ -31142,7 +31142,7 @@ class Tooling : public som::SomNode {
   Tooling(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ToolingContentForm content() const;
   // Stack composition and selection policies.
   ToolingStackForm stack() const;
@@ -31163,7 +31163,7 @@ class ToolingAndEnvironments : public som::SomNode {
   ToolingAndEnvironments(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 2.4.1. Tooling.
@@ -31182,7 +31182,7 @@ class TourStepEntry : public som::SomNode {
   TourStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TourStepEntryContentForm content() const;
 };
 
@@ -31192,7 +31192,7 @@ class TradeOffDecisionEntry : public som::SomNode {
   TradeOffDecisionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TradeOffDecisionEntryContentForm content() const;
   // Qualities in conflict.
   TradeOffDecisionEntryQualitiesForm qualities() const;
@@ -31216,7 +31216,7 @@ class TradeOffDecisions : public som::SomNode {
   TradeOffDecisions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Who may decide a quality trade-off, how it is recorded, and how it is
@@ -31246,7 +31246,7 @@ class TrainingAssessment : public som::SomNode {
   TrainingAssessment(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingAssessmentContentForm content() const;
   // Retention and effectiveness evaluation.
   TrainingAssessmentEffectivenessForm effectiveness() const;
@@ -31270,7 +31270,7 @@ class TrainingDeliverableRequirements : public som::SomNode {
   TrainingDeliverableRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The training materials that accompany a localized release.
@@ -31295,7 +31295,7 @@ class TrainingDeliverables : public som::SomNode {
   TrainingDeliverables(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× Deliverable.
@@ -31328,7 +31328,7 @@ class TrainingMaterials : public som::SomNode {
   TrainingMaterials(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingMaterialsContentForm content() const;
   // Practice and reference resources.
   TrainingMaterialsPracticeForm practice() const;
@@ -31344,7 +31344,7 @@ class TrainingModuleEntry : public som::SomNode {
   TrainingModuleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingModuleEntryContentForm content() const;
 };
 
@@ -31356,7 +31356,7 @@ class TrainingPrototype : public som::SomNode {
   TrainingPrototype(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How knowledge from the prototype is transferred to the delivery team.
@@ -31385,7 +31385,7 @@ class TrainingRequirements : public som::SomNode {
   TrainingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Training overview and strategy.
@@ -31418,7 +31418,7 @@ class TrainingTopicEntry : public som::SomNode {
   TrainingTopicEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TrainingTopicEntryContentForm content() const;
 };
 
@@ -31428,7 +31428,7 @@ class TransitionCommunicationChannels : public som::SomNode {
   TransitionCommunicationChannels(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionCommunicationChannelsContentForm content() const;
 };
 
@@ -31438,7 +31438,7 @@ class TransitionCommunicationPlan : public som::SomNode {
   TransitionCommunicationPlan(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Communication strategy overview.
@@ -31461,7 +31461,7 @@ class TransitionEscalationPaths : public som::SomNode {
   TransitionEscalationPaths(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionEscalationPathsContentForm content() const;
 };
 
@@ -31471,7 +31471,7 @@ class TransitionMetricEntry : public som::SomNode {
   TransitionMetricEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionMetricEntryContentForm content() const;
   // Measurement operations.
   TransitionMetricEntryOperationsForm operations() const;
@@ -31485,7 +31485,7 @@ class TransitionMilestoneEntry : public som::SomNode {
   TransitionMilestoneEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionMilestoneEntryContentForm content() const;
   // Deliverables and decisioning.
   TransitionMilestoneEntryGovernanceForm governance() const;
@@ -31501,7 +31501,7 @@ class TransitionOverview : public som::SomNode {
   TransitionOverview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionOverviewContentForm content() const;
   // Timeline and cutover planning.
   TransitionOverviewTimelineForm timeline() const;
@@ -31515,7 +31515,7 @@ class TransitionPhaseActivities : public som::SomNode {
   TransitionPhaseActivities(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionPhaseActivitiesContentForm content() const;
 };
 
@@ -31527,7 +31527,7 @@ class TransitionPhaseEntry : public som::SomNode {
   TransitionPhaseEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Phase identification and timeline.
@@ -31552,7 +31552,7 @@ class TransitionPhaseIdentification : public som::SomNode {
   TransitionPhaseIdentification(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionPhaseIdentificationContentForm content() const;
   // Timeline and sequencing details.
   TransitionPhaseIdentificationTimelineForm timeline() const;
@@ -31566,7 +31566,7 @@ class TransitionPhaseStakeholders : public som::SomNode {
   TransitionPhaseStakeholders(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionPhaseStakeholdersContentForm content() const;
 };
 
@@ -31576,7 +31576,7 @@ class TransitionRiskEntry : public som::SomNode {
   TransitionRiskEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionRiskEntryContentForm content() const;
   // Risk assessment and exposure details.
   TransitionRiskEntryAssessmentForm assessment() const;
@@ -31590,7 +31590,7 @@ class TransitionSuccessMetrics : public som::SomNode {
   TransitionSuccessMetrics(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Metrics overview.
@@ -31610,7 +31610,7 @@ class TransitionSupportResourceEntry : public som::SomNode {
   TransitionSupportResourceEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransitionSupportResourceEntryContentForm content() const;
 };
 
@@ -31620,7 +31620,7 @@ class TransitionSupportStructure : public som::SomNode {
   TransitionSupportStructure(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Support organization overview.
@@ -31645,7 +31645,7 @@ class TranslationProcess : public som::SomNode {
   TranslationProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How translated text is produced, reviewed and shipped.
@@ -31680,7 +31680,7 @@ class TranslationRequirements : public som::SomNode {
   TranslationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What must be translated, and what deliberately must not.
@@ -31710,7 +31710,7 @@ class TranslationVendorEntry : public som::SomNode {
   TranslationVendorEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TranslationVendorEntryContentForm content() const;
 };
 
@@ -31724,7 +31724,7 @@ class TransportSecurityPolicy : public som::SomNode {
   TransportSecurityPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TransportSecurityPolicyContentForm content() const;
   // Transport Security Policy Details (text).
   // (skipped: transportSecurityPolicyDetails has no target type)
@@ -31736,7 +31736,7 @@ class TroubleshootingCapabilities : public som::SomNode {
   TroubleshootingCapabilities(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TroubleshootingCapabilitiesContentForm content() const;
   // Runbook and remediation support.
   TroubleshootingCapabilitiesRunbooksForm runbooks() const;
@@ -31755,7 +31755,7 @@ class TrustBoundaries : public som::SomNode {
   TrustBoundaries(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Trust boundary entries — contains 0+× TrustBoundaryEntry.
@@ -31773,7 +31773,7 @@ class TrustBoundaryEntry : public som::SomNode {
   TrustBoundaryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TrustBoundaryEntryContentForm content() const;
 };
 
@@ -31783,7 +31783,7 @@ class TypographyStyleEntry : public som::SomNode {
   TypographyStyleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   TypographyStyleEntryContentForm content() const;
 };
 
@@ -31793,7 +31793,7 @@ class UIRequirementsPreview : public som::SomNode {
   UIRequirementsPreview(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UIRequirementsPreviewContentForm content() const;
   // UI mockup/wireframe reference.
   // (skipped: screenMockup has no target type)
@@ -31809,7 +31809,7 @@ class UatTestCycleEntry : public som::SomNode {
   UatTestCycleEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UatTestCycleEntryContentForm content() const;
   // Scope and pass criteria for this cycle.
   UatTestCycleEntryScopeForm scope() const;
@@ -31827,7 +31827,7 @@ class UatTestStepEntry : public som::SomNode {
   UatTestStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UatTestStepEntryContentForm content() const;
 };
 
@@ -31841,7 +31841,7 @@ class UiComponentEntry : public som::SomNode {
   UiComponentEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // What this component is and where it is used.
@@ -31935,7 +31935,7 @@ class UiComponents : public som::SomNode {
   UiComponents(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The library's scope and governance, before the individual components.
@@ -31973,7 +31973,7 @@ class UpgradeCycleFramework : public som::SomNode {
   UpgradeCycleFramework(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -31988,7 +31988,7 @@ class Usability : public som::SomNode {
   Usability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UsabilityContentForm content() const;
   // Operability verification and ergonomics goals.
   UsabilityOperabilityForm operability() const;
@@ -32010,7 +32010,7 @@ class UseCaseExtensions : public som::SomNode {
   UseCaseExtensions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UseCaseExtensionsContentForm content() const;
   // Extension entries — contains 0+× Extension.
   // Returns the list view; element type: ExtensionEntry (construct from item paths).
@@ -32025,7 +32025,7 @@ class UseCaseTraceability : public som::SomNode {
   UseCaseTraceability(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -32045,7 +32045,7 @@ class UserAcceptanceTesting : public som::SomNode {
   UserAcceptanceTesting(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserAcceptanceTestingContentForm content() const;
   // Scope and objectives.
   UserAcceptanceTestingScopeForm scope() const;
@@ -32087,7 +32087,7 @@ class UserAccessPermissions : public som::SomNode {
   UserAccessPermissions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Access Permissions Form.
@@ -32113,7 +32113,7 @@ class UserAccessibilityNeeds : public som::SomNode {
   UserAccessibilityNeeds(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Accessibility Needs Form.
@@ -32133,7 +32133,7 @@ class UserAccountStatesDefinition : public som::SomNode {
   UserAccountStatesDefinition(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserAccountStatesDefinitionContentForm content() const;
   // State Transition Diagram (mermaid).
   // (skipped: stateTransitionDiagram has no target type)
@@ -32148,7 +32148,7 @@ class UserAssistance : public som::SomNode {
   UserAssistance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The help model as a whole, before the delivery channels below.
@@ -32182,7 +32182,7 @@ class UserAttributeEntry : public som::SomNode {
   UserAttributeEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserAttributeEntryContentForm content() const;
   // How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
   UserAttributeEntryOidcReleaseForm oidcRelease() const;
@@ -32194,7 +32194,7 @@ class UserAttributes : public som::SomNode {
   UserAttributes(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× UserAttribute.
@@ -32215,7 +32215,7 @@ class UserAuthorization : public som::SomNode {
   UserAuthorization(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.4.1. Authorization Model.
@@ -32255,7 +32255,7 @@ class UserCategoryDefinition : public som::SomNode {
   UserCategoryDefinition(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserCategoryDefinitionContentForm content() const;
 };
 
@@ -32268,7 +32268,7 @@ class UserCategoryEntry : public som::SomNode {
   UserCategoryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserCategoryEntryContentForm content() const;
   // Interaction profile and scale indicators.
   UserCategoryEntryUsageForm usage() const;
@@ -32304,7 +32304,7 @@ class UserDocumentationRequirements : public som::SomNode {
   UserDocumentationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which user-facing documentation is translated, and to what standard.
@@ -32330,7 +32330,7 @@ class UserGroupImpactEntry : public som::SomNode {
   UserGroupImpactEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserGroupImpactEntryContentForm content() const;
 };
 
@@ -32340,7 +32340,7 @@ class UserGrowthProjections : public som::SomNode {
   UserGrowthProjections(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserGrowthProjectionsContentForm content() const;
   // Growth-rate assumptions and time-based projections.
   UserGrowthProjectionsForecastForm forecast() const;
@@ -32361,7 +32361,7 @@ class UserInteractionModel : public som::SomNode {
   UserInteractionModel(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Interaction model summary.
@@ -32400,7 +32400,7 @@ class UserJourney : public som::SomNode {
   UserJourney(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // User journey diagram.
@@ -32434,7 +32434,7 @@ class UserLifecycle : public som::SomNode {
   UserLifecycle(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview (text).
@@ -32473,7 +32473,7 @@ class UserLifecycleTransitionEntry : public som::SomNode {
   UserLifecycleTransitionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserLifecycleTransitionEntryContentForm content() const;
   // Approval requirements.
   UserLifecycleTransitionEntryApprovalForm approval() const;
@@ -32492,7 +32492,7 @@ class UserLifecycleTransitions : public som::SomNode {
   UserLifecycleTransitions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserLifecycleTransitionsContentForm content() const;
   // Transition Rules Description (text).
   // (skipped: transitionRulesDescription has no target type)
@@ -32509,7 +32509,7 @@ class UserManagement : public som::SomNode {
   UserManagement(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // 9.1.1. User Categories.
@@ -32538,7 +32538,7 @@ class UserManual : public som::SomNode {
   UserManual(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -32564,7 +32564,7 @@ class UserPersonaDetails : public som::SomNode {
   UserPersonaDetails(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Persona Details Form.
@@ -32596,7 +32596,7 @@ class UserPersonas : public som::SomNode {
   UserPersonas(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Overview of persona research methodology and usage.
@@ -32616,7 +32616,7 @@ class UserProvisioningTools : public som::SomNode {
   UserProvisioningTools(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserProvisioningToolsContentForm content() const;
   // Account lifecycle management.
   UserProvisioningToolsLifecycleForm lifecycle() const;
@@ -32636,7 +32636,7 @@ class UserRegistrationProcess : public som::SomNode {
   UserRegistrationProcess(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserRegistrationProcessContentForm content() const;
   // Registration Flow Description (text).
   // (skipped: registrationFlowDescription has no target type)
@@ -32654,7 +32654,7 @@ class UserSettingEntry : public som::SomNode {
   UserSettingEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UserSettingEntryContentForm content() const;
 };
 
@@ -32675,7 +32675,7 @@ class UserSettings : public som::SomNode {
   UserSettings(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The declared user settings.
@@ -32695,7 +32695,7 @@ class UserTrainingRequirements : public som::SomNode {
   UserTrainingRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Training Requirements Form.
@@ -32717,7 +32717,7 @@ class UtilityMenuItemEntry : public som::SomNode {
   UtilityMenuItemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UtilityMenuItemEntryContentForm content() const;
   // Routing and action references.
   UtilityMenuItemEntryActionForm action() const;
@@ -32737,7 +32737,7 @@ class UtilityNavigation : public som::SomNode {
   UtilityNavigation(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Contains 0+× UtilityNavigationItem.
@@ -32758,7 +32758,7 @@ class UtilityNavigationItemEntry : public som::SomNode {
   UtilityNavigationItemEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   UtilityNavigationItemEntryContentForm content() const;
   // Ordering and rendering.
   UtilityNavigationItemEntryDisplayForm display() const;
@@ -32783,7 +32783,7 @@ class ValidationConstraints : public som::SomNode {
   ValidationConstraints(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -32800,7 +32800,7 @@ class ValidationFeedback : public som::SomNode {
   ValidationFeedback(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // How field-level validation feedback reaches the user.
@@ -32836,7 +32836,7 @@ class ValidationMessageTemplate : public som::SomNode {
   ValidationMessageTemplate(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   ValidationMessageTemplateContentForm content() const;
 };
 
@@ -32849,7 +32849,7 @@ class ValueProposition : public som::SomNode {
   ValueProposition(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Value Proposition Details (form).
@@ -32873,7 +32873,7 @@ class VersionControlConfiguration : public som::SomNode {
   VersionControlConfiguration(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   VersionControlConfigurationContentForm content() const;
   // Repository structure settings.
   VersionControlConfigurationRepositoryForm repository() const;
@@ -32891,7 +32891,7 @@ class VirtualizationRequirements : public som::SomNode {
   VirtualizationRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   VirtualizationRequirementsContentForm content() const;
   // VM requirements.
   VirtualizationRequirementsVmForm vm() const;
@@ -32909,7 +32909,7 @@ class VolumeMetricEntry : public som::SomNode {
   VolumeMetricEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   VolumeMetricEntryContentForm content() const;
 };
 
@@ -32919,7 +32919,7 @@ class VpnRequirementEntry : public som::SomNode {
   VpnRequirementEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   VpnRequirementEntryContentForm content() const;
   // Endpoint configuration.
   VpnRequirementEntryEndpointsForm endpoints() const;
@@ -32937,7 +32937,7 @@ class VulnerabilityManagementPolicy : public som::SomNode {
   VulnerabilityManagementPolicy(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   VulnerabilityManagementPolicyContentForm content() const;
   // Severity classification.
   VulnerabilityManagementPolicyClassificationForm classification() const;
@@ -32956,7 +32956,7 @@ class WarrantyAndSupport : public som::SomNode {
   WarrantyAndSupport(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -32971,7 +32971,7 @@ class WarrantyServiceLevels : public som::SomNode {
   WarrantyServiceLevels(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WarrantyServiceLevelsContentForm content() const;
 };
 
@@ -32984,7 +32984,7 @@ class WarrantyTerms : public som::SomNode {
   WarrantyTerms(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WarrantyTermsContentForm content() const;
   // Duration and activation.
   WarrantyTermsDurationForm duration() const;
@@ -33009,7 +33009,7 @@ class WcagCompliance : public som::SomNode {
   WcagCompliance(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The conformance target and the evidence for it.
@@ -33040,7 +33040,7 @@ class WcagSuccessCriterionEntry : public som::SomNode {
   WcagSuccessCriterionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WcagSuccessCriterionEntryContentForm content() const;
 };
 
@@ -33050,7 +33050,7 @@ class WeightedQualityMatrix : public som::SomNode {
   WeightedQualityMatrix(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // The mechanics of the weighting: the scale, whether weights must sum, and
@@ -33086,7 +33086,7 @@ class WireframesAndMockups : public som::SomNode {
   WireframesAndMockups(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -33103,7 +33103,7 @@ class WorkflowActorEntry : public som::SomNode {
   WorkflowActorEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowActorEntryContentForm content() const;
   // Steps this actor participates in.
   WorkflowActorEntryParticipatingStepsForm participatingSteps() const;
@@ -33115,7 +33115,7 @@ class WorkflowBusinessRule : public som::SomNode {
   WorkflowBusinessRule(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowBusinessRuleContentForm content() const;
 };
 
@@ -33125,7 +33125,7 @@ class WorkflowDecisionPoint : public som::SomNode {
   WorkflowDecisionPoint(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowDecisionPointContentForm content() const;
 };
 
@@ -33141,7 +33141,7 @@ class WorkflowDescriptions : public som::SomNode {
   WorkflowDescriptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Workflow overview diagram.
@@ -33164,7 +33164,7 @@ class WorkflowExceptionEntry : public som::SomNode {
   WorkflowExceptionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowExceptionEntryContentForm content() const;
 };
 
@@ -33174,7 +33174,7 @@ class WorkflowExceptions : public som::SomNode {
   WorkflowExceptions(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Exception entries.
@@ -33192,7 +33192,7 @@ class WorkflowInputEntry : public som::SomNode {
   WorkflowInputEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowInputEntryContentForm content() const;
 };
 
@@ -33202,7 +33202,7 @@ class WorkflowOutputEntry : public som::SomNode {
   WorkflowOutputEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowOutputEntryContentForm content() const;
 };
 
@@ -33214,7 +33214,7 @@ class WorkflowStepEntry : public som::SomNode {
   WorkflowStepEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowStepEntryContentForm content() const;
   // Systems used in this step.
   // Returns the list view; element type: WorkflowStepSystem (construct from item paths).
@@ -33239,7 +33239,7 @@ class WorkflowStepIssue : public som::SomNode {
   WorkflowStepIssue(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowStepIssueContentForm content() const;
 };
 
@@ -33249,7 +33249,7 @@ class WorkflowStepSystem : public som::SomNode {
   WorkflowStepSystem(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Which system the step uses.
@@ -33276,7 +33276,7 @@ class WorkflowSummaryEntry : public som::SomNode {
   WorkflowSummaryEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowSummaryEntryContentForm content() const;
 };
 
@@ -33286,7 +33286,7 @@ class WorkflowSummaryTable : public som::SomNode {
   WorkflowSummaryTable(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowSummaryTableContentForm content() const;
   // Summary entries per workflow.
   // Returns the list view; element type: WorkflowSummaryEntry (construct from item paths).
@@ -33299,7 +33299,7 @@ class WorkflowTriggerEntry : public som::SomNode {
   WorkflowTriggerEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkflowTriggerEntryContentForm content() const;
 };
 
@@ -33309,7 +33309,7 @@ class WorkflowTriggers : public som::SomNode {
   WorkflowTriggers(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // Trigger entries.
@@ -33331,7 +33331,7 @@ class WorkplaceDescriptionEntry : public som::SomNode {
   WorkplaceDescriptionEntry(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   std::string content() const;
   void setContent(const std::string& value);
   // User category identification.
@@ -33358,7 +33358,7 @@ class WorkplaceSoftwareRequirements : public som::SomNode {
   WorkplaceSoftwareRequirements(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkplaceSoftwareRequirementsContentForm content() const;
   // Security and collaboration software stack.
   WorkplaceSoftwareRequirementsPlatformForm platform() const;
@@ -33372,7 +33372,7 @@ class WorkplaceSupportResources : public som::SomNode {
   WorkplaceSupportResources(som::SpecDocument& doc, std::string path);
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
-  // §11.4 rule 7); the field values themselves live in [form].
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
   WorkplaceSupportResourcesContentForm content() const;
   // Extended support channels.
   WorkplaceSupportResourcesChannelsForm channels() const;
