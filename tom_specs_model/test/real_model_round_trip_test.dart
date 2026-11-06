@@ -48,7 +48,7 @@ void main() {
 
         // Non-triviality: this must be the real document, not an empty shell a
         // trivially-correct encoder would also round-trip.
-        // 637 text sections and 303 forms: every section the default-constructed
+        // 638 text sections and 304 forms: every section the default-constructed
         // tree reaches. (A class-level `@Form` makes its `content` a form, which
         // is why 70 former text sections count as forms.) The remaining model classes are list *element* types,
         // unreachable until a list has items — the third test covers those.
@@ -58,10 +58,10 @@ void main() {
         // is silent in the direction the model actually moves.
         expect(
           filler.contentLeaves,
-          637,
+          638,
           reason: 'the fixture must exercise the whole reachable model',
         );
-        expect(filler.formSections, 303);
+        expect(filler.formSections, 304);
         expect(written.split('\n').length, greaterThan(3000));
 
         final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp));

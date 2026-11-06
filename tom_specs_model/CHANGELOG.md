@@ -1,3 +1,11 @@
+## 1.7.3
+
+- No change of structure. The shipped tests are corrected: the registry and
+  round-trip counts they assert exactly now include the classes 1.6.10 and
+  1.7.0 added (1280 classes, 638 text sections, 304 forms), and a field-count
+  banner over the relationship-attribute list no longer claims a count. 1.7.2's
+  archive ran these tests red.
+
 ## 1.7.2
 
 - No change of structure. The chain moves with the runtimes, which read and

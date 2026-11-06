@@ -6,3 +6,4 @@ build/
 
 # testkit tracking (gitignored per convention)
 testlog/
+doc/api/

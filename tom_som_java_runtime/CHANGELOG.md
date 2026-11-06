@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.3
+
+- No change. The chain moves with `tom_specs_model` 1.7.3, whose shipped
+  tests are corrected.
+
 ## 1.7.2
 
 - Comments on changes (SOM §11.9.3): a comment mark that starts with a quote

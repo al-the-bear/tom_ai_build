@@ -108,22 +108,6 @@ unpublished_drift:
     repository, and DocSpecsSection.content's doc names the section's `form`
     in backticks rather than as a link a generated facade cannot resolve.
     Ships with the next release.
-  tom_specs_model: >-
-    Documentation since 1.7.1: som_toolchains.md describes the clitool's
-    move to analyzer 14 and tom_analyzer_shared 0.8.0, and
-    doc/api/api_summary_common.md documents all 19 enums of the common module,
-    and tom_specs_documentation_standard.md §5 says how to write model doc
-    text the facades copy. Model doc text since 1.7.1: seven bracketed names the facades copy and
-    cannot resolve (`SpecNode`, `cloneShallow`, `changeNarrative`,
-    `strategyNarrative`, the Given-When-Then guidance and a regex hint) are
-    written as code or emphasis, which moves modelHash (163520fd… → a4c5000f…)
-    with no change of structure. Ships with the next release, which bumps the
-    model version so a holder of a 1.7.1 copy sees the change.
-  tom_som_dart_v0: >-
-    Regenerated since 1.7.1 from the model doc-text change above (modelHash
-    a4c5000f…): doc comments, the meta and the schemas' help texts only; its
-    dart doc build is now silent and in tool/dartdoc_build_set.yaml. Ships
-    with the next model release.
   tom_specs_clitool: >-
     Since 0.12.0: tool/dartdoc_build_set.yaml lists tom_som_dart_v0, and the
     README and doc/gates.md say so. Ships with the next release.

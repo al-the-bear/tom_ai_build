@@ -2183,7 +2183,7 @@ class EntityRelationshipEntry extends DocSpecsSection {
   DocSpecsSection? navigation;
 
   // ---------------------------------------------------------------------------
-  // Relationship Attributes (4 fields) — for relationships with properties
+  // Relationship Attributes — for relationships with properties
   // ---------------------------------------------------------------------------
   /// Attributes belonging to the relationship itself rather than to either end.
   ///
