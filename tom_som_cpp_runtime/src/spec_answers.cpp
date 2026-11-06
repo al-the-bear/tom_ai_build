@@ -290,6 +290,9 @@ SpecAnswerExtract extractAnswers(const SpecModel& model, SpecDocument& doc,
                                  ? &marks.at(markIndex++)
                                  : nullptr;
     if (!inScope(a.path)) continue;
+    // A conflict block (SOM §11.9.8) is not an answer, a comment or a mark:
+    // the step folder's answers do not list it.
+    if (a.kind == SpecReviewAnnotationKind::Conflict) continue;
     const std::string value =
         a.field ? doc.formField(a.path, *a.field) : doc.content(a.path);
     const std::vector<std::string> vlines = splitLines(value);
@@ -330,6 +333,8 @@ SpecAnswerExtract extractAnswers(const SpecModel& model, SpecDocument& doc,
         e.comment = a.comment;
         break;
       }
+      case SpecReviewAnnotationKind::Conflict:
+        break;
     }
     e.section = chainAt(e.line);
     entries.push_back(std::move(e));

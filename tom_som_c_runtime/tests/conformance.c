@@ -10,8 +10,10 @@
  *   - YAML decode -> memory -> encode is byte-stable + preserves the stamp;
  *   - Markdown export == expected.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
- *   - the Markdown route lands the fixture in the same memory as the YAML route;
- *   - the Markdown apply/one-call import cases (full overwrite of covered roots);
+ *   - the Markdown route lands the fixture in the same memory as the YAML
+ * route;
+ *   - the Markdown apply/one-call import cases (full overwrite of covered
+ * roots);
  *   - the YAML `review:` pass (sorted byte-stable round trip, stale paths);
  *   - the SOM §4.2/§21 editability contract (classification + refusal message);
  *   - reflection resolution cases;
@@ -29,6 +31,9 @@
  *   - assembling one document from ordered fragments (refusing overlaps);
  *   - the review annotations (SOM §11.9): listing, counting and editing
  *     comment blocks, question blocks and inline marks;
+ *   - team reviews (SOM §11.9.8): attribution tokens, individual answers,
+ *     conflict blocks, `open:`, and their findings;
+ *   - merging reviewed copies (SOM §11.9.9), SOM documents and Markdown;
  *   - extracting a review round's answers for a step folder (SOM §11.9.7).
  *
  * The corpus directory is argv[1], defaulting to
@@ -4187,10 +4192,12 @@ static SpecQuestionDraft draft_from_json(const SomJson *j,
 
 /* Runs one op; returns its result as JSON text (owned) — `{"error":true}`
  * when it raised the annotation error. For `strip` writes the stripped
- * document into `*stripped` (owned) instead and returns NULL. */
+ * document into `*stripped` (owned) instead and returns NULL. `team` renders
+ * the results in the extended form `team_annotation_cases.json` pins (SOM
+ * §11.9.8). */
 static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
                                SpecReviewAnnotations *api, const SomJson *op,
-                               SpecDocument **stripped) {
+                               SpecDocument **stripped, int team) {
   const char *name = som_json_str_or(op, "op");
   SpecReviewAnnotationError err;
   spec_review_annotation_error_init(&err);
@@ -4203,7 +4210,8 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     som_buf_putc(&b, '[');
     for (size_t i = 0; i < l.len; i++) {
       if (i > 0) som_buf_putc(&b, ',');
-      char *j = spec_review_annotation_to_json(&l.items[i]);
+      char *j = team ? spec_review_annotation_to_team_json(&l.items[i])
+                     : spec_review_annotation_to_json(&l.items[i]);
       som_buf_puts(&b, j);
       free(j);
     }
@@ -4211,7 +4219,8 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     spec_review_annotation_list_free(&l);
   } else if (strcmp(name, "counts") == 0) {
     SpecReviewAnnotationCounts c = spec_review_annotations_counts(api);
-    char *j = spec_review_annotation_counts_to_json(&c);
+    char *j = team ? spec_review_annotation_counts_to_team_json(&c)
+                   : spec_review_annotation_counts_to_json(&c);
     som_buf_puts(&b, j);
     free(j);
   } else if (strcmp(name, "nextId") == 0) {
@@ -4263,9 +4272,13 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     free(opts);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "setAnswer") == 0) {
-    ok = spec_review_annotations_set_answer(api, som_json_str_or(op, "id"),
-                                            som_json_str_or(op, "answer"),
-                                            &err);
+    const char *author = json_opt_str(op, "author");
+    ok = author != NULL ? spec_review_annotations_set_member_answer(
+                              api, som_json_str_or(op, "id"), author,
+                              som_json_str_or(op, "answer"), &err)
+                        : spec_review_annotations_set_answer(
+                              api, som_json_str_or(op, "id"),
+                              som_json_str_or(op, "answer"), &err);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "editComment") == 0) {
     ok = spec_review_annotations_edit_comment(api, som_json_str_or(op, "id"),
@@ -4308,7 +4321,8 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     som_buf_putc(&b, '[');
     for (size_t i = 0; i < l.len; i++) {
       if (i > 0) som_buf_putc(&b, ',');
-      char *j = spec_mark_entry_to_json(&l.items[i]);
+      char *j = team ? spec_mark_entry_to_team_json(&l.items[i])
+                     : spec_mark_entry_to_json(&l.items[i]);
       som_buf_puts(&b, j);
       free(j);
     }
@@ -4351,9 +4365,10 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
       spec_review_annotations_reject_all_marks(api, json_opt_str(op, "path"),
                                                &report);
     } else {
-      spec_review_annotations_remove_all_annotations(api, &report);
+      ok = spec_review_annotations_remove_all_annotations(api, &report, &err);
     }
-    char *j = spec_mark_report_to_json(&report);
+    char *j = team ? spec_mark_report_to_team_json(&report)
+                   : spec_mark_report_to_json(&report);
     som_buf_puts(&b, j);
     free(j);
     spec_mark_report_free(&report);
@@ -4421,10 +4436,11 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
 
 /* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
  * every op runs in order on one document loaded from `state`; each op's
- * result and the final state must equal `expect` (JSON equality). */
-static void run_annotation_cases(Checker *c, const SpecModel *model,
-                                 const SomMetaTree *tree, const char *file,
-                                 const char *prefix) {
+ * result and the final state must equal `expect` (JSON equality). `team`
+ * renders the results in their extended form (team_annotation_cases.json). */
+static void run_annotation_cases_in(Checker *c, const SpecModel *model,
+                                    const SomMetaTree *tree, const char *file,
+                                    const char *prefix, int team) {
   SomJson *table = read_json(file);
   const SomJson *cases = som_json_get(table, "cases");
   size_t n = som_json_array_len(cases);
@@ -4459,7 +4475,8 @@ static void run_annotation_cases(Checker *c, const SpecModel *model,
       const SomJson *op = som_json_array_at(ops, k);
       const SomJson *want = som_json_array_at(want_results, k);
       SpecDocument *stripped = NULL;
-      char *got_text = run_annotation_op(model, tree, &api, op, &stripped);
+      char *got_text =
+          run_annotation_op(model, tree, &api, op, &stripped, team);
       char *got, *w;
       if (got_text == NULL) {
         got = doc_canonical(stripped);
@@ -4492,9 +4509,227 @@ static void run_annotation_cases(Checker *c, const SpecModel *model,
   som_json_free(table);
 }
 
+static void run_annotation_cases(Checker *c, const SpecModel *model,
+                                 const SomMetaTree *tree, const char *file,
+                                 const char *prefix) {
+  run_annotation_cases_in(c, model, tree, file, prefix, 0);
+}
+
 static void test_annotations(Checker *c, const SpecModel *model,
                              const SomMetaTree *tree) {
   run_annotation_cases(c, model, tree, "annotation_cases.json", "annotations");
+}
+
+/* Team-review annotations (SOM §11.9.8): team_annotation_cases.json's `cases`
+ * run like annotation_cases.json with the results in their extended form; its
+ * `validationCases` run like validation_cases.json over the corpus model. */
+static void test_team_annotations(Checker *c, const SpecModel *model,
+                                  const SomMetaTree *tree) {
+  run_annotation_cases_in(c, model, tree, "team_annotation_cases.json",
+                          "teamAnnotation", 1);
+  SomJson *table = read_json("team_annotation_cases.json");
+  const SomJson *cases = som_json_get(table, "validationCases");
+  size_t n = som_json_array_len(cases);
+  check(c, "teamValidate.cases", n > 0,
+        "no validationCases in team_annotation_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *cc = som_json_array_at(cases, i);
+    DocumentJson state;
+    document_json_from_json(som_json_get(cc, "state"), &state);
+    SpecDocument doc;
+    doc_from_state(&doc, &state);
+    document_json_free(&state);
+    SpecValidationErrors errs;
+    validate_document(model, &doc, &errs);
+    SomBuf got;
+    som_buf_init(&got);
+    for (size_t e = 0; e < errs.len; e++) {
+      if (e > 0) som_buf_putc(&got, '|');
+      som_buf_puts(&got, errs.items[e].path);
+      som_buf_putc(&got, ':');
+      som_buf_puts(&got, errs.items[e].code);
+    }
+    char *got_s = got.data ? som_buf_take(&got) : som_strdup("");
+    som_buf_free(&got);
+    SomBuf want;
+    som_buf_init(&want);
+    const SomJson *warr = som_json_get(cc, "errors");
+    for (size_t e = 0; e < som_json_array_len(warr); e++) {
+      const SomJson *we = som_json_array_at(warr, e);
+      if (e > 0) som_buf_putc(&want, '|');
+      som_buf_puts(&want, som_json_str_or(we, "path"));
+      som_buf_putc(&want, ':');
+      som_buf_puts(&want, som_json_str_or(we, "code"));
+    }
+    char *want_s = want.data ? som_buf_take(&want) : som_strdup("");
+    som_buf_free(&want);
+    char tag[512], detail[2048];
+    snprintf(tag, sizeof(tag), "teamValidate[%s]", som_json_str_or(cc, "name"));
+    snprintf(detail, sizeof(detail), "%s != %s", got_s, want_s);
+    check(c, tag, strcmp(got_s, want_s) == 0, detail);
+    free(got_s);
+    free(want_s);
+    spec_validation_errors_free(&errs);
+    spec_document_free(&doc);
+  }
+  som_json_free(table);
+}
+
+/* The members of a review_merge_cases.json `team` list or copy, borrowing
+ * from the corpus JSON. */
+static SpecReviewMember member_from_json(const SomJson *j) {
+  SpecReviewMember m = {som_json_str_or(j, "memberId"),
+                        som_json_str_or(j, "displayName"),
+                        som_json_str_or(j, "role")};
+  return m;
+}
+
+/* One review_merge_cases.json case: `{"merged": <canonical state or the
+ * Markdown text>, "report": ...}` as JSON text (owned); a refused merge
+ * answers `{"error":true}`. */
+static char *run_review_merge_case(const SpecModel *demo, const SpecModel *real,
+                                   const SomJson *kase) {
+  const SomJson *opts = som_json_get(kase, "options");
+  const SomJson *team = som_json_get(opts, "team");
+  size_t tn = som_json_array_len(team);
+  SpecReviewMember *members = calloc(tn ? tn : 1, sizeof(*members));
+  for (size_t i = 0; i < tn; i++)
+    members[i] = member_from_json(som_json_array_at(team, i));
+  SpecReviewMergeOptions options = {members, tn, som_json_str_or(opts, "date"),
+                                    som_json_str_or(opts, "author"),
+                                    json_opt_str(opts, "questionPrefix")};
+  const SomJson *copies = som_json_get(kase, "copies");
+  size_t cn = som_json_array_len(copies);
+  SpecReviewMergeReport report;
+  SpecReviewMergeError err;
+  spec_review_merge_error_init(&err);
+  SomBuf b;
+  som_buf_init(&b);
+  int ok;
+  if (strcmp(som_json_str_or(kase, "format"), "markdown") == 0) {
+    SpecReviewedMarkdown *cs = calloc(cn ? cn : 1, sizeof(*cs));
+    for (size_t i = 0; i < cn; i++) {
+      const SomJson *c = som_json_array_at(copies, i);
+      cs[i].member = member_from_json(c);
+      cs[i].document = som_json_str_or(c, "document");
+    }
+    char *merged = spec_review_merge_markdown(som_json_str_or(kase, "base"), cs,
+                                              cn, &options, &report, &err);
+    ok = merged != NULL;
+    if (ok) {
+      char *q = som_json_encode_str(merged);
+      som_buf_puts(&b, "{\"merged\":");
+      som_buf_puts(&b, q);
+      free(q);
+    }
+    free(merged);
+    free(cs);
+  } else {
+    SpecDocument *docs = calloc(cn ? cn : 1, sizeof(SpecDocument));
+    SpecReviewedDocument *cs = calloc(cn ? cn : 1, sizeof(*cs));
+    for (size_t i = 0; i < cn; i++) {
+      const SomJson *c = som_json_array_at(copies, i);
+      DocumentJson state;
+      document_json_from_json(som_json_get(c, "document"), &state);
+      doc_from_state(&docs[i], &state);
+      document_json_free(&state);
+      cs[i].member = member_from_json(c);
+      cs[i].document = &docs[i];
+    }
+    DocumentJson state;
+    document_json_from_json(som_json_get(kase, "base"), &state);
+    SpecDocument base;
+    doc_from_state(&base, &state);
+    document_json_free(&state);
+    const char *which = som_json_as_str(som_json_get(kase, "model"));
+    const SpecModel *model =
+        which != NULL && strcmp(which, "som") == 0 ? real : demo;
+    SpecDocument merged;
+    ok = spec_review_merge_documents(model, &base, cs, cn, &options, &merged,
+                                     &report, &err);
+    if (ok) {
+      char *canon = doc_canonical(&merged);
+      som_buf_puts(&b, "{\"merged\":");
+      som_buf_puts(&b, canon);
+      free(canon);
+    }
+    spec_document_free(&merged);
+    spec_document_free(&base);
+    for (size_t i = 0; i < cn; i++) spec_document_free(&docs[i]);
+    free(docs);
+    free(cs);
+  }
+  if (ok) {
+    char *j = spec_review_merge_report_to_json(&report);
+    som_buf_puts(&b, ",\"report\":");
+    som_buf_puts(&b, j);
+    som_buf_putc(&b, '}');
+    free(j);
+  } else {
+    som_buf_puts(&b, "{\"error\":true}");
+  }
+  spec_review_merge_report_free(&report);
+  spec_review_merge_error_free(&err);
+  free(members);
+  char *raw = som_buf_take(&b);
+  char *canon = json_text_canon(raw);
+  free(raw);
+  return canon;
+}
+
+/* Merging reviewed copies (SOM §11.9.9), SOM documents and plain Markdown:
+ * review_merge_cases.json. A `som` case runs against the real model,
+ * `tom_som_dart_v0/meta/spec_model.meta.json`, beside the corpus's DEMO
+ * model. */
+static void test_review_merge(Checker *c, const SpecModel *demo) {
+  char *text = read_corpus("../../tom_som_dart_v0/meta/spec_model.meta.json");
+  char *merr = NULL;
+  SpecModel *real = spec_model_from_json_str(text, &merr);
+  free(text);
+  check(c, "reviewMerge.somModel", real != NULL, merr ? merr : "");
+  free(merr);
+  if (real == NULL) return;
+  SomJson *table = read_json("review_merge_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "reviewMerge.cases", n > 0, "no cases in review_merge_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    char label[512];
+    snprintf(label, sizeof(label), "reviewMerge[%s]",
+             som_json_str_or(kase, "name"));
+    const SomJson *expect = som_json_get(kase, "expect");
+    char *want;
+    if (som_json_bool_or(expect, "error")) {
+      want = json_text_canon("{\"error\":true}");
+    } else if (strcmp(som_json_str_or(kase, "format"), "markdown") == 0) {
+      want = json_canon(expect);
+    } else {
+      char *state = state_canonical(som_json_get(expect, "merged"));
+      char *rep = json_canon(som_json_get(expect, "report"));
+      char *raw = NULL;
+      SomBuf w;
+      som_buf_init(&w);
+      som_buf_puts(&w, "{\"merged\":");
+      som_buf_puts(&w, state);
+      som_buf_puts(&w, ",\"report\":");
+      som_buf_puts(&w, rep);
+      som_buf_putc(&w, '}');
+      raw = som_buf_take(&w);
+      want = json_text_canon(raw);
+      free(raw);
+      free(rep);
+      free(state);
+    }
+    char *got = run_review_merge_case(demo, real, kase);
+    char *d = byte_diff(label, got, want);
+    check(c, label, strcmp(got, want) == 0, d);
+    free(d);
+    free(got);
+    free(want);
+  }
+  som_json_free(table);
+  spec_model_free(real);
 }
 
 /* inline_mark_cases.json: `textCases` pin `spec_apply_inline_marks_text`
@@ -4700,6 +4935,8 @@ int main(int argc, char **argv) {
   test_assembly(&c);
   test_list_move(&c, model);
   test_annotations(&c, model, tree);
+  test_team_annotations(&c, model, tree);
+  test_review_merge(&c, model);
   test_inline_marks(&c, model, tree);
   test_change_marks(&c, model, tree);
   test_answers(&c, model);

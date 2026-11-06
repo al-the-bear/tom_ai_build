@@ -47,7 +47,7 @@ public final class SpecReviewAnnotation {
   /** Whether a question is part of a combined block. */
   public final boolean combined;
 
-  /** A question's answer, trimmed; empty when open. */
+  /** A question's team answer, trimmed; empty when open. For a conflict: its decision. */
   public final String answer;
 
   /** A question's options, in order (empty when it states none). */
@@ -67,6 +67,21 @@ public final class SpecReviewAnnotation {
 
   /** The comment of a comment mark, or of a highlight followed by one. */
   public final String comment;
+
+  /** A mark's authors from its attribution token (SOM §11.9.8); empty without one. */
+  public final List<String> authors;
+
+  /** A mark's votes from its attribution token; empty without one. */
+  public final List<SpecMarkVote> votes;
+
+  /** A question's individual answers, in the order written (SOM §11.9.8). */
+  public final List<SpecIndividualAnswer> answers;
+
+  /** A conflict's {@code (base)} text; empty for the other kinds. */
+  public final String base;
+
+  /** A conflict's lettered alternatives; empty for the other kinds. */
+  public final List<SpecConflictAlternative> alternatives;
 
   SpecReviewAnnotation(
       SpecReviewAnnotationKind kind,
@@ -108,6 +123,35 @@ public final class SpecReviewAnnotation {
       SpecMarkKind markKind,
       String newText,
       String comment) {
+    this(kind, path, field, line, id, qualifiedId, author, text, context, topic, starred,
+        combined, answer, options, recommended, markKind, newText, comment, null, null, null,
+        null, null);
+  }
+
+  SpecReviewAnnotation(
+      SpecReviewAnnotationKind kind,
+      String path,
+      String field,
+      int line,
+      String id,
+      String qualifiedId,
+      String author,
+      String text,
+      String context,
+      String topic,
+      boolean starred,
+      boolean combined,
+      String answer,
+      List<SpecQuestionOption> options,
+      String recommended,
+      SpecMarkKind markKind,
+      String newText,
+      String comment,
+      List<String> authors,
+      List<SpecMarkVote> votes,
+      List<SpecIndividualAnswer> answers,
+      String base,
+      List<SpecConflictAlternative> alternatives) {
     this.kind = kind;
     this.path = path;
     this.field = field;
@@ -129,22 +173,64 @@ public final class SpecReviewAnnotation {
     this.markKind = markKind;
     this.newText = newText;
     this.comment = comment;
+    this.authors = frozen(authors);
+    this.votes = frozen(votes);
+    this.answers = frozen(answers);
+    this.base = base == null ? "" : base;
+    this.alternatives = frozen(alternatives);
   }
 
-  /** Whether a question is still open (no answer written). */
+  private static <T> List<T> frozen(List<T> list) {
+    return list == null
+        ? Collections.emptyList()
+        : Collections.unmodifiableList(new ArrayList<>(list));
+  }
+
+  /**
+   * Whether a question is still open (no team answer written), or a conflict (no decision
+   * written). For a conflict, {@link #answer} holds the decision.
+   */
   public boolean open() {
-    return kind == SpecReviewAnnotationKind.QUESTION && answer.isEmpty();
+    return (kind == SpecReviewAnnotationKind.QUESTION || kind == SpecReviewAnnotationKind.CONFLICT)
+        && answer.isEmpty();
   }
 
-  /** The letter an answer starts with ({@code (b)} or {@code **(b)**}), or null. */
+  /**
+   * Whether a question's team answer or a conflict's decision begins with {@code open:} —
+   * answered for a gate, but handed back (SOM §11.9.8).
+   */
+  public boolean unresolved() {
+    return SpecReviewAnnotations.isUnresolved(answer);
+  }
+
+  /**
+   * The letter a question's team answer starts with ({@code (b)} or {@code **(b)**}), or null;
+   * null too for an unresolved answer.
+   */
   public String answerLetter() {
-    return kind == SpecReviewAnnotationKind.QUESTION
+    return kind == SpecReviewAnnotationKind.QUESTION && !unresolved()
         ? SpecReviewAnnotations.leadingLetter(answer)
         : null;
   }
 
-  /** The canonical JSON form the conformance corpus pins ({@code null} written explicitly). */
+  /** A conflict's decision letter: {@code a}…, {@code base}, or null for rewritten text or none. */
+  public String decisionLetter() {
+    return kind == SpecReviewAnnotationKind.CONFLICT
+        ? SpecReviewAnnotations.decisionLetter(answer)
+        : null;
+  }
+
+  /** The canonical JSON form the older case files pin ({@code null} written explicitly). */
   public Map<String, Object> toJson() {
+    return toJson(false);
+  }
+
+  /**
+   * The canonical JSON form; {@code team} gives the extended form {@code
+   * team_annotation_cases.json} pins (SOM §11.9.8): marks with {@code authors} and {@code votes},
+   * questions with {@code unresolved} and {@code answers}. A conflict has one form.
+   */
+  public Map<String, Object> toJson(boolean team) {
     Map<String, Object> out = new LinkedHashMap<>();
     out.put("kind", kind.value);
     out.put("path", path);
@@ -166,6 +252,9 @@ public final class SpecReviewAnnotation {
         out.put("text", text);
         out.put("answer", answer);
         out.put("open", open());
+        if (team) {
+          out.put("unresolved", unresolved());
+        }
         List<Object> opts = new ArrayList<>();
         for (SpecQuestionOption o : options) {
           opts.add(o.toJson());
@@ -173,12 +262,45 @@ public final class SpecReviewAnnotation {
         out.put("options", opts);
         out.put("recommended", recommended);
         out.put("answerLetter", answerLetter());
+        if (team) {
+          List<Object> as = new ArrayList<>();
+          for (SpecIndividualAnswer a : answers) {
+            as.add(a.toJson());
+          }
+          out.put("answers", as);
+        }
         break;
+      case CONFLICT:
+        {
+          out.put("id", id);
+          out.put("qualifiedId", qualifiedId);
+          out.put("topic", topic);
+          out.put("text", text);
+          out.put("base", base);
+          List<Object> alts = new ArrayList<>();
+          for (SpecConflictAlternative a : alternatives) {
+            alts.add(a.toJson());
+          }
+          out.put("alternatives", alts);
+          out.put("decision", answer);
+          out.put("decisionLetter", decisionLetter());
+          out.put("open", open());
+          out.put("unresolved", unresolved());
+          break;
+        }
       case MARK:
         out.put("markKind", markKind.value);
         out.put("text", text);
         out.put("newText", newText);
         out.put("comment", comment);
+        if (team) {
+          out.put("authors", new ArrayList<Object>(authors));
+          List<Object> vs = new ArrayList<>();
+          for (SpecMarkVote v : votes) {
+            vs.add(v.toJson());
+          }
+          out.put("votes", vs);
+        }
         break;
     }
     return out;

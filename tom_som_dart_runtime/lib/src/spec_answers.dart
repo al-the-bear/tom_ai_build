@@ -353,6 +353,10 @@ SpecAnswerExtract extractAnswers(
             comment: a.comment,
           ),
         );
+      case SpecReviewAnnotationKind.conflict:
+        // A conflict block (SOM §11.9.8) is the owner's to decide, not a
+        // reviewer's answer: the step folder's answers do not list it.
+        break;
     }
   }
   // Rendition order: by line; entries on one line keep their order.

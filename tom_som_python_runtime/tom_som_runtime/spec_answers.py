@@ -296,7 +296,7 @@ def extract_answers(
                     author=a.author,
                 )
             )
-        else:
+        elif a.kind is SpecReviewAnnotationKind.MARK:
             assert mk is not None
             line = locate(a.path, a.field, a.line, first)
             # A line holding several marks is found once; later marks on it
@@ -317,6 +317,8 @@ def extract_answers(
                     comment=a.comment,
                 )
             )
+        # A conflict block (SOM §11.9.8) is the owner's to decide, not a
+        # reviewer's answer: the step folder's answers do not list it.
     # Rendition order: by line; entries on one line keep their order
     # (`sorted` is stable).
     return SpecAnswerExtract(

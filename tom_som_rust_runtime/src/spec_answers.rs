@@ -427,6 +427,9 @@ pub fn extract_answers(
                 e.comment = a.comment.clone();
                 entries.push(e);
             }
+            // A conflict block is consolidation state of a team review, not
+            // an answer for the step folder.
+            SpecReviewAnnotationKind::Conflict => {}
         }
     }
     // Rendition order: by line; entries on one line keep their order.

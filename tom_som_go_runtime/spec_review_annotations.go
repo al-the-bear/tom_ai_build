@@ -22,7 +22,8 @@ import (
 	"unicode/utf8"
 )
 
-// SpecReviewAnnotationKind is one of the three kinds of annotation (SOM §11.9).
+// SpecReviewAnnotationKind is one kind of annotation (SOM §11.9): the three of
+// §11.9.1–11.9.3 and the conflict block a team review adds (§11.9.8).
 type SpecReviewAnnotationKind string
 
 const (
@@ -34,6 +35,9 @@ const (
 	SpecReviewAnnotationKindQuestion SpecReviewAnnotationKind = "question"
 	// SpecReviewAnnotationKindMark is a CriticMarkup inline mark.
 	SpecReviewAnnotationKindMark SpecReviewAnnotationKind = "mark"
+	// SpecReviewAnnotationKindConflict is a conflict block,
+	// `> ⚖️ **X-3 — Conflicting changes:** …` (SOM §11.9.8).
+	SpecReviewAnnotationKindConflict SpecReviewAnnotationKind = "conflict"
 )
 
 // SpecReviewAnnotationKinds lists every SpecReviewAnnotationKind, in
@@ -42,6 +46,7 @@ var SpecReviewAnnotationKinds = []SpecReviewAnnotationKind{
 	SpecReviewAnnotationKindComment,
 	SpecReviewAnnotationKindQuestion,
 	SpecReviewAnnotationKindMark,
+	SpecReviewAnnotationKindConflict,
 }
 
 // SpecMarkKind is one of the five CriticMarkup inline marks (SOM §11.9.3).
@@ -123,20 +128,132 @@ type SpecReviewAnnotation struct {
 	// Comment is the comment of a comment mark, or of a highlight followed by
 	// one.
 	Comment *string
+	// Authors are a mark's authors from its attribution token (SOM §11.9.8);
+	// empty without one.
+	Authors []string
+	// Votes are a mark's votes from its attribution token; empty without one.
+	Votes []SpecMarkVote
+	// Answers are a question's individual answers, in the order written.
+	Answers []SpecIndividualAnswer
+	// Base is a conflict's `(base)` text. For a conflict, Text is the text of
+	// its header (what it concerns) and Answer its decision.
+	Base string
+	// Alternatives are a conflict's lettered alternatives.
+	Alternatives []SpecConflictAlternative
 }
 
-// Open reports whether a question is still open (no answer written).
+// Open reports whether a question is still open (no team answer written), or
+// a conflict (no decision written).
 func (a SpecReviewAnnotation) Open() bool {
-	return a.Kind == SpecReviewAnnotationKindQuestion && a.Answer == ""
+	return (a.Kind == SpecReviewAnnotationKindQuestion || a.Kind == SpecReviewAnnotationKindConflict) &&
+		a.Answer == ""
 }
 
-// AnswerLetter is the letter an answer starts with (`(b)` or `**(b)**`), or
-// nil (always nil for a comment or mark).
+// Unresolved reports whether a question's team answer or a conflict's
+// decision begins with `open:` — answered for a gate, but handed back (SOM
+// §11.9.8).
+func (a SpecReviewAnnotation) Unresolved() bool {
+	return annIsUnresolved(a.Answer)
+}
+
+// AnswerLetter is the letter a question's team answer starts with (`(b)` or
+// `**(b)**`), or nil — nil too for an unresolved answer, and always for a
+// comment, mark or conflict.
 func (a SpecReviewAnnotation) AnswerLetter() *string {
-	if a.Kind != SpecReviewAnnotationKindQuestion {
+	if a.Kind != SpecReviewAnnotationKindQuestion || a.Unresolved() {
 		return nil
 	}
 	return annLeadingLetter(a.Answer)
+}
+
+// DecisionLetter is a conflict's decision letter: `a`…, `base`, or nil for
+// rewritten text, no decision, or anything but a conflict.
+func (a SpecReviewAnnotation) DecisionLetter() *string {
+	if a.Kind != SpecReviewAnnotationKindConflict {
+		return nil
+	}
+	return annDecisionLetter(a.Answer)
+}
+
+// SpecReviewJSONOptions are the options of the listing types' JSON forms.
+// Team gives the extended form `team_annotation_cases.json` pins (SOM
+// §11.9.8): marks with `authors` and `votes`, questions with `unresolved` and
+// `answers`, the counts with the team counts, a removal report with its
+// `conflicts`. Without it the form is the one of §11.9.1–11.9.7, which the
+// older case files pin.
+type SpecReviewJSONOptions struct {
+	Team bool
+}
+
+// SpecMarkVote is one reviewer's vote on a mark someone else proposed (SOM
+// §11.9.8).
+type SpecMarkVote struct {
+	// Member is the voter's member id.
+	Member string
+	// Vote is SpecMarkDecisionAccept (`+id`) or SpecMarkDecisionReject
+	// (`-id`).
+	Vote SpecMarkDecision
+}
+
+// ToJSON is the canonical JSON form.
+func (v SpecMarkVote) ToJSON() map[string]any {
+	return map[string]any{"member": v.Member, "vote": string(v.Vote)}
+}
+
+// SpecIndividualAnswer is one line of individual answers,
+// `**Answer (alice, bob):** (a)` (SOM §11.9.8).
+type SpecIndividualAnswer struct {
+	// Members are the members who gave this answer, in the order written.
+	Members []string
+	// Answer is the answer, trimmed.
+	Answer string
+}
+
+// AnswerLetter is the letter the answer starts with (`(a)` or `**(a)**`), or
+// nil.
+func (a SpecIndividualAnswer) AnswerLetter() *string { return annLeadingLetter(a.Answer) }
+
+// ToJSON is the canonical JSON form.
+func (a SpecIndividualAnswer) ToJSON() map[string]any {
+	return map[string]any{
+		"members":      annStringsJSON(a.Members),
+		"answer":       a.Answer,
+		"answerLetter": nullableString(a.AnswerLetter()),
+	}
+}
+
+// SpecConflictAlternative is one lettered alternative of a conflict block,
+// `- (a) **alice:** text` (SOM §11.9.8).
+type SpecConflictAlternative struct {
+	// Letter is the lowercase letter.
+	Letter string
+	// Members are the members who made this change.
+	Members []string
+	// Text is the alternative's text; its continuation lines kept as lines.
+	Text string
+}
+
+// ToJSON is the canonical JSON form.
+func (a SpecConflictAlternative) ToJSON() map[string]any {
+	return map[string]any{"letter": a.Letter, "members": annStringsJSON(a.Members), "text": a.Text}
+}
+
+// annStringsJSON is ss as a JSON array: never null, even when empty.
+func annStringsJSON(ss []string) []any {
+	out := make([]any, 0, len(ss))
+	for _, s := range ss {
+		out = append(out, s)
+	}
+	return out
+}
+
+// annVotesJSON is the JSON form of a vote list: never null.
+func annVotesJSON(votes []SpecMarkVote) []any {
+	out := make([]any, 0, len(votes))
+	for _, v := range votes {
+		out = append(out, v.ToJSON())
+	}
+	return out
 }
 
 // SpecParagraph is one paragraph of a value (SOM §11.9.1, "Paragraphs"): a
@@ -151,8 +268,8 @@ type SpecParagraph struct {
 	EndLine int
 	// Text is the paragraph's lines, verbatim, joined with `\n`.
 	Text string
-	// Annotation is `comment` or `question` when the paragraph opens with an
-	// annotation block of that kind, else nil.
+	// Annotation is `comment`, `question` or `conflict` when the paragraph
+	// opens with an annotation block of that kind, else nil.
 	Annotation *string
 }
 
@@ -192,6 +309,12 @@ func nullableString(s *string) any {
 
 // ToJSON is the canonical JSON form the conformance corpus pins.
 func (a SpecReviewAnnotation) ToJSON() map[string]any {
+	return a.ToJSONWith(SpecReviewJSONOptions{})
+}
+
+// ToJSONWith is the canonical JSON form, in the team form when options ask
+// for it (see SpecReviewJSONOptions).
+func (a SpecReviewAnnotation) ToJSONWith(opts SpecReviewJSONOptions) map[string]any {
 	switch a.Kind {
 	case SpecReviewAnnotationKindComment:
 		return map[string]any{
@@ -210,7 +333,7 @@ func (a SpecReviewAnnotation) ToJSON() map[string]any {
 		for _, o := range a.Options {
 			options = append(options, o.ToJSON())
 		}
-		return map[string]any{
+		out := map[string]any{
 			"kind":         "question",
 			"path":         a.Path,
 			"field":        nullableString(a.Field),
@@ -226,8 +349,38 @@ func (a SpecReviewAnnotation) ToJSON() map[string]any {
 			"recommended":  nullableString(a.Recommended),
 			"answerLetter": nullableString(a.AnswerLetter()),
 		}
-	default:
+		if opts.Team {
+			answers := make([]any, 0, len(a.Answers))
+			for _, x := range a.Answers {
+				answers = append(answers, x.ToJSON())
+			}
+			out["unresolved"] = a.Unresolved()
+			out["answers"] = answers
+		}
+		return out
+	case SpecReviewAnnotationKindConflict:
+		alternatives := make([]any, 0, len(a.Alternatives))
+		for _, x := range a.Alternatives {
+			alternatives = append(alternatives, x.ToJSON())
+		}
 		return map[string]any{
+			"kind":           "conflict",
+			"path":           a.Path,
+			"field":          nullableString(a.Field),
+			"line":           a.Line,
+			"id":             nullableString(a.ID),
+			"qualifiedId":    nullableString(a.QualifiedID),
+			"topic":          nullableString(a.Topic),
+			"text":           a.Text,
+			"base":           a.Base,
+			"alternatives":   alternatives,
+			"decision":       a.Answer,
+			"decisionLetter": nullableString(a.DecisionLetter()),
+			"open":           a.Open(),
+			"unresolved":     a.Unresolved(),
+		}
+	default:
+		out := map[string]any{
 			"kind":     "mark",
 			"path":     a.Path,
 			"field":    nullableString(a.Field),
@@ -237,6 +390,11 @@ func (a SpecReviewAnnotation) ToJSON() map[string]any {
 			"newText":  nullableString(a.NewText),
 			"comment":  nullableString(a.Comment),
 		}
+		if opts.Team {
+			out["authors"] = annStringsJSON(a.Authors)
+			out["votes"] = annVotesJSON(a.Votes)
+		}
+		return out
 	}
 }
 
@@ -247,17 +405,36 @@ type SpecReviewAnnotationCounts struct {
 	AnsweredQuestions int
 	Comments          int
 	Marks             int
+	// UnresolvedQuestions are the questions whose team answer begins `open:`
+	// (also counted as answered; SOM §11.9.8).
+	UnresolvedQuestions int
+	// Conflicts are the conflict blocks.
+	Conflicts int
+	// OpenConflicts are the conflict blocks without a decision.
+	OpenConflicts int
 }
 
 // ToJSON is the canonical JSON form.
 func (c SpecReviewAnnotationCounts) ToJSON() map[string]int {
-	return map[string]int{
+	return c.ToJSONWith(SpecReviewJSONOptions{})
+}
+
+// ToJSONWith is the canonical JSON form, with the three team counts when
+// options ask for the team form.
+func (c SpecReviewAnnotationCounts) ToJSONWith(options SpecReviewJSONOptions) map[string]int {
+	out := map[string]int{
 		"questions":         c.Questions,
 		"openQuestions":     c.OpenQuestions,
 		"answeredQuestions": c.AnsweredQuestions,
 		"comments":          c.Comments,
 		"marks":             c.Marks,
 	}
+	if options.Team {
+		out["unresolvedQuestions"] = c.UnresolvedQuestions
+		out["conflicts"] = c.Conflicts
+		out["openConflicts"] = c.OpenConflicts
+	}
+	return out
 }
 
 // SpecQuestionDraft is a question to insert (SOM §11.9.2).
@@ -303,12 +480,70 @@ const (
 	annAnswerLabel    = "**Answer:**"
 	annEmDashSep      = " — "
 	annStar           = "★"
+	annScales         = "⚖"
+	annDecisionLabel  = "**Decision:**"
+	annUnresolvedPfx  = "open:"
 )
 
 var (
 	annCommentNumber = regexp.MustCompile(`^[1-9][0-9]*$`)
 	annQuestionID    = regexp.MustCompile(`^[A-Z][A-Z0-9]*-[0-9]+$`)
+	// annIndividualAnswerRE is the start of an individual answer line,
+	// `**Answer (alice, bob):**`.
+	annIndividualAnswerRE = regexp.MustCompile(`^\*\*Answer \(([^)]*)\):\*\*`)
+	// annMemberIDRE is a member id (SOM §11.9.8): lowercase letters, digits
+	// and `_`.
+	annMemberIDRE = regexp.MustCompile(`^[a-z0-9_]+$`)
+	// annConflictBaseRE is `- (base) …`, the base line of a conflict block.
+	annConflictBaseRE = regexp.MustCompile(`^- \(base\)(?: (.*))?$`)
+	// annConflictAltRE is `- (a) **alice, bob:** …`, a lettered alternative.
+	annConflictAltRE = regexp.MustCompile(`^- \(([a-z])\)(?: \*\*([^*]*):\*\*)?(?: (.*))?$`)
+	// annConflictHeaderRE is the header after the marker,
+	// `**X-<n> — <topic>:** <text>`.
+	annConflictHeaderRE = regexp.MustCompile(`^\*\*(X-[1-9][0-9]*) — (.+?):\*\*(?: (.*))?$`)
 )
+
+// IsReviewMemberID reports whether s is a member id (SOM §11.9.8): lowercase
+// letters, digits and `_`.
+func IsReviewMemberID(s string) bool { return annMemberIDRE.MatchString(s) }
+
+func annIsUnresolved(answer string) bool { return strings.HasPrefix(answer, annUnresolvedPfx) }
+
+// annDecisionLetter is a conflict decision's letter: `a`…, `base`, or nil
+// (rewritten text or none).
+func annDecisionLetter(decision string) *string {
+	t := strings.TrimLeft(decision, " \t\n\r\f\v")
+	if strings.HasPrefix(t, "(base)") || strings.HasPrefix(t, "**(base)**") {
+		b := "base"
+		return &b
+	}
+	if annIsUnresolved(t) {
+		return nil
+	}
+	return annLeadingLetter(t)
+}
+
+// annIndividualAnswer is one `**Answer (<ids>):**` entry of a question (SOM
+// §11.9.8).
+type annIndividualAnswer struct {
+	line    int // value line of the `**Answer (…):**` line
+	end     int // last value line of the entry with text (inclusive)
+	members []string
+	answer  string
+}
+
+// annConflict is one parsed conflict block (SOM §11.9.8).
+type annConflict struct {
+	block *annBlock
+	// id is nil when the header is malformed: the block is then not listed.
+	id    *string
+	topic string
+	text  string
+	// base is nil when the block has no `(base)` line.
+	base         *string
+	alternatives []SpecConflictAlternative
+	decision     string
+}
 
 // annBlock is one parsed block of a value (lines [start, end] inclusive).
 type annBlock struct {
@@ -317,6 +552,7 @@ type annBlock struct {
 	comment    *annComment    // comment blocks
 	questions  []*annQuestion // question blocks
 	combined   bool
+	conflict   *annConflict // conflict blocks
 }
 
 // annQuestion is one question region inside a question block.
@@ -331,6 +567,7 @@ type annQuestion struct {
 	answer      string
 	options     []SpecQuestionOption
 	recommended *string
+	answers     []annIndividualAnswer
 }
 
 func annIsLetter(c byte) bool { return c >= 'a' && c <= 'z' }
@@ -421,13 +658,18 @@ type annComment struct {
 }
 
 // annMark is one parsed mark; start/end are byte offsets into the value.
+// end lies after the attribution token when the mark has one, bodyEnd always
+// right after the mark itself, so the token can be rewritten in place.
 type annMark struct {
 	start, end int
+	bodyEnd    int
 	line       int
 	kind       SpecMarkKind
 	text       string
 	newText    *string
 	comment    *string
+	authors    []string
+	votes      []SpecMarkVote
 }
 
 // annParsed is everything one value holds.
@@ -528,6 +770,10 @@ func annParse(value string) *annParsed {
 			b := &annBlock{start: s, end: e, kind: SpecReviewAnnotationKindQuestion}
 			p.blocks = append(p.blocks, b)
 			annParseQuestions(p, b)
+		} else if strings.HasPrefix(first, annScales) {
+			b := &annBlock{start: s, end: e, kind: SpecReviewAnnotationKindConflict}
+			p.blocks = append(p.blocks, b)
+			b.conflict = annParseConflict(p, b)
 		}
 		i = e + 1
 	}
@@ -590,7 +836,8 @@ func annParseComment(p *annParsed, b *annBlock) *annComment {
 	for k := b.start + 1; k <= b.end; k++ {
 		inner := annInner(p.lines[k])
 		t := annLstrip(inner)
-		if strings.HasPrefix(t, annQuestionOpen) || strings.HasPrefix(t, annAnswerLabel) {
+		if strings.HasPrefix(t, annQuestionOpen) || strings.HasPrefix(t, annAnswerLabel) ||
+			annIndividualAnswerRE.MatchString(t) {
 			p.malformed = append(p.malformed,
 				"line "+strconv.Itoa(k)+": a comment block holds a question or an "+
 					"answer; the question goes into its own block after the comment "+
@@ -672,25 +919,74 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 		if q+1 < len(keys) {
 			regionEnd = keys[q+1] - 1
 		}
-		answer := -1
+		// Every `**Answer` line of the region: the individual ones and the
+		// team's.
+		var answerLines []int
 		for m := k + 1; m <= regionEnd; m++ {
-			if strings.HasPrefix(inner[m], annAnswerLabel) {
-				answer = m
-				break
+			if strings.HasPrefix(inner[m], annAnswerLabel) || annIndividualAnswerRE.MatchString(inner[m]) {
+				answerLines = append(answerLines, m)
 			}
 		}
+		// An answer runs to the next `**Answer` line or the end of the region.
+		answerEnd := func(m int) int {
+			for _, x := range answerLines {
+				if x > m {
+					return x - 1
+				}
+			}
+			return regionEnd
+		}
+		answerText := func(m, label int) string {
+			parts := append([]string{inner[m][label:]}, inner[m+1:answerEnd(m)+1]...)
+			return strings.TrimSpace(strings.Join(parts, "\n"))
+		}
+		// The question's text ends before its first answer line of either
+		// kind.
 		textEnd := regionEnd
-		if answer >= 0 {
-			textEnd = answer - 1
+		if len(answerLines) > 0 {
+			textEnd = answerLines[0] - 1
 		}
 		options, recommended := annParseOptions(inner[k+1 : textEnd+1])
 		textParts := append([]string{h.rest}, inner[k+1:textEnd+1]...)
 		text := strings.TrimSpace(strings.Join(textParts, "\n"))
-		answerText := ""
+		answer := -1
+		var individual []annIndividualAnswer
+		answered := map[string]bool{}
+		for _, m := range answerLines {
+			if strings.HasPrefix(inner[m], annAnswerLabel) {
+				if answer < 0 {
+					answer = m
+				}
+				continue
+			}
+			match := annIndividualAnswerRE.FindStringSubmatch(inner[m])
+			var members []string
+			for _, x := range strings.Split(match[1], ",") {
+				members = append(members, strings.TrimSpace(x))
+			}
+			for _, member := range members {
+				if answered[member] {
+					p.malformed = append(p.malformed,
+						"line "+strconv.Itoa(b.start+m)+": "+member+" already answered "+h.id+
+							"; a member answers a question at most once (SOM §11.9.8)")
+				}
+				answered[member] = true
+			}
+			end := answerEnd(m)
+			for end > m && strings.TrimSpace(inner[end]) == "" {
+				end--
+			}
+			individual = append(individual, annIndividualAnswer{
+				line:    b.start + m,
+				end:     b.start + end,
+				members: members,
+				answer:  answerText(m, len(match[0])),
+			})
+		}
+		teamAnswer := ""
 		answerLine := -1
 		if answer >= 0 {
-			parts := append([]string{inner[answer][len(annAnswerLabel):]}, inner[answer+1:regionEnd+1]...)
-			answerText = strings.TrimSpace(strings.Join(parts, "\n"))
+			teamAnswer = answerText(answer, len(annAnswerLabel))
 			answerLine = b.start + answer
 		}
 		b.questions = append(b.questions, &annQuestion{
@@ -701,12 +997,106 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 			topic:       h.topic,
 			starred:     h.starred,
 			text:        text,
-			answer:      answerText,
+			answer:      teamAnswer,
 			options:     options,
 			recommended: recommended,
+			answers:     individual,
 		})
 	}
 }
+
+// annParseConflict parses a conflict block (SOM §11.9.8): the header, the
+// `(base)` line and the lettered alternatives — each continuing on lines
+// indented under it, its line breaks kept — then `**Decision:**`. A malformed
+// header leaves the block unlisted; a missing base line or alternative is a
+// finding.
+func annParseConflict(p *annParsed, b *annBlock) *annConflict {
+	var inner []string
+	for k := b.start; k <= b.end; k++ {
+		inner = append(inner, annInner(p.lines[k]))
+	}
+	rest := strings.TrimPrefix(inner[0][len(annScales):], annVS16)
+	header := annConflictHeaderRE.FindStringSubmatch(annLstripAll(rest))
+	c := &annConflict{block: b}
+	if header == nil {
+		p.malformed = append(p.malformed, "line "+strconv.Itoa(b.start)+
+			": conflict header is not \"⚖️ **X-<n> — <topic>:**\" (SOM §11.9.8)")
+	} else {
+		id := header[1]
+		c.id = &id
+		c.topic = header[2]
+		c.text = strings.TrimSpace(header[3])
+	}
+	decisionLine := len(inner)
+	for k := 1; k < len(inner); k++ {
+		if strings.HasPrefix(inner[k], annDecisionLabel) {
+			decisionLine = k
+			break
+		}
+	}
+	// The open entry: the base (letter "") or an alternative.
+	type entry struct {
+		letter  string
+		members []string
+		lines   []string
+	}
+	var open *entry
+	closeEntry := func() {
+		if open == nil {
+			return
+		}
+		text := strings.TrimSpace(strings.Join(open.lines, "\n"))
+		if open.letter == "" {
+			c.base = &text
+		} else {
+			c.alternatives = append(c.alternatives, SpecConflictAlternative{
+				Letter: open.letter, Members: open.members, Text: text,
+			})
+		}
+		open = nil
+	}
+	for k := 1; k < decisionLine; k++ {
+		l := inner[k]
+		if base := annConflictBaseRE.FindStringSubmatch(l); base != nil {
+			closeEntry()
+			open = &entry{lines: []string{base[1]}}
+		} else if alt := annConflictAltRE.FindStringSubmatch(l); alt != nil {
+			closeEntry()
+			members := []string{}
+			for _, x := range strings.Split(alt[2], ",") {
+				if x = strings.TrimSpace(x); x != "" {
+					members = append(members, x)
+				}
+			}
+			open = &entry{letter: alt[1], members: members, lines: []string{alt[3]}}
+		} else if open != nil && strings.HasPrefix(l, " ") {
+			if strings.HasPrefix(l, "  ") {
+				open.lines = append(open.lines, l[2:])
+			} else {
+				open.lines = append(open.lines, annLstrip(l))
+			}
+		} else {
+			closeEntry()
+		}
+	}
+	closeEntry()
+	if decisionLine < len(inner) {
+		parts := append([]string{inner[decisionLine][len(annDecisionLabel):]}, inner[decisionLine+1:]...)
+		c.decision = strings.TrimSpace(strings.Join(parts, "\n"))
+	}
+	if c.id != nil && c.base == nil {
+		p.malformed = append(p.malformed, "line "+strconv.Itoa(b.start)+": conflict "+*c.id+
+			" has no \"(base)\" line (SOM §11.9.8)")
+	}
+	if c.id != nil && len(c.alternatives) == 0 {
+		p.malformed = append(p.malformed, "line "+strconv.Itoa(b.start)+": conflict "+*c.id+
+			" has no lettered alternative (SOM §11.9.8)")
+	}
+	return c
+}
+
+// annLstripAll is s without its leading whitespace (JavaScript's trimStart).
+func annLstripAll(s string) string { return strings.TrimLeftFunc(s, unicode.IsSpace) }
 
 var annOpeners = []string{"{>>", "{==", "{++", "{--", "{~~"}
 
@@ -822,6 +1212,18 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 			}
 			continue
 		}
+		if c == '{' && strings.HasPrefix(seg[i:], "{@") {
+			// A token that no mark precedes directly (a mark's own token is
+			// read with the mark, below).
+			p.malformed = append(p.malformed, "line "+strconv.Itoa(lineOf(base+i))+
+				": an attribution token \"{@\" does not follow a mark directly (SOM §11.9.8)")
+			if closeAt := annIndexFrom(seg, "}", i+2); closeAt < 0 {
+				i += 2
+			} else {
+				i = closeAt + 1
+			}
+			continue
+		}
 		if c != '{' || i+3 > len(seg) {
 			i++
 			continue
@@ -852,10 +1254,15 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 			continue
 		}
 		end := closeAt + 3
+		mark := func(kind SpecMarkKind, text string, newText, comment *string) *annMark {
+			return &annMark{start: base + i, end: base + end, bodyEnd: base + end, line: line,
+				kind: kind, text: text, newText: newText, comment: comment}
+		}
+		before := len(p.marks)
 		switch opener {
 		case "{>>":
 			cm := strings.TrimSpace(inner)
-			p.marks = append(p.marks, &annMark{base + i, base + end, line, SpecMarkKindComment, "", nil, &cm})
+			p.marks = append(p.marks, mark(SpecMarkKindComment, "", nil, &cm))
 		case "{==":
 			var comment *string
 			if strings.HasPrefix(seg[end:], "{>>") {
@@ -869,11 +1276,11 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 					}
 				}
 			}
-			p.marks = append(p.marks, &annMark{base + i, base + end, line, SpecMarkKindHighlight, strings.TrimSpace(inner), nil, comment})
+			p.marks = append(p.marks, mark(SpecMarkKindHighlight, strings.TrimSpace(inner), nil, comment))
 		case "{++":
-			p.marks = append(p.marks, &annMark{base + i, base + end, line, SpecMarkKindInsertion, strings.TrimSpace(inner), nil, nil})
+			p.marks = append(p.marks, mark(SpecMarkKindInsertion, strings.TrimSpace(inner), nil, nil))
 		case "{--":
-			p.marks = append(p.marks, &annMark{base + i, base + end, line, SpecMarkKindDeletion, strings.TrimSpace(inner), nil, nil})
+			p.marks = append(p.marks, mark(SpecMarkKindDeletion, strings.TrimSpace(inner), nil, nil))
 		case "{~~":
 			arrow := strings.Index(inner, "~>")
 			if arrow < 0 {
@@ -884,10 +1291,92 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 				continue
 			}
 			nt := strings.TrimSpace(inner[arrow+2:])
-			p.marks = append(p.marks, &annMark{base + i, base + end, line, SpecMarkKindSubstitution, strings.TrimSpace(inner[:arrow]), &nt, nil})
+			p.marks = append(p.marks, mark(SpecMarkKindSubstitution, strings.TrimSpace(inner[:arrow]), &nt, nil))
+		}
+		if len(p.marks) > before && strings.HasPrefix(seg[end:], "{@") {
+			end = annAttachToken(p, seg, end, base, p.marks[len(p.marks)-1])
 		}
 		i = end
 	}
+}
+
+// annAttachToken reads the attribution token `{@…}` at at (SOM §11.9.8) into
+// m, which it directly follows, and returns the segment offset after it. The
+// token is part of the mark — its markup, its decision — so m.end moves past
+// it. A token that breaks the grammar is still part of the mark (it goes with
+// the mark on a decision) and is a finding; its members are then not listed.
+func annAttachToken(p *annParsed, seg string, at, base int, m *annMark) int {
+	lineEnd := annIndexFrom(seg, "\n", at)
+	closeAt := annIndexFrom(seg, "}", at+2)
+	if closeAt < 0 || (lineEnd >= 0 && closeAt > lineEnd) {
+		p.malformed = append(p.malformed, "line "+strconv.Itoa(m.line)+
+			": attribution token \"{@\" is not closed (SOM §11.9.8)")
+		return at
+	}
+	authors, votes, problem := annReadToken(seg[at+2:closeAt], m.kind)
+	if problem != "" {
+		p.malformed = append(p.malformed, "line "+strconv.Itoa(m.line)+": attribution token "+
+			problem+" (SOM §11.9.8)")
+	} else {
+		m.authors = authors
+		m.votes = votes
+	}
+	m.end = base + closeAt + 1
+	return closeAt + 1
+}
+
+// annIsChangeMark reports whether a mark kind is a change, which alone takes
+// votes (SOM §11.9.8).
+func annIsChangeMark(kind SpecMarkKind) bool {
+	return kind == SpecMarkKindInsertion || kind == SpecMarkKindDeletion || kind == SpecMarkKindSubstitution
+}
+
+var annCommaSpaceRE = regexp.MustCompile(`,\s+`)
+
+// annReadToken reads a token's inside, `<authors>[ <votes>]`, into its
+// authors and votes, or answers the reason it breaks the grammar of SOM
+// §11.9.8 as problem.
+func annReadToken(inside string, kind SpecMarkKind) (authors []string, votes []SpecMarkVote, problem string) {
+	words := strings.Fields(annCommaSpaceRE.ReplaceAllString(inside, ","))
+	if len(words) == 0 {
+		return nil, nil, "is empty"
+	}
+	authors = []string{}
+	votes = []SpecMarkVote{}
+	k := 0
+	if !strings.HasPrefix(words[0], "+") && !strings.HasPrefix(words[0], "-") {
+		authors = append(authors, strings.Split(words[0], ",")...)
+		k = 1
+	}
+	for ; k < len(words); k++ {
+		w := words[k]
+		switch {
+		case strings.HasPrefix(w, "+"):
+			votes = append(votes, SpecMarkVote{Member: w[1:], Vote: SpecMarkDecisionAccept})
+		case strings.HasPrefix(w, "-"):
+			votes = append(votes, SpecMarkVote{Member: w[1:], Vote: SpecMarkDecisionReject})
+		default:
+			return nil, nil, "has \"" + w + "\" where a vote belongs"
+		}
+	}
+	seen := map[string]bool{}
+	ids := append([]string{}, authors...)
+	for _, v := range votes {
+		ids = append(ids, v.Member)
+	}
+	for _, id := range ids {
+		if !annMemberIDRE.MatchString(id) {
+			return nil, nil, "names \"" + id + "\", which is not a member id"
+		}
+		if seen[id] {
+			return nil, nil, "names " + id + " twice, or as author and voter"
+		}
+		seen[id] = true
+	}
+	if len(votes) > 0 && !annIsChangeMark(kind) {
+		return nil, nil, "carries votes on a " + string(kind) + " mark, which takes authors only"
+	}
+	return authors, votes, ""
 }
 
 func annFieldPtr(field string) *string {
@@ -930,8 +1419,43 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 			seq++
 			continue
 		}
+		if b.kind == SpecReviewAnnotationKindConflict {
+			c := b.conflict
+			if c.id == nil {
+				continue
+			}
+			var qualified *string
+			if qualifier != "" {
+				q := qualifier + " " + *c.id
+				qualified = &q
+			}
+			base := ""
+			if c.base != nil {
+				base = *c.base
+			}
+			topic := c.topic
+			out = append(out, entry{b.start, 0, seq, SpecReviewAnnotation{
+				Kind:         SpecReviewAnnotationKindConflict,
+				Path:         path,
+				Field:        fp,
+				Line:         b.start,
+				ID:           c.id,
+				QualifiedID:  qualified,
+				Topic:        &topic,
+				Text:         c.text,
+				Base:         base,
+				Alternatives: c.alternatives,
+				Answer:       c.decision,
+			}})
+			seq++
+			continue
+		}
 		for _, q := range b.questions {
 			id, topic := q.id, q.topic
+			answers := make([]SpecIndividualAnswer, 0, len(q.answers))
+			for _, a := range q.answers {
+				answers = append(answers, SpecIndividualAnswer{Members: a.members, Answer: a.answer})
+			}
 			out = append(out, entry{q.header, 0, seq, SpecReviewAnnotation{
 				Kind:        SpecReviewAnnotationKindQuestion,
 				Path:        path,
@@ -945,6 +1469,7 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 				Answer:      q.answer,
 				Options:     q.options,
 				Recommended: q.recommended,
+				Answers:     answers,
 			}})
 			seq++
 		}
@@ -959,6 +1484,8 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 			Text:     m.text,
 			NewText:  m.newText,
 			Comment:  m.comment,
+			Authors:  m.authors,
+			Votes:    m.votes,
 		}})
 		seq++
 	}
@@ -1229,6 +1756,241 @@ func StripAnnotationsText(value string) string {
 }
 
 // ---------------------------------------------------------------------------
+// Team reviews (SOM §11.9.8): individual answers and applying conflicts.
+// ---------------------------------------------------------------------------
+
+// annSubstr is JavaScript's s.substring(from, to): indices clamped to s.
+func annSubstr(s string, from, to int) string {
+	if to > len(s) {
+		to = len(s)
+	}
+	if from > to {
+		return ""
+	}
+	return s[from:to]
+}
+
+// annIsCommentedAnswer reports whether an answer carries anything beyond an
+// option letter (SOM §11.9.8): no leading letter, or text other than exactly
+// that option's after it.
+func annIsCommentedAnswer(answer string, options []SpecQuestionOption) bool {
+	letter := annLeadingLetter(answer)
+	if letter == nil {
+		return true
+	}
+	t := annLstripAll(answer)
+	bold := strings.HasPrefix(t, "**(") && annSubstr(t, 4, 7) == ")**"
+	skip := 3
+	if bold {
+		skip = 7
+	} else if strings.HasPrefix(t, "**") {
+		skip = 5
+	}
+	rest := strings.TrimSpace(annSubstr(t, skip, len(t)))
+	if rest == "" {
+		return false
+	}
+	for _, o := range options {
+		if o.Letter == *letter {
+			return rest != o.Text
+		}
+	}
+	return true
+}
+
+// annIndividualAnswerLines are the lines of one individual-answer entry.
+func annIndividualAnswerLines(members []string, answer string) []string {
+	a := strings.Split(answer, "\n")
+	head := strings.TrimRightFunc("> **Answer ("+strings.Join(members, ", ")+"):** "+a[0], unicode.IsSpace)
+	return append([]string{head}, annQuoted(a[1:])...)
+}
+
+// annSetIndividualAnswer is value with member's individual answer to question
+// q set to answer (SOM §11.9.8): the member leaves the line it was on (a line
+// left empty goes); a non-empty answer that is not commented joins the line
+// whose answer is identical and not commented, at its end, and otherwise gets
+// a new line after the last individual answer. The first individual answer
+// opens the run before the team's `**Answer:**`, with a `>` line between run
+// and team answer, and a run left empty takes that line with it. Entries left
+// alone keep their bytes.
+func annSetIndividualAnswer(value string, q *annQuestion, member, answer string) string {
+	lines := strings.Split(value, "\n")
+	type entry struct {
+		members []string
+		answer  string
+		lines   []string // nil: rewritten
+	}
+	var kept []*entry
+	for _, a := range q.answers {
+		e := &entry{answer: a.answer, lines: append([]string{}, lines[a.line:a.end+1]...)}
+		for _, m := range a.members {
+			if m == member {
+				e.lines = nil
+				continue
+			}
+			e.members = append(e.members, m)
+		}
+		if len(e.members) > 0 {
+			kept = append(kept, e)
+		}
+	}
+	text := strings.TrimSpace(answer)
+	if text != "" {
+		var join *entry
+		if !annIsCommentedAnswer(text, q.options) {
+			for _, e := range kept {
+				if e.answer == text && !annIsCommentedAnswer(e.answer, q.options) {
+					join = e
+					break
+				}
+			}
+		}
+		if join != nil {
+			join.members = append(join.members, member)
+			join.lines = nil
+		} else {
+			kept = append(kept, &entry{members: []string{member}, answer: text})
+		}
+	}
+	var run []string
+	for _, e := range kept {
+		if e.lines != nil {
+			run = append(run, e.lines...)
+		} else {
+			run = append(run, annIndividualAnswerLines(e.members, e.answer)...)
+		}
+	}
+	splice := func(from, count int, insert []string) {
+		out := append(append(append([]string{}, lines[:from]...), insert...), lines[from+count:]...)
+		lines = out
+	}
+	switch {
+	case len(q.answers) > 0:
+		from := q.answers[0].line
+		to := q.answers[len(q.answers)-1].end
+		// A run left empty takes its separating `>` line with it.
+		if len(run) == 0 && to+1 < len(lines) && strings.TrimSpace(annInner(lines[to+1])) == "" {
+			to++
+		}
+		splice(from, to-from+1, run)
+	case len(run) > 0:
+		if q.answerLine >= 0 {
+			splice(q.answerLine, 0, append(run, ">"))
+		} else {
+			last := q.regionEnd
+			for last > q.header && strings.TrimSpace(annInner(lines[last])) == "" {
+				last--
+			}
+			splice(last+1, 0, append([]string{">"}, run...))
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
+// annStructuralTopics are the topics of the structural conflicts a merge
+// writes (SOM §11.9.9); their decisions are not text.
+var annStructuralTopics = map[string]bool{"Item removed": true, "Item moved": true, "Headline changed": true}
+
+// annDecidedConflict is a decided conflict, as RemoveAllAnnotations found it
+// before any change.
+type annDecidedConflict struct {
+	path, field string
+	// index is the block's position among the value's conflict blocks.
+	index    int
+	id       string
+	line     int
+	decision string
+}
+
+// annChosenText is the text a conflict's decision chooses: the base, an
+// alternative, or the rewritten text.
+func annChosenText(c *annConflict) string {
+	letter := annDecisionLetter(c.decision)
+	if letter == nil {
+		return c.decision
+	}
+	if *letter == "base" {
+		if c.base == nil {
+			return ""
+		}
+		return *c.base
+	}
+	for _, a := range c.alternatives {
+		if a.Letter == *letter {
+			return a.Text
+		}
+	}
+	return ""
+}
+
+// annTextParagraphs are the text paragraphs (no annotation block) of a parsed
+// value, as [first, last] lines.
+func annTextParagraphs(p *annParsed) [][2]int {
+	var out [][2]int
+	for _, para := range annParagraphs(p.lines, p.code) {
+		if !annOpensBlock(p, para[0]) {
+			out = append(out, para)
+		}
+	}
+	return out
+}
+
+// annOpensBlock reports whether an annotation block of p starts at line.
+func annOpensBlock(p *annParsed, line int) bool {
+	for _, b := range p.blocks {
+		if b.start == line {
+			return true
+		}
+	}
+	return false
+}
+
+// annReplaceLines is value with the lines [s, e] replaced by text.
+func annReplaceLines(value string, s, e int, text string) string {
+	lines := strings.Split(value, "\n")
+	out := append(append(append([]string{}, lines[:s]...), strings.Split(text, "\n")...), lines[e+1:]...)
+	return strings.Join(out, "\n")
+}
+
+// annReplaceParagraphBefore is value with the text paragraph directly before
+// block b (annotation blocks between them skipped) replaced by text; with
+// none, text goes before the block.
+func annReplaceParagraphBefore(value string, b *annBlock, text string) string {
+	var before [][2]int
+	for _, para := range annTextParagraphs(annParse(value)) {
+		if para[1] < b.start {
+			before = append(before, para)
+		}
+	}
+	if len(before) == 0 {
+		return annInsertAfterLine(value, b.start-1, strings.Split(text, "\n"))
+	}
+	last := before[len(before)-1]
+	return annReplaceLines(value, last[0], last[1], text)
+}
+
+// annReplaceTextRun is value with the run of text paragraphs directly before
+// block b — a whole-value unit (SOM §11.9.9) — replaced by text.
+func annReplaceTextRun(value string, b *annBlock, text string) string {
+	p := annParse(value)
+	var paras [][2]int
+	for _, para := range annParagraphs(p.lines, p.code) {
+		if para[1] < b.start {
+			paras = append(paras, para)
+		}
+	}
+	k := len(paras)
+	for k > 0 && !annOpensBlock(p, paras[k-1][0]) {
+		k--
+	}
+	run := paras[k:]
+	if len(run) == 0 {
+		return annInsertAfterLine(value, b.start-1, strings.Split(text, "\n"))
+	}
+	return annReplaceLines(value, run[0][0], run[len(run)-1][1], text)
+}
+
+// ---------------------------------------------------------------------------
 // Document level.
 // ---------------------------------------------------------------------------
 
@@ -1300,8 +2062,16 @@ func (r *SpecReviewAnnotations) Counts() SpecReviewAnnotationCounts {
 			if a.Open() {
 				c.OpenQuestions++
 			}
+			if a.Unresolved() {
+				c.UnresolvedQuestions++
+			}
 		case SpecReviewAnnotationKindComment:
 			c.Comments++
+		case SpecReviewAnnotationKindConflict:
+			c.Conflicts++
+			if a.Open() {
+				c.OpenConflicts++
+			}
 		case SpecReviewAnnotationKindMark:
 			c.Marks++
 		}
@@ -1458,11 +2228,22 @@ func (r *SpecReviewAnnotations) InsertQuestionAfterComment(commentID string, que
 }
 
 // SetAnswer writes answer after the question's `**Answer:**` (empty: reopens
-// it).
-func (r *SpecReviewAnnotations) SetAnswer(questionID, answer string) error {
+// it). With author (a member id; "" for the team), it writes that member's
+// individual answer instead, grouped and placed by the rules of SOM §11.9.8
+// (empty: only takes the member out); an author that is not a member id is
+// refused.
+func (r *SpecReviewAnnotations) SetAnswer(questionID, answer, author string) error {
+	if author != "" && !annMemberIDRE.MatchString(author) {
+		return &SpecReviewAnnotationError{Message: "\"" + author +
+			"\" is not a member id (lowercase letters, digits and _)"}
+	}
 	v, _, q, err := r.findQuestion(questionID)
 	if err != nil {
 		return err
+	}
+	if author != "" {
+		r.set(v.path, v.field, annSetIndividualAnswer(v.text, q, author, answer))
+		return nil
 	}
 	lines := strings.Split(v.text, "\n")
 	a := strings.Split(answer, "\n")
@@ -1661,6 +2442,9 @@ func (r *SpecReviewAnnotations) Validate() []SpecValidationError {
 			for _, q := range b.questions {
 				ids = append(ids, q.id)
 			}
+			if b.conflict != nil && b.conflict.id != nil {
+				ids = append(ids, *b.conflict.id)
+			}
 		}
 		for _, id := range ids {
 			if seen[id] {
@@ -1726,11 +2510,22 @@ type SpecMarkEntry struct {
 	Markup string
 	// Context is the paragraph holding the mark, verbatim — for display.
 	Context string
+	// Authors are the authors its attribution token names (SOM §11.9.8);
+	// empty without one.
+	Authors []string
+	// Votes are the votes its attribution token records; empty without one.
+	Votes []SpecMarkVote
 }
 
 // ToJSON is the canonical JSON form the conformance corpus pins.
 func (e SpecMarkEntry) ToJSON() map[string]any {
-	return map[string]any{
+	return e.ToJSONWith(SpecReviewJSONOptions{})
+}
+
+// ToJSONWith is the canonical JSON form, with `authors` and `votes` in the
+// team form.
+func (e SpecMarkEntry) ToJSONWith(options SpecReviewJSONOptions) map[string]any {
+	out := map[string]any{
 		"id":       e.ID,
 		"path":     e.Path,
 		"field":    nullableString(e.Field),
@@ -1742,6 +2537,11 @@ func (e SpecMarkEntry) ToJSON() map[string]any {
 		"markup":   e.Markup,
 		"context":  e.Context,
 	}
+	if options.Team {
+		out["authors"] = annStringsJSON(e.Authors)
+		out["votes"] = annVotesJSON(e.Votes)
+	}
+	return out
 }
 
 // SpecMarkOutcome is what was done to one mark.
@@ -1800,16 +2600,55 @@ func (i SpecMarkIssue) ToJSON() map[string]any {
 	}
 }
 
+// SpecConflictOutcome is what RemoveAllAnnotations did with one conflict
+// block (SOM §11.9.8).
+type SpecConflictOutcome struct {
+	// ID is the conflict id, `X-<n>`.
+	ID string
+	// Path is the value's path.
+	Path string
+	// Field is the form field, or nil for content.
+	Field *string
+	// Line is the 0-based line within the value where the block opened.
+	Line int
+	// Decision is the decision as written.
+	Decision string
+	// Result is the text the decision chose.
+	Result string
+}
+
+// ToJSON is the canonical JSON form.
+func (o SpecConflictOutcome) ToJSON() map[string]any {
+	return map[string]any{
+		"id":       o.ID,
+		"path":     o.Path,
+		"field":    nullableString(o.Field),
+		"line":     o.Line,
+		"decision": o.Decision,
+		"result":   o.Result,
+	}
+}
+
 // SpecMarkReport is the report of a mark operation, for the decision log.
 type SpecMarkReport struct {
 	// Applied is what was done, in document order.
 	Applied []SpecMarkOutcome
 	// Malformed are the malformed marks in scope, left as written.
 	Malformed []SpecMarkIssue
+	// Conflicts are the conflicts RemoveAllAnnotations applied, in document
+	// order; nil for the mark operations, which do not touch conflicts (an
+	// empty, non-nil slice: a removal that found none).
+	Conflicts []SpecConflictOutcome
 }
 
 // ToJSON is the canonical JSON form.
 func (r SpecMarkReport) ToJSON() map[string]any {
+	return r.ToJSONWith(SpecReviewJSONOptions{})
+}
+
+// ToJSONWith is the canonical JSON form, with the `conflicts` of a removal in
+// the team form.
+func (r SpecMarkReport) ToJSONWith(options SpecReviewJSONOptions) map[string]any {
 	applied := make([]any, 0, len(r.Applied))
 	for _, a := range r.Applied {
 		applied = append(applied, a.ToJSON())
@@ -1818,7 +2657,15 @@ func (r SpecMarkReport) ToJSON() map[string]any {
 	for _, m := range r.Malformed {
 		malformed = append(malformed, m.ToJSON())
 	}
-	return map[string]any{"applied": applied, "malformed": malformed}
+	out := map[string]any{"applied": applied, "malformed": malformed}
+	if options.Team && r.Conflicts != nil {
+		conflicts := make([]any, 0, len(r.Conflicts))
+		for _, c := range r.Conflicts {
+			conflicts = append(conflicts, c.ToJSON())
+		}
+		out["conflicts"] = conflicts
+	}
+	return out
 }
 
 // Revision is the revision the mark ids are stable for: FNV-1a 64-bit over
@@ -1879,6 +2726,8 @@ func (r *SpecReviewAnnotations) ListMarks(path string) []SpecMarkEntry {
 				Comment:  m.comment,
 				Markup:   v.text[m.start:m.end],
 				Context:  strings.Join(p.lines[para[0]:para[1]+1], "\n"),
+				Authors:  m.authors,
+				Votes:    m.votes,
 			})
 		}
 	}
@@ -1973,12 +2822,29 @@ func (r *SpecReviewAnnotations) RejectAllMarks(path string) SpecMarkReport {
 }
 
 // RemoveAllAnnotations removes every annotation and writes the result back:
-// every inline mark accepted, every comment and question block removed.
-// Malformed marks stay and are reported.
-func (r *SpecReviewAnnotations) RemoveAllAnnotations() SpecMarkReport {
+// every inline mark accepted, every conflict's decision applied (SOM
+// §11.9.8), every comment, question and conflict block removed. Malformed
+// marks stay and are reported. Refused with a SpecReviewAnnotationError —
+// nothing changes — while a conflict is open, unresolved (`open:`),
+// malformed, or decided for a letter it has no alternative for.
+func (r *SpecReviewAnnotations) RemoveAllAnnotations() (SpecMarkReport, error) {
+	decided, err := r.decidedConflicts()
+	if err != nil {
+		return SpecMarkReport{}, err
+	}
 	report := r.AcceptAllMarks("")
+	report.Conflicts = []SpecConflictOutcome{}
 	for _, v := range r.values() {
 		value := v.text
+		var here []annDecidedConflict
+		for _, d := range decided {
+			if d.path == v.path && d.field == v.field {
+				here = append(here, d)
+			}
+		}
+		if len(here) > 0 {
+			value = r.applyConflicts(v.path, v.field, value, here, &report.Conflicts)
+		}
 		for {
 			p := annParse(value)
 			if len(p.blocks) == 0 {
@@ -1991,7 +2857,118 @@ func (r *SpecReviewAnnotations) RemoveAllAnnotations() SpecMarkReport {
 			r.set(v.path, v.field, value)
 		}
 	}
-	return report
+	return report, nil
+}
+
+// decidedConflicts lists every conflict block of the document with the line
+// it opens on, in document order — or the refusal of RemoveAllAnnotations
+// when one of them cannot be applied.
+func (r *SpecReviewAnnotations) decidedConflicts() ([]annDecidedConflict, error) {
+	var out []annDecidedConflict
+	for _, v := range r.values() {
+		p := annParse(v.text)
+		index := 0
+		for _, b := range p.blocks {
+			if b.kind != SpecReviewAnnotationKindConflict {
+				continue
+			}
+			c := b.conflict
+			where := v.path
+			if v.field != "" {
+				where += " / " + v.field
+			}
+			where += ", line " + strconv.Itoa(b.start)
+			if c.id == nil || c.base == nil || len(c.alternatives) == 0 {
+				return nil, &SpecReviewAnnotationError{Message: where + ": a malformed conflict block cannot be applied"}
+			}
+			if c.decision == "" || annIsUnresolved(c.decision) {
+				state := "unresolved"
+				if c.decision == "" {
+					state = "open"
+				}
+				return nil, &SpecReviewAnnotationError{Message: where + ": conflict " + *c.id + " is " + state +
+					"; decide it before removing the annotations"}
+			}
+			if letter := annDecisionLetter(c.decision); letter != nil && *letter != "base" {
+				found := false
+				for _, a := range c.alternatives {
+					if a.Letter == *letter {
+						found = true
+					}
+				}
+				if !found {
+					return nil, &SpecReviewAnnotationError{Message: where + ": conflict " + *c.id +
+						" has no alternative (" + *letter + ")"}
+				}
+			}
+			out = append(out, annDecidedConflict{path: v.path, field: v.field, index: index, id: *c.id,
+				line: b.start, decision: c.decision})
+			index++
+		}
+	}
+	return out, nil
+}
+
+// applyConflicts applies the decided conflicts of one value (marks already
+// accepted), from the last block up so earlier line numbers stay valid, and
+// records each in outcomes.
+func (r *SpecReviewAnnotations) applyConflicts(path, field, value string, decided []annDecidedConflict,
+	outcomes *[]SpecConflictOutcome) string {
+	v := value
+	var conflicts []*annBlock
+	for _, b := range annParse(v).blocks {
+		if b.kind == SpecReviewAnnotationKindConflict {
+			conflicts = append(conflicts, b)
+		}
+	}
+	recorded := make([]SpecConflictOutcome, len(conflicts))
+	for k := len(conflicts) - 1; k >= 0; k-- {
+		var d annDecidedConflict
+		for _, x := range decided {
+			if x.index == k {
+				d = x
+			}
+		}
+		c := conflicts[k].conflict
+		result := annChosenText(c)
+		recorded[k] = SpecConflictOutcome{ID: d.id, Path: path, Field: annFieldPtr(field), Line: d.line,
+			Decision: d.decision, Result: result}
+		v = r.applyConflict(path, field, v, c, result)
+	}
+	*outcomes = append(*outcomes, recorded...)
+	return v
+}
+
+var (
+	// annFieldTargetRE is a conflict text naming a form field: `<path> <field>`.
+	annFieldTargetRE = regexp.MustCompile(`^(\S+) (\S+)$`)
+	// annValueTargetRE is a conflict text naming a value path.
+	annValueTargetRE = regexp.MustCompile(`^[^\s,]+/[^\s,]+$`)
+)
+
+// applyConflict puts the text a conflict's decision chose in place. Where it
+// goes follows the conflict's text (SOM §11.9.8, "Applying"): a form field,
+// another value, this value's text paragraphs (a whole-value unit), or — the
+// default — the text paragraph directly before the block. A structural
+// conflict only goes; its change is the caller's.
+func (r *SpecReviewAnnotations) applyConflict(path, field, value string, c *annConflict, result string) string {
+	if annStructuralTopics[c.topic] {
+		return value
+	}
+	if t := annFieldTargetRE.FindStringSubmatch(c.text); t != nil {
+		if _, ok := r.Doc.FormField(t[1], t[2]); ok {
+			r.Doc.SetFormField(t[1], t[2], result)
+			return value
+		}
+	}
+	if field == "" && c.text == path {
+		return annReplaceTextRun(value, c.block, result)
+	}
+	if annValueTargetRE.MatchString(c.text) && c.text != path {
+		r.Doc.SetContent(c.text, result)
+		return value
+	}
+	return annReplaceParagraphBefore(value, c.block, result)
 }
 
 // SetMarked writes text at path / field ("" for content) as a marked change
@@ -2487,4 +3464,291 @@ func MarkChangeText(oldValue, newValue string) SpecMarkedChange {
 		return SpecMarkedChange{Text: newValue, Exact: false}
 	}
 	return SpecMarkedChange{Text: text, Exact: exact}
+}
+
+// ---------------------------------------------------------------------------
+// Text-level building blocks of the merge (SOM §11.9.9), for
+// spec_review_merge.go.
+// ---------------------------------------------------------------------------
+
+// reviewPiece is one paragraph of a value as the merge sees it: text, or an
+// annotation block.
+type reviewPiece struct {
+	// kind is "text", or the annotation kind of the block the paragraph opens
+	// with.
+	kind string
+	// text is the paragraph's lines, verbatim.
+	text string
+	// id is a comment's id (nil without one), a conflict's id (nil when
+	// malformed).
+	id *string
+	// author is a comment's author, nil without one.
+	author *string
+	// commentText is a comment's text.
+	commentText string
+	// questionIDs are the ids of a question block's questions.
+	questionIDs []string
+}
+
+const reviewPieceText = "text"
+
+// reviewPieces are the paragraphs of value (SOM §11.9.1), each classified.
+func reviewPieces(value string) []reviewPiece {
+	if value == "" {
+		return nil
+	}
+	p := annParse(value)
+	var out []reviewPiece
+	for _, para := range annParagraphs(p.lines, p.code) {
+		piece := reviewPiece{kind: reviewPieceText, text: strings.Join(p.lines[para[0]:para[1]+1], "\n")}
+		for _, b := range p.blocks {
+			if b.start != para[0] {
+				continue
+			}
+			piece.kind = string(b.kind)
+			if b.comment != nil {
+				piece.id = b.comment.id
+				piece.author = b.comment.author
+				piece.commentText = b.comment.text
+			}
+			if b.conflict != nil {
+				piece.id = b.conflict.id
+			}
+			for _, q := range b.questions {
+				piece.questionIDs = append(piece.questionIDs, q.id)
+			}
+			break
+		}
+		out = append(out, piece)
+	}
+	return out
+}
+
+// reviewMark is one inline mark of a value, with what its decisions leave.
+type reviewMark struct {
+	start, end, bodyEnd int
+	kind                SpecMarkKind
+	// markup is the mark as written, its attribution token included.
+	markup  string
+	authors []string
+	votes   []SpecMarkVote
+	// accepted is the text accepting it leaves; rejected rejecting it.
+	accepted, rejected string
+}
+
+// reviewMarks are the inline marks of value, in order (marks in code are not
+// marks).
+func reviewMarks(value string) []reviewMark {
+	marks := annParse(value).marks
+	out := make([]reviewMark, 0, len(marks))
+	for _, m := range marks {
+		out = append(out, reviewMark{
+			start: m.start, end: m.end, bodyEnd: m.bodyEnd, kind: m.kind,
+			markup:   value[m.start:m.end],
+			authors:  m.authors,
+			votes:    m.votes,
+			accepted: annMarkReplacement(m, true),
+			rejected: annMarkReplacement(m, false),
+		})
+	}
+	return out
+}
+
+// decideReviewMarks is value with the marks decisions names (by index into
+// reviewMarks; true accepts) accepted or rejected, by the whitespace rules of
+// SOM §11.9.3.
+func decideReviewMarks(value string, decisions map[int]bool) string {
+	marks := annParse(value).marks
+	v := value
+	for k := len(marks) - 1; k >= 0; k-- {
+		accept, ok := decisions[k]
+		if !ok {
+			continue
+		}
+		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept))
+	}
+	return v
+}
+
+// formatAttributionToken is the attribution token for authors and votes,
+// `{@agent +alice -bob}`.
+func formatAttributionToken(authors []string, votes []SpecMarkVote) string {
+	vs := make([]string, 0, len(votes))
+	for _, x := range votes {
+		sign := "-"
+		if x.Vote == SpecMarkDecisionAccept {
+			sign = "+"
+		}
+		vs = append(vs, sign+x.Member)
+	}
+	sep := ""
+	if len(authors) > 0 && len(vs) > 0 {
+		sep = " "
+	}
+	return "{@" + strings.Join(authors, ",") + sep + strings.Join(vs, " ") + "}"
+}
+
+// withAttribution is value with mark m's token replaced by one for authors
+// and votes.
+func withAttribution(value string, m reviewMark, authors []string, votes []SpecMarkVote) string {
+	return value[:m.bodyEnd] + formatAttributionToken(authors, votes) + value[m.end:]
+}
+
+// reviewTeamAnswers are the team answer of every question of value, by id
+// (the first question with an id wins), with the ids in order.
+func reviewTeamAnswers(value string) (map[string]string, []string) {
+	out := map[string]string{}
+	var order []string
+	for _, b := range annParse(value).blocks {
+		for _, q := range b.questions {
+			if _, ok := out[q.id]; !ok {
+				out[q.id] = q.answer
+				order = append(order, q.id)
+			}
+		}
+	}
+	return out, order
+}
+
+// setIndividualAnswerText is value with member's individual answer to
+// question questionID set, as SetAnswer with an author does; ok=false when the
+// value holds no such question.
+func setIndividualAnswerText(value, questionID, member, answer string) (string, bool) {
+	for _, b := range annParse(value).blocks {
+		for _, q := range b.questions {
+			if q.id == questionID {
+				return annSetIndividualAnswer(value, q, member, answer), true
+			}
+		}
+	}
+	return "", false
+}
+
+// annAlternativeLines are the lines of a conflict's text: the first after its
+// prefix, the rest indented under it.
+func annAlternativeLines(prefix, text string) []string {
+	t := strings.Split(text, "\n")
+	out := []string{strings.TrimRightFunc("> - "+prefix+" "+t[0], unicode.IsSpace)}
+	for _, l := range t[1:] {
+		out = append(out, ">   "+l)
+	}
+	return out
+}
+
+// FormatConflictBlock returns the lines of a conflict block (SOM §11.9.8):
+// the header, the `(base)` line, one lettered alternative per entry naming its
+// members, and an empty `**Decision:**`. A text's further lines are indented
+// under it, so a reader gets them back with their line breaks.
+func FormatConflictBlock(id, topic, text, base string, alternatives []SpecConflictAlternative) []string {
+	lines := []string{strings.TrimRightFunc("> "+annScales+annVS16+" **"+id+annEmDashSep+topic+":** "+text,
+		unicode.IsSpace)}
+	lines = append(lines, annAlternativeLines("(base)", base)...)
+	for _, a := range alternatives {
+		lines = append(lines, annAlternativeLines("("+a.Letter+") **"+strings.Join(a.Members, ", ")+":**", a.Text)...)
+	}
+	return append(lines, ">", "> "+annDecisionLabel)
+}
+
+// transplantEdits carries the edits x → y over to b, a text equal to x except
+// where marks of b were decided in x (SOM §11.9.9, step 3): every edit lands
+// in b at the place x and b agree on. ok=false when an edit touches a place
+// where they differ — the edit overlaps a decided mark. Both diffs are the
+// token diffs of MarkChangeText.
+func transplantEdits(x, y, b string) (string, bool) {
+	xt := annTokens(x)
+	bt := annTokens(b)
+	// Where each token of x is in b (-1: x and b differ there).
+	toB := make([]int, len(xt))
+	for k := range toB {
+		toB[k] = -1
+	}
+	i, j := 0, 0
+	for _, op := range annDiff(xt, bt) {
+		switch op.kind {
+		case 0:
+			toB[i] = j
+			i++
+			j++
+		case 1:
+			i++
+		default:
+			j++
+		}
+	}
+	// The edits x → y as [first x token, end x token, inserted text].
+	type hunk struct {
+		x0, x1 int
+		ins    string
+	}
+	var hunks []hunk
+	var open *hunk
+	i = 0
+	for _, op := range annDiff(xt, annTokens(y)) {
+		if op.kind == 0 {
+			if open != nil {
+				hunks = append(hunks, *open)
+			}
+			open = nil
+			i++
+			continue
+		}
+		if open == nil {
+			open = &hunk{x0: i, x1: i}
+		}
+		if op.kind == 1 {
+			i++
+			open.x1 = i
+		} else {
+			open.ins += op.tok.text
+		}
+	}
+	if open != nil {
+		hunks = append(hunks, *open)
+	}
+	out := make([]string, len(bt))
+	for k, t := range bt {
+		out[k] = t.text
+	}
+	for h := len(hunks) - 1; h >= 0; h-- {
+		from, to, ok := annLanding(toB, hunks[h].x0, hunks[h].x1, len(bt))
+		if !ok {
+			return "", false
+		}
+		out = append(append(append([]string{}, out[:from]...), hunks[h].ins), out[to:]...)
+	}
+	return strings.Join(out, ""), true
+}
+
+// annLanding is the b-token range [from, to) an x-token range [x0, x1) lands
+// on, or ok=false when it is not one.
+//
+// A replaced range lands where its tokens are in b, which must be contiguous
+// there; its neighbours are not consulted, because the token diff may align a
+// neighbouring space with another space of b (beside a decided mark) without
+// the range touching that mark. A pure insertion (x0 == x1) has no tokens of
+// its own, so both neighbours must sit next to each other in b.
+func annLanding(toB []int, x0, x1, bLength int) (from, to int, ok bool) {
+	for k := x0; k < x1; k++ {
+		if toB[k] < 0 || (k > x0 && toB[k] != toB[k-1]+1) {
+			return 0, 0, false
+		}
+	}
+	if x1 > x0 {
+		return toB[x0], toB[x1-1] + 1, true
+	}
+	left := -1
+	if x0 > 0 {
+		left = toB[x0-1]
+	}
+	right := bLength
+	if x1 < len(toB) {
+		right = toB[x1]
+	}
+	if (x0 > 0 && left < 0) || (x1 < len(toB) && right < 0) {
+		return 0, 0, false
+	}
+	if left+1 != right {
+		return 0, 0, false
+	}
+	return left + 1, left + 1, true
 }

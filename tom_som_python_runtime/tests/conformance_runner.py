@@ -51,6 +51,11 @@ _CORPUS = os.path.normpath(
 sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
+    SpecReviewMember,
+    SpecReviewMergeError,
+    SpecReviewMergeOptions,
+    SpecReviewedCopy,
+    merge_reviews,
     DEFAULT_MAX_SNAPSHOT_AGE,
     CodeSpecsAreaCatalog,
     CodeSpecsExtract,
@@ -1033,12 +1038,12 @@ def test_assembly() -> None:
 
 
 def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
-                       api: SpecReviewAnnotations, op: dict):
+                       api: SpecReviewAnnotations, op: dict, team: bool = False):
     kind = op["op"]
     if kind == "list":
-        return [a.to_json() for a in api.list()]
+        return [a.to_json(team=team) for a in api.list()]
     if kind == "counts":
-        return api.counts().to_json()
+        return api.counts().to_json(team=team)
     if kind == "nextId":
         return api.next_comment_id(floor=op.get("floor") or 0)
     if kind == "assignIds":
@@ -1065,7 +1070,7 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             op["commentId"], SpecQuestionDraft.from_json(op["question"]))
         return None
     if kind == "setAnswer":
-        api.set_answer(op["id"], op["answer"])
+        api.set_answer(op["id"], op["answer"], author=op.get("author"))
         return None
     if kind == "editComment":
         api.edit_comment(op["id"], op["text"])
@@ -1089,19 +1094,19 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
     if kind == "paragraphs":
         return [p.to_json() for p in api.paragraphs(op["path"], field=op.get("field"))]
     if kind == "listMarks":
-        return [m.to_json() for m in api.list_marks(path=op.get("path"))]
+        return [m.to_json(team=team) for m in api.list_marks(path=op.get("path"))]
     if kind == "decideMarks":
         rev = op["revision"]
         return api.decide_marks(
             {k: SpecMarkDecision(v) for k, v in op["decisions"].items()},
             revision=api.revision() if rev == "@current" else rev,
-        ).to_json()
+        ).to_json(team=team)
     if kind == "acceptAll":
-        return api.accept_all_marks(path=op.get("path")).to_json()
+        return api.accept_all_marks(path=op.get("path")).to_json(team=team)
     if kind == "rejectAll":
-        return api.reject_all_marks(path=op.get("path")).to_json()
+        return api.reject_all_marks(path=op.get("path")).to_json(team=team)
     if kind == "removeAll":
-        return api.remove_all_annotations().to_json()
+        return api.remove_all_annotations().to_json(team=team)
     if kind == "setMarked":
         return api.set_marked(op["path"], op["text"], field=op.get("field")).to_json()
     if kind == "markAgainst":
@@ -1120,15 +1125,17 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
     raise ValueError(f"unknown annotation op {kind}")
 
 
-def _run_annotation_case(model: SpecModel, tree, case: dict) -> dict:
+def _run_annotation_case(model: SpecModel, tree, case: dict, team: bool = False) -> dict:
     """Runs one case: ``{results: [one per op], state: final state}``. An
-    operation that fails answers ``{error: true}`` and changes nothing."""
+    operation that fails answers ``{error: true}`` and changes nothing.
+    *team* renders the results in the team form
+    ``team_annotation_cases.json`` pins (SOM §11.9.8)."""
     doc = _document_from_state(json.loads(json.dumps(case["state"])))
     api = SpecReviewAnnotations(doc, qualifier=case.get("qualifier"))
     results = []
     for op in case["ops"]:
         try:
-            results.append(_run_annotation_op(model, tree, doc, api, op))
+            results.append(_run_annotation_op(model, tree, doc, api, op, team=team))
         except SpecReviewAnnotationError:
             results.append({"error": True})
     return {"results": results, "state": doc.to_json()}
@@ -1140,6 +1147,88 @@ def test_annotations(model: SpecModel, tree) -> None:
         got = _run_annotation_case(model, tree, case)
         _check(
             f"annotations[{case['name']}]",
+            got == case["expect"],
+            _json_mismatch(got, case["expect"]),
+        )
+
+
+def test_team_annotations(model: SpecModel, tree) -> None:
+    """``team_annotation_cases.json`` (SOM §11.9.8): the scripted cases run
+    like ``annotation_cases.json`` with the results in their team form; the
+    ``validationCases`` run like ``validation_cases.json`` over the corpus
+    model."""
+    table = _read_json("team_annotation_cases.json")
+    for case in table["cases"]:
+        got = _run_annotation_case(model, tree, case, team=True)
+        _check(
+            f"teamAnnotations[{case['name']}]",
+            got == case["expect"],
+            _json_mismatch(got, case["expect"]),
+        )
+    for case in table["validationCases"]:
+        got = [
+            {"path": e.path, "code": e.code.value}
+            for e in validate_document(model, _document_from_state(case["state"]))
+        ]
+        _check(
+            f"teamValidate[{case['name']}]",
+            got == case["errors"],
+            _json_mismatch(got, case["errors"]),
+        )
+
+
+def _load_som_model() -> SpecModel:
+    """The real model, for the review-merge cases written against it."""
+    meta = os.path.join(_PKG_ROOT, "..", "tom_som_dart_v0", "meta", "spec_model.meta.json")
+    with open(meta, "r", encoding="utf-8") as fh:
+        return SpecModel.from_json(json.load(fh))
+
+
+def _run_review_merge_case(models: dict, case: dict) -> dict:
+    """One ``review_merge_cases.json`` case: the merged document (its state,
+    or the Markdown text) and the report; a refused merge answers
+    ``{error: true}``."""
+    o = case["options"]
+    options = SpecReviewMergeOptions(
+        team=tuple(SpecReviewMember.from_json(m) for m in o["team"]),
+        date=o["date"],
+        author=o["author"],
+        question_prefix=o.get("questionPrefix") or "RQ",
+        model=None if case["model"] is None else models[case["model"]],
+    )
+
+    def copy(x: dict, document):
+        return SpecReviewedCopy(
+            member_id=x["memberId"],
+            display_name=x.get("displayName") or "",
+            role=x.get("role") or "",
+            document=document,
+        )
+
+    def load(state) -> SpecDocument:
+        return _document_from_state(json.loads(json.dumps(state)))
+
+    try:
+        if case["format"] == "markdown":
+            copies = [copy(x, x["document"]) for x in case["copies"]]
+            r = merge_reviews(case["base"], copies, options)
+            return {"merged": r.merged, "report": r.report.to_json()}
+        r = merge_reviews(
+            load(case["base"]), [copy(x, load(x["document"])) for x in case["copies"]], options
+        )
+        return {"merged": r.merged.to_json(), "report": r.report.to_json()}
+    except SpecReviewMergeError:
+        return {"error": True}
+
+
+def test_review_merge(model: SpecModel) -> None:
+    """``review_merge_cases.json``: merging reviewed copies (SOM §11.9.9),
+    SOM documents and plain Markdown."""
+    models = {"demo": model, "som": _load_som_model()}
+    for case in _read_json("review_merge_cases.json")["cases"]:
+        got = _run_review_merge_case(models, case)
+        _check(
+            f"reviewMerge[{case['name']}]",
             got == case["expect"],
             _json_mismatch(got, case["expect"]),
         )
@@ -1958,6 +2047,8 @@ def main() -> int:
     test_docspecs_replace()
     test_assembly()
     test_annotations(model, tree)
+    test_team_annotations(model, tree)
+    test_review_merge(model)
     test_inline_marks(model, tree)
     test_change_marks(model, tree)
     test_answers(model)

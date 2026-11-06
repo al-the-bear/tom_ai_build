@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+- Team reviews (SOM §11.9.8): `SpecReviewAnnotations` reads attribution
+  tokens after marks (`authors` and `votes`, `SpecMarkVote` with `SpecVote`,
+  in `list()` and `list_marks()`; the token goes with its mark on every
+  decision), individual answers (`answers`, `SpecIndividualAnswer`; the
+  question's text ends before them), conflict blocks (kind
+  `SpecReviewAnnotationKind.CONFLICT`, `SpecConflictAlternative`,
+  `decision_letter`; `paragraphs()` marks them) and `open:` answers and
+  decisions (`unresolved`). `counts()` adds `unresolved_questions`,
+  `conflicts` and `open_conflicts`. `set_answer(id, answer, author=...)`
+  writes a member's individual answer. `remove_all_annotations()` applies
+  every conflict's decision (`SpecMarkReport.conflicts`,
+  `SpecConflictOutcome`) and refuses while one is open, unresolved or
+  malformed. `validate_document` reports the §11.9.8 findings. The `to_json`
+  methods take `team=True` for the team form; without it their output is
+  unchanged.
+- `merge_reviews` (SOM §11.9.9) merges a round's reviewed copies of a
+  `SpecDocument` (by model path, list items by section id) or of a Markdown
+  string (by heading path) into one document in the team notation, with a
+  `SpecReviewMergeReport`; a copy that does not fit the base raises
+  `SpecReviewMergeError`. Conformance: the runner runs
+  `team_annotation_cases.json` and `review_merge_cases.json`.
 - `SpecReviewAnnotations.paragraphs(path, field=None)` lists a value's
   paragraphs (`SpecParagraph`: index, start and end line, text, and the
   annotation kind when the paragraph is an annotation block). The index is

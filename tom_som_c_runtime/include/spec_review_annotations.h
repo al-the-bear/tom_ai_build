@@ -1,6 +1,9 @@
 /* spec_review_annotations — review annotations in content values (SOM §11.9):
- * comment blocks, question blocks and CriticMarkup inline marks. A faithful
- * port of the Dart `spec_review_annotations.dart`.
+ * comment blocks, question blocks and CriticMarkup inline marks, and the
+ * team-review notation on top of them (§11.9.8: attribution tokens,
+ * individual answers, conflict blocks, `open:`). A faithful port of the Dart
+ * `spec_review_annotations.dart`; the team notation follows the TypeScript
+ * reference, which has it first.
  *
  * An annotation is text inside a content value or a form-field value. This
  * module reads it out of that text and edits it in place, and every edit is
@@ -33,7 +36,8 @@
 #include "spec_document.h"
 #include "spec_validator.h"
 
-/* The three kinds of annotation (SOM §11.9). */
+/* The kinds of annotation (SOM §11.9): the three of §11.9.1–11.9.3 and the
+ * conflict block a team review adds (§11.9.8). */
 typedef enum {
   /* A reviewer's comment block, `> ⬆️ **C-12** (Alexis): …`. */
   SPEC_REVIEW_ANNOTATION_COMMENT = 0,
@@ -41,9 +45,12 @@ typedef enum {
   SPEC_REVIEW_ANNOTATION_QUESTION = 1,
   /* A CriticMarkup inline mark. */
   SPEC_REVIEW_ANNOTATION_MARK = 2,
+  /* A conflict block, `> ⚖️ **X-3 — Conflicting changes:** …` (§11.9.8). */
+  SPEC_REVIEW_ANNOTATION_CONFLICT = 3,
 } SpecReviewAnnotationKind;
 
-/* The kind's wire name (`"comment"`, `"question"`, `"mark"`); static. */
+/* The kind's wire name (`"comment"`, `"question"`, `"mark"`, `"conflict"`);
+ * static. */
 const char *spec_review_annotation_kind_name(SpecReviewAnnotationKind kind);
 
 /* The five CriticMarkup inline marks (SOM §11.9.3). */
@@ -73,6 +80,39 @@ typedef struct {
 /* `{letter, text, bold}`. Owned. */
 char *spec_question_option_to_json(const SpecQuestionOption *o);
 
+/* ---- team reviews (SOM §11.9.8) -------------------------------------------
+ *
+ * The `*_to_team_json` forms below give the extended form
+ * `team_annotation_cases.json` pins: marks with `authors` and `votes`,
+ * questions with `unresolved` and `answers`, the counts with the team counts,
+ * a removal report with its `conflicts`. The plain `*_to_json` forms stay the
+ * ones of §11.9.1–11.9.7, which the older case files pin byte for byte. */
+
+/* One reviewer's vote on a mark someone else proposed: `+id` accepts, `-id`
+ * rejects. `member` owned. */
+typedef struct {
+  char *member; /* the voter's member id */
+  int accept;   /* `+id` (1) or `-id` (0) */
+} SpecMarkVote;
+
+/* One line of individual answers, `**Answer (alice, bob):** (a)`. Owned. */
+typedef struct {
+  SomStrList members; /* who gave this answer, in the order written */
+  char *answer;       /* the answer, trimmed */
+} SpecIndividualAnswer;
+
+/* One lettered alternative of a conflict block, `- (a) **alice:** text`.
+ * Owned. */
+typedef struct {
+  char *letter;       /* the lowercase letter, a one-character string */
+  SomStrList members; /* who made this change */
+  char *text;         /* the text; its continuation lines kept as lines */
+} SpecConflictAlternative;
+
+/* Whether `s` is a member id (SOM §11.9.8): lowercase letters, digits and
+ * `_`. */
+int spec_review_is_member_id(const char *s);
+
 /* One annotation, located by the value that holds it. Every string is owned;
  * NULL stands for the Dart `null`. Release with `spec_review_annotation_free`
  * (a list releases its items). */
@@ -86,28 +126,32 @@ typedef struct {
   /* The 0-based line within the value where the annotation starts (a
    * question: its header line). */
   size_t line;
-  /* The comment id (`C-12`) or question id (`BQ-81`); NULL for a comment
-   * without an id and for a mark. */
+  /* The comment id (`C-12`), question id (`BQ-81`) or conflict id (`X-3`);
+   * NULL for a comment without an id and for a mark. */
   char *id;
-  /* A comment's id with the document qualifier in front (`SBP C-12`), when the
-   * listing was given a qualifier and the comment has an id; else NULL. */
+  /* A comment's or conflict's id with the document qualifier in front
+   * (`SBP C-12`), when the listing was given a qualifier and it has an id;
+   * else NULL. */
   char *qualified_id;
   /* A comment's author; NULL when none is written. */
   char *author;
-  /* A comment's text, a question's text (options included), or a mark's text
-   * (a substitution's old text; empty for a comment mark). Never NULL. */
+  /* A comment's text, a question's text (options included; it ends before the
+   * first individual answer), a conflict's text (what it concerns), or a
+   * mark's text (a substitution's old text; empty for a comment mark). Never
+   * NULL. */
   char *text;
   /* A comment's context: the paragraph before the block, verbatim (empty at
    * the start of the value). Never NULL. */
   char *context;
-  /* A question's topic (in a combined block: the field it asks about); NULL
-   * for the other kinds. */
+  /* A question's or conflict's topic (in a combined block: the field it asks
+   * about); NULL for the other kinds. */
   char *topic;
   /* Whether a question carries `★` before its topic. */
   int starred;
   /* Whether a question is part of a combined block. */
   int combined;
-  /* A question's answer, trimmed; empty when open. Never NULL. */
+  /* A question's team answer, or a conflict's decision, trimmed; empty when
+   * open. Never NULL. */
   char *answer;
   /* A question's options, in order (none when it states none). Owned. */
   SpecQuestionOption *options;
@@ -123,20 +167,45 @@ typedef struct {
   /* The comment of a comment mark, or of a highlight followed by one; else
    * NULL. */
   char *comment;
+  /* A mark's authors from its attribution token; empty without one. */
+  SomStrList authors;
+  /* A mark's votes from its attribution token; none without one. */
+  SpecMarkVote *votes;
+  size_t votes_len;
+  /* A question's individual answers, in the order written. */
+  SpecIndividualAnswer *answers;
+  size_t answers_len;
+  /* A conflict's `(base)` text; NULL for the other kinds. */
+  char *base;
+  /* A conflict's lettered alternatives. */
+  SpecConflictAlternative *alternatives;
+  size_t alternatives_len;
 } SpecReviewAnnotation;
 
 void spec_review_annotation_free(SpecReviewAnnotation *a);
 
-/* Whether a question is still open (no answer written). */
+/* Whether a question is still open (no team answer written), or a conflict
+ * (no decision written). */
 int spec_review_annotation_is_open(const SpecReviewAnnotation *a);
 
-/* The letter a question's answer starts with (`(b)` or `**(b)**`), as an
- * owned one-character string; NULL for none and for the other kinds. */
+/* Whether a question's team answer or a conflict's decision begins with
+ * `open:` — answered for a gate, but handed back (SOM §11.9.8). */
+int spec_review_annotation_is_unresolved(const SpecReviewAnnotation *a);
+
+/* The letter a question's team answer starts with (`(b)` or `**(b)**`), as an
+ * owned one-character string; NULL for none, for an unresolved answer and for
+ * the other kinds. */
 char *spec_review_annotation_answer_letter(const SpecReviewAnnotation *a);
+
+/* A conflict's decision letter (`a`…, `base`), owned; NULL for rewritten
+ * text, for none and for the other kinds. */
+char *spec_review_annotation_decision_letter(const SpecReviewAnnotation *a);
 
 /* The canonical JSON form the conformance corpus pins (every key written,
  * `null` explicitly). Owned result. */
 char *spec_review_annotation_to_json(const SpecReviewAnnotation *a);
+/* The same with the team members of SOM §11.9.8. Owned. */
+char *spec_review_annotation_to_team_json(const SpecReviewAnnotation *a);
 
 typedef struct {
   SpecReviewAnnotation *items;
@@ -154,10 +223,17 @@ typedef struct {
   size_t answered_questions; /* questions with an answer */
   size_t comments;           /* comment blocks */
   size_t marks;              /* inline marks */
+  /* Questions whose team answer begins `open:` (also counted as answered). */
+  size_t unresolved_questions;
+  size_t conflicts;      /* conflict blocks */
+  size_t open_conflicts; /* conflict blocks without a decision */
 } SpecReviewAnnotationCounts;
 
 /* `{questions, openQuestions, answeredQuestions, comments, marks}`. Owned. */
 char *spec_review_annotation_counts_to_json(const SpecReviewAnnotationCounts *c);
+/* The same with `unresolvedQuestions`, `conflicts` and `openConflicts`. */
+char *spec_review_annotation_counts_to_team_json(
+    const SpecReviewAnnotationCounts *c);
 
 /* A question to insert (SOM §11.9.2). Every pointer is borrowed. */
 typedef struct {
@@ -218,13 +294,20 @@ typedef struct {
   char *old_text;       /* the text after rejecting the mark */
   char *new_text;       /* the text after accepting the mark */
   char *comment;        /* a comment mark's / commented highlight's comment */
-  char *markup;         /* the mark as written */
+  char *markup; /* the mark as written, its attribution token included */
   char *context;        /* the paragraph holding the mark, verbatim */
+  /* The authors its attribution token names (SOM §11.9.8); empty without. */
+  SomStrList authors;
+  /* The votes its attribution token records; none without one. */
+  SpecMarkVote *votes;
+  size_t votes_len;
 } SpecMarkEntry;
 
 void spec_mark_entry_free(SpecMarkEntry *e);
 /* The canonical JSON form the conformance corpus pins. Owned. */
 char *spec_mark_entry_to_json(const SpecMarkEntry *e);
+/* The same with `authors` and `votes`. Owned. */
+char *spec_mark_entry_to_team_json(const SpecMarkEntry *e);
 
 typedef struct {
   SpecMarkEntry *items;
@@ -255,6 +338,17 @@ typedef struct {
   char *issue; /* `unclosed`, `nested` or `noArrow` */
 } SpecMarkIssue;
 
+/* What `spec_review_annotations_remove_all_annotations` did with one conflict
+ * block (SOM §11.9.8). Strings owned; `field` may be NULL. */
+typedef struct {
+  char *id; /* the conflict id, `X-<n>` */
+  char *path;
+  char *field;
+  size_t line;    /* the 0-based line within the value where the block opened */
+  char *decision; /* the decision as written */
+  char *result;   /* the text the decision chose */
+} SpecConflictOutcome;
+
 /* The report of a mark operation, for the decision log. Initialise with
  * `spec_mark_report_init`, release with `spec_mark_report_free`. */
 typedef struct {
@@ -262,12 +356,20 @@ typedef struct {
   size_t applied_len, applied_cap;
   SpecMarkIssue *malformed; /* malformed marks in scope, left as written */
   size_t malformed_len, malformed_cap;
+  /* The conflicts `remove_all_annotations` applied, in document order; set
+   * (`has_conflicts`) by that operation only — the mark operations do not
+   * touch conflicts. */
+  int has_conflicts;
+  SpecConflictOutcome *conflicts;
+  size_t conflicts_len, conflicts_cap;
 } SpecMarkReport;
 
 void spec_mark_report_init(SpecMarkReport *r);
 void spec_mark_report_free(SpecMarkReport *r);
 /* `{applied: [...], malformed: [...]}`. Owned. */
 char *spec_mark_report_to_json(const SpecMarkReport *r);
+/* The same with `conflicts` when `has_conflicts`. Owned. */
+char *spec_mark_report_to_team_json(const SpecMarkReport *r);
 
 /* One decision of `spec_review_annotations_decide_marks`. Borrowed. */
 typedef struct {
@@ -316,6 +418,15 @@ void spec_format_comment_block(const char *id, const char *text,
  * callee). */
 void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out);
 
+/* The lines of a conflict block (SOM §11.9.8) into `out` (initialised by the
+ * callee): the header, the `(base)` line, one lettered alternative per entry
+ * naming its members, and an empty `**Decision:**`. A text's further lines are
+ * indented under it, so a reader gets them back with their line breaks. */
+void spec_review_format_conflict_block(
+    const char *id, const char *topic, const char *text, const char *base,
+    const SpecConflictAlternative *alternatives, size_t alternatives_len,
+    SomStrList *out);
+
 /* `value` without any comment block, question block or inline mark (every
  * mark accepted). Plain quotes and code stay. Owned result. */
 char *spec_strip_annotations_text(const char *value);
@@ -330,8 +441,8 @@ typedef struct {
   size_t start_line; /* the 0-based first line within the value */
   size_t end_line;   /* the 0-based last line within the value (inclusive) */
   char *text;        /* the paragraph's lines, verbatim, joined with `\n` */
-  /* `comment` or `question` (static) when the paragraph opens with an
-   * annotation block of that kind, else NULL. */
+  /* `comment`, `question` or `conflict` (static) when the paragraph opens
+   * with an annotation block of that kind, else NULL. */
   const char *annotation;
 } SpecParagraph;
 
@@ -423,6 +534,18 @@ int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
                                        const char *answer,
                                        SpecReviewAnnotationError *err);
 
+/* Writes member `author`'s individual answer to the question instead of the
+ * team's, grouped and placed by the rules of SOM §11.9.8: the member leaves
+ * the line it was on; a non-empty answer that is not commented joins the line
+ * with the identical uncommented answer, else gets a line of its own (empty:
+ * only takes the member out). Refused — 0, `*err` filled — when `author` is not
+ * a member id or the question does not exist. */
+int spec_review_annotations_set_member_answer(const SpecReviewAnnotations *r,
+                                              const char *question_id,
+                                              const char *author,
+                                              const char *answer,
+                                              SpecReviewAnnotationError *err);
+
 /* Replaces a comment's text; its marker, id and author stay as written. */
 int spec_review_annotations_edit_comment(const SpecReviewAnnotations *r,
                                          const char *comment_id,
@@ -478,10 +601,15 @@ void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
                                               SpecMarkReport *out);
 
 /* Removes every annotation and writes the result back: every inline mark
- * accepted, every comment and question block removed. Malformed marks stay
- * and are reported. `out` holds the accept report. */
-void spec_review_annotations_remove_all_annotations(
-    const SpecReviewAnnotations *r, SpecMarkReport *out);
+ * accepted, every conflict's decision applied (SOM §11.9.8), every comment,
+ * question and conflict block removed. Malformed marks stay and are reported.
+ * `out` (initialised by the callee in every case) holds the accept report and
+ * the applied conflicts. Refused — returns 0, fills `*err`, changes nothing —
+ * while a conflict is open, unresolved (`open:`), malformed, or decided for a
+ * letter it has no alternative for. */
+int spec_review_annotations_remove_all_annotations(
+    const SpecReviewAnnotations *r, SpecMarkReport *out,
+    SpecReviewAnnotationError *err);
 
 /* Writes `text` at `path` / `field` (NULL: content) as a marked change
  * against the value there now. A value that already holds change marks is
@@ -508,5 +636,89 @@ SpecDocument *spec_review_annotations_stripped(const SpecReviewAnnotations *r);
  * `annotationMisplaced` and `duplicateAnnotationId`. Writes nothing. */
 void spec_review_annotations_validate(const SpecReviewAnnotations *r,
                                       SpecValidationErrors *out);
+
+/* ---- text-level building blocks of the merge (SOM §11.9.9) ---------------
+ *
+ * Internal: `spec_review_merge` is built on them. They live here because they
+ * read a value with this module's parser; they are not part of the annotation
+ * API. Every result is owned by the caller. */
+
+/* One paragraph of a value as the merge sees it: text, or an annotation
+ * block. */
+typedef struct {
+  int is_text; /* 1: a text paragraph; 0: an annotation block of `kind` */
+  SpecReviewAnnotationKind kind;
+  char *text;         /* the paragraph's lines, verbatim */
+  char *id;           /* a comment's id, a conflict's id; NULL without one */
+  char *author;       /* a comment's author; NULL without one */
+  char *comment_text; /* a comment's text; "" for the others */
+  SomStrList question_ids; /* a question block's question ids */
+} SpecReviewPiece;
+
+typedef struct {
+  SpecReviewPiece *items;
+  size_t len, cap;
+} SpecReviewPieces;
+
+/* The paragraphs of `value` (SOM §11.9.1), each classified. */
+void spec_review_pieces(const char *value, SpecReviewPieces *out);
+void spec_review_pieces_free(SpecReviewPieces *p);
+
+/* One inline mark of a value, with what its decisions leave. Offsets are byte
+ * offsets into the value. */
+typedef struct {
+  size_t start;
+  size_t end;      /* after the attribution token when there is one */
+  size_t body_end; /* right after the mark itself */
+  SpecMarkKind kind;
+  char *markup; /* the mark as written, its token included */
+  SomStrList authors;
+  SpecMarkVote *votes;
+  size_t votes_len;
+  char *accepted; /* the text accepting it leaves */
+  char *rejected; /* the text rejecting it leaves */
+} SpecReviewMark;
+
+typedef struct {
+  SpecReviewMark *items;
+  size_t len, cap;
+} SpecReviewMarks;
+
+/* The inline marks of `value`, in order (marks in code are not marks). */
+void spec_review_marks(const char *value, SpecReviewMarks *out);
+void spec_review_marks_free(SpecReviewMarks *m);
+
+/* `value` with the marks `decisions` names accepted or rejected, by the
+ * whitespace rules of SOM §11.9.3: `decisions[k]` is 1 (accept), 0 (reject)
+ * or -1 (leave) for mark `k` of `spec_review_marks`, `len` entries. */
+char *spec_review_decide_marks_text(const char *value, const int *decisions,
+                                    size_t len);
+
+/* `value` with mark `m`'s token replaced by one for `authors` and `votes`,
+ * `{@agent +alice -bob}`. */
+char *spec_review_with_attribution(const char *value, const SpecReviewMark *m,
+                                   const SomStrList *authors,
+                                   const SpecMarkVote *votes, size_t votes_len);
+
+/* The team answer of every question of `value`, in order: `ids[k]` answered
+ * `answers[k]` (the first of a repeated id wins). Both lists initialised by
+ * the callee. */
+void spec_review_team_answers(const char *value, SomStrList *ids,
+                              SomStrList *answers);
+
+/* `value` with `member`'s individual answer to question `question_id` set, as
+ * `spec_review_annotations_set_member_answer` does; NULL when the value holds
+ * no such question. */
+char *spec_review_set_individual_answer_text(const char *value,
+                                             const char *question_id,
+                                             const char *member,
+                                             const char *answer);
+
+/* Carries the edits `x` → `y` over to `b`, a text equal to `x` except where
+ * marks of `b` were decided in `x` (SOM §11.9.9, step 3): every edit lands in
+ * `b` at the place `x` and `b` agree on. NULL when an edit touches or borders
+ * a place where they differ — the edit overlaps a decided mark. Both diffs are
+ * the token diffs of `spec_mark_change_text`. */
+char *spec_review_transplant_edits(const char *x, const char *y, const char *b);
 
 #endif /* SPEC_REVIEW_ANNOTATIONS_H */

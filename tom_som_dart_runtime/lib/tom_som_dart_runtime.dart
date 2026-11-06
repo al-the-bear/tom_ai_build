@@ -40,7 +40,10 @@
 ///   * [SpecReviewAnnotations] — the review annotations in content values (SOM
 ///     §11.9): list, insert, answer, assign comment ids, resolve, apply
 ///     inline marks, strip and count comment blocks, question blocks and
-///     CriticMarkup marks;
+///     CriticMarkup marks, and the team-review notation (attribution tokens,
+///     individual answers, conflict blocks, `open:`, SOM §11.9.8);
+///   * [mergeReviews] — the reviewed copies of a team review merged into one
+///     document in the team notation (SOM §11.9.9), with its merge report;
 ///   * [extractAnswers] / [renderAnswers] — a review round's answers,
 ///     comments, open questions and inline marks as a step folder's
 ///     `answers.md` (SOM §11.9.7);
@@ -68,7 +71,20 @@ library;
 
 export 'src/docspecs_validator.dart';
 export 'src/spec_answers.dart';
-export 'src/spec_review_annotations.dart';
+export 'src/spec_review_annotations.dart'
+    hide
+        ReviewMark,
+        ReviewPiece,
+        decideReviewMarks,
+        formatAttributionToken,
+        formatConflictBlock,
+        reviewMarks,
+        reviewPieces,
+        reviewTeamAnswers,
+        setIndividualAnswerText,
+        transplantEdits,
+        withAttribution;
+export 'src/spec_review_merge.dart';
 export 'src/spec_annotation_display.dart';
 export 'src/spec_codespecs_extract.dart';
 export 'src/spec_codespecs_gate.dart';

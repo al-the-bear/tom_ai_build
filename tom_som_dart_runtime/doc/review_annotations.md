@@ -197,10 +197,99 @@ are `som_multiplatform_spec_model.md` §11.9.8, with their cases in
 returned copies into one document in that notation, `mergeReviews`, is SOM §11.9.9,
 with its cases in `tom_som_conformance/corpus/review_merge_cases.json`.
 
-This runtime does not read the notation or merge copies yet. To it a token is
-text after the mark, an individual answer is part of the question's text, and a
-conflict block is an ordinary quote; its conformance driver runs neither case
-file.
+The runtime reads and writes all four, and its conformance driver runs both
+case files.
+
+**Reading.** `SpecReviewAnnotations` lists the notation with the operations
+above:
+
+| Notation | Listed as |
+|----------|-----------|
+| Attribution token | Part of its mark: in the `markup`, removed with the mark by every decision. `SpecReviewAnnotation` and `SpecMarkEntry` carry `authors` (member ids) and `votes` (`SpecMarkVote`: `member`, `vote` = `SpecVote.accept` / `SpecVote.reject`), both empty without a token |
+| Individual answers | `SpecReviewAnnotation.answers`: `SpecIndividualAnswer` (`members`, `answer`, `answerLetter`), in the order written. The question's `text` ends before the first of them; `answer` stays the team's |
+| Conflict block | Kind `SpecReviewAnnotationKind.conflict`: `id`, `qualifiedId`, `topic`, `text`, `base`, `alternatives` (`SpecConflictAlternative`: `letter`, `members`, `text`), the decision as `answer` (`decision` in JSON), `decisionLetter` (`a`…, `base` or null), `open`, `unresolved`. `paragraphs()` marks the block `conflict` |
+| `open:` | `unresolved: true` and `open: false` on the question or conflict; a question's `answerLetter` is then null |
+
+`counts()` adds `unresolvedQuestions` (also counted as answered), `conflicts`
+and `openConflicts`. The `toJson` methods take `team: true` for the members
+`team_annotation_cases.json` pins; without it they are the forms of the older
+case files.
+
+**Writing.** `setAnswer(questionId, answer, author: memberId)` writes that
+member's individual answer instead of the team's, grouped by SOM §11.9.8: a
+plain letter answer joins the line with the same answer, a commented one gets
+its own line, an empty one only takes the member out. An author that is not a
+member id (`isReviewMemberId`) throws `SpecReviewAnnotationError`.
+`removeAllAnnotations()` applies every conflict's decision and lists it in the
+report's `conflicts` (`SpecConflictOutcome`: `id`, `path`, `field`, `line`,
+`decision`, `result`); it throws, changing nothing, while a conflict is open,
+unresolved or malformed. A structural conflict (`Item removed`, `Item moved`,
+`Headline changed`) only loses its block: its decision is the caller's to
+apply. `stripped()` keeps a conflict's base text and drops the block.
+
+**Merging.** `mergeReviews(base, copies, options)` merges the returned copies
+into a new document and returns a `SpecReviewMergeResult` (`merged`,
+`report`); neither the base nor a copy is changed.
+
+| Argument | Is |
+|----------|----|
+| `base` | A `SpecDocument` (merged by model path, list items matched by section id) or a Markdown `String` (merged by heading path) |
+| `copies` | `List<SpecReviewedCopy<D>>` in round order: `memberId`, `displayName`, `role`, `document` (of the base's type `D`) |
+| `options` | `SpecReviewMergeOptions`: `team` (`List<SpecReviewMember>`, the members the round started with), `date` (ISO 8601: the revision entry's date and every generated list-item id's), `author`, `questionPrefix` (default `RQ`), and `model`, required for a `SpecDocument` |
+
+A copy whose structure does not fit the base (a path the model does not
+resolve; other headings in Markdown) throws `SpecReviewMergeError` and nothing
+is merged. The report, `SpecReviewMergeReport`, lists in merged document
+order `reviewers` (with `guest`), `conflicts` (`id`, `path`, `field`,
+`paragraph`, `members`), `votes`, `unanimous`, `answers`, `comments`,
+`additions`, `guestQuestions` and the `revision` entry (null without a revision
+history); `toJson()` is the form `review_merge_cases.json` pins.
+
+```dart
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+
+void main() {
+  const team = [
+    SpecReviewMember(
+      memberId: 'alice',
+      displayName: 'Alice Owner',
+      role: 'Product owner',
+    ),
+    SpecReviewMember(memberId: 'bob', displayName: 'Bob Dev', role: 'Developer'),
+  ];
+  const base = '# Sessions\n\nSessions expire after 30 minutes.\n';
+  const changed = '# Sessions\n\nSessions expire after 15 minutes.\n';
+  final result = mergeReviews(base, [
+    for (final m in team)
+      SpecReviewedCopy(
+        memberId: m.memberId,
+        displayName: m.displayName,
+        role: m.role,
+        document: changed,
+      ),
+  ], const SpecReviewMergeOptions(
+    team: team,
+    date: '2026-11-05',
+    author: 'Alice Owner',
+  ));
+  print(result.merged);
+  print(result.report.conflicts.length);
+}
+```
+
+Output:
+
+```text
+# Sessions
+
+Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
+
+0
+```
+
+A unit whose copy no longer holds more than 16 of the base's marks as written
+is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
+grow past 65536.
 
 ## Validation
 
@@ -209,9 +298,9 @@ path:
 
 | Code | When |
 |------|------|
-| `annotationMisplaced` | A comment or question block inside a form field's value |
-| `annotationMalformed` | An unclosed or nested mark, a substitution without `~>`, a comment id that is not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, a question or answer inside a comment block |
-| `duplicateAnnotationId` | A comment or question id used twice in one document |
+| `annotationMisplaced` | A comment, question or conflict block inside a form field's value |
+| `annotationMalformed` | An unclosed or nested mark, a substitution without `~>`, a comment id that is not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, a question or answer (individual answers too) inside a comment block; an attribution token that is empty, unclosed, names a non-member id or a member twice, votes on a highlight or comment mark, or follows no mark directly; a member answering one question twice; a conflict header that is not `⚖️ **X-<n> — <topic>:**`, a conflict without `(base)` or without a lettered alternative |
+| `duplicateAnnotationId` | A comment, question or conflict id used twice in one document |
 
 They are findings, never parse rejections: the document still loads.
 

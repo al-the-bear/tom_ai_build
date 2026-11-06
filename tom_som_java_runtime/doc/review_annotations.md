@@ -77,7 +77,7 @@ All are public classes of the `tom_som_runtime` package.
 |------|------|
 | `SpecReviewAnnotations` | The operations, over one `SpecDocument`; `qualifier` (constructor argument, may be null) is the document id written in front of a comment id cited outside it (`SBP C-12`) |
 | `SpecReviewAnnotation` | One listed annotation, as public final fields: `kind`, `path`, `field`, `line`, `id`, `qualifiedId`, `author`, `text`, `context`, `topic`, `starred`, `combined`, `answer`, `markKind`, `newText`, `comment`; `open()`. `toJson()` is the form the conformance corpus pins |
-| `SpecReviewAnnotationKind` | `COMMENT`, `QUESTION`, `MARK` (`value`: `comment`, `question`, `mark`) |
+| `SpecReviewAnnotationKind` | `COMMENT`, `QUESTION`, `MARK`, `CONFLICT` (`value`: `comment`, `question`, `mark`, `conflict`) |
 | `SpecMarkKind` | `COMMENT`, `HIGHLIGHT`, `INSERTION`, `DELETION`, `SUBSTITUTION` (`value` in lower case) |
 | `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold; `fromJson` reads the corpus form |
 | `SpecParagraph` | One paragraph of a value: `index`, `startLine`, `endLine` (0-based, inclusive), `text`, `annotation`; `toJson()` |
@@ -97,7 +97,7 @@ A `field` argument is null for a content value.
 | `counts()` | The counts a report needs |
 | `nextCommentId()` / `nextCommentId(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assignCommentIds()` / `assignCommentIds(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
-| `paragraphs(path)` / `paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `afterParagraph` takes), `startLine` / `endLine` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block, else null). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold throws |
+| `paragraphs(path)` / `paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `afterParagraph` takes), `startLine` / `endLine` within the value, its `text` and `annotation` (`comment` / `question` / `conflict` for an annotation block, else null). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold throws |
 | `insertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given; `author` and `id` may be null) |
 | `insertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `insertQuestionAfterComment(commentId, question)` | A question block directly after a comment block |
@@ -203,10 +203,93 @@ are `som_multiplatform_spec_model.md` §11.9.8, with their cases in
 returned copies into one document in that notation, `mergeReviews`, is SOM §11.9.9,
 with its cases in `tom_som_conformance/corpus/review_merge_cases.json`.
 
-This runtime does not read the notation or merge copies yet. To it a token is
-text after the mark, an individual answer is part of the question's text, and a
-conflict block is an ordinary quote; its conformance driver runs neither case
-file.
+The runtime reads and writes all four, and its conformance driver runs both
+case files.
+
+**Reading.** `SpecReviewAnnotations` lists the notation with the operations
+above:
+
+| Notation | Listed as |
+|----------|-----------|
+| Attribution token | Part of its mark: in the `markup`, removed with the mark by every decision. `SpecReviewAnnotation` and `SpecMarkEntry` carry `authors` (member ids) and `votes` (`SpecMarkVote`: `member`, `vote` = `SpecMarkDecision.ACCEPT` / `REJECT`), both empty without a token |
+| Individual answers | `SpecReviewAnnotation.answers`: `SpecIndividualAnswer` (`members`, `answer`, `answerLetter`), in the order written. The question's `text` ends before the first of them; `answer` stays the team's |
+| Conflict block | Kind `SpecReviewAnnotationKind.CONFLICT` (`conflict`): `id`, `qualifiedId`, `topic`, `text`, `base`, `alternatives` (`SpecConflictAlternative`: `letter`, `members`, `text`), the decision as `answer` (`decision` in JSON), `decisionLetter()` (`a`…, `base` or null), `open()`, `unresolved()`. `paragraphs()` marks the block `conflict` |
+| `open:` | `unresolved()` true and `open()` false on the question or conflict; a question's `answerLetter()` is then null |
+
+`counts()` adds `unresolvedQuestions` (also counted as answered), `conflicts`
+and `openConflicts`. The JSON forms take `toJson(true)` for the members
+`team_annotation_cases.json` pins; `toJson()` is the form of the older case
+files.
+
+**Writing.** `setAnswer(questionId, answer, author)` writes that member's
+individual answer instead of the team's, grouped by SOM §11.9.8: a plain
+letter answer joins the line with the same answer, a commented one gets its own
+line, an empty one only takes the member out. An author that is not a member id
+(`SpecReviewAnnotations.isReviewMemberId`) throws `SpecReviewAnnotationError`;
+a null author writes the team's answer. `removeAllAnnotations()` applies every
+conflict's decision and lists it in the report's `conflicts`
+(`SpecConflictOutcome`: `id`, `path`, `field`, `line`, `decision`, `result`);
+it throws, changing nothing, while a conflict is open, unresolved or malformed.
+A structural conflict (`Item removed`, `Item moved`, `Headline changed`) only
+loses its block: its decision is the caller's to apply. `stripped()` keeps a
+conflict's base text and drops the block.
+`SpecReviewAnnotations.formatConflictBlock(id, topic, text, base,
+alternatives)` gives the lines of a block.
+
+**Merging.** `SpecReviewMerge.mergeReviews(base, copies, options)` merges the
+returned copies into a new document and returns a `SpecReviewMergeResult`
+(`merged`, `report`); neither the base nor a copy is changed.
+
+| Argument | Is |
+|----------|----|
+| `base` | A `SpecDocument` (merged by model path, list items matched by section id) or a Markdown `String` (merged by heading path) |
+| `copies` | `List<SpecReviewedCopy<D>>` in round order: `member` (`SpecReviewMember`: `memberId`, `displayName`, `role`) and `document`, of the base's type |
+| `options` | `SpecReviewMergeOptions`: `team` (`List<SpecReviewMember>`, the members the round started with), `date` (ISO 8601: the revision entry's date and every generated list-item id's), `author`, `questionPrefix` (null: `RQ`), and `model`, required for a `SpecDocument` |
+
+A copy whose structure does not fit the base (a path the model does not
+resolve; other headings in Markdown) throws `SpecReviewMergeError` (unchecked)
+and nothing is merged. The report, `SpecReviewMergeReport`, lists in merged
+document order `reviewers()` (with `guest`), `conflicts()` (`id`, `path`,
+`field`, `paragraph`, `members`), `votes()`, `unanimous()`, `answers()`,
+`comments()`, `additions()`, `guestQuestions()` and the `revision()` entry
+(null without a revision history); `toJson()` is the form
+`review_merge_cases.json` pins.
+
+```java
+import java.util.List;
+import java.util.Map;
+import tom_som_runtime.SpecDocument;
+import tom_som_runtime.SpecReviewMember;
+import tom_som_runtime.SpecReviewMerge;
+import tom_som_runtime.SpecReviewMergeOptions;
+import tom_som_runtime.SpecReviewMergeResult;
+import tom_som_runtime.SpecReviewedCopy;
+
+static SpecDocument doc(String text) {
+  SpecDocument d = new SpecDocument();
+  d.loadJson(Map.of("content", Map.of("DEMO/SUM", text)));
+  return d;
+}
+
+List<SpecReviewMember> team = List.of(
+    new SpecReviewMember("alice", "Alice Owner", "Product owner"),
+    new SpecReviewMember("bob", "Bob Dev", "Developer"));
+SpecReviewMergeResult<SpecDocument> r = SpecReviewMerge.mergeReviews(
+    doc("Sessions expire after 30 minutes."),
+    List.of(
+        new SpecReviewedCopy<>(team.get(0), doc("Sessions expire after 15 minutes.")),
+        new SpecReviewedCopy<>(team.get(1), doc("Sessions expire after 15 minutes."))),
+    new SpecReviewMergeOptions(team, "2026-11-05", "Alice Owner", null, model));
+System.out.println(r.merged.content("DEMO/SUM"));
+System.out.println(r.report.conflicts().size());
+```
+
+Output:
+
+```text
+Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
+0
+```
 
 ## Validation
 
@@ -215,9 +298,9 @@ ordered by path:
 
 | Code | When |
 |------|------|
-| `SpecValidationCode.ANNOTATION_MISPLACED` (`annotationMisplaced`) | A comment or question block inside a form field's value |
-| `SpecValidationCode.ANNOTATION_MALFORMED` (`annotationMalformed`) | An unclosed or nested mark, a substitution without `~>`, a comment id that is not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, a question or answer inside a comment block |
-| `SpecValidationCode.DUPLICATE_ANNOTATION_ID` (`duplicateAnnotationId`) | A comment or question id used twice in one document |
+| `SpecValidationCode.ANNOTATION_MISPLACED` (`annotationMisplaced`) | A comment, question or conflict block inside a form field's value |
+| `SpecValidationCode.ANNOTATION_MALFORMED` (`annotationMalformed`) | An unclosed or nested mark, a substitution without `~>`, a comment id that is not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, a question or answer (team or individual) inside a comment block; an attribution token that is empty, names an id not of the member-id form or a member twice, votes after a highlight or comment mark, or follows no mark; an individual answer naming a member who already answered; a conflict header that is not `⚖️ **X-<n> — <topic>:**`, a conflict without its `(base)` line or a lettered alternative |
+| `SpecValidationCode.DUPLICATE_ANNOTATION_ID` (`duplicateAnnotationId`) | A comment, question or conflict id used twice in one document |
 
 They are findings, never parse rejections: the document still loads.
 `new SpecReviewAnnotations(doc).validate()` returns the same group on its own.

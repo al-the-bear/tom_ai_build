@@ -21,6 +21,9 @@
 #define ANSWER_LABEL "**Answer:**"
 #define EM_SEP " \xE2\x80\x94 "      /* ` — ` */
 #define STAR "\xE2\x98\x85"          /* U+2605 */
+#define SCALES "\xE2\x9A\x96"        /* U+2696, a conflict block */
+#define DECISION_LABEL "**Decision:**"
+#define UNRESOLVED_PREFIX "open:"
 
 #define PUSH(arr, len, cap, val)                                         \
   do {                                                                   \
@@ -41,8 +44,20 @@ const char *spec_review_annotation_kind_name(SpecReviewAnnotationKind kind) {
       return "question";
     case SPEC_REVIEW_ANNOTATION_MARK:
       return "mark";
+    case SPEC_REVIEW_ANNOTATION_CONFLICT:
+      return "conflict";
   }
   return "";
+}
+
+int spec_review_is_member_id(const char *s) {
+  if (s == NULL || s[0] == '\0') return 0;
+  for (; *s; s++) {
+    if (!((*s >= 'a' && *s <= 'z') || (*s >= '0' && *s <= '9') || *s == '_')) {
+      return 0;
+    }
+  }
+  return 1;
 }
 
 const char *spec_mark_kind_name(SpecMarkKind kind) {
@@ -296,7 +311,16 @@ typedef struct {
   size_t q_first; /* questions of a question block */
   size_t q_len;
   int combined;
+  size_t conflict; /* index into conflicts, for a conflict block */
 } Block;
+
+/* One `**Answer (<ids>):**` entry of a question (SOM §11.9.8). */
+typedef struct {
+  size_t line; /* value line of the `**Answer (…):**` line */
+  size_t end;  /* last value line of the entry with text (inclusive) */
+  SomStrList members;
+  char *answer;
+} IndividualAnswer;
 
 typedef struct {
   size_t header;          /* value line of the header */
@@ -310,7 +334,21 @@ typedef struct {
   SpecQuestionOption *options;
   size_t options_len;
   char *recommended; /* NULL for none */
+  IndividualAnswer *answers;
+  size_t answers_len, answers_cap;
 } Question;
+
+/* One parsed conflict block (SOM §11.9.8). */
+typedef struct {
+  size_t block;
+  char *id; /* NULL when the header is malformed: the block is then unlisted */
+  char *topic;
+  char *text;
+  char *base; /* the `(base)` text; NULL when the block has none */
+  SpecConflictAlternative *alternatives;
+  size_t alternatives_len, alternatives_cap;
+  char *decision;
+} Conflict;
 
 typedef struct {
   size_t block;
@@ -322,14 +360,22 @@ typedef struct {
   size_t marker_end;   /* where an id is inserted into the first line */
 } Comment;
 
+/* One parsed mark; start/end are byte offsets into the value (never
+ * exported). `end` lies after the attribution token when the mark has one,
+ * `body_end` always right after the mark itself, so the token can be
+ * rewritten in place. */
 typedef struct {
-  size_t start; /* byte offsets into the value; never exported */
+  size_t start;
   size_t end;
+  size_t body_end;
   size_t line;
   SpecMarkKind kind;
   char *text;
   char *new_text;
   char *comment;
+  SomStrList authors;
+  SpecMarkVote *votes;
+  size_t votes_len;
 } Mark;
 
 typedef struct {
@@ -346,6 +392,8 @@ typedef struct {
   size_t comments_len, comments_cap;
   Question *questions;
   size_t questions_len, questions_cap;
+  Conflict *conflicts;
+  size_t conflicts_len, conflicts_cap;
   Mark *marks;
   size_t marks_len, marks_cap;
   SomStrList malformed;
@@ -356,6 +404,42 @@ typedef struct {
 } Parsed;
 
 #define LINE(p, k) ((p)->lines.items[(k)])
+
+static void votes_free(SpecMarkVote *v, size_t len) {
+  for (size_t i = 0; i < len; i++) free(v[i].member);
+  free(v);
+}
+
+static SpecMarkVote *votes_copy(const SpecMarkVote *v, size_t len) {
+  if (len == 0) return NULL;
+  SpecMarkVote *out = malloc(len * sizeof(SpecMarkVote));
+  for (size_t i = 0; i < len; i++) {
+    out[i].member = som_strdup(v[i].member);
+    out[i].accept = v[i].accept;
+  }
+  return out;
+}
+
+static void alternatives_free(SpecConflictAlternative *a, size_t len) {
+  for (size_t i = 0; i < len; i++) {
+    free(a[i].letter);
+    som_strlist_free(&a[i].members);
+    free(a[i].text);
+  }
+  free(a);
+}
+
+static SpecConflictAlternative *alternatives_copy(
+    const SpecConflictAlternative *a, size_t len) {
+  if (len == 0) return NULL;
+  SpecConflictAlternative *out = malloc(len * sizeof(*out));
+  for (size_t i = 0; i < len; i++) {
+    out[i].letter = som_strdup(a[i].letter);
+    som_strlist_copy(&out[i].members, &a[i].members);
+    out[i].text = som_strdup(a[i].text);
+  }
+  return out;
+}
 
 static void parsed_free(Parsed *p) {
   som_strlist_free(&p->lines);
@@ -382,12 +466,29 @@ static void parsed_free(Parsed *p) {
     }
     free(q->options);
     free(q->recommended);
+    for (size_t a = 0; a < q->answers_len; a++) {
+      som_strlist_free(&q->answers[a].members);
+      free(q->answers[a].answer);
+    }
+    free(q->answers);
   }
   free(p->questions);
+  for (size_t i = 0; i < p->conflicts_len; i++) {
+    Conflict *c = &p->conflicts[i];
+    free(c->id);
+    free(c->topic);
+    free(c->text);
+    free(c->base);
+    alternatives_free(c->alternatives, c->alternatives_len);
+    free(c->decision);
+  }
+  free(p->conflicts);
   for (size_t i = 0; i < p->marks_len; i++) {
     free(p->marks[i].text);
     free(p->marks[i].new_text);
     free(p->marks[i].comment);
+    som_strlist_free(&p->marks[i].authors);
+    votes_free(p->marks[i].votes, p->marks[i].votes_len);
   }
   free(p->marks);
   som_strlist_free(&p->malformed);
@@ -426,7 +527,8 @@ static int is_quote_line(const char *line) { return lstrip(line)[0] == '>'; }
 
 /* The line inside the quote: after `>` and one following space. */
 static const char *inner_of(const char *line) {
-  const char *t = lstrip(line) + 1;
+  const char *t = lstrip(line);
+  if (*t != '\0') t++;
   if (*t == ' ') t++;
   return t;
 }
@@ -448,6 +550,41 @@ static int is_comment_number(const char *n) {
     if (*s < '0' || *s > '9') return 0;
   }
   return 1;
+}
+
+/* The length of the label of an individual answer line,
+ * `**Answer (alice, bob):**`, with the text between the brackets in `*inside`
+ * (owned, when non-NULL); 0 for any other line. */
+static size_t individual_answer_label(const char *line, char **inside) {
+  const char *open = "**Answer (";
+  if (!starts_with(line, open)) return 0;
+  const char *close = strchr(line + strlen(open), ')');
+  if (close == NULL || strncmp(close, "):**", 4) != 0) return 0;
+  if (inside != NULL) {
+    *inside = som_strdup_n(line + strlen(open),
+                           (size_t)(close - line) - strlen(open));
+  }
+  return (size_t)(close - line) + 4;
+}
+
+/* `s` split on `sep` into `out` (initialised here), each piece trimmed; empty
+ * pieces are kept unless `skip_empty`. */
+static void split_trimmed(const char *s, char sep, int skip_empty,
+                          SomStrList *out) {
+  som_strlist_init(out);
+  const char *from = s;
+  for (;;) {
+    const char *at = strchr(from, sep);
+    size_t n = at == NULL ? strlen(from) : (size_t)(at - from);
+    char *piece = trim_n(from, n);
+    if (skip_empty && piece[0] == '\0') {
+      free(piece);
+    } else {
+      som_strlist_push(out, piece);
+    }
+    if (at == NULL) return;
+    from = at + 1;
+  }
 }
 
 static void parse_comment(Parsed *p, size_t bi) {
@@ -494,7 +631,8 @@ static void parse_comment(Parsed *p, size_t bi) {
   for (size_t k = b->start + 1; k <= b->end; k++) {
     const char *inner = inner_of(LINE(p, k));
     const char *t = lstrip(inner);
-    if (starts_with(t, QOPEN) || starts_with(t, ANSWER_LABEL)) {
+    if (starts_with(t, QOPEN) || starts_with(t, ANSWER_LABEL) ||
+        individual_answer_label(t, NULL) > 0) {
       som_strlist_push(&p->malformed,
                        fmt("line %zu: a comment block holds a question or an "
                            "answer; the question goes into its own block "
@@ -587,6 +725,27 @@ static char *leading_letter(const char *s) {
     return som_strdup_n(t + 1, 1);
   }
   return NULL;
+}
+
+static int is_unresolved_answer(const char *answer) {
+  return starts_with(answer, UNRESOLVED_PREFIX);
+}
+
+/* `s` without its leading whitespace (Dart's `trimLeft`); borrowed. */
+static const char *trim_left(const char *s) {
+  size_t b, e;
+  trim_bounds(s, strlen(s), &b, &e);
+  return b == e ? s + strlen(s) : s + b;
+}
+
+/* A conflict decision's letter: `a`…, `base` (owned), or NULL (rewritten
+ * text or none). */
+static char *decision_letter_of(const char *decision) {
+  const char *t = trim_left(decision);
+  if (starts_with(t, "(base)") || starts_with(t, "**(base)**")) {
+    return som_strdup("base");
+  }
+  return is_unresolved_answer(t) ? NULL : leading_letter(t);
 }
 
 static int is_blank_trimmed(const char *s) {
@@ -714,27 +873,72 @@ static void parse_questions(Parsed *p, size_t bi) {
   for (size_t q = 0; q < hs_len; q++) {
     size_t k = hs[q].k;
     size_t region_end = q + 1 < hs_len ? hs[q + 1].k - 1 : cnt - 1;
-    long long answer = -1;
+    /* Every `**Answer` line of the region: the individual ones and the
+     * team's. */
+    size_t *answer_lines = malloc((region_end - k + 1) * sizeof(size_t));
+    size_t answer_count = 0;
     for (size_t m = k + 1; m <= region_end; m++) {
-      if (starts_with(in[m], ANSWER_LABEL)) {
-        answer = (long long)m;
-        break;
+      if (starts_with(in[m], ANSWER_LABEL) ||
+          individual_answer_label(in[m], NULL) > 0) {
+        answer_lines[answer_count++] = m;
       }
     }
-    long long text_end = answer < 0 ? (long long)region_end : answer - 1;
+    /* The question's text ends before its first answer line of either kind. */
+    long long text_end = answer_count == 0 ? (long long)region_end
+                                           : (long long)answer_lines[0] - 1;
     char *joined = join_from(hs[q].rest, in, (long long)k + 1, text_end);
     Question qq;
+    memset(&qq, 0, sizeof(qq));
     parse_options(in, (long long)k + 1, text_end, &qq);
     qq.text = trim_dup(joined);
     free(joined);
-    if (answer >= 0) {
-      char *aj = join_from(in[answer] + strlen(ANSWER_LABEL), in, answer + 1,
-                           (long long)region_end);
-      qq.answer = trim_dup(aj);
+    long long answer = -1;
+    SomStrList answered;
+    som_strlist_init(&answered);
+    for (size_t a = 0; a < answer_count; a++) {
+      size_t m = answer_lines[a];
+      /* An answer runs to the next `**Answer` line or the end of the region. */
+      size_t a_end =
+          a + 1 < answer_count ? answer_lines[a + 1] - 1 : region_end;
+      if (starts_with(in[m], ANSWER_LABEL)) {
+        if (answer < 0) {
+          answer = (long long)m;
+          char *aj = join_from(in[m] + strlen(ANSWER_LABEL), in,
+                               (long long)m + 1, (long long)a_end);
+          qq.answer = trim_dup(aj);
+          free(aj);
+        }
+        continue;
+      }
+      char *inside = NULL;
+      size_t label = individual_answer_label(in[m], &inside);
+      IndividualAnswer entry;
+      split_trimmed(inside, ',', 0, &entry.members);
+      free(inside);
+      for (size_t i = 0; i < entry.members.len; i++) {
+        if (som_strlist_contains(&answered, entry.members.items[i])) {
+          som_strlist_push(&p->malformed,
+                           fmt("line %zu: %s already answered %s; a member "
+                               "answers a question at most once (SOM \xC2\xA7"
+                               "11.9.8)",
+                               b->start + m, entry.members.items[i], hs[q].id));
+        } else {
+          som_strlist_push_copy(&answered, entry.members.items[i]);
+        }
+      }
+      size_t last = a_end;
+      while (last > m && is_blank(in[last])) last--;
+      entry.line = b->start + m;
+      entry.end = b->start + last;
+      char *aj =
+          join_from(in[m] + label, in, (long long)m + 1, (long long)a_end);
+      entry.answer = trim_dup(aj);
       free(aj);
-    } else {
-      qq.answer = som_strdup("");
+      PUSH(qq.answers, qq.answers_len, qq.answers_cap, entry);
     }
+    som_strlist_free(&answered);
+    free(answer_lines);
+    if (answer < 0) qq.answer = som_strdup("");
     qq.header = b->start + k;
     qq.region_end = b->start + region_end;
     qq.answer_line = answer < 0 ? -1 : (long long)b->start + answer;
@@ -744,6 +948,182 @@ static void parse_questions(Parsed *p, size_t bi) {
     PUSH(p->questions, p->questions_len, p->questions_cap, qq);
   }
   free(hs);
+  free(in);
+}
+
+/* `- (base) …`: the base line of a conflict block; its text (borrowed), or
+ * NULL for any other line. */
+static const char *conflict_base_line(const char *l) {
+  const char *head = "- (base)";
+  if (!starts_with(l, head)) return NULL;
+  const char *r = l + strlen(head);
+  if (*r == '\0') return r;
+  return *r == ' ' ? r + 1 : NULL;
+}
+
+/* `- (a) **alice, bob:** …`: a lettered alternative of a conflict block. Its
+ * letter, its member label (the text between `**` and `:**`, owned; "" without
+ * one) and its text (borrowed); 0 for any other line. */
+static int conflict_alternative_line(const char *l, char *letter,
+                                     char **members, const char **text) {
+  if (!starts_with(l, "- (") || !is_letter(l[3]) || l[4] != ')') return 0;
+  *letter = l[3];
+  const char *r = l + 5;
+  /* ` **<members>:**`: the members hold no `*`, so the label ends at the
+   * first `*` after the opening `**`. */
+  if (starts_with(r, " **")) {
+    const char *star = strchr(r + 3, '*');
+    if (star != NULL && star > r + 3 && star[-1] == ':' && star[1] == '*' &&
+        (star[2] == '\0' || star[2] == ' ')) {
+      *members = som_strdup_n(r + 3, (size_t)(star - 1 - (r + 3)));
+      *text = star[2] == '\0' ? star + 2 : star + 3;
+      return 1;
+    }
+  }
+  if (*r != '\0' && *r != ' ') return 0;
+  *members = som_strdup("");
+  *text = *r == '\0' ? r : r + 1;
+  return 1;
+}
+
+/* The header after the marker, `**X-<n> — <topic>:** <text>`, into owned
+ * `*id`, `*topic` and `*text`; 0 when malformed. The topic is the shortest
+ * that a `:**` ends at the end of the line or before a space. */
+static int conflict_header(const char *h, char **id, char **topic,
+                           char **text) {
+  if (!starts_with(h, "**X-")) return 0;
+  size_t i = 4;
+  if (h[i] < '1' || h[i] > '9') return 0;
+  while (h[i] >= '0' && h[i] <= '9') i++;
+  if (!starts_with(h + i, EM_SEP)) return 0;
+  size_t topic_start = i + strlen(EM_SEP);
+  size_t len = strlen(h);
+  for (size_t q = topic_start + 1; q + 3 <= len; q++) {
+    if (strncmp(h + q, ":**", 3) != 0) continue;
+    const char *after = h + q + 3;
+    if (*after != '\0' && *after != ' ') continue;
+    *id = som_strdup_n(h + 2, i - 2);
+    *topic = som_strdup_n(h + topic_start, q - topic_start);
+    *text = trim_dup(*after == '\0' ? after : after + 1);
+    return 1;
+  }
+  return 0;
+}
+
+/* Closes the open entry of a conflict block being read: the base (letter 0)
+ * or an alternative. */
+static void close_conflict_entry(Conflict *c, int *open, char letter,
+                                 SomStrList *members, SomStrList *lines) {
+  if (!*open) return;
+  char *joined = som_strlist_join(lines, "\n");
+  char *text = trim_dup(joined);
+  free(joined);
+  if (letter == 0) {
+    free(c->base);
+    c->base = text;
+    som_strlist_free(members);
+  } else {
+    SpecConflictAlternative a;
+    a.letter = som_strdup_n(&letter, 1);
+    a.members = *members;
+    a.text = text;
+    PUSH(c->alternatives, c->alternatives_len, c->alternatives_cap, a);
+  }
+  som_strlist_init(members);
+  som_strlist_free(lines);
+  *open = 0;
+}
+
+/* A conflict block (SOM §11.9.8): the header, the `(base)` line and the
+ * lettered alternatives — each continuing on lines indented under it, its line
+ * breaks kept — then `**Decision:**`. A malformed header leaves the block
+ * unlisted; a missing base line or alternative is a finding. */
+static void parse_conflict(Parsed *p, size_t bi) {
+  const Block *b = &p->blocks[bi];
+  size_t cnt = b->end - b->start + 1;
+  const char **in = malloc(cnt * sizeof(char *));
+  for (size_t k = 0; k < cnt; k++) in[k] = inner_of(LINE(p, b->start + k));
+  const char *rest = in[0] + strlen(SCALES);
+  if (starts_with(rest, VS16)) rest += strlen(VS16);
+  Conflict c;
+  memset(&c, 0, sizeof(c));
+  c.block = bi;
+  int header = conflict_header(trim_left(rest), &c.id, &c.topic, &c.text);
+  if (!header) {
+    c.topic = som_strdup("");
+    c.text = som_strdup("");
+    som_strlist_push(
+        &p->malformed,
+        fmt("line %zu: conflict header is not \"\xE2\x9A\x96\xEF\xB8\x8F "
+            "**X-<n> \xE2\x80\x94 <topic>:**\" (SOM \xC2\xA7"
+            "11.9.8)",
+            b->start));
+  }
+  size_t decision_line = cnt;
+  for (size_t k = 1; k < cnt; k++) {
+    if (starts_with(in[k], DECISION_LABEL)) {
+      decision_line = k;
+      break;
+    }
+  }
+  int open = 0;
+  char letter = 0;
+  SomStrList members, lines;
+  som_strlist_init(&members);
+  som_strlist_init(&lines);
+  for (size_t k = 1; k < decision_line; k++) {
+    const char *l = in[k];
+    const char *base = conflict_base_line(l);
+    char alt_letter = 0;
+    char *alt_members = NULL;
+    const char *alt_text = NULL;
+    if (base != NULL) {
+      close_conflict_entry(&c, &open, letter, &members, &lines);
+      open = 1;
+      letter = 0;
+      som_strlist_push_copy(&lines, base);
+    } else if (conflict_alternative_line(l, &alt_letter, &alt_members,
+                                         &alt_text)) {
+      close_conflict_entry(&c, &open, letter, &members, &lines);
+      open = 1;
+      letter = alt_letter;
+      som_strlist_free(&members);
+      split_trimmed(alt_members, ',', 1, &members);
+      free(alt_members);
+      som_strlist_push_copy(&lines, alt_text);
+    } else if (open && l[0] == ' ') {
+      som_strlist_push_copy(&lines, starts_with(l, "  ") ? l + 2 : lstrip(l));
+    } else {
+      close_conflict_entry(&c, &open, letter, &members, &lines);
+    }
+  }
+  close_conflict_entry(&c, &open, letter, &members, &lines);
+  som_strlist_free(&members);
+  som_strlist_free(&lines);
+  if (decision_line < cnt) {
+    char *dj = join_from(in[decision_line] + strlen(DECISION_LABEL), in,
+                         (long long)decision_line + 1, (long long)cnt - 1);
+    c.decision = trim_dup(dj);
+    free(dj);
+  } else {
+    c.decision = som_strdup("");
+  }
+  if (header && c.base == NULL) {
+    som_strlist_push(
+        &p->malformed,
+        fmt("line %zu: conflict %s has no \"(base)\" line (SOM \xC2\xA7"
+            "11.9.8)",
+            b->start, c.id));
+  }
+  if (header && c.alternatives_len == 0) {
+    som_strlist_push(&p->malformed,
+                     fmt("line %zu: conflict %s has no lettered alternative "
+                         "(SOM \xC2\xA7"
+                         "11.9.8)",
+                         b->start, c.id));
+  }
+  p->blocks[bi].conflict = p->conflicts_len;
+  PUSH(p->conflicts, p->conflicts_len, p->conflicts_cap, c);
   free(in);
 }
 
@@ -781,8 +1161,159 @@ static size_t line_of(const size_t *line_start, size_t n, size_t offset) {
 static void add_mark(Parsed *p, size_t start, size_t end, size_t line,
                      SpecMarkKind kind, char *text, char *new_text,
                      char *comment) {
-  Mark m = {start, end, line, kind, text, new_text, comment};
+  Mark m;
+  memset(&m, 0, sizeof(m));
+  m.start = start;
+  m.end = end;
+  m.body_end = end;
+  m.line = line;
+  m.kind = kind;
+  m.text = text;
+  m.new_text = new_text;
+  m.comment = comment;
+  som_strlist_init(&m.authors);
   PUSH(p->marks, p->marks_len, p->marks_cap, m);
+}
+
+/* Whether a code point is whitespace as JavaScript's `\s` reads it. */
+static int js_is_space(unsigned long c) {
+  return c != 0x85 && dart_is_space(c);
+}
+
+/* `s[0, len)` split into its runs of non-whitespace, into `out` (initialised
+ * here). */
+static void split_words(const char *s, size_t len, SomStrList *out) {
+  som_strlist_init(out);
+  const unsigned char *q = (const unsigned char *)s, *end = q + len;
+  const unsigned char *word = NULL;
+  while (q < end) {
+    const unsigned char *st = q;
+    if (js_is_space(next_cp(&q, end))) {
+      if (word != NULL)
+        som_strlist_push(out,
+                         som_strdup_n((const char *)word, (size_t)(st - word)));
+      word = NULL;
+    } else if (word == NULL) {
+      word = st;
+    }
+  }
+  if (word != NULL)
+    som_strlist_push(out,
+                     som_strdup_n((const char *)word, (size_t)(end - word)));
+}
+
+/* Whether a mark kind is a change, which alone takes votes (SOM §11.9.8). */
+static int is_change_mark(SpecMarkKind kind) {
+  return kind == SPEC_MARK_INSERTION || kind == SPEC_MARK_DELETION ||
+         kind == SPEC_MARK_SUBSTITUTION;
+}
+
+/* Reads a token's inside `s[0, len)`, `<authors>[ <votes>]`, into `m`; or
+ * returns the reason (owned) it breaks the grammar of SOM §11.9.8, leaving
+ * `m` alone. */
+static char *read_token(const char *s, size_t len, Mark *m) {
+  /* A space after a comma is allowed: `,` and the whitespace after it is one
+   * separator. */
+  SomBuf joined;
+  som_buf_init(&joined);
+  const unsigned char *q = (const unsigned char *)s, *end = q + len;
+  while (q < end) {
+    char c = (char)*q++;
+    som_buf_putc(&joined, c);
+    if (c != ',') continue;
+    for (;;) {
+      const unsigned char *st = q;
+      if (q >= end || !js_is_space(next_cp(&q, end))) {
+        q = st;
+        break;
+      }
+    }
+  }
+  SomStrList words;
+  split_words(joined.data ? joined.data : "", joined.len, &words);
+  som_buf_free(&joined);
+  char *why = NULL;
+  SomStrList authors;
+  som_strlist_init(&authors);
+  SpecMarkVote *votes = NULL;
+  size_t votes_len = 0, votes_cap = 0;
+  if (words.len == 0) {
+    why = som_strdup("is empty");
+  }
+  size_t k = 0;
+  if (why == NULL && words.items[0][0] != '+' && words.items[0][0] != '-') {
+    split_trimmed(words.items[0], ',', 0, &authors);
+    k = 1;
+  }
+  for (; why == NULL && k < words.len; k++) {
+    const char *w = words.items[k];
+    if (w[0] != '+' && w[0] != '-') {
+      why = fmt("has \"%s\" where a vote belongs", w);
+      break;
+    }
+    SpecMarkVote v = {som_strdup(w + 1), w[0] == '+'};
+    PUSH(votes, votes_len, votes_cap, v);
+  }
+  SomStrList seen;
+  som_strlist_init(&seen);
+  for (size_t i = 0; why == NULL && i < authors.len + votes_len; i++) {
+    const char *id =
+        i < authors.len ? authors.items[i] : votes[i - authors.len].member;
+    if (!spec_review_is_member_id(id)) {
+      why = fmt("names \"%s\", which is not a member id", id);
+    } else if (som_strlist_contains(&seen, id)) {
+      why = fmt("names %s twice, or as author and voter", id);
+    } else {
+      som_strlist_push_copy(&seen, id);
+    }
+  }
+  som_strlist_free(&seen);
+  if (why == NULL && votes_len > 0 && !is_change_mark(m->kind)) {
+    why = fmt("carries votes on a %s mark, which takes authors only",
+              spec_mark_kind_name(m->kind));
+  }
+  som_strlist_free(&words);
+  if (why != NULL) {
+    som_strlist_free(&authors);
+    votes_free(votes, votes_len);
+    return why;
+  }
+  som_strlist_free(&m->authors);
+  m->authors = authors;
+  votes_free(m->votes, m->votes_len);
+  m->votes = votes;
+  m->votes_len = votes_len;
+  return NULL;
+}
+
+/* Reads the attribution token `{@…}` at segment offset `at` (SOM §11.9.8)
+ * into `m`, which it directly follows, and returns the segment offset after
+ * it. The token is part of the mark — its markup, its decision — so `m->end`
+ * moves past it. A token that breaks the grammar is still part of the mark
+ * (it goes with the mark on a decision) and is a finding; its members are
+ * then not listed. */
+static size_t attach_token(Parsed *p, const char *seg, size_t len, size_t at,
+                           size_t base, Mark *m) {
+  long long line_end = find(seg, len, at, "\n");
+  long long close = find(seg, len, at + 2, "}");
+  if (close < 0 || (line_end >= 0 && close > line_end)) {
+    som_strlist_push(&p->malformed,
+                     fmt("line %zu: attribution token \"{@\" is not closed "
+                         "(SOM \xC2\xA7"
+                         "11.9.8)",
+                         m->line));
+    return at;
+  }
+  char *why = read_token(seg + at + 2, (size_t)close - at - 2, m);
+  if (why != NULL) {
+    som_strlist_push(&p->malformed,
+                     fmt("line %zu: attribution token %s (SOM \xC2\xA7"
+                         "11.9.8)",
+                         m->line, why));
+    free(why);
+  }
+  m->end = base + (size_t)close + 1;
+  return (size_t)close + 1;
 }
 
 static void add_issue(Parsed *p, size_t line, const char *code) {
@@ -815,6 +1346,18 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
         }
       }
       i = close_at < 0 ? i + n : (size_t)close_at + n;
+      continue;
+    }
+    if (c == '{' && i + 1 < len && seg[i + 1] == '@') {
+      /* A token that no mark precedes directly (a mark's own token is read
+       * with the mark, below). */
+      som_strlist_push(&p->malformed,
+                       fmt("line %zu: an attribution token \"{@\" does not "
+                           "follow a mark directly (SOM \xC2\xA7"
+                           "11.9.8)",
+                           line_of(line_start, p->lines.len, base + i)));
+      long long close = find(seg, len, i + 2, "}");
+      i = close < 0 ? i + 2 : (size_t)close + 1;
       continue;
     }
     if (c != '{' || i + 3 > len) {
@@ -857,6 +1400,7 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
       continue;
     }
     size_t end = (size_t)close + 3;
+    size_t before = p->marks_len;
     switch (oi) {
       case 0:
         add_mark(p, base + i, base + end, line, SPEC_MARK_COMMENT,
@@ -906,6 +1450,10 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
         break;
       }
     }
+    if (p->marks_len > before && end + 1 < len && seg[end] == '{' &&
+        seg[end + 1] == '@') {
+      end = attach_token(p, seg, len, end, base, &p->marks[p->marks_len - 1]);
+    }
     i = end;
   }
 }
@@ -954,13 +1502,18 @@ static void parse(const char *value, Parsed *p) {
     size_t e = i;
     const char *first = inner_of(LINE(p, s));
     if (starts_with(first, ARROW)) {
-      Block b = {s, e, SPEC_REVIEW_ANNOTATION_COMMENT, p->comments_len, 0, 0, 0};
+      Block b = {s, e, SPEC_REVIEW_ANNOTATION_COMMENT, p->comments_len, 0, 0,
+                 0, 0};
       PUSH(p->blocks, p->blocks_len, p->blocks_cap, b);
       parse_comment(p, p->blocks_len - 1);
     } else if (starts_with(first, QOPEN)) {
-      Block b = {s, e, SPEC_REVIEW_ANNOTATION_QUESTION, 0, 0, 0, 0};
+      Block b = {s, e, SPEC_REVIEW_ANNOTATION_QUESTION, 0, 0, 0, 0, 0};
       PUSH(p->blocks, p->blocks_len, p->blocks_cap, b);
       parse_questions(p, p->blocks_len - 1);
+    } else if (starts_with(first, SCALES)) {
+      Block b = {s, e, SPEC_REVIEW_ANNOTATION_CONFLICT, 0, 0, 0, 0, 0};
+      PUSH(p->blocks, p->blocks_len, p->blocks_cap, b);
+      parse_conflict(p, p->blocks_len - 1);
     }
     i = e + 1;
   }
@@ -987,12 +1540,26 @@ void spec_review_annotation_free(SpecReviewAnnotation *a) {
   free(a->recommended);
   free(a->new_text);
   free(a->comment);
+  som_strlist_free(&a->authors);
+  votes_free(a->votes, a->votes_len);
+  for (size_t i = 0; i < a->answers_len; i++) {
+    som_strlist_free(&a->answers[i].members);
+    free(a->answers[i].answer);
+  }
+  free(a->answers);
+  free(a->base);
+  alternatives_free(a->alternatives, a->alternatives_len);
   memset(a, 0, sizeof(*a));
 }
 
 int spec_review_annotation_is_open(const SpecReviewAnnotation *a) {
-  return a->kind == SPEC_REVIEW_ANNOTATION_QUESTION &&
+  return (a->kind == SPEC_REVIEW_ANNOTATION_QUESTION ||
+          a->kind == SPEC_REVIEW_ANNOTATION_CONFLICT) &&
          (a->answer == NULL || a->answer[0] == '\0');
+}
+
+int spec_review_annotation_is_unresolved(const SpecReviewAnnotation *a) {
+  return a->answer != NULL && is_unresolved_answer(a->answer);
 }
 
 void spec_review_annotation_list_init(SpecReviewAnnotationList *l) {
@@ -1040,8 +1607,44 @@ static void put_int(SomBuf *b, int *first, const char *key, long long v) {
 }
 
 char *spec_review_annotation_answer_letter(const SpecReviewAnnotation *a) {
-  if (a->kind != SPEC_REVIEW_ANNOTATION_QUESTION) return NULL;
+  if (a->kind != SPEC_REVIEW_ANNOTATION_QUESTION ||
+      spec_review_annotation_is_unresolved(a)) {
+    return NULL;
+  }
   return leading_letter(a->answer ? a->answer : "");
+}
+
+char *spec_review_annotation_decision_letter(const SpecReviewAnnotation *a) {
+  if (a->kind != SPEC_REVIEW_ANNOTATION_CONFLICT) return NULL;
+  return decision_letter_of(a->answer ? a->answer : "");
+}
+
+static void put_str_list(SomBuf *b, int *first, const char *key,
+                         const SomStrList *l) {
+  put_key(b, first, key);
+  som_buf_putc(b, '[');
+  for (size_t i = 0; i < l->len; i++) {
+    if (i) som_buf_putc(b, ',');
+    char *e = som_json_encode_str(l->items[i]);
+    som_buf_puts(b, e);
+    free(e);
+  }
+  som_buf_putc(b, ']');
+}
+
+static void put_votes(SomBuf *b, int *first, const char *key,
+                      const SpecMarkVote *v, size_t len) {
+  put_key(b, first, key);
+  som_buf_putc(b, '[');
+  for (size_t i = 0; i < len; i++) {
+    if (i) som_buf_putc(b, ',');
+    int f = 1;
+    som_buf_putc(b, '{');
+    put_str(b, &f, "member", v[i].member);
+    put_str(b, &f, "vote", v[i].accept ? "accept" : "reject");
+    som_buf_putc(b, '}');
+  }
+  som_buf_putc(b, ']');
 }
 
 char *spec_question_option_to_json(const SpecQuestionOption *o) {
@@ -1056,7 +1659,8 @@ char *spec_question_option_to_json(const SpecQuestionOption *o) {
   return som_buf_take(&b);
 }
 
-char *spec_review_annotation_to_json(const SpecReviewAnnotation *a) {
+/* The JSON form of `a`; `team` adds the members of SOM §11.9.8. */
+static char *annotation_json(const SpecReviewAnnotation *a, int team) {
   SomBuf b;
   som_buf_init(&b);
   int first = 1;
@@ -1081,6 +1685,10 @@ char *spec_review_annotation_to_json(const SpecReviewAnnotation *a) {
       put_str(&b, &first, "text", a->text);
       put_str(&b, &first, "answer", a->answer);
       put_bool(&b, &first, "open", spec_review_annotation_is_open(a));
+      if (team) {
+        put_bool(&b, &first, "unresolved",
+                 spec_review_annotation_is_unresolved(a));
+      }
       put_key(&b, &first, "options");
       som_buf_putc(&b, '[');
       for (size_t i = 0; i < a->options_len; i++) {
@@ -1096,19 +1704,74 @@ char *spec_review_annotation_to_json(const SpecReviewAnnotation *a) {
         put_str(&b, &first, "answerLetter", al);
         free(al);
       }
+      if (team) {
+        put_key(&b, &first, "answers");
+        som_buf_putc(&b, '[');
+        for (size_t i = 0; i < a->answers_len; i++) {
+          if (i) som_buf_putc(&b, ',');
+          int f = 1;
+          som_buf_putc(&b, '{');
+          put_str_list(&b, &f, "members", &a->answers[i].members);
+          put_str(&b, &f, "answer", a->answers[i].answer);
+          char *al = leading_letter(a->answers[i].answer);
+          put_str(&b, &f, "answerLetter", al);
+          free(al);
+          som_buf_putc(&b, '}');
+        }
+        som_buf_putc(&b, ']');
+      }
       break;
+    case SPEC_REVIEW_ANNOTATION_CONFLICT: {
+      put_str(&b, &first, "id", a->id);
+      put_str(&b, &first, "qualifiedId", a->qualified_id);
+      put_str(&b, &first, "topic", a->topic);
+      put_str(&b, &first, "text", a->text);
+      put_str(&b, &first, "base", a->base ? a->base : "");
+      put_key(&b, &first, "alternatives");
+      som_buf_putc(&b, '[');
+      for (size_t i = 0; i < a->alternatives_len; i++) {
+        if (i) som_buf_putc(&b, ',');
+        int f = 1;
+        som_buf_putc(&b, '{');
+        put_str(&b, &f, "letter", a->alternatives[i].letter);
+        put_str_list(&b, &f, "members", &a->alternatives[i].members);
+        put_str(&b, &f, "text", a->alternatives[i].text);
+        som_buf_putc(&b, '}');
+      }
+      som_buf_putc(&b, ']');
+      put_str(&b, &first, "decision", a->answer);
+      char *dl = spec_review_annotation_decision_letter(a);
+      put_str(&b, &first, "decisionLetter", dl);
+      free(dl);
+      put_bool(&b, &first, "open", spec_review_annotation_is_open(a));
+      put_bool(&b, &first, "unresolved",
+               spec_review_annotation_is_unresolved(a));
+      break;
+    }
     case SPEC_REVIEW_ANNOTATION_MARK:
       put_str(&b, &first, "markKind", spec_mark_kind_name(a->mark_kind));
       put_str(&b, &first, "text", a->text);
       put_str(&b, &first, "newText", a->new_text);
       put_str(&b, &first, "comment", a->comment);
+      if (team) {
+        put_str_list(&b, &first, "authors", &a->authors);
+        put_votes(&b, &first, "votes", a->votes, a->votes_len);
+      }
       break;
   }
   som_buf_putc(&b, '}');
   return som_buf_take(&b);
 }
 
-char *spec_review_annotation_counts_to_json(const SpecReviewAnnotationCounts *c) {
+char *spec_review_annotation_to_json(const SpecReviewAnnotation *a) {
+  return annotation_json(a, 0);
+}
+
+char *spec_review_annotation_to_team_json(const SpecReviewAnnotation *a) {
+  return annotation_json(a, 1);
+}
+
+static char *counts_json(const SpecReviewAnnotationCounts *c, int team) {
   SomBuf b;
   som_buf_init(&b);
   int first = 1;
@@ -1118,8 +1781,24 @@ char *spec_review_annotation_counts_to_json(const SpecReviewAnnotationCounts *c)
   put_int(&b, &first, "answeredQuestions", (long long)c->answered_questions);
   put_int(&b, &first, "comments", (long long)c->comments);
   put_int(&b, &first, "marks", (long long)c->marks);
+  if (team) {
+    put_int(&b, &first, "unresolvedQuestions",
+            (long long)c->unresolved_questions);
+    put_int(&b, &first, "conflicts", (long long)c->conflicts);
+    put_int(&b, &first, "openConflicts", (long long)c->open_conflicts);
+  }
   som_buf_putc(&b, '}');
   return som_buf_take(&b);
+}
+
+char *spec_review_annotation_counts_to_json(
+    const SpecReviewAnnotationCounts *c) {
+  return counts_json(c, 0);
+}
+
+char *spec_review_annotation_counts_to_team_json(
+    const SpecReviewAnnotationCounts *c) {
+  return counts_json(c, 1);
 }
 
 typedef struct {
@@ -1143,6 +1822,7 @@ static SpecReviewAnnotation blank_annotation(SpecReviewAnnotationKind kind,
                                              const char *field, size_t line) {
   SpecReviewAnnotation a;
   memset(&a, 0, sizeof(a));
+  som_strlist_init(&a.authors);
   a.kind = kind;
   a.path = som_strdup(path);
   a.field = dup_or_null(field);
@@ -1175,6 +1855,27 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
       e.a.context = som_strdup(c->context);
       e.a.answer = som_strdup("");
       PUSH(o, len, cap, e);
+    } else if (b->kind == SPEC_REVIEW_ANNOTATION_CONFLICT) {
+      const Conflict *c = &p->conflicts[b->conflict];
+      if (c->id == NULL) continue;
+      Ordered e;
+      e.line = b->start;
+      e.rank = 0;
+      e.seq = seq++;
+      e.a = blank_annotation(SPEC_REVIEW_ANNOTATION_CONFLICT, path, field,
+                             b->start);
+      e.a.id = som_strdup(c->id);
+      e.a.qualified_id =
+          qualifier != NULL ? fmt("%s %s", qualifier, c->id) : NULL;
+      e.a.topic = som_strdup(c->topic);
+      e.a.text = som_strdup(c->text);
+      e.a.context = som_strdup("");
+      e.a.base = som_strdup(c->base ? c->base : "");
+      e.a.alternatives =
+          alternatives_copy(c->alternatives, c->alternatives_len);
+      e.a.alternatives_len = c->alternatives_len;
+      e.a.answer = som_strdup(c->decision);
+      PUSH(o, len, cap, e);
     } else {
       for (size_t qi = 0; qi < b->q_len; qi++) {
         const Question *q = &p->questions[b->q_first + qi];
@@ -1201,6 +1902,15 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
           e.a.options[oi].bold = q->options[oi].bold;
         }
         e.a.recommended = dup_or_null(q->recommended);
+        e.a.answers_len = q->answers_len;
+        e.a.answers =
+            q->answers_len
+                ? malloc(q->answers_len * sizeof(SpecIndividualAnswer))
+                : NULL;
+        for (size_t ai = 0; ai < q->answers_len; ai++) {
+          som_strlist_copy(&e.a.answers[ai].members, &q->answers[ai].members);
+          e.a.answers[ai].answer = som_strdup(q->answers[ai].answer);
+        }
         PUSH(o, len, cap, e);
       }
     }
@@ -1218,6 +1928,9 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
     e.a.answer = som_strdup("");
     e.a.new_text = dup_or_null(m->new_text);
     e.a.comment = dup_or_null(m->comment);
+    som_strlist_copy(&e.a.authors, &m->authors);
+    e.a.votes = votes_copy(m->votes, m->votes_len);
+    e.a.votes_len = m->votes_len;
     PUSH(o, len, cap, e);
   }
   if (len > 1) qsort(o, len, sizeof(Ordered), cmp_ordered);
@@ -1623,7 +2336,8 @@ void spec_review_annotations_list(const SpecReviewAnnotations *r,
 
 SpecReviewAnnotationCounts
 spec_review_annotations_counts(const SpecReviewAnnotations *r) {
-  SpecReviewAnnotationCounts c = {0, 0, 0, 0, 0};
+  SpecReviewAnnotationCounts c;
+  memset(&c, 0, sizeof(c));
   SpecReviewAnnotationList l;
   spec_review_annotations_list(r, &l);
   for (size_t i = 0; i < l.len; i++) {
@@ -1631,6 +2345,13 @@ spec_review_annotations_counts(const SpecReviewAnnotations *r) {
       case SPEC_REVIEW_ANNOTATION_QUESTION:
         c.questions++;
         if (spec_review_annotation_is_open(&l.items[i])) c.open_questions++;
+        if (spec_review_annotation_is_unresolved(&l.items[i])) {
+          c.unresolved_questions++;
+        }
+        break;
+      case SPEC_REVIEW_ANNOTATION_CONFLICT:
+        c.conflicts++;
+        if (spec_review_annotation_is_open(&l.items[i])) c.open_conflicts++;
         break;
       case SPEC_REVIEW_ANNOTATION_COMMENT:
         c.comments++;
@@ -1950,6 +2671,194 @@ int spec_review_annotations_insert_question_after_comment(
   return 1;
 }
 
+/* ---- team reviews (SOM §11.9.8): individual answers, applying conflicts -- */
+
+/* Whether an answer carries anything beyond an option letter (SOM §11.9.8):
+ * `(a)` or `**(a)**`, optionally followed by exactly that option's text, is
+ * not; an answer that starts with no letter is. */
+static int is_commented_answer(const char *answer, const Question *q) {
+  char *letter = leading_letter(answer);
+  if (letter == NULL) return 1;
+  const char *t = trim_left(answer);
+  size_t tl = strlen(t);
+  int bold = starts_with(t, "**(") && tl >= 7 && strncmp(t + 4, ")**", 3) == 0;
+  size_t skip = bold ? 7 : starts_with(t, "**") ? 5 : 3;
+  char *rest = trim_dup(skip < tl ? t + skip : "");
+  int commented = 0;
+  if (rest[0] != '\0') {
+    commented = 1;
+    for (size_t i = 0; i < q->options_len; i++) {
+      if (strcmp(q->options[i].letter, letter) == 0) {
+        commented = strcmp(rest, q->options[i].text) != 0;
+        break;
+      }
+    }
+  }
+  free(rest);
+  free(letter);
+  return commented;
+}
+
+/* Pushes the lines of one individual-answer entry onto `out`. */
+static void push_individual_answer_lines(SomStrList *out,
+                                         const SomStrList *members,
+                                         const char *answer) {
+  SomStrList a;
+  split_lines(answer, &a);
+  char *names = som_strlist_join(members, ", ");
+  char *head = fmt("> **Answer (%s):** %s", names, a.items[0]);
+  som_strlist_push(out, trim_right_dup(head));
+  free(head);
+  free(names);
+  push_quoted(out, &a, 1);
+  som_strlist_free(&a);
+}
+
+/* One entry of the individual-answer run being rewritten. */
+typedef struct {
+  SomStrList members;
+  char *answer; /* borrowed */
+  int rewrite;  /* 0: keep the entry's lines `[line, end]` of the value */
+  size_t line, end;
+} AnswerEntry;
+
+/* `value` with member `member`'s individual answer to question `q` set to
+ * `answer` (SOM §11.9.8): the member leaves the line it was on (a line left
+ * empty goes); a non-empty answer that is not commented joins the line whose
+ * answer is identical and not commented, at its end, and otherwise gets a new
+ * line after the last individual answer. The first individual answer opens the
+ * run before the team's `**Answer:**`, with a `>` line between run and team
+ * answer, and a run left empty takes that line with it. Entries left alone
+ * keep their bytes. Owned. */
+static char *set_individual_answer(const char *value, const Question *q,
+                                   const char *member, const char *answer) {
+  SomStrList lines;
+  split_lines(value, &lines);
+  AnswerEntry *kept = malloc((q->answers_len + 1) * sizeof(AnswerEntry));
+  size_t kept_len = 0;
+  for (size_t i = 0; i < q->answers_len; i++) {
+    AnswerEntry e;
+    som_strlist_copy(&e.members, &q->answers[i].members);
+    e.answer = q->answers[i].answer;
+    e.rewrite = 0;
+    e.line = q->answers[i].line;
+    e.end = q->answers[i].end;
+    for (size_t m = 0; m < e.members.len; m++) {
+      if (strcmp(e.members.items[m], member) == 0) {
+        som_strlist_remove_at(&e.members, m);
+        e.rewrite = 1;
+        break;
+      }
+    }
+    if (e.members.len > 0) {
+      kept[kept_len++] = e;
+    } else {
+      som_strlist_free(&e.members);
+    }
+  }
+  char *text = trim_dup(answer);
+  if (text[0] != '\0') {
+    AnswerEntry *join = NULL;
+    if (!is_commented_answer(text, q)) {
+      for (size_t i = 0; i < kept_len && join == NULL; i++) {
+        if (strcmp(kept[i].answer, text) == 0 &&
+            !is_commented_answer(kept[i].answer, q)) {
+          join = &kept[i];
+        }
+      }
+    }
+    if (join != NULL) {
+      som_strlist_push_copy(&join->members, member);
+      join->rewrite = 1;
+    } else {
+      AnswerEntry e;
+      som_strlist_init(&e.members);
+      som_strlist_push_copy(&e.members, member);
+      e.answer = text;
+      e.rewrite = 1;
+      e.line = e.end = 0;
+      kept[kept_len++] = e;
+    }
+  }
+  SomStrList run;
+  som_strlist_init(&run);
+  for (size_t i = 0; i < kept_len; i++) {
+    if (kept[i].rewrite) {
+      push_individual_answer_lines(&run, &kept[i].members, kept[i].answer);
+    } else {
+      for (size_t k = kept[i].line; k <= kept[i].end; k++) {
+        som_strlist_push_copy(&run, lines.items[k]);
+      }
+    }
+    som_strlist_free(&kept[i].members);
+  }
+  free(kept);
+  if (q->answers_len > 0) {
+    size_t from = q->answers[0].line;
+    size_t to = q->answers[q->answers_len - 1].end;
+    /* A run left empty takes its separating `>` line with it. */
+    if (run.len == 0 && to + 1 < lines.len &&
+        is_blank(inner_of(lines.items[to + 1]))) {
+      to++;
+    }
+    replace_range(&lines, from, to, &run);
+  } else if (run.len > 0) {
+    SomStrList with;
+    som_strlist_init(&with);
+    size_t at;
+    if (q->answer_line >= 0) {
+      at = (size_t)q->answer_line;
+      for (size_t k = 0; k < run.len; k++)
+        som_strlist_push_copy(&with, run.items[k]);
+      som_strlist_push_copy(&with, ">");
+    } else {
+      size_t last = q->region_end;
+      while (last > q->header && is_blank(inner_of(lines.items[last]))) last--;
+      at = last + 1;
+      som_strlist_push_copy(&with, ">");
+      for (size_t k = 0; k < run.len; k++)
+        som_strlist_push_copy(&with, run.items[k]);
+    }
+    /* Insert at `at`: replace the empty range [at, at - 1]. */
+    SomStrList out;
+    som_strlist_init(&out);
+    for (size_t k = 0; k < at; k++) som_strlist_push_copy(&out, lines.items[k]);
+    for (size_t k = 0; k < with.len; k++)
+      som_strlist_push_copy(&out, with.items[k]);
+    for (size_t k = at; k < lines.len; k++)
+      som_strlist_push_copy(&out, lines.items[k]);
+    som_strlist_free(&lines);
+    lines = out;
+    som_strlist_free(&with);
+  }
+  free(text);
+  som_strlist_free(&run);
+  char *joined = som_strlist_join(&lines, "\n");
+  som_strlist_free(&lines);
+  return joined;
+}
+
+int spec_review_annotations_set_member_answer(const SpecReviewAnnotations *r,
+                                              const char *question_id,
+                                              const char *author,
+                                              const char *answer,
+                                              SpecReviewAnnotationError *err) {
+  if (!spec_review_is_member_id(author)) {
+    set_error(err,
+              "\"%s\" is not a member id (lowercase letters, digits and _)",
+              author ? author : "");
+    return 0;
+  }
+  Found f;
+  if (!find_question(r, question_id, &f, err)) return 0;
+  char *updated = set_individual_answer(
+      f.value.text, &f.parsed.questions[f.index], author, answer);
+  set_value(r->doc, f.value.path, f.value.field, updated);
+  free(updated);
+  found_free(&f);
+  return 1;
+}
+
 int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
                                        const char *question_id,
                                        const char *answer,
@@ -2169,6 +3078,11 @@ void spec_review_annotations_validate(const SpecReviewAnnotations *r,
     }
     for (size_t bi = 0; bi < p.blocks_len; bi++) {
       const Block *b = &p.blocks[bi];
+      if (b->kind == SPEC_REVIEW_ANNOTATION_CONFLICT) {
+        const char *cid = p.conflicts[b->conflict].id;
+        if (cid != NULL) som_strlist_push_copy(&ids, cid);
+        continue;
+      }
       if (b->kind != SPEC_REVIEW_ANNOTATION_QUESTION) continue;
       for (size_t qi = 0; qi < b->q_len; qi++)
         som_strlist_push_copy(&ids, p.questions[b->q_first + qi].id);
@@ -2237,10 +3151,12 @@ void spec_mark_entry_free(SpecMarkEntry *e) {
   free(e->comment);
   free(e->markup);
   free(e->context);
+  som_strlist_free(&e->authors);
+  votes_free(e->votes, e->votes_len);
   memset(e, 0, sizeof(*e));
 }
 
-char *spec_mark_entry_to_json(const SpecMarkEntry *e) {
+static char *mark_entry_json(const SpecMarkEntry *e, int team) {
   SomBuf b;
   som_buf_init(&b);
   int first = 1;
@@ -2255,8 +3171,20 @@ char *spec_mark_entry_to_json(const SpecMarkEntry *e) {
   put_str(&b, &first, "comment", e->comment);
   put_str(&b, &first, "markup", e->markup);
   put_str(&b, &first, "context", e->context);
+  if (team) {
+    put_str_list(&b, &first, "authors", &e->authors);
+    put_votes(&b, &first, "votes", e->votes, e->votes_len);
+  }
   som_buf_putc(&b, '}');
   return som_buf_take(&b);
+}
+
+char *spec_mark_entry_to_json(const SpecMarkEntry *e) {
+  return mark_entry_json(e, 0);
+}
+
+char *spec_mark_entry_to_team_json(const SpecMarkEntry *e) {
+  return mark_entry_json(e, 1);
 }
 
 void spec_mark_entry_list_init(SpecMarkEntryList *l) {
@@ -2289,10 +3217,19 @@ void spec_mark_report_free(SpecMarkReport *r) {
     free(r->malformed[i].issue);
   }
   free(r->malformed);
+  for (size_t i = 0; i < r->conflicts_len; i++) {
+    SpecConflictOutcome *c = &r->conflicts[i];
+    free(c->id);
+    free(c->path);
+    free(c->field);
+    free(c->decision);
+    free(c->result);
+  }
+  free(r->conflicts);
   spec_mark_report_init(r);
 }
 
-char *spec_mark_report_to_json(const SpecMarkReport *r) {
+static char *mark_report_json(const SpecMarkReport *r, int team) {
   SomBuf b;
   som_buf_init(&b);
   som_buf_puts(&b, "{\"applied\":[");
@@ -2323,8 +3260,34 @@ char *spec_mark_report_to_json(const SpecMarkReport *r) {
     put_str(&b, &first, "issue", m->issue);
     som_buf_putc(&b, '}');
   }
-  som_buf_puts(&b, "]}");
+  som_buf_putc(&b, ']');
+  if (team && r->has_conflicts) {
+    som_buf_puts(&b, ",\"conflicts\":[");
+    for (size_t i = 0; i < r->conflicts_len; i++) {
+      const SpecConflictOutcome *c = &r->conflicts[i];
+      if (i > 0) som_buf_putc(&b, ',');
+      int first = 1;
+      som_buf_putc(&b, '{');
+      put_str(&b, &first, "id", c->id);
+      put_str(&b, &first, "path", c->path);
+      put_str(&b, &first, "field", c->field);
+      put_int(&b, &first, "line", (long long)c->line);
+      put_str(&b, &first, "decision", c->decision);
+      put_str(&b, &first, "result", c->result);
+      som_buf_putc(&b, '}');
+    }
+    som_buf_putc(&b, ']');
+  }
+  som_buf_putc(&b, '}');
   return som_buf_take(&b);
+}
+
+char *spec_mark_report_to_json(const SpecMarkReport *r) {
+  return mark_report_json(r, 0);
+}
+
+char *spec_mark_report_to_team_json(const SpecMarkReport *r) {
+  return mark_report_json(r, 1);
 }
 
 char *spec_review_annotations_revision(const SpecReviewAnnotations *r) {
@@ -2408,6 +3371,9 @@ void spec_review_annotations_list_marks(const SpecReviewAnnotations *r,
       e.markup = som_strdup_n(v->text + m->start, m->end - m->start);
       e.context = join_from(LINE(&p, from), (const char *const *)p.lines.items,
                             (long long)from + 1, (long long)to);
+      som_strlist_copy(&e.authors, &m->authors);
+      e.votes = votes_copy(m->votes, m->votes_len);
+      e.votes_len = m->votes_len;
       PUSH(out->items, out->len, out->cap, e);
     }
     parsed_free(&p);
@@ -2554,32 +3520,332 @@ void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
   apply_marks(r, &d, path, out);
 }
 
-void spec_review_annotations_remove_all_annotations(
-    const SpecReviewAnnotations *r, SpecMarkReport *out) {
+/* Whether a conflict's topic names a structural conflict the merge writes
+ * (SOM §11.9.9): its decision is not a text. */
+static int is_structural_topic(const char *topic) {
+  return strcmp(topic, "Item removed") == 0 ||
+         strcmp(topic, "Item moved") == 0 ||
+         strcmp(topic, "Headline changed") == 0;
+}
+
+/* The text a conflict's decision chooses: the base, an alternative, or the
+ * rewritten text. Borrowed from `c`. */
+static const char *chosen_text(const Conflict *c) {
+  char *letter = decision_letter_of(c->decision);
+  const char *out = c->decision;
+  if (letter != NULL && strcmp(letter, "base") == 0) {
+    out = c->base ? c->base : "";
+  } else if (letter != NULL) {
+    for (size_t i = 0; i < c->alternatives_len; i++) {
+      if (strcmp(c->alternatives[i].letter, letter) == 0) {
+        out = c->alternatives[i].text;
+        break;
+      }
+    }
+  }
+  free(letter);
+  return out;
+}
+
+/* Whether a paragraph starting at `start` opens an annotation block. */
+static int opens_block(const Parsed *p, size_t start) {
+  for (size_t i = 0; i < p->blocks_len; i++) {
+    if (p->blocks[i].start == start) return 1;
+  }
+  return 0;
+}
+
+/* `value` with the lines `[s, e]` replaced by `text`. Owned. */
+static char *replace_lines(const char *value, size_t s, size_t e,
+                           const char *text) {
+  SomStrList lines, t;
+  split_lines(value, &lines);
+  split_lines(text, &t);
+  replace_range(&lines, s, e, &t);
+  char *out = som_strlist_join(&lines, "\n");
+  som_strlist_free(&t);
+  som_strlist_free(&lines);
+  return out;
+}
+
+/* `value` with `text` inserted before value line `block_start`, one blank
+ * line on each side. Owned. */
+static char *insert_before_block(const char *value, size_t block_start,
+                                 const char *text) {
+  SomStrList t;
+  split_lines(text, &t);
+  char *out = insert_after_line(value, (long long)block_start - 1, &t);
+  som_strlist_free(&t);
+  return out;
+}
+
+/* `value` with the text paragraph directly before the block at `block_start`
+ * (annotation blocks between them skipped) replaced by `text`; with none,
+ * `text` goes before the block. Owned. */
+static char *replace_paragraph_before(const char *value, size_t block_start,
+                                      const char *text) {
+  Parsed p;
+  parse(value, &p);
+  size_t *starts = NULL, *ends = NULL;
+  size_t n = paragraph_bounds(&p.lines, p.code, &starts, &ends);
+  long long last = -1;
+  for (size_t i = 0; i < n; i++) {
+    if (ends[i] < block_start && !opens_block(&p, starts[i]))
+      last = (long long)i;
+  }
+  char *out = last < 0 ? insert_before_block(value, block_start, text)
+                       : replace_lines(value, starts[last], ends[last], text);
+  free(starts);
+  free(ends);
+  parsed_free(&p);
+  return out;
+}
+
+/* `value` with the run of text paragraphs directly before the block at
+ * `block_start` — a whole-value unit (SOM §11.9.9) — replaced by `text`.
+ * Owned. */
+static char *replace_text_run(const char *value, size_t block_start,
+                              const char *text) {
+  Parsed p;
+  parse(value, &p);
+  size_t *starts = NULL, *ends = NULL;
+  size_t n = paragraph_bounds(&p.lines, p.code, &starts, &ends);
+  size_t before = 0;
+  while (before < n && ends[before] < block_start) before++;
+  size_t k = before;
+  while (k > 0 && !opens_block(&p, starts[k - 1])) k--;
+  char *out = k == before
+                  ? insert_before_block(value, block_start, text)
+                  : replace_lines(value, starts[k], ends[before - 1], text);
+  free(starts);
+  free(ends);
+  parsed_free(&p);
+  return out;
+}
+
+/* Whether `s` is two runs of non-whitespace separated by one space,
+ * `<path> <field>`; the runs into `*a` and `*b` (owned) when it is. */
+static int split_path_field(const char *s, char **a, char **b) {
+  SomStrList words;
+  split_words(s, strlen(s), &words);
+  int ok = words.len == 2;
+  if (ok) {
+    char *joined = fmt("%s %s", words.items[0], words.items[1]);
+    ok = strcmp(joined, s) == 0;
+    free(joined);
+  }
+  if (ok) {
+    *a = som_strdup(words.items[0]);
+    *b = som_strdup(words.items[1]);
+  }
+  som_strlist_free(&words);
+  return ok;
+}
+
+/* Whether `s` reads as a document path: no whitespace, no comma, and a `/`
+ * with text on both sides. */
+static int looks_like_path(const char *s) {
+  if (strchr(s, ',') != NULL || s[0] == '\0') return 0;
+  SomStrList words;
+  split_words(s, strlen(s), &words);
+  int one = words.len == 1 && strcmp(words.items[0], s) == 0;
+  som_strlist_free(&words);
+  if (!one) return 0;
+  const char *slash = strchr(s + 1, '/');
+  return slash != NULL && slash[1] != '\0';
+}
+
+/* A decided conflict, as `remove_all_annotations` found it before any
+ * change. `path` and `field` are borrowed from the values list it was read
+ * from; `decision` is owned. */
+typedef struct {
+  const char *path;
+  const char *field; /* NULL for content */
+  size_t index; /* the block's position among the value's conflict blocks */
+  size_t line;
+  char *decision;
+} DecidedConflict;
+
+static void decided_free(DecidedConflict *d, size_t len) {
+  for (size_t i = 0; i < len; i++) free(d[i].decision);
+  free(d);
+}
+
+/* Whether a decided conflict lies in the value at `path` / `field`. */
+static int decided_in(const DecidedConflict *d, const char *path,
+                      const char *field) {
+  return strcmp(d->path, path) == 0 &&
+         (d->field == NULL ? field == NULL
+                           : field != NULL && strcmp(d->field, field) == 0);
+}
+
+/* Collects every conflict block of `vals` with the line it opens on, in
+ * document order; 0 (filling `*err`) when one of them cannot be applied. */
+static int decided_conflicts(const Values *vals, DecidedConflict **out,
+                             size_t *out_len, SpecReviewAnnotationError *err) {
+  size_t len = 0, cap = 0;
+  DecidedConflict *items = NULL;
+  int ok = 1;
+  for (size_t i = 0; ok && i < vals->len; i++) {
+    const Value *v = &vals->items[i];
+    Parsed p;
+    parse(v->text, &p);
+    size_t index = 0;
+    for (size_t bi = 0; ok && bi < p.blocks_len; bi++) {
+      const Block *b = &p.blocks[bi];
+      if (b->kind != SPEC_REVIEW_ANNOTATION_CONFLICT) continue;
+      const Conflict *c = &p.conflicts[b->conflict];
+      char *where = v->field == NULL
+                        ? fmt("%s, line %zu", v->path, b->start)
+                        : fmt("%s / %s, line %zu", v->path, v->field, b->start);
+      char *letter = decision_letter_of(c->decision);
+      if (c->id == NULL || c->base == NULL || c->alternatives_len == 0) {
+        set_error(err, "%s: a malformed conflict block cannot be applied",
+                  where);
+        ok = 0;
+      } else if (c->decision[0] == '\0' || is_unresolved_answer(c->decision)) {
+        set_error(err,
+                  "%s: conflict %s is %s; decide it before removing the "
+                  "annotations",
+                  where, c->id, c->decision[0] == '\0' ? "open" : "unresolved");
+        ok = 0;
+      } else if (letter != NULL && strcmp(letter, "base") != 0) {
+        int known = 0;
+        for (size_t a = 0; a < c->alternatives_len; a++) {
+          known = known || strcmp(c->alternatives[a].letter, letter) == 0;
+        }
+        if (!known) {
+          set_error(err, "%s: conflict %s has no alternative (%s)", where,
+                    c->id, letter);
+          ok = 0;
+        }
+      }
+      free(letter);
+      free(where);
+      if (ok) {
+        DecidedConflict d = {v->path, v->field, index++, b->start,
+                             som_strdup(c->decision)};
+        PUSH(items, len, cap, d);
+      }
+    }
+    parsed_free(&p);
+  }
+  if (!ok) {
+    decided_free(items, len);
+    items = NULL;
+    len = 0;
+  }
+  *out = items;
+  *out_len = len;
+  return ok;
+}
+
+/* Applies the decided conflicts of value `v` (marks already accepted) to its
+ * text, from the last block up so earlier line numbers stay valid, and
+ * records each in `out`. Where the chosen text goes follows the conflict's
+ * text (SOM §11.9.8, "Applying"): a form field, another value, this value's
+ * text paragraphs, or — the default — the text paragraph directly before the
+ * block. Owned result. */
+static char *apply_conflicts(const SpecReviewAnnotations *r, const Value *v,
+                             const DecidedConflict *decided, size_t decided_len,
+                             SpecMarkReport *out) {
+  char *text = som_strdup(v->text);
+  Parsed p;
+  parse(v->text, &p);
+  size_t first = out->conflicts_len;
+  for (size_t k = p.conflicts_len; k-- > 0;) {
+    const DecidedConflict *d = NULL;
+    for (size_t i = 0; i < decided_len; i++) {
+      if (decided_in(&decided[i], v->path, v->field) && decided[i].index == k) {
+        d = &decided[i];
+      }
+    }
+    const Conflict *c = &p.conflicts[k];
+    const char *result = chosen_text(c);
+    SpecConflictOutcome o;
+    o.id = som_strdup(c->id);
+    o.path = som_strdup(v->path);
+    o.field = dup_or_null(v->field);
+    o.line = d->line;
+    o.decision = som_strdup(d->decision);
+    o.result = som_strdup(result);
+    PUSH(out->conflicts, out->conflicts_len, out->conflicts_cap, o);
+    if (is_structural_topic(c->topic)) continue;
+    size_t block_start = p.blocks[c->block].start;
+    char *tp = NULL, *tf = NULL;
+    char *next = NULL;
+    if (split_path_field(c->text, &tp, &tf) &&
+        spec_document_form_field(r->doc, tp, tf) != NULL) {
+      spec_document_set_form_field(r->doc, tp, tf, result);
+    } else if (v->field == NULL && strcmp(c->text, v->path) == 0) {
+      next = replace_text_run(text, block_start, result);
+    } else if (looks_like_path(c->text) && strcmp(c->text, v->path) != 0) {
+      spec_document_set_content(r->doc, c->text, result);
+    } else {
+      next = replace_paragraph_before(text, block_start, result);
+    }
+    free(tp);
+    free(tf);
+    if (next != NULL) {
+      free(text);
+      text = next;
+    }
+  }
+  /* Recorded last to first: restore block order. */
+  for (size_t a = first, b = out->conflicts_len; a + 1 < b; a++, b--) {
+    SpecConflictOutcome t = out->conflicts[a];
+    out->conflicts[a] = out->conflicts[b - 1];
+    out->conflicts[b - 1] = t;
+  }
+  parsed_free(&p);
+  return text;
+}
+
+int spec_review_annotations_remove_all_annotations(
+    const SpecReviewAnnotations *r, SpecMarkReport *out,
+    SpecReviewAnnotationError *err) {
+  spec_mark_report_init(out);
+  Values before;
+  values_of(r->doc, &before);
+  DecidedConflict *decided = NULL;
+  size_t decided_len = 0;
+  if (!decided_conflicts(&before, &decided, &decided_len, err)) {
+    values_free(&before);
+    return 0;
+  }
   spec_review_annotations_accept_all_marks(r, NULL, out);
+  out->has_conflicts = 1;
   Values vals;
   values_of(r->doc, &vals);
   for (size_t i = 0; i < vals.len; i++) {
-    char *v = som_strdup(vals.items[i].text);
+    const Value *v = &vals.items[i];
+    char *t;
+    int here = 0;
+    for (size_t d = 0; d < decided_len; d++) {
+      here = here || decided_in(&decided[d], v->path, v->field);
+    }
+    t = here ? apply_conflicts(r, v, decided, decided_len, out)
+             : som_strdup(v->text);
     for (;;) {
       Parsed p;
-      parse(v, &p);
+      parse(t, &p);
       if (p.blocks_len == 0) {
         parsed_free(&p);
         break;
       }
       const Block *b = &p.blocks[p.blocks_len - 1];
-      char *next = remove_lines(v, b->start, b->end);
+      char *next = remove_lines(t, b->start, b->end);
       parsed_free(&p);
-      free(v);
-      v = next;
+      free(t);
+      t = next;
     }
-    if (strcmp(v, vals.items[i].text) != 0) {
-      set_value(r->doc, vals.items[i].path, vals.items[i].field, v);
-    }
-    free(v);
+    if (strcmp(t, v->text) != 0) set_value(r->doc, v->path, v->field, t);
+    free(t);
   }
   values_free(&vals);
+  decided_free(decided, decided_len);
+  values_free(&before);
+  return 1;
 }
 
 /* ---- writing changes as inline marks (SOM §11.9.3, annot5) --------------- */
@@ -3212,5 +4478,328 @@ SpecMarkedChange spec_review_annotations_mark_against(
   SpecMarkedChange result = spec_mark_change_text(earlier, current);
   free(current);
   set_value(r->doc, path, field, result.text);
+  return result;
+}
+
+/* ---- text-level building blocks of the merge (SOM §11.9.9) --------------- */
+
+void spec_review_pieces(const char *value, SpecReviewPieces *out) {
+  memset(out, 0, sizeof(*out));
+  if (value[0] == '\0') return;
+  Parsed p;
+  parse(value, &p);
+  size_t *starts = NULL, *ends = NULL;
+  size_t n = paragraph_bounds(&p.lines, p.code, &starts, &ends);
+  for (size_t i = 0; i < n; i++) {
+    SpecReviewPiece piece;
+    memset(&piece, 0, sizeof(piece));
+    piece.is_text = 1;
+    som_strlist_init(&piece.question_ids);
+    piece.text =
+        join_from(LINE(&p, starts[i]), (const char *const *)p.lines.items,
+                  (long long)starts[i] + 1, (long long)ends[i]);
+    for (size_t bi = 0; bi < p.blocks_len; bi++) {
+      const Block *b = &p.blocks[bi];
+      if (b->start != starts[i]) continue;
+      piece.is_text = 0;
+      piece.kind = b->kind;
+      if (b->kind == SPEC_REVIEW_ANNOTATION_COMMENT) {
+        const Comment *c = &p.comments[b->comment];
+        piece.id = dup_or_null(c->id);
+        piece.author = dup_or_null(c->author);
+        piece.comment_text = som_strdup(c->text);
+      } else if (b->kind == SPEC_REVIEW_ANNOTATION_CONFLICT) {
+        piece.id = dup_or_null(p.conflicts[b->conflict].id);
+      } else {
+        for (size_t qi = 0; qi < b->q_len; qi++) {
+          som_strlist_push_copy(&piece.question_ids,
+                                p.questions[b->q_first + qi].id);
+        }
+      }
+      break;
+    }
+    if (piece.comment_text == NULL) piece.comment_text = som_strdup("");
+    PUSH(out->items, out->len, out->cap, piece);
+  }
+  free(starts);
+  free(ends);
+  parsed_free(&p);
+}
+
+void spec_review_pieces_free(SpecReviewPieces *ps) {
+  for (size_t i = 0; i < ps->len; i++) {
+    SpecReviewPiece *p = &ps->items[i];
+    free(p->text);
+    free(p->id);
+    free(p->author);
+    free(p->comment_text);
+    som_strlist_free(&p->question_ids);
+  }
+  free(ps->items);
+  memset(ps, 0, sizeof(*ps));
+}
+
+void spec_review_marks(const char *value, SpecReviewMarks *out) {
+  memset(out, 0, sizeof(*out));
+  Parsed p;
+  parse(value, &p);
+  for (size_t k = 0; k < p.marks_len; k++) {
+    const Mark *m = &p.marks[k];
+    SpecReviewMark rm;
+    rm.start = m->start;
+    rm.end = m->end;
+    rm.body_end = m->body_end;
+    rm.kind = m->kind;
+    rm.markup = som_strdup_n(value + m->start, m->end - m->start);
+    som_strlist_copy(&rm.authors, &m->authors);
+    rm.votes = votes_copy(m->votes, m->votes_len);
+    rm.votes_len = m->votes_len;
+    rm.accepted = som_strdup(mark_replacement(m, 1));
+    rm.rejected = som_strdup(mark_replacement(m, 0));
+    PUSH(out->items, out->len, out->cap, rm);
+  }
+  parsed_free(&p);
+}
+
+void spec_review_marks_free(SpecReviewMarks *ms) {
+  for (size_t i = 0; i < ms->len; i++) {
+    SpecReviewMark *m = &ms->items[i];
+    free(m->markup);
+    som_strlist_free(&m->authors);
+    votes_free(m->votes, m->votes_len);
+    free(m->accepted);
+    free(m->rejected);
+  }
+  free(ms->items);
+  memset(ms, 0, sizeof(*ms));
+}
+
+char *spec_review_decide_marks_text(const char *value, const int *decisions,
+                                    size_t len) {
+  Parsed p;
+  parse(value, &p);
+  char *v = som_strdup(value);
+  for (size_t k = p.marks_len; k-- > 0;) {
+    if (k >= len || decisions[k] < 0) continue;
+    char *next = replace_mark(v, &p.marks[k],
+                              mark_replacement(&p.marks[k], decisions[k]));
+    free(v);
+    v = next;
+  }
+  parsed_free(&p);
+  return v;
+}
+
+char *spec_review_with_attribution(const char *value, const SpecReviewMark *m,
+                                   const SomStrList *authors,
+                                   const SpecMarkVote *votes,
+                                   size_t votes_len) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_putn(&b, value, m->body_end);
+  som_buf_puts(&b, "{@");
+  for (size_t i = 0; i < authors->len; i++) {
+    if (i > 0) som_buf_putc(&b, ',');
+    som_buf_puts(&b, authors->items[i]);
+  }
+  for (size_t i = 0; i < votes_len; i++) {
+    if (i > 0 || authors->len > 0) som_buf_putc(&b, ' ');
+    som_buf_putc(&b, votes[i].accept ? '+' : '-');
+    som_buf_puts(&b, votes[i].member);
+  }
+  som_buf_putc(&b, '}');
+  som_buf_puts(&b, value + m->end);
+  return som_buf_take(&b);
+}
+
+void spec_review_team_answers(const char *value, SomStrList *ids,
+                              SomStrList *answers) {
+  som_strlist_init(ids);
+  som_strlist_init(answers);
+  Parsed p;
+  parse(value, &p);
+  for (size_t i = 0; i < p.questions_len; i++) {
+    if (som_strlist_contains(ids, p.questions[i].id)) continue;
+    som_strlist_push_copy(ids, p.questions[i].id);
+    som_strlist_push_copy(answers, p.questions[i].answer);
+  }
+  parsed_free(&p);
+}
+
+char *spec_review_set_individual_answer_text(const char *value,
+                                             const char *question_id,
+                                             const char *member,
+                                             const char *answer) {
+  Parsed p;
+  parse(value, &p);
+  char *out = NULL;
+  for (size_t i = 0; i < p.questions_len && out == NULL; i++) {
+    if (strcmp(p.questions[i].id, question_id) == 0) {
+      out = set_individual_answer(value, &p.questions[i], member, answer);
+    }
+  }
+  parsed_free(&p);
+  return out;
+}
+
+/* Pushes the lines of a conflict's text: the first after its prefix, the rest
+ * indented under it. */
+static void push_alternative_lines(SomStrList *out, const char *prefix,
+                                   const char *text) {
+  SomStrList t;
+  split_lines(text, &t);
+  char *head = fmt("> - %s %s", prefix, t.items[0]);
+  som_strlist_push(out, trim_right_dup(head));
+  free(head);
+  for (size_t k = 1; k < t.len; k++)
+    som_strlist_push(out, fmt(">   %s", t.items[k]));
+  som_strlist_free(&t);
+}
+
+void spec_review_format_conflict_block(
+    const char *id, const char *topic, const char *text, const char *base,
+    const SpecConflictAlternative *alternatives, size_t alternatives_len,
+    SomStrList *out) {
+  som_strlist_init(out);
+  char *head = fmt("> " SCALES VS16 " **%s" EM_SEP "%s:** %s", id, topic, text);
+  som_strlist_push(out, trim_right_dup(head));
+  free(head);
+  push_alternative_lines(out, "(base)", base);
+  for (size_t i = 0; i < alternatives_len; i++) {
+    char *names = som_strlist_join(&alternatives[i].members, ", ");
+    char *prefix = fmt("(%s) **%s:**", alternatives[i].letter, names);
+    push_alternative_lines(out, prefix, alternatives[i].text);
+    free(prefix);
+    free(names);
+  }
+  som_strlist_push_copy(out, ">");
+  som_strlist_push_copy(out, "> " DECISION_LABEL);
+}
+
+/* The b-token range `[*from, *to)` an x-token range `[x0, x1)` lands on; 0
+ * when it is not one.
+ *
+ * A replaced range lands where its tokens are in b, which must be contiguous
+ * there; its neighbours are not consulted, because the token diff may align a
+ * neighbouring space with another space of b (beside a decided mark) without
+ * the range touching that mark. A pure insertion (`x0 == x1`) has no tokens of
+ * its own, so both neighbours must sit next to each other in b. */
+static int landing(const long long *to_b, size_t n, size_t x0, size_t x1,
+                   size_t b_len, size_t *from, size_t *to) {
+  for (size_t k = x0; k < x1; k++) {
+    if (to_b[k] < 0 || (k > x0 && to_b[k] != to_b[k - 1] + 1)) return 0;
+  }
+  if (x1 > x0) {
+    *from = (size_t)to_b[x0];
+    *to = (size_t)to_b[x1 - 1] + 1;
+    return 1;
+  }
+  long long left = x0 == 0 ? -1 : to_b[x0 - 1];
+  long long right = x1 == n ? (long long)b_len : to_b[x1];
+  if ((x0 > 0 && left < 0) || (x1 < n && right < 0)) return 0;
+  if (right != left + 1) return 0;
+  *from = *to = (size_t)(left + 1);
+  return 1;
+}
+
+/* One edit x → y: x tokens `[x0, x1)` replaced by `inserted` (owned). */
+typedef struct {
+  size_t x0, x1;
+  SomBuf inserted;
+} Hunk;
+
+char *spec_review_transplant_edits(const char *x, const char *y,
+                                   const char *b) {
+  Toks xt, bt, yt;
+  tokens_of(x, &xt);
+  tokens_of(b, &bt);
+  tokens_of(y, &yt);
+  /* Where each token of x is in b (-1: x and b differ there). */
+  long long *to_b = malloc((xt.len ? xt.len : 1) * sizeof(long long));
+  for (size_t k = 0; k < xt.len; k++) to_b[k] = -1;
+  DiffOps ops;
+  diff_toks(&xt, &bt, &ops);
+  size_t i = 0;
+  long long j = 0;
+  for (size_t k = 0; k < ops.len; k++) {
+    if (ops.items[k].kind == 0) {
+      to_b[i++] = j++;
+    } else if (ops.items[k].kind == 1) {
+      i++;
+    } else {
+      j++;
+    }
+  }
+  free(ops.items);
+  /* The edits x → y. */
+  Hunk *hunks = NULL;
+  size_t hunks_len = 0, hunks_cap = 0;
+  int open = 0;
+  Hunk cur;
+  diff_toks(&xt, &yt, &ops);
+  i = 0;
+  for (size_t k = 0; k < ops.len; k++) {
+    if (ops.items[k].kind == 0) {
+      if (open) PUSH(hunks, hunks_len, hunks_cap, cur);
+      open = 0;
+      i++;
+      continue;
+    }
+    if (!open) {
+      cur.x0 = cur.x1 = i;
+      som_buf_init(&cur.inserted);
+      open = 1;
+    }
+    if (ops.items[k].kind == 1) {
+      cur.x1 = ++i;
+    } else {
+      som_buf_putn(&cur.inserted, ops.items[k].tok->text,
+                   ops.items[k].tok->len);
+    }
+  }
+  if (open) PUSH(hunks, hunks_len, hunks_cap, cur);
+  free(ops.items);
+  /* The output as b's token texts, each edit replacing the tokens it lands
+   * on: `gone[k]` drops token k, `before[k]` is inserted in front of it
+   * (index n: at the end). The edits never overlap, so this is the same as
+   * splicing them in from the last one up. */
+  size_t n = bt.len;
+  char **before = calloc(n + 1, sizeof(char *));
+  unsigned char *gone = calloc(n + 1, 1);
+  int ok = 1;
+  for (size_t h = hunks_len; ok && h-- > 0;) {
+    size_t from, to;
+    if (!landing(to_b, xt.len, hunks[h].x0, hunks[h].x1, n, &from, &to)) {
+      ok = 0;
+      break;
+    }
+    const char *ins = hunks[h].inserted.data ? hunks[h].inserted.data : "";
+    /* Splice: the landed tokens go, `ins` takes their place. */
+    for (size_t k = from; k < to; k++) gone[k] = 1;
+    char *prev = before[from];
+    before[from] = fmt("%s%s", ins, prev ? prev : "");
+    free(prev);
+  }
+  char *result = NULL;
+  if (ok) {
+    SomBuf out;
+    som_buf_init(&out);
+    for (size_t k = 0; k <= n; k++) {
+      if (before[k]) som_buf_puts(&out, before[k]);
+      if (k < n && !gone[k])
+        som_buf_putn(&out, bt.items[k].text, bt.items[k].len);
+    }
+    result = out.data ? som_buf_take(&out) : som_strdup("");
+    som_buf_free(&out);
+  }
+  for (size_t k = 0; k <= n; k++) free(before[k]);
+  free(before);
+  free(gone);
+  for (size_t h = 0; h < hunks_len; h++) som_buf_free(&hunks[h].inserted);
+  free(hunks);
+  free(to_b);
+  toks_free(&xt);
+  toks_free(&bt);
+  toks_free(&yt);
   return result;
 }

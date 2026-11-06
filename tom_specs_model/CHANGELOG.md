@@ -1,3 +1,9 @@
+## 1.7.1
+
+- No model change. The chain moves with the runtimes, which read and write the
+  team-review notation (SOM §11.9.8) and merge a review round's copies with
+  `mergeReviews` (§11.9.9) in all nine languages.
+
 ## 1.7.0
 
 - Review teams and the reviewers of a revision (additive minor model version;

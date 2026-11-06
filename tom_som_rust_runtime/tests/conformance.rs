@@ -80,7 +80,11 @@ use tom_som_rust_runtime::spec_query::{
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_review_annotations::{
     apply_inline_marks_text, mark_change_text, SpecMarkDecision, SpecQuestionDraft,
-    SpecReviewAnnotationError, SpecReviewAnnotations,
+    SpecReviewAnnotationError, SpecReviewAnnotations, SpecReviewJsonOptions,
+};
+use tom_som_rust_runtime::spec_review_merge::{
+    merge_reviews, merge_reviews_markdown, SpecReviewMember, SpecReviewMergeOptions,
+    SpecReviewedCopy,
 };
 use tom_som_rust_runtime::spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision,
@@ -206,6 +210,8 @@ fn conformance() {
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_annotations(&mut c, &model, &tree);
+    test_team_annotations(&mut c, &model, &tree);
+    test_review_merge(&mut c, &model);
     test_inline_marks(&mut c, &model, &tree);
     test_change_marks(&mut c, &model, &tree);
     test_answers(&mut c, &model);
@@ -3028,6 +3034,174 @@ fn test_annotations(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
     }
 }
 
+/// `team_annotation_cases.json` (SOM §11.9.8): the scripted `cases` run like
+/// `annotation_cases.json` with the results in their team form; the
+/// `validationCases` run like `validation_cases.json` over the corpus model.
+fn test_team_annotations(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
+    let table = read_json("team_annotation_cases.json");
+    let scripted = cases(&table, "cases");
+    c.check("teamAnnotations.cases", !scripted.is_empty(), "no cases");
+    for cc in scripted {
+        check_annotation_case_with(
+            c,
+            model,
+            tree,
+            cc,
+            "teamAnnotations",
+            SpecReviewJsonOptions::TEAM,
+        );
+    }
+    let validation = cases(&table, "validationCases");
+    c.check(
+        "teamValidate.cases",
+        !validation.is_empty(),
+        "no validationCases",
+    );
+    for cc in validation {
+        let name = cc.str_or("name");
+        let doc = doc_from_state(&DocumentJson::from_json(cc.get("state").expect("state")));
+        let got: Vec<(String, String)> = validate_document(model, &doc)
+            .iter()
+            .map(|e| (e.path.clone(), e.code.clone()))
+            .collect();
+        let want: Vec<(String, String)> = cc
+            .get("errors")
+            .and_then(|v| v.as_array())
+            .unwrap_or(&[])
+            .iter()
+            .map(|e| (e.str_or("path"), e.str_or("code")))
+            .collect();
+        c.check(
+            &format!("teamValidate[{}]", name),
+            got == want,
+            &format!("{:?} != {:?}", got, want),
+        );
+    }
+}
+
+/// The real model, for the review-merge cases written against it.
+fn load_som_model() -> SpecModel {
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../tom_som_dart_v0/meta/spec_model.meta.json");
+    let text =
+        std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("read {}: {}", path.display(), e));
+    SpecModel::from_json(&Json::parse(&text).expect("parse the SOM model"))
+}
+
+fn review_member(j: &Json) -> SpecReviewMember {
+    SpecReviewMember {
+        member_id: j.str_or("memberId"),
+        display_name: j.str_or("displayName"),
+        role: j.str_or("role"),
+    }
+}
+
+/// One `review_merge_cases.json` case: the merged document (its state, or the
+/// Markdown text) and the report; a refused merge answers `{error: true}`.
+fn run_review_merge_case(models: &HashMap<&str, SpecModel>, cc: &Json) -> Json {
+    let o = cc.get("options").expect("merge options");
+    let options = SpecReviewMergeOptions {
+        team: o
+            .get("team")
+            .and_then(|t| t.as_array())
+            .unwrap_or(&[])
+            .iter()
+            .map(review_member)
+            .collect(),
+        date: o.str_or("date"),
+        author: o.str_or("author"),
+        question_prefix: o
+            .get("questionPrefix")
+            .and_then(|q| q.as_str())
+            .map(str::to_string),
+    };
+    let copies = cc.get("copies").and_then(|c| c.as_array()).unwrap_or(&[]);
+    if cc.str_or("format") == "markdown" {
+        let copies: Vec<SpecReviewedCopy<String>> = copies
+            .iter()
+            .map(|x| SpecReviewedCopy {
+                member: review_member(x),
+                document: x.str_or("document"),
+            })
+            .collect();
+        return match merge_reviews_markdown(&cc.str_or("base"), &copies, &options) {
+            Ok(r) => obj(vec![
+                ("merged", jstr(&r.merged)),
+                ("report", r.report.to_json()),
+            ]),
+            Err(_) => obj(vec![("error", Json::Bool(true))]),
+        };
+    }
+    let model = &models[cc.str_or("model").as_str()];
+    let state = |j: &Json| doc_from_state(&DocumentJson::from_json(j));
+    let copies: Vec<SpecReviewedCopy<SpecDocument>> = copies
+        .iter()
+        .map(|x| SpecReviewedCopy {
+            member: review_member(x),
+            document: state(x.get("document").expect("copy document")),
+        })
+        .collect();
+    let base = state(cc.get("base").expect("merge base"));
+    match merge_reviews(model, &base, &copies, &options) {
+        Ok(r) => obj(vec![
+            (
+                "merged",
+                Json::parse(&r.merged.to_json().to_canonical_json()).expect("merged state"),
+            ),
+            ("report", r.report.to_json()),
+        ]),
+        Err(_) => obj(vec![("error", Json::Bool(true))]),
+    }
+}
+
+/// Merging reviewed copies (SOM §11.9.9), SOM documents and plain Markdown
+/// (`review_merge_cases.json`). A merged state compares by its canonical
+/// form, Markdown byte for byte.
+fn test_review_merge(c: &mut Checker, model: &SpecModel) {
+    let mut models: HashMap<&str, SpecModel> = HashMap::new();
+    models.insert("demo", model.clone());
+    models.insert("som", load_som_model());
+    let table = read_json("review_merge_cases.json");
+    let all = cases(&table, "cases");
+    c.check("reviewMerge.cases", !all.is_empty(), "no cases");
+    for cc in all {
+        let name = cc.str_or("name");
+        let got = run_review_merge_case(&models, cc);
+        let want = cc.get("expect").expect("merge expect");
+        let state_of = |j: &Json| {
+            j.get("merged")
+                .filter(|m| m.as_str().is_none())
+                .map(|m| DocumentJson::from_json(m).to_canonical_json())
+        };
+        let merged_equal = match (got.get("merged"), want.get("merged")) {
+            (Some(Json::Str(g)), Some(Json::Str(w))) => g == w,
+            (Some(_), Some(_)) => state_of(&got) == state_of(want),
+            (None, None) => true,
+            _ => false,
+        };
+        let report_equal = match (got.get("report"), want.get("report")) {
+            (Some(g), Some(w)) => json_eq(g, w),
+            (None, None) => true,
+            _ => false,
+        };
+        let error_equal = got.get("error") == want.get("error");
+        let detail = match (got.get("merged"), want.get("merged")) {
+            (Some(Json::Str(g)), Some(Json::Str(w))) => byte_diff("merged", g, w),
+            _ => format!("got {:?} want {:?}", got, want),
+        };
+        c.check(
+            &format!("reviewMerge[{}].merged", name),
+            merged_equal && error_equal,
+            &detail,
+        );
+        c.check(
+            &format!("reviewMerge[{}].report", name),
+            report_equal,
+            &format!("got {:?} want {:?}", got.get("report"), want.get("report")),
+        );
+    }
+}
+
 /// `inline_mark_cases.json`: `textCases` pin [`apply_inline_marks_text`] for
 /// accept and reject; `cases` are annotation scripts using the mark-review
 /// ops (`revision`, `listMarks`, `decideMarks`, `acceptAll`, `rejectAll`,
@@ -3167,8 +3341,21 @@ fn check_annotation_case(
     cc: &Json,
     label: &str,
 ) {
+    check_annotation_case_with(c, model, tree, cc, label, SpecReviewJsonOptions::default());
+}
+
+/// [`check_annotation_case`] with the results rendered by `json`: the team
+/// form for `team_annotation_cases.json`, the plain one everywhere else.
+fn check_annotation_case_with(
+    c: &mut Checker,
+    model: &SpecModel,
+    tree: &SomMetaTree,
+    cc: &Json,
+    label: &str,
+    json: SpecReviewJsonOptions,
+) {
     let name = cc.str_or("name");
-    let (results, state) = run_annotation_case(model, tree, cc);
+    let (results, state) = run_annotation_case(model, tree, cc, json);
     let expect = cc.get("expect").expect("annotation case expect");
     let want_results = expect
         .get("results")
@@ -3214,6 +3401,7 @@ fn run_annotation_case(
     model: &SpecModel,
     tree: &SomMetaTree,
     cc: &Json,
+    json: SpecReviewJsonOptions,
 ) -> (Vec<AnnotationResult>, DocumentJson) {
     let mut doc = doc_from_state(&DocumentJson::from_json(
         cc.get("state").expect("annotation case state"),
@@ -3227,8 +3415,10 @@ fn run_annotation_case(
         let draft = || SpecQuestionDraft::from_json(op.get("question").unwrap_or(&Json::Null));
         let unit = |r: Result<(), SpecReviewAnnotationError>| r.map(|_| Json::Null);
         let result: AnnotationResult = match op.str_or("op").as_str() {
-            "list" => Ok(Json::Array(api.list().iter().map(|a| a.to_json()).collect())),
-            "counts" => Ok(api.counts().to_json()),
+            "list" => Ok(Json::Array(
+                api.list().iter().map(|a| a.to_json_with(json)).collect(),
+            )),
+            "counts" => Ok(api.counts().to_json_with(json)),
             "nextId" => Ok(jstr(&api.next_comment_id(floor))),
             "assignIds" => Ok(jstrs(&api.assign_comment_ids(floor))),
             "insertComment" => api
@@ -3250,7 +3440,11 @@ fn run_annotation_case(
             "insertQuestionAfterComment" => {
                 unit(api.insert_question_after_comment(s("commentId").unwrap_or(""), &draft()))
             }
-            "setAnswer" => unit(api.set_answer(s("id").unwrap_or(""), s("answer").unwrap_or(""))),
+            "setAnswer" => unit(api.set_answer_by(
+                s("id").unwrap_or(""),
+                s("answer").unwrap_or(""),
+                s("author"),
+            )),
             "editComment" => unit(api.edit_comment(s("id").unwrap_or(""), s("text").unwrap_or(""))),
             "resolve" => unit(api.resolve(s("id").unwrap_or(""))),
             "applyMark" => unit(api.apply_mark(
@@ -3266,7 +3460,7 @@ fn run_annotation_case(
             "listMarks" => Ok(Json::Array(
                 api.list_marks(s("path"))
                     .iter()
-                    .map(|m| m.to_json())
+                    .map(|m| m.to_json_with(json))
                     .collect(),
             )),
             "decideMarks" => {
@@ -3287,11 +3481,12 @@ fn run_annotation_case(
                     Some("@current") | None => api.revision(),
                     Some(r) => r.to_string(),
                 };
-                api.decide_marks(&decisions, &revision).map(|r| r.to_json())
+                api.decide_marks(&decisions, &revision)
+                    .map(|r| r.to_json_with(json))
             }
-            "acceptAll" => Ok(api.accept_all_marks(s("path")).to_json()),
-            "rejectAll" => Ok(api.reject_all_marks(s("path")).to_json()),
-            "removeAll" => Ok(api.remove_all_annotations().to_json()),
+            "acceptAll" => Ok(api.accept_all_marks(s("path")).to_json_with(json)),
+            "rejectAll" => Ok(api.reject_all_marks(s("path")).to_json_with(json)),
+            "removeAll" => api.remove_all_annotations().map(|r| r.to_json_with(json)),
             "setMarked" => Ok(api
                 .set_marked(s("path").unwrap_or(""), s("field"), s("text").unwrap_or(""))
                 .to_json()),

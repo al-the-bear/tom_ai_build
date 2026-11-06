@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+- Team reviews (SOM §11.9.8), a port of the TypeScript reference:
+  `SpecReviewAnnotations` reads attribution tokens after marks (`authors` and
+  `votes`, `SpecMarkVote`, in `list()` and `listMarks()`; the token goes with
+  its mark on every decision), individual answers (`answers`,
+  `SpecIndividualAnswer`; the question's text ends before them), conflict
+  blocks (`SpecReviewAnnotationKind::Conflict`, `SpecConflictAlternative`,
+  `decisionLetter()`; `paragraphs()` marks them) and `open:` answers and
+  decisions (`unresolved()`). `counts()` adds `unresolvedQuestions`,
+  `conflicts` and `openConflicts`. `setAnswer(id, answer, author)` writes a
+  member's individual answer by the grouping rules. `removeAllAnnotations()`
+  applies every decided conflict (`SpecMarkReport::conflicts`,
+  `SpecConflictOutcome`) and throws while one is open, unresolved or
+  malformed. `validate()` reports the team findings. The JSON forms take
+  `toJson(bool team)` for the members the team cases pin. New:
+  `som::formatConflictBlock`, `som::isReviewMemberId`. `extractAnswers` skips
+  conflict blocks. Conformance: `team_annotation_cases.json`.
+
+- Merging reviewed copies (SOM §11.9.9), a new module `spec_review_merge`
+  ported from the TypeScript reference: `som::mergeReviews(model, base,
+  copies, options)` merges a `SpecDocument` (by model path, list items by
+  section id; added items, structural conflicts and the draft revision entry
+  included) and `som::mergeReviews(base, copies, options)` a plain annotated
+  Markdown string (by heading path); both return `SpecReviewMergeResult`
+  (`merged`, `report`: `SpecReviewMergeReport`). A copy that does not fit the
+  base throws `SpecReviewMergeError`. Conformance: `review_merge_cases.json`.
+
 - Listing a value's paragraphs (SOM §11.9.1, annot8), a port of the Dart
   reference: `SpecReviewAnnotations::paragraphs(path, field)` returns
   `SpecParagraph`s (`index`, `startLine`, `endLine`, `text`, and the

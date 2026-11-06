@@ -9,6 +9,7 @@
 #include "spec_review_annotations.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -28,6 +29,9 @@ const std::string kCombinedOpener =
 const std::string kAnswerLabel = "**Answer:**";
 const std::string kEmDashSep = " \xE2\x80\x94 ";  // ` — `
 const std::string kStar = "\xE2\x98\x85";        // U+2605
+const std::string kScales = "\xE2\x9A\x96";      // U+2696, a conflict block
+const std::string kDecisionLabel = "**Decision:**";
+const std::string kUnresolvedPrefix = "open:";
 
 const char* const kOpeners[5] = {"{>>", "{==", "{++", "{--", "{~~"};
 const char* const kClosers[5] = {"<<}", "==}", "++}", "--}", "~~}"};
@@ -221,6 +225,15 @@ struct Block {
   std::size_t qFirst = 0;   // questions of a question block
   std::size_t qLen = 0;
   bool combined = false;
+  std::size_t conflict = 0;  // index into conflicts, for a conflict block
+};
+
+/* One `**Answer (<ids>):**` entry of a question (SOM §11.9.8). */
+struct IndividualAnswer {
+  std::size_t line = 0;  // value line of the `**Answer (…):**` line
+  std::size_t end = 0;   // last value line of the entry with text (inclusive)
+  std::vector<std::string> members;
+  std::string answer;
 };
 
 struct Question {
@@ -234,6 +247,20 @@ struct Question {
   std::string answer;
   std::vector<SpecQuestionOption> options;
   std::optional<std::string> recommended;
+  std::vector<IndividualAnswer> answers;
+};
+
+/* One parsed conflict block (SOM §11.9.8). */
+struct Conflict {
+  std::size_t block = 0;
+  /* nullopt when the header is malformed: the block is then not listed. */
+  std::optional<std::string> id;
+  std::string topic;
+  std::string text;
+  /* The `(base)` text, or nullopt when the block has none. */
+  std::optional<std::string> base;
+  std::vector<SpecConflictAlternative> alternatives;
+  std::string decision;
 };
 
 struct Comment {
@@ -246,14 +273,21 @@ struct Comment {
   std::size_t markerEnd = 0;  // where an id is inserted into the first line
 };
 
+/* One parsed mark; start/end are byte offsets into the value (never
+ * exported). `end` lies after the attribution token when the mark has one,
+ * `bodyEnd` always right after the mark itself, so the token can be rewritten
+ * in place. */
 struct Mark {
-  std::size_t start = 0;  // byte offsets into the value; never exported
+  std::size_t start = 0;
   std::size_t end = 0;
+  std::size_t bodyEnd = 0;
   std::size_t line = 0;
   SpecMarkKind kind = SpecMarkKind::Comment;
   std::string text;
   std::optional<std::string> newText;
   std::optional<std::string> comment;
+  std::vector<std::string> authors;
+  std::vector<SpecMarkVote> votes;
 };
 
 struct Parsed {
@@ -262,6 +296,7 @@ struct Parsed {
   std::vector<Block> blocks;
   std::vector<Comment> comments;
   std::vector<Question> questions;
+  std::vector<Conflict> conflicts;
   std::vector<Mark> marks;
   std::vector<std::string> malformed;
   /* Malformed inline marks as (value line, issue code): `unclosed`,
@@ -304,7 +339,8 @@ bool isQuoteLine(const std::string& line) {
 
 /* The line inside the quote: after `>` and one following space. */
 std::string innerOf(const std::string& line) {
-  std::string s = lstrip(line).substr(1);
+  const std::string t = lstrip(line);
+  std::string s = t.empty() ? t : t.substr(1);
   if (!s.empty() && s[0] == ' ') s = s.substr(1);
   return s;
 }
@@ -325,6 +361,34 @@ bool isCommentNumber(const std::string& n) {
     if (c < '0' || c > '9') return false;
   }
   return true;
+}
+
+/* The start of an individual answer line, `**Answer (alice, bob):**`: the
+ * text between the brackets and the length of the label; nullopt for any
+ * other line. */
+std::optional<std::pair<std::string, std::size_t>> individualAnswerLabel(
+    const std::string& line) {
+  const std::string open = "**Answer (";
+  if (!startsWith(line, open)) return std::nullopt;
+  const std::size_t close = line.find(')', open.size());
+  if (close == std::string::npos || line.compare(close, 4, "):**") != 0) {
+    return std::nullopt;
+  }
+  return std::make_pair(line.substr(open.size(), close - open.size()),
+                        close + 4);
+}
+
+/* `s` split on `sep`, each piece trimmed (empty pieces kept). */
+std::vector<std::string> splitTrimmed(const std::string& s, char sep) {
+  std::vector<std::string> out;
+  std::size_t from = 0;
+  while (true) {
+    const std::size_t at = s.find(sep, from);
+    out.push_back(trim(s.substr(
+        from, at == std::string::npos ? std::string::npos : at - from)));
+    if (at == std::string::npos) return out;
+    from = at + 1;
+  }
 }
 
 void parseComment(Parsed& p, std::size_t bi) {
@@ -369,7 +433,8 @@ void parseComment(Parsed& p, std::size_t bi) {
   for (std::size_t k = b.start + 1; k <= b.end; k++) {
     const std::string inner = innerOf(p.lines[k]);
     const std::string t = lstrip(inner);
-    if (startsWith(t, kQuestionOpen) || startsWith(t, kAnswerLabel)) {
+    if (startsWith(t, kQuestionOpen) || startsWith(t, kAnswerLabel) ||
+        individualAnswerLabel(t)) {
       p.malformed.push_back(
           "line " + std::to_string(k) +
           ": a comment block holds a question or an answer; the question "
@@ -450,6 +515,24 @@ std::optional<std::string> leadingLetter(const std::string& s) {
     return t.substr(1, 1);
   }
   return std::nullopt;
+}
+
+bool isUnresolvedAnswer(const std::string& answer) {
+  return startsWith(answer, kUnresolvedPrefix);
+}
+
+/* `s` without its leading whitespace (Dart's `trimLeft`). */
+std::string trimLeft(const std::string& s) {
+  auto [b, e] = trimBounds(s);
+  return b == e ? std::string() : s.substr(b);
+}
+
+/* A conflict decision's letter: `a`…, `base`, or nullopt (rewritten text or
+ * none). */
+std::optional<std::string> decisionLetterOf(const std::string& decision) {
+  const std::string t = trimLeft(decision);
+  if (startsWith(t, "(base)") || startsWith(t, "**(base)**")) return "base";
+  return isUnresolvedAnswer(t) ? std::nullopt : leadingLetter(t);
 }
 
 /* Whether `s`, lower-cased, contains `recommended`. */
@@ -547,26 +630,62 @@ void parseQuestions(Parsed& p, std::size_t bi) {
     std::size_t k = h.k;
     std::size_t regionEnd =
         q + 1 < headers.size() ? headers[q + 1].k - 1 : in.size() - 1;
-    std::optional<std::size_t> answer;
+    // Every `**Answer` line of the region: the individual ones and the team's.
+    std::vector<std::size_t> answerLines;
     for (std::size_t m = k + 1; m <= regionEnd; m++) {
-      if (startsWith(in[m], kAnswerLabel)) {
-        answer = m;
-        break;
+      if (startsWith(in[m], kAnswerLabel) || individualAnswerLabel(in[m])) {
+        answerLines.push_back(m);
       }
     }
-    long long textEnd = answer ? static_cast<long long>(*answer) - 1
-                               : static_cast<long long>(regionEnd);
+    // An answer runs to the next `**Answer` line or the end of the region.
+    auto answerEnd = [&](std::size_t m) {
+      for (std::size_t x : answerLines) {
+        if (x > m) return x - 1;
+      }
+      return regionEnd;
+    };
+    auto answerText = [&](std::size_t m, std::size_t label) {
+      return trim(joinFrom(in[m].substr(label), in,
+                           static_cast<long long>(m) + 1,
+                           static_cast<long long>(answerEnd(m))));
+    };
+    // The question's text ends before its first answer line of either kind.
+    long long textEnd = answerLines.empty()
+                            ? static_cast<long long>(regionEnd)
+                            : static_cast<long long>(answerLines[0]) - 1;
     Question qq;
     auto [options, recommended] =
         parseOptions(in, static_cast<long long>(k) + 1, textEnd);
     qq.options = std::move(options);
     qq.recommended = std::move(recommended);
     qq.text = trim(joinFrom(h.rest, in, static_cast<long long>(k) + 1, textEnd));
-    if (answer) {
-      qq.answer = trim(joinFrom(in[*answer].substr(kAnswerLabel.size()), in,
-                                static_cast<long long>(*answer) + 1,
-                                static_cast<long long>(regionEnd)));
+    std::optional<std::size_t> answer;
+    std::set<std::string> answered;
+    for (std::size_t m : answerLines) {
+      if (startsWith(in[m], kAnswerLabel)) {
+        if (!answer) answer = m;
+        continue;
+      }
+      const auto label = individualAnswerLabel(in[m]);
+      IndividualAnswer entry;
+      entry.members = splitTrimmed(label->first, ',');
+      for (const std::string& member : entry.members) {
+        if (!answered.insert(member).second) {
+          p.malformed.push_back("line " + std::to_string(b.start + m) + ": " +
+                                member + " already answered " + h.id +
+                                "; a member answers a question at most once "
+                                "(SOM \xC2\xA7"
+                                "11.9.8)");
+        }
+      }
+      std::size_t end = answerEnd(m);
+      while (end > m && isBlank(in[end])) end--;
+      entry.line = b.start + m;
+      entry.end = b.start + end;
+      entry.answer = answerText(m, label->second);
+      qq.answers.push_back(std::move(entry));
     }
+    if (answer) qq.answer = answerText(*answer, kAnswerLabel.size());
     qq.header = b.start + k;
     qq.regionEnd = b.start + regionEnd;
     if (answer) qq.answerLine = b.start + *answer;
@@ -575,6 +694,162 @@ void parseQuestions(Parsed& p, std::size_t bi) {
     qq.starred = h.starred;
     p.questions.push_back(std::move(qq));
   }
+}
+
+/* `- (base) …`: the base line of a conflict block; its text, or nullopt for
+ * any other line. */
+std::optional<std::string> conflictBaseLine(const std::string& l) {
+  const std::string head = "- (base)";
+  if (!startsWith(l, head)) return std::nullopt;
+  if (l.size() == head.size()) return std::string();
+  if (l[head.size()] != ' ') return std::nullopt;
+  return l.substr(head.size() + 1);
+}
+
+/* `- (a) **alice, bob:** …`: a lettered alternative of a conflict block. */
+struct AlternativeLine {
+  std::string letter;
+  std::string members;  // the text between `**` and `:**`, empty without one
+  std::string text;
+};
+
+std::optional<AlternativeLine> conflictAlternativeLine(const std::string& l) {
+  if (l.size() < 5 || !startsWith(l, "- (") || !isLetter(l[3]) || l[4] != ')') {
+    return std::nullopt;
+  }
+  AlternativeLine out;
+  out.letter = l.substr(3, 1);
+  const std::string r = l.substr(5);
+  // ` **<members>:**`: the members hold no `*`, so the label ends at the
+  // first `*` after the opening `**`.
+  if (startsWith(r, " **")) {
+    const std::size_t star = r.find('*', 3);
+    if (star != std::string::npos && star > 3 && r[star - 1] == ':' &&
+        star + 1 < r.size() && r[star + 1] == '*') {
+      const std::string after = r.substr(star + 2);
+      if (after.empty() || after[0] == ' ') {
+        out.members = r.substr(3, star - 4);
+        out.text = after.empty() ? after : after.substr(1);
+        return out;
+      }
+    }
+  }
+  if (!r.empty() && r[0] != ' ') return std::nullopt;
+  out.text = r.empty() ? r : r.substr(1);
+  return out;
+}
+
+/* The header after the marker, `**X-<n> — <topic>:** <text>`: id, topic and
+ * text; nullopt when malformed. The topic is the shortest that a `:**` ends
+ * at the end of the line or before a space. */
+std::optional<std::array<std::string, 3>> conflictHeader(const std::string& h) {
+  if (!startsWith(h, "**X-")) return std::nullopt;
+  std::size_t i = 4;
+  if (i >= h.size() || h[i] < '1' || h[i] > '9') return std::nullopt;
+  while (i < h.size() && h[i] >= '0' && h[i] <= '9') i++;
+  if (!startsWith(h, kEmDashSep, i)) return std::nullopt;
+  const std::string id = h.substr(2, i - 2);
+  const std::size_t topicStart = i + kEmDashSep.size();
+  for (std::size_t q = topicStart + 1; q + 3 <= h.size(); q++) {
+    if (h.compare(q, 3, ":**") != 0) continue;
+    const std::string after = h.substr(q + 3);
+    if (!after.empty() && after[0] != ' ') continue;
+    return std::array<std::string, 3>{
+        id, h.substr(topicStart, q - topicStart),
+        trim(after.empty() ? after : after.substr(1))};
+  }
+  return std::nullopt;
+}
+
+/* A conflict block (SOM §11.9.8): the header, the `(base)` line and the
+ * lettered alternatives — each continuing on lines indented under it, its line
+ * breaks kept — then `**Decision:**`. A malformed header leaves the block
+ * unlisted; a missing base line or alternative is a finding. */
+void parseConflict(Parsed& p, std::size_t bi) {
+  const Block b = p.blocks[bi];
+  std::vector<std::string> in;
+  for (std::size_t k = b.start; k <= b.end; k++)
+    in.push_back(innerOf(p.lines[k]));
+  std::string rest = in[0].substr(kScales.size());
+  if (startsWith(rest, kVs16)) rest = rest.substr(kVs16.size());
+  const auto header = conflictHeader(trimLeft(rest));
+  Conflict c;
+  c.block = bi;
+  if (header) {
+    c.id = (*header)[0];
+    c.topic = (*header)[1];
+    c.text = (*header)[2];
+  } else {
+    p.malformed.push_back("line " + std::to_string(b.start) +
+                          ": conflict header is not \"\xE2\x9A\x96\xEF\xB8\x8F "
+                          "**X-<n> \xE2\x80\x94 <topic>:**\" (SOM \xC2\xA7"
+                          "11.9.8)");
+  }
+  std::size_t decisionLine = in.size();
+  for (std::size_t k = 1; k < in.size(); k++) {
+    if (startsWith(in[k], kDecisionLabel)) {
+      decisionLine = k;
+      break;
+    }
+  }
+  // The open entry: the base (no letter) or an alternative.
+  bool open = false;
+  std::optional<std::string> letter;
+  std::vector<std::string> members;
+  std::vector<std::string> lines;
+  auto close = [&]() {
+    if (!open) return;
+    const std::string text = trim(joinLines(lines));
+    if (!letter) {
+      c.base = text;
+    } else {
+      c.alternatives.push_back({*letter, members, text});
+    }
+    open = false;
+  };
+  for (std::size_t k = 1; k < decisionLine; k++) {
+    const std::string& l = in[k];
+    if (const auto base = conflictBaseLine(l)) {
+      close();
+      open = true;
+      letter.reset();
+      members.clear();
+      lines = {*base};
+    } else if (const auto alt = conflictAlternativeLine(l)) {
+      close();
+      open = true;
+      letter = alt->letter;
+      members.clear();
+      for (const std::string& m : splitTrimmed(alt->members, ',')) {
+        if (!m.empty()) members.push_back(m);
+      }
+      lines = {alt->text};
+    } else if (open && startsWith(l, " ")) {
+      lines.push_back(startsWith(l, "  ") ? l.substr(2) : lstrip(l));
+    } else {
+      close();
+    }
+  }
+  close();
+  if (decisionLine < in.size()) {
+    c.decision = trim(joinFrom(in[decisionLine].substr(kDecisionLabel.size()),
+                               in, static_cast<long long>(decisionLine) + 1,
+                               static_cast<long long>(in.size()) - 1));
+  }
+  if (header && !c.base) {
+    p.malformed.push_back("line " + std::to_string(b.start) + ": conflict " +
+                          *c.id +
+                          " has no \"(base)\" line (SOM \xC2\xA7"
+                          "11.9.8)");
+  }
+  if (header && c.alternatives.empty()) {
+    p.malformed.push_back("line " + std::to_string(b.start) + ": conflict " +
+                          *c.id +
+                          " has no lettered alternative (SOM \xC2\xA7"
+                          "11.9.8)");
+  }
+  p.blocks[bi].conflict = p.conflicts.size();
+  p.conflicts.push_back(std::move(c));
 }
 
 bool containsOpener(const std::string& s) {
@@ -595,6 +870,120 @@ std::size_t paragraphEnd(const std::string& text, std::size_t from) {
     i = next;
   }
   return text.size();
+}
+
+/* Whether a code point is whitespace as JavaScript's `\s` reads it. */
+bool isJsSpace(unsigned long c) { return c != 0x85 && dartIsSpace(c); }
+
+/* `s` split into its runs of non-whitespace. */
+std::vector<std::string> splitWords(const std::string& s) {
+  std::vector<std::string> out;
+  std::string word;
+  std::size_t i = 0;
+  while (i < s.size()) {
+    const std::size_t st = i;
+    const unsigned long c = nextCp(s, i, s.size());
+    if (isJsSpace(c)) {
+      if (!word.empty()) out.push_back(word);
+      word.clear();
+    } else {
+      word += s.substr(st, i - st);
+    }
+  }
+  if (!word.empty()) out.push_back(word);
+  return out;
+}
+
+/* Whether a mark kind is a change, which alone takes votes (SOM §11.9.8). */
+bool isChangeMark(SpecMarkKind kind) {
+  return kind == SpecMarkKind::Insertion || kind == SpecMarkKind::Deletion ||
+         kind == SpecMarkKind::Substitution;
+}
+
+/* The members of a token's inside, `<authors>[ <votes>]`, into `m`; or the
+ * reason it breaks the grammar of SOM §11.9.8 (then `m` is left alone). */
+std::optional<std::string> readToken(const std::string& inside, Mark& m) {
+  // A space after a comma is allowed: `,` and the whitespace after it is one
+  // separator.
+  std::string joined;
+  for (std::size_t i = 0; i < inside.size();) {
+    joined += inside[i];
+    if (inside[i++] != ',') continue;
+    std::size_t j = i;
+    bool any = false;
+    while (j < inside.size()) {
+      std::size_t q = j;
+      if (!isJsSpace(nextCp(inside, q, inside.size()))) break;
+      j = q;
+      any = true;
+    }
+    if (any) i = j;
+  }
+  const std::vector<std::string> words = splitWords(joined);
+  if (words.empty()) return std::string("is empty");
+  std::vector<std::string> authors;
+  std::vector<SpecMarkVote> votes;
+  std::size_t k = 0;
+  if (words[0][0] != '+' && words[0][0] != '-') {
+    std::size_t from = 0;
+    while (true) {
+      const std::size_t at = words[0].find(',', from);
+      authors.push_back(words[0].substr(
+          from, at == std::string::npos ? std::string::npos : at - from));
+      if (at == std::string::npos) break;
+      from = at + 1;
+    }
+    k = 1;
+  }
+  for (; k < words.size(); k++) {
+    const std::string& w = words[k];
+    if (w[0] != '+' && w[0] != '-')
+      return "has \"" + w + "\" where a vote belongs";
+    votes.push_back({w.substr(1), w[0] == '+'});
+  }
+  std::set<std::string> seen;
+  std::vector<std::string> ids = authors;
+  for (const SpecMarkVote& v : votes) ids.push_back(v.member);
+  for (const std::string& id : ids) {
+    if (!isReviewMemberId(id))
+      return "names \"" + id + "\", which is not a member id";
+    if (!seen.insert(id).second)
+      return "names " + id + " twice, or as author and voter";
+  }
+  if (!votes.empty() && !isChangeMark(m.kind)) {
+    return std::string("carries votes on a ") + specMarkKindName(m.kind) +
+           " mark, which takes authors only";
+  }
+  m.authors = std::move(authors);
+  m.votes = std::move(votes);
+  return std::nullopt;
+}
+
+/* Reads the attribution token `{@…}` at `at` (SOM §11.9.8) into `m`, which it
+ * directly follows, and returns the segment offset after it. The token is part
+ * of the mark — its markup, its decision — so `m.end` moves past it. A token
+ * that breaks the grammar is still part of the mark (it goes with the mark on
+ * a decision) and is a finding; its members are then not listed. */
+std::size_t attachToken(Parsed& p, const std::string& seg, std::size_t at,
+                        std::size_t base, Mark& m) {
+  const std::size_t lineEnd = seg.find('\n', at);
+  const std::size_t close = seg.find('}', at + 2);
+  if (close == std::string::npos ||
+      (lineEnd != std::string::npos && close > lineEnd)) {
+    p.malformed.push_back(
+        "line " + std::to_string(m.line) +
+        ": attribution token \"{@\" is not closed (SOM \xC2\xA7"
+        "11.9.8)");
+    return at;
+  }
+  if (const auto why = readToken(seg.substr(at + 2, close - at - 2), m)) {
+    p.malformed.push_back("line " + std::to_string(m.line) +
+                          ": attribution token " + *why +
+                          " (SOM \xC2\xA7"
+                          "11.9.8)");
+  }
+  m.end = base + close + 1;
+  return close + 1;
 }
 
 void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
@@ -629,6 +1018,17 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
         }
       }
       i = closeAt ? *closeAt + n : i + n;
+      continue;
+    }
+    if (c == '{' && startsWith(seg, "{@", i)) {
+      // A token that no mark precedes directly (a mark's own token is read
+      // with the mark, below).
+      p.malformed.push_back("line " + std::to_string(lineOf(base + i)) +
+                            ": an attribution token \"{@\" does not follow a "
+                            "mark directly (SOM \xC2\xA7"
+                            "11.9.8)");
+      const std::size_t close = seg.find('}', i + 2);
+      i = close == std::string::npos ? i + 2 : close + 1;
       continue;
     }
     if (c != '{' || i + 3 > seg.size()) {
@@ -715,6 +1115,8 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
       }
     }
     m.end = base + end;
+    m.bodyEnd = m.end;
+    if (startsWith(seg, "{@", end)) end = attachToken(p, seg, end, base, m);
     p.marks.push_back(std::move(m));
     i = end;
   }
@@ -774,6 +1176,13 @@ Parsed parse(const std::string& value) {
       b.kind = SpecReviewAnnotationKind::Question;
       p.blocks.push_back(b);
       parseQuestions(p, p.blocks.size() - 1);
+    } else if (startsWith(first, kScales)) {
+      Block b;
+      b.start = s;
+      b.end = e;
+      b.kind = SpecReviewAnnotationKind::Conflict;
+      p.blocks.push_back(b);
+      parseConflict(p, p.blocks.size() - 1);
     }
     i = e + 1;
   }
@@ -813,6 +1222,19 @@ void annotationsOf(const Parsed& p, const std::string& path,
       a.text = c.text;
       a.context = c.context;
       o.push_back({b.start, 0, seq++, std::move(a)});
+    } else if (b.kind == SpecReviewAnnotationKind::Conflict) {
+      const Conflict& c = p.conflicts[b.conflict];
+      if (!c.id) continue;
+      SpecReviewAnnotation a =
+          base(SpecReviewAnnotationKind::Conflict, b.start);
+      a.id = c.id;
+      if (qualifier) a.qualifiedId = *qualifier + " " + *c.id;
+      a.topic = c.topic;
+      a.text = c.text;
+      a.base = c.base.value_or("");
+      a.alternatives = c.alternatives;
+      a.answer = c.decision;
+      o.push_back({b.start, 0, seq++, std::move(a)});
     } else {
       for (std::size_t qi = 0; qi < b.qLen; qi++) {
         const Question& q = p.questions[b.qFirst + qi];
@@ -826,6 +1248,9 @@ void annotationsOf(const Parsed& p, const std::string& path,
         a.answer = q.answer;
         a.options = q.options;
         a.recommended = q.recommended;
+        for (const IndividualAnswer& ia : q.answers) {
+          a.answers.push_back({ia.members, ia.answer});
+        }
         o.push_back({q.header, 0, seq++, std::move(a)});
       }
     }
@@ -836,6 +1261,8 @@ void annotationsOf(const Parsed& p, const std::string& path,
     a.text = m.text;
     a.newText = m.newText;
     a.comment = m.comment;
+    a.authors = m.authors;
+    a.votes = m.votes;
     o.push_back({m.line, 1, seq++, std::move(a)});
   }
   std::sort(o.begin(), o.end(), [](const Ordered& x, const Ordered& y) {
@@ -1098,6 +1525,221 @@ long long paragraphLastLine(const std::string& value, long long afterParagraph) 
   return static_cast<long long>(ends[static_cast<std::size_t>(afterParagraph)]);
 }
 
+/* ---- team reviews (SOM §11.9.8): individual answers, applying conflicts -- */
+
+/* `s` with `count` bytes from `from` on, clamped like JavaScript's
+ * `substring`. */
+std::string clampedSub(const std::string& s, std::size_t from,
+                       std::size_t count = std::string::npos) {
+  return from >= s.size() ? std::string() : s.substr(from, count);
+}
+
+/* Whether an answer carries anything beyond an option letter (SOM §11.9.8):
+ * `(a)` or `**(a)**`, optionally followed by exactly that option's text, is
+ * not; an answer that starts with no letter is. */
+bool isCommentedAnswer(const std::string& answer,
+                       const std::vector<SpecQuestionOption>& options) {
+  const std::optional<std::string> letter = leadingLetter(answer);
+  if (!letter) return true;
+  const std::string t = trimLeft(answer);
+  const bool bold = startsWith(t, "**(") && clampedSub(t, 4, 3) == ")**";
+  const std::string rest = trim(clampedSub(t, bold                  ? 7
+                                              : startsWith(t, "**") ? 5
+                                                                    : 3));
+  if (rest.empty()) return false;
+  for (const SpecQuestionOption& o : options) {
+    if (o.letter == *letter) return rest != o.text;
+  }
+  return true;
+}
+
+/* The lines of one individual-answer entry. */
+std::vector<std::string> individualAnswerLines(
+    const std::vector<std::string>& members, const std::string& answer) {
+  const std::vector<std::string> a = splitLines(answer);
+  std::string names;
+  for (std::size_t i = 0; i < members.size(); i++) {
+    if (i > 0) names += ", ";
+    names += members[i];
+  }
+  std::vector<std::string> out{
+      trimRight("> **Answer (" + names + "):** " + a[0])};
+  for (std::string& l : quoted(a, 1)) out.push_back(std::move(l));
+  return out;
+}
+
+/* `value` with member `member`'s individual answer to question `q` set to
+ * `answer` (SOM §11.9.8): the member leaves the line it was on (a line left
+ * empty goes); a non-empty answer that is not commented joins the line whose
+ * answer is identical and not commented, at its end, and otherwise gets a new
+ * line after the last individual answer. The first individual answer opens
+ * the run before the team's `**Answer:**`, with a `>` line between run and
+ * team answer, and a run left empty takes that line with it. Entries left
+ * alone keep their bytes. */
+std::string setIndividualAnswer(const std::string& value, const Question& q,
+                                const std::string& member,
+                                const std::string& answer) {
+  std::vector<std::string> lines = splitLines(value);
+  struct Entry {
+    std::vector<std::string> members;
+    std::string answer;
+    std::optional<std::vector<std::string>> lines;  // nullopt: rewrite it
+  };
+  std::vector<Entry> kept;
+  for (const IndividualAnswer& a : q.answers) {
+    Entry e{a.members, a.answer,
+            std::vector<std::string>(lines.begin() + a.line,
+                                     lines.begin() + a.end + 1)};
+    const auto at = std::find(e.members.begin(), e.members.end(), member);
+    if (at != e.members.end()) {
+      e.members.erase(at);
+      e.lines.reset();
+    }
+    if (!e.members.empty()) kept.push_back(std::move(e));
+  }
+  const std::string text = trim(answer);
+  if (!text.empty()) {
+    Entry* join = nullptr;
+    if (!isCommentedAnswer(text, q.options)) {
+      for (Entry& e : kept) {
+        if (e.answer == text && !isCommentedAnswer(e.answer, q.options)) {
+          join = &e;
+          break;
+        }
+      }
+    }
+    if (join != nullptr) {
+      join->members.push_back(member);
+      join->lines.reset();
+    } else {
+      kept.push_back({{member}, text, std::nullopt});
+    }
+  }
+  std::vector<std::string> run;
+  for (const Entry& e : kept) {
+    const std::vector<std::string> l =
+        e.lines ? *e.lines : individualAnswerLines(e.members, e.answer);
+    run.insert(run.end(), l.begin(), l.end());
+  }
+  if (!q.answers.empty()) {
+    const std::size_t from = q.answers.front().line;
+    std::size_t to = q.answers.back().end;
+    // A run left empty takes its separating `>` line with it.
+    if (run.empty() && to + 1 < lines.size() &&
+        isBlank(innerOf(lines[to + 1]))) {
+      to++;
+    }
+    lines.erase(lines.begin() + from, lines.begin() + to + 1);
+    lines.insert(lines.begin() + from, run.begin(), run.end());
+  } else if (!run.empty()) {
+    if (q.answerLine) {
+      run.push_back(">");
+      lines.insert(lines.begin() + *q.answerLine, run.begin(), run.end());
+    } else {
+      std::size_t last = q.regionEnd;
+      while (last > q.header && isBlank(innerOf(lines[last]))) last--;
+      run.insert(run.begin(), ">");
+      lines.insert(lines.begin() + last + 1, run.begin(), run.end());
+    }
+  }
+  return joinLines(lines);
+}
+
+/* Whether a conflict's topic names a structural conflict the merge writes
+ * (SOM §11.9.9): its decision is not a text. */
+bool isStructuralTopic(const std::string& topic) {
+  return topic == "Item removed" || topic == "Item moved" ||
+         topic == "Headline changed";
+}
+
+/* The text a conflict's decision chooses: the base, an alternative, or the
+ * rewritten text. */
+std::string chosenText(const Conflict& c) {
+  const std::optional<std::string> letter = decisionLetterOf(c.decision);
+  if (letter && *letter == "base") return c.base.value_or("");
+  if (letter) {
+    for (const SpecConflictAlternative& a : c.alternatives) {
+      if (a.letter == *letter) return a.text;
+    }
+  }
+  return c.decision;
+}
+
+/* Whether a paragraph starting at `start` opens an annotation block. */
+bool opensBlock(const Parsed& p, std::size_t start) {
+  for (const Block& b : p.blocks) {
+    if (b.start == start) return true;
+  }
+  return false;
+}
+
+/* `value` with the lines `[s, e]` replaced by `text`. */
+std::string replaceLines(const std::string& value, std::size_t s, std::size_t e,
+                         const std::string& text) {
+  std::vector<std::string> lines = splitLines(value);
+  const std::vector<std::string> t = splitLines(text);
+  lines.erase(lines.begin() + s, lines.begin() + e + 1);
+  lines.insert(lines.begin() + s, t.begin(), t.end());
+  return joinLines(lines);
+}
+
+/* `value` with the text paragraph directly before the block at `blockStart`
+ * (annotation blocks between them skipped) replaced by `text`; with none,
+ * `text` goes before the block. */
+std::string replaceParagraphBefore(const std::string& value,
+                                   std::size_t blockStart,
+                                   const std::string& text) {
+  const Parsed p = parse(value);
+  std::optional<std::pair<std::size_t, std::size_t>> last;
+  for (const auto& r : paragraphRanges(p.lines, p.code)) {
+    if (r.second < blockStart && !opensBlock(p, r.first)) last = r;
+  }
+  if (!last) {
+    return insertAfterLine(value, static_cast<long long>(blockStart) - 1,
+                           splitLines(text));
+  }
+  return replaceLines(value, last->first, last->second, text);
+}
+
+/* `value` with the run of text paragraphs directly before the block at
+ * `blockStart` — a whole-value unit (SOM §11.9.9) — replaced by `text`. */
+std::string replaceTextRun(const std::string& value, std::size_t blockStart,
+                           const std::string& text) {
+  const Parsed p = parse(value);
+  std::vector<std::pair<std::size_t, std::size_t>> paras;
+  for (const auto& r : paragraphRanges(p.lines, p.code)) {
+    if (r.second < blockStart) paras.push_back(r);
+  }
+  std::size_t k = paras.size();
+  while (k > 0 && !opensBlock(p, paras[k - 1].first)) k--;
+  if (k == paras.size()) {
+    return insertAfterLine(value, static_cast<long long>(blockStart) - 1,
+                           splitLines(text));
+  }
+  return replaceLines(value, paras[k].first, paras.back().second, text);
+}
+
+/* Whether `s` is two runs of non-whitespace separated by one space,
+ * `<path> <field>`; the two runs into `a` and `b`. */
+bool splitPathField(const std::string& s, std::string& a, std::string& b) {
+  const std::vector<std::string> words = splitWords(s);
+  if (words.size() != 2 || s != words[0] + " " + words[1]) return false;
+  a = words[0];
+  b = words[1];
+  return true;
+}
+
+/* Whether `s` reads as a document path: no whitespace, no comma, and a `/`
+ * with text on both sides. */
+bool looksLikePath(const std::string& s) {
+  if (s.find(',') != std::string::npos || splitWords(s).size() != 1 ||
+      splitWords(s)[0] != s) {
+    return false;
+  }
+  const std::size_t slash = s.find('/', 1);
+  return slash != std::string::npos && slash + 1 < s.size();
+}
+
 }  // namespace
 
 /* ---- names, JSON ---------------------------------------------------------- */
@@ -1110,8 +1752,64 @@ const char* specReviewAnnotationKindName(SpecReviewAnnotationKind kind) {
       return "question";
     case SpecReviewAnnotationKind::Mark:
       return "mark";
+    case SpecReviewAnnotationKind::Conflict:
+      return "conflict";
   }
   return "";
+}
+
+bool isReviewMemberId(const std::string& s) {
+  if (s.empty()) return false;
+  for (char c : s) {
+    if (!((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_')) {
+      return false;
+    }
+  }
+  return true;
+}
+
+namespace {
+
+std::string jsonStrList(const std::vector<std::string>& v) {
+  std::string b = "[";
+  for (std::size_t i = 0; i < v.size(); i++) {
+    if (i > 0) b += ",";
+    b += jsonEncodeStr(v[i]);
+  }
+  return b + "]";
+}
+
+template <class T>
+std::string jsonList(const std::vector<T>& v) {
+  std::string b = "[";
+  for (std::size_t i = 0; i < v.size(); i++) {
+    if (i > 0) b += ",";
+    b += v[i].toJson();
+  }
+  return b + "]";
+}
+
+}  // namespace
+
+std::string SpecMarkVote::toJson() const {
+  return "{\"member\":" + jsonEncodeStr(member) +
+         ",\"vote\":" + jsonEncodeStr(accept ? "accept" : "reject") + "}";
+}
+
+std::optional<std::string> SpecIndividualAnswer::answerLetter() const {
+  return leadingLetter(answer);
+}
+
+std::string SpecIndividualAnswer::toJson() const {
+  return "{\"members\":" + jsonStrList(members) +
+         ",\"answer\":" + jsonEncodeStr(answer) +
+         ",\"answerLetter\":" + jsonStrOrNull(answerLetter()) + "}";
+}
+
+std::string SpecConflictAlternative::toJson() const {
+  return "{\"letter\":" + jsonEncodeStr(letter) +
+         ",\"members\":" + jsonStrList(members) +
+         ",\"text\":" + jsonEncodeStr(text) + "}";
 }
 
 const char* specMarkKindName(SpecMarkKind kind) {
@@ -1136,12 +1834,23 @@ std::string SpecQuestionOption::toJson() const {
          ",\"bold\":" + (bold ? "true" : "false") + "}";
 }
 
+bool SpecReviewAnnotation::unresolved() const {
+  return isUnresolvedAnswer(answer);
+}
+
 std::optional<std::string> SpecReviewAnnotation::answerLetter() const {
-  if (kind != SpecReviewAnnotationKind::Question) return std::nullopt;
+  if (kind != SpecReviewAnnotationKind::Question || unresolved()) {
+    return std::nullopt;
+  }
   return leadingLetter(answer);
 }
 
-std::string SpecReviewAnnotation::toJson() const {
+std::optional<std::string> SpecReviewAnnotation::decisionLetter() const {
+  if (kind != SpecReviewAnnotationKind::Conflict) return std::nullopt;
+  return decisionLetterOf(answer);
+}
+
+std::string SpecReviewAnnotation::toJson(bool team) const {
   std::string b = "{\"kind\":" + jsonEncodeStr(specReviewAnnotationKindName(kind)) +
                   ",\"path\":" + jsonEncodeStr(path) +
                   ",\"field\":" + jsonStrOrNull(field) +
@@ -1162,13 +1871,25 @@ std::string SpecReviewAnnotation::toJson() const {
            ",\"text\":" + jsonEncodeStr(text) +
            ",\"answer\":" + jsonEncodeStr(answer) +
            ",\"open\":" + (open() ? "true" : "false");
-      b += ",\"options\":[";
-      for (std::size_t i = 0; i < options.size(); i++) {
-        if (i) b += ",";
-        b += options[i].toJson();
-      }
-      b += "],\"recommended\":" + jsonStrOrNull(recommended) +
+      if (team)
+        b +=
+            std::string(",\"unresolved\":") + (unresolved() ? "true" : "false");
+      b += ",\"options\":" + jsonList(options) +
+           ",\"recommended\":" + jsonStrOrNull(recommended) +
            ",\"answerLetter\":" + jsonStrOrNull(answerLetter());
+      if (team) b += ",\"answers\":" + jsonList(answers);
+      break;
+    case SpecReviewAnnotationKind::Conflict:
+      b += ",\"id\":" + jsonStrOrNull(id) +
+           ",\"qualifiedId\":" + jsonStrOrNull(qualifiedId) +
+           ",\"topic\":" + jsonStrOrNull(topic) +
+           ",\"text\":" + jsonEncodeStr(text) +
+           ",\"base\":" + jsonEncodeStr(base) +
+           ",\"alternatives\":" + jsonList(alternatives) +
+           ",\"decision\":" + jsonEncodeStr(answer) +
+           ",\"decisionLetter\":" + jsonStrOrNull(decisionLetter()) +
+           ",\"open\":" + (open() ? "true" : "false") +
+           ",\"unresolved\":" + (unresolved() ? "true" : "false");
       break;
     case SpecReviewAnnotationKind::Mark:
       b += std::string(",\"markKind\":") +
@@ -1176,17 +1897,28 @@ std::string SpecReviewAnnotation::toJson() const {
            ",\"text\":" + jsonEncodeStr(text) +
            ",\"newText\":" + jsonStrOrNull(newText) +
            ",\"comment\":" + jsonStrOrNull(comment);
+      if (team) {
+        b += ",\"authors\":" + jsonStrList(authors) +
+             ",\"votes\":" + jsonList(votes);
+      }
       break;
   }
   return b + "}";
 }
 
-std::string SpecReviewAnnotationCounts::toJson() const {
-  return "{\"questions\":" + std::to_string(questions) +
-         ",\"openQuestions\":" + std::to_string(openQuestions) +
-         ",\"answeredQuestions\":" + std::to_string(answeredQuestions) +
-         ",\"comments\":" + std::to_string(comments) +
-         ",\"marks\":" + std::to_string(marks) + "}";
+std::string SpecReviewAnnotationCounts::toJson(bool team) const {
+  std::string b =
+      "{\"questions\":" + std::to_string(questions) +
+      ",\"openQuestions\":" + std::to_string(openQuestions) +
+      ",\"answeredQuestions\":" + std::to_string(answeredQuestions) +
+      ",\"comments\":" + std::to_string(comments) +
+      ",\"marks\":" + std::to_string(marks);
+  if (team) {
+    b += ",\"unresolvedQuestions\":" + std::to_string(unresolvedQuestions) +
+         ",\"conflicts\":" + std::to_string(conflicts) +
+         ",\"openConflicts\":" + std::to_string(openConflicts);
+  }
+  return b + "}";
 }
 
 /* ---- text level ----------------------------------------------------------- */
@@ -1285,6 +2017,11 @@ std::vector<SpecValidationError> validateReviewAnnotations(
       if (c.id) ids.push_back(*c.id);
     }
     for (const Block& b : p.blocks) {
+      if (b.kind == SpecReviewAnnotationKind::Conflict) {
+        if (p.conflicts[b.conflict].id)
+          ids.push_back(*p.conflicts[b.conflict].id);
+        continue;
+      }
       if (b.kind != SpecReviewAnnotationKind::Question) continue;
       for (std::size_t qi = 0; qi < b.qLen; qi++) {
         ids.push_back(p.questions[b.qFirst + qi].id);
@@ -1321,6 +2058,11 @@ SpecReviewAnnotationCounts SpecReviewAnnotations::counts() const {
       case SpecReviewAnnotationKind::Question:
         c.questions++;
         if (a.open()) c.openQuestions++;
+        if (a.unresolved()) c.unresolvedQuestions++;
+        break;
+      case SpecReviewAnnotationKind::Conflict:
+        c.conflicts++;
+        if (a.open()) c.openConflicts++;
         break;
       case SpecReviewAnnotationKind::Comment:
         c.comments++;
@@ -1453,10 +2195,21 @@ void SpecReviewAnnotations::insertQuestionAfterComment(
                            formatQuestionBlock(question)));
 }
 
-void SpecReviewAnnotations::setAnswer(const std::string& questionId,
-                                      const std::string& answer) {
+void SpecReviewAnnotations::setAnswer(
+    const std::string& questionId, const std::string& answer,
+    const std::optional<std::string>& author) {
+  if (author && !isReviewMemberId(*author)) {
+    throw SpecReviewAnnotationError(
+        "\"" + *author +
+        "\" is not a member id (lowercase letters, digits and _)");
+  }
   const Found f = findQuestion(*doc_, questionId);
   const Question& q = f.parsed.questions[f.index];
+  if (author) {
+    setValue(*doc_, f.value.path, f.value.field,
+             setIndividualAnswer(f.value.text, q, *author, answer));
+    return;
+  }
   std::vector<std::string> lines = splitLines(f.value.text);
   const std::vector<std::string> a = splitLines(answer);
   std::vector<std::string> written{
@@ -1572,7 +2325,7 @@ std::optional<SpecMarkDecision> specMarkDecisionFromName(const std::string& name
   return std::nullopt;
 }
 
-std::string SpecMarkEntry::toJson() const {
+std::string SpecMarkEntry::toJson(bool team) const {
   return "{\"id\":" + jsonEncodeStr(id) + ",\"path\":" + jsonEncodeStr(path) +
          ",\"field\":" + jsonStrOrNull(field) +
          ",\"line\":" + std::to_string(line) +
@@ -1581,7 +2334,11 @@ std::string SpecMarkEntry::toJson() const {
          ",\"newText\":" + jsonEncodeStr(newText) +
          ",\"comment\":" + jsonStrOrNull(comment) +
          ",\"markup\":" + jsonEncodeStr(markup) +
-         ",\"context\":" + jsonEncodeStr(context) + "}";
+         ",\"context\":" + jsonEncodeStr(context) +
+         (team ? ",\"authors\":" + jsonStrList(authors) +
+                     ",\"votes\":" + jsonList(votes)
+               : std::string()) +
+         "}";
 }
 
 std::string SpecMarkOutcome::toJson() const {
@@ -1601,18 +2358,19 @@ std::string SpecMarkIssue::toJson() const {
          ",\"issue\":" + jsonEncodeStr(issue) + "}";
 }
 
-std::string SpecMarkReport::toJson() const {
-  std::string out = "{\"applied\":[";
-  for (std::size_t i = 0; i < applied.size(); i++) {
-    if (i > 0) out += ",";
-    out += applied[i].toJson();
-  }
-  out += "],\"malformed\":[";
-  for (std::size_t i = 0; i < malformed.size(); i++) {
-    if (i > 0) out += ",";
-    out += malformed[i].toJson();
-  }
-  return out + "]}";
+std::string SpecConflictOutcome::toJson() const {
+  return "{\"id\":" + jsonEncodeStr(id) + ",\"path\":" + jsonEncodeStr(path) +
+         ",\"field\":" + jsonStrOrNull(field) +
+         ",\"line\":" + std::to_string(line) +
+         ",\"decision\":" + jsonEncodeStr(decision) +
+         ",\"result\":" + jsonEncodeStr(result) + "}";
+}
+
+std::string SpecMarkReport::toJson(bool team) const {
+  std::string out = "{\"applied\":" + jsonList(applied) +
+                    ",\"malformed\":" + jsonList(malformed);
+  if (team && conflicts) out += ",\"conflicts\":" + jsonList(*conflicts);
+  return out + "}";
 }
 
 namespace {
@@ -1682,6 +2440,8 @@ std::vector<SpecMarkEntry> SpecReviewAnnotations::listMarks(
       std::vector<std::string> para(p.lines.begin() + from,
                                     p.lines.begin() + to + 1);
       e.context = joinLines(para);
+      e.authors = m.authors;
+      e.votes = m.votes;
       out.push_back(std::move(e));
     }
   }
@@ -1774,10 +2534,111 @@ SpecMarkReport SpecReviewAnnotations::rejectAllMarks(
       path);
 }
 
+/* A decided conflict, as `removeAllAnnotations` found it before any change. */
+struct SpecReviewAnnotations::DecidedConflict {
+  std::string path;
+  std::optional<std::string> field;
+  std::size_t index =
+      0;  // the block's position among the value's conflict blocks
+  std::string id;
+  std::size_t line = 0;
+  std::string decision;
+};
+
+/* Every conflict block of the document with the line it opens on, in document
+ * order — or the refusal of `removeAllAnnotations` when one of them cannot be
+ * applied. */
+std::vector<SpecReviewAnnotations::DecidedConflict>
+SpecReviewAnnotations::decidedConflicts() const {
+  std::vector<DecidedConflict> out;
+  for (const Value& v : valuesOf(*doc_)) {
+    const Parsed p = parse(v.text);
+    std::size_t index = 0;
+    for (const Block& b : p.blocks) {
+      if (b.kind != SpecReviewAnnotationKind::Conflict) continue;
+      const Conflict& c = p.conflicts[b.conflict];
+      const std::string where = v.path + (v.field ? " / " + *v.field : "") +
+                                ", line " + std::to_string(b.start);
+      if (!c.id || !c.base || c.alternatives.empty()) {
+        throw SpecReviewAnnotationError(
+            where + ": a malformed conflict block cannot be applied");
+      }
+      if (c.decision.empty() || isUnresolvedAnswer(c.decision)) {
+        throw SpecReviewAnnotationError(
+            where + ": conflict " + *c.id + " is " +
+            (c.decision.empty() ? "open" : "unresolved") +
+            "; decide it before removing the annotations");
+      }
+      const std::optional<std::string> letter = decisionLetterOf(c.decision);
+      if (letter && *letter != "base") {
+        bool known = false;
+        for (const SpecConflictAlternative& a : c.alternatives) {
+          known = known || a.letter == *letter;
+        }
+        if (!known) {
+          throw SpecReviewAnnotationError(where + ": conflict " + *c.id +
+                                          " has no alternative (" + *letter +
+                                          ")");
+        }
+      }
+      out.push_back({v.path, v.field, index++, *c.id, b.start, c.decision});
+    }
+  }
+  return out;
+}
+
+/* Applies the decided conflicts of one value (marks already accepted), from
+ * the last block up so earlier line numbers stay valid, and records each.
+ * Where the chosen text goes follows the conflict's text (SOM §11.9.8,
+ * "Applying"): a form field, another value, this value's text paragraphs, or
+ * — the default — the text paragraph directly before the block. */
+std::string SpecReviewAnnotations::applyConflicts(
+    const std::string& path, const std::optional<std::string>& field,
+    const std::string& value, const std::vector<DecidedConflict>& decided,
+    std::vector<SpecConflictOutcome>& outcomes) {
+  std::string v = value;
+  const Parsed p = parse(v);
+  std::vector<SpecConflictOutcome> recorded;
+  for (std::size_t k = p.conflicts.size(); k-- > 0;) {
+    const DecidedConflict* d = nullptr;
+    for (const DecidedConflict& x : decided) {
+      if (x.index == k) d = &x;
+    }
+    const Conflict& c = p.conflicts[k];
+    const std::size_t blockStart = p.blocks[c.block].start;
+    const std::string result = chosenText(c);
+    recorded.insert(
+        recorded.begin(),
+        SpecConflictOutcome{d->id, path, field, d->line, d->decision, result});
+    if (isStructuralTopic(c.topic)) continue;
+    std::string targetPath, targetField;
+    if (splitPathField(c.text, targetPath, targetField) &&
+        doc_->formFieldOpt(targetPath, targetField) != nullptr) {
+      doc_->setFormField(targetPath, targetField, result);
+    } else if (!field && c.text == path) {
+      v = replaceTextRun(v, blockStart, result);
+    } else if (looksLikePath(c.text) && c.text != path) {
+      doc_->setContent(c.text, result);
+    } else {
+      v = replaceParagraphBefore(v, blockStart, result);
+    }
+  }
+  for (SpecConflictOutcome& o : recorded) outcomes.push_back(std::move(o));
+  return v;
+}
+
 SpecMarkReport SpecReviewAnnotations::removeAllAnnotations() {
+  const std::vector<DecidedConflict> decided = decidedConflicts();
   SpecMarkReport report = acceptAllMarks();
+  std::vector<SpecConflictOutcome> outcomes;
   for (const Value& v : valuesOf(*doc_)) {
     std::string text = v.text;
+    std::vector<DecidedConflict> here;
+    for (const DecidedConflict& d : decided) {
+      if (d.path == v.path && d.field == v.field) here.push_back(d);
+    }
+    if (!here.empty())
+      text = applyConflicts(v.path, v.field, text, here, outcomes);
     while (true) {
       const Parsed p = parse(text);
       if (p.blocks.empty()) break;
@@ -1786,6 +2647,7 @@ SpecMarkReport SpecReviewAnnotations::removeAllAnnotations() {
     }
     if (text != v.text) setValue(*doc_, v.path, v.field, text);
   }
+  report.conflicts = std::move(outcomes);
   return report;
 }
 
@@ -2206,6 +3068,236 @@ SpecMarkedChange SpecReviewAnnotations::markAgainst(
       markChangeText(earlier, getValue(*doc_, path, field));
   setValue(*doc_, path, field, result.text);
   return result;
+}
+
+// ---------------------------------------------------------------------------
+// Text-level building blocks of the merge (SOM §11.9.9).
+// ---------------------------------------------------------------------------
+
+namespace review_internal {
+
+std::vector<ReviewPiece> reviewPieces(const std::string& value) {
+  std::vector<ReviewPiece> out;
+  if (value.empty()) return out;
+  const Parsed p = parse(value);
+  for (const auto& [s0, e0] : paragraphRanges(p.lines, p.code)) {
+    ReviewPiece piece;
+    piece.text = joinLines(std::vector<std::string>(p.lines.begin() + s0,
+                                                    p.lines.begin() + e0 + 1));
+    for (const Block& b : p.blocks) {
+      if (b.start != s0) continue;
+      piece.kind = b.kind;
+      if (b.kind == SpecReviewAnnotationKind::Comment) {
+        const Comment& c = p.comments[b.comment];
+        piece.id = c.id;
+        piece.author = c.author;
+        piece.commentText = c.text;
+      } else if (b.kind == SpecReviewAnnotationKind::Conflict) {
+        piece.id = p.conflicts[b.conflict].id;
+      } else {
+        for (std::size_t qi = 0; qi < b.qLen; qi++) {
+          piece.questionIds.push_back(p.questions[b.qFirst + qi].id);
+        }
+      }
+      break;
+    }
+    out.push_back(std::move(piece));
+  }
+  return out;
+}
+
+std::vector<ReviewMark> reviewMarks(const std::string& value) {
+  std::vector<ReviewMark> out;
+  for (const Mark& m : parse(value).marks) {
+    ReviewMark r;
+    r.start = m.start;
+    r.end = m.end;
+    r.bodyEnd = m.bodyEnd;
+    r.kind = m.kind;
+    r.markup = value.substr(m.start, m.end - m.start);
+    r.authors = m.authors;
+    r.votes = m.votes;
+    r.accepted = markReplacement(m, true);
+    r.rejected = markReplacement(m, false);
+    out.push_back(std::move(r));
+  }
+  return out;
+}
+
+std::string decideReviewMarks(const std::string& value,
+                              const std::map<std::size_t, bool>& decisions) {
+  const std::vector<Mark> marks = parse(value).marks;
+  std::string v = value;
+  for (std::size_t k = marks.size(); k-- > 0;) {
+    const auto it = decisions.find(k);
+    if (it == decisions.end()) continue;
+    v = replaceMark(v, marks[k], markReplacement(marks[k], it->second));
+  }
+  return v;
+}
+
+std::string formatAttributionToken(const std::vector<std::string>& authors,
+                                   const std::vector<SpecMarkVote>& votes) {
+  std::string out = "{@";
+  for (std::size_t i = 0; i < authors.size(); i++) {
+    if (i > 0) out += ",";
+    out += authors[i];
+  }
+  for (std::size_t i = 0; i < votes.size(); i++) {
+    if (i > 0 || !authors.empty()) out += " ";
+    out += (votes[i].accept ? "+" : "-") + votes[i].member;
+  }
+  return out + "}";
+}
+
+std::string withAttribution(const std::string& value, const ReviewMark& m,
+                            const std::vector<std::string>& authors,
+                            const std::vector<SpecMarkVote>& votes) {
+  return value.substr(0, m.bodyEnd) + formatAttributionToken(authors, votes) +
+         value.substr(m.end);
+}
+
+std::vector<std::pair<std::string, std::string>> reviewTeamAnswers(
+    const std::string& value) {
+  std::vector<std::pair<std::string, std::string>> out;
+  for (const Question& q : parse(value).questions) {
+    bool seen = false;
+    for (const auto& e : out) seen = seen || e.first == q.id;
+    if (!seen) out.emplace_back(q.id, q.answer);
+  }
+  return out;
+}
+
+std::optional<std::string> setIndividualAnswerText(
+    const std::string& value, const std::string& questionId,
+    const std::string& member, const std::string& answer) {
+  for (const Question& q : parse(value).questions) {
+    if (q.id == questionId)
+      return setIndividualAnswer(value, q, member, answer);
+  }
+  return std::nullopt;
+}
+
+namespace {
+
+/* The b-token range an x-token range `[x0, x1)` lands on, or nullopt when it
+ * is not one.
+ *
+ * A replaced range lands where its tokens are in b, which must be contiguous
+ * there; its neighbours are not consulted, because the token diff may align a
+ * neighbouring space with another space of b (beside a decided mark) without
+ * the range touching that mark. A pure insertion (`x0 == x1`) has no tokens of
+ * its own, so both neighbours must sit next to each other in b. */
+std::optional<std::pair<long long, long long>> landing(
+    const std::vector<long long>& toB, std::size_t x0, std::size_t x1,
+    std::size_t bLength) {
+  for (std::size_t k = x0; k < x1; k++) {
+    if (toB[k] < 0 || (k > x0 && toB[k] != toB[k - 1] + 1)) return std::nullopt;
+  }
+  if (x1 > x0) return std::make_pair(toB[x0], toB[x1 - 1] + 1);
+  const long long left = x0 == 0 ? -1 : toB[x0 - 1];
+  const long long right =
+      x1 == toB.size() ? static_cast<long long>(bLength) : toB[x1];
+  if ((x0 > 0 && left < 0) || (x1 < toB.size() && right < 0))
+    return std::nullopt;
+  if (right != left + 1) return std::nullopt;
+  return std::make_pair(left + 1, left + 1);
+}
+
+}  // namespace
+
+std::optional<std::string> transplantEdits(const std::string& x,
+                                           const std::string& y,
+                                           const std::string& b) {
+  const std::vector<Tok> xt = tokensOf(x);
+  const std::vector<Tok> bt = tokensOf(b);
+  // Where each token of x is in b (-1: x and b differ there).
+  std::vector<long long> toB(xt.size(), -1);
+  std::size_t i = 0;
+  long long j = 0;
+  for (const DiffOp& op : diffTokens(xt, bt)) {
+    if (op.kind == 0) {
+      toB[i++] = j++;
+    } else if (op.kind == 1) {
+      i++;
+    } else {
+      j++;
+    }
+  }
+  // The edits x → y as (first x token, end x token, inserted text).
+  struct Hunk {
+    std::size_t x0, x1;
+    std::string inserted;
+  };
+  std::vector<Hunk> hunks;
+  std::optional<Hunk> open;
+  i = 0;
+  for (const DiffOp& op : diffTokens(xt, tokensOf(y))) {
+    if (op.kind == 0) {
+      if (open) hunks.push_back(*open);
+      open.reset();
+      i++;
+      continue;
+    }
+    if (!open) open = Hunk{i, i, ""};
+    if (op.kind == 1) {
+      open->x1 = ++i;
+    } else {
+      open->inserted += op.tok.text;
+    }
+  }
+  if (open) hunks.push_back(*open);
+  std::vector<std::string> out;
+  for (const Tok& t : bt) out.push_back(t.text);
+  for (std::size_t h = hunks.size(); h-- > 0;) {
+    const auto at = landing(toB, hunks[h].x0, hunks[h].x1, bt.size());
+    if (!at) return std::nullopt;
+    out.erase(out.begin() + at->first, out.begin() + at->second);
+    out.insert(out.begin() + at->first, hunks[h].inserted);
+  }
+  std::string joined;
+  for (const std::string& t : out) joined += t;
+  return joined;
+}
+
+}  // namespace review_internal
+
+namespace {
+
+/* The lines of a conflict's text: the first after its prefix, the rest
+ * indented under it. */
+std::vector<std::string> alternativeLines(const std::string& prefix,
+                                          const std::string& text) {
+  const std::vector<std::string> t = splitLines(text);
+  std::vector<std::string> out{trimRight("> - " + prefix + " " + t[0])};
+  for (std::size_t k = 1; k < t.size(); k++) out.push_back(">   " + t[k]);
+  return out;
+}
+
+}  // namespace
+
+std::vector<std::string> formatConflictBlock(
+    const std::string& id, const std::string& topic, const std::string& text,
+    const std::string& base,
+    const std::vector<SpecConflictAlternative>& alternatives) {
+  std::vector<std::string> out{trimRight("> " + kScales + kVs16 + " **" + id +
+                                         kEmDashSep + topic + ":** " + text)};
+  for (std::string& l : alternativeLines("(base)", base))
+    out.push_back(std::move(l));
+  for (const SpecConflictAlternative& a : alternatives) {
+    std::string names;
+    for (std::size_t i = 0; i < a.members.size(); i++) {
+      if (i > 0) names += ", ";
+      names += a.members[i];
+    }
+    for (std::string& l :
+         alternativeLines("(" + a.letter + ") **" + names + ":**", a.text)) {
+      out.push_back(std::move(l));
+    }
+  }
+  out.push_back(">");
+  out.push_back("> " + kDecisionLabel);
+  return out;
 }
 
 }  // namespace som

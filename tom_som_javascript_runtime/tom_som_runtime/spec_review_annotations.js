@@ -15,7 +15,10 @@
  * number is the same in all of them.
  */
 
-/** The three kinds of annotation (SOM §11.9). */
+/**
+ * The kinds of annotation (SOM §11.9): the three of §11.9.1–11.9.3 and the
+ * conflict block a team review adds (§11.9.8).
+ */
 const SpecReviewAnnotationKind = Object.freeze({
   /** A reviewer's comment block, `> ⬆️ **C-12** (Alexis): …`. */
   COMMENT: 'comment',
@@ -23,6 +26,8 @@ const SpecReviewAnnotationKind = Object.freeze({
   QUESTION: 'question',
   /** A CriticMarkup inline mark. */
   MARK: 'mark',
+  /** A conflict block, `> ⚖️ **X-3 — Conflicting changes:** …` (SOM §11.9.8). */
+  CONFLICT: 'conflict',
 });
 
 /** The five CriticMarkup inline marks (SOM §11.9.3). */
@@ -59,8 +64,8 @@ class SpecParagraph {
     /** The paragraph's lines, verbatim, joined with `\n`. */
     this.text = text;
     /**
-     * `comment` or `question` when the paragraph opens with an annotation
-     * block of that kind, else null.
+     * `comment`, `question` or `conflict` when the paragraph opens with an
+     * annotation block of that kind, else null.
      */
     this.annotation = annotation;
   }
@@ -102,6 +107,76 @@ class SpecQuestionOption {
   }
 }
 
+/*
+ * The JSON options of the listing classes: `{team: true}` gives the extended
+ * form `team_annotation_cases.json` pins (SOM §11.9.8): marks with `authors`
+ * and `votes`, questions with `unresolved` and `answers`, the counts with the
+ * team counts, a removal report with its `conflicts`. Without it the form is
+ * the one of §11.9.1–11.9.7, which the older case files pin.
+ */
+
+/** One reviewer's vote on a mark someone else proposed (SOM §11.9.8). */
+class SpecMarkVote {
+  /**
+   * @param {string} member
+   * @param {'accept'|'reject'} vote
+   */
+  constructor(member, vote) {
+    /** The voter's member id. */
+    this.member = member;
+    /** `accept` (`+id`) or `reject` (`-id`). */
+    this.vote = vote;
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return { member: this.member, vote: this.vote };
+  }
+}
+
+/** One line of individual answers, `**Answer (alice, bob):** (a)` (SOM §11.9.8). */
+class SpecIndividualAnswer {
+  /**
+   * @param {string[]} members
+   * @param {string} answer
+   */
+  constructor(members, answer) {
+    /** The members who gave this answer, in the order written. */
+    this.members = members;
+    /** The answer, trimmed. */
+    this.answer = answer;
+    /** The letter the answer starts with (`(a)` or `**(a)**`), or null. */
+    this.answerLetter = _leadingLetter(answer);
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return { members: this.members, answer: this.answer, answerLetter: this.answerLetter };
+  }
+}
+
+/** One lettered alternative of a conflict block, `- (a) **alice:** text`. */
+class SpecConflictAlternative {
+  /**
+   * @param {string} letter
+   * @param {string[]} members
+   * @param {string} text
+   */
+  constructor(letter, members, text) {
+    /** The lowercase letter. */
+    this.letter = letter;
+    /** The members who made this change. */
+    this.members = members;
+    /** The alternative's text; its continuation lines kept as lines. */
+    this.text = text;
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return { letter: this.letter, members: this.members, text: this.text };
+  }
+}
+
 /** One annotation, located by the value that holds it. */
 class SpecReviewAnnotation {
   /**
@@ -110,7 +185,9 @@ class SpecReviewAnnotation {
    *   text?: string, context?: string, topic?: string|null, starred?: boolean,
    *   combined?: boolean, answer?: string, options?: SpecQuestionOption[],
    *   recommended?: string|null, markKind?: string|null,
-   *   newText?: string|null, comment?: string|null}} options
+   *   newText?: string|null, comment?: string|null, authors?: string[],
+   *   votes?: SpecMarkVote[], answers?: SpecIndividualAnswer[], base?: string,
+   *   alternatives?: SpecConflictAlternative[]}} options
    */
   constructor({
     kind,
@@ -131,6 +208,11 @@ class SpecReviewAnnotation {
     markKind = null,
     newText = null,
     comment = null,
+    authors = [],
+    votes = [],
+    answers = [],
+    base = '',
+    alternatives = [],
   }) {
     /** The kind (a {@link SpecReviewAnnotationKind} value). */
     this.kind = kind;
@@ -171,20 +253,58 @@ class SpecReviewAnnotation {
     this.newText = newText;
     /** The comment of a comment mark, or of a highlight followed by one. */
     this.comment = comment;
+    /** A mark's authors from its attribution token; empty without one. */
+    this.authors = authors;
+    /** A mark's votes from its attribution token; empty without one. */
+    this.votes = votes;
+    /** A question's individual answers, in the order written. */
+    this.answers = answers;
+    /** A conflict's `(base)` text. */
+    this.base = base;
+    /** A conflict's lettered alternatives. */
+    this.alternatives = alternatives;
   }
 
-  /** Whether a question is still open (no answer written). */
+  /**
+   * Whether a question is still open (no team answer written), or a conflict
+   * (no decision written). For a conflict, `answer` holds the decision.
+   */
   get open() {
-    return this.kind === SpecReviewAnnotationKind.QUESTION && this.answer.length === 0;
+    return (
+      (this.kind === SpecReviewAnnotationKind.QUESTION ||
+        this.kind === SpecReviewAnnotationKind.CONFLICT) &&
+      this.answer.length === 0
+    );
   }
 
-  /** The letter an answer starts with (`(b)` or `**(b)**`), or null. */
+  /**
+   * Whether a question's team answer or a conflict's decision begins with
+   * `open:` — answered for a gate, but handed back (SOM §11.9.8).
+   */
+  get unresolved() {
+    return _isUnresolved(this.answer);
+  }
+
+  /**
+   * The letter a question's team answer starts with (`(b)` or `**(b)**`), or
+   * null; null too for an unresolved answer.
+   */
   get answerLetter() {
-    return this.kind === SpecReviewAnnotationKind.QUESTION ? _leadingLetter(this.answer) : null;
+    return this.kind === SpecReviewAnnotationKind.QUESTION && !this.unresolved
+      ? _leadingLetter(this.answer)
+      : null;
   }
 
-  /** The canonical JSON form the conformance corpus pins. */
-  toJson() {
+  /** A conflict's decision letter: `a`…, `base`, or null for rewritten text or none. */
+  get decisionLetter() {
+    return this.kind === SpecReviewAnnotationKind.CONFLICT ? _decisionLetter(this.answer) : null;
+  }
+
+  /**
+   * The canonical JSON form the conformance corpus pins; `{team: true}` adds
+   * the members of SOM §11.9.8.
+   */
+  toJson({ team = false } = {}) {
     switch (this.kind) {
       case SpecReviewAnnotationKind.COMMENT:
         return {
@@ -211,9 +331,28 @@ class SpecReviewAnnotation {
           text: this.text,
           answer: this.answer,
           open: this.open,
+          ...(team ? { unresolved: this.unresolved } : {}),
           options: this.options.map((o) => o.toJson()),
           recommended: this.recommended,
           answerLetter: this.answerLetter,
+          ...(team ? { answers: this.answers.map((a) => a.toJson()) } : {}),
+        };
+      case SpecReviewAnnotationKind.CONFLICT:
+        return {
+          kind: 'conflict',
+          path: this.path,
+          field: this.field,
+          line: this.line,
+          id: this.id,
+          qualifiedId: this.qualifiedId,
+          topic: this.topic,
+          text: this.text,
+          base: this.base,
+          alternatives: this.alternatives.map((a) => a.toJson()),
+          decision: this.answer,
+          decisionLetter: this.decisionLetter,
+          open: this.open,
+          unresolved: this.unresolved,
         };
       default:
         return {
@@ -225,6 +364,7 @@ class SpecReviewAnnotation {
           text: this.text,
           newText: this.newText,
           comment: this.comment,
+          ...(team ? { authors: this.authors, votes: this.votes.map((v) => v.toJson()) } : {}),
         };
     }
   }
@@ -238,23 +378,38 @@ class SpecReviewAnnotationCounts {
     answeredQuestions = 0,
     comments = 0,
     marks = 0,
+    unresolvedQuestions = 0,
+    conflicts = 0,
+    openConflicts = 0,
   } = {}) {
     this.questions = questions;
     this.openQuestions = openQuestions;
     this.answeredQuestions = answeredQuestions;
     this.comments = comments;
     this.marks = marks;
+    /** Questions whose team answer begins `open:` (also counted as answered). */
+    this.unresolvedQuestions = unresolvedQuestions;
+    /** Conflict blocks. */
+    this.conflicts = conflicts;
+    /** Conflict blocks without a decision. */
+    this.openConflicts = openConflicts;
   }
 
-  /** The canonical JSON form. */
-  toJson() {
-    return {
+  /** The canonical JSON form; `{team: true}` adds the team counts (SOM §11.9.8). */
+  toJson({ team = false } = {}) {
+    const out = {
       questions: this.questions,
       openQuestions: this.openQuestions,
       answeredQuestions: this.answeredQuestions,
       comments: this.comments,
       marks: this.marks,
     };
+    if (team) {
+      out.unresolvedQuestions = this.unresolvedQuestions;
+      out.conflicts = this.conflicts;
+      out.openConflicts = this.openConflicts;
+    }
+    return out;
   }
 }
 
@@ -323,9 +478,23 @@ class SpecMarkEntry {
   /**
    * @param {{id: string, path: string, field?: string|null, line: number,
    *   markKind: string, oldText: string, newText: string,
-   *   comment?: string|null, markup: string, context: string}} options
+   *   comment?: string|null, markup: string, context: string,
+   *   authors?: string[], votes?: SpecMarkVote[]}} options
    */
-  constructor({ id, path, field = null, line, markKind, oldText, newText, comment = null, markup, context }) {
+  constructor({
+    id,
+    path,
+    field = null,
+    line,
+    markKind,
+    oldText,
+    newText,
+    comment = null,
+    markup,
+    context,
+    authors = [],
+    votes = [],
+  }) {
     /** `M-<n>`: the mark's 1-based position among all marks of the document. */
     this.id = id;
     /** The value's path. */
@@ -346,11 +515,15 @@ class SpecMarkEntry {
     this.markup = markup;
     /** The paragraph holding the mark, verbatim — for display. */
     this.context = context;
+    /** The authors its attribution token names (SOM §11.9.8); empty without one. */
+    this.authors = authors;
+    /** The votes its attribution token records; empty without one. */
+    this.votes = votes;
   }
 
-  /** The canonical JSON form the conformance corpus pins. */
-  toJson() {
-    return {
+  /** The canonical JSON form the conformance corpus pins; `{team: true}` adds authors and votes. */
+  toJson({ team = false } = {}) {
+    const out = {
       id: this.id,
       path: this.path,
       field: this.field,
@@ -362,6 +535,11 @@ class SpecMarkEntry {
       markup: this.markup,
       context: this.context,
     };
+    if (team) {
+      out.authors = this.authors;
+      out.votes = this.votes.map((v) => v.toJson());
+    }
+    return out;
   }
 }
 
@@ -425,22 +603,68 @@ class SpecMarkIssue {
   }
 }
 
-/** The report of a mark operation, for the decision log. */
-class SpecMarkReport {
-  /** @param {{applied?: SpecMarkOutcome[], malformed?: SpecMarkIssue[]}} [options] */
-  constructor({ applied = [], malformed = [] } = {}) {
-    /** What was done, in document order. */
-    this.applied = applied;
-    /** Malformed marks in scope, left as written. */
-    this.malformed = malformed;
+/** What `removeAllAnnotations` did with one conflict block (SOM §11.9.8). */
+class SpecConflictOutcome {
+  /**
+   * @param {{id: string, path: string, field?: string|null, line: number,
+   *   decision: string, result: string}} options
+   */
+  constructor({ id, path, field = null, line, decision, result }) {
+    /** The conflict id, `X-<n>`. */
+    this.id = id;
+    /** The value's path. */
+    this.path = path;
+    /** The form field, or null for content. */
+    this.field = field;
+    /** The 0-based line within the value where the block opened. */
+    this.line = line;
+    /** The decision as written. */
+    this.decision = decision;
+    /** The text the decision chose. */
+    this.result = result;
   }
 
   /** The canonical JSON form. */
   toJson() {
     return {
+      id: this.id,
+      path: this.path,
+      field: this.field,
+      line: this.line,
+      decision: this.decision,
+      result: this.result,
+    };
+  }
+}
+
+/** The report of a mark operation, for the decision log. */
+class SpecMarkReport {
+  /**
+   * @param {{applied?: SpecMarkOutcome[], malformed?: SpecMarkIssue[],
+   *   conflicts?: SpecConflictOutcome[]|null}} [options]
+   */
+  constructor({ applied = [], malformed = [], conflicts = null } = {}) {
+    /** What was done, in document order. */
+    this.applied = applied;
+    /** Malformed marks in scope, left as written. */
+    this.malformed = malformed;
+    /**
+     * The conflicts `removeAllAnnotations` applied, in document order; null for
+     * the mark operations, which do not touch conflicts.
+     */
+    this.conflicts = conflicts;
+  }
+
+  /** The canonical JSON form; `{team: true}` adds the applied conflicts. */
+  toJson({ team = false } = {}) {
+    const out = {
       applied: this.applied.map((a) => a.toJson()),
       malformed: this.malformed.map((m) => m.toJson()),
     };
+    if (team && this.conflicts !== null) {
+      out.conflicts = this.conflicts.map((c) => c.toJson());
+    }
+    return out;
   }
 }
 
@@ -470,6 +694,29 @@ const _COMBINED_OPENER = '**❓ Open questions on these fields**';
 const _ANSWER_LABEL = '**Answer:**';
 const _EM_DASH_SEP = ' — ';
 const _STAR = '★';
+const _SCALES = '⚖';
+const _DECISION_LABEL = '**Decision:**';
+const _UNRESOLVED_PREFIX = 'open:';
+/** The start of an individual answer line, `**Answer (alice, bob):**`. */
+const _INDIVIDUAL_ANSWER = /^\*\*Answer \(([^)]*)\):\*\*/;
+/** A member id (SOM §11.9.8): lowercase letters, digits and `_`. */
+const _MEMBER_ID = /^[a-z0-9_]+$/;
+
+/** Whether `s` is a member id (SOM §11.9.8). */
+function isReviewMemberId(s) {
+  return _MEMBER_ID.test(s);
+}
+
+function _isUnresolved(answer) {
+  return answer.startsWith(_UNRESOLVED_PREFIX);
+}
+
+/** A conflict decision's letter: `a`…, `base`, or null (rewritten text or none). */
+function _decisionLetter(decision) {
+  const t = decision.trimStart();
+  if (t.startsWith('(base)') || t.startsWith('**(base)**')) return 'base';
+  return _isUnresolved(t) ? null : _leadingLetter(t);
+}
 
 function _lstrip(s) {
   let i = 0;
@@ -532,7 +779,10 @@ function _inner(line) {
 /**
  * Everything one value holds. A block is `{start, end, kind}` (lines inclusive);
  * a comment block also carries `comment`, a question block `questions` and
- * `combined`.
+ * `combined`, a conflict block `conflict`. A mark is `{start, end, bodyEnd,
+ * line, kind, text, newText, comment, authors, votes}`: `end` lies after the
+ * attribution token when the mark has one, `bodyEnd` always right after the
+ * mark itself, so the token can be rewritten in place.
  */
 function _parse(value) {
   const lines = value.split('\n');
@@ -563,6 +813,10 @@ function _parse(value) {
       const b = { start: s, end: e, kind: SpecReviewAnnotationKind.QUESTION };
       p.blocks.push(b);
       _parseQuestions(p, b);
+    } else if (first.startsWith(_SCALES)) {
+      const b = { start: s, end: e, kind: SpecReviewAnnotationKind.CONFLICT };
+      p.blocks.push(b);
+      b.conflict = _parseConflict(p, b);
     }
     i = e + 1;
   }
@@ -622,7 +876,11 @@ function _parseComment(p, b) {
   for (let k = b.start + 1; k <= b.end; k++) {
     const inner = _inner(p.lines[k]);
     const t = _lstrip(inner);
-    if (t.startsWith(_QUESTION_OPEN) || t.startsWith(_ANSWER_LABEL)) {
+    if (
+      t.startsWith(_QUESTION_OPEN) ||
+      t.startsWith(_ANSWER_LABEL) ||
+      _INDIVIDUAL_ANSWER.test(t)
+    ) {
       p.malformed.push(
         `line ${k}: a comment block holds a question or an answer; the ` +
           'question goes into its own block after the comment (SOM §11.9.1)',
@@ -760,24 +1018,52 @@ function _parseQuestions(p, b) {
   for (let q = 0; q < headers.length; q++) {
     const [k, h] = headers[q];
     const regionEnd = q + 1 < headers.length ? headers[q + 1][0] - 1 : inner.length - 1;
-    let answer = null;
+    // Every `**Answer` line of the region: the individual ones and the team's.
+    const answerLines = [];
     for (let m = k + 1; m <= regionEnd; m++) {
-      if (inner[m].startsWith(_ANSWER_LABEL)) {
-        answer = m;
-        break;
+      if (inner[m].startsWith(_ANSWER_LABEL) || _INDIVIDUAL_ANSWER.test(inner[m])) {
+        answerLines.push(m);
       }
     }
-    const textEnd = answer === null ? regionEnd : answer - 1;
+    // An answer runs to the next `**Answer` line or the end of the region.
+    const answerEnd = (m) => {
+      const next = answerLines.find((x) => x > m);
+      return next === undefined ? regionEnd : next - 1;
+    };
+    const answerText = (m, label) =>
+      [inner[m].substring(label), ...inner.slice(m + 1, answerEnd(m) + 1)].join('\n').trim();
+    // The question's text ends before its first answer line of either kind.
+    const textEnd = answerLines.length === 0 ? regionEnd : answerLines[0] - 1;
     const { options, recommended } = _parseOptions(inner.slice(k + 1, textEnd + 1));
     const text = [h.rest, ...inner.slice(k + 1, textEnd + 1)].join('\n').trim();
-    let answerText = '';
-    if (answer !== null) {
-      answerText = [
-        inner[answer].substring(_ANSWER_LABEL.length),
-        ...inner.slice(answer + 1, regionEnd + 1),
-      ]
-        .join('\n')
-        .trim();
+    let answer = null;
+    // Individual answers as {line, end (last value line with text), members, answer}.
+    const individual = [];
+    const answered = new Set();
+    for (const m of answerLines) {
+      if (inner[m].startsWith(_ANSWER_LABEL)) {
+        if (answer === null) answer = m;
+        continue;
+      }
+      const match = _INDIVIDUAL_ANSWER.exec(inner[m]);
+      const members = match[1].split(',').map((x) => x.trim());
+      for (const member of members) {
+        if (answered.has(member)) {
+          p.malformed.push(
+            `line ${b.start + m}: ${member} already answered ${h.id}; a member answers ` +
+              'a question at most once (SOM §11.9.8)',
+          );
+        }
+        answered.add(member);
+      }
+      let end = answerEnd(m);
+      while (end > m && inner[end].trim().length === 0) end--;
+      individual.push({
+        line: b.start + m,
+        end: b.start + end,
+        members,
+        answer: answerText(m, match[0].length),
+      });
     }
     list.push({
       header: b.start + k,
@@ -787,12 +1073,102 @@ function _parseQuestions(p, b) {
       topic: h.topic,
       starred: h.starred,
       text,
-      answer: answerText,
+      answer: answer === null ? '' : answerText(answer, _ANSWER_LABEL.length),
       options,
       recommended,
+      answers: individual,
     });
   }
   b.questions = list;
+}
+
+/** `- (base) …`: the base line of a conflict block. */
+const _CONFLICT_BASE = /^- \(base\)(?: (.*))?$/;
+/** `- (a) **alice, bob:** …`: a lettered alternative. */
+const _CONFLICT_ALTERNATIVE = /^- \(([a-z])\)(?: \*\*([^*]*):\*\*)?(?: (.*))?$/;
+/** The header after the marker: `**X-<n> — <topic>:** <text>`. */
+const _CONFLICT_HEADER = /^\*\*(X-[1-9][0-9]*) — (.+?):\*\*(?: (.*))?$/;
+
+/**
+ * A conflict block (SOM §11.9.8): the header, the `(base)` line and the
+ * lettered alternatives — each continuing on lines indented under it, its line
+ * breaks kept — then `**Decision:**`. A malformed header leaves the block
+ * unlisted (`id` null); a missing base line or alternative is a finding.
+ * Returns `{block, id, topic, text, base (null without one), alternatives,
+ * decision}`.
+ */
+function _parseConflict(p, b) {
+  const inner = [];
+  for (let k = b.start; k <= b.end; k++) inner.push(_inner(p.lines[k]));
+  let rest = inner[0].substring(_SCALES.length);
+  if (rest.startsWith(_VS16)) rest = rest.substring(_VS16.length);
+  const header = _CONFLICT_HEADER.exec(rest.trimStart());
+  const c = {
+    block: b,
+    id: header === null ? null : header[1],
+    topic: header === null ? '' : header[2],
+    text: header === null ? '' : (header[3] ?? '').trim(),
+    base: null,
+    alternatives: [],
+    decision: '',
+  };
+  if (header === null) {
+    p.malformed.push(
+      `line ${b.start}: conflict header is not "⚖️ **X-<n> — <topic>:**" (SOM §11.9.8)`,
+    );
+  }
+  let decisionLine = inner.findIndex((l, k) => k > 0 && l.startsWith(_DECISION_LABEL));
+  if (decisionLine < 0) decisionLine = inner.length;
+  // The open entry: the base (letter null) or an alternative.
+  let open = null;
+  const close = () => {
+    if (open === null) return;
+    const text = open.lines.join('\n').trim();
+    if (open.letter === null) {
+      c.base = text;
+    } else {
+      c.alternatives.push(new SpecConflictAlternative(open.letter, open.members, text));
+    }
+    open = null;
+  };
+  for (let k = 1; k < decisionLine; k++) {
+    const l = inner[k];
+    const base = _CONFLICT_BASE.exec(l);
+    const alt = base === null ? _CONFLICT_ALTERNATIVE.exec(l) : null;
+    if (base !== null) {
+      close();
+      open = { letter: null, members: [], lines: [base[1] ?? ''] };
+    } else if (alt !== null) {
+      close();
+      const members = (alt[2] ?? '')
+        .split(',')
+        .map((x) => x.trim())
+        .filter((x) => x.length > 0);
+      open = { letter: alt[1], members, lines: [alt[3] ?? ''] };
+    } else if (open !== null && l.startsWith(' ')) {
+      open.lines.push(l.startsWith('  ') ? l.substring(2) : _lstrip(l));
+    } else {
+      close();
+    }
+  }
+  close();
+  if (decisionLine < inner.length) {
+    c.decision = [
+      inner[decisionLine].substring(_DECISION_LABEL.length),
+      ...inner.slice(decisionLine + 1),
+    ]
+      .join('\n')
+      .trim();
+  }
+  if (header !== null && c.base === null) {
+    p.malformed.push(`line ${b.start}: conflict ${c.id} has no "(base)" line (SOM §11.9.8)`);
+  }
+  if (header !== null && c.alternatives.length === 0) {
+    p.malformed.push(
+      `line ${b.start}: conflict ${c.id} has no lettered alternative (SOM §11.9.8)`,
+    );
+  }
+  return c;
 }
 
 const _OPENERS = ['{>>', '{==', '{++', '{--', '{~~'];
@@ -883,6 +1259,17 @@ function _scanSegment(p, seg, base, lineOf) {
       i = closeAt < 0 ? i + n : closeAt + n;
       continue;
     }
+    if (c === '{' && seg.startsWith('{@', i)) {
+      // A token that no mark precedes directly (a mark's own token is read
+      // with the mark, below).
+      const tokenLine = lineOf(base + i);
+      p.malformed.push(
+        `line ${tokenLine}: an attribution token "{@" does not follow a mark directly (SOM §11.9.8)`,
+      );
+      const tokenClose = seg.indexOf('}', i + 2);
+      i = tokenClose < 0 ? i + 2 : tokenClose + 1;
+      continue;
+    }
     if (c !== '{' || i + 3 > seg.length) {
       i++;
       continue;
@@ -915,12 +1302,16 @@ function _scanSegment(p, seg, base, lineOf) {
     const mark = (kind, text, newText, comment) => ({
       start: base + i,
       end: base + end,
+      bodyEnd: base + end,
       line,
       kind,
       text,
       newText,
       comment,
+      authors: [],
+      votes: [],
     });
+    const before = p.marks.length;
     switch (opener) {
       case '{>>':
         p.marks.push(mark(SpecMarkKind.COMMENT, '', null, inner.trim()));
@@ -967,8 +1358,80 @@ function _scanSegment(p, seg, base, lineOf) {
       default:
         break;
     }
+    if (p.marks.length > before && seg.startsWith('{@', end)) {
+      end = _attachToken(p, seg, end, base, p.marks[p.marks.length - 1]);
+    }
     i = end;
   }
+}
+
+/**
+ * Reads the attribution token `{@…}` at `at` (SOM §11.9.8) into `m`, which it
+ * directly follows, and returns the segment offset after it. The token is part
+ * of the mark — its markup, its decision — so `m.end` moves past it. A token
+ * that breaks the grammar is still part of the mark (it goes with the mark on a
+ * decision) and is a finding; its members are then not listed.
+ */
+function _attachToken(p, seg, at, base, m) {
+  const lineEnd = seg.indexOf('\n', at);
+  const close = seg.indexOf('}', at + 2);
+  if (close < 0 || (lineEnd >= 0 && close > lineEnd)) {
+    p.malformed.push(`line ${m.line}: attribution token "{@" is not closed (SOM §11.9.8)`);
+    return at;
+  }
+  const read = _readToken(seg.substring(at + 2, close), m.kind);
+  if (typeof read === 'string') {
+    p.malformed.push(`line ${m.line}: attribution token ${read} (SOM §11.9.8)`);
+  } else {
+    m.authors = read.authors;
+    m.votes = read.votes;
+  }
+  m.end = base + close + 1;
+  return close + 1;
+}
+
+/** Whether a mark kind is a change, which alone takes votes (SOM §11.9.8). */
+function _isChangeMark(kind) {
+  return (
+    kind === SpecMarkKind.INSERTION ||
+    kind === SpecMarkKind.DELETION ||
+    kind === SpecMarkKind.SUBSTITUTION
+  );
+}
+
+/**
+ * The members of a token's inside, `<authors>[ <votes>]` as `{authors,
+ * votes}`, or the reason (a string) it breaks the grammar of SOM §11.9.8.
+ */
+function _readToken(inside, kind) {
+  const words = inside
+    .replace(/,\s+/g, ',')
+    .trim()
+    .split(/\s+/)
+    .filter((w) => w.length > 0);
+  if (words.length === 0) return 'is empty';
+  const authors = [];
+  const votes = [];
+  let k = 0;
+  if (!words[0].startsWith('+') && !words[0].startsWith('-')) {
+    authors.push(...words[0].split(','));
+    k = 1;
+  }
+  for (; k < words.length; k++) {
+    const w = words[k];
+    if (!w.startsWith('+') && !w.startsWith('-')) return `has "${w}" where a vote belongs`;
+    votes.push(new SpecMarkVote(w.substring(1), w.startsWith('+') ? 'accept' : 'reject'));
+  }
+  const seen = new Set();
+  for (const id of [...authors, ...votes.map((v) => v.member)]) {
+    if (!_MEMBER_ID.test(id)) return `names "${id}", which is not a member id`;
+    if (seen.has(id)) return `names ${id} twice, or as author and voter`;
+    seen.add(id);
+  }
+  if (votes.length > 0 && !_isChangeMark(kind)) {
+    return `carries votes on a ${kind} mark, which takes authors only`;
+  }
+  return { authors, votes };
 }
 
 /** The annotations of one value, in order: by line, blocks before marks, marks in scan order. */
@@ -994,6 +1457,27 @@ function _annotationsOf(p, path, field, qualifier) {
           context: c.context,
         }),
       ]);
+    } else if (b.kind === SpecReviewAnnotationKind.CONFLICT) {
+      const c = b.conflict;
+      if (c.id === null) continue;
+      out.push([
+        b.start,
+        0,
+        seq++,
+        new SpecReviewAnnotation({
+          kind: SpecReviewAnnotationKind.CONFLICT,
+          path,
+          field,
+          line: b.start,
+          id: c.id,
+          qualifiedId: qualifier != null ? `${qualifier} ${c.id}` : null,
+          topic: c.topic,
+          text: c.text,
+          base: c.base ?? '',
+          alternatives: c.alternatives,
+          answer: c.decision,
+        }),
+      ]);
     } else {
       for (const q of b.questions) {
         out.push([
@@ -1013,6 +1497,7 @@ function _annotationsOf(p, path, field, qualifier) {
             answer: q.answer,
             options: q.options,
             recommended: q.recommended,
+            answers: q.answers.map((a) => new SpecIndividualAnswer(a.members, a.answer)),
           }),
         ]);
       }
@@ -1032,6 +1517,8 @@ function _annotationsOf(p, path, field, qualifier) {
         text: m.text,
         newText: m.newText,
         comment: m.comment,
+        authors: m.authors,
+        votes: m.votes,
       }),
     ]);
   }
@@ -1291,6 +1778,136 @@ function stripAnnotationsText(value) {
 }
 
 // ---------------------------------------------------------------------------
+// Team reviews (SOM §11.9.8): individual answers and applying conflicts.
+// ---------------------------------------------------------------------------
+
+/** Whether an answer carries anything beyond an option letter (SOM §11.9.8). */
+function _isCommentedAnswer(answer, options) {
+  const letter = _leadingLetter(answer);
+  if (letter === null) return true;
+  const t = answer.trimStart();
+  const bold = t.startsWith('**(') && t.substring(4, 7) === ')**';
+  const rest = t.substring(bold ? 7 : t.startsWith('**') ? 2 + 3 : 3).trim();
+  if (rest.length === 0) return false;
+  const option = options.find((o) => o.letter === letter);
+  return option === undefined || rest !== option.text;
+}
+
+/** The lines of one individual-answer entry. */
+function _individualAnswerLines(members, answer) {
+  const a = answer.split('\n');
+  return [`> **Answer (${members.join(', ')}):** ${a[0]}`.trimEnd(), ..._quoted(a.slice(1))];
+}
+
+/**
+ * `value` with member `member`'s individual answer to question `q` set to
+ * `answer` (SOM §11.9.8): the member leaves the line it was on (a line left
+ * empty goes); a non-empty answer that is not commented joins the line whose
+ * answer is identical and not commented, at its end, and otherwise gets a new
+ * line after the last individual answer. The first individual answer opens the
+ * run before the team's `**Answer:**`, with a `>` line between run and team
+ * answer, and a run left empty takes that line with it. Entries left alone
+ * keep their bytes.
+ */
+function _setIndividualAnswer(value, q, member, answer) {
+  const lines = value.split('\n');
+  // An entry's `lines` are its verbatim lines, or null once it must be rewritten.
+  const entries = q.answers.map((a) => ({
+    members: a.members.slice(),
+    answer: a.answer,
+    lines: lines.slice(a.line, a.end + 1),
+  }));
+  for (const e of entries) {
+    const at = e.members.indexOf(member);
+    if (at >= 0) {
+      e.members.splice(at, 1);
+      e.lines = null;
+    }
+  }
+  const kept = entries.filter((e) => e.members.length > 0);
+  const text = answer.trim();
+  if (text.length > 0) {
+    const join = _isCommentedAnswer(text, q.options)
+      ? undefined
+      : kept.find((e) => e.answer === text && !_isCommentedAnswer(e.answer, q.options));
+    if (join !== undefined) {
+      join.members.push(member);
+      join.lines = null;
+    } else {
+      kept.push({ members: [member], answer: text, lines: null });
+    }
+  }
+  const run = kept.flatMap((e) => e.lines ?? _individualAnswerLines(e.members, e.answer));
+  if (q.answers.length > 0) {
+    const from = q.answers[0].line;
+    let to = q.answers[q.answers.length - 1].end;
+    // A run left empty takes its separating `>` line with it.
+    if (run.length === 0 && to + 1 < lines.length && _inner(lines[to + 1]).trim().length === 0) {
+      to++;
+    }
+    lines.splice(from, to - from + 1, ...run);
+  } else if (run.length > 0) {
+    if (q.answerLine !== null) {
+      lines.splice(q.answerLine, 0, ...run, '>');
+    } else {
+      let last = q.regionEnd;
+      while (last > q.header && _inner(lines[last]).trim().length === 0) last--;
+      lines.splice(last + 1, 0, '>', ...run);
+    }
+  }
+  return lines.join('\n');
+}
+
+/** Topics of the structural conflicts a merge writes (SOM §11.9.9); their decisions are not text. */
+const _STRUCTURAL_TOPICS = new Set(['Item removed', 'Item moved', 'Headline changed']);
+
+/** The text a conflict's decision chooses: the base, an alternative, or the rewritten text. */
+function _chosenText(c) {
+  const letter = _decisionLetter(c.decision);
+  if (letter === 'base') return c.base ?? '';
+  if (letter !== null) return c.alternatives.find((a) => a.letter === letter).text;
+  return c.decision;
+}
+
+/** The text paragraphs (no annotation block) of a parsed value, as `[first, last]` lines. */
+function _textParagraphs(p) {
+  return _paragraphs(p.lines, p.code).filter(([s]) => !p.blocks.some((b) => b.start === s));
+}
+
+/** `value` with the lines `[s, e]` replaced by `text`. */
+function _replaceLines(value, s, e, text) {
+  const lines = value.split('\n');
+  lines.splice(s, e - s + 1, ...text.split('\n'));
+  return lines.join('\n');
+}
+
+/**
+ * `value` with the text paragraph directly before block `b` (annotation
+ * blocks between them skipped) replaced by `text`; with none, `text` goes
+ * before the block.
+ */
+function _replaceParagraphBefore(value, b, text) {
+  const before = _textParagraphs(_parse(value)).filter(([, e]) => e < b.start);
+  if (before.length === 0) return _insertAfterLine(value, b.start - 1, text.split('\n'));
+  const [s, e] = before[before.length - 1];
+  return _replaceLines(value, s, e, text);
+}
+
+/**
+ * `value` with the run of text paragraphs directly before block `b` — a
+ * whole-value unit (SOM §11.9.9) — replaced by `text`.
+ */
+function _replaceTextRun(value, b, text) {
+  const p = _parse(value);
+  const paras = _paragraphs(p.lines, p.code).filter(([, e]) => e < b.start);
+  let k = paras.length;
+  while (k > 0 && !p.blocks.some((x) => x.start === paras[k - 1][0])) k--;
+  const run = paras.slice(k);
+  if (run.length === 0) return _insertAfterLine(value, b.start - 1, text.split('\n'));
+  return _replaceLines(value, run[0][0], run[run.length - 1][1], text);
+}
+
+// ---------------------------------------------------------------------------
 // Document level.
 // ---------------------------------------------------------------------------
 
@@ -1353,14 +1970,21 @@ class SpecReviewAnnotations {
   counts() {
     let q = 0;
     let open = 0;
+    let unresolved = 0;
     let c = 0;
     let m = 0;
+    let x = 0;
+    let openX = 0;
     for (const a of this.list()) {
       if (a.kind === SpecReviewAnnotationKind.QUESTION) {
         q++;
         if (a.open) open++;
+        if (a.unresolved) unresolved++;
       } else if (a.kind === SpecReviewAnnotationKind.COMMENT) {
         c++;
+      } else if (a.kind === SpecReviewAnnotationKind.CONFLICT) {
+        x++;
+        if (a.open) openX++;
       } else {
         m++;
       }
@@ -1371,6 +1995,9 @@ class SpecReviewAnnotations {
       answeredQuestions: q - open,
       comments: c,
       marks: m,
+      unresolvedQuestions: unresolved,
+      conflicts: x,
+      openConflicts: openX,
     });
   }
 
@@ -1471,9 +2098,27 @@ class SpecReviewAnnotations {
     this._set(path, field, _insertAfterLine(text, c.block.end, formatQuestionBlock(question)));
   }
 
-  /** Writes `answer` after the question's `**Answer:**` (empty: reopens it). */
-  setAnswer(questionId, answer) {
+  /**
+   * Writes `answer` after the question's `**Answer:**` (empty: reopens it).
+   * With `author`, writes that member's individual answer instead, grouped and
+   * placed by the rules of SOM §11.9.8 (empty: only takes the member out); an
+   * author that is not a member id is refused.
+   *
+   * @param {string} questionId
+   * @param {string} answer
+   * @param {{author?: string|null}} [options]
+   */
+  setAnswer(questionId, answer, { author = null } = {}) {
+    if (author != null && !_MEMBER_ID.test(author)) {
+      throw new SpecReviewAnnotationError(
+        `"${author}" is not a member id (lowercase letters, digits and _)`,
+      );
+    }
     const [path, field, text, , q] = this._findQuestion(questionId);
+    if (author != null) {
+      this._set(path, field, _setIndividualAnswer(text, q, author, answer));
+      return;
+    }
     const lines = text.split('\n');
     const a = answer.split('\n');
     const written =
@@ -1610,6 +2255,8 @@ class SpecReviewAnnotations {
             comment: m.comment,
             markup: text.substring(m.start, m.end),
             context: p.lines.slice(para[0], para[1] + 1).join('\n'),
+            authors: m.authors,
+            votes: m.votes,
           }),
         );
       }
@@ -1699,15 +2346,21 @@ class SpecReviewAnnotations {
 
   /**
    * Removes every annotation and writes the result back: every inline mark
-   * accepted, every comment and question block removed. Malformed marks stay
-   * and are reported.
+   * accepted, every conflict's decision applied (SOM §11.9.8), every comment,
+   * question and conflict block removed. Malformed marks stay and are
+   * reported. Refused — nothing changes — while a conflict is open, unresolved
+   * (`open:`), malformed, or decided for a letter it has no alternative for.
    *
    * @returns {SpecMarkReport}
    */
   removeAllAnnotations() {
-    const report = this.acceptAllMarks();
+    const decided = this._decidedConflicts();
+    const marks = this.acceptAllMarks();
+    const outcomes = [];
     for (const [path, field, text] of this._values()) {
       let v = text;
+      const here = decided.filter((d) => d.path === path && d.field === field);
+      if (here.length > 0) v = this._applyConflicts(path, field, v, here, outcomes);
       for (;;) {
         const p = _parse(v);
         if (p.blocks.length === 0) break;
@@ -1716,7 +2369,85 @@ class SpecReviewAnnotations {
       }
       if (v !== text) this._set(path, field, v);
     }
-    return report;
+    return new SpecMarkReport({
+      applied: marks.applied,
+      malformed: marks.malformed,
+      conflicts: outcomes,
+    });
+  }
+
+  /**
+   * Every conflict block of the document as `{path, field, index (among the
+   * value's conflict blocks), id, line, decision}`, in document order — or the
+   * refusal of `removeAllAnnotations` when one of them cannot be applied. Read
+   * before any change, so the lines are the ones the report names.
+   */
+  _decidedConflicts() {
+    const out = [];
+    for (const [path, field, text] of this._values()) {
+      const p = _parse(text);
+      let index = 0;
+      for (const b of p.blocks) {
+        if (b.kind !== SpecReviewAnnotationKind.CONFLICT) continue;
+        const c = b.conflict;
+        const where = `${path}${field == null ? '' : ` / ${field}`}, line ${b.start}`;
+        if (c.id === null || c.base === null || c.alternatives.length === 0) {
+          throw new SpecReviewAnnotationError(`${where}: a malformed conflict block cannot be applied`);
+        }
+        if (c.decision.length === 0 || _isUnresolved(c.decision)) {
+          throw new SpecReviewAnnotationError(
+            `${where}: conflict ${c.id} is ${c.decision.length === 0 ? 'open' : 'unresolved'}; ` +
+              'decide it before removing the annotations',
+          );
+        }
+        const letter = _decisionLetter(c.decision);
+        if (letter !== null && letter !== 'base' && !c.alternatives.some((a) => a.letter === letter)) {
+          throw new SpecReviewAnnotationError(`${where}: conflict ${c.id} has no alternative (${letter})`);
+        }
+        out.push({ path, field, index: index++, id: c.id, line: b.start, decision: c.decision });
+      }
+    }
+    return out;
+  }
+
+  /**
+   * Applies the decided conflicts of one value (marks already accepted), from
+   * the last block up so earlier line numbers stay valid, and records each.
+   * Where the chosen text goes follows the conflict's text (SOM §11.9.8,
+   * "Applying"): a form field, another value, this value's text paragraphs, or
+   * — the default — the text paragraph directly before the block.
+   */
+  _applyConflicts(path, field, value, decided, outcomes) {
+    let v = value;
+    const recorded = [];
+    const conflicts = _parse(v).blocks.filter((b) => b.kind === SpecReviewAnnotationKind.CONFLICT);
+    for (let k = conflicts.length - 1; k >= 0; k--) {
+      const d = decided.find((x) => x.index === k);
+      const c = conflicts[k].conflict;
+      const result = _chosenText(c);
+      recorded.unshift(
+        new SpecConflictOutcome({ id: d.id, path, field, line: d.line, decision: d.decision, result }),
+      );
+      v = this._applyConflict(path, field, v, c, result);
+    }
+    outcomes.push(...recorded);
+    return v;
+  }
+
+  /** Puts one conflict's chosen text in place; returns the (possibly unchanged) value. */
+  _applyConflict(path, field, value, c, result) {
+    if (_STRUCTURAL_TOPICS.has(c.topic)) return value;
+    const target = /^(\S+) (\S+)$/.exec(c.text);
+    if (target !== null && this.doc.formField(target[1], target[2]) != null) {
+      this.doc.setFormField(target[1], target[2], result);
+      return value;
+    }
+    if (field == null && c.text === path) return _replaceTextRun(value, c.block, result);
+    if (/^[^\s,]+\/[^\s,]+$/.test(c.text) && c.text !== path) {
+      this.doc.setContent(c.text, result);
+      return value;
+    }
+    return _replaceParagraphBefore(value, c.block, result);
   }
 
   /**
@@ -1869,6 +2600,7 @@ class SpecReviewAnnotations {
       }
       for (const b of p.blocks) {
         for (const q of b.questions || []) ids.push(q.id);
+        if (b.conflict && b.conflict.id) ids.push(b.conflict.id);
       }
       for (const id of ids) {
         if (seen.has(id)) {
@@ -2289,6 +3021,206 @@ function markChangeText(oldValue, newValue) {
   return new SpecMarkedChange(text, { exact });
 }
 
+// ---------------------------------------------------------------------------
+// Text-level building blocks of the merge (SOM §11.9.9). Internal: exported for
+// `spec_review_merge.js` only, not from the package index.
+// ---------------------------------------------------------------------------
+
+/**
+ * The paragraphs of `value` (SOM §11.9.1), each classified as the merge sees
+ * it: `{kind ('text' or the kind of the block the paragraph opens with), text
+ * (verbatim), id (a comment's id, a conflict's id; null without one), author
+ * (a comment's, or null), commentText, questionIds}`.
+ */
+function reviewPieces(value) {
+  if (value.length === 0) return [];
+  const p = _parse(value);
+  return _paragraphs(p.lines, p.code).map(([s, e]) => {
+    const b = p.blocks.find((x) => x.start === s);
+    return {
+      kind: b ? b.kind : 'text',
+      text: p.lines.slice(s, e + 1).join('\n'),
+      id: b?.comment?.id ?? b?.conflict?.id ?? null,
+      author: b?.comment?.author ?? null,
+      commentText: b?.comment?.text ?? '',
+      questionIds: (b?.questions ?? []).map((q) => q.id),
+    };
+  });
+}
+
+/**
+ * One inline mark of a value with what its decisions leave: `{start, end,
+ * bodyEnd, kind, markup (as written, its token included), authors, votes,
+ * accepted, rejected}`.
+ */
+function _reviewMark(value, m) {
+  return {
+    start: m.start,
+    end: m.end,
+    bodyEnd: m.bodyEnd,
+    kind: m.kind,
+    markup: value.substring(m.start, m.end),
+    authors: m.authors,
+    votes: m.votes,
+    accepted: _markReplacement(m, true),
+    rejected: _markReplacement(m, false),
+  };
+}
+
+/** The inline marks of `value`, in order (marks in code are not marks). */
+function reviewMarks(value) {
+  return _parse(value).marks.map((m) => _reviewMark(value, m));
+}
+
+/**
+ * `value` with the marks `decisions` names (a Map from an index into
+ * {@link reviewMarks} to accept = true / reject = false) decided, by the
+ * whitespace rules of SOM §11.9.3.
+ */
+function decideReviewMarks(value, decisions) {
+  const marks = _parse(value).marks;
+  let v = value;
+  for (let k = marks.length - 1; k >= 0; k--) {
+    const accept = decisions.get(k);
+    if (accept === undefined) continue;
+    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept));
+  }
+  return v;
+}
+
+/** The attribution token for `authors` and `votes`, `{@agent +alice -bob}`. */
+function formatAttributionToken(authors, votes) {
+  const v = votes.map((x) => `${x.vote === 'accept' ? '+' : '-'}${x.member}`).join(' ');
+  return `{@${authors.join(',')}${authors.length > 0 && v.length > 0 ? ' ' : ''}${v}}`;
+}
+
+/** `value` with mark `m`'s token (a {@link reviewMarks} entry) replaced by one for `authors` and `votes`. */
+function withAttribution(value, m, authors, votes) {
+  return (
+    value.substring(0, m.bodyEnd) + formatAttributionToken(authors, votes) + value.substring(m.end)
+  );
+}
+
+/** The team answer of every question of `value`, as a Map by id. */
+function reviewTeamAnswers(value) {
+  const out = new Map();
+  for (const b of _parse(value).blocks) {
+    for (const q of b.questions ?? []) {
+      if (!out.has(q.id)) out.set(q.id, q.answer);
+    }
+  }
+  return out;
+}
+
+/**
+ * `value` with `member`'s individual answer to question `questionId` set, as
+ * `setAnswer` with an `author` does; null when the value holds no such
+ * question.
+ */
+function setIndividualAnswerText(value, questionId, member, answer) {
+  for (const b of _parse(value).blocks) {
+    for (const q of b.questions ?? []) {
+      if (q.id === questionId) return _setIndividualAnswer(value, q, member, answer);
+    }
+  }
+  return null;
+}
+
+/** The lines of a conflict's text: the first after its prefix, the rest indented under it. */
+function _alternativeLines(prefix, text) {
+  const t = text.split('\n');
+  return [`> - ${prefix} ${t[0]}`.trimEnd(), ...t.slice(1).map((l) => `>   ${l}`)];
+}
+
+/**
+ * The lines of a conflict block (SOM §11.9.8): the header, the `(base)` line,
+ * one lettered alternative per entry naming its members, and an empty
+ * `**Decision:**`. A text's further lines are indented under it, so a reader
+ * gets them back with their line breaks.
+ *
+ * @param {{id: string, topic: string, text: string, base: string,
+ *   alternatives: Array<{letter: string, members: string[], text: string}>}} options
+ * @returns {string[]}
+ */
+function formatConflictBlock({ id, topic, text, base, alternatives }) {
+  return [
+    `> ${_SCALES}${_VS16} **${id}${_EM_DASH_SEP}${topic}:** ${text}`.trimEnd(),
+    ..._alternativeLines('(base)', base),
+    ...alternatives.flatMap((a) =>
+      _alternativeLines(`(${a.letter}) **${a.members.join(', ')}:**`, a.text),
+    ),
+    '>',
+    `> ${_DECISION_LABEL}`,
+  ];
+}
+
+/**
+ * Carries the edits `x` → `y` over to `b`, a text equal to `x` except where
+ * marks of `b` were decided in `x` (SOM §11.9.9, step 3): every edit lands in
+ * `b` at the place `x` and `b` agree on. Null when an edit touches or borders
+ * a place where they differ — the edit overlaps a decided mark. Both diffs are
+ * the token diffs of `markChangeText`.
+ */
+function transplantEdits(x, y, b) {
+  const xt = _tokens(x);
+  const bt = _tokens(b);
+  // Where each token of x is in b (-1: x and b differ there).
+  const toB = new Array(xt.length).fill(-1);
+  let i = 0;
+  let j = 0;
+  for (const [kind] of _diff(xt, bt)) {
+    if (kind === 0) toB[i++] = j++;
+    else if (kind === 1) i++;
+    else j++;
+  }
+  // The edits x → y as [first x token, end x token, inserted text].
+  const hunks = [];
+  i = 0;
+  let open = null;
+  for (const [kind, t] of _diff(xt, _tokens(y))) {
+    if (kind === 0) {
+      if (open !== null) hunks.push(open);
+      open = null;
+      i++;
+      continue;
+    }
+    if (open === null) open = [i, i, ''];
+    if (kind === 1) open[1] = ++i;
+    else open[2] += t.text;
+  }
+  if (open !== null) hunks.push(open);
+  const out = bt.map((t) => t.text);
+  for (let h = hunks.length - 1; h >= 0; h--) {
+    const [x0, x1, ins] = hunks[h];
+    const at = _landing(toB, x0, x1, bt.length);
+    if (at === null) return null;
+    out.splice(at[0], at[1] - at[0], ins);
+  }
+  return out.join('');
+}
+
+/**
+ * The b-token range an x-token range `[x0, x1)` lands on, or null when it is not one.
+ *
+ * A replaced range lands where its tokens are in b, which must be contiguous
+ * there; its neighbours are not consulted, because the token diff may align a
+ * neighbouring space with another space of b (beside a decided mark) without
+ * the range touching that mark. A pure insertion (`x0 === x1`) has no tokens
+ * of its own, so both neighbours must sit next to each other in b.
+ */
+function _landing(toB, x0, x1, bLength) {
+  for (let k = x0; k < x1; k++) {
+    if (toB[k] < 0 || (k > x0 && toB[k] !== toB[k - 1] + 1)) return null;
+  }
+  if (x1 > x0) return [toB[x0], toB[x1 - 1] + 1];
+  // The neighbours must sit next to the insertion point in b too.
+  const left = x0 === 0 ? -1 : toB[x0 - 1];
+  const right = x1 === toB.length ? bLength : toB[x1];
+  if ((x0 > 0 && left < 0) || (x1 < toB.length && right < 0)) return null;
+  if (left + 1 !== right) return null;
+  return [left + 1, left + 1];
+}
+
 module.exports = {
   SpecReviewAnnotationKind,
   SpecMarkKind,
@@ -2310,4 +3242,19 @@ module.exports = {
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,
+  SpecMarkVote,
+  SpecIndividualAnswer,
+  SpecConflictAlternative,
+  SpecConflictOutcome,
+  isReviewMemberId,
+  // Internal building blocks of spec_review_merge.js (not re-exported by index.js).
+  reviewPieces,
+  reviewMarks,
+  decideReviewMarks,
+  formatAttributionToken,
+  withAttribution,
+  reviewTeamAnswers,
+  setIndividualAnswerText,
+  formatConflictBlock,
+  transplantEdits,
 };

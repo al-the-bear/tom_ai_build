@@ -1,6 +1,9 @@
 package tom_som_runtime;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /** One inline mark as {@link SpecReviewAnnotations#listMarks} reports it. */
@@ -38,6 +41,12 @@ public final class SpecMarkEntry {
   /** The paragraph holding the mark, verbatim — for display. */
   public final String context;
 
+  /** The authors its attribution token names (SOM §11.9.8); empty without one. */
+  public final List<String> authors;
+
+  /** The votes its attribution token records; empty without one. */
+  public final List<SpecMarkVote> votes;
+
   public SpecMarkEntry(
       String id,
       String path,
@@ -49,6 +58,22 @@ public final class SpecMarkEntry {
       String comment,
       String markup,
       String context) {
+    this(id, path, field, line, markKind, oldText, newText, comment, markup, context, null, null);
+  }
+
+  public SpecMarkEntry(
+      String id,
+      String path,
+      String field,
+      int line,
+      SpecMarkKind markKind,
+      String oldText,
+      String newText,
+      String comment,
+      String markup,
+      String context,
+      List<String> authors,
+      List<SpecMarkVote> votes) {
     this.id = id;
     this.path = path;
     this.field = field;
@@ -59,10 +84,24 @@ public final class SpecMarkEntry {
     this.comment = comment;
     this.markup = markup;
     this.context = context;
+    this.authors =
+        authors == null
+            ? Collections.emptyList()
+            : Collections.unmodifiableList(new ArrayList<>(authors));
+    this.votes =
+        votes == null ? Collections.emptyList() : Collections.unmodifiableList(new ArrayList<>(votes));
   }
 
-  /** The canonical JSON form the conformance corpus pins. */
+  /** The canonical JSON form the older case files pin. */
   public Map<String, Object> toJson() {
+    return toJson(false);
+  }
+
+  /**
+   * The canonical JSON form; {@code team} adds {@code authors} and {@code votes}, the form {@code
+   * team_annotation_cases.json} pins (SOM §11.9.8).
+   */
+  public Map<String, Object> toJson(boolean team) {
     Map<String, Object> out = new LinkedHashMap<>();
     out.put("id", id);
     out.put("path", path);
@@ -74,6 +113,14 @@ public final class SpecMarkEntry {
     out.put("comment", comment);
     out.put("markup", markup);
     out.put("context", context);
+    if (team) {
+      out.put("authors", new ArrayList<Object>(authors));
+      List<Object> v = new ArrayList<>();
+      for (SpecMarkVote x : votes) {
+        v.add(x.toJson());
+      }
+      out.put("votes", v);
+    }
     return out;
   }
 }

@@ -155,7 +155,19 @@ const {
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,
+  SpecMarkVote,
+  SpecIndividualAnswer,
+  SpecConflictAlternative,
+  SpecConflictOutcome,
+  formatConflictBlock,
+  isReviewMemberId,
 } = require('./spec_review_annotations');
+const {
+  SpecReviewMergeError,
+  SpecReviewMergeReport,
+  SpecReviewMergeResult,
+  mergeReviews,
+} = require('./spec_review_merge');
 const {
   SpecAnswerKind,
   SpecAnswerEntry,
@@ -371,6 +383,17 @@ module.exports = {
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,
+  SpecMarkVote,
+  SpecIndividualAnswer,
+  SpecConflictAlternative,
+  SpecConflictOutcome,
+  formatConflictBlock,
+  isReviewMemberId,
+  // merging the reviewed copies of a team review (SOM §11.9.9)
+  SpecReviewMergeError,
+  SpecReviewMergeReport,
+  SpecReviewMergeResult,
+  mergeReviews,
   // answers of a review round for a step folder (SOM §11.9.7)
   SpecAnswerKind,
   SpecAnswerEntry,

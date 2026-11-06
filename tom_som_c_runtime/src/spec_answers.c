@@ -484,6 +484,10 @@ int spec_extract_answers(const SpecModel *model, SpecDocument *doc,
         e->comment = dup_or_null(a->comment);
         break;
       }
+      case SPEC_REVIEW_ANNOTATION_CONFLICT:
+        /* A conflict block (SOM §11.9.8) is not an answer, a comment or a
+         * mark: the step folder's answers do not list it. */
+        break;
     }
     som_strlist_free(&vlines);
   }

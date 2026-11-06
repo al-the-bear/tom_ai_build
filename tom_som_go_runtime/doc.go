@@ -9,7 +9,10 @@
 //   - the version editability rules (CheckSomModelVersion / CanEditSomModel);
 //   - markdown & YAML (de)serialisation of a document;
 //   - SpecReviewAnnotations — the review annotations in content values (SOM
-//     §11.9): comment blocks, question blocks and CriticMarkup inline marks;
+//     §11.9): comment blocks, question blocks and CriticMarkup inline marks,
+//     and the team-review notation (§11.9.8);
+//   - MergeReviews / MergeMarkdownReviews — the reviewed copies of a team
+//     review merged into one document (SOM §11.9.9);
 //   - ExtractAnswers / RenderAnswers — a review round's answers, comments,
 //     open questions and inline marks as a step folder's `answers.md` (SOM
 //     §11.9.7).
@@ -36,4 +39,4 @@ package somruntime
 // Version is the semantic version of this runtime module (vMAJOR.MINOR.PATCH),
 // matching the TomSpecs object-model version it targets. It is the in-source
 // counterpart of the VCS tag used to pin the module.
-const Version = "v1.7.0"
+const Version = "v1.7.1"

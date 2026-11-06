@@ -1,6 +1,9 @@
 /* spec_review_annotations — review annotations in content values (SOM §11.9):
- * comment blocks, question blocks and CriticMarkup inline marks. An
- * idiomatic-C++ port of the Dart `spec_review_annotations.dart`.
+ * comment blocks, question blocks and CriticMarkup inline marks, and the
+ * team-review notation on top of them (§11.9.8: attribution tokens,
+ * individual answers, conflict blocks, `open:`). An idiomatic-C++ port of the
+ * Dart `spec_review_annotations.dart`; the team notation follows the
+ * TypeScript reference, which has it first.
  *
  * An annotation is text inside a content value or a form-field value. This
  * module reads it out of that text and edits it in place, and every edit is
@@ -33,14 +36,16 @@
 
 namespace som {
 
-/* The three kinds of annotation (SOM §11.9). */
+/* The kinds of annotation (SOM §11.9): the three of §11.9.1–11.9.3 and the
+ * conflict block a team review adds (§11.9.8). */
 enum class SpecReviewAnnotationKind {
   Comment,   // a reviewer's comment block, `> ⬆️ **C-12** (Alexis): …`
   Question,  // one question of a question block, `> **❓ BQ-81 — topic:** …`
   Mark,      // a CriticMarkup inline mark
+  Conflict,  // a conflict block, `> ⚖️ **X-3 — Conflicting changes:** …`
 };
 
-/* The kind's wire name: `"comment"`, `"question"`, `"mark"`. */
+/* The kind's wire name: `"comment"`, `"question"`, `"mark"`, `"conflict"`. */
 const char* specReviewAnnotationKindName(SpecReviewAnnotationKind kind);
 
 /* The five CriticMarkup inline marks (SOM §11.9.3). */
@@ -64,8 +69,8 @@ struct SpecParagraph {
   std::size_t startLine = 0;  // the 0-based first line within the value
   std::size_t endLine = 0;    // the 0-based last line within the value (inclusive)
   std::string text;           // the paragraph's lines, verbatim, joined with `\n`
-  /* `comment` or `question` when the paragraph opens with an annotation block
-   * of that kind, else nullopt. */
+  /* `comment`, `question` or `conflict` when the paragraph opens with an
+   * annotation block of that kind, else nullopt. */
   std::optional<std::string> annotation;
 
   /* The canonical JSON form the conformance corpus pins. */
@@ -83,6 +88,52 @@ struct SpecQuestionOption {
   std::string toJson() const;
 };
 
+/* ---- team reviews (SOM §11.9.8) -------------------------------------------
+ *
+ * The JSON forms below take a `team` flag. `team == true` gives the extended
+ * form `team_annotation_cases.json` pins: marks with `authors` and `votes`,
+ * questions with `unresolved` and `answers`, the counts with the team counts,
+ * a removal report with its `conflicts`. Without it the form is the one of
+ * §11.9.1–11.9.7, which the older case files pin byte for byte. */
+
+/* One reviewer's vote on a mark someone else proposed (SOM §11.9.8): `+id`
+ * accepts, `-id` rejects. */
+struct SpecMarkVote {
+  std::string member;  // the voter's member id
+  bool accept = true;  // `+id` (true) or `-id` (false)
+
+  /* `{member, vote}`, `vote` being `accept` or `reject`. */
+  std::string toJson() const;
+};
+
+/* One line of individual answers, `**Answer (alice, bob):** (a)`. */
+struct SpecIndividualAnswer {
+  std::vector<std::string>
+      members;         // who gave this answer, in the order written
+  std::string answer;  // the answer, trimmed
+
+  /* The letter the answer starts with (`(a)` or `**(a)**`), or nullopt. */
+  std::optional<std::string> answerLetter() const;
+
+  /* `{members, answer, answerLetter}`. */
+  std::string toJson() const;
+};
+
+/* One lettered alternative of a conflict block, `- (a) **alice:** text`. */
+struct SpecConflictAlternative {
+  std::string letter;                // the lowercase letter
+  std::vector<std::string> members;  // who made this change
+  std::string
+      text;  // the alternative's text; its continuation lines kept as lines
+
+  /* `{letter, members, text}`. */
+  std::string toJson() const;
+};
+
+/* Whether `s` is a member id (SOM §11.9.8): lowercase letters, digits and
+ * `_`. */
+bool isReviewMemberId(const std::string& s);
+
 /* One annotation, located by the value that holds it. `std::nullopt` stands
  * for the Dart `null`. */
 struct SpecReviewAnnotation {
@@ -95,27 +146,30 @@ struct SpecReviewAnnotation {
   /* The 0-based line within the value where the annotation starts (a
    * question: its header line). */
   std::size_t line = 0;
-  /* The comment id (`C-12`) or question id (`BQ-81`); nullopt for a comment
-   * without an id and for a mark. */
+  /* The comment id (`C-12`), question id (`BQ-81`) or conflict id (`X-3`);
+   * nullopt for a comment without an id and for a mark. */
   std::optional<std::string> id;
-  /* A comment's id with the document qualifier in front (`SBP C-12`), when the
-   * listing was given a qualifier and the comment has an id. */
+  /* A comment's or conflict's id with the document qualifier in front
+   * (`SBP C-12`), when the listing was given a qualifier and it has an id. */
   std::optional<std::string> qualifiedId;
   /* A comment's author; nullopt when none is written. */
   std::optional<std::string> author;
-  /* A comment's text, a question's text (options included), or a mark's text
-   * (a substitution's old text; empty for a comment mark). */
+  /* A comment's text, a question's text (options included; it ends before the
+   * first individual answer), a conflict's text (what it concerns), or a
+   * mark's text (a substitution's old text; empty for a comment mark). */
   std::string text;
   /* A comment's context: the paragraph before the block, verbatim (empty at
    * the start of the value). */
   std::string context;
-  /* A question's topic (in a combined block: the field it asks about). */
+  /* A question's or conflict's topic (in a combined block: the field it asks
+   * about). */
   std::optional<std::string> topic;
   /* Whether a question carries `★` before its topic. */
   bool starred = false;
   /* Whether a question is part of a combined block. */
   bool combined = false;
-  /* A question's answer, trimmed; empty when open. */
+  /* A question's team answer, or a conflict's decision, trimmed; empty when
+   * open. */
   std::string answer;
   /* A question's options, in order (empty when it states none). */
   std::vector<SpecQuestionOption> options;
@@ -128,19 +182,40 @@ struct SpecReviewAnnotation {
   std::optional<std::string> newText;
   /* The comment of a comment mark, or of a highlight followed by one. */
   std::optional<std::string> comment;
+  /* A mark's authors from its attribution token; empty without one. */
+  std::vector<std::string> authors;
+  /* A mark's votes from its attribution token; empty without one. */
+  std::vector<SpecMarkVote> votes;
+  /* A question's individual answers, in the order written. */
+  std::vector<SpecIndividualAnswer> answers;
+  /* A conflict's `(base)` text. */
+  std::string base;
+  /* A conflict's lettered alternatives. */
+  std::vector<SpecConflictAlternative> alternatives;
 
-  /* Whether a question is still open (no answer written). */
+  /* Whether a question is still open (no team answer written), or a conflict
+   * (no decision written). */
   bool open() const {
-    return kind == SpecReviewAnnotationKind::Question && answer.empty();
+    return (kind == SpecReviewAnnotationKind::Question ||
+            kind == SpecReviewAnnotationKind::Conflict) &&
+           answer.empty();
   }
 
-  /* The letter an answer starts with (`(b)` or `**(b)**`); nullopt for none
-   * and for the other kinds. */
+  /* Whether a question's team answer or a conflict's decision begins with
+   * `open:` — answered for a gate, but handed back (SOM §11.9.8). */
+  bool unresolved() const;
+
+  /* The letter a question's team answer starts with (`(b)` or `**(b)**`);
+   * nullopt for none, for an unresolved answer and for the other kinds. */
   std::optional<std::string> answerLetter() const;
 
+  /* A conflict's decision letter: `a`…, `base`, or nullopt for rewritten
+   * text, for none and for the other kinds. */
+  std::optional<std::string> decisionLetter() const;
+
   /* The canonical JSON form the conformance corpus pins (every key written,
-   * `null` explicitly). */
-  std::string toJson() const;
+   * `null` explicitly); `team` adds the members of SOM §11.9.8. */
+  std::string toJson(bool team = false) const;
 };
 
 /* The counts a report needs (SOM §11.9). */
@@ -150,9 +225,14 @@ struct SpecReviewAnnotationCounts {
   std::size_t answeredQuestions = 0;  // questions with an answer
   std::size_t comments = 0;           // comment blocks
   std::size_t marks = 0;              // inline marks
+  /* Questions whose team answer begins `open:` (also counted as answered). */
+  std::size_t unresolvedQuestions = 0;
+  std::size_t conflicts = 0;      // conflict blocks
+  std::size_t openConflicts = 0;  // conflict blocks without a decision
 
-  /* `{questions, openQuestions, answeredQuestions, comments, marks}`. */
-  std::string toJson() const;
+  /* `{questions, openQuestions, answeredQuestions, comments, marks}`; `team`
+   * adds `unresolvedQuestions`, `conflicts` and `openConflicts`. */
+  std::string toJson(bool team = false) const;
 };
 
 /* A question to insert (SOM §11.9.2). */
@@ -211,11 +291,17 @@ struct SpecMarkEntry {
   std::string oldText;  // the text after rejecting the mark
   std::string newText;  // the text after accepting the mark
   std::optional<std::string> comment;  // a comment mark's comment
-  std::string markup;   // the mark as written
+  std::string markup;   // the mark as written, its attribution token included
   std::string context;  // the paragraph holding the mark, verbatim
+  /* The authors its attribution token names (SOM §11.9.8); empty without one.
+   */
+  std::vector<std::string> authors;
+  /* The votes its attribution token records; empty without one. */
+  std::vector<SpecMarkVote> votes;
 
-  /* The canonical JSON form the conformance corpus pins. */
-  std::string toJson() const;
+  /* The canonical JSON form the conformance corpus pins; `team` adds
+   * `authors` and `votes`. */
+  std::string toJson(bool team = false) const;
 };
 
 /* What was done to one mark. */
@@ -242,13 +328,29 @@ struct SpecMarkIssue {
   std::string toJson() const;
 };
 
+/* What `removeAllAnnotations` did with one conflict block (SOM §11.9.8). */
+struct SpecConflictOutcome {
+  std::string id;  // the conflict id, `X-<n>`
+  std::string path;
+  std::optional<std::string> field;  // nullopt for content
+  std::size_t line =
+      0;  // the 0-based line within the value where the block opened
+  std::string decision;  // the decision as written
+  std::string result;    // the text the decision chose
+
+  std::string toJson() const;
+};
+
 /* The report of a mark operation, for the decision log. */
 struct SpecMarkReport {
   std::vector<SpecMarkOutcome> applied;  // what was done, in document order
   std::vector<SpecMarkIssue> malformed;  // malformed marks in scope
+  /* The conflicts `removeAllAnnotations` applied, in document order; nullopt
+   * for the mark operations, which do not touch conflicts. */
+  std::optional<std::vector<SpecConflictOutcome>> conflicts;
 
-  /* `{applied: [...], malformed: [...]}`. */
-  std::string toJson() const;
+  /* `{applied: [...], malformed: [...]}`; `team` adds `conflicts` when set. */
+  std::string toJson(bool team = false) const;
 };
 
 /* ---- text level: one value ---------------------------------------------- */
@@ -289,6 +391,15 @@ std::vector<std::string> formatCommentBlock(
 
 /* The lines of a question block. */
 std::vector<std::string> formatQuestionBlock(const SpecQuestionDraft& q);
+
+/* The lines of a conflict block (SOM §11.9.8): the header, the `(base)` line,
+ * one lettered alternative per entry naming its members, and an empty
+ * `**Decision:**`. A text's further lines are indented under it, so a reader
+ * gets them back with their line breaks. */
+std::vector<std::string> formatConflictBlock(
+    const std::string& id, const std::string& topic, const std::string& text,
+    const std::string& base,
+    const std::vector<SpecConflictAlternative>& alternatives);
 
 /* `value` without any comment block, question block or inline mark (every
  * mark accepted). Plain quotes and code stay. */
@@ -356,8 +467,12 @@ class SpecReviewAnnotations {
   void insertQuestionAfterComment(const std::string& commentId,
                                   const SpecQuestionDraft& question);
 
-  /* Writes `answer` after the question's `**Answer:**` (empty: reopens it). */
-  void setAnswer(const std::string& questionId, const std::string& answer);
+  /* Writes `answer` after the question's `**Answer:**` (empty: reopens it).
+   * With `author`, writes that member's individual answer instead, grouped and
+   * placed by the rules of SOM §11.9.8 (empty: only takes the member out); an
+   * author that is not a member id is refused. */
+  void setAnswer(const std::string& questionId, const std::string& answer,
+                 const std::optional<std::string>& author = std::nullopt);
 
   /* Replaces a comment's text; its marker, id and author stay as written. */
   void editComment(const std::string& commentId, const std::string& text);
@@ -400,8 +515,12 @@ class SpecReviewAnnotations {
       const std::optional<std::string>& path = std::nullopt);
 
   /* Removes every annotation and writes the result back: every inline mark
-   * accepted, every comment and question block removed. Malformed marks stay
-   * and are reported. Returns the accept report. */
+   * accepted, every conflict's decision applied (SOM §11.9.8), every comment,
+   * question and conflict block removed. Malformed marks stay and are
+   * reported. Refused — throws SpecReviewAnnotationError, nothing changes —
+   * while a conflict is open, unresolved (`open:`), malformed, or decided for
+   * a letter it has no alternative for. Returns the accept report with the
+   * applied conflicts. */
   SpecMarkReport removeAllAnnotations();
 
   /* Writes `text` at `path` / `field` as a marked change against the value
@@ -432,9 +551,95 @@ class SpecReviewAnnotations {
           decide,
       const std::optional<std::string>& under);
 
+  struct DecidedConflict;
+  std::vector<DecidedConflict> decidedConflicts() const;
+  std::string applyConflicts(const std::string& path,
+                             const std::optional<std::string>& field,
+                             const std::string& value,
+                             const std::vector<DecidedConflict>& decided,
+                             std::vector<SpecConflictOutcome>& outcomes);
+
   SpecDocument* doc_;
   std::optional<std::string> qualifier_;
 };
+
+/* ---- text-level building blocks of the merge (SOM §11.9.9) ---------------
+ *
+ * Internal: `spec_review_merge` is built on them. They live here because they
+ * read a value with this module's parser; they are not part of the
+ * annotation API. */
+namespace review_internal {
+
+/* One paragraph of a value as the merge sees it: text, or an annotation
+ * block. */
+struct ReviewPiece {
+  /* nullopt for a text paragraph, else the kind of the block it opens with. */
+  std::optional<SpecReviewAnnotationKind> kind;
+  std::string text;  // the paragraph's lines, verbatim
+  /* A comment's id (nullopt without one), a conflict's id (nullopt when
+   * malformed). */
+  std::optional<std::string> id;
+  std::optional<std::string> author;     // a comment's author
+  std::string commentText;               // a comment's text
+  std::vector<std::string> questionIds;  // a question block's question ids
+};
+
+/* The paragraphs of `value` (SOM §11.9.1), each classified. */
+std::vector<ReviewPiece> reviewPieces(const std::string& value);
+
+/* One inline mark of a value, with what its decisions leave. Offsets are
+ * byte offsets into the value. */
+struct ReviewMark {
+  std::size_t start = 0;
+  std::size_t end = 0;      // after the attribution token when there is one
+  std::size_t bodyEnd = 0;  // right after the mark itself
+  SpecMarkKind kind = SpecMarkKind::Comment;
+  std::string markup;  // the mark as written, its token included
+  std::vector<std::string> authors;
+  std::vector<SpecMarkVote> votes;
+  std::string accepted;  // the text accepting it leaves
+  std::string rejected;  // the text rejecting it leaves
+};
+
+/* The inline marks of `value`, in order (marks in code are not marks). */
+std::vector<ReviewMark> reviewMarks(const std::string& value);
+
+/* `value` with the marks `decisions` names (by index into `reviewMarks`)
+ * accepted (true) or rejected, by the whitespace rules of SOM §11.9.3. */
+std::string decideReviewMarks(const std::string& value,
+                              const std::map<std::size_t, bool>& decisions);
+
+/* The attribution token for `authors` and `votes`, `{@agent +alice -bob}`. */
+std::string formatAttributionToken(const std::vector<std::string>& authors,
+                                   const std::vector<SpecMarkVote>& votes);
+
+/* `value` with mark `m`'s token replaced by one for `authors` and `votes`. */
+std::string withAttribution(const std::string& value, const ReviewMark& m,
+                            const std::vector<std::string>& authors,
+                            const std::vector<SpecMarkVote>& votes);
+
+/* The team answer of every question of `value`, by id, in order (the first
+ * of a repeated id wins). */
+std::vector<std::pair<std::string, std::string>> reviewTeamAnswers(
+    const std::string& value);
+
+/* `value` with `member`'s individual answer to question `questionId` set, as
+ * `setAnswer` with an `author` does; nullopt when the value holds no such
+ * question. */
+std::optional<std::string> setIndividualAnswerText(
+    const std::string& value, const std::string& questionId,
+    const std::string& member, const std::string& answer);
+
+/* Carries the edits `x` → `y` over to `b`, a text equal to `x` except where
+ * marks of `b` were decided in `x` (SOM §11.9.9, step 3): every edit lands in
+ * `b` at the place `x` and `b` agree on. nullopt when an edit touches or
+ * borders a place where they differ — the edit overlaps a decided mark. Both
+ * diffs are the token diffs of `markChangeText`. */
+std::optional<std::string> transplantEdits(const std::string& x,
+                                           const std::string& y,
+                                           const std::string& b);
+
+}  // namespace review_internal
 
 }  // namespace som
 

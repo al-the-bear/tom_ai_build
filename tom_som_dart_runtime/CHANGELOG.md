@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.7.1
+
+- Team reviews (SOM §11.9.8): `SpecReviewAnnotations` reads attribution
+  tokens after marks (`authors` and `votes`, `SpecMarkVote` with `SpecVote`,
+  in `list()` and `listMarks()`; the token goes with its mark on every
+  decision), individual answers (`answers`, `SpecIndividualAnswer`; the
+  question's text ends before them), conflict blocks (kind
+  `SpecReviewAnnotationKind.conflict`, `SpecConflictAlternative`,
+  `decisionLetter`; `paragraphs()` marks them) and `open:` answers and
+  decisions (`unresolved`). `counts()` adds `unresolvedQuestions`,
+  `conflicts` and `openConflicts`. `setAnswer(id, answer, author:)` writes a
+  member's individual answer. `removeAllAnnotations()` applies every
+  conflict's decision (`SpecMarkReport.conflicts`, `SpecConflictOutcome`) and
+  refuses while one is open, unresolved or malformed. `validateDocument`
+  reports the §11.9.8 findings. The `toJson` methods take `team: true` for the
+  team form; without it their output is unchanged.
+- `mergeReviews` (SOM §11.9.9) merges a round's reviewed copies of a
+  `SpecDocument` (by model path, list items by section id) or of a Markdown
+  string (by heading path) into one document in the team notation, with a
+  `SpecReviewMergeReport`; a copy that does not fit the base throws
+  `SpecReviewMergeError`. Conformance: the driver runs
+  `team_annotation_cases.json` and `review_merge_cases.json`.
+
 ## 1.7.0
 
 - No runtime change. The chain moves with `tom_specs_model` 1.7.0, which adds

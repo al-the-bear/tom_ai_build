@@ -22,8 +22,8 @@ public final class SpecParagraph {
   public final String text;
 
   /**
-   * {@code comment} or {@code question} when the paragraph opens with an annotation block of that
-   * kind, else null.
+   * {@code comment}, {@code question} or {@code conflict} when the paragraph opens with an
+   * annotation block of that kind, else null.
    */
   public final String annotation;
 

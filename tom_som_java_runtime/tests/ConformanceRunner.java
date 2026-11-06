@@ -83,6 +83,12 @@ import tom_som_runtime.SpecAnswers;
 import tom_som_runtime.SpecReviewAnnotation;
 import tom_som_runtime.SpecReviewAnnotationError;
 import tom_som_runtime.SpecReviewAnnotations;
+import tom_som_runtime.SpecReviewMember;
+import tom_som_runtime.SpecReviewMerge;
+import tom_som_runtime.SpecReviewMergeError;
+import tom_som_runtime.SpecReviewMergeOptions;
+import tom_som_runtime.SpecReviewMergeResult;
+import tom_som_runtime.SpecReviewedCopy;
 import tom_som_runtime.SpecRoot;
 import tom_som_runtime.SpecSectionId;
 import tom_som_runtime.SpecSectionIdCollision;
@@ -870,6 +876,128 @@ public final class ConformanceRunner {
   }
 
   /**
+   * {@code team_annotation_cases.json}: the team-review notation (SOM §11.9.8). The scripted cases
+   * run like the annotation cases with the results in their team form; the {@code
+   * validationCases} run like {@code validation_cases.json} over the corpus model.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testTeamAnnotationCases(SpecModel model, SomMetaTree tree)
+      throws IOException {
+    Map<String, Object> table = readJsonObject("team_annotation_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "teamAnnotation[" + c.get("name") + "]";
+      Object expect = c.get("expect");
+      try {
+        Map<String, Object> got = runAnnotationCase(model, tree, c, true);
+        check(name, got.equals(expect), jsonMismatch(got, expect));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
+    for (Object caseObj : (List<Object>) table.get("validationCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      SpecDocument doc = documentFromState(Json.parseObject(Json.write(c.get("state"))));
+      List<String> got = new ArrayList<>();
+      for (SpecValidationError e : SpecValidator.validateDocument(model, doc)) {
+        got.add(e.path + "|" + e.code.value);
+      }
+      List<String> want = new ArrayList<>();
+      for (Object eObj : (List<Object>) c.get("errors")) {
+        Map<String, Object> e = (Map<String, Object>) eObj;
+        want.add(e.get("path") + "|" + e.get("code"));
+      }
+      check("teamValidate[" + c.get("name") + "]", got.equals(want), got + " != " + want);
+    }
+  }
+
+  /**
+   * {@code review_merge_cases.json}: merging reviewed copies (SOM §11.9.9), SOM documents (model
+   * {@code demo}: the corpus model; {@code som}: the real model) and plain Markdown.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testReviewMergeCases(SpecModel model) throws IOException {
+    Map<String, SpecModel> models = new LinkedHashMap<>();
+    models.put("demo", model);
+    models.put(
+        "som",
+        SpecModel.fromJson(
+            Json.parseObject(
+                new String(
+                    Files.readAllBytes(
+                        corpus.resolve("../../tom_som_dart_v0/meta/spec_model.meta.json").normalize()),
+                    StandardCharsets.UTF_8))));
+    for (Object caseObj : (List<Object>) readJsonObject("review_merge_cases.json").get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "reviewMerge[" + c.get("name") + "]";
+      Object expect = c.get("expect");
+      try {
+        Map<String, Object> got = runReviewMergeCase(models, c);
+        check(name, got.equals(expect), jsonMismatch(got, expect));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
+  }
+
+  /**
+   * One {@code review_merge_cases.json} case: the merged document (its state, or the Markdown
+   * text) and the report; a refused merge answers {@code {error: true}}.
+   */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runReviewMergeCase(
+      Map<String, SpecModel> models, Map<String, Object> c) {
+    Map<String, Object> o = (Map<String, Object>) c.get("options");
+    List<SpecReviewMember> team = new ArrayList<>();
+    for (Object m : (List<Object>) o.get("team")) {
+      team.add(reviewMember((Map<String, Object>) m));
+    }
+    SpecReviewMergeOptions options =
+        new SpecReviewMergeOptions(
+            team,
+            (String) o.get("date"),
+            (String) o.get("author"),
+            (String) o.get("questionPrefix"),
+            c.get("model") == null ? null : models.get((String) c.get("model")));
+    Map<String, Object> out = new LinkedHashMap<>();
+    try {
+      if ("markdown".equals(c.get("format"))) {
+        List<SpecReviewedCopy<String>> copies = new ArrayList<>();
+        for (Object x : (List<Object>) c.get("copies")) {
+          Map<String, Object> m = (Map<String, Object>) x;
+          copies.add(new SpecReviewedCopy<>(reviewMember(m), (String) m.get("document")));
+        }
+        SpecReviewMergeResult<String> r =
+            SpecReviewMerge.mergeReviews((String) c.get("base"), copies, options);
+        out.put("merged", r.merged);
+        out.put("report", r.report.toJson());
+        return out;
+      }
+      List<SpecReviewedCopy<SpecDocument>> copies = new ArrayList<>();
+      for (Object x : (List<Object>) c.get("copies")) {
+        Map<String, Object> m = (Map<String, Object>) x;
+        copies.add(
+            new SpecReviewedCopy<>(
+                reviewMember(m), documentFromState(Json.parseObject(Json.write(m.get("document"))))));
+      }
+      SpecDocument base = documentFromState(Json.parseObject(Json.write(c.get("base"))));
+      SpecReviewMergeResult<SpecDocument> r = SpecReviewMerge.mergeReviews(base, copies, options);
+      out.put("merged", r.merged.toJson());
+      out.put("report", r.report.toJson());
+      return out;
+    } catch (SpecReviewMergeError e) {
+      out.clear();
+      out.put("error", true);
+      return out;
+    }
+  }
+
+  private static SpecReviewMember reviewMember(Map<String, Object> m) {
+    return new SpecReviewMember(
+        (String) m.get("memberId"), (String) m.get("displayName"), (String) m.get("role"));
+  }
+
+  /**
    * {@code inline_mark_cases.json}: accepting and rejecting inline marks (SOM §11.9.3). The text
    * cases pin {@code applyInlineMarksText}; the scripted cases run like the annotation cases.
    */
@@ -993,9 +1121,18 @@ public final class ConformanceRunner {
   }
 
   /** Runs one {@code annotation_cases.json} case: {@code {results, state}}. */
-  @SuppressWarnings("unchecked")
   private static Map<String, Object> runAnnotationCase(
       SpecModel model, SomMetaTree tree, Map<String, Object> c) {
+    return runAnnotationCase(model, tree, c, false);
+  }
+
+  /**
+   * Runs one annotation-script case; {@code team} renders the results in the extended form {@code
+   * team_annotation_cases.json} pins (SOM §11.9.8).
+   */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runAnnotationCase(
+      SpecModel model, SomMetaTree tree, Map<String, Object> c, boolean team) {
     SpecDocument doc =
         documentFromState(Json.parseObject(Json.write(c.get("state"))));
     SpecReviewAnnotations api = new SpecReviewAnnotations(doc, (String) c.get("qualifier"));
@@ -1003,7 +1140,7 @@ public final class ConformanceRunner {
     for (Object opObj : (List<Object>) c.get("ops")) {
       Map<String, Object> op = (Map<String, Object>) opObj;
       try {
-        results.add(runAnnotationOp(model, tree, doc, api, op));
+        results.add(runAnnotationOp(model, tree, doc, api, op, team));
       } catch (SpecReviewAnnotationError e) {
         Map<String, Object> err = new LinkedHashMap<>();
         err.put("error", true);
@@ -1022,7 +1159,8 @@ public final class ConformanceRunner {
       SomMetaTree tree,
       SpecDocument doc,
       SpecReviewAnnotations api,
-      Map<String, Object> op) {
+      Map<String, Object> op,
+      boolean team) {
     String kind = (String) op.get("op");
     int floor = op.get("floor") == null ? 0 : ((Number) op.get("floor")).intValue();
     switch (kind) {
@@ -1030,12 +1168,12 @@ public final class ConformanceRunner {
         {
           List<Object> out = new ArrayList<>();
           for (SpecReviewAnnotation a : api.list()) {
-            out.add(a.toJson());
+            out.add(a.toJson(team));
           }
           return out;
         }
       case "counts":
-        return api.counts().toJson();
+        return api.counts().toJson(team);
       case "nextId":
         return api.nextCommentId(floor);
       case "assignIds":
@@ -1061,7 +1199,7 @@ public final class ConformanceRunner {
             SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")));
         return null;
       case "setAnswer":
-        api.setAnswer((String) op.get("id"), (String) op.get("answer"));
+        api.setAnswer((String) op.get("id"), (String) op.get("answer"), (String) op.get("author"));
         return null;
       case "editComment":
         api.editComment((String) op.get("id"), (String) op.get("text"));
@@ -1093,7 +1231,7 @@ public final class ConformanceRunner {
         {
           List<Object> out = new ArrayList<>();
           for (SpecMarkEntry m : api.listMarks((String) op.get("path"))) {
-            out.add(m.toJson());
+            out.add(m.toJson(team));
           }
           return out;
         }
@@ -1106,14 +1244,14 @@ public final class ConformanceRunner {
           }
           String rev = (String) op.get("revision");
           return api.decideMarks(decisions, "@current".equals(rev) ? api.revision() : rev)
-              .toJson();
+              .toJson(team);
         }
       case "acceptAll":
-        return api.acceptAllMarks((String) op.get("path")).toJson();
+        return api.acceptAllMarks((String) op.get("path")).toJson(team);
       case "rejectAll":
-        return api.rejectAllMarks((String) op.get("path")).toJson();
+        return api.rejectAllMarks((String) op.get("path")).toJson(team);
       case "removeAll":
-        return api.removeAllAnnotations().toJson();
+        return api.removeAllAnnotations().toJson(team);
       case "setMarked":
         return api.setMarked(
                 (String) op.get("path"), (String) op.get("field"), (String) op.get("text"))
@@ -2665,6 +2803,8 @@ public final class ConformanceRunner {
     testMarkdownApplyCases(model);
     testAssemblyCases();
     testAnnotationCases(model, tree);
+    testTeamAnnotationCases(model, tree);
+    testReviewMergeCases(model);
     testInlineMarkCases(model, tree);
     testChangeMarkCases(model, tree);
     testAnswerCases(model);

@@ -68,7 +68,7 @@ Output:
 ```text
 ["C-1"]
 DEMO C-1
-SpecReviewAnnotationCounts { questions: 1, open_questions: 0, answered_questions: 1, comments: 1, marks: 0 }
+SpecReviewAnnotationCounts { questions: 1, open_questions: 0, answered_questions: 1, comments: 1, marks: 0, unresolved_questions: 0, conflicts: 0, open_conflicts: 0 }
 ```
 
 `tests/review_annotations.rs` runs this example and asserts the output.
@@ -81,11 +81,11 @@ All are re-exported at the crate root.
 |------|------|
 | `SpecReviewAnnotations<'a>` | The operations, over one `&mut SpecDocument`. `new(doc)` lists bare ids; `with_qualifier(doc, Some("SBP"))` writes the document id in front of a comment id cited outside it (`SBP C-12`) |
 | `SpecReviewAnnotation` | One listed annotation: `kind`, `path`, `field`, `line`, `id`, `qualified_id`, `author`, `text`, `context`, `topic`, `starred`, `combined`, `answer`, `mark_kind`, `new_text`, `comment`; `is_open()`. `to_json()` is the form the conformance corpus pins |
-| `SpecReviewAnnotationKind` | `Comment`, `Question`, `Mark` (`name()` gives the wire name) |
+| `SpecReviewAnnotationKind` | `Comment`, `Question`, `Mark`, `Conflict` (`name()` gives the wire name) |
 | `SpecMarkKind` | `Comment`, `Highlight`, `Insertion`, `Deletion`, `Substitution` |
 | `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold; `SpecQuestionDraft::new(id, topic, text)` fills the rest empty |
 | `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
-| `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks` |
+| `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`, and the team counts `unresolved_questions`, `conflicts`, `open_conflicts` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `strip_annotations_text` | One value without its annotations |
 | `format_comment_block` / `format_question_block` | The lines an insert writes |
@@ -123,7 +123,7 @@ Record each applied comment or answer in the project's log **before**
 | `list_marks(path)` | Every inline mark of the document (`None`) or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
 | `decide_marks(&decisions, revision)` | One write: a `HashMap<String, SpecMarkDecision>` of `Accept` / `Reject` / `Leave`. `Err(SpecReviewAnnotationError)` when the document is no longer at `revision`, or when an id is unknown |
 | `accept_all_marks(path)`, `reject_all_marks(path)` | Every mark under a path, or in the whole document (`None`) |
-| `remove_all_annotations()` | Every mark accepted and every comment and question block removed, written back |
+| `remove_all_annotations()` | Every mark accepted, every conflict's decision applied, and every comment, question and conflict block removed, written back. `Err` while a conflict cannot be applied (see [Team reviews](#team-reviews)) |
 | `apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected (a free function) |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
@@ -216,10 +216,114 @@ are `som_multiplatform_spec_model.md` §11.9.8, with their cases in
 returned copies into one document in that notation, `mergeReviews`, is SOM §11.9.9,
 with its cases in `tom_som_conformance/corpus/review_merge_cases.json`.
 
-This runtime does not read the notation or merge copies yet. To it a token is
-text after the mark, an individual answer is part of the question's text, and a
-conflict block is an ordinary quote; its conformance driver runs neither case
-file.
+The runtime reads and writes all four, and its conformance driver runs both
+case files.
+
+**Reading.** `SpecReviewAnnotations` lists the notation with the operations
+above:
+
+| Notation | Listed as |
+|----------|-----------|
+| Attribution token | Part of its mark: in the `markup`, removed with the mark by every decision. `SpecReviewAnnotation` and `SpecMarkEntry` carry `authors` (member ids) and `votes` (`SpecMarkVote`: `member`, `accept`; `vote_name()` is `accept` / `reject`), both empty without a token |
+| Individual answers | `SpecReviewAnnotation::answers`: `SpecIndividualAnswer` (`members`, `answer`, `answer_letter`), in the order written. The question's `text` ends before the first of them; `answer` stays the team's |
+| Conflict block | Kind `SpecReviewAnnotationKind::Conflict` (`conflict`): `id`, `qualified_id`, `topic`, `text`, `base`, `alternatives` (`SpecConflictAlternative`: `letter`, `members`, `text`), the decision as `answer` (`decision` in JSON), `decision_letter()` (`a`…, `base` or `None`), `is_open()`, `is_unresolved()`. `paragraphs()` marks the block `Conflict` |
+| `open:` | `is_unresolved()` true and `is_open()` false on the question or conflict; a question's `answer_letter()` is then `None` |
+
+`counts()` adds `unresolved_questions` (also counted as answered), `conflicts`
+and `open_conflicts`. Every JSON form has a `to_json_with(options)` beside
+`to_json()`: `SpecReviewJsonOptions::TEAM` gives the members
+`team_annotation_cases.json` pins; `to_json()` stays the form of the older case
+files.
+
+**Writing.** `set_answer_by(question_id, answer, Some("alice"))` writes that
+member's individual answer instead of the team's, grouped by SOM §11.9.8: a
+plain letter answer joins the line with the same answer, a commented one gets
+its own line, an empty one only takes the member out. An author that is not a
+member id (`is_review_member_id`) is refused with `SpecReviewAnnotationError`;
+`set_answer_by(id, answer, None)` is `set_answer`. `remove_all_annotations()`
+applies every conflict's decision and lists it in the report's `conflicts`
+(`SpecConflictOutcome`: `id`, `path`, `field`, `line`, `decision`, `result`);
+it returns `Err`, changing nothing, while a conflict is open, unresolved or
+malformed, or its decision names a letter it has no alternative for. A
+structural conflict (`Item removed`, `Item moved`, `Headline changed`) only
+loses its block: its decision is the caller's to apply. `stripped()` keeps a
+conflict's base text and drops the block. `format_conflict_block(id, topic,
+text, base, &alternatives)` gives the lines of a block.
+
+**Merging.** The module `spec_review_merge` merges the returned copies into a
+new document and returns a `SpecReviewMergeResult` (`merged`, `report`);
+neither the base nor a copy is changed.
+
+| Function | Merges |
+|----------|--------|
+| `merge_reviews(&model, &base, &copies, &options)` | A `SpecDocument`, by model path, list items matched by section id; added items, structural conflicts and the draft revision entry included |
+| `merge_reviews_markdown(&base, &copies, &options)` | A plain annotated Markdown `&str`, by heading path |
+
+`copies` are `SpecReviewedCopy<D>` in round order: `member`
+(`SpecReviewMember`: `member_id`, `display_name`, `role`) and `document` (a
+`SpecDocument`, or a `String` for Markdown). `SpecReviewMergeOptions` holds
+`team` (the members the round started with), `date` (ISO 8601: the revision
+entry's date and every generated list-item id's), `author` and
+`question_prefix` (`None`: `RQ`).
+
+A copy whose structure does not fit the base (a path the model does not
+resolve; other headings in Markdown) returns `Err(SpecReviewMergeError)` and
+nothing is merged. The report, `SpecReviewMergeReport`, lists in merged
+document order `reviewers` (with `guest`), `conflicts` (`id`, `path`, `field`,
+`paragraph`, `members`), `votes`, `unanimous`, `answers`, `comments`,
+`additions`, `guest_questions` and the `revision` entry (`None` without a
+revision history); `to_json()` is the form `review_merge_cases.json` pins.
+
+```rust
+use tom_som_rust_runtime::{
+    merge_reviews, SpecDocument, SpecReviewMember, SpecReviewMergeOptions, SpecReviewedCopy,
+};
+
+let doc = |text: &str| {
+    let mut d = SpecDocument::new();
+    d.set_content("DEMO/SUM", text);
+    d
+};
+let member = |id: &str, name: &str, role: &str| SpecReviewMember {
+    member_id: id.to_string(),
+    display_name: name.to_string(),
+    role: role.to_string(),
+};
+let team = vec![
+    member("alice", "Alice Owner", "Product owner"),
+    member("bob", "Bob Dev", "Developer"),
+];
+let copies: Vec<SpecReviewedCopy<SpecDocument>> = team
+    .iter()
+    .map(|m| SpecReviewedCopy {
+        member: m.clone(),
+        document: doc("Sessions expire after 15 minutes."),
+    })
+    .collect();
+let options = SpecReviewMergeOptions {
+    team: team.clone(),
+    date: "2026-11-05".to_string(),
+    author: "Alice Owner".to_string(),
+    question_prefix: None,
+};
+let r = merge_reviews(&model, &doc("Sessions expire after 30 minutes."), &copies, &options)?;
+println!("{}", r.merged.content_or("DEMO/SUM"));
+println!("{}", r.report.conflicts.len());
+```
+
+Output:
+
+```text
+Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
+0
+```
+
+`tests/review_annotations.rs` runs this example against the corpus DEMO model
+and asserts the output.
+
+A unit whose copy no longer holds more than 16 of the base's marks as written
+is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
+grow past 65536.
 
 ## Validation
 
@@ -228,9 +332,9 @@ path:
 
 | Code | Constant | When |
 |------|----------|------|
-| `annotationMisplaced` | `SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED` | A comment or question block inside a form field's value |
-| `annotationMalformed` | `SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED` | An unclosed or nested mark, a substitution without `~>`, a comment id that is not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, a question or answer inside a comment block |
-| `duplicateAnnotationId` | `SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID` | A comment or question id used twice in one document |
+| `annotationMisplaced` | `SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED` | A comment, question or conflict block inside a form field's value |
+| `annotationMalformed` | `SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED` | An unclosed or nested mark, a substitution without `~>`, a comment id that is not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, a question or answer (individual answers included) inside a comment block; an attribution token that is empty, names an id not of the member-id form, names a member twice or as author and voter, votes on a highlight or comment mark, or follows no mark directly; an individual answer by a member who already answered the question; a conflict header that is not `⚖️ **X-<n> — <topic>:**`, a conflict without its `(base)` line or without a lettered alternative |
+| `duplicateAnnotationId` | `SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID` | A comment, question or conflict id used twice in one document |
 
 They are findings, never parse rejections: the document still loads.
 
@@ -239,8 +343,11 @@ They are findings, never parse rejections: the document still loads.
 Every operation that names a comment, a question, a paragraph or a mark that is
 not there returns `Err(SpecReviewAnnotationError)` and changes nothing. `list`,
 `counts`, `next_comment_id`, `assign_comment_ids`, `stripped`, `revision`,
-`list_marks`, `accept_all_marks`, `reject_all_marks` and
-`remove_all_annotations` cannot fail and return their values directly.
+`list_marks`, `accept_all_marks` and `reject_all_marks` cannot fail and return
+their values directly. `remove_all_annotations` returns `Err` while a conflict
+block cannot be applied, and `set_answer_by` while its author is not a member
+id. The merge functions return `Err(SpecReviewMergeError)` for a copy that
+does not fit the base.
 
 ## Best Practices
 

@@ -219,10 +219,25 @@ final List<CorpusGuardedEnum> _guarded = [
   CorpusGuardedEnum(
     enumName: 'SpecReviewAnnotationKind',
     declared: _wire(SpecReviewAnnotationKind.values),
-    corpusFile: 'annotation_cases.json',
+    // The team table lists all four kinds; `annotation_cases.json` predates
+    // the conflict block and holds none.
+    corpusFile: 'team_annotation_cases.json',
     exercised: (c) =>
         _listedAnnotations(c).map((a) => a['kind'] as String).toSet(),
-    why: 'SOM §11.9: every annotation kind is listed by a list operation',
+    why:
+        'SOM §11.9, §11.9.8: every annotation kind, the conflict block '
+        'included, is listed by a list operation',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecVote',
+    declared: _wire(SpecVote.values),
+    corpusFile: 'team_annotation_cases.json',
+    exercised: (c) => {
+      for (final a in _listedAnnotations(c))
+        for (final v in (a['votes'] as List? ?? const []).cast<Map>())
+          v['vote'] as String,
+    },
+    why: 'SOM §11.9.8: an attribution token records both kinds of vote',
   ),
   CorpusGuardedEnum(
     enumName: 'SpecMarkKind',

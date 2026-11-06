@@ -2,6 +2,33 @@
 
 ## Unreleased
 
+- Team reviews (SOM §11.9.8): `SpecReviewAnnotations` reads attribution
+  tokens after marks (`authors` and `votes`, `SpecMarkVote`, in `list()` and
+  `list_marks()`; the token goes with its mark on every decision),
+  individual answers (`answers`, `SpecIndividualAnswer`; the question's text
+  ends before them), conflict blocks (kind `Conflict`,
+  `SpecConflictAlternative`, `decision_letter()`; `paragraphs()` marks them)
+  and `open:` answers and decisions (`is_unresolved()`). `counts()` adds
+  `unresolved_questions`, `conflicts` and `open_conflicts`.
+  `set_answer_by(id, answer, author)` writes a member's individual answer by
+  the grouping rules. `remove_all_annotations()` applies every decided
+  conflict (`conflicts` in its report, `SpecConflictOutcome`) and now returns
+  `Result`: it refuses while a conflict is open, unresolved or malformed.
+  `validate_document` reports the team findings. The JSON forms gain
+  `to_json_with(SpecReviewJsonOptions)` for the members the team cases pin.
+  New exports: `format_conflict_block`, `is_review_member_id`,
+  `SpecReviewJsonOptions`, `SpecConflictOutcome`. Conformance:
+  `team_annotation_cases.json`.
+
+- Merging reviewed copies (SOM §11.9.9), new module `spec_review_merge`:
+  `merge_reviews(model, base, copies, options)` merges a `SpecDocument` (by
+  model path, list items by section id; added items, structural conflicts and
+  the draft revision entry included) and `merge_reviews_markdown(base,
+  copies, options)` a plain annotated Markdown text (by heading path); both
+  return `SpecReviewMergeResult` (`merged`, `report`:
+  `SpecReviewMergeReport`). A copy that does not fit the base is refused with
+  `SpecReviewMergeError`. Conformance: `review_merge_cases.json`.
+
 - `SpecReviewAnnotations::paragraphs(path, field)` lists a value's
   paragraphs (`SpecParagraph`: `index`, `start_line`, `end_line`, `text`, and
   the `annotation` kind when the paragraph is an annotation block). The index

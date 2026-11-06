@@ -2,6 +2,38 @@
 
 ## Unreleased
 
+- Team reviews (SOM §11.9.8), a port of the TypeScript reference: the
+  annotation listing reads attribution tokens after marks (`authors` and
+  `votes`, `SpecMarkVote`, on `SpecReviewAnnotation` and `SpecMarkEntry`; the
+  token goes with its mark on every decision), individual answers (`answers`,
+  `SpecIndividualAnswer`; the question's text ends before them), conflict
+  blocks (`SPEC_REVIEW_ANNOTATION_CONFLICT`, `SpecConflictAlternative`,
+  `spec_review_annotation_decision_letter`; `paragraphs` marks them) and
+  `open:` answers and decisions (`spec_review_annotation_is_unresolved`).
+  The counts add `unresolved_questions`, `conflicts` and `open_conflicts`.
+  `spec_review_annotations_set_member_answer` writes a member's individual
+  answer by the grouping rules. `spec_review_annotations_validate` reports the
+  team findings. The `*_to_team_json` forms give the members the team cases
+  pin. New: `spec_review_format_conflict_block`, `spec_review_is_member_id`.
+  `spec_extract_answers` skips conflict blocks. Conformance:
+  `team_annotation_cases.json`.
+
+- **Changed signature:** `spec_review_annotations_remove_all_annotations(r,
+  out, err)` now returns `int` and takes a `SpecReviewAnnotationError`. It
+  applies every decided conflict (`SpecMarkReport.conflicts`, `has_conflicts`,
+  `SpecConflictOutcome`) and is refused — 0, nothing changed — while one is
+  open, unresolved or malformed.
+
+- Merging reviewed copies (SOM §11.9.9), a new module `spec_review_merge`
+  ported from the TypeScript reference: `spec_review_merge_documents` merges a
+  `SpecDocument` (by model path, list items by section id; added items,
+  structural conflicts and the draft revision entry included) and
+  `spec_review_merge_markdown` a plain annotated Markdown string (by heading
+  path), both with a `SpecReviewMergeReport`
+  (`spec_review_merge_report_to_json`, `spec_review_merge_report_free`). A copy
+  that does not fit the base is refused (`SpecReviewMergeError`).
+  Conformance: `review_merge_cases.json`.
+
 - Listing a value's paragraphs (SOM §11.9.1, annot8), a port of the Dart
   reference: `spec_review_annotations_paragraphs(r, path, field, out, err)`
   fills a `SpecParagraphList` of `SpecParagraph` (`index`, `start_line`,

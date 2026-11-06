@@ -235,6 +235,8 @@ func TestConformance(t *testing.T) {
 	testNodeCreation(c, t, model)
 	testNodeCreationScript(c, t, model)
 	testAnnotations(c, t, model, tree)
+	testTeamAnnotations(c, t, model, tree)
+	testReviewMerge(c, t, model)
 	testInlineMarks(c, t, model, tree)
 	testChangeMarks(c, t, model, tree)
 	testAnswers(c, t, model)
@@ -2912,7 +2914,11 @@ func opDraft(op map[string]any) som.SpecQuestionDraft {
 // runAnnotationCase is a port of the Dart harness's `_runAnnotationCase`:
 // every op runs in order on one document; an op that fails answers
 // `{error: true}` and changes nothing.
-func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree, cc annotationCase) any {
+//
+// team renders the results in the extended form team_annotation_cases.json
+// pins (SOM §11.9.8); the older case files pin the form without it.
+func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree, cc annotationCase, team bool) any {
+	form := som.SpecReviewJSONOptions{Team: team}
 	state := cc.State
 	doc := docFromState(&state)
 	qualifier := ""
@@ -2928,11 +2934,11 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 		case "list":
 			list := []any{}
 			for _, a := range api.List() {
-				list = append(list, a.ToJSON())
+				list = append(list, a.ToJSONWith(form))
 			}
 			result = list
 		case "counts":
-			result = api.Counts().ToJSON()
+			result = api.Counts().ToJSONWith(form)
 		case "nextId":
 			result = api.NextCommentID(opInt(op, "floor"))
 		case "assignIds":
@@ -2946,7 +2952,7 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 		case "insertQuestionAfterComment":
 			err = api.InsertQuestionAfterComment(opString(op, "commentId"), opDraft(op))
 		case "setAnswer":
-			err = api.SetAnswer(opString(op, "id"), opString(op, "answer"))
+			err = api.SetAnswer(opString(op, "id"), opString(op, "answer"), opString(op, "author"))
 		case "editComment":
 			err = api.EditComment(opString(op, "id"), opString(op, "text"))
 		case "resolve":
@@ -2972,7 +2978,7 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 		case "listMarks":
 			list := []any{}
 			for _, m := range api.ListMarks(opString(op, "path")) {
-				list = append(list, m.ToJSON())
+				list = append(list, m.ToJSONWith(form))
 			}
 			result = list
 		case "decideMarks":
@@ -2989,14 +2995,18 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			var report som.SpecMarkReport
 			report, err = api.DecideMarks(decisions, revision)
 			if err == nil {
-				result = report.ToJSON()
+				result = report.ToJSONWith(form)
 			}
 		case "acceptAll":
-			result = api.AcceptAllMarks(opString(op, "path")).ToJSON()
+			result = api.AcceptAllMarks(opString(op, "path")).ToJSONWith(form)
 		case "rejectAll":
-			result = api.RejectAllMarks(opString(op, "path")).ToJSON()
+			result = api.RejectAllMarks(opString(op, "path")).ToJSONWith(form)
 		case "removeAll":
-			result = api.RemoveAllAnnotations().ToJSON()
+			var report som.SpecMarkReport
+			report, err = api.RemoveAllAnnotations()
+			if err == nil {
+				result = report.ToJSONWith(form)
+			}
 		case "setMarked":
 			result = api.SetMarked(opString(op, "path"), opString(op, "field"), opString(op, "text")).ToJSON()
 		case "markAgainst":
@@ -3041,9 +3051,167 @@ func testAnnotations(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 	readJSON(t, "annotation_cases.json", &table)
 	c.check("annotations.cases", len(table.Cases) > 0, "no cases in annotation_cases.json")
 	for _, cc := range table.Cases {
-		got := runAnnotationCase(t, model, tree, cc)
+		got := runAnnotationCase(t, model, tree, cc, false)
 		want := toGenericJSON(t, cc.Expect)
 		c.check("annotations["+cc.Name+"]", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+}
+
+// testTeamAnnotations replays team_annotation_cases.json (SOM §11.9.8): the
+// scripted cases run like annotation_cases.json with the results in their
+// team form; the validationCases run like validation_cases.json over the
+// corpus model.
+func testTeamAnnotations(c *checker, t *testing.T, model *som.SpecModel, tree *som.SomMetaTree) {
+	var table struct {
+		Cases           []annotationCase `json:"cases"`
+		ValidationCases []valCase        `json:"validationCases"`
+	}
+	readJSON(t, "team_annotation_cases.json", &table)
+	c.check("teamAnnotations.cases", len(table.Cases) > 0, "no cases in team_annotation_cases.json")
+	c.check("teamAnnotations.validationCases", len(table.ValidationCases) > 0,
+		"no validationCases in team_annotation_cases.json")
+	for _, cc := range table.Cases {
+		got := runAnnotationCase(t, model, tree, cc, true)
+		want := toGenericJSON(t, cc.Expect)
+		c.check("teamAnnotation["+cc.Name+"]", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+	for _, cc := range table.ValidationCases {
+		state := cc.State
+		var got, want [][2]string
+		for _, e := range som.ValidateDocument(model, docFromState(&state)) {
+			got = append(got, [2]string{e.Path, e.Code})
+		}
+		for _, e := range cc.Errors {
+			want = append(want, [2]string{e.Path, e.Code})
+		}
+		c.check("teamValidate["+cc.Name+"]", pairsEq(got, want), canonJSON(t, got)+" != "+canonJSON(t, want))
+	}
+}
+
+// reviewMergeCase is one case of review_merge_cases.json. base, the copies'
+// documents and expect stay raw: a SOM case holds document states, a Markdown
+// case strings.
+type reviewMergeCase struct {
+	Name   string          `json:"name"`
+	Model  *string         `json:"model"`
+	Format string          `json:"format"`
+	Base   json.RawMessage `json:"base"`
+	Copies []struct {
+		MemberID    string          `json:"memberId"`
+		DisplayName string          `json:"displayName"`
+		Role        string          `json:"role"`
+		Document    json.RawMessage `json:"document"`
+	} `json:"copies"`
+	Options struct {
+		Team []struct {
+			MemberID    string `json:"memberId"`
+			DisplayName string `json:"displayName"`
+			Role        string `json:"role"`
+		} `json:"team"`
+		Date           string `json:"date"`
+		Author         string `json:"author"`
+		QuestionPrefix string `json:"questionPrefix"`
+	} `json:"options"`
+	Expect any `json:"expect"`
+}
+
+// loadSomModel loads the real model, for the review-merge cases written
+// against it.
+func loadSomModel(t *testing.T) *som.SpecModel {
+	b, err := os.ReadFile(filepath.Join(corpusRel, "..", "..", "tom_som_dart_v0", "meta", "spec_model.meta.json"))
+	if err != nil {
+		t.Fatalf("read the SOM model: %v", err)
+	}
+	m, err := som.SpecModelFromJSON(b)
+	if err != nil {
+		t.Fatalf("load the SOM model: %v", err)
+	}
+	return m
+}
+
+func mustUnmarshal(t *testing.T, raw json.RawMessage, v any) {
+	if err := json.Unmarshal(raw, v); err != nil {
+		t.Fatalf("unmarshal: %v", err)
+	}
+}
+
+// runReviewMergeCase runs one review_merge_cases.json case: the merged
+// document (its state, or the Markdown text) and the report; a refused merge
+// answers {error: true}.
+func runReviewMergeCase(t *testing.T, models map[string]*som.SpecModel, cc reviewMergeCase) any {
+	options := som.SpecReviewMergeOptions{
+		Date: cc.Options.Date, Author: cc.Options.Author, QuestionPrefix: cc.Options.QuestionPrefix,
+	}
+	for _, m := range cc.Options.Team {
+		options.Team = append(options.Team, som.SpecReviewMember{
+			MemberID: m.MemberID, DisplayName: m.DisplayName, Role: m.Role,
+		})
+	}
+	member := func(k int) som.SpecReviewMember {
+		x := cc.Copies[k]
+		return som.SpecReviewMember{MemberID: x.MemberID, DisplayName: x.DisplayName, Role: x.Role}
+	}
+	var result any
+	var err error
+	if cc.Format == "markdown" {
+		var base string
+		mustUnmarshal(t, cc.Base, &base)
+		var copies []som.SpecReviewedCopy[string]
+		for k, x := range cc.Copies {
+			var doc string
+			mustUnmarshal(t, x.Document, &doc)
+			copies = append(copies, som.SpecReviewedCopy[string]{SpecReviewMember: member(k), Document: doc})
+		}
+		var r *som.SpecReviewMergeResult[string]
+		if r, err = som.MergeMarkdownReviews(base, copies, options); err == nil {
+			result = map[string]any{"merged": r.Merged, "report": r.Report.ToJSON()}
+		}
+	} else {
+		var model *som.SpecModel
+		if cc.Model != nil {
+			model = models[*cc.Model]
+		}
+		var base som.DocumentJson
+		mustUnmarshal(t, cc.Base, &base)
+		var copies []som.SpecReviewedCopy[*som.SpecDocument]
+		for k, x := range cc.Copies {
+			var state som.DocumentJson
+			mustUnmarshal(t, x.Document, &state)
+			copies = append(copies, som.SpecReviewedCopy[*som.SpecDocument]{
+				SpecReviewMember: member(k), Document: docFromState(&state),
+			})
+		}
+		var r *som.SpecReviewMergeResult[*som.SpecDocument]
+		if r, err = som.MergeReviews(model, docFromState(&base), copies, options); err == nil {
+			result = map[string]any{"merged": r.Merged.ToJSON(), "report": r.Report.ToJSON()}
+		}
+	}
+	if err != nil {
+		var me *som.SpecReviewMergeError
+		if !errors.As(err, &me) {
+			t.Fatalf("reviewMerge[%s]: unexpected error %v", cc.Name, err)
+		}
+		result = map[string]any{"error": true}
+	}
+	return toGenericJSON(t, result)
+}
+
+// testReviewMerge replays review_merge_cases.json: merging reviewed copies
+// (SOM §11.9.9) of SOM documents, over the corpus DEMO model or the real SOM
+// model, and of plain Markdown.
+func testReviewMerge(c *checker, t *testing.T, model *som.SpecModel) {
+	var table struct {
+		Cases []reviewMergeCase `json:"cases"`
+	}
+	readJSON(t, "review_merge_cases.json", &table)
+	c.check("reviewMerge.cases", len(table.Cases) > 0, "no cases in review_merge_cases.json")
+	models := map[string]*som.SpecModel{"demo": model, "som": loadSomModel(t)}
+	for _, cc := range table.Cases {
+		got := runReviewMergeCase(t, models, cc)
+		want := toGenericJSON(t, cc.Expect)
+		c.check("reviewMerge["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
 	}
 }
@@ -3073,7 +3241,7 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
 	}
 	for _, cc := range table.Cases {
-		got := runAnnotationCase(t, model, tree, cc)
+		got := runAnnotationCase(t, model, tree, cc, false)
 		want := toGenericJSON(t, cc.Expect)
 		c.check("inlineMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
@@ -3178,7 +3346,7 @@ func testChangeMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
 	}
 	for _, cc := range table.Cases {
-		got := runAnnotationCase(t, model, tree, cc)
+		got := runAnnotationCase(t, model, tree, cc, false)
 		want := toGenericJSON(t, cc.Expect)
 		c.check("changeMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))

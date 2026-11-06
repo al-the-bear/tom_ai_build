@@ -102,6 +102,8 @@ const {
   SpecAnswerRenderOptions,
   extractAnswers,
   renderAnswers,
+  SpecReviewMergeError,
+  mergeReviews,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
 const _MODEL_VERSION = '1.0';
@@ -539,13 +541,15 @@ function _mapToObject(m) {
 // One `annotation_cases.json` case, run like Dart's `_runAnnotationCase`:
 // every op runs in order on one document loaded from `state`; an op that
 // raises the annotation error answers `{error: true}` and changes nothing.
-function _runAnnotationCase(model, tree, c) {
+// `team` renders the results in the extended form `team_annotation_cases.json`
+// pins (SOM §11.9.8).
+function _runAnnotationCase(model, tree, c, team = false) {
   const doc = _documentFromState(JSON.parse(JSON.stringify(c.state)));
   const api = new SpecReviewAnnotations(doc, { qualifier: c.qualifier ?? null });
   const results = [];
   for (const op of c.ops) {
     try {
-      results.push(_runAnnotationOp(model, tree, doc, api, op));
+      results.push(_runAnnotationOp(model, tree, doc, api, op, { team }));
     } catch (e) {
       if (!(e instanceof SpecReviewAnnotationError)) throw e;
       results.push({ error: true });
@@ -554,12 +558,12 @@ function _runAnnotationCase(model, tree, c) {
   return { results, state: doc.toJson() };
 }
 
-function _runAnnotationOp(model, tree, doc, api, op) {
+function _runAnnotationOp(model, tree, doc, api, op, json = { team: false }) {
   switch (op.op) {
     case 'list':
-      return api.list().map((a) => a.toJson());
+      return api.list().map((a) => a.toJson(json));
     case 'counts':
-      return api.counts().toJson();
+      return api.counts().toJson(json);
     case 'nextId':
       return api.nextCommentId({ floor: op.floor ?? 0 });
     case 'assignIds':
@@ -585,7 +589,7 @@ function _runAnnotationOp(model, tree, doc, api, op) {
       api.insertQuestionAfterComment(op.commentId, SpecQuestionDraft.fromJson(op.question));
       return null;
     case 'setAnswer':
-      api.setAnswer(op.id, op.answer);
+      api.setAnswer(op.id, op.answer, { author: op.author ?? null });
       return null;
     case 'editComment':
       api.editComment(op.id, op.text);
@@ -610,19 +614,19 @@ function _runAnnotationOp(model, tree, doc, api, op) {
         .paragraphs({ path: op.path, field: op.field ?? null })
         .map((p) => p.toJson());
     case 'listMarks':
-      return api.listMarks({ path: op.path ?? null }).map((m) => m.toJson());
+      return api.listMarks({ path: op.path ?? null }).map((m) => m.toJson(json));
     case 'decideMarks':
       return api
         .decideMarks(op.decisions, {
           revision: op.revision === '@current' ? api.revision() : op.revision,
         })
-        .toJson();
+        .toJson(json);
     case 'acceptAll':
-      return api.acceptAllMarks({ path: op.path ?? null }).toJson();
+      return api.acceptAllMarks({ path: op.path ?? null }).toJson(json);
     case 'rejectAll':
-      return api.rejectAllMarks({ path: op.path ?? null }).toJson();
+      return api.rejectAllMarks({ path: op.path ?? null }).toJson(json);
     case 'removeAll':
-      return api.removeAllAnnotations().toJson();
+      return api.removeAllAnnotations().toJson(json);
     case 'setMarked':
       return api.setMarked({ path: op.path, field: op.field ?? null, text: op.text }).toJson();
     case 'markAgainst':
@@ -652,6 +656,72 @@ function testAnnotations(model, tree) {
     const name = `annotation[${c.name}]`;
     try {
       const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
+// Team-review annotations (SOM §11.9.8): the scripted cases run like
+// `annotation_cases.json` with the results in their extended form; the
+// `validationCases` run like `validation_cases.json` over the corpus model.
+function testTeamAnnotations(model, tree) {
+  const table = _readJson('team_annotation_cases.json');
+  for (const c of table.cases) {
+    const name = `teamAnnotation[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c, true);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+  for (const c of table.validationCases) {
+    const got = validateDocument(model, _documentFromState(c.state)).map((e) => [e.path, e.code]);
+    const want = c.errors.map((e) => [e.path, e.code]);
+    _check(
+      `teamValidate[${c.name}]`,
+      _deepEqual(got, want),
+      `${JSON.stringify(got)} != ${JSON.stringify(want)}`,
+    );
+  }
+}
+
+// The real model, for the review-merge cases written against it.
+function _loadSomModel() {
+  const meta = path.join(_PKG_ROOT, '..', 'tom_som_dart_v0', 'meta', 'spec_model.meta.json');
+  return SpecModel.fromJson(JSON.parse(fs.readFileSync(meta, 'utf8')));
+}
+
+// One `review_merge_cases.json` case: the merged document (its state, or the
+// Markdown text) and the report; a refused merge answers `{error: true}`.
+function _runReviewMergeCase(models, c) {
+  const options = { ...c.options, model: c.model === null ? undefined : models[c.model] };
+  try {
+    if (c.format === 'markdown') {
+      const r = mergeReviews(c.base, c.copies, options);
+      return { merged: r.merged, report: r.report.toJson() };
+    }
+    const copies = c.copies.map((x) => ({
+      ...x,
+      document: _documentFromState(JSON.parse(JSON.stringify(x.document))),
+    }));
+    const r = mergeReviews(_documentFromState(JSON.parse(JSON.stringify(c.base))), copies, options);
+    return { merged: r.merged.toJson(), report: r.report.toJson() };
+  } catch (e) {
+    if (!(e instanceof SpecReviewMergeError)) throw e;
+    return { error: true };
+  }
+}
+
+// Merging reviewed copies (SOM §11.9.9), SOM documents and plain Markdown.
+function testReviewMerge(model) {
+  const models = { demo: model, som: _loadSomModel() };
+  for (const c of _readJson('review_merge_cases.json').cases) {
+    const name = `reviewMerge[${c.name}]`;
+    try {
+      const got = _runReviewMergeCase(models, c);
       _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
@@ -2229,6 +2299,8 @@ function main() {
   testMarkdownApply(model);
   testAssembly();
   testAnnotations(model, tree);
+  testTeamAnnotations(model, tree);
+  testReviewMerge(model);
   testInlineMarks(model, tree);
   testChangeMarks(model, tree);
   testAnswers(model);

@@ -1,5 +1,6 @@
 /* Shared-corpus conformance suite for the C++ generic runtime
- * (`tom_som_cpp_runtime`), an idiomatic-C++ port of the C `tests/conformance.c`.
+ * (`tom_som_cpp_runtime`), an idiomatic-C++ port of the C
+ * `tests/conformance.c`.
  *
  * It loads the language-agnostic conformance corpus produced from the Dart
  * reference (`tom_som_conformance/corpus`) and asserts the C++ port reproduces
@@ -11,7 +12,8 @@
  *   - the YAML `review:` pass (write-back round trip + stale review paths);
  *   - Markdown export == expected.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
- *   - the Markdown route lands the fixture in the same memory as the YAML route;
+ *   - the Markdown route lands the fixture in the same memory as the YAML
+ * route;
  *   - applying a parsed Markdown import (fromMarkdown / applyMarkdownResult);
  *   - the SOM §4.2/§21 editability contract (classification + refusal message);
  *   - reflection resolution cases;
@@ -29,6 +31,9 @@
  *   - assembling one document from ordered fragments (refusing overlaps);
  *   - the review annotations (SOM §11.9): listing, counting and editing
  *     comment blocks, question blocks and inline marks;
+ *   - team reviews (SOM §11.9.8): attribution tokens, individual answers,
+ *     conflict blocks, `open:`, and their findings;
+ *   - merging reviewed copies (SOM §11.9.9), SOM documents and Markdown;
  *   - extracting a review round's answers for a step folder (SOM §11.9.7).
  *
  * The corpus directory is argv[1], defaulting to
@@ -2845,11 +2850,12 @@ static som::SpecQuestionDraft draft_from_json(const som::JsonRef& j) {
 /* Runs one op and returns its result as canonical JSON text — `{"error":true}`
  * when it raised SpecReviewAnnotationError. A `strip` result is returned as
  * the stripped document's canonical form (compared against the expected
- * state's). */
+ * state's). `team` renders the results in the extended form
+ * `team_annotation_cases.json` pins (SOM §11.9.8). */
 static std::string run_annotation_op(const som::SpecModel& model,
                                      const som::SomMetaTree& tree,
                                      som::SpecReviewAnnotations& api,
-                                     const som::JsonRef& op) {
+                                     const som::JsonRef& op, bool team) {
   const std::string name = som::jsonStrOr(op, "op");
   const long long floor = som::jsonAsI64(som::jsonGet(op, "floor")).value_or(0);
   try {
@@ -2858,11 +2864,11 @@ static std::string run_annotation_op(const som::SpecModel& model,
       const auto all = api.list();
       for (std::size_t i = 0; i < all.size(); i++) {
         if (i > 0) b += ",";
-        b += all[i].toJson();
+        b += all[i].toJson(team);
       }
       return json_text_canon(b + "]");
     }
-    if (name == "counts") return json_text_canon(api.counts().toJson());
+    if (name == "counts") return json_text_canon(api.counts().toJson(team));
     if (name == "nextId") return som::jsonEncodeStr(api.nextCommentId(floor));
     if (name == "assignIds") {
       std::string b = "[";
@@ -2894,7 +2900,8 @@ static std::string run_annotation_op(const som::SpecModel& model,
       return "null";
     }
     if (name == "setAnswer") {
-      api.setAnswer(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "answer"));
+      api.setAnswer(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "answer"),
+                    json_opt_str(op, "author"));
       return "null";
     }
     if (name == "editComment") {
@@ -2927,7 +2934,7 @@ static std::string run_annotation_op(const som::SpecModel& model,
       const auto marks = api.listMarks(json_opt_str(op, "path"));
       for (std::size_t i = 0; i < marks.size(); i++) {
         if (i > 0) b += ",";
-        b += marks[i].toJson();
+        b += marks[i].toJson(team);
       }
       return json_text_canon(b + "]");
     }
@@ -2948,16 +2955,18 @@ static std::string run_annotation_op(const som::SpecModel& model,
       }
       std::string rev = som::jsonStrOr(op, "revision");
       if (rev == "@current") rev = api.revision();
-      return json_text_canon(api.decideMarks(decisions, rev).toJson());
+      return json_text_canon(api.decideMarks(decisions, rev).toJson(team));
     }
     if (name == "acceptAll") {
-      return json_text_canon(api.acceptAllMarks(json_opt_str(op, "path")).toJson());
+      return json_text_canon(
+          api.acceptAllMarks(json_opt_str(op, "path")).toJson(team));
     }
     if (name == "rejectAll") {
-      return json_text_canon(api.rejectAllMarks(json_opt_str(op, "path")).toJson());
+      return json_text_canon(
+          api.rejectAllMarks(json_opt_str(op, "path")).toJson(team));
     }
     if (name == "removeAll") {
-      return json_text_canon(api.removeAllAnnotations().toJson());
+      return json_text_canon(api.removeAllAnnotations().toJson(team));
     }
     if (name == "setMarked") {
       return json_text_canon(api.setMarked(som::jsonStrOr(op, "path"),
@@ -3001,11 +3010,12 @@ static std::string run_annotation_op(const som::SpecModel& model,
 
 /* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
  * every op runs in order on one document loaded from `state`; each op's
- * result and the final state must equal `expect` (JSON equality). */
+ * result and the final state must equal `expect` (JSON equality). `team`
+ * renders the results in their extended form (team_annotation_cases.json). */
 static void run_annotation_cases(Checker& c, const som::SpecModel& model,
                                  const som::SomMetaTree& tree,
                                  const std::string& file,
-                                 const std::string& prefix) {
+                                 const std::string& prefix, bool team = false) {
   som::JsonPtr table = read_json(file);
   som::JsonRef cases = som::jsonGet(table, "cases");
   const std::size_t n = som::jsonArrayLen(cases);
@@ -3027,7 +3037,7 @@ static void run_annotation_cases(Checker& c, const som::SpecModel& model,
       som::JsonRef op = som::jsonArrayAt(ops, k);
       som::JsonRef want = som::jsonArrayAt(wantResults, k);
       const std::string opName = som::jsonStrOr(op, "op");
-      const std::string got = run_annotation_op(model, tree, api, op);
+      const std::string got = run_annotation_op(model, tree, api, op, team);
       const std::string w =
           opName == "strip" ? state_canonical(want) : json_canon(want);
       const std::string tag =
@@ -3043,6 +3053,138 @@ static void run_annotation_cases(Checker& c, const som::SpecModel& model,
 static void test_annotations(Checker& c, const som::SpecModel& model,
                              const som::SomMetaTree& tree) {
   run_annotation_cases(c, model, tree, "annotation_cases.json", "annotations");
+}
+
+/* Team-review annotations (SOM §11.9.8): team_annotation_cases.json's
+ * `cases` run like annotation_cases.json with the results in their extended
+ * form; its `validationCases` run like validation_cases.json over the corpus
+ * model. */
+static void test_team_annotations(Checker& c, const som::SpecModel& model,
+                                  const som::SomMetaTree& tree) {
+  run_annotation_cases(c, model, tree, "team_annotation_cases.json",
+                       "teamAnnotation", true);
+  som::JsonPtr table = read_json("team_annotation_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "validationCases");
+  c.check("teamValidate.cases", som::jsonArrayLen(cases) > 0,
+          "no validationCases in team_annotation_cases.json");
+  for (std::size_t i = 0; i < som::jsonArrayLen(cases); i++) {
+    som::JsonRef cc = som::jsonArrayAt(cases, i);
+    som::SpecDocument doc =
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(cc, "state")));
+    std::string got;
+    for (const som::SpecValidationError& e :
+         som::validateDocument(model, doc)) {
+      if (!got.empty()) got += '|';
+      got += e.path + ":" + e.code;
+    }
+    std::string want;
+    som::JsonRef warr = som::jsonGet(cc, "errors");
+    for (std::size_t e = 0; e < som::jsonArrayLen(warr); e++) {
+      som::JsonRef we = som::jsonArrayAt(warr, e);
+      if (!want.empty()) want += '|';
+      want += som::jsonStrOr(we, "path") + ":" + som::jsonStrOr(we, "code");
+    }
+    c.check("teamValidate[" + som::jsonStrOr(cc, "name") + "]", got == want,
+            got + " != " + want);
+  }
+}
+
+/* The members of a review_merge_cases.json `team` list or copy. */
+static som::SpecReviewMember member_from_json(const som::JsonRef& j) {
+  return {som::jsonStrOr(j, "memberId"), som::jsonStrOr(j, "displayName"),
+          som::jsonStrOr(j, "role")};
+}
+
+/* One review_merge_cases.json case: the merged document (its canonical
+ * state, or the Markdown text) and the report as canonical JSON text; a
+ * refused merge answers `{"error":true}`. */
+static std::string run_review_merge_case(const som::SpecModel& demo,
+                                         const som::SpecModel& real,
+                                         const som::JsonRef& kase) {
+  som::JsonRef opts = som::jsonGet(kase, "options");
+  som::SpecReviewMergeOptions options;
+  som::JsonRef team = som::jsonGet(opts, "team");
+  for (std::size_t i = 0; i < som::jsonArrayLen(team); i++) {
+    options.team.push_back(member_from_json(som::jsonArrayAt(team, i)));
+  }
+  options.date = som::jsonStrOr(opts, "date");
+  options.author = som::jsonStrOr(opts, "author");
+  if (auto prefix = json_opt_str(opts, "questionPrefix"))
+    options.questionPrefix = *prefix;
+  som::JsonRef copies = som::jsonGet(kase, "copies");
+  try {
+    if (som::jsonStrOr(kase, "format") == "markdown") {
+      std::vector<som::SpecReviewedMarkdown> cs;
+      for (std::size_t i = 0; i < som::jsonArrayLen(copies); i++) {
+        som::JsonRef c = som::jsonArrayAt(copies, i);
+        cs.push_back({member_from_json(c), som::jsonStrOr(c, "document")});
+      }
+      const auto r =
+          som::mergeReviews(som::jsonStrOr(kase, "base"), cs, options);
+      return json_text_canon("{\"merged\":" + som::jsonEncodeStr(r.merged) +
+                             ",\"report\":" + r.report.toJson() + "}");
+    }
+    std::vector<som::SpecReviewedDocument> cs;
+    for (std::size_t i = 0; i < som::jsonArrayLen(copies); i++) {
+      som::JsonRef c = som::jsonArrayAt(copies, i);
+      cs.push_back(
+          {member_from_json(c), doc_from_state(som::documentJsonFromJson(
+                                    som::jsonGet(c, "document")))});
+    }
+    const som::SpecModel& model =
+        som::jsonStrOr(kase, "model") == "som" ? real : demo;
+    const auto r = som::mergeReviews(
+        model,
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(kase, "base"))),
+        cs, options);
+    return json_text_canon("{\"merged\":" + doc_canonical(r.merged) +
+                           ",\"report\":" + r.report.toJson() + "}");
+  } catch (const som::SpecReviewMergeError&) {
+    return json_text_canon("{\"error\":true}");
+  }
+}
+
+/* Merging reviewed copies (SOM §11.9.9), SOM documents and plain Markdown:
+ * review_merge_cases.json. A `som` case runs against the real model,
+ * `tom_som_dart_v0/meta/spec_model.meta.json`, beside the corpus's DEMO
+ * model. */
+static void test_review_merge(Checker& c, const som::SpecModel& demo) {
+  const std::string meta =
+      g_corpus_dir + "/../../tom_som_dart_v0/meta/spec_model.meta.json";
+  std::ifstream f(meta, std::ios::binary);
+  std::ostringstream ss;
+  ss << f.rdbuf();
+  std::string err;
+  auto real = som::SpecModel::fromJsonStr(ss.str(), &err);
+  c.check("reviewMerge.somModel", real != nullptr, meta + ": " + err);
+  if (real == nullptr) return;
+  som::JsonPtr table = read_json("review_merge_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  c.check("reviewMerge.cases", som::jsonArrayLen(cases) > 0,
+          "no cases in review_merge_cases.json");
+  for (std::size_t i = 0; i < som::jsonArrayLen(cases); i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label =
+        "reviewMerge[" + som::jsonStrOr(kase, "name") + "]";
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    std::string want;
+    if (som::jsonBoolOr(expect, "error")) {
+      want = json_text_canon("{\"error\":true}");
+    } else if (som::jsonStrOr(kase, "format") == "markdown") {
+      want = json_canon(expect);
+    } else {
+      want = json_text_canon(
+          "{\"merged\":" + state_canonical(som::jsonGet(expect, "merged")) +
+          ",\"report\":" + json_canon(som::jsonGet(expect, "report")) + "}");
+    }
+    std::string got;
+    try {
+      got = run_review_merge_case(demo, *real, kase);
+    } catch (const std::exception& e) {
+      got = std::string("threw ") + e.what();
+    }
+    c.check(label, got == want, byte_diff(label, got, want));
+  }
 }
 
 /* inline_mark_cases.json: `textCases` pin `applyInlineMarksText` (accept and
@@ -3201,6 +3343,8 @@ int main(int argc, char** argv) {
   test_assembly(c);
   test_list_move(c, *model);
   test_annotations(c, *model, *tree);
+  test_team_annotations(c, *model, *tree);
+  test_review_merge(c, *model);
   test_inline_marks(c, *model, *tree);
   test_change_marks(c, *model, *tree);
   test_answers(c, *model);

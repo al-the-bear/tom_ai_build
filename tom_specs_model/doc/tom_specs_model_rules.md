@@ -2304,6 +2304,10 @@ hand.
       - content @Form(documentId, project, version, date, author, status)
     - revisionHistory: `RevisionEntry`[]
       - content @Form(version, date, author, summary)
+      - reviewTeam: `ReviewerRecord`[]
+        - content @Form(memberId, displayName, role, guest)
+      - reviewers: `ReviewerRecord`[]
+        - content @Form(memberId, displayName, role, guest)
     - approvals: `ApprovalRecord`[]
       - content @Form(role, date, status)
     - `ReferenceDocuments`

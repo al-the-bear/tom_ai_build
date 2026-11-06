@@ -1,5 +1,7 @@
 """Review annotations in content values (SOM §11.9): comment blocks, question
-blocks and CriticMarkup inline marks — a faithful port of
+blocks and CriticMarkup inline marks, and the team-review notation built on
+them (§11.9.8): attribution tokens, individual answers, conflict blocks and
+``open:`` answers — a faithful port of
 `tom_som_dart_runtime/lib/src/spec_review_annotations.dart`.
 
 An annotation is text inside a content value or a form-field value. This
@@ -17,14 +19,15 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field as dc_field
 from enum import Enum
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Sequence
 
 from .spec_document import SpecDocument
 from .spec_validator import SpecValidationCode, SpecValidationError
 
 
 class SpecReviewAnnotationKind(Enum):
-    """The three kinds of annotation (SOM §11.9)."""
+    """The kinds of annotation (SOM §11.9): the three of §11.9.1–11.9.3 and
+    the conflict block a team review adds (§11.9.8)."""
 
     #: A reviewer's comment block, ``> ⬆️ **C-12** (Alexis): …``.
     COMMENT = "comment"
@@ -32,6 +35,8 @@ class SpecReviewAnnotationKind(Enum):
     QUESTION = "question"
     #: A CriticMarkup inline mark.
     MARK = "mark"
+    #: A conflict block, ``> ⚖️ **X-3 — Conflicting changes:** …`` (SOM §11.9.8).
+    CONFLICT = "conflict"
 
 
 class SpecMarkKind(Enum):
@@ -80,8 +85,8 @@ class SpecParagraph:
     end_line: int
     #: The paragraph's lines, verbatim, joined with ``\n``.
     text: str
-    #: ``comment`` or ``question`` when the paragraph opens with an
-    #: annotation block of that kind, else None.
+    #: ``comment``, ``question`` or ``conflict`` when the paragraph opens
+    #: with an annotation block of that kind, else None.
     annotation: Optional[str] = None
 
     def to_json(self) -> dict[str, Any]:
@@ -93,6 +98,72 @@ class SpecParagraph:
             "text": self.text,
             "annotation": self.annotation,
         }
+
+
+class SpecVote(Enum):
+    """A reviewer's vote on a mark someone else proposed (SOM §11.9.8):
+    ``+id`` accepts it, ``-id`` rejects it."""
+
+    #: ``+<id>``: the reviewer takes the change.
+    ACCEPT = "accept"
+    #: ``-<id>``: the reviewer undoes the change.
+    REJECT = "reject"
+
+
+@dataclass(frozen=True)
+class SpecMarkVote:
+    """One reviewer's vote on a mark someone else proposed (SOM §11.9.8)."""
+
+    #: The voter's member id.
+    member: str
+    #: ``ACCEPT`` (``+id``) or ``REJECT`` (``-id``).
+    vote: SpecVote
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {"member": self.member, "vote": self.vote.value}
+
+
+@dataclass(frozen=True)
+class SpecIndividualAnswer:
+    """One line of individual answers, ``**Answer (alice, bob):** (a)``
+    (SOM §11.9.8)."""
+
+    #: The members who gave this answer, in the order written.
+    members: tuple[str, ...]
+    #: The answer, trimmed.
+    answer: str
+
+    @property
+    def answer_letter(self) -> Optional[str]:
+        """The letter the answer starts with (``(a)`` or ``**(a)**``), or
+        ``None``."""
+        return _leading_letter(self.answer)
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {
+            "members": list(self.members),
+            "answer": self.answer,
+            "answerLetter": self.answer_letter,
+        }
+
+
+@dataclass(frozen=True)
+class SpecConflictAlternative:
+    """One lettered alternative of a conflict block, ``- (a) **alice:** text``
+    (SOM §11.9.8)."""
+
+    #: The lowercase letter.
+    letter: str
+    #: The members who made this change.
+    members: tuple[str, ...]
+    #: The alternative's text; its continuation lines kept as lines.
+    text: str
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {"letter": self.letter, "members": list(self.members), "text": self.text}
 
 
 @dataclass(frozen=True)
@@ -127,7 +198,8 @@ class SpecReviewAnnotation:
     starred: bool = False
     #: Whether a question is part of a combined block.
     combined: bool = False
-    #: A question's answer, trimmed; empty when open.
+    #: A question's team answer, trimmed; empty when open. For a conflict,
+    #: its decision.
     answer: str = ""
     #: A question's options, in order (empty when it states none).
     options: tuple[SpecQuestionOption, ...] = ()
@@ -140,22 +212,54 @@ class SpecReviewAnnotation:
     new_text: Optional[str] = None
     #: The comment of a comment mark, or of a highlight followed by one.
     comment: Optional[str] = None
+    #: A mark's authors from its attribution token; empty without one.
+    authors: tuple[str, ...] = ()
+    #: A mark's votes from its attribution token; empty without one.
+    votes: tuple[SpecMarkVote, ...] = ()
+    #: A question's individual answers, in the order written.
+    answers: tuple[SpecIndividualAnswer, ...] = ()
+    #: A conflict's ``(base)`` text.
+    base: str = ""
+    #: A conflict's lettered alternatives.
+    alternatives: tuple[SpecConflictAlternative, ...] = ()
 
     @property
     def open(self) -> bool:
-        """Whether a question is still open (no answer written)."""
-        return self.kind is SpecReviewAnnotationKind.QUESTION and self.answer == ""
+        """Whether a question is still open (no team answer written), or a
+        conflict (no decision written)."""
+        return (
+            self.kind in (SpecReviewAnnotationKind.QUESTION, SpecReviewAnnotationKind.CONFLICT)
+            and self.answer == ""
+        )
+
+    @property
+    def unresolved(self) -> bool:
+        """Whether a question's team answer or a conflict's decision begins
+        with ``open:`` — answered for a gate, but handed back (SOM §11.9.8)."""
+        return _is_unresolved(self.answer)
 
     @property
     def answer_letter(self) -> Optional[str]:
-        """The letter an answer starts with (``(b)`` or ``**(b)**``), or
-        ``None``."""
-        if self.kind is not SpecReviewAnnotationKind.QUESTION:
+        """The letter a question's team answer starts with (``(b)`` or
+        ``**(b)**``), or ``None``; ``None`` too for an unresolved answer."""
+        if self.kind is not SpecReviewAnnotationKind.QUESTION or self.unresolved:
             return None
         return _leading_letter(self.answer)
 
-    def to_json(self) -> dict[str, Any]:
-        """The canonical JSON form the conformance corpus pins."""
+    @property
+    def decision_letter(self) -> Optional[str]:
+        """A conflict's decision letter: ``a``…, ``base``, or ``None`` for
+        rewritten text or none."""
+        if self.kind is not SpecReviewAnnotationKind.CONFLICT:
+            return None
+        return _decision_letter(self.answer)
+
+    def to_json(self, team: bool = False) -> dict[str, Any]:
+        """The canonical JSON form the conformance corpus pins. *team* adds
+        the members of the team form ``team_annotation_cases.json`` pins (SOM
+        §11.9.8): a mark's ``authors`` and ``votes``, a question's
+        ``unresolved`` and ``answers``. Without it the form is the one of
+        §11.9.1–11.9.7 the older case files pin."""
         if self.kind is SpecReviewAnnotationKind.COMMENT:
             return {
                 "kind": "comment",
@@ -169,7 +273,7 @@ class SpecReviewAnnotation:
                 "context": self.context,
             }
         if self.kind is SpecReviewAnnotationKind.QUESTION:
-            return {
+            out: dict[str, Any] = {
                 "kind": "question",
                 "path": self.path,
                 "field": self.field,
@@ -181,12 +285,34 @@ class SpecReviewAnnotation:
                 "text": self.text,
                 "answer": self.answer,
                 "open": self.open,
-                "options": [o.to_json() for o in self.options],
-                "recommended": self.recommended,
-                "answerLetter": self.answer_letter,
+            }
+            if team:
+                out["unresolved"] = self.unresolved
+            out["options"] = [o.to_json() for o in self.options]
+            out["recommended"] = self.recommended
+            out["answerLetter"] = self.answer_letter
+            if team:
+                out["answers"] = [a.to_json() for a in self.answers]
+            return out
+        if self.kind is SpecReviewAnnotationKind.CONFLICT:
+            return {
+                "kind": "conflict",
+                "path": self.path,
+                "field": self.field,
+                "line": self.line,
+                "id": self.id,
+                "qualifiedId": self.qualified_id,
+                "topic": self.topic,
+                "text": self.text,
+                "base": self.base,
+                "alternatives": [a.to_json() for a in self.alternatives],
+                "decision": self.answer,
+                "decisionLetter": self.decision_letter,
+                "open": self.open,
+                "unresolved": self.unresolved,
             }
         assert self.mark_kind is not None
-        return {
+        out = {
             "kind": "mark",
             "path": self.path,
             "field": self.field,
@@ -196,6 +322,10 @@ class SpecReviewAnnotation:
             "newText": self.new_text,
             "comment": self.comment,
         }
+        if team:
+            out["authors"] = list(self.authors)
+            out["votes"] = [v.to_json() for v in self.votes]
+        return out
 
 
 @dataclass(frozen=True)
@@ -207,16 +337,28 @@ class SpecReviewAnnotationCounts:
     answered_questions: int = 0
     comments: int = 0
     marks: int = 0
+    #: Questions whose team answer begins ``open:`` (also counted as answered).
+    unresolved_questions: int = 0
+    #: Conflict blocks.
+    conflicts: int = 0
+    #: Conflict blocks without a decision.
+    open_conflicts: int = 0
 
-    def to_json(self) -> dict[str, int]:
-        """The canonical JSON form."""
-        return {
+    def to_json(self, team: bool = False) -> dict[str, int]:
+        """The canonical JSON form; *team* adds the three team counts
+        (SOM §11.9.8)."""
+        out = {
             "questions": self.questions,
             "openQuestions": self.open_questions,
             "answeredQuestions": self.answered_questions,
             "comments": self.comments,
             "marks": self.marks,
         }
+        if team:
+            out["unresolvedQuestions"] = self.unresolved_questions
+            out["conflicts"] = self.conflicts
+            out["openConflicts"] = self.open_conflicts
+        return out
 
 
 @dataclass(frozen=True)
@@ -294,10 +436,16 @@ class SpecMarkEntry:
     markup: str
     #: The paragraph holding the mark, verbatim — for display.
     context: str
+    #: The authors its attribution token names (SOM §11.9.8); empty without
+    #: one.
+    authors: tuple[str, ...] = ()
+    #: The votes its attribution token records; empty without one.
+    votes: tuple[SpecMarkVote, ...] = ()
 
-    def to_json(self) -> dict[str, Any]:
-        """The canonical JSON form the conformance corpus pins."""
-        return {
+    def to_json(self, team: bool = False) -> dict[str, Any]:
+        """The canonical JSON form the conformance corpus pins; *team* adds
+        the mark's ``authors`` and ``votes`` (SOM §11.9.8)."""
+        out: dict[str, Any] = {
             "id": self.id,
             "path": self.path,
             "field": self.field,
@@ -309,6 +457,10 @@ class SpecMarkEntry:
             "markup": self.markup,
             "context": self.context,
         }
+        if team:
+            out["authors"] = list(self.authors)
+            out["votes"] = [v.to_json() for v in self.votes]
+        return out
 
 
 @dataclass(frozen=True)
@@ -370,6 +522,36 @@ class SpecMarkIssue:
 
 
 @dataclass(frozen=True)
+class SpecConflictOutcome:
+    """What ``remove_all_annotations`` did with one conflict block
+    (SOM §11.9.8)."""
+
+    #: The conflict id, ``X-<n>``.
+    id: str
+    #: The value's path.
+    path: str
+    #: The form field, or ``None`` for content.
+    field: Optional[str]
+    #: The 0-based line within the value where the block opened.
+    line: int
+    #: The decision as written.
+    decision: str
+    #: The text the decision chose.
+    result: str
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {
+            "id": self.id,
+            "path": self.path,
+            "field": self.field,
+            "line": self.line,
+            "decision": self.decision,
+            "result": self.result,
+        }
+
+
+@dataclass(frozen=True)
 class SpecMarkReport:
     """The report of a mark operation, for the decision log."""
 
@@ -377,13 +559,20 @@ class SpecMarkReport:
     applied: tuple[SpecMarkOutcome, ...] = ()
     #: Malformed marks in scope, left as written.
     malformed: tuple[SpecMarkIssue, ...] = ()
+    #: The conflicts ``remove_all_annotations`` applied, in document order;
+    #: ``None`` for the mark operations, which do not touch conflicts.
+    conflicts: Optional[tuple[SpecConflictOutcome, ...]] = None
 
-    def to_json(self) -> dict[str, Any]:
-        """The canonical JSON form."""
-        return {
+    def to_json(self, team: bool = False) -> dict[str, Any]:
+        """The canonical JSON form; *team* adds the applied ``conflicts`` of
+        a removal (SOM §11.9.8)."""
+        out: dict[str, Any] = {
             "applied": [a.to_json() for a in self.applied],
             "malformed": [m.to_json() for m in self.malformed],
         }
+        if team and self.conflicts is not None:
+            out["conflicts"] = [c.to_json() for c in self.conflicts]
+        return out
 
 
 class SpecReviewAnnotationError(Exception):
@@ -410,8 +599,35 @@ _ANSWER_LABEL = "**Answer:**"
 _EM_DASH_SEP = " — "
 _STAR = "★"
 
+_SCALES = "⚖"
+_DECISION_LABEL = "**Decision:**"
+_UNRESOLVED_PREFIX = "open:"
+
 _COMMENT_ID = re.compile(r"[1-9][0-9]*")
 _QUESTION_ID = re.compile(r"[A-Z][A-Z0-9]*-[0-9]+")
+#: The start of an individual answer line, ``**Answer (alice, bob):**``.
+_INDIVIDUAL_ANSWER = re.compile(r"\*\*Answer \(([^)]*)\):\*\*")
+#: A member id (SOM §11.9.8): lowercase letters, digits and ``_``.
+_MEMBER_ID = re.compile(r"[a-z0-9_]+")
+
+
+def is_review_member_id(s: str) -> bool:
+    """Whether *s* is a member id (SOM §11.9.8): lowercase letters, digits
+    and ``_``."""
+    return _MEMBER_ID.fullmatch(s) is not None
+
+
+def _is_unresolved(answer: str) -> bool:
+    return answer.startswith(_UNRESOLVED_PREFIX)
+
+
+def _decision_letter(decision: str) -> Optional[str]:
+    """A conflict decision's letter: ``a``…, ``base``, or ``None`` (rewritten
+    text or none)."""
+    t = _trim_left(decision)
+    if t.startswith("(base)") or t.startswith("**(base)**"):
+        return "base"
+    return None if _is_unresolved(t) else _leading_letter(t)
 
 # Dart's `String.trim` whitespace set, so "trimmed" means the same here.
 _WS = frozenset(
@@ -446,6 +662,17 @@ class _Block:
     kind: SpecReviewAnnotationKind
     questions: list["_Question"] = dc_field(default_factory=list)
     combined: bool = False
+    conflict: Optional["_Conflict"] = None
+
+
+@dataclass
+class _IndividualAnswer:
+    """One ``**Answer (<ids>):**`` entry of a question (SOM §11.9.8)."""
+
+    line: int  # value line of the `**Answer (…):**` line
+    end: int  # last value line of the entry with text (inclusive)
+    members: list[str]
+    answer: str
 
 
 @dataclass
@@ -460,6 +687,22 @@ class _Question:
     answer: str
     options: tuple[SpecQuestionOption, ...] = ()
     recommended: Optional[str] = None
+    answers: list[_IndividualAnswer] = dc_field(default_factory=list)
+
+
+@dataclass(eq=False)
+class _Conflict:
+    """One parsed conflict block (SOM §11.9.8)."""
+
+    block: _Block
+    #: ``None`` when the header is malformed: the block is then not listed.
+    id: Optional[str]
+    topic: str
+    text: str
+    #: The ``(base)`` text, or ``None`` when the block has none.
+    base: Optional[str] = None
+    alternatives: list[SpecConflictAlternative] = dc_field(default_factory=list)
+    decision: str = ""
 
 
 def _is_letter(c: str) -> bool:
@@ -554,7 +797,9 @@ class _Comment:
 @dataclass
 class _Mark:
     """One parsed mark; start/end are offsets into the value (Python code
-    points — never exported)."""
+    points — never exported). ``end`` lies after the attribution token when
+    the mark has one, ``body_end`` always right after the mark itself, so the
+    token can be rewritten in place."""
 
     start: int
     end: int
@@ -563,6 +808,13 @@ class _Mark:
     text: str
     new_text: Optional[str]
     comment: Optional[str]
+    body_end: int = -1
+    authors: tuple[str, ...] = ()
+    votes: tuple[SpecMarkVote, ...] = ()
+
+    def __post_init__(self) -> None:
+        if self.body_end < 0:
+            self.body_end = self.end
 
 
 class _Parsed:
@@ -651,6 +903,10 @@ def _parse(value: str) -> _Parsed:
             b = _Block(s, e, SpecReviewAnnotationKind.QUESTION)
             p.blocks.append(b)
             _parse_questions(p, b)
+        elif first.startswith(_SCALES):
+            b = _Block(s, e, SpecReviewAnnotationKind.CONFLICT)
+            p.blocks.append(b)
+            b.conflict = _parse_conflict(p, b)
         i = e + 1
 
     _parse_marks(p)
@@ -705,7 +961,11 @@ def _parse_comment(p: _Parsed, b: _Block) -> _Comment:
     for k in range(b.start + 1, b.end + 1):
         inner = _inner(p.lines[k])
         t = _lstrip(inner)
-        if t.startswith(_QUESTION_OPEN) or t.startswith(_ANSWER_LABEL):
+        if (
+            t.startswith(_QUESTION_OPEN)
+            or t.startswith(_ANSWER_LABEL)
+            or _INDIVIDUAL_ANSWER.match(t)
+        ):
             p.malformed.append(
                 f"line {k}: a comment block holds a question or an answer; the "
                 "question goes into its own block after the comment (SOM §11.9.1)"
@@ -769,21 +1029,53 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
     for q, k in enumerate(keys):
         qid, topic, starred, rest = headers[k]
         region_end = keys[q + 1] - 1 if q + 1 < len(keys) else len(inner) - 1
-        answer: Optional[int] = None
-        for m in range(k + 1, region_end + 1):
-            if inner[m].startswith(_ANSWER_LABEL):
-                answer = m
-                break
-        text_end = region_end if answer is None else answer - 1
+        # Every `**Answer` line of the region: the individual ones and the
+        # team's.
+        answer_lines = [
+            m
+            for m in range(k + 1, region_end + 1)
+            if inner[m].startswith(_ANSWER_LABEL) or _INDIVIDUAL_ANSWER.match(inner[m])
+        ]
+
+        def answer_end(m: int) -> int:
+            """An answer runs to the next ``**Answer`` line or the end of the
+            region."""
+            return next((x - 1 for x in answer_lines if x > m), region_end)
+
+        def answer_text_at(m: int, label: int) -> str:
+            return _trim("\n".join([inner[m][label:], *inner[m + 1:answer_end(m) + 1]]))
+
+        # The question's text ends before its first answer line of either kind.
+        text_end = answer_lines[0] - 1 if answer_lines else region_end
         options, recommended = _parse_options(inner[k + 1:text_end + 1])
         text = _trim("\n".join([rest, *inner[k + 1:text_end + 1]]))
-        answer_text = ""
-        if answer is not None:
-            answer_text = _trim(
-                "\n".join(
-                    [inner[answer][len(_ANSWER_LABEL):], *inner[answer + 1:region_end + 1]]
+        answer: Optional[int] = None
+        individual: list[_IndividualAnswer] = []
+        answered: set[str] = set()
+        for m in answer_lines:
+            if inner[m].startswith(_ANSWER_LABEL):
+                if answer is None:
+                    answer = m
+                continue
+            match = _INDIVIDUAL_ANSWER.match(inner[m])
+            assert match is not None
+            members = [_trim(x) for x in match.group(1).split(",")]
+            for member in members:
+                if member in answered:
+                    p.malformed.append(
+                        f"line {b.start + m}: {member} already answered {qid}; a member "
+                        "answers a question at most once (SOM §11.9.8)"
+                    )
+                answered.add(member)
+            end = answer_end(m)
+            while end > m and _trim(inner[end]) == "":
+                end -= 1
+            individual.append(
+                _IndividualAnswer(
+                    b.start + m, b.start + end, members, answer_text_at(m, len(match.group(0)))
                 )
             )
+        answer_text = "" if answer is None else answer_text_at(answer, len(_ANSWER_LABEL))
         out.append(
             _Question(
                 b.start + k,
@@ -796,9 +1088,86 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                 answer_text,
                 options,
                 recommended,
+                individual,
             )
         )
     b.questions = out
+
+
+#: ``- (base) …``: the base line of a conflict block.
+_CONFLICT_BASE = re.compile(r"- \(base\)(?: (.*))?")
+#: ``- (a) **alice, bob:** …``: a lettered alternative.
+_CONFLICT_ALTERNATIVE = re.compile(r"- \(([a-z])\)(?: \*\*([^*]*):\*\*)?(?: (.*))?")
+#: The header after the marker: ``**X-<n> — <topic>:** <text>``.
+_CONFLICT_HEADER = re.compile(r"\*\*(X-[1-9][0-9]*) — (.+?):\*\*(?: (.*))?")
+
+
+def _parse_conflict(p: _Parsed, b: _Block) -> _Conflict:
+    """A conflict block (SOM §11.9.8): the header, the ``(base)`` line and
+    the lettered alternatives — each continuing on lines indented under it,
+    its line breaks kept — then ``**Decision:**``. A malformed header leaves
+    the block unlisted; a missing base line or alternative is a finding."""
+    inner = [_inner(p.lines[k]) for k in range(b.start, b.end + 1)]
+    rest = inner[0][len(_SCALES):]
+    if rest.startswith(_VS16):
+        rest = rest[len(_VS16):]
+    header = _CONFLICT_HEADER.fullmatch(_trim_left(rest))
+    c = _Conflict(
+        b,
+        None if header is None else header.group(1),
+        "" if header is None else header.group(2),
+        "" if header is None else _trim(header.group(3) or ""),
+    )
+    if header is None:
+        p.malformed.append(
+            f'line {b.start}: conflict header is not "⚖️ **X-<n> — <topic>:**" '
+            "(SOM §11.9.8)"
+        )
+    decision_line = next(
+        (k for k in range(1, len(inner)) if inner[k].startswith(_DECISION_LABEL)), len(inner)
+    )
+    # The open entry: (letter or None for the base, members, lines).
+    open_: Optional[tuple[Optional[str], list[str], list[str]]] = None
+
+    def close() -> None:
+        nonlocal open_
+        if open_ is None:
+            return
+        letter, members, lines = open_
+        text = _trim("\n".join(lines))
+        if letter is None:
+            c.base = text
+        else:
+            c.alternatives.append(SpecConflictAlternative(letter, tuple(members), text))
+        open_ = None
+
+    for k in range(1, decision_line):
+        line = inner[k]
+        base = _CONFLICT_BASE.fullmatch(line)
+        alt = _CONFLICT_ALTERNATIVE.fullmatch(line) if base is None else None
+        if base is not None:
+            close()
+            open_ = (None, [], [base.group(1) or ""])
+        elif alt is not None:
+            close()
+            members = [_trim(x) for x in (alt.group(2) or "").split(",") if _trim(x) != ""]
+            open_ = (alt.group(1), members, [alt.group(3) or ""])
+        elif open_ is not None and line.startswith(" "):
+            open_[2].append(line[2:] if line.startswith("  ") else _lstrip(line))
+        else:
+            close()
+    close()
+    if decision_line < len(inner):
+        c.decision = _trim(
+            "\n".join([inner[decision_line][len(_DECISION_LABEL):], *inner[decision_line + 1:]])
+        )
+    if header is not None and c.base is None:
+        p.malformed.append(f'line {b.start}: conflict {c.id} has no "(base)" line (SOM §11.9.8)')
+    if header is not None and not c.alternatives:
+        p.malformed.append(
+            f"line {b.start}: conflict {c.id} has no lettered alternative (SOM §11.9.8)"
+        )
+    return c
 
 
 _OPENERS = ("{>>", "{==", "{++", "{--", "{~~")
@@ -881,6 +1250,16 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
                     j += 1
             i = i + n if close_at < 0 else close_at + n
             continue
+        if c == "{" and seg.startswith("{@", i):
+            # A token that no mark precedes directly (a mark's own token is
+            # read with the mark, below).
+            p.malformed.append(
+                f'line {line_of(base + i)}: an attribution token "{{@" does not follow '
+                "a mark directly (SOM §11.9.8)"
+            )
+            close = seg.find("}", i + 2)
+            i = i + 2 if close < 0 else close + 1
+            continue
         if c != "{" or i + 3 > length:
             i += 1
             continue
@@ -907,6 +1286,7 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
             i = close + 3
             continue
         end = close + 3
+        before = len(p.marks)
         if opener == "{>>":
             p.marks.append(
                 _Mark(base + i, base + end, line, SpecMarkKind.COMMENT, "", None, _trim(inner))
@@ -951,7 +1331,68 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
                     None,
                 )
             )
+        if len(p.marks) > before and seg.startswith("{@", end):
+            end = _attach_token(p, seg, end, base, p.marks[-1])
         i = end
+
+
+def _attach_token(p: _Parsed, seg: str, at: int, base: int, m: _Mark) -> int:
+    """Reads the attribution token ``{@…}`` at *at* (SOM §11.9.8) into *m*,
+    which it directly follows, and returns the segment offset after it. The
+    token is part of the mark — its markup, its decision — so ``m.end``
+    moves past it. A token that breaks the grammar is still part of the mark
+    (it goes with the mark on a decision) and is a finding; its members are
+    then not listed."""
+    line_end = seg.find("\n", at)
+    close = seg.find("}", at + 2)
+    if close < 0 or (line_end >= 0 and close > line_end):
+        p.malformed.append(f'line {m.line}: attribution token "{{@" is not closed (SOM §11.9.8)')
+        return at
+    reason, authors, votes = _read_token(seg[at + 2:close], m.kind)
+    if reason is not None:
+        p.malformed.append(f"line {m.line}: attribution token {reason} (SOM §11.9.8)")
+    else:
+        m.authors = authors
+        m.votes = votes
+    m.end = base + close + 1
+    return close + 1
+
+
+def _is_change_mark(kind: SpecMarkKind) -> bool:
+    """Whether a mark kind is a change, which alone takes votes
+    (SOM §11.9.8)."""
+    return kind in (SpecMarkKind.INSERTION, SpecMarkKind.DELETION, SpecMarkKind.SUBSTITUTION)
+
+
+def _read_token(
+    inside: str, kind: SpecMarkKind
+) -> tuple[Optional[str], tuple[str, ...], tuple[SpecMarkVote, ...]]:
+    """The members of a token's inside, ``<authors>[ <votes>]``, or (as the
+    first member) the reason it breaks the grammar of SOM §11.9.8."""
+    words = [w for w in re.split(r"\s+", _trim(re.sub(r",\s+", ",", inside))) if w != ""]
+    if not words:
+        return ("is empty", (), ())
+    authors: list[str] = []
+    votes: list[SpecMarkVote] = []
+    k = 0
+    if not words[0].startswith("+") and not words[0].startswith("-"):
+        authors.extend(words[0].split(","))
+        k = 1
+    for w in words[k:]:
+        if not w.startswith("+") and not w.startswith("-"):
+            return (f'has "{w}" where a vote belongs', (), ())
+        vote = SpecVote.ACCEPT if w.startswith("+") else SpecVote.REJECT
+        votes.append(SpecMarkVote(w[1:], vote))
+    seen: set[str] = set()
+    for i in [*authors, *(v.member for v in votes)]:
+        if not is_review_member_id(i):
+            return (f'names "{i}", which is not a member id', (), ())
+        if i in seen:
+            return (f"names {i} twice, or as author and voter", (), ())
+        seen.add(i)
+    if votes and not _is_change_mark(kind):
+        return (f"carries votes on a {kind.value} mark, which takes authors only", (), ())
+    return (None, tuple(authors), tuple(votes))
 
 
 def _annotations_of(
@@ -983,6 +1424,30 @@ def _annotations_of(
                 ),
             ))
             seq += 1
+        elif b.kind is SpecReviewAnnotationKind.CONFLICT:
+            x = b.conflict
+            assert x is not None
+            if x.id is None:
+                continue
+            out.append((
+                b.start,
+                0,
+                seq,
+                SpecReviewAnnotation(
+                    kind=SpecReviewAnnotationKind.CONFLICT,
+                    path=path,
+                    field=field,
+                    line=b.start,
+                    id=x.id,
+                    qualified_id=None if qualifier is None else f"{qualifier} {x.id}",
+                    topic=x.topic,
+                    text=x.text,
+                    base=x.base or "",
+                    alternatives=tuple(x.alternatives),
+                    answer=x.decision,
+                ),
+            ))
+            seq += 1
         else:
             for q in b.questions:
                 out.append((
@@ -1002,6 +1467,9 @@ def _annotations_of(
                         answer=q.answer,
                         options=q.options,
                         recommended=q.recommended,
+                        answers=tuple(
+                            SpecIndividualAnswer(tuple(a.members), a.answer) for a in q.answers
+                        ),
                     ),
                 ))
                 seq += 1
@@ -1019,6 +1487,8 @@ def _annotations_of(
                 text=m.text,
                 new_text=m.new_text,
                 comment=m.comment,
+                authors=m.authors,
+                votes=m.votes,
             ),
         ))
         seq += 1
@@ -1231,6 +1701,172 @@ def strip_annotations_text(value: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Team reviews (SOM §11.9.8): individual answers and applying conflicts.
+# ---------------------------------------------------------------------------
+
+
+def _is_commented_answer(answer: str, options: tuple[SpecQuestionOption, ...]) -> bool:
+    """Whether an answer carries anything beyond an option letter
+    (SOM §11.9.8): such a commented answer always gets a line of its own."""
+    letter = _leading_letter(answer)
+    if letter is None:
+        return True
+    t = _trim_left(answer)
+    bold = t.startswith("**(") and t[4:7] == ")**"
+    rest = _trim(t[7 if bold else (5 if t.startswith("**") else 3):])
+    if rest == "":
+        return False
+    option = next((o for o in options if o.letter == letter), None)
+    return option is None or rest != option.text
+
+
+def _individual_answer_lines(members: list[str], answer: str) -> list[str]:
+    """The lines of one individual-answer entry."""
+    a = answer.split("\n")
+    return [_trim_right(f"> **Answer ({', '.join(members)}):** {a[0]}"), *_quoted(a[1:])]
+
+
+@dataclass
+class _AnswerEntry:
+    """One individual-answer entry while :func:`_set_individual_answer`
+    regroups them; *lines* are its bytes as written, ``None`` once it has to
+    be written anew."""
+
+    members: list[str]
+    answer: str
+    lines: Optional[list[str]]
+
+
+def _set_individual_answer(value: str, q: _Question, member: str, answer: str) -> str:
+    """*value* with member *member*'s individual answer to question *q* set
+    to *answer* (SOM §11.9.8): the member leaves the line it was on (a line
+    left empty goes); a non-empty answer that is not commented joins the line
+    whose answer is identical and not commented, at its end, and otherwise
+    gets a new line after the last individual answer. The first individual
+    answer opens the run before the team's ``**Answer:**``, with a ``>`` line
+    between run and team answer, and a run left empty takes that line with
+    it. Entries left alone keep their bytes."""
+    lines = value.split("\n")
+    entries = [_AnswerEntry(list(a.members), a.answer, lines[a.line:a.end + 1]) for a in q.answers]
+    for e in entries:
+        if member in e.members:
+            e.members.remove(member)
+            e.lines = None
+    kept = [e for e in entries if e.members]
+    text = _trim(answer)
+    if text != "":
+        join = (
+            None
+            if _is_commented_answer(text, q.options)
+            else next(
+                (
+                    e
+                    for e in kept
+                    if e.answer == text and not _is_commented_answer(e.answer, q.options)
+                ),
+                None,
+            )
+        )
+        if join is not None:
+            join.members.append(member)
+            join.lines = None
+        else:
+            kept.append(_AnswerEntry([member], text, None))
+    run: list[str] = []
+    for e in kept:
+        if e.lines is not None:
+            run.extend(e.lines)
+        else:
+            run.extend(_individual_answer_lines(e.members, e.answer))
+    if q.answers:
+        start = q.answers[0].line
+        to = q.answers[-1].end
+        # A run left empty takes its separating `>` line with it.
+        if not run and to + 1 < len(lines) and _trim(_inner(lines[to + 1])) == "":
+            to += 1
+        lines[start:to + 1] = run
+    elif run:
+        if q.answer_line is not None:
+            lines[q.answer_line:q.answer_line] = [*run, ">"]
+        else:
+            last = q.region_end
+            while last > q.header and _trim(_inner(lines[last])) == "":
+                last -= 1
+            lines[last + 1:last + 1] = [">", *run]
+    return "\n".join(lines)
+
+
+#: Topics of the structural conflicts a merge writes (SOM §11.9.9); their
+#: decisions are not text.
+_STRUCTURAL_TOPICS = frozenset({"Item removed", "Item moved", "Headline changed"})
+
+
+@dataclass
+class _DecidedConflict:
+    """A decided conflict, as ``remove_all_annotations`` found it before any
+    change."""
+
+    path: str
+    field: Optional[str]
+    #: The block's position among the value's conflict blocks.
+    index: int
+    id: str
+    line: int
+    decision: str
+
+
+def _chosen_text(c: _Conflict) -> str:
+    """The text a conflict's decision chooses: the base, an alternative, or
+    the rewritten text."""
+    letter = _decision_letter(c.decision)
+    if letter == "base":
+        return c.base or ""
+    if letter is not None:
+        return next(a for a in c.alternatives if a.letter == letter).text
+    return c.decision
+
+
+def _text_paragraphs(p: _Parsed) -> list[tuple[int, int]]:
+    """The text paragraphs (no annotation block) of a parsed value, as
+    (first, last) lines."""
+    starts = {b.start for b in p.blocks}
+    return [r for r in _paragraphs(p.lines, p.code) if r[0] not in starts]
+
+
+def _replace_lines(value: str, s: int, e: int, text: str) -> str:
+    """*value* with the lines [s, e] replaced by *text*."""
+    lines = value.split("\n")
+    lines[s:e + 1] = text.split("\n")
+    return "\n".join(lines)
+
+
+def _replace_paragraph_before(value: str, b: _Block, text: str) -> str:
+    """*value* with the text paragraph directly before block *b* (annotation
+    blocks between them skipped) replaced by *text*; with none, *text* goes
+    before the block."""
+    before = [r for r in _text_paragraphs(_parse(value)) if r[1] < b.start]
+    if not before:
+        return _insert_after_line(value, b.start - 1, text.split("\n"))
+    s, e = before[-1]
+    return _replace_lines(value, s, e, text)
+
+
+def _replace_text_run(value: str, b: _Block, text: str) -> str:
+    """*value* with the run of text paragraphs directly before block *b* — a
+    whole-value unit (SOM §11.9.9) — replaced by *text*."""
+    p = _parse(value)
+    paras = [r for r in _paragraphs(p.lines, p.code) if r[1] < b.start]
+    starts = {x.start for x in p.blocks}
+    k = len(paras)
+    while k > 0 and paras[k - 1][0] not in starts:
+        k -= 1
+    run = paras[k:]
+    if not run:
+        return _insert_after_line(value, b.start - 1, text.split("\n"))
+    return _replace_lines(value, run[0][0], run[-1][1], text)
+
+
+# ---------------------------------------------------------------------------
 # Document level.
 # ---------------------------------------------------------------------------
 
@@ -1276,14 +1912,20 @@ class SpecReviewAnnotations:
 
     def counts(self) -> SpecReviewAnnotationCounts:
         """The counts a report needs."""
-        q = open_ = c = m = 0
+        q = open_ = unresolved = c = m = x = open_x = 0
         for a in self.list():
             if a.kind is SpecReviewAnnotationKind.QUESTION:
                 q += 1
                 if a.open:
                     open_ += 1
+                if a.unresolved:
+                    unresolved += 1
             elif a.kind is SpecReviewAnnotationKind.COMMENT:
                 c += 1
+            elif a.kind is SpecReviewAnnotationKind.CONFLICT:
+                x += 1
+                if a.open:
+                    open_x += 1
             else:
                 m += 1
         return SpecReviewAnnotationCounts(
@@ -1292,6 +1934,9 @@ class SpecReviewAnnotations:
             answered_questions=q - open_,
             comments=c,
             marks=m,
+            unresolved_questions=unresolved,
+            conflicts=x,
+            open_conflicts=open_x,
         )
 
     def _highest_comment_number(self) -> int:
@@ -1379,10 +2024,19 @@ class SpecReviewAnnotations:
             _insert_after_line(text, c.block.end, format_question_block(question)),
         )
 
-    def set_answer(self, question_id: str, answer: str) -> None:
+    def set_answer(self, question_id: str, answer: str, author: Optional[str] = None) -> None:
         """Writes *answer* after the question's ``**Answer:**`` (empty: reopens
-        it)."""
+        it). With *author*, writes that member's individual answer instead,
+        grouped and placed by the rules of SOM §11.9.8 (empty: only takes the
+        member out); an author that is not a member id is refused."""
+        if author is not None and not is_review_member_id(author):
+            raise SpecReviewAnnotationError(
+                f'"{author}" is not a member id (lowercase letters, digits and _)'
+            )
         path, field, text, _b, q = self._find_question(question_id)
+        if author is not None:
+            self._set(path, field, _set_individual_answer(text, q, author, answer))
+            return
         lines = text.split("\n")
         a = answer.split("\n")
         if answer == "":
@@ -1503,6 +2157,8 @@ class SpecReviewAnnotations:
                         comment=m.comment,
                         markup=text[m.start:m.end],
                         context="\n".join(p.lines[para[0]:para[1] + 1]),
+                        authors=m.authors,
+                        votes=m.votes,
                     )
                 )
         return out
@@ -1585,11 +2241,19 @@ class SpecReviewAnnotations:
 
     def remove_all_annotations(self) -> SpecMarkReport:
         """Removes every annotation and writes the result back: every inline
-        mark accepted, every comment and question block removed. Malformed
-        marks stay and are reported."""
-        report = self.accept_all_marks()
+        mark accepted, every conflict's decision applied (SOM §11.9.8), every
+        comment, question and conflict block removed. Malformed marks stay and
+        are reported. Refused — nothing changes — while a conflict is open,
+        unresolved (``open:``), malformed, or decided for a letter it has no
+        alternative for."""
+        decided = self._decided_conflicts()
+        marks = self.accept_all_marks()
+        outcomes: list[SpecConflictOutcome] = []
         for path, field, text in self._values():
             v = text
+            here = [d for d in decided if d.path == path and d.field == field]
+            if here:
+                v = self._apply_conflicts(path, field, v, here, outcomes)
             while True:
                 p = _parse(v)
                 if not p.blocks:
@@ -1598,7 +2262,100 @@ class SpecReviewAnnotations:
                 v = _remove_lines(v, b.start, b.end)
             if v != text:
                 self._set(path, field, v)
-        return report
+        return SpecMarkReport(
+            applied=marks.applied, malformed=marks.malformed, conflicts=tuple(outcomes)
+        )
+
+    def _decided_conflicts(self) -> list[_DecidedConflict]:
+        """Every conflict block of the document with the line it opens on, in
+        document order — or the refusal of :meth:`remove_all_annotations`
+        when one of them cannot be applied."""
+        out: list[_DecidedConflict] = []
+        for path, field, text in self._values():
+            index = 0
+            for b in _parse(text).blocks:
+                if b.kind is not SpecReviewAnnotationKind.CONFLICT:
+                    continue
+                c = b.conflict
+                assert c is not None
+                where = f"{path}{'' if field is None else f' / {field}'}, line {b.start}"
+                if c.id is None or c.base is None or not c.alternatives:
+                    raise SpecReviewAnnotationError(
+                        f"{where}: a malformed conflict block cannot be applied"
+                    )
+                if c.decision == "" or _is_unresolved(c.decision):
+                    state = "open" if c.decision == "" else "unresolved"
+                    raise SpecReviewAnnotationError(
+                        f"{where}: conflict {c.id} is {state}; decide it before removing "
+                        "the annotations"
+                    )
+                letter = _decision_letter(c.decision)
+                if (
+                    letter is not None
+                    and letter != "base"
+                    and not any(a.letter == letter for a in c.alternatives)
+                ):
+                    raise SpecReviewAnnotationError(
+                        f"{where}: conflict {c.id} has no alternative ({letter})"
+                    )
+                out.append(_DecidedConflict(path, field, index, c.id, b.start, c.decision))
+                index += 1
+        return out
+
+    def _apply_conflicts(
+        self,
+        path: str,
+        field: Optional[str],
+        value: str,
+        decided: list[_DecidedConflict],
+        outcomes: list[SpecConflictOutcome],
+    ) -> str:
+        """Applies the decided conflicts of one value (marks already
+        accepted), from the last block up so earlier line numbers stay valid,
+        and records each. Where the chosen text goes follows the conflict's
+        text (SOM §11.9.8, "Applying"): a form field, another value, this
+        value's text paragraphs, or — the default — the text paragraph
+        directly before the block."""
+        v = value
+        recorded: list[SpecConflictOutcome] = []
+        conflicts = [
+            b.conflict for b in _parse(v).blocks if b.kind is SpecReviewAnnotationKind.CONFLICT
+        ]
+        for k in range(len(conflicts) - 1, -1, -1):
+            d = next(x for x in decided if x.index == k)
+            c = conflicts[k]
+            assert c is not None
+            result = _chosen_text(c)
+            recorded.insert(
+                0,
+                SpecConflictOutcome(
+                    id=d.id,
+                    path=path,
+                    field=field,
+                    line=d.line,
+                    decision=d.decision,
+                    result=result,
+                ),
+            )
+            v = self._apply_conflict(path, field, v, c, result)
+        outcomes.extend(recorded)
+        return v
+
+    def _apply_conflict(
+        self, path: str, field: Optional[str], value: str, c: _Conflict, result: str
+    ) -> str:
+        if c.topic in _STRUCTURAL_TOPICS:
+            return value
+        target = re.fullmatch(r"(\S+) (\S+)", c.text)
+        if target is not None and self.doc.form_field(*target.groups()) is not None:
+            self.doc.set_form_field(target.group(1), target.group(2), result)
+            return value
+        if field is None and c.text == path:
+            return _replace_text_run(value, c.block, result)
+        if re.fullmatch(r"[^\s,]+/[^\s,]+", c.text) and c.text != path:
+            self.doc.set_content(c.text, result)
+            return value
+        return _replace_paragraph_before(value, c.block, result)
 
     def set_marked(self, path: str, text: str, field: Optional[str] = None) -> "SpecMarkedChange":
         """Writes *text* at *path* / *field* as a marked change against the
@@ -1720,6 +2477,8 @@ class SpecReviewAnnotations:
             ids = [c.id for c in p.comments if c.id is not None]
             for b in p.blocks:
                 ids.extend(q.id for q in b.questions)
+                if b.conflict is not None and b.conflict.id is not None:
+                    ids.append(b.conflict.id)
             for i in ids:
                 if i in seen:
                     errors.append(
@@ -2114,3 +2873,265 @@ def mark_change_text(old_value: str, new_value: str) -> SpecMarkedChange:
                   or apply_inline_marks_text(text, accept=False) != old_value):
         return SpecMarkedChange(new_value, exact=False)
     return SpecMarkedChange(text, exact=exact)
+
+
+# ---------------------------------------------------------------------------
+# Text-level building blocks of the merge (SOM §11.9.9). Internal: used by
+# `spec_review_merge.py` only and not exported from the package.
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class ReviewPiece:
+    """One paragraph of a value as the merge sees it: text, or an annotation
+    block."""
+
+    #: The annotation kind of the block the paragraph opens with; ``None``
+    #: for a text paragraph.
+    kind: Optional[SpecReviewAnnotationKind]
+    #: The paragraph's lines, verbatim.
+    text: str
+    #: A comment's id (``None`` without one), a conflict's id (``None`` when
+    #: malformed).
+    id: Optional[str] = None
+    #: A comment's author, ``None`` without one.
+    author: Optional[str] = None
+    #: A comment's text.
+    comment_text: str = ""
+    #: The ids of a question block's questions.
+    question_ids: tuple[str, ...] = ()
+
+    @property
+    def is_text(self) -> bool:
+        """Whether the paragraph is text, not an annotation block."""
+        return self.kind is None
+
+
+def review_pieces(value: str) -> list[ReviewPiece]:
+    """The paragraphs of *value* (SOM §11.9.1), each classified."""
+    if value == "":
+        return []
+    p = _parse(value)
+    out: list[ReviewPiece] = []
+    for s, e in _paragraphs(p.lines, p.code):
+        b = next((x for x in p.blocks if x.start == s), None)
+        comment = None if b is None else next((c for c in p.comments if c.block is b), None)
+        conflict_id = None if b is None or b.conflict is None else b.conflict.id
+        out.append(
+            ReviewPiece(
+                kind=None if b is None else b.kind,
+                text="\n".join(p.lines[s:e + 1]),
+                id=comment.id if comment is not None else conflict_id,
+                author=None if comment is None else comment.author,
+                comment_text="" if comment is None else comment.text,
+                question_ids=() if b is None else tuple(q.id for q in b.questions),
+            )
+        )
+    return out
+
+
+@dataclass(frozen=True)
+class ReviewMark:
+    """One inline mark of a value, with what its decisions leave."""
+
+    #: Where the mark starts in the value.
+    start: int
+    #: Where the mark ends, after its attribution token.
+    end: int
+    #: Where the mark itself ends, before its attribution token.
+    body_end: int
+    #: The mark's kind.
+    kind: SpecMarkKind
+    #: The mark as written, its attribution token included.
+    markup: str
+    #: Its token's authors.
+    authors: tuple[str, ...]
+    #: Its token's votes.
+    votes: tuple[SpecMarkVote, ...]
+    #: The text accepting it leaves.
+    accepted: str
+    #: The text rejecting it leaves.
+    rejected: str
+
+    @property
+    def has_token(self) -> bool:
+        """Whether the mark carries an attribution token."""
+        return self.end > self.body_end
+
+
+def review_marks(value: str) -> list[ReviewMark]:
+    """The inline marks of *value*, in order (marks in code are not marks)."""
+    return [
+        ReviewMark(
+            start=m.start,
+            end=m.end,
+            body_end=m.body_end,
+            kind=m.kind,
+            markup=value[m.start:m.end],
+            authors=m.authors,
+            votes=m.votes,
+            accepted=_mark_replacement(m, True),
+            rejected=_mark_replacement(m, False),
+        )
+        for m in _parse(value).marks
+    ]
+
+
+def decide_review_marks(value: str, decisions: dict[int, bool]) -> str:
+    """*value* with the marks *decisions* names (by index into
+    :func:`review_marks`) accepted (``True``) or rejected (``False``), by the
+    whitespace rules of SOM §11.9.3."""
+    marks = _parse(value).marks
+    v = value
+    for k in range(len(marks) - 1, -1, -1):
+        accept = decisions.get(k)
+        if accept is None:
+            continue
+        v = _replace_mark(v, marks[k], _mark_replacement(marks[k], accept))
+    return v
+
+
+def format_attribution_token(
+    authors: Sequence[str], votes: Sequence[SpecMarkVote]
+) -> str:
+    """The attribution token for *authors* and *votes*,
+    ``{@agent +alice -bob}``."""
+    v = " ".join(f"{'+' if x.vote is SpecVote.ACCEPT else '-'}{x.member}" for x in votes)
+    sep = " " if authors and v else ""
+    return f"{{@{','.join(authors)}{sep}{v}}}"
+
+
+def with_attribution(
+    value: str,
+    m: ReviewMark,
+    authors: Sequence[str],
+    votes: Sequence[SpecMarkVote],
+) -> str:
+    """*value* with mark *m*'s token replaced by one for *authors* and
+    *votes*."""
+    return value[: m.body_end] + format_attribution_token(authors, votes) + value[m.end:]
+
+
+def review_team_answers(value: str) -> dict[str, str]:
+    """The team answer of every question of *value*, by id (the first, when
+    an id repeats)."""
+    out: dict[str, str] = {}
+    for b in _parse(value).blocks:
+        for q in b.questions:
+            out.setdefault(q.id, q.answer)
+    return out
+
+
+def set_individual_answer_text(
+    value: str, question_id: str, member: str, answer: str
+) -> Optional[str]:
+    """*value* with *member*'s individual answer to question *question_id*
+    set, as :meth:`SpecReviewAnnotations.set_answer` with an ``author`` does;
+    ``None`` when the value holds no such question."""
+    for b in _parse(value).blocks:
+        for q in b.questions:
+            if q.id == question_id:
+                return _set_individual_answer(value, q, member, answer)
+    return None
+
+
+def _alternative_lines(prefix: str, text: str) -> list[str]:
+    """The lines of a conflict's text: the first after its prefix, the rest
+    indented under it."""
+    t = text.split("\n")
+    return [_trim_right(f"> - {prefix} {t[0]}"), *(f">   {line}" for line in t[1:])]
+
+
+def format_conflict_block(
+    id: str,
+    topic: str,
+    text: str,
+    base: str,
+    alternatives: list[SpecConflictAlternative],
+) -> list[str]:
+    """The lines of a conflict block (SOM §11.9.8): the header, the
+    ``(base)`` line, one lettered alternative per entry naming its members,
+    and an empty ``**Decision:**``. A text's further lines are indented under
+    it, so a reader gets them back with their line breaks."""
+    lines = [
+        _trim_right(f"> {_SCALES}{_VS16} **{id}{_EM_DASH_SEP}{topic}:** {text}"),
+        *_alternative_lines("(base)", base),
+    ]
+    for a in alternatives:
+        lines.extend(_alternative_lines(f"({a.letter}) **{', '.join(a.members)}:**", a.text))
+    lines.extend([">", f"> {_DECISION_LABEL}"])
+    return lines
+
+
+def transplant_edits(x: str, y: str, b: str) -> Optional[str]:
+    """Carries the edits *x* → *y* over to *b*, a text equal to *x* except
+    where marks of *b* were decided in *x* (SOM §11.9.9, step 3): every edit
+    lands in *b* at the place *x* and *b* agree on. ``None`` when an edit
+    touches or borders a place where they differ — the edit overlaps a
+    decided mark. Both diffs are the token diffs of :func:`mark_change_text`."""
+    xt = _tokens(x)
+    bt = _tokens(b)
+    # Where each token of x is in b (-1: x and b differ there).
+    to_b = [-1] * len(xt)
+    i = j = 0
+    for kind, _t in _diff(xt, bt):
+        if kind == 0:
+            to_b[i] = j
+            i += 1
+            j += 1
+        elif kind == 1:
+            i += 1
+        else:
+            j += 1
+    # The edits x → y as [first x token, end x token, inserted text].
+    hunks: list[list[Any]] = []
+    i = 0
+    open_: Optional[list[Any]] = None
+    for kind, t in _diff(xt, _tokens(y)):
+        if kind == 0:
+            if open_ is not None:
+                hunks.append(open_)
+            open_ = None
+            i += 1
+            continue
+        if open_ is None:
+            open_ = [i, i, ""]
+        if kind == 1:
+            i += 1
+            open_[1] = i
+        else:
+            open_[2] += t.text
+    if open_ is not None:
+        hunks.append(open_)
+    out = [t.text for t in bt]
+    for x0, x1, ins in reversed(hunks):
+        at = _landing(to_b, x0, x1, len(bt))
+        if at is None:
+            return None
+        out[at[0]:at[1]] = [ins]
+    return "".join(out)
+
+
+def _landing(to_b: list[int], x0: int, x1: int, b_length: int) -> Optional[tuple[int, int]]:
+    """The b-token range an x-token range [x0, x1) lands on, or ``None`` when
+    it is not one.
+
+    A replaced range lands where its tokens are in b, which must be
+    contiguous there; its neighbours are not consulted, because the token
+    diff may align a neighbouring space with another space of b (beside a
+    decided mark) without the range touching that mark. A pure insertion
+    (``x0 == x1``) has no tokens of its own, so both neighbours must sit next
+    to each other in b."""
+    for k in range(x0, x1):
+        if to_b[k] < 0 or (k > x0 and to_b[k] != to_b[k - 1] + 1):
+            return None
+    if x1 > x0:
+        return (to_b[x0], to_b[x1 - 1] + 1)
+    # The neighbours must sit next to the insertion point in b too.
+    left = -1 if x0 == 0 else to_b[x0 - 1]
+    right = b_length if x1 == len(to_b) else to_b[x1]
+    if (x0 > 0 and left < 0) or (x1 < len(to_b) and right < 0):
+        return None
+    if left + 1 != right:
+        return None
+    return (left + 1, left + 1)

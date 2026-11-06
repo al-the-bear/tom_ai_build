@@ -81,7 +81,7 @@ All in namespace `som`.
 |-----------------|------|
 | `SpecReviewAnnotations` | The operations, over one borrowed `SpecDocument`; `qualifier` is the document id written in front of a comment id cited outside it (`SBP C-12`) |
 | `SpecReviewAnnotation` | One listed annotation: `kind`, `path`, `field`, `line`, `id`, `qualifiedId`, `author`, `text`, `context`, `topic`, `starred`, `combined`, `answer`, `markKind`, `newText`, `comment` (`std::nullopt` for the Dart `null`). `toJson()` is the form the conformance corpus pins; `open()` says whether a question is open |
-| `SpecReviewAnnotationKind` | `Comment`, `Question`, `Mark` (`specReviewAnnotationKindName`) |
+| `SpecReviewAnnotationKind` | `Comment`, `Question`, `Mark`, and `Conflict` for a team review's conflict block (`specReviewAnnotationKindName`) |
 | `SpecMarkKind` | `Comment`, `Highlight`, `Insertion`, `Deletion`, `Substitution` (`specMarkKindName`) |
 | `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold |
 | `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
@@ -103,7 +103,7 @@ All in namespace `som`.
 | `insertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
 | `insertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `insertQuestionAfterComment(commentId, question)` | A question block directly after a comment block |
-| `setAnswer(questionId, answer)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing |
+| `setAnswer(questionId, answer, author)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With `author`, writes that member's individual answer instead ([Team reviews](#team-reviews)) |
 | `editComment(commentId, text)` | New text; the marker, id and author stay as written |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `applyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
@@ -121,7 +121,7 @@ answer in the project's log **before** `resolve` removes it
 | `listMarks(path)` | Every inline mark of the document (`path` omitted) or of a subtree, as `SpecMarkEntry`: `M-<n>` id, `markKind`, `path`, `field`, `oldText` and `newText`, `markup`, the paragraph holding it as `context` |
 | `decideMarks(decisions, revision)` | One write: a `std::map<std::string, SpecMarkDecision>` `{id → Accept / Reject / Leave}`. Throws `SpecReviewAnnotationError` (nothing changes) when the document is no longer at `revision`, or when an id is unknown |
 | `acceptAllMarks(path)`, `rejectAllMarks(path)` | Every mark under a path, or in the whole document |
-| `removeAllAnnotations()` | Every mark accepted and every comment and question block removed, written back |
+| `removeAllAnnotations()` | Every mark accepted, every conflict's decision applied, and every comment, question and conflict block removed, written back ([Team reviews](#team-reviews)) |
 | `som::applyInlineMarksText(text, accept)` | One value with every mark accepted or rejected |
 
 Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
@@ -205,10 +205,96 @@ are `som_multiplatform_spec_model.md` §11.9.8, with their cases in
 returned copies into one document in that notation, `mergeReviews`, is SOM §11.9.9,
 with its cases in `tom_som_conformance/corpus/review_merge_cases.json`.
 
-This runtime does not read the notation or merge copies yet. To it a token is
-text after the mark, an individual answer is part of the question's text, and a
-conflict block is an ordinary quote; its conformance driver runs neither case
-file.
+The runtime reads and writes all four, and its conformance driver runs both
+case files.
+
+**Reading.** `SpecReviewAnnotations` lists the notation with the operations
+above:
+
+| Notation | Listed as |
+|----------|-----------|
+| Attribution token | Part of its mark: in the `markup`, removed with the mark by every decision. `SpecReviewAnnotation` and `SpecMarkEntry` carry `authors` (member ids) and `votes` (`SpecMarkVote`: `member`, `accept`), both empty without a token |
+| Individual answers | `SpecReviewAnnotation::answers`: `SpecIndividualAnswer` (`members`, `answer`, `answerLetter()`), in the order written. The question's `text` ends before the first of them; `answer` stays the team's |
+| Conflict block | Kind `SpecReviewAnnotationKind::Conflict` (`"conflict"`): `id`, `qualifiedId`, `topic`, `text`, `base`, `alternatives` (`SpecConflictAlternative`: `letter`, `members`, `text`), the decision as `answer` (`decision` in JSON), `decisionLetter()` (`a`…, `base` or nullopt), `open()`, `unresolved()`. `paragraphs()` marks the block `conflict` |
+| `open:` | `unresolved()` true and `open()` false on the question or conflict; a question's `answerLetter()` is then nullopt |
+
+`counts()` adds `unresolvedQuestions` (also counted as answered), `conflicts`
+and `openConflicts`. The `toJson(bool team = false)` of the listing types,
+`SpecReviewAnnotationCounts` and `SpecMarkReport` gives with `team` the members
+`team_annotation_cases.json` pins; without it they are the forms of the older
+case files.
+
+**Writing.** `setAnswer(questionId, answer, author)` writes that member's
+individual answer instead of the team's, grouped by SOM §11.9.8: a plain
+letter answer joins the line with the same answer, a commented one gets its own
+line, an empty one only takes the member out. An author that is not a member id
+(`som::isReviewMemberId`) throws `SpecReviewAnnotationError`.
+`removeAllAnnotations()` applies every conflict's decision and lists it in the
+report's `conflicts` (`SpecConflictOutcome`: `id`, `path`, `field`, `line`,
+`decision`, `result`); it throws `SpecReviewAnnotationError`, changing nothing,
+while a conflict is open, unresolved or malformed. A structural conflict
+(`Item removed`, `Item moved`, `Headline changed`) only loses its block: its
+decision is the caller's to apply. `stripped()` keeps a conflict's base text and
+drops the block. `som::formatConflictBlock(id, topic, text, base,
+alternatives)` gives the lines of a block.
+
+**Merging.** `som::mergeReviews` (`spec_review_merge.hpp`) merges the returned
+copies into a new document and returns a `SpecReviewMergeResult<D>` (`merged`,
+`report`); neither the base nor a copy is changed.
+
+| Overload | Merges |
+|----------|--------|
+| `mergeReviews(model, base, copies, options)` | A `SpecDocument` by the paths of `model`, list items matched by section id; `copies` are `SpecReviewedDocument`s (`member`, `document`) |
+| `mergeReviews(base, copies, options)` | A Markdown string by heading path; `copies` are `SpecReviewedMarkdown`s (`member`, `document`) |
+
+`copies` are in round order, each `member` a `SpecReviewMember` (`memberId`,
+`displayName`, `role`). `SpecReviewMergeOptions` holds `team` (the members the
+round started with), `date` (ISO 8601: the revision entry's date and every
+generated list-item id's), `author` and `questionPrefix` (default `RQ`).
+
+A copy whose structure does not fit the base (a path the model does not
+resolve; other headings in Markdown) throws `SpecReviewMergeError` and nothing
+is merged. The report, `SpecReviewMergeReport`, lists in merged document
+order `reviewers` (with `guest`), `conflicts` (`id`, `path`, `field`,
+`paragraph`, `members`), `votes`, `unanimous`, `answers`, `comments`,
+`additions`, `guestQuestions` and the `revision` entry (nullopt without a
+revision history); `toJson()` is the form `review_merge_cases.json` pins.
+
+```cpp
+#include "tom_som_cpp_runtime.hpp"
+
+auto doc = [](const std::string& text) {
+  som::SpecDocument d;
+  d.setContent("DEMO/SUM", text);
+  return d;
+};
+const std::vector<som::SpecReviewMember> team{
+    {"alice", "Alice Owner", "Product owner"},
+    {"bob", "Bob Dev", "Developer"},
+};
+som::SpecReviewMergeOptions options;
+options.team = team;
+options.date = "2026-11-05";
+options.author = "Alice Owner";
+const auto result = som::mergeReviews(
+    model, doc("Sessions expire after 30 minutes."),
+    {{team[0], doc("Sessions expire after 15 minutes.")},
+     {team[1], doc("Sessions expire after 15 minutes.")}},
+    options);
+std::cout << result.merged.content("DEMO/SUM") << "\n";
+std::cout << result.report.conflicts.size() << "\n";
+```
+
+Output:
+
+```text
+Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
+0
+```
+
+A unit whose copy no longer holds more than 16 of the base's marks as written
+is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
+grow past 65536.
 
 ## Validation
 

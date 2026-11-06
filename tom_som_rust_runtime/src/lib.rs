@@ -34,6 +34,7 @@ pub mod spec_paths;
 pub mod spec_query;
 pub mod spec_reflection;
 pub mod spec_review_annotations;
+pub mod spec_review_merge;
 pub mod spec_schema_validation;
 pub mod spec_section_id;
 pub mod spec_serialization_order;
@@ -129,11 +130,19 @@ pub use spec_query::{
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
 pub use spec_review_annotations::{
-    apply_inline_marks_text, format_comment_block, format_question_block, mark_change_text,
-    strip_annotations_text, validate_review_annotations, SpecMarkDecision, SpecMarkEntry,
-    SpecMarkIssue, SpecMarkKind, SpecMarkOutcome, SpecMarkReport, SpecMarkedChange, SpecParagraph,
-    SpecQuestionDraft, SpecQuestionOption, SpecReviewAnnotation, SpecReviewAnnotationCounts,
-    SpecReviewAnnotationError, SpecReviewAnnotationKind, SpecReviewAnnotations,
+    apply_inline_marks_text, format_comment_block, format_conflict_block, format_question_block,
+    is_review_member_id, mark_change_text, strip_annotations_text, validate_review_annotations,
+    SpecConflictAlternative, SpecConflictOutcome, SpecIndividualAnswer, SpecMarkDecision,
+    SpecMarkEntry, SpecMarkIssue, SpecMarkKind, SpecMarkOutcome, SpecMarkReport, SpecMarkVote,
+    SpecMarkedChange, SpecParagraph, SpecQuestionDraft, SpecQuestionOption, SpecReviewAnnotation,
+    SpecReviewAnnotationCounts, SpecReviewAnnotationError, SpecReviewAnnotationKind,
+    SpecReviewAnnotations, SpecReviewJsonOptions,
+};
+pub use spec_review_merge::{
+    merge_reviews, merge_reviews_markdown, SpecMergeAddition, SpecMergeAnswers, SpecMergeComment,
+    SpecMergeConflict, SpecMergeGuestQuestion, SpecMergeReviewer, SpecMergeRevision,
+    SpecMergeUnanimous, SpecMergeVotes, SpecReviewMember, SpecReviewMergeError,
+    SpecReviewMergeOptions, SpecReviewMergeReport, SpecReviewMergeResult, SpecReviewedCopy,
 };
 pub use spec_schema_validation::validate_spec_document;
 pub use spec_section_id::{

@@ -1,6 +1,9 @@
 //! `spec_review_annotations` — review annotations in content values (SOM
-//! §11.9): comment blocks, question blocks and CriticMarkup inline marks. A
-//! port of the Dart reference `spec_review_annotations.dart`.
+//! §11.9): comment blocks, question blocks and CriticMarkup inline marks, and
+//! the team-review notation of §11.9.8 on top of them (attribution tokens,
+//! individual answers, conflict blocks, `open:` answers). A port of the Dart
+//! reference `spec_review_annotations.dart`; the team-review parts follow the
+//! TypeScript runtime, which implements them first.
 //!
 //! An annotation is text inside a content value or a form-field value. This
 //! module reads it out of that text and edits it in place, and every edit is
@@ -20,7 +23,8 @@ use crate::spec_validator::{
 };
 use std::collections::{HashMap, HashSet};
 
-/// The three kinds of annotation (SOM §11.9).
+/// The kinds of annotation (SOM §11.9): the three of §11.9.1–11.9.3 and the
+/// conflict block a team review adds (§11.9.8).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum SpecReviewAnnotationKind {
     /// A reviewer's comment block, `> ⬆️ **C-12** (Alexis): …`.
@@ -29,22 +33,26 @@ pub enum SpecReviewAnnotationKind {
     Question,
     /// A CriticMarkup inline mark.
     Mark,
+    /// A conflict block, `> ⚖️ **X-3 — Conflicting changes:** …` (SOM §11.9.8).
+    Conflict,
 }
 
 impl SpecReviewAnnotationKind {
     /// Every kind, in declaration order.
-    pub const ALL: [SpecReviewAnnotationKind; 3] = [
+    pub const ALL: [SpecReviewAnnotationKind; 4] = [
         SpecReviewAnnotationKind::Comment,
         SpecReviewAnnotationKind::Question,
         SpecReviewAnnotationKind::Mark,
+        SpecReviewAnnotationKind::Conflict,
     ];
 
-    /// The wire name (`comment`, `question`, `mark`).
+    /// The wire name (`comment`, `question`, `mark`, `conflict`).
     pub fn name(self) -> &'static str {
         match self {
             SpecReviewAnnotationKind::Comment => "comment",
             SpecReviewAnnotationKind::Question => "question",
             SpecReviewAnnotationKind::Mark => "mark",
+            SpecReviewAnnotationKind::Conflict => "conflict",
         }
     }
 }
@@ -135,6 +143,17 @@ pub struct SpecReviewAnnotation {
     pub new_text: Option<String>,
     /// The comment of a comment mark, or of a highlight followed by one.
     pub comment: Option<String>,
+    /// A mark's authors from its attribution token (SOM §11.9.8); empty
+    /// without one.
+    pub authors: Vec<String>,
+    /// A mark's votes from its attribution token; empty without one.
+    pub votes: Vec<SpecMarkVote>,
+    /// A question's individual answers, in the order written.
+    pub answers: Vec<SpecIndividualAnswer>,
+    /// A conflict's `(base)` text.
+    pub base: String,
+    /// A conflict's lettered alternatives.
+    pub alternatives: Vec<SpecConflictAlternative>,
 }
 
 impl SpecReviewAnnotation {
@@ -158,25 +177,59 @@ impl SpecReviewAnnotation {
             mark_kind: None,
             new_text: None,
             comment: None,
+            authors: Vec::new(),
+            votes: Vec::new(),
+            answers: Vec::new(),
+            base: String::new(),
+            alternatives: Vec::new(),
         }
     }
 
-    /// Whether a question is still open (no answer written).
+    /// Whether a question is still open (no team answer written), or a
+    /// conflict (no decision written). For a conflict, `answer` holds the
+    /// decision.
     pub fn is_open(&self) -> bool {
-        self.kind == SpecReviewAnnotationKind::Question && self.answer.is_empty()
+        matches!(
+            self.kind,
+            SpecReviewAnnotationKind::Question | SpecReviewAnnotationKind::Conflict
+        ) && self.answer.is_empty()
     }
 
-    /// The letter an answer starts with (`(b)` or `**(b)**`), or `None`
-    /// (always `None` for a comment or mark).
+    /// Whether a question's team answer or a conflict's decision begins with
+    /// `open:` — answered for a gate, but handed back (SOM §11.9.8).
+    pub fn is_unresolved(&self) -> bool {
+        is_unresolved(&self.answer)
+    }
+
+    /// The letter a question's team answer starts with (`(b)` or `**(b)**`),
+    /// or `None` (always `None` for an unresolved answer, a comment, a mark
+    /// or a conflict).
     pub fn answer_letter(&self) -> Option<String> {
-        if self.kind != SpecReviewAnnotationKind::Question {
+        if self.kind != SpecReviewAnnotationKind::Question || self.is_unresolved() {
             return None;
         }
         leading_letter(&self.answer)
     }
 
-    /// The canonical JSON form the conformance corpus pins.
+    /// A conflict's decision letter: `a`…, `base`, or `None` for rewritten
+    /// text or no decision (always `None` for the other kinds).
+    pub fn decision_letter(&self) -> Option<String> {
+        if self.kind != SpecReviewAnnotationKind::Conflict {
+            return None;
+        }
+        decision_letter(&self.answer)
+    }
+
+    /// The canonical JSON form the conformance corpus pins, in the form of
+    /// §11.9.1–11.9.7 (see [`to_json_with`](Self::to_json_with)).
     pub fn to_json(&self) -> Json {
+        self.to_json_with(SpecReviewJsonOptions::default())
+    }
+
+    /// The canonical JSON form; `options.team` adds the members of a team
+    /// review (a question's `unresolved` and `answers`, a mark's `authors`
+    /// and `votes`). A conflict always carries all of its members.
+    pub fn to_json_with(&self, options: SpecReviewJsonOptions) -> Json {
         fn s(v: &str) -> Json {
             Json::Str(v.to_string())
         }
@@ -196,38 +249,76 @@ impl SpecReviewAnnotation {
                 ("text", s(&self.text)),
                 ("context", s(&self.context)),
             ],
-            SpecReviewAnnotationKind::Question => vec![
-                ("kind", s("question")),
+            SpecReviewAnnotationKind::Question => {
+                let mut pairs = vec![
+                    ("kind", s("question")),
+                    ("path", s(&self.path)),
+                    ("field", o(&self.field)),
+                    ("line", line),
+                    ("id", o(&self.id)),
+                    ("topic", o(&self.topic)),
+                    ("starred", Json::Bool(self.starred)),
+                    ("combined", Json::Bool(self.combined)),
+                    ("text", s(&self.text)),
+                    ("answer", s(&self.answer)),
+                    ("open", Json::Bool(self.is_open())),
+                ];
+                if options.team {
+                    pairs.push(("unresolved", Json::Bool(self.is_unresolved())));
+                }
+                pairs.push((
+                    "options",
+                    Json::Array(self.options.iter().map(|o| o.to_json()).collect()),
+                ));
+                pairs.push(("recommended", o(&self.recommended)));
+                pairs.push(("answerLetter", o(&self.answer_letter())));
+                if options.team {
+                    pairs.push((
+                        "answers",
+                        Json::Array(self.answers.iter().map(|a| a.to_json()).collect()),
+                    ));
+                }
+                pairs
+            }
+            SpecReviewAnnotationKind::Conflict => vec![
+                ("kind", s("conflict")),
                 ("path", s(&self.path)),
                 ("field", o(&self.field)),
                 ("line", line),
                 ("id", o(&self.id)),
+                ("qualifiedId", o(&self.qualified_id)),
                 ("topic", o(&self.topic)),
-                ("starred", Json::Bool(self.starred)),
-                ("combined", Json::Bool(self.combined)),
                 ("text", s(&self.text)),
-                ("answer", s(&self.answer)),
+                ("base", s(&self.base)),
+                (
+                    "alternatives",
+                    Json::Array(self.alternatives.iter().map(|a| a.to_json()).collect()),
+                ),
+                ("decision", s(&self.answer)),
+                ("decisionLetter", o(&self.decision_letter())),
                 ("open", Json::Bool(self.is_open())),
-                (
-                    "options",
-                    Json::Array(self.options.iter().map(|o| o.to_json()).collect()),
-                ),
-                ("recommended", o(&self.recommended)),
-                ("answerLetter", o(&self.answer_letter())),
+                ("unresolved", Json::Bool(self.is_unresolved())),
             ],
-            SpecReviewAnnotationKind::Mark => vec![
-                ("kind", s("mark")),
-                ("path", s(&self.path)),
-                ("field", o(&self.field)),
-                ("line", line),
-                (
-                    "markKind",
-                    self.mark_kind.map(|k| s(k.name())).unwrap_or(Json::Null),
-                ),
-                ("text", s(&self.text)),
-                ("newText", o(&self.new_text)),
-                ("comment", o(&self.comment)),
-            ],
+            SpecReviewAnnotationKind::Mark => {
+                let mut pairs = vec![
+                    ("kind", s("mark")),
+                    ("path", s(&self.path)),
+                    ("field", o(&self.field)),
+                    ("line", line),
+                    (
+                        "markKind",
+                        self.mark_kind.map(|k| s(k.name())).unwrap_or(Json::Null),
+                    ),
+                    ("text", s(&self.text)),
+                    ("newText", o(&self.new_text)),
+                    ("comment", o(&self.comment)),
+                ];
+                if options.team {
+                    pairs.push(("authors", json_strs(&self.authors)));
+                    pairs.push(("votes", votes_json(&self.votes)));
+                }
+                pairs
+            }
         };
         Json::Object(pairs.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
     }
@@ -246,8 +337,8 @@ pub struct SpecParagraph {
     pub end_line: usize,
     /// The paragraph's lines, verbatim, joined with `\n`.
     pub text: String,
-    /// `comment` or `question` when the paragraph opens with an annotation
-    /// block of that kind, else `None`.
+    /// `comment`, `question` or `conflict` when the paragraph opens with an
+    /// annotation block of that kind, else `None`.
     pub annotation: Option<SpecReviewAnnotationKind>,
 }
 
@@ -293,32 +384,158 @@ impl SpecQuestionOption {
     }
 }
 
-/// The counts a report needs (SOM §11.9).
+/// The JSON options of the listing types. `team: true` gives the extended
+/// form `team_annotation_cases.json` pins (SOM §11.9.8): marks with `authors`
+/// and `votes`, questions with `unresolved` and `answers`, the counts with the
+/// team counts, a removal report with its `conflicts`. Without it the form is
+/// the one of §11.9.1–11.9.7, which the older case files pin.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct SpecReviewJsonOptions {
+    /// Render the team form.
+    pub team: bool,
+}
+
+impl SpecReviewJsonOptions {
+    /// The team form.
+    pub const TEAM: SpecReviewJsonOptions = SpecReviewJsonOptions { team: true };
+}
+
+/// One reviewer's vote on a mark someone else proposed (SOM §11.9.8):
+/// `+alice` accepts, `-bob` rejects.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecMarkVote {
+    /// The voter's member id.
+    pub member: String,
+    /// Whether the vote accepts (`+id`) rather than rejects (`-id`).
+    pub accept: bool,
+}
+
+impl SpecMarkVote {
+    /// A vote of `member`, accepting or rejecting.
+    pub fn new(member: &str, accept: bool) -> SpecMarkVote {
+        SpecMarkVote {
+            member: member.to_string(),
+            accept,
+        }
+    }
+
+    /// The wire name of the vote: `accept` or `reject`.
+    pub fn vote_name(&self) -> &'static str {
+        if self.accept {
+            "accept"
+        } else {
+            "reject"
+        }
+    }
+
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("member", json_str(&self.member)),
+            ("vote", json_str(self.vote_name())),
+        ])
+    }
+}
+
+/// One line of individual answers, `**Answer (alice, bob):** (a)`
+/// (SOM §11.9.8).
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecIndividualAnswer {
+    /// The members who gave this answer, in the order written.
+    pub members: Vec<String>,
+    /// The answer, trimmed.
+    pub answer: String,
+    /// The letter the answer starts with (`(a)` or `**(a)**`), or `None`.
+    pub answer_letter: Option<String>,
+}
+
+impl SpecIndividualAnswer {
+    /// The answer of `members`; its letter is read from the answer.
+    pub fn new(members: Vec<String>, answer: &str) -> SpecIndividualAnswer {
+        SpecIndividualAnswer {
+            members,
+            answer: answer.to_string(),
+            answer_letter: leading_letter(answer),
+        }
+    }
+
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("members", json_strs(&self.members)),
+            ("answer", json_str(&self.answer)),
+            ("answerLetter", json_opt(&self.answer_letter)),
+        ])
+    }
+}
+
+/// One lettered alternative of a conflict block, `- (a) **alice:** text`
+/// (SOM §11.9.8).
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecConflictAlternative {
+    /// The lowercase letter.
+    pub letter: String,
+    /// The members who made this change.
+    pub members: Vec<String>,
+    /// The alternative's text; its continuation lines kept as lines.
+    pub text: String,
+}
+
+impl SpecConflictAlternative {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("letter", json_str(&self.letter)),
+            ("members", json_strs(&self.members)),
+            ("text", json_str(&self.text)),
+        ])
+    }
+}
+
+/// The counts a report needs (SOM §11.9, §11.9.8).
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct SpecReviewAnnotationCounts {
     /// Every question.
     pub questions: usize,
-    /// Questions without an answer.
+    /// Questions without a team answer.
     pub open_questions: usize,
-    /// Questions with an answer.
+    /// Questions with a team answer.
     pub answered_questions: usize,
     /// Comment blocks.
     pub comments: usize,
     /// Inline marks.
     pub marks: usize,
+    /// Questions whose team answer begins `open:` (also counted as answered).
+    pub unresolved_questions: usize,
+    /// Conflict blocks.
+    pub conflicts: usize,
+    /// Conflict blocks without a decision.
+    pub open_conflicts: usize,
 }
 
 impl SpecReviewAnnotationCounts {
-    /// The canonical JSON form.
+    /// The canonical JSON form of §11.9.1–11.9.7 (see
+    /// [`to_json_with`](Self::to_json_with)).
     pub fn to_json(&self) -> Json {
+        self.to_json_with(SpecReviewJsonOptions::default())
+    }
+
+    /// The canonical JSON form; `options.team` adds the three team counts.
+    pub fn to_json_with(&self, options: SpecReviewJsonOptions) -> Json {
         let n = |v: usize| Json::Int(v as i64);
-        Json::Object(vec![
-            ("questions".to_string(), n(self.questions)),
-            ("openQuestions".to_string(), n(self.open_questions)),
-            ("answeredQuestions".to_string(), n(self.answered_questions)),
-            ("comments".to_string(), n(self.comments)),
-            ("marks".to_string(), n(self.marks)),
-        ])
+        let mut pairs = vec![
+            ("questions", n(self.questions)),
+            ("openQuestions", n(self.open_questions)),
+            ("answeredQuestions", n(self.answered_questions)),
+            ("comments", n(self.comments)),
+            ("marks", n(self.marks)),
+        ];
+        if options.team {
+            pairs.push(("unresolvedQuestions", n(self.unresolved_questions)));
+            pairs.push(("conflicts", n(self.conflicts)));
+            pairs.push(("openConflicts", n(self.open_conflicts)));
+        }
+        json_obj(pairs)
     }
 }
 
@@ -457,6 +674,14 @@ fn json_opt(v: &Option<String>) -> Json {
     v.as_deref().map(json_str).unwrap_or(Json::Null)
 }
 
+fn json_strs(v: &[String]) -> Json {
+    Json::Array(v.iter().map(|x| json_str(x)).collect())
+}
+
+fn votes_json(v: &[SpecMarkVote]) -> Json {
+    Json::Array(v.iter().map(SpecMarkVote::to_json).collect())
+}
+
 /// One inline mark as [`SpecReviewAnnotations::list_marks`] reports it.
 #[derive(Debug, Clone, PartialEq)]
 pub struct SpecMarkEntry {
@@ -481,12 +706,23 @@ pub struct SpecMarkEntry {
     pub markup: String,
     /// The paragraph holding the mark, verbatim — for display.
     pub context: String,
+    /// The authors its attribution token names (SOM §11.9.8); empty without
+    /// one.
+    pub authors: Vec<String>,
+    /// The votes its attribution token records; empty without one.
+    pub votes: Vec<SpecMarkVote>,
 }
 
 impl SpecMarkEntry {
-    /// The canonical JSON form the conformance corpus pins.
+    /// The canonical JSON form the conformance corpus pins (see
+    /// [`to_json_with`](Self::to_json_with)).
     pub fn to_json(&self) -> Json {
-        json_obj(vec![
+        self.to_json_with(SpecReviewJsonOptions::default())
+    }
+
+    /// The canonical JSON form; `options.team` adds `authors` and `votes`.
+    pub fn to_json_with(&self, options: SpecReviewJsonOptions) -> Json {
+        let mut pairs = vec![
             ("id", json_str(&self.id)),
             ("path", json_str(&self.path)),
             ("field", json_opt(&self.field)),
@@ -497,7 +733,12 @@ impl SpecMarkEntry {
             ("comment", json_opt(&self.comment)),
             ("markup", json_str(&self.markup)),
             ("context", json_str(&self.context)),
-        ])
+        ];
+        if options.team {
+            pairs.push(("authors", json_strs(&self.authors)));
+            pairs.push(("votes", votes_json(&self.votes)));
+        }
+        json_obj(pairs)
     }
 }
 
@@ -563,6 +804,39 @@ impl SpecMarkIssue {
     }
 }
 
+/// What [`SpecReviewAnnotations::remove_all_annotations`] did with one
+/// conflict block (SOM §11.9.8).
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecConflictOutcome {
+    /// The conflict id, `X-<n>`.
+    pub id: String,
+    /// The value's path.
+    pub path: String,
+    /// The form field, or `None` for content.
+    pub field: Option<String>,
+    /// The 0-based line within the value where the block opened, before any
+    /// change.
+    pub line: usize,
+    /// The decision as written.
+    pub decision: String,
+    /// The text the decision chose.
+    pub result: String,
+}
+
+impl SpecConflictOutcome {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("id", json_str(&self.id)),
+            ("path", json_str(&self.path)),
+            ("field", json_opt(&self.field)),
+            ("line", Json::Int(self.line as i64)),
+            ("decision", json_str(&self.decision)),
+            ("result", json_str(&self.result)),
+        ])
+    }
+}
+
 /// The report of a mark operation, for the decision log.
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct SpecMarkReport {
@@ -570,12 +844,23 @@ pub struct SpecMarkReport {
     pub applied: Vec<SpecMarkOutcome>,
     /// Malformed marks in scope, left as written.
     pub malformed: Vec<SpecMarkIssue>,
+    /// The conflicts [`SpecReviewAnnotations::remove_all_annotations`]
+    /// applied, in document order; `None` for the mark operations, which do
+    /// not touch conflicts.
+    pub conflicts: Option<Vec<SpecConflictOutcome>>,
 }
 
 impl SpecMarkReport {
-    /// The canonical JSON form.
+    /// The canonical JSON form of §11.9.3 (see
+    /// [`to_json_with`](Self::to_json_with)).
     pub fn to_json(&self) -> Json {
-        json_obj(vec![
+        self.to_json_with(SpecReviewJsonOptions::default())
+    }
+
+    /// The canonical JSON form; `options.team` adds the `conflicts` of a
+    /// removal.
+    pub fn to_json_with(&self, options: SpecReviewJsonOptions) -> Json {
+        let mut pairs = vec![
             (
                 "applied",
                 Json::Array(self.applied.iter().map(|a| a.to_json()).collect()),
@@ -584,7 +869,14 @@ impl SpecMarkReport {
                 "malformed",
                 Json::Array(self.malformed.iter().map(|m| m.to_json()).collect()),
             ),
-        ])
+        ];
+        if let (true, Some(conflicts)) = (options.team, &self.conflicts) {
+            pairs.push((
+                "conflicts",
+                Json::Array(conflicts.iter().map(|c| c.to_json()).collect()),
+            ));
+        }
+        json_obj(pairs)
     }
 }
 
@@ -599,12 +891,66 @@ const COMBINED_OPENER: &str = "**\u{2753} Open questions on these fields**";
 const ANSWER_LABEL: &str = "**Answer:**";
 const EM_DASH_SEP: &str = " \u{2014} ";
 const STAR: &str = "\u{2605}";
+const SCALES: &str = "\u{2696}";
+const DECISION_LABEL: &str = "**Decision:**";
+const UNRESOLVED_PREFIX: &str = "open:";
+/// The start of an individual answer line, `**Answer (alice, bob):**`.
+const INDIVIDUAL_ANSWER_OPEN: &str = "**Answer (";
+
+/// Whether `s` is a member id (SOM §11.9.8): lowercase letters, digits and
+/// `_`, at least one.
+pub fn is_review_member_id(s: &str) -> bool {
+    !s.is_empty()
+        && s.bytes()
+            .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_')
+}
+
+fn is_unresolved(answer: &str) -> bool {
+    answer.starts_with(UNRESOLVED_PREFIX)
+}
+
+/// A conflict decision's letter: `a`…, `base`, or `None` (rewritten text,
+/// an `open:` decision, or none).
+fn decision_letter(decision: &str) -> Option<String> {
+    let t = decision.trim_start();
+    if t.starts_with("(base)") || t.starts_with("**(base)**") {
+        return Some("base".to_string());
+    }
+    if is_unresolved(t) {
+        None
+    } else {
+        leading_letter(t)
+    }
+}
+
+/// The members text and the label length of an individual answer line,
+/// `**Answer (<ids>):**`, or `None` when `line` does not open with one.
+fn individual_answer_label(line: &str) -> Option<(&str, usize)> {
+    let rest = line.strip_prefix(INDIVIDUAL_ANSWER_OPEN)?;
+    let close = rest.find(')')?;
+    if !rest[close + 1..].starts_with(":**") {
+        return None;
+    }
+    Some((&rest[..close], INDIVIDUAL_ANSWER_OPEN.len() + close + 4))
+}
+
+/// One `**Answer (<ids>):**` entry of a question (SOM §11.9.8).
+#[derive(Debug, Clone)]
+struct IndividualAnswerEntry {
+    /// The value line of the `**Answer (…):**` line.
+    line: usize,
+    /// The last value line of the entry with text (inclusive).
+    end: usize,
+    members: Vec<String>,
+    answer: String,
+}
 
 /// One question region inside a question block.
 #[derive(Debug, Clone)]
 struct Question {
     header: usize,
     region_end: usize,
+    /// The line of the team's `**Answer:**`.
     answer_line: Option<usize>,
     id: String,
     topic: String,
@@ -613,6 +959,21 @@ struct Question {
     answer: String,
     options: Vec<SpecQuestionOption>,
     recommended: Option<String>,
+    /// The individual answers, in the order written.
+    answers: Vec<IndividualAnswerEntry>,
+}
+
+/// One parsed conflict block (SOM §11.9.8).
+#[derive(Debug, Clone)]
+struct Conflict {
+    /// `None` when the header is malformed: the block is then not listed.
+    id: Option<String>,
+    topic: String,
+    text: String,
+    /// The `(base)` text, or `None` when the block has none.
+    base: Option<String>,
+    alternatives: Vec<SpecConflictAlternative>,
+    decision: String,
 }
 
 fn is_letter(c: u8) -> bool {
@@ -701,6 +1062,8 @@ struct Block {
     questions: Vec<Question>,
     /// Whether a question block is a combined block.
     combined: bool,
+    /// A conflict block's content.
+    conflict: Option<Conflict>,
 }
 
 /// One parsed comment block.
@@ -718,16 +1081,22 @@ struct Comment {
     marker_end: usize,
 }
 
-/// One parsed mark; `start`/`end` are byte offsets into the value.
+/// One parsed mark; `start`/`end` are byte offsets into the value. `end`
+/// lies after the attribution token when the mark has one (SOM §11.9.8),
+/// `body_end` always right after the mark itself, so the token can be
+/// rewritten in place.
 #[derive(Debug, Clone)]
 struct Mark {
     start: usize,
     end: usize,
+    body_end: usize,
     line: usize,
     kind: SpecMarkKind,
     text: String,
     new_text: Option<String>,
     comment: Option<String>,
+    authors: Vec<String>,
+    votes: Vec<SpecMarkVote>,
 }
 
 /// Everything one value holds.
@@ -832,6 +1201,7 @@ fn parse(value: &str) -> Parsed {
                 kind: SpecReviewAnnotationKind::Comment,
                 questions: Vec::new(),
                 combined: false,
+                conflict: None,
             });
             let c = parse_comment(&mut p, s, e);
             p.comments.push(c);
@@ -843,6 +1213,17 @@ fn parse(value: &str) -> Parsed {
                 kind: SpecReviewAnnotationKind::Question,
                 questions,
                 combined,
+                conflict: None,
+            });
+        } else if first.starts_with(SCALES) {
+            let conflict = parse_conflict(&mut p, s, e);
+            p.blocks.push(Block {
+                start: s,
+                end: e,
+                kind: SpecReviewAnnotationKind::Conflict,
+                questions: Vec::new(),
+                combined: false,
+                conflict: Some(conflict),
             });
         }
         i = e + 1;
@@ -917,7 +1298,10 @@ fn parse_comment(p: &mut Parsed, start: usize, end: usize) -> Comment {
     for k in start + 1..=end {
         let inn = inner(&p.lines[k]).to_string();
         let t = lstrip(&inn);
-        if t.starts_with(QUESTION_OPEN) || t.starts_with(ANSWER_LABEL) {
+        if t.starts_with(QUESTION_OPEN)
+            || t.starts_with(ANSWER_LABEL)
+            || individual_answer_label(t).is_some()
+        {
             p.malformed.push(format!(
                 "line {}: a comment block holds a question or an answer; the question \
                  goes into its own block after the comment (SOM §11.9.1)",
@@ -1017,20 +1401,64 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
         } else {
             inn.len() - 1
         };
-        let answer = (k + 1..=region_end).find(|&m| inn[m].starts_with(ANSWER_LABEL));
-        let text_end = match answer {
-            Some(a) => a - 1,
+        // Every `**Answer` line of the region: the individual ones and the team's.
+        let answer_lines: Vec<usize> = (k + 1..=region_end)
+            .filter(|&m| {
+                inn[m].starts_with(ANSWER_LABEL) || individual_answer_label(&inn[m]).is_some()
+            })
+            .collect();
+        // An answer runs to the next `**Answer` line or the end of the region.
+        let answer_end = |m: usize| -> usize {
+            answer_lines
+                .iter()
+                .find(|&&x| x > m)
+                .map(|&x| x - 1)
+                .unwrap_or(region_end)
+        };
+        let answer_text = |m: usize, label: usize| -> String {
+            let mut parts: Vec<&str> = vec![&inn[m][label..]];
+            parts.extend(inn[m + 1..=answer_end(m)].iter().map(String::as_str));
+            parts.join("\n").trim().to_string()
+        };
+        // The question's text ends before its first answer line of either kind.
+        let text_end = match answer_lines.first() {
+            Some(&a) => a - 1,
             None => region_end,
         };
         let (options, recommended) = parse_options(&inn[k + 1..=text_end]);
         let mut parts: Vec<&str> = vec![h.rest.as_str()];
         parts.extend(inn[k + 1..=text_end].iter().map(String::as_str));
         let text = parts.join("\n").trim().to_string();
-        let mut answer_text = String::new();
-        if let Some(a) = answer {
-            let mut parts: Vec<&str> = vec![&inn[a][ANSWER_LABEL.len()..]];
-            parts.extend(inn[a + 1..=region_end].iter().map(String::as_str));
-            answer_text = parts.join("\n").trim().to_string();
+        let mut answer: Option<usize> = None;
+        let mut individual: Vec<IndividualAnswerEntry> = Vec::new();
+        let mut answered: HashSet<String> = HashSet::new();
+        for &m in &answer_lines {
+            let Some((ids, label)) = individual_answer_label(&inn[m]) else {
+                answer = answer.or(Some(m));
+                continue;
+            };
+            let members: Vec<String> = ids.split(',').map(|x| x.trim().to_string()).collect();
+            for member in &members {
+                if !answered.insert(member.clone()) {
+                    p.malformed.push(format!(
+                        "line {}: {} already answered {}; a member answers a question at \
+                         most once (SOM §11.9.8)",
+                        start + m,
+                        member,
+                        h.id
+                    ));
+                }
+            }
+            let mut end = answer_end(m);
+            while end > m && inn[end].trim().is_empty() {
+                end -= 1;
+            }
+            individual.push(IndividualAnswerEntry {
+                line: start + m,
+                end: start + end,
+                members,
+                answer: answer_text(m, label),
+            });
         }
         list.push(Question {
             header: start + k,
@@ -1040,12 +1468,174 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
             topic: h.topic.clone(),
             starred: h.starred,
             text,
-            answer: answer_text,
+            answer: answer
+                .map(|a| answer_text(a, ANSWER_LABEL.len()))
+                .unwrap_or_default(),
             options,
             recommended,
+            answers: individual,
         });
     }
     (list, combined)
+}
+
+/// The header of a conflict block after its marker,
+/// `**X-<n> — <topic>:** <text>`, as (id, topic, text); `None` when
+/// malformed. The topic is the shortest that a `:**` at the end of the line,
+/// or before a space, closes.
+fn parse_conflict_header(rest: &str) -> Option<(String, String, String)> {
+    let r = rest.strip_prefix("**X-")?;
+    let digits = r.bytes().take_while(u8::is_ascii_digit).count();
+    if digits == 0 || r.as_bytes()[0] == b'0' {
+        return None;
+    }
+    let id = format!("X-{}", &r[..digits]);
+    let t = r[digits..].strip_prefix(EM_DASH_SEP)?;
+    // The topic holds at least one character.
+    let mut from = t.chars().next().map_or(0, char::len_utf8);
+    while let Some(at) = find_from(t, ":**", from) {
+        let after = &t[at + 3..];
+        if after.is_empty() || after.starts_with(' ') {
+            let text = after.strip_prefix(' ').unwrap_or("").trim().to_string();
+            return Some((id, t[..at].to_string(), text));
+        }
+        from = at + 1;
+    }
+    None
+}
+
+/// A conflict alternative's line, `- (a) **alice, bob:** text`, as (letter,
+/// members, text); `None` when the line is not one.
+fn parse_conflict_alternative(line: &str) -> Option<(String, Vec<String>, String)> {
+    let r = line.strip_prefix("- (")?;
+    let b = r.as_bytes();
+    if b.len() < 2 || !is_letter(b[0]) || b[1] != b')' {
+        return None;
+    }
+    let letter = r[..1].to_string();
+    let rest = &r[2..];
+    if rest.is_empty() {
+        return Some((letter, Vec::new(), String::new()));
+    }
+    let rest = rest.strip_prefix(' ')?;
+    // The optional `**<members>:**` naming who made this change.
+    if let Some(m) = rest.strip_prefix("**") {
+        let star = m.find('*').unwrap_or(m.len());
+        let after = &m[star..];
+        if m[..star].ends_with(':') && after.starts_with("**") {
+            let after = &after[2..];
+            if after.is_empty() || after.starts_with(' ') {
+                let members = m[..star - 1]
+                    .split(',')
+                    .map(str::trim)
+                    .filter(|x| !x.is_empty())
+                    .map(str::to_string)
+                    .collect();
+                return Some((
+                    letter,
+                    members,
+                    after.strip_prefix(' ').unwrap_or("").to_string(),
+                ));
+            }
+        }
+    }
+    Some((letter, Vec::new(), rest.to_string()))
+}
+
+/// A conflict block (SOM §11.9.8): the header, the `(base)` line and the
+/// lettered alternatives — each continuing on lines indented under it, its
+/// line breaks kept — then `**Decision:**`. A malformed header leaves the
+/// block unlisted; a missing base line or alternative is a finding.
+fn parse_conflict(p: &mut Parsed, start: usize, end: usize) -> Conflict {
+    let inn: Vec<String> = (start..=end)
+        .map(|k| inner(&p.lines[k]).to_string())
+        .collect();
+    let mut rest = &inn[0][SCALES.len()..];
+    if let Some(r) = rest.strip_prefix(VS16) {
+        rest = r;
+    }
+    let header = parse_conflict_header(rest.trim_start());
+    let mut c = Conflict {
+        id: None,
+        topic: String::new(),
+        text: String::new(),
+        base: None,
+        alternatives: Vec::new(),
+        decision: String::new(),
+    };
+    match &header {
+        Some((id, topic, text)) => {
+            c.id = Some(id.clone());
+            c.topic = topic.clone();
+            c.text = text.clone();
+        }
+        None => p.malformed.push(format!(
+            "line {}: conflict header is not \"\u{2696}\u{FE0F} **X-<n> \u{2014} <topic>:**\" \
+             (SOM §11.9.8)",
+            start
+        )),
+    }
+    let decision_line = (1..inn.len())
+        .find(|&k| inn[k].starts_with(DECISION_LABEL))
+        .unwrap_or(inn.len());
+    // The open entry: the base (letter `None`) or an alternative, with its lines.
+    let mut open: Option<(Option<String>, Vec<String>, Vec<String>)> = None;
+    let close = |open: &mut Option<(Option<String>, Vec<String>, Vec<String>)>,
+                 c: &mut Conflict| {
+        if let Some((letter, members, lines)) = open.take() {
+            let text = lines.join("\n").trim().to_string();
+            match letter {
+                None => c.base = Some(text),
+                Some(letter) => c.alternatives.push(SpecConflictAlternative {
+                    letter,
+                    members,
+                    text,
+                }),
+            }
+        }
+    };
+    for l in &inn[1..decision_line] {
+        let base = if l == "- (base)" {
+            Some("")
+        } else {
+            l.strip_prefix("- (base) ")
+        };
+        if let Some(text) = base {
+            close(&mut open, &mut c);
+            open = Some((None, Vec::new(), vec![text.to_string()]));
+        } else if let Some((letter, members, text)) = parse_conflict_alternative(l) {
+            close(&mut open, &mut c);
+            open = Some((Some(letter), members, vec![text]));
+        } else if let (Some((_, _, lines)), true) = (open.as_mut(), l.starts_with(' ')) {
+            lines.push(match l.strip_prefix("  ") {
+                Some(r) => r.to_string(),
+                None => lstrip(l).to_string(),
+            });
+        } else {
+            close(&mut open, &mut c);
+        }
+    }
+    close(&mut open, &mut c);
+    if decision_line < inn.len() {
+        let mut parts: Vec<&str> = vec![&inn[decision_line][DECISION_LABEL.len()..]];
+        parts.extend(inn[decision_line + 1..].iter().map(String::as_str));
+        c.decision = parts.join("\n").trim().to_string();
+    }
+    if let Some(id) = &c.id {
+        if c.base.is_none() {
+            p.malformed.push(format!(
+                "line {}: conflict {} has no \"(base)\" line (SOM §11.9.8)",
+                start, id
+            ));
+        }
+        if c.alternatives.is_empty() {
+            p.malformed.push(format!(
+                "line {}: conflict {} has no lettered alternative (SOM §11.9.8)",
+                start, id
+            ));
+        }
+    }
+    c
 }
 
 const OPENERS: [&str; 5] = ["{>>", "{==", "{++", "{--", "{~~"];
@@ -1152,6 +1742,18 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
             };
             continue;
         }
+        if c == b'{' && seg[i..].starts_with("{@") {
+            // A token that no mark precedes directly (a mark's own token is
+            // read with the mark, below).
+            let line = line_of(line_start, base + i);
+            p.malformed.push(format!(
+                "line {}: an attribution token \"{{@\" does not follow a mark directly \
+                 (SOM §11.9.8)",
+                line
+            ));
+            i = find_from(seg, "}", i + 2).map_or(i + 2, |close| close + 1);
+            continue;
+        }
         if c != b'{' || i + 3 > b.len() {
             i += 1;
             continue;
@@ -1189,12 +1791,16 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
         let mark = |kind, text: String, new_text, comment, end: usize| Mark {
             start: base + i,
             end: base + end,
+            body_end: base + end,
             line,
             kind,
             text,
             new_text,
             comment,
+            authors: Vec::new(),
+            votes: Vec::new(),
         };
+        let before = p.marks.len();
         match opener {
             "{>>" => {
                 let m = mark(
@@ -1256,8 +1862,107 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
                 p.marks.push(m);
             }
         }
+        if p.marks.len() > before && seg[end..].starts_with("{@") {
+            end = attach_token(p, seg, end, base);
+        }
         i = end;
     }
+}
+
+/// Reads the attribution token `{@…}` at `at` (SOM §11.9.8) into the last
+/// mark, which it directly follows, and returns the segment offset after it.
+/// The token is part of the mark — its markup, its decision — so the mark's
+/// `end` moves past it. A token that breaks the grammar is still part of the
+/// mark (it goes with the mark on a decision) and is a finding; its members
+/// are then not listed.
+fn attach_token(p: &mut Parsed, seg: &str, at: usize, base: usize) -> usize {
+    let line_end = find_from(seg, "\n", at);
+    let close = find_from(seg, "}", at + 2);
+    let m_line = p.marks.last().map_or(0, |m| m.line);
+    let close = match close {
+        Some(c) if line_end.is_none_or(|e| c <= e) => c,
+        _ => {
+            p.malformed.push(format!(
+                "line {}: attribution token \"{{@\" is not closed (SOM §11.9.8)",
+                m_line
+            ));
+            return at;
+        }
+    };
+    let kind = p.marks.last().map_or(SpecMarkKind::Comment, |m| m.kind);
+    let read = read_token(&seg[at + 2..close], kind);
+    let m = p.marks.last_mut().expect("a token follows a mark");
+    m.end = base + close + 1;
+    match read {
+        Ok((authors, votes)) => {
+            m.authors = authors;
+            m.votes = votes;
+        }
+        Err(reason) => p.malformed.push(format!(
+            "line {}: attribution token {} (SOM §11.9.8)",
+            m_line, reason
+        )),
+    }
+    close + 1
+}
+
+/// Whether a mark kind is a change, which alone takes votes (SOM §11.9.8).
+fn is_change_mark(kind: SpecMarkKind) -> bool {
+    matches!(
+        kind,
+        SpecMarkKind::Insertion | SpecMarkKind::Deletion | SpecMarkKind::Substitution
+    )
+}
+
+type TokenMembers = (Vec<String>, Vec<SpecMarkVote>);
+
+/// The members of a token's inside, `<authors>[ <votes>]`, or the reason it
+/// breaks the grammar of SOM §11.9.8.
+fn read_token(inside: &str, kind: SpecMarkKind) -> Result<TokenMembers, String> {
+    // A space after a comma is allowed: `alice, bob` reads as `alice,bob`.
+    let mut compact = String::with_capacity(inside.len());
+    let mut after_comma = false;
+    for ch in inside.chars() {
+        if after_comma && ch.is_whitespace() {
+            continue;
+        }
+        after_comma = ch == ',';
+        compact.push(ch);
+    }
+    let words: Vec<&str> = compact.split_whitespace().collect();
+    if words.is_empty() {
+        return Err("is empty".to_string());
+    }
+    let is_vote = |w: &str| w.starts_with('+') || w.starts_with('-');
+    let mut authors: Vec<String> = Vec::new();
+    let mut votes: Vec<SpecMarkVote> = Vec::new();
+    let mut k = 0;
+    if !is_vote(words[0]) {
+        authors.extend(words[0].split(',').map(str::to_string));
+        k = 1;
+    }
+    for w in &words[k..] {
+        if !is_vote(w) {
+            return Err(format!("has \"{}\" where a vote belongs", w));
+        }
+        votes.push(SpecMarkVote::new(&w[1..], w.starts_with('+')));
+    }
+    let mut seen: HashSet<&str> = HashSet::new();
+    for id in authors.iter().chain(votes.iter().map(|v| &v.member)) {
+        if !is_review_member_id(id) {
+            return Err(format!("names \"{}\", which is not a member id", id));
+        }
+        if !seen.insert(id) {
+            return Err(format!("names {} twice, or as author and voter", id));
+        }
+    }
+    if !votes.is_empty() && !is_change_mark(kind) {
+        return Err(format!(
+            "carries votes on a {} mark, which takes authors only",
+            kind.name()
+        ));
+    }
+    Ok((authors, votes))
 }
 
 /// The annotations of one value, in order: by line, blocks before marks, marks
@@ -1289,6 +1994,23 @@ fn annotations_of(
             a.context = c.context.clone();
             out.push((b.start, 0, seq, a));
             seq += 1;
+        } else if let Some(c) = &b.conflict {
+            let Some(id) = &c.id else { continue };
+            let mut a = SpecReviewAnnotation::base(
+                SpecReviewAnnotationKind::Conflict,
+                path,
+                field,
+                b.start,
+            );
+            a.id = Some(id.clone());
+            a.qualified_id = qualifier.map(|q| format!("{} {}", q, id));
+            a.topic = Some(c.topic.clone());
+            a.text = c.text.clone();
+            a.base = c.base.clone().unwrap_or_default();
+            a.alternatives = c.alternatives.clone();
+            a.answer = c.decision.clone();
+            out.push((b.start, 0, seq, a));
+            seq += 1;
         } else {
             for q in &b.questions {
                 let mut a = SpecReviewAnnotation::base(
@@ -1305,6 +2027,11 @@ fn annotations_of(
                 a.answer = q.answer.clone();
                 a.options = q.options.clone();
                 a.recommended = q.recommended.clone();
+                a.answers = q
+                    .answers
+                    .iter()
+                    .map(|x| SpecIndividualAnswer::new(x.members.clone(), &x.answer))
+                    .collect();
                 out.push((q.header, 0, seq, a));
                 seq += 1;
             }
@@ -1316,6 +2043,8 @@ fn annotations_of(
         a.text = m.text.clone();
         a.new_text = m.new_text.clone();
         a.comment = m.comment.clone();
+        a.authors = m.authors.clone();
+        a.votes = m.votes.clone();
         out.push((m.line, 1, seq, a));
         seq += 1;
     }
@@ -1589,6 +2318,222 @@ pub fn strip_annotations_text(value: &str) -> String {
 }
 
 // ---------------------------------------------------------------------------
+// Team reviews (SOM §11.9.8): individual answers and applying conflicts.
+// ---------------------------------------------------------------------------
+
+/// Whether an answer carries anything beyond an option letter (SOM §11.9.8):
+/// no letter, or text after it other than exactly that option's text.
+fn is_commented_answer(answer: &str, options: &[SpecQuestionOption]) -> bool {
+    let Some(letter) = leading_letter(answer) else {
+        return true;
+    };
+    let t = answer.trim_start();
+    let bold = t.starts_with("**(") && t.get(4..7) == Some(")**");
+    let skip = if bold {
+        7
+    } else if t.starts_with("**") {
+        5
+    } else {
+        3
+    };
+    let rest = t[skip..].trim();
+    if rest.is_empty() {
+        return false;
+    }
+    options
+        .iter()
+        .find(|o| o.letter == letter)
+        .is_none_or(|o| rest != o.text)
+}
+
+/// The lines of one individual-answer entry.
+fn individual_answer_lines(members: &[String], answer: &str) -> Vec<String> {
+    let a: Vec<&str> = answer.split('\n').collect();
+    let mut out = vec![format!("> **Answer ({}):** {}", members.join(", "), a[0])
+        .trim_end()
+        .to_string()];
+    out.extend(quoted(&a[1..]));
+    out
+}
+
+/// `value` with member `member`'s individual answer to question `q` set to
+/// `answer` (SOM §11.9.8): the member leaves the line it was on (a line left
+/// empty goes); a non-empty answer that is not commented joins the line
+/// whose answer is identical and not commented, at its end, and otherwise
+/// gets a new line after the last individual answer. The first individual
+/// answer opens the run before the team's `**Answer:**`, with a `>` line
+/// between run and team answer, and a run left empty takes that line with
+/// it. Entries left alone keep their bytes.
+fn set_individual_answer(value: &str, q: &Question, member: &str, answer: &str) -> String {
+    let mut lines = split_lines(value);
+    // (members, answer, its lines as written while untouched)
+    let mut entries: Vec<(Vec<String>, String, Option<Vec<String>>)> = q
+        .answers
+        .iter()
+        .map(|a| {
+            (
+                a.members.clone(),
+                a.answer.clone(),
+                Some(lines[a.line..=a.end].to_vec()),
+            )
+        })
+        .collect();
+    for e in &mut entries {
+        if let Some(at) = e.0.iter().position(|m| m == member) {
+            e.0.remove(at);
+            e.2 = None;
+        }
+    }
+    let mut kept: Vec<_> = entries.into_iter().filter(|e| !e.0.is_empty()).collect();
+    let text = answer.trim();
+    if !text.is_empty() {
+        let join = if is_commented_answer(text, &q.options) {
+            None
+        } else {
+            kept.iter_mut()
+                .find(|e| e.1 == text && !is_commented_answer(&e.1, &q.options))
+        };
+        match join {
+            Some(e) => {
+                e.0.push(member.to_string());
+                e.2 = None;
+            }
+            None => kept.push((vec![member.to_string()], text.to_string(), None)),
+        }
+    }
+    let run: Vec<String> = kept
+        .iter()
+        .flat_map(|(members, answer, written)| {
+            written
+                .clone()
+                .unwrap_or_else(|| individual_answer_lines(members, answer))
+        })
+        .collect();
+    if let (Some(first), Some(last)) = (q.answers.first(), q.answers.last()) {
+        let from = first.line;
+        let mut to = last.end;
+        // A run left empty takes its separating `>` line with it.
+        if run.is_empty() && to + 1 < lines.len() && inner(&lines[to + 1]).trim().is_empty() {
+            to += 1;
+        }
+        lines.splice(from..=to, run);
+    } else if !run.is_empty() {
+        match q.answer_line {
+            Some(at) => {
+                let mut ins = run;
+                ins.push(">".to_string());
+                lines.splice(at..at, ins);
+            }
+            None => {
+                let mut last = q.region_end;
+                while last > q.header && inner(&lines[last]).trim().is_empty() {
+                    last -= 1;
+                }
+                let mut ins = vec![">".to_string()];
+                ins.extend(run);
+                lines.splice(last + 1..last + 1, ins);
+            }
+        }
+    }
+    lines.join("\n")
+}
+
+/// Topics of the structural conflicts a merge writes (SOM §11.9.9); their
+/// decisions are not text.
+const STRUCTURAL_TOPICS: [&str; 3] = ["Item removed", "Item moved", "Headline changed"];
+
+/// A decided conflict, as `remove_all_annotations` found it before any
+/// change.
+struct DecidedConflict {
+    path: String,
+    field: Option<String>,
+    /// The block's position among the value's conflict blocks.
+    index: usize,
+    id: String,
+    line: usize,
+    decision: String,
+}
+
+/// The text a conflict's decision chooses: the base, an alternative, or the
+/// rewritten text.
+fn chosen_text(c: &Conflict) -> String {
+    match decision_letter(&c.decision).as_deref() {
+        Some("base") => c.base.clone().unwrap_or_default(),
+        Some(letter) => c
+            .alternatives
+            .iter()
+            .find(|a| a.letter == letter)
+            .map(|a| a.text.clone())
+            .unwrap_or_default(),
+        None => c.decision.clone(),
+    }
+}
+
+/// Whether a conflict's text names a value path: no space or comma, and a
+/// `/` with something on each side.
+fn is_value_path(text: &str) -> bool {
+    if text.chars().any(|c| c.is_whitespace() || c == ',') {
+        return false;
+    }
+    text.char_indices()
+        .any(|(i, c)| c == '/' && i > 0 && i + 1 < text.len())
+}
+
+/// The text paragraphs (no annotation block) of a parsed value, as
+/// `(first, last)` lines.
+fn text_paragraphs(p: &Parsed) -> Vec<(usize, usize)> {
+    paragraphs(&p.lines, &p.code)
+        .into_iter()
+        .filter(|(s, _)| !p.blocks.iter().any(|b| b.start == *s))
+        .collect()
+}
+
+/// `value` with the lines `[s, e]` replaced by `text`.
+fn replace_lines(value: &str, s: usize, e: usize, text: &str) -> String {
+    let mut lines = split_lines(value);
+    lines.splice(s..=e, split_lines(text));
+    lines.join("\n")
+}
+
+/// `value` with `text` inserted before block `b`.
+fn insert_before_block(value: &str, b: &Block, text: &str) -> String {
+    insert_after_line(value, b.start.checked_sub(1), &split_lines(text))
+}
+
+/// `value` with the text paragraph directly before block `b` (annotation
+/// blocks between them skipped) replaced by `text`; with none, `text` goes
+/// before the block.
+fn replace_paragraph_before(value: &str, b: &Block, text: &str) -> String {
+    let before: Vec<(usize, usize)> = text_paragraphs(&parse(value))
+        .into_iter()
+        .filter(|&(_, e)| e < b.start)
+        .collect();
+    match before.last() {
+        None => insert_before_block(value, b, text),
+        Some(&(s, e)) => replace_lines(value, s, e, text),
+    }
+}
+
+/// `value` with the run of text paragraphs directly before block `b` — a
+/// whole-value unit (SOM §11.9.9) — replaced by `text`.
+fn replace_text_run(value: &str, b: &Block, text: &str) -> String {
+    let p = parse(value);
+    let paras: Vec<(usize, usize)> = paragraphs(&p.lines, &p.code)
+        .into_iter()
+        .filter(|&(_, e)| e < b.start)
+        .collect();
+    let mut k = paras.len();
+    while k > 0 && !p.blocks.iter().any(|x| x.start == paras[k - 1].0) {
+        k -= 1;
+    }
+    let run = &paras[k..];
+    match (run.first(), run.last()) {
+        (Some(&(s, _)), Some(&(_, e))) => replace_lines(value, s, e, text),
+        _ => insert_before_block(value, b, text),
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Document level.
 // ---------------------------------------------------------------------------
 
@@ -1655,11 +2600,12 @@ pub fn validate_review_annotations(doc: &SpecDocument) -> Vec<SpecValidationErro
             .comments
             .iter()
             .filter_map(|c| c.id.clone())
-            .chain(
-                p.blocks
+            .chain(p.blocks.iter().flat_map(|b| {
+                b.questions
                     .iter()
-                    .flat_map(|b| b.questions.iter().map(|q| q.id.clone())),
-            )
+                    .map(|q| q.id.clone())
+                    .chain(b.conflict.as_ref().and_then(|c| c.id.clone()))
+            }))
             .collect();
         for id in ids {
             if !seen.insert(id.clone()) {
@@ -1749,6 +2695,15 @@ impl<'a> SpecReviewAnnotations<'a> {
                 }
                 SpecReviewAnnotationKind::Comment => out.comments += 1,
                 SpecReviewAnnotationKind::Mark => out.marks += 1,
+                SpecReviewAnnotationKind::Conflict => {
+                    out.conflicts += 1;
+                    if a.is_open() {
+                        out.open_conflicts += 1;
+                    }
+                }
+            }
+            if a.kind == SpecReviewAnnotationKind::Question && a.is_unresolved() {
+                out.unresolved_questions += 1;
             }
         }
         out.answered_questions = out.questions - out.open_questions;
@@ -1896,7 +2851,33 @@ impl<'a> SpecReviewAnnotations<'a> {
         question_id: &str,
         answer: &str,
     ) -> Result<(), SpecReviewAnnotationError> {
+        self.set_answer_by(question_id, answer, None)
+    }
+
+    /// Like [`set_answer`](Self::set_answer); with `author`, writes that
+    /// member's individual answer instead, grouped and placed by the rules of
+    /// SOM §11.9.8 (empty: only takes the member out). An author that is not
+    /// a member id is refused.
+    pub fn set_answer_by(
+        &mut self,
+        question_id: &str,
+        answer: &str,
+        author: Option<&str>,
+    ) -> Result<(), SpecReviewAnnotationError> {
+        if let Some(a) = author {
+            if !is_review_member_id(a) {
+                return Err(SpecReviewAnnotationError::new(format!(
+                    "\"{}\" is not a member id (lowercase letters, digits and _)",
+                    a
+                )));
+            }
+        }
         let (path, field, text, _b, q) = self.find_question(question_id)?;
+        if let Some(a) = author {
+            let written = set_individual_answer(&text, &q, a, answer);
+            self.set(&path, field.as_deref(), &written);
+            return Ok(());
+        }
         let mut lines = split_lines(&text);
         let a: Vec<&str> = answer.split('\n').collect();
         let mut written = vec![if answer.is_empty() {
@@ -2135,6 +3116,8 @@ impl<'a> SpecReviewAnnotations<'a> {
                     comment: m.comment.clone(),
                     markup: text[m.start..m.end].to_string(),
                     context: p.lines[s..=e].join("\n"),
+                    authors: m.authors.clone(),
+                    votes: m.votes.clone(),
                 });
             }
         }
@@ -2241,12 +3224,24 @@ impl<'a> SpecReviewAnnotations<'a> {
     }
 
     /// Removes every annotation and writes the result back: every inline mark
-    /// accepted, every comment and question block removed. Malformed marks
-    /// stay and are reported.
-    pub fn remove_all_annotations(&mut self) -> SpecMarkReport {
-        let report = self.accept_all_marks(None);
+    /// accepted, every conflict's decision applied (SOM §11.9.8), every
+    /// comment, question and conflict block removed. Malformed marks stay and
+    /// are reported. Refused — nothing changes — while a conflict is open,
+    /// unresolved (`open:`), malformed, or decided for a letter it has no
+    /// alternative for.
+    pub fn remove_all_annotations(&mut self) -> Result<SpecMarkReport, SpecReviewAnnotationError> {
+        let decided = self.decided_conflicts()?;
+        let mut report = self.accept_all_marks(None);
+        let mut outcomes = Vec::new();
         for (path, field, text) in values_of(self.doc) {
             let mut v = text.clone();
+            let here: Vec<&DecidedConflict> = decided
+                .iter()
+                .filter(|d| d.path == path && d.field == field)
+                .collect();
+            if !here.is_empty() {
+                v = self.apply_conflicts(&path, field.as_deref(), &v, &here, &mut outcomes);
+            }
             loop {
                 let p = parse(&v);
                 let Some(b) = p.blocks.last() else { break };
@@ -2256,7 +3251,146 @@ impl<'a> SpecReviewAnnotations<'a> {
                 self.set(&path, field.as_deref(), &v);
             }
         }
-        report
+        report.conflicts = Some(outcomes);
+        Ok(report)
+    }
+
+    /// Every conflict block of the document with the line it opens on, in
+    /// document order — or the refusal of
+    /// [`remove_all_annotations`](Self::remove_all_annotations) when one of
+    /// them cannot be applied.
+    fn decided_conflicts(&self) -> Result<Vec<DecidedConflict>, SpecReviewAnnotationError> {
+        let mut out = Vec::new();
+        for (path, field, text) in values_of(self.doc) {
+            let p = parse(&text);
+            let conflicts = p
+                .blocks
+                .iter()
+                .filter_map(|b| b.conflict.as_ref().map(|c| (b, c)));
+            for (index, (b, c)) in conflicts.enumerate() {
+                let at = match &field {
+                    None => format!("{}, line {}", path, b.start),
+                    Some(f) => format!("{} / {}, line {}", path, f, b.start),
+                };
+                let id = match (&c.id, &c.base) {
+                    (Some(id), Some(_)) if !c.alternatives.is_empty() => id.clone(),
+                    _ => {
+                        return Err(SpecReviewAnnotationError::new(format!(
+                            "{}: a malformed conflict block cannot be applied",
+                            at
+                        )))
+                    }
+                };
+                if c.decision.is_empty() || is_unresolved(&c.decision) {
+                    return Err(SpecReviewAnnotationError::new(format!(
+                        "{}: conflict {} is {}; decide it before removing the annotations",
+                        at,
+                        id,
+                        if c.decision.is_empty() {
+                            "open"
+                        } else {
+                            "unresolved"
+                        }
+                    )));
+                }
+                if let Some(letter) = decision_letter(&c.decision) {
+                    if letter != "base" && !c.alternatives.iter().any(|a| a.letter == letter) {
+                        return Err(SpecReviewAnnotationError::new(format!(
+                            "{}: conflict {} has no alternative ({})",
+                            at, id, letter
+                        )));
+                    }
+                }
+                out.push(DecidedConflict {
+                    path: path.clone(),
+                    field: field.clone(),
+                    index,
+                    id,
+                    line: b.start,
+                    decision: c.decision.clone(),
+                });
+            }
+        }
+        Ok(out)
+    }
+
+    /// Applies the decided conflicts of one value (marks already accepted),
+    /// from the last block up so earlier line numbers stay valid, and records
+    /// each. Where the chosen text goes follows the conflict's text (SOM
+    /// §11.9.8, "Applying"): a form field, another value, this value's text
+    /// paragraphs, or — the default — the text paragraph directly before the
+    /// block.
+    fn apply_conflicts(
+        &mut self,
+        path: &str,
+        field: Option<&str>,
+        value: &str,
+        decided: &[&DecidedConflict],
+        outcomes: &mut Vec<SpecConflictOutcome>,
+    ) -> String {
+        let mut v = value.to_string();
+        let mut recorded = Vec::new();
+        let parsed = parse(&v);
+        let conflicts: Vec<(&Block, &Conflict)> = parsed
+            .blocks
+            .iter()
+            .filter_map(|b| b.conflict.as_ref().map(|c| (b, c)))
+            .collect();
+        for (k, (b, c)) in conflicts.iter().enumerate().rev() {
+            let Some(d) = decided.iter().find(|x| x.index == k) else {
+                continue;
+            };
+            let result = chosen_text(c);
+            recorded.insert(
+                0,
+                SpecConflictOutcome {
+                    id: d.id.clone(),
+                    path: path.to_string(),
+                    field: field.map(str::to_string),
+                    line: d.line,
+                    decision: d.decision.clone(),
+                    result: result.clone(),
+                },
+            );
+            v = self.apply_conflict(path, field, &v, b, c, &result);
+        }
+        outcomes.extend(recorded);
+        v
+    }
+
+    /// Puts one conflict's chosen text in place (see
+    /// [`apply_conflicts`](Self::apply_conflicts)) and returns the value
+    /// holding the block. A structural conflict only reports its decision:
+    /// the structural change is the caller's.
+    fn apply_conflict(
+        &mut self,
+        path: &str,
+        field: Option<&str>,
+        value: &str,
+        b: &Block,
+        c: &Conflict,
+        result: &str,
+    ) -> String {
+        if STRUCTURAL_TOPICS.contains(&c.topic.as_str()) {
+            return value.to_string();
+        }
+        let words: Vec<&str> = c.text.split(' ').collect();
+        let no_space = |w: &str| !w.is_empty() && !w.chars().any(char::is_whitespace);
+        if words.len() == 2
+            && words.iter().all(|w| no_space(w))
+            && self.doc.form_field(words[0], words[1]).is_some()
+        {
+            self.doc.set_form_field(words[0], words[1], result);
+            return value.to_string();
+        }
+        if field.is_none() && c.text == path {
+            return replace_text_run(value, b, result);
+        }
+        if is_value_path(&c.text) && c.text != path {
+            self.doc.set_content(&c.text, result);
+            return value.to_string();
+        }
+        replace_paragraph_before(value, b, result)
     }
 
     /// Writes `text` at `path` / `field` as a marked change against the value
@@ -2761,4 +3895,294 @@ pub fn mark_change_text(old_value: &str, new_value: &str) -> SpecMarkedChange {
         };
     }
     SpecMarkedChange { text, exact }
+}
+
+// ---------------------------------------------------------------------------
+// Text-level building blocks of the merge (SOM §11.9.9). Crate-internal: used
+// by `spec_review_merge`, not part of the public API.
+// ---------------------------------------------------------------------------
+
+/// One paragraph of a value as the merge sees it: text, or an annotation
+/// block.
+#[derive(Debug, Clone)]
+pub(crate) struct ReviewPiece {
+    /// The annotation kind of the block the paragraph opens with; `None` for
+    /// a text paragraph.
+    pub(crate) kind: Option<SpecReviewAnnotationKind>,
+    /// The paragraph's lines, verbatim.
+    pub(crate) text: String,
+    /// A comment's id (`None` without one), a conflict's id (`None` when
+    /// malformed).
+    pub(crate) id: Option<String>,
+    /// A comment's author, `None` without one.
+    pub(crate) author: Option<String>,
+    /// A comment's text.
+    pub(crate) comment_text: String,
+    /// The ids of a question block's questions.
+    pub(crate) question_ids: Vec<String>,
+}
+
+/// The paragraphs of `value` (SOM §11.9.1), each classified.
+pub(crate) fn review_pieces(value: &str) -> Vec<ReviewPiece> {
+    if value.is_empty() {
+        return Vec::new();
+    }
+    let p = parse(value);
+    paragraphs(&p.lines, &p.code)
+        .into_iter()
+        .map(|(s, e)| {
+            let b = p.blocks.iter().find(|x| x.start == s);
+            let comment = p.comments.iter().find(|c| c.block_start == s);
+            ReviewPiece {
+                kind: b.map(|b| b.kind),
+                text: p.lines[s..=e].join("\n"),
+                id: comment.and_then(|c| c.id.clone()).or_else(|| {
+                    b.and_then(|b| b.conflict.as_ref())
+                        .and_then(|c| c.id.clone())
+                }),
+                author: comment.and_then(|c| c.author.clone()),
+                comment_text: comment.map(|c| c.text.clone()).unwrap_or_default(),
+                question_ids: b
+                    .map(|b| b.questions.iter().map(|q| q.id.clone()).collect())
+                    .unwrap_or_default(),
+            }
+        })
+        .collect()
+}
+
+/// One inline mark of a value, with what its decisions leave.
+#[derive(Debug, Clone)]
+pub(crate) struct ReviewMark {
+    /// Where the mark (its token included) ends in the value.
+    pub(crate) end: usize,
+    /// Where the mark itself ends, before its token.
+    pub(crate) body_end: usize,
+    pub(crate) kind: SpecMarkKind,
+    /// The mark as written, its attribution token included.
+    pub(crate) markup: String,
+    pub(crate) authors: Vec<String>,
+    pub(crate) votes: Vec<SpecMarkVote>,
+    /// The text accepting it leaves.
+    pub(crate) accepted: String,
+    /// The text rejecting it leaves.
+    pub(crate) rejected: String,
+}
+
+/// The inline marks of `value`, in order (marks in code are not marks).
+pub(crate) fn review_marks(value: &str) -> Vec<ReviewMark> {
+    parse(value)
+        .marks
+        .into_iter()
+        .map(|m| ReviewMark {
+            end: m.end,
+            body_end: m.body_end,
+            kind: m.kind,
+            markup: value[m.start..m.end].to_string(),
+            accepted: mark_replacement(&m, true),
+            rejected: mark_replacement(&m, false),
+            authors: m.authors,
+            votes: m.votes,
+        })
+        .collect()
+}
+
+/// `value` with the marks `decisions` names (by index into
+/// [`review_marks`]) accepted (`true`) or rejected, by the whitespace rules of
+/// SOM §11.9.3.
+pub(crate) fn decide_review_marks(value: &str, decisions: &HashMap<usize, bool>) -> String {
+    let marks = parse(value).marks;
+    let mut v = value.to_string();
+    for (k, m) in marks.iter().enumerate().rev() {
+        if let Some(&accept) = decisions.get(&k) {
+            v = replace_mark(&v, m, &mark_replacement(m, accept));
+        }
+    }
+    v
+}
+
+/// The attribution token for `authors` and `votes`, `{@agent +alice -bob}`.
+pub(crate) fn format_attribution_token(authors: &[String], votes: &[SpecMarkVote]) -> String {
+    let v: Vec<String> = votes
+        .iter()
+        .map(|x| format!("{}{}", if x.accept { '+' } else { '-' }, x.member))
+        .collect();
+    let v = v.join(" ");
+    let gap = if !authors.is_empty() && !v.is_empty() {
+        " "
+    } else {
+        ""
+    };
+    format!("{{@{}{}{}}}", authors.join(","), gap, v)
+}
+
+/// `value` with mark `m`'s token replaced by one for `authors` and `votes`.
+pub(crate) fn with_attribution(
+    value: &str,
+    m: &ReviewMark,
+    authors: &[String],
+    votes: &[SpecMarkVote],
+) -> String {
+    format!(
+        "{}{}{}",
+        &value[..m.body_end],
+        format_attribution_token(authors, votes),
+        &value[m.end..]
+    )
+}
+
+/// The team answer of every question of `value`, by id, in order (the first
+/// of a repeated id).
+pub(crate) fn review_team_answers(value: &str) -> Vec<(String, String)> {
+    let mut out: Vec<(String, String)> = Vec::new();
+    for b in parse(value).blocks {
+        for q in b.questions {
+            if !out.iter().any(|(id, _)| *id == q.id) {
+                out.push((q.id, q.answer));
+            }
+        }
+    }
+    out
+}
+
+/// `value` with `member`'s individual answer to question `question_id` set,
+/// as `set_answer_by` with an author does; `None` when the value holds no
+/// such question.
+pub(crate) fn set_individual_answer_text(
+    value: &str,
+    question_id: &str,
+    member: &str,
+    answer: &str,
+) -> Option<String> {
+    let p = parse(value);
+    let q = p
+        .blocks
+        .iter()
+        .flat_map(|b| b.questions.iter())
+        .find(|q| q.id == question_id)?;
+    Some(set_individual_answer(value, q, member, answer))
+}
+
+/// The lines of a conflict's text: the first after its prefix, the rest
+/// indented under it.
+fn alternative_lines(prefix: &str, text: &str) -> Vec<String> {
+    let t: Vec<&str> = text.split('\n').collect();
+    let mut out = vec![format!("> - {} {}", prefix, t[0]).trim_end().to_string()];
+    out.extend(t[1..].iter().map(|l| format!(">   {}", l)));
+    out
+}
+
+/// The lines of a conflict block (SOM §11.9.8): the header, the `(base)`
+/// line, one lettered alternative per entry naming its members, and an empty
+/// `**Decision:**`. A text's further lines are indented under it, so a reader
+/// gets them back with their line breaks.
+pub fn format_conflict_block(
+    id: &str,
+    topic: &str,
+    text: &str,
+    base: &str,
+    alternatives: &[SpecConflictAlternative],
+) -> Vec<String> {
+    let mut out = vec![format!(
+        "> {}{} **{}{}{}:** {}",
+        SCALES, VS16, id, EM_DASH_SEP, topic, text
+    )
+    .trim_end()
+    .to_string()];
+    out.extend(alternative_lines("(base)", base));
+    for a in alternatives {
+        let prefix = format!("({}) **{}:**", a.letter, a.members.join(", "));
+        out.extend(alternative_lines(&prefix, &a.text));
+    }
+    out.push(">".to_string());
+    out.push(format!("> {}", DECISION_LABEL));
+    out
+}
+
+/// Carries the edits `x` → `y` over to `b`, a text equal to `x` except where
+/// marks of `b` were decided in `x` (SOM §11.9.9, step 3): every edit lands
+/// in `b` at the place `x` and `b` agree on. `None` when an edit touches or
+/// borders a place where they differ — the edit overlaps a decided mark. Both
+/// diffs are the token diffs of `mark_change_text`.
+pub(crate) fn transplant_edits(x: &str, y: &str, b: &str) -> Option<String> {
+    let xt = tokens(x);
+    let bt = tokens(b);
+    // Where each token of x is in b (`None`: x and b differ there).
+    let mut to_b: Vec<Option<usize>> = vec![None; xt.len()];
+    let (mut i, mut j) = (0, 0);
+    for (kind, _) in diff(&xt, &bt) {
+        match kind {
+            0 => {
+                to_b[i] = Some(j);
+                i += 1;
+                j += 1;
+            }
+            1 => i += 1,
+            _ => j += 1,
+        }
+    }
+    // The edits x → y as (first x token, end x token, inserted text).
+    let mut hunks: Vec<(usize, usize, String)> = Vec::new();
+    let mut i = 0;
+    let mut open: Option<(usize, usize, String)> = None;
+    for (kind, t) in diff(&xt, &tokens(y)) {
+        if kind == 0 {
+            if let Some(h) = open.take() {
+                hunks.push(h);
+            }
+            i += 1;
+            continue;
+        }
+        let h = open.get_or_insert_with(|| (i, i, String::new()));
+        if kind == 1 {
+            i += 1;
+            h.1 = i;
+        } else {
+            h.2.push_str(&t.text);
+        }
+    }
+    if let Some(h) = open {
+        hunks.push(h);
+    }
+    let mut out: Vec<String> = bt.iter().map(|t| t.text.clone()).collect();
+    for (x0, x1, ins) in hunks.into_iter().rev() {
+        let (from, to) = landing(&to_b, x0, x1, bt.len())?;
+        out.splice(from..to, [ins]);
+    }
+    Some(out.concat())
+}
+
+/// The b-token range an x-token range `[x0, x1)` lands on, or `None` when it
+/// is not one.
+///
+/// A replaced range lands where its tokens are in b, which must be
+/// contiguous there; its neighbours are not consulted, because the token
+/// diff may align a neighbouring space with another space of b (beside a
+/// decided mark) without the range touching that mark. A pure insertion
+/// (`x0 == x1`) has no tokens of its own, so both neighbours must sit next
+/// to each other in b.
+fn landing(to_b: &[Option<usize>], x0: usize, x1: usize, b_len: usize) -> Option<(usize, usize)> {
+    if x1 > x0 {
+        let first = to_b[x0]?;
+        for k in x0 + 1..x1 {
+            if to_b[k]? != to_b[k - 1]? + 1 {
+                return None;
+            }
+        }
+        return Some((first, to_b[x1 - 1]? + 1));
+    }
+    // A pure insertion: its neighbours must sit next to each other in b.
+    let left = if x0 == 0 {
+        Some(0)
+    } else {
+        to_b[x0 - 1].map(|l| l + 1)
+    };
+    let right = if x1 == to_b.len() {
+        Some(b_len)
+    } else {
+        to_b[x1]
+    };
+    match (left, right) {
+        (Some(from), Some(to)) if from == to => Some((from, from)),
+        _ => None,
+    }
 }

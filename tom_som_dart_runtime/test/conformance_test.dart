@@ -1179,6 +1179,58 @@ void main() {
     }
   });
 
+  // Read, not generated: these two files are not written by UPDATE_CORPUS.
+  group('team_annotation_cases.json (team reviews, SOM §11.9.8)', () {
+    final table =
+        jsonDecode(read('team_annotation_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('team annotations: ${c['name']}', () {
+        expect(
+          jsonDecode(
+            jsonEncode(_runAnnotationCase(model, tree, c, team: true)),
+          ),
+          c['expect'],
+        );
+      });
+    }
+    for (final c
+        in (table['validationCases'] as List).cast<Map<String, dynamic>>()) {
+      test('team validation: ${c['name']}', () {
+        final d = SpecDocument()..loadJson(c['state'] as Map);
+        final errs = [
+          for (final e in validateDocument(model, d))
+            {'path': e.path, 'code': e.code.name},
+        ];
+        expect(errs, c['errors']);
+      });
+    }
+  });
+
+  group('review_merge_cases.json (merging reviewed copies, SOM §11.9.9)', () {
+    final table =
+        jsonDecode(read('review_merge_cases.json')) as Map<String, dynamic>;
+    final models = {
+      'demo': model,
+      'som': SpecModel.fromJson(
+        jsonDecode(
+              File(
+                '${Directory.current.path}/../tom_som_dart_v0/meta/'
+                'spec_model.meta.json',
+              ).readAsStringSync(),
+            )
+            as Map<String, dynamic>,
+      ),
+    };
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('review merge: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runReviewMergeCase(models, c))),
+          c['expect'],
+        );
+      });
+    }
+  });
+
   group('assembly_cases.json (assembling a document from fragments)', () {
     final table = update
         ? assemblyCases
@@ -8169,13 +8221,60 @@ Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
   return {'cases': cases};
 }
 
+/// Runs one `review_merge_cases.json` case: the merged document (its state,
+/// or the Markdown text) and the report; a refused merge answers
+/// `{error: true}`.
+Map<String, Object?> _runReviewMergeCase(
+  Map<String, SpecModel> models,
+  Map<String, dynamic> c,
+) {
+  final o = c['options'] as Map<String, dynamic>;
+  final options = SpecReviewMergeOptions(
+    team: [
+      for (final m in (o['team'] as List).cast<Map<String, dynamic>>())
+        SpecReviewMember.fromJson(m),
+    ],
+    date: o['date'] as String,
+    author: o['author'] as String,
+    questionPrefix: o['questionPrefix'] as String? ?? 'RQ',
+    model: c['model'] == null ? null : models[c['model'] as String],
+  );
+  SpecReviewedCopy<D> copy<D>(Map<String, dynamic> x, D document) =>
+      SpecReviewedCopy(
+        memberId: x['memberId'] as String,
+        displayName: x['displayName'] as String? ?? '',
+        role: x['role'] as String? ?? '',
+        document: document,
+      );
+  SpecDocument load(Object? state) =>
+      SpecDocument()..loadJson(jsonDecode(jsonEncode(state)) as Map);
+  final copies = (c['copies'] as List).cast<Map<String, dynamic>>();
+  try {
+    if (c['format'] == 'markdown') {
+      final r = mergeReviews(c['base'] as String, [
+        for (final x in copies) copy(x, x['document'] as String),
+      ], options);
+      return {'merged': r.merged, 'report': r.report.toJson()};
+    }
+    final r = mergeReviews(load(c['base']), [
+      for (final x in copies) copy(x, load(x['document'])),
+    ], options);
+    return {'merged': r.merged.toJson(), 'report': r.report.toJson()};
+  } on SpecReviewMergeError {
+    return {'error': true};
+  }
+}
+
 /// Runs one annotation case: `{results: [one per op], state: final state}`.
 /// An operation that fails answers `{error: true}` and changes nothing.
+/// [team] renders the results in the team form `team_annotation_cases.json`
+/// pins (SOM §11.9.8).
 Map<String, Object?> _runAnnotationCase(
   SpecModel model,
   SomMetaTree tree,
-  Map<String, dynamic> c,
-) {
+  Map<String, dynamic> c, {
+  bool team = false,
+}) {
   final doc = SpecDocument()
     ..loadJson(jsonDecode(jsonEncode(c['state'])) as Map<String, dynamic>);
   final api = SpecReviewAnnotations(doc, qualifier: c['qualifier'] as String?);
@@ -8183,8 +8282,8 @@ Map<String, Object?> _runAnnotationCase(
   for (final op in (c['ops'] as List).cast<Map<String, dynamic>>()) {
     try {
       results.add(switch (op['op'] as String) {
-        'list' => [for (final a in api.list()) a.toJson()],
-        'counts' => api.counts().toJson(),
+        'list' => [for (final a in api.list()) a.toJson(team: team)],
+        'counts' => api.counts().toJson(team: team),
         'nextId' => api.nextCommentId(floor: op['floor'] as int? ?? 0),
         'assignIds' => api.assignCommentIds(floor: op['floor'] as int? ?? 0),
         'insertComment' => api.insertComment(
@@ -8216,7 +8315,11 @@ Map<String, Object?> _runAnnotationCase(
           return null;
         }(),
         'setAnswer' => () {
-          api.setAnswer(op['id'] as String, op['answer'] as String);
+          api.setAnswer(
+            op['id'] as String,
+            op['answer'] as String,
+            author: op['author'] as String?,
+          );
           return null;
         }(),
         'editComment' => () {
@@ -8247,22 +8350,27 @@ Map<String, Object?> _runAnnotationCase(
         ],
         'listMarks' => [
           for (final m in api.listMarks(path: op['path'] as String?))
-            m.toJson(),
+            m.toJson(team: team),
         ],
-        'decideMarks' => api.decideMarks(
-          {
-            for (final e in (op['decisions'] as Map).entries)
-              e.key as String: SpecMarkDecision.values.byName(
-                e.value as String,
-              ),
-          },
-          revision: op['revision'] == '@current'
-              ? api.revision()
-              : op['revision'] as String,
-        ).toJson(),
-        'acceptAll' => api.acceptAllMarks(path: op['path'] as String?).toJson(),
-        'rejectAll' => api.rejectAllMarks(path: op['path'] as String?).toJson(),
-        'removeAll' => api.removeAllAnnotations().toJson(),
+        'decideMarks' =>
+          api
+              .decideMarks(
+                {
+                  for (final e in (op['decisions'] as Map).entries)
+                    e.key as String: SpecMarkDecision.values.byName(
+                      e.value as String,
+                    ),
+                },
+                revision: op['revision'] == '@current'
+                    ? api.revision()
+                    : op['revision'] as String,
+              )
+              .toJson(team: team),
+        'acceptAll' =>
+          api.acceptAllMarks(path: op['path'] as String?).toJson(team: team),
+        'rejectAll' =>
+          api.rejectAllMarks(path: op['path'] as String?).toJson(team: team),
+        'removeAll' => api.removeAllAnnotations().toJson(team: team),
         'setMarked' =>
           api
               .setMarked(
