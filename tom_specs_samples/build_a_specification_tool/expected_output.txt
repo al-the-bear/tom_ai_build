@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.7.0+28.9d5ddca9
-  generatedAt       = 2026-11-05T21:30:26.801766Z
+  modelVersionLabel = 1.7.1+29.32d601e4
+  generatedAt       = 2026-11-06T00:50:51.741036Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
