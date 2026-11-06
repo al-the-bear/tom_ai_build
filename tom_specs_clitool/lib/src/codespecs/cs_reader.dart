@@ -597,17 +597,12 @@ List<CsParameter> _parameters(FormalParameterList? parameters) {
   if (parameters == null) return const [];
   final out = <CsParameter>[];
   for (final parameter in parameters.parameters) {
-    final normal = parameter is DefaultFormalParameter
-        ? parameter.parameter
-        : parameter;
-    final type = switch (normal) {
-      SimpleFormalParameter() => normal.type?.toSource(),
-      FieldFormalParameter() => normal.type?.toSource(),
-      SuperFormalParameter() => normal.type?.toSource(),
-      FunctionTypedFormalParameter() => normal.returnType?.toSource(),
-      _ => null,
-    };
-    out.add(CsParameter(normal.name?.lexeme ?? '', type));
+    // analyzer 14: one node per parameter (no default-value wrapper); a
+    // function-typed parameter's `type` is its return type, its parameter
+    // list sits in `functionTypedSuffix`.
+    out.add(
+      CsParameter(parameter.name?.lexeme ?? '', parameter.type?.toSource()),
+    );
   }
   return out;
 }
@@ -942,10 +937,10 @@ CsConstruction? _constructionOf(
   final named = <String, CsValue>{};
   if (arguments == null) return (positional, named);
   for (final argument in arguments.arguments) {
-    if (argument is NamedExpression) {
-      named[argument.name.label.name] = _value(argument.expression);
+    if (argument is NamedArgument) {
+      named[argument.name.lexeme] = _value(argument.argumentExpression);
     } else {
-      positional.add(_value(argument));
+      positional.add(_value(argument.argumentExpression));
     }
   }
   return (positional, named);

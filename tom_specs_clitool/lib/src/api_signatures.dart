@@ -666,18 +666,11 @@ String _kindOf(FormalParameterElement p) => p.isRequiredNamed
     ? 'optional positional'
     : 'required positional';
 
-TypeAnnotation? _declaredType(FormalParameter p) {
-  final inner = p is DefaultFormalParameter ? p.parameter : p;
-  return switch (inner) {
-    SimpleFormalParameter(:final type) => type,
-    FieldFormalParameter(:final type) => type,
-    SuperFormalParameter(:final type) => type,
-    _ => null,
-  };
-}
+// analyzer 14 folds the default value into the parameter itself (its
+// `defaultClause`), so there is no wrapping node to look through.
+TypeAnnotation? _declaredType(FormalParameter p) => p.type;
 
-String? _defaultOf(FormalParameter p) =>
-    p is DefaultFormalParameter ? p.defaultValue?.toSource() : null;
+String? _defaultOf(FormalParameter p) => p.defaultClause?.value.toSource();
 
 String _display(DartType type) => type.getDisplayString();
 

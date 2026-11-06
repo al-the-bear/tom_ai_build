@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.12.0
+
+- On analyzer 14: `analyzer: ^14.1.0` and `tom_analyzer_shared: ^0.8.0` (from
+  ^10 and ^0.7.2). The model reader, the API-signature and doc-coverage gates
+  and the CodeSpecs reader follow analyzer 14's AST (one node per formal
+  parameter with its default clause, `NamedArgument`, declaration bodies and
+  name parts); the embedded SDK summary is regenerated, since an analyzer-10
+  summary cannot be read by analyzer 14. Outlines, the spec-ops registry and the
+  SOM generation are byte-identical to the analyzer-10 build.
+
 ## 0.11.0
 
 - `extract_answers`: a review round's answers, comments and, optionally, open

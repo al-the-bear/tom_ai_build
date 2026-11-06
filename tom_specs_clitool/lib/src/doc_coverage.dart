@@ -332,23 +332,28 @@ void _countDeclaration(
     count('$where:$name', decl.documentationComment);
     return;
   }
-  if (decl is NamedCompilationUnitMember) {
-    final name = decl.name.lexeme;
-    if (!_isPublic(name)) return;
-    count('$where:$name', decl.documentationComment);
+  final declName = _unitMemberName(decl);
+  if (declName != null) {
+    if (!_isPublic(declName)) return;
+    count('$where:$declName', decl.documentationComment);
   }
   if (decl is ClassDeclaration) {
-    _countMembers(decl.name.lexeme, where, decl.members, count);
+    _countMembers(
+      decl.namePart.typeName.lexeme,
+      where,
+      decl.body.members,
+      count,
+    );
   } else if (decl is MixinDeclaration) {
-    _countMembers(decl.name.lexeme, where, decl.members, count);
+    _countMembers(decl.name.lexeme, where, decl.body.members, count);
   } else if (decl is ExtensionDeclaration) {
-    _countMembers(decl.name?.lexeme ?? '', where, decl.members, count);
+    _countMembers(decl.name?.lexeme ?? '', where, decl.body.members, count);
   } else if (decl is EnumDeclaration) {
-    final owner = decl.name.lexeme;
-    for (final c in decl.constants) {
+    final owner = decl.namePart.typeName.lexeme;
+    for (final c in decl.body.constants) {
       count('$where:$owner.${c.name.lexeme}', c.documentationComment);
     }
-    _countMembers(owner, where, decl.members, count);
+    _countMembers(owner, where, decl.body.members, count);
   }
 }
 
@@ -481,3 +486,15 @@ Future<DocCoverageReport> checkDocCoverage({
   DocCoverageReport.bindFloors(floors);
   return DocCoverageReport(results: results, violations: violations);
 }
+
+/// The declared name of a named top-level declaration — what analyzer 10's
+/// `NamedCompilationUnitMember` gave (an extension never was one) — or null
+/// for any other member, which the caller counts on its own.
+String? _unitMemberName(CompilationUnitMember decl) => switch (decl) {
+  ClassDeclaration(:final namePart) => namePart.typeName.lexeme,
+  EnumDeclaration(:final namePart) => namePart.typeName.lexeme,
+  ExtensionTypeDeclaration(:final namePart) => namePart.typeName.lexeme,
+  MixinDeclaration(:final name) => name.lexeme,
+  TypeAlias(:final name) => name.lexeme,
+  _ => null,
+};

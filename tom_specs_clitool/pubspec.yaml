@@ -1,6 +1,6 @@
 name: tom_specs_clitool
 description: CLI tools for TomSpecs model analysis, validation, and SOM code generation.
-version: 0.11.0
+version: 0.12.0
 
 repository: https://github.com/al-the-bear/tom_ai_build
 homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_clitool
@@ -9,7 +9,7 @@ environment:
   sdk: ^3.11.4
 
 dependencies:
-  analyzer: ^10.0.0
+  analyzer: ^14.1.0
   args: ^2.6.0
   # The model-freshness fingerprint (lib/src/model_freshness.dart). Declared
   # explicitly rather than leaned on as an analyzer transitive.
@@ -26,10 +26,8 @@ dependencies:
   # analyzer major, so a point-SDK bundle-format drift can't crash the cached
   # `.sum` reader (RCK26); and bundles are invalidated when a transitive
   # dependency changes version, so a stale closure can't silently drop classes
-  # (RCJ6). Both are correctness fixes for any summary-cache consumer. Caret
-  # upper bound (<0.8.0) added for publication — pub.dev requires a bounded
-  # constraint.
-  tom_analyzer_shared: ^0.7.2
+  # (RCJ6). 0.8.0 is the analyzer-14 line, matching `analyzer: ^14.1.0` above.
+  tom_analyzer_shared: ^0.8.0
   # Co-developed release-set siblings, resolved by path locally via
   # pubspec_overrides.yaml (excluded from publish); the published package uses
   # these hosted constraints.

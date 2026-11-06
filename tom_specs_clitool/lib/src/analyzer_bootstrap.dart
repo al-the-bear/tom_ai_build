@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/src/context/packages.dart';
-import 'package:analyzer/src/dart/analysis/analysis_options.dart';
+import 'package:analyzer/src/analysis_options/analysis_options.dart';
 import 'package:analyzer/src/dart/analysis/analysis_options_map.dart';
 import 'package:analyzer/src/dart/analysis/byte_store.dart';
 import 'package:analyzer/src/dart/analysis/driver.dart';
@@ -43,7 +43,11 @@ AnalysisDriver createAnalysisDriver(String packagePath) {
 
   final sourceFactory = SourceFactory([
     DartUriResolver(sdk),
-    PackageMapUriResolver(resourceProvider, packageConfig.packageMap),
+    // analyzer 14 resolves each package from one root folder; a package
+    // config gives exactly one per package.
+    PackageMapUriResolver(resourceProvider, {
+      for (final e in packageConfig.packageMap.entries) e.key: e.value.first,
+    }),
     ResourceUriResolver(resourceProvider),
   ]);
 
