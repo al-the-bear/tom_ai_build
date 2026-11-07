@@ -7,14 +7,20 @@ import 'package:analyzer/src/util/sdk.dart';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
-    show GroupedPackageBundleBuilder, SummaryConfigException;
+    show
+        GroupedPackageBundleBuilder,
+        SummaryConfigException,
+        flutterEmbedderYamlInPackageRoots,
+        mergePackageRootsForDirs;
 
 /// Analyzer-summary generator for a **single** consumer (OE-1 / B1).
 ///
 /// Builds the `.sum` bundles `tom_dart_editor` loads at runtime for SDK-free
 /// Dart analysis inside code-typed fields:
 ///
-///   * `sdk_summary.sum`  — the Dart SDK core libraries (`buildSdkSummary`).
+///   * `sdk_summary.sum`  — the Dart SDK libraries (`buildSdkSummary`), with
+///                          Flutter's `dart:ui` when the packages are Flutter
+///                          packages (the embedder of their `sky_engine`).
 ///   * `packages.sum`     — every package reachable from the target package's
 ///                          resolved `.dart_tool/package_config.json`.
 ///
@@ -86,11 +92,26 @@ Future<void> main(List<String> arguments) async {
   print('Using SDK: $sdkPath');
   io.Directory(outDir).createSync(recursive: true);
 
+  // The Flutter embedder of the packages' own sky_engine: both summaries are
+  // built with it, so the dart:ui types Flutter re-exports resolve.
+  String? embedder;
+  try {
+    embedder = flutterEmbedderYamlInPackageRoots(
+      mergePackageRootsForDirs(
+        packageDirs.map((d) => p.normalize(p.absolute(d))),
+      ),
+    );
+  } on SummaryConfigException {
+    embedder = null; // no resolved packages: the plain SDK
+  }
+  if (embedder != null) print('Flutter embedder: $embedder');
+
   // ── sdk_summary.sum ───────────────────────────────────────────────────────
   print('\nBuilding SDK summary...');
   final sdkSummaryBytes = await buildSdkSummary(
     resourceProvider: resourceProvider,
     sdkPath: sdkPath,
+    embedderYamlPath: embedder,
   );
   final sdkOut = io.File(p.join(outDir, 'sdk_summary.sum'));
   sdkOut.writeAsBytesSync(sdkSummaryBytes);
@@ -111,7 +132,12 @@ Future<void> main(List<String> arguments) async {
   try {
     final bundle = await GroupedPackageBundleBuilder(
       resourceProvider: resourceProvider,
-    ).buildFromDirs(packageDirs, sdkPath: sdkPath, onLog: print);
+    ).buildFromDirs(
+      packageDirs,
+      sdkPath: sdkPath,
+      embedderYamlPath: embedder,
+      onLog: print,
+    );
     final pkgOut = io.File(p.join(outDir, 'packages.sum'));
     pkgOut.writeAsBytesSync(bundle.bytes);
     print('Done in ${sw.elapsedMilliseconds}ms');
