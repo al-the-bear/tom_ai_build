@@ -29,7 +29,8 @@ dependencies:
   # (RCJ6). 0.8.0 is the analyzer-14 line, matching `analyzer: ^14.1.0` above.
   # 0.9.1: grouped bundles link against the SDK with Flutter's embedder
   # (dart:ui), and the embedder lookups this CLI builds the SDK summary with.
-  tom_analyzer_shared: ^0.9.1
+  # 0.10.0: the summary cache keyed by the analyzer's data version.
+  tom_analyzer_shared: ^0.10.0
   # Co-developed release-set siblings, resolved by path locally via
   # pubspec_overrides.yaml (excluded from publish); the published package uses
   # these hosted constraints.
