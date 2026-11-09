@@ -18,8 +18,9 @@
  * double-quoted JSON-escaped flow scalar when the parse differs). Text is
  * written as stored: runs of empty lines are kept, so a value round-trips
  * exactly. Non-text values (`int` /
- * `double` / `bool`, enum member names) are plain scalars when they
- * self-verify (SOM §12.5). The JSON quoting is byte-for-byte identical to
+ * `double` / `bool`, enum member names) are plain scalars when
+ * `spec_yaml_is_plain_scalar` allows them (SOM §12.5) — the rule itself, not a
+ * re-parse with this port's reader. The JSON quoting is byte-for-byte identical to
  * JavaScript's JSON.stringify (`som_json_encode_str`) so output is stable
  * across every language port.
  *
@@ -35,8 +36,7 @@
  *
  * Divergences shared with the hand-rolled parser (documented in the JS/TS
  * ports too): a bare `key:` parses as an empty mapping (which counts as an
- * empty scalar at scalar positions), and the parser never yields booleans, so
- * plain-scalar self-verification needs no bool canonicalisation.
+ * empty scalar at scalar positions), and the parser never yields booleans.
  */
 #ifndef SPEC_DOCUMENT_YAML_H
 #define SPEC_DOCUMENT_YAML_H
@@ -165,6 +165,27 @@ char *spec_yaml_node_key(const SomMetaNode *node);
 /* Returns `key` as a plain key when it is YAML-safe by construction (section
  * ids, member names, `<id> <name>` pairs), else a JSON-quoted one. Owned. */
 char *spec_yaml_plain_key(const char *key);
+
+/* Whether `value` (UTF-8) may be written as a plain one-line YAML scalar (SOM
+ * §12.5): a strict YAML 1.2 parser reads `_v: <value>` (and `- <value>`) back
+ * as exactly `value`, and a YAML 1.1 parser does too. The rule:
+ *
+ * - not empty, no line break, no control character (below U+0020, U+007F to
+ *   U+009F, U+FEFF, U+2028, U+2029 — tested on decoded code points), no space
+ *   or tab at either end;
+ * - not starting with an indicator — `?` `:` `,` `[` `]` `{` `}` `#` `&` `*`
+ *   `!` `|` `>` `'` `"` `%` `@` `` ` `` — nor with `-` followed by a space or
+ *   alone, nor with `---` or `...`;
+ * - no `: `, no ` #`, not ending with `:`;
+ * - not a YAML 1.1-only boolean word or sexagesimal number;
+ * - a value the YAML 1.2 core schema reads as null, a bool or a number only in
+ *   a form every runtime prints back the same: `true`, `false`, a decimal
+ *   integer of up to 15 digits (not `-0`), or a decimal fraction with up to 15
+ *   significant digits, no trailing zero (but `x.0`), no exponent and not
+ *   below 0.000001 (`-0.0` excluded).
+ *
+ * Returns 1 when it may, 0 otherwise. */
+int spec_yaml_is_plain_scalar(const char *value);
 
 /* Collapses runs of two or more consecutive empty lines to a single empty
  * line. A helper for callers that want that normalisation; the codec itself

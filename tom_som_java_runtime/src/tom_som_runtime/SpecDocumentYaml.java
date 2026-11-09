@@ -39,8 +39,10 @@ import java.util.regex.Pattern;
  * JSON-escaped flow scalar when the parse differs). Text is written as
  * stored: runs of empty lines are kept, so a value round-trips exactly.
  * Non-text values ({@code int}/{@code
- * double}/{@code bool}, enum member names) are plain scalars when they
- * self-verify (SOM §12.5). The JSON quoting ({@link Json#encodeString}) is
+ * double}/{@code bool}, enum member names) are plain scalars when
+ * {@link #isPlainYamlScalar} allows it (SOM §12.5) — an explicit rule, not a
+ * re-parse with the hand-rolled reader, so every runtime makes the same
+ * decision. The JSON quoting ({@link Json#encodeString}) is
  * byte-for-byte identical to JavaScript's {@code JSON.stringify} so output is
  * stable across every language port.
  *
@@ -57,8 +59,7 @@ import java.util.regex.Pattern;
  *
  * <p>Divergences shared with the hand-rolled parser (documented in the JS/TS
  * ports too): a bare {@code key:} parses as an empty mapping (which counts as
- * an empty scalar at scalar positions), and the parser never yields booleans,
- * so plain-scalar self-verification needs no bool canonicalisation.
+ * an empty scalar at scalar positions), and the parser never yields booleans.
  */
 public final class SpecDocumentYaml {
   private SpecDocumentYaml() {}
@@ -220,61 +221,144 @@ public final class SpecDocumentYaml {
     return Json.encodeString(value);
   }
 
-  private static final Pattern YAML11_BOOL =
+  /**
+   * A plain one-line scalar for a non-text value (int/double/bool/enum member
+   * name, scalar list item; SOM §12.5) when {@link #isPlainYamlScalar} allows
+   * it; {@code null} otherwise. The decision is the rule itself, never a
+   * re-parse with this port's own reader, so every runtime writes the same
+   * bytes and every plain scalar it writes is one a strict YAML 1.2 parser
+   * reads back as exactly {@code value}.
+   */
+  private static String plainScalar(String value) {
+    return isPlainYamlScalar(value) ? value : null;
+  }
+
+  /** The indicators a plain scalar may not start with ({@code -} is handled apart). */
+  private static final String PLAIN_INDICATORS = "?:,[]{}#&*!|>'\"%@`";
+
+  private static final Pattern YAML11_WORDS =
       Pattern.compile("^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$");
-  private static final Pattern YAML11_SEXAGESIMAL_INT =
+  private static final Pattern YAML11_SEXAGESIMAL_INT_RULE =
       Pattern.compile("^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$");
-  private static final Pattern YAML11_SEXAGESIMAL_FLOAT =
+  private static final Pattern YAML11_SEXAGESIMAL_FLOAT_RULE =
       Pattern.compile("^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\\.[0-9_]*$");
+  private static final Pattern RULE_CORE_NULL = Pattern.compile("^(~|null|Null|NULL)$");
+  private static final Pattern RULE_CORE_BOOL =
+      Pattern.compile("^(true|True|TRUE|false|False|FALSE)$");
+  private static final Pattern RULE_CORE_INT =
+      Pattern.compile("^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$");
+  private static final Pattern RULE_CORE_FLOAT =
+      Pattern.compile(
+          "^([-+]?(\\.[0-9]+|[0-9]+(\\.[0-9]*)?)([eE][-+]?[0-9]+)?"
+              + "|[-+]?\\.(inf|Inf|INF)|\\.(nan|NaN|NAN))$");
+  private static final Pattern CANONICAL_INT = Pattern.compile("^-?(0|[1-9][0-9]{0,14})$");
+  private static final Pattern CANONICAL_FLOAT = Pattern.compile("^-?(0|[1-9][0-9]*)\\.([0-9]+)$");
 
   /**
-   * Whether {@code value}'s text is a YAML 1.1 special that a 1.1 parser would
-   * resolve to a non-string, so it must never be emitted as a plain scalar
-   * (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal int/float
-   * literals. Mirrors the Dart reference rule so every emitter's plain-scalar
-   * decision is identical regardless of the local YAML library's schema.
+   * Whether {@code value} may be written as a plain one-line YAML scalar (SOM
+   * §12.5): a strict YAML 1.2 parser reads {@code _v: <value>} (and
+   * {@code - <value>}) back as exactly {@code value}, and a YAML 1.1 parser
+   * does too. The rule, every part needed by some reader:
+   *
+   * <ul>
+   *   <li>not empty, no line break, no control character (below U+0020, U+007F
+   *       to U+009F, U+FEFF, U+2028, U+2029), no space or tab at either end;
+   *   <li>not starting with an indicator — {@code ? : , [ ] { } # & * ! | > ' "
+   *       % @} and the backtick — nor with {@code -} followed by a space or
+   *       alone, nor with {@code ---} or {@code ...};
+   *   <li>no {@code ": "}, no {@code " #"}, not ending with {@code :};
+   *   <li>not a YAML 1.1-only boolean word or sexagesimal number;
+   *   <li>a value the YAML 1.2 core schema reads as null, a bool or a number
+   *       only in a form every runtime prints back the same: {@code true},
+   *       {@code false}, a decimal integer of up to 15 digits (not {@code -0}),
+   *       or a decimal fraction with up to 15 significant digits, no trailing
+   *       zero (but {@code x.0}), no exponent and not below 0.000001
+   *       ({@code -0.0} excluded).
+   * </ul>
+   *
+   * <p>Mirrors the Dart reference rule {@code isPlainYamlScalar} exactly; the
+   * control-character test iterates code points.
    */
-  private static boolean isYaml11Special(String value) {
-    return YAML11_BOOL.matcher(value).matches()
-        || YAML11_SEXAGESIMAL_INT.matcher(value).matches()
-        || YAML11_SEXAGESIMAL_FLOAT.matcher(value).matches();
+  public static boolean isPlainYamlScalar(String value) {
+    if (value.isEmpty()) {
+      return false;
+    }
+    for (int i = 0; i < value.length(); ) {
+      int c = value.codePointAt(i);
+      if (c < 0x20
+          || (c >= 0x7f && c <= 0x9f)
+          || c == 0xfeff
+          || c == 0x2028
+          || c == 0x2029) {
+        return false;
+      }
+      i += Character.charCount(c);
+    }
+    char first = value.charAt(0);
+    char last = value.charAt(value.length() - 1);
+    if (first == ' ' || last == ' ') {
+      return false;
+    }
+    if (value.startsWith("---") || value.startsWith("...")) {
+      return false;
+    }
+    if (first == '-') {
+      if (value.length() == 1 || value.charAt(1) == ' ') {
+        return false;
+      }
+    } else if (PLAIN_INDICATORS.indexOf(first) >= 0) {
+      return false;
+    }
+    if (value.contains(": ") || value.contains(" #") || last == ':') {
+      return false;
+    }
+    if (YAML11_WORDS.matcher(value).matches()
+        || YAML11_SEXAGESIMAL_INT_RULE.matcher(value).matches()
+        || YAML11_SEXAGESIMAL_FLOAT_RULE.matcher(value).matches()) {
+      return false;
+    }
+    if (RULE_CORE_NULL.matcher(value).matches()
+        || RULE_CORE_BOOL.matcher(value).matches()
+        || RULE_CORE_INT.matcher(value).matches()
+        || RULE_CORE_FLOAT.matcher(value).matches()) {
+      return isCanonicalCoreScalar(value);
+    }
+    return true;
   }
 
   /**
-   * A plain one-line scalar for a non-text value (int/double/bool/enum member
-   * name, SOM §12.5) when writing it plainly re-parses to exactly {@code value}
-   * (string compare, matching the document's string-typed stores);
-   * {@code null} otherwise. Values whose text is a YAML 1.1 special are forced
-   * to the quoted/block path so cross-language round-trips stay identical.
+   * Whether a value the YAML 1.2 core schema types (null, bool, number) is in a
+   * form every runtime prints back identically (see {@link #isPlainYamlScalar}).
    */
-  private static String plainScalar(String value) {
-    if (value.isEmpty() || value.indexOf('\n') >= 0) {
-      return null;
+  private static boolean isCanonicalCoreScalar(String value) {
+    if (value.equals("true") || value.equals("false")) {
+      return true;
     }
-    if (isYaml11Special(value)) {
-      return null;
+    if (value.equals("-0") || value.equals("-0.0")) {
+      return false;
     }
-    Object parsed;
-    try {
-      parsed = Yaml.parse("_v: " + value + "\n");
-    } catch (RuntimeException e) {
-      return null;
+    if (CANONICAL_INT.matcher(value).matches()) {
+      return true;
     }
-    if (!(parsed instanceof Map)) {
-      return null;
+    java.util.regex.Matcher m = CANONICAL_FLOAT.matcher(value);
+    if (!m.matches()) {
+      return false;
     }
-    Map<?, ?> m = (Map<?, ?>) parsed;
-    if (!m.containsKey("_v")) {
-      return null;
+    String whole = m.group(1);
+    String fraction = m.group(2);
+    if (fraction.length() > 1 && fraction.endsWith("0")) {
+      return false;
     }
-    Object v = m.get("_v");
-    if (v == null || v instanceof Map || v instanceof List) {
-      return null;
+    if (whole.equals("0")) {
+      if (fraction.equals("0")) {
+        return true;
+      }
+      String significant = fraction.replaceFirst("^0+", "");
+      int leadingZeros = fraction.length() - significant.length();
+      return leadingZeros <= 5 && significant.length() <= 15;
     }
-    if (!parsedScalarStr(v).equals(value)) {
-      return null;
-    }
-    return value;
+    int digits = whole.length() + (fraction.equals("0") ? 0 : fraction.length());
+    return digits <= 15;
   }
 
   private static String pad(int n) {
@@ -925,7 +1009,7 @@ public final class SpecDocumentYaml {
       writeRendered(b, indent, plainKey(key), scalarRepr(value));
     }
 
-    /** Writes a non-text value (SOM §12.5): plain when it self-verifies, else the text path. */
+    /** Writes a non-text value (SOM §12.5): plain when {@link #isPlainYamlScalar} allows it, else the text path. */
     private void writeValue(StringBuilder b, int indent, String key, String value) {
       String plain = plainScalar(value);
       if (plain != null) {

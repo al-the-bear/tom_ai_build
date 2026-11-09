@@ -294,6 +294,7 @@ export {
   FORMAT_VERSION,
   SpecYamlFormatException,
   SpecYamlContents,
+  isPlainYamlScalar,
   nodeKey,
   yamlKey,
   plainKey,

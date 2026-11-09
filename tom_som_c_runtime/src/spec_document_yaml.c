@@ -279,42 +279,240 @@ static int is_yaml11_sexagesimal(const char *value, int is_float) {
 }
 
 /* Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
- * to a non-string, so it must never be emitted as a plain scalar (SOM §12.5).
- * Mirrors the Dart reference rule so every emitter agrees regardless of the
- * local YAML parser's schema. */
+ * to a non-string, so it must never be emitted as a plain scalar (one arm of
+ * spec_yaml_is_plain_scalar, SOM §12.5). */
 static int is_yaml11_special(const char *value) {
   return is_yaml11_bool(value) || is_yaml11_sexagesimal(value, 0) ||
          is_yaml11_sexagesimal(value, 1);
 }
 
-/* plainScalar: a plain one-line scalar for a non-text value (SOM §12.5) when
- * writing it plainly re-parses to exactly `value` (string compare, matching
- * the document's string-typed stores). Values whose text is a YAML 1.1 special
- * are forced to the quoted/block path so cross-language round-trips match. */
-static int plain_scalar_ok(const char *value) {
-  if (value[0] == '\0' || strchr(value, '\n') != NULL) {
+/* ---- the plain-scalar rule (SOM §12.5) ----------------------------------- */
+
+/* Decodes the UTF-8 code point at `s[*i]` (`n` bytes in all) and advances `*i`
+ * past it; a malformed sequence yields its first byte and advances by one. */
+static unsigned long utf8_next(const unsigned char *s, size_t n, size_t *i) {
+  unsigned char c = s[*i];
+  size_t len;
+  unsigned long cp;
+  if (c < 0x80) {
+    (*i)++;
+    return c;
+  } else if ((c & 0xE0) == 0xC0) {
+    len = 2;
+    cp = c & 0x1F;
+  } else if ((c & 0xF0) == 0xE0) {
+    len = 3;
+    cp = c & 0x0F;
+  } else if ((c & 0xF8) == 0xF0) {
+    len = 4;
+    cp = c & 0x07;
+  } else {
+    (*i)++;
+    return c;
+  }
+  if (*i + len > n) {
+    (*i)++;
+    return c;
+  }
+  for (size_t k = 1; k < len; k++) {
+    unsigned char cc = s[*i + k];
+    if ((cc & 0xC0) != 0x80) {
+      (*i)++;
+      return c;
+    }
+    cp = (cp << 6) | (cc & 0x3F);
+  }
+  *i += len;
+  return cp;
+}
+
+static int rule_digit(char c) { return c >= '0' && c <= '9'; }
+static int rule_octal(char c) { return c >= '0' && c <= '7'; }
+static int rule_hex(char c) {
+  return rule_digit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
+}
+
+/* Whether `s[from..n)` is non-empty and every byte satisfies `pred`. */
+static int rule_run(const char *s, size_t from, size_t n, int (*pred)(char)) {
+  if (from >= n) {
+    return 0;
+  }
+  for (size_t i = from; i < n; i++) {
+    if (!pred(s[i])) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+/* Whether `s` equals one of the NULL-terminated `words`. */
+static int rule_one_of(const char *s, const char *const *words) {
+  for (; *words != NULL; words++) {
+    if (strcmp(s, *words) == 0) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+/* ^(~|null|Null|NULL)$ and ^(true|True|TRUE|false|False|FALSE)$ */
+static int rule_core_null_or_bool(const char *v) {
+  static const char *const words[] = {"~",    "null",  "Null",  "NULL",
+                                      "true", "True",  "TRUE",  "false",
+                                      "False", "FALSE", NULL};
+  return rule_one_of(v, words);
+}
+
+/* ^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$ */
+static int rule_core_int(const char *v, size_t n) {
+  if (n >= 2 && v[0] == '0' && v[1] == 'o' && rule_run(v, 2, n, rule_octal)) {
+    return 1;
+  }
+  if (n >= 2 && v[0] == '0' && v[1] == 'x' && rule_run(v, 2, n, rule_hex)) {
+    return 1;
+  }
+  size_t i = (n > 0 && (v[0] == '-' || v[0] == '+')) ? 1 : 0;
+  return rule_run(v, i, n, rule_digit);
+}
+
+/* ^([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?|[-+]?\.(inf|Inf|INF)
+ *  |\.(nan|NaN|NAN))$ */
+static int rule_core_float(const char *v, size_t n) {
+  static const char *const nans[] = {".nan", ".NaN", ".NAN", NULL};
+  static const char *const infs[] = {".inf", ".Inf", ".INF", NULL};
+  if (rule_one_of(v, nans)) {
+    return 1;
+  }
+  size_t i = (n > 0 && (v[0] == '-' || v[0] == '+')) ? 1 : 0;
+  if (rule_one_of(v + i, infs)) {
+    return 1;
+  }
+  if (i < n && v[i] == '.') {
+    i++;
+    if (i >= n || !rule_digit(v[i])) {
+      return 0;
+    }
+    while (i < n && rule_digit(v[i])) {
+      i++;
+    }
+  } else {
+    if (i >= n || !rule_digit(v[i])) {
+      return 0;
+    }
+    while (i < n && rule_digit(v[i])) {
+      i++;
+    }
+    if (i < n && v[i] == '.') {
+      i++;
+      while (i < n && rule_digit(v[i])) {
+        i++;
+      }
+    }
+  }
+  if (i < n && (v[i] == 'e' || v[i] == 'E')) {
+    i++;
+    if (i < n && (v[i] == '-' || v[i] == '+')) {
+      i++;
+    }
+    if (i >= n || !rule_digit(v[i])) {
+      return 0;
+    }
+    while (i < n && rule_digit(v[i])) {
+      i++;
+    }
+  }
+  return i == n;
+}
+
+/* Whether a value the YAML 1.2 core schema types (null, bool, number) is in a
+ * form every runtime prints back identically (see spec_yaml_is_plain_scalar):
+ * `true`, `false`, ^-?(0|[1-9][0-9]{0,14})$ (not `-0`), or
+ * ^-?(0|[1-9][0-9]*)\.([0-9]+)$ within the digit bounds (not `-0.0`). */
+static int rule_canonical_core_scalar(const char *v, size_t n) {
+  if (strcmp(v, "true") == 0 || strcmp(v, "false") == 0) {
+    return 1;
+  }
+  if (strcmp(v, "-0") == 0 || strcmp(v, "-0.0") == 0) {
+    return 0;
+  }
+  size_t i = (n > 0 && v[0] == '-') ? 1 : 0;
+  /* canonical int */
+  if (rule_run(v, i, n, rule_digit) && n - i <= 15 &&
+      (n - i == 1 || v[i] != '0')) {
+    return 1;
+  }
+  /* canonical float: whole part, '.', fraction */
+  size_t w = i;
+  while (w < n && rule_digit(v[w])) {
+    w++;
+  }
+  size_t whole_len = w - i;
+  if (whole_len == 0 || (whole_len > 1 && v[i] == '0')) {
+    return 0;
+  }
+  if (w >= n || v[w] != '.' || !rule_run(v, w + 1, n, rule_digit)) {
+    return 0;
+  }
+  const char *fraction = v + w + 1;
+  size_t fraction_len = n - (w + 1);
+  if (fraction_len > 1 && fraction[fraction_len - 1] == '0') {
+    return 0;
+  }
+  int fraction_zero = fraction_len == 1 && fraction[0] == '0';
+  if (whole_len == 1 && v[i] == '0') {
+    if (fraction_zero) {
+      return 1;
+    }
+    size_t leading_zeros = 0;
+    while (leading_zeros < fraction_len && fraction[leading_zeros] == '0') {
+      leading_zeros++;
+    }
+    return leading_zeros <= 5 && fraction_len - leading_zeros <= 15;
+  }
+  size_t digits = whole_len + (fraction_zero ? 0 : fraction_len);
+  return digits <= 15;
+}
+
+int spec_yaml_is_plain_scalar(const char *value) {
+  size_t n = strlen(value);
+  if (n == 0) {
+    return 0;
+  }
+  const unsigned char *u = (const unsigned char *)value;
+  for (size_t i = 0; i < n;) {
+    unsigned long c = utf8_next(u, n, &i);
+    if (c < 0x20 || (c >= 0x7f && c <= 0x9f) || c == 0xfeff || c == 0x2028 ||
+        c == 0x2029) {
+      return 0;
+    }
+  }
+  char first = value[0];
+  char last = value[n - 1];
+  if (first == ' ' || last == ' ') {
+    return 0;
+  }
+  if (strncmp(value, "---", 3) == 0 || strncmp(value, "...", 3) == 0) {
+    return 0;
+  }
+  if (first == '-') {
+    if (n == 1 || value[1] == ' ') {
+      return 0;
+    }
+  } else if (strchr("?:,[]{}#&*!|>'\"%@`", first) != NULL) {
+    return 0;
+  }
+  if (strstr(value, ": ") != NULL || strstr(value, " #") != NULL ||
+      last == ':') {
     return 0;
   }
   if (is_yaml11_special(value)) {
     return 0;
   }
-  char *probe = vcat("_v: ", value, "\n", NULL);
-  YamlValue *parsed = yaml_parse(probe);
-  free(probe);
-  if (parsed == NULL || parsed->type != YAML_MAP) {
-    yaml_value_free(parsed);
-    return 0;
+  if (rule_core_null_or_bool(value) || rule_core_int(value, n) ||
+      rule_core_float(value, n)) {
+    return rule_canonical_core_scalar(value, n);
   }
-  const YamlValue *v = yaml_get(parsed, "_v");
-  if (v == NULL || v->type == YAML_MAP || v->type == YAML_SEQ) {
-    yaml_value_free(parsed);
-    return 0;
-  }
-  char *s = parsed_scalar_str(v);
-  int ok = strcmp(s, value) == 0;
-  free(s);
-  yaml_value_free(parsed);
-  return ok;
+  return 1;
 }
 
 /* writeRendered: `<pad><renderedKey>: <first line>` then the remaining repr
@@ -485,11 +683,13 @@ static void encoder_write_text(SomBuf *b, size_t indent, const char *key,
   free(repr);
 }
 
-/* writeValue: a non-text value (SOM §12.5) — plain when it self-verifies, else the
- * text path. */
+/* writeValue: a non-text value (SOM §12.5) — plain when
+ * spec_yaml_is_plain_scalar allows it, else the text path. The decision is the
+ * rule itself, never a re-parse with this port's own reader, so every runtime
+ * writes the same bytes. */
 static void encoder_write_value(SomBuf *b, size_t indent, const char *key,
                                 const char *value) {
-  if (plain_scalar_ok(value)) {
+  if (spec_yaml_is_plain_scalar(value)) {
     char *pk = spec_yaml_plain_key(key);
     put_pad(b, indent);
     som_buf_puts(b, pk);

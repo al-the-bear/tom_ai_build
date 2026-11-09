@@ -2612,15 +2612,40 @@ key. Normative escaping:
 `int`/`double` are plain numbers; `bool` is `true`/`false`; enums are the
 member name.
 
-**Owning-layer rule:** a value may render as a *plain* scalar only when
-re-parsing yields the identical string — checked against YAML 1.2, **and**
-additionally every emitter treats YAML-1.1-special strings as *not plainable*
-(forced to block scalars): the extra boolean words
-`y/Y/yes/Yes/YES/n/N/no/No/NO/on/On/ON/off/Off/OFF` and sexagesimal ints/floats
-(`1:30`, `1:30.5`). This makes the on-disk form version-independent (PyYAML is
-1.1-only). Lowercase `true`/`false` stay unguarded (booleans in both
-versions). The conformance corpus pins this with a `Meta.tags` case
-(`on`, `no`, `1:30`, `plain`).
+**Owning-layer rule:** a non-text value (a number, a bool, an enum member
+name, a scalar list item) is written as a *plain* one-line scalar exactly when
+it passes the rule below, and as a block scalar otherwise. The rule is the
+decision: no port decides by re-parsing with its own reader, because a lenient
+reader lets through what a standard one rejects, and the ports would then write
+different bytes. A value passing the rule is read back as exactly itself by a
+strict YAML 1.2 parser and by a YAML 1.1 one (PyYAML), as a mapping value and
+as a sequence item. A value is plain when it
+
+1. is not empty, holds no line break and no control character (below U+0020,
+   U+007F to U+009F, U+FEFF, U+2028, U+2029), and has no space at either end;
+2. does not start with an indicator — `?` `:` `,` `[` `]` `{` `}` `#` `&` `*`
+   `!` `|` `>` `'` `"` `%` `@` `` ` `` — nor with `-` alone or followed by a
+   space, nor with `---` or `...`;
+3. holds no `: ` and no ` #`, and does not end with `:` (`a: b` would be a
+   mapping, ` #` starts a comment);
+4. is not a YAML-1.1-special string: the extra boolean words
+   `y/Y/yes/Yes/YES/n/N/no/No/NO/on/On/ON/off/Off/OFF` and sexagesimal
+   ints/floats (`1:30`, `1:30.5`), which PyYAML (1.1-only) would read as bools
+   and numbers;
+5. when the YAML 1.2 core schema reads it as null, a bool or a number (the
+   review-scalar table below), is in a form every runtime prints back the same:
+   `true` or `false`; a decimal integer of up to 15 digits (`-0` excluded); or a
+   decimal fraction with up to 15 significant digits, no trailing zero except
+   `x.0`, no exponent and not below `0.000001` (`-0.0` excluded). So `null`,
+   `~`, `True`, `007`, `0x1F`, `1e3`, `.inf`, `1.10` are written as blocks.
+
+Every runtime exposes the rule (`isPlainYamlScalar` and its ports' names). The
+conformance corpus pins it with a `Meta.tags` case (`on`, `no`, `1:30`,
+`plain`) and a `yaml_review_cases.json` round trip over a probe value for every
+arm, among them values of the Tom UAM Blueprint (`Confirming … quota: the
+confirmation is refused.`, `` `userName` → username ``); the Dart reference
+checks that each value the rule writes plain is read back by package:yaml, and
+that every expected file parses.
 
 **Review scalars.** The `review:` pass is the one place a reader meets data
 the model does not type, so its plain scalars are typed by the **YAML 1.2 core

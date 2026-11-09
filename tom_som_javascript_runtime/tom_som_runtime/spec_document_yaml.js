@@ -235,52 +235,138 @@ function _scalar(value) {
   return JSON.stringify(value);
 }
 
-const _YAML11_BOOL = /^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$/;
+/** The indicators a plain scalar may not start with (`-` is handled apart). */
+const _PLAIN_INDICATORS = '?:,[]{}#&*!|>\'"%@`';
+
+const _YAML11_WORDS = /^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$/;
 const _YAML11_SEXAGESIMAL_INT = /^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$/;
 const _YAML11_SEXAGESIMAL_FLOAT = /^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$/;
+const _CORE_NULL = /^(~|null|Null|NULL)$/;
+const _CORE_BOOL = /^(true|True|TRUE|false|False|FALSE)$/;
+const _CORE_INT = /^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$/;
+const _CORE_FLOAT =
+  /^([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?|[-+]?\.(inf|Inf|INF)|\.(nan|NaN|NAN))$/;
+const _CANONICAL_INT = /^-?(0|[1-9][0-9]{0,14})$/;
+const _CANONICAL_FLOAT = /^-?(0|[1-9][0-9]*)\.([0-9]+)$/;
 
 /**
- * Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
- * to a non-string, so it must never be emitted as a plain scalar (SOM §12.5).
- * Covers the 1.1-only boolean words and sexagesimal int/float literals.
- * Mirrors the Dart reference rule so every emitter's plain-scalar decision is
- * identical regardless of the local YAML library's schema.
+ * Whether `value` may be written as a plain one-line YAML scalar (SOM §12.5):
+ * a strict YAML 1.2 parser reads `_v: <value>` (and `- <value>`) back as
+ * exactly `value`, and a YAML 1.1 parser does too. The rule, every part
+ * needed by some reader:
+ *
+ * - not empty, no line break, no control character (below U+0020, U+007F to
+ *   U+009F, U+FEFF, U+2028, U+2029), no space or tab at either end;
+ * - not starting with an indicator — `?` `:` `,` `[` `]` `{` `}` `#` `&` `*`
+ *   `!` `|` `>` `'` `"` `%` `@` `` ` `` — nor with `-` followed by a space or
+ *   alone, nor with `---` or `...`;
+ * - no `: `, no ` #`, not ending with `:`;
+ * - not a YAML 1.1-only boolean word or sexagesimal number;
+ * - a value the YAML 1.2 core schema reads as null, a bool or a number only
+ *   in a form every runtime prints back the same: `true`, `false`, a decimal
+ *   integer of up to 15 digits (not `-0`), or a decimal fraction with up to 15
+ *   significant digits, no trailing zero (but `x.0`), no exponent and not
+ *   below 0.000001 (`-0.0` excluded).
+ *
+ * Mirrors the Dart reference rule (`isPlainYamlScalar`) exactly.
  */
-function _isYaml11Special(value) {
-  return (
-    _YAML11_BOOL.test(value) ||
+function isPlainYamlScalar(value) {
+  if (value === '') {
+    return false;
+  }
+  for (const ch of value) {
+    const c = ch.codePointAt(0);
+    if (
+      c < 0x20 ||
+      (c >= 0x7f && c <= 0x9f) ||
+      c === 0xfeff ||
+      c === 0x2028 ||
+      c === 0x2029
+    ) {
+      return false;
+    }
+  }
+  const first = value[0];
+  const last = value[value.length - 1];
+  if (first === ' ' || last === ' ') {
+    return false;
+  }
+  if (value.startsWith('---') || value.startsWith('...')) {
+    return false;
+  }
+  if (first === '-') {
+    if (value.length === 1 || value[1] === ' ') {
+      return false;
+    }
+  } else if (_PLAIN_INDICATORS.includes(first)) {
+    return false;
+  }
+  if (value.includes(': ') || value.includes(' #') || last === ':') {
+    return false;
+  }
+  if (
+    _YAML11_WORDS.test(value) ||
     _YAML11_SEXAGESIMAL_INT.test(value) ||
     _YAML11_SEXAGESIMAL_FLOAT.test(value)
-  );
+  ) {
+    return false;
+  }
+  if (
+    _CORE_NULL.test(value) ||
+    _CORE_BOOL.test(value) ||
+    _CORE_INT.test(value) ||
+    _CORE_FLOAT.test(value)
+  ) {
+    return _isCanonicalCoreScalar(value);
+  }
+  return true;
+}
+
+/**
+ * Whether a value the YAML 1.2 core schema types (null, bool, number) is in a
+ * form every runtime prints back identically (see `isPlainYamlScalar`).
+ */
+function _isCanonicalCoreScalar(value) {
+  if (value === 'true' || value === 'false') {
+    return true;
+  }
+  if (value === '-0' || value === '-0.0') {
+    return false;
+  }
+  if (_CANONICAL_INT.test(value)) {
+    return true;
+  }
+  const m = _CANONICAL_FLOAT.exec(value);
+  if (m === null) {
+    return false;
+  }
+  const whole = m[1];
+  const fraction = m[2];
+  if (fraction.length > 1 && fraction.endsWith('0')) {
+    return false;
+  }
+  if (whole === '0') {
+    if (fraction === '0') {
+      return true;
+    }
+    const significant = fraction.replace(/^0+/, '');
+    const leadingZeros = fraction.length - significant.length;
+    return leadingZeros <= 5 && significant.length <= 15;
+  }
+  const digits = whole.length + (fraction === '0' ? 0 : fraction.length);
+  return digits <= 15;
 }
 
 /**
  * A plain one-line scalar for a non-text value (int/double/bool/enum member
- * name, SOM §12.5) when writing it plainly re-parses to exactly `value` (string
- * compare, matching the document's string-typed stores); `null` otherwise.
- * Values whose text is a YAML 1.1 special are forced to the quoted/block path
- * so cross-language round-trips stay identical.
+ * name, scalar list item; SOM §12.5) when `isPlainYamlScalar` allows it;
+ * `null` otherwise. The decision is the rule itself, never a re-parse with
+ * this port's own reader, so every runtime writes the same bytes and every
+ * plain scalar it writes is one a strict YAML 1.2 parser reads back as exactly
+ * `value`.
  */
 function _plainScalar(value) {
-  if (value === '' || value.includes('\n')) {
-    return null;
-  }
-  if (_isYaml11Special(value)) {
-    return null;
-  }
-  try {
-    const parsed = yaml.parse(`_v: ${value}\n`);
-    if (!_isMapping(parsed)) {
-      return null;
-    }
-    const v = parsed['_v'];
-    if (v === null || v === undefined || typeof v === 'object') {
-      return null;
-    }
-    return _parsedScalarStr(v) === value ? value : null;
-  } catch (e) {
-    return null;
-  }
+  return isPlainYamlScalar(value) ? value : null;
 }
 
 /** A minimal stand-in for Dart's `StringBuffer` (writeln semantics). */
@@ -1252,6 +1338,7 @@ class _Decoder {
 
 module.exports = {
   FORMAT_VERSION,
+  isPlainYamlScalar,
   SpecYamlFormatException,
   SpecYamlContents,
   nodeKey,

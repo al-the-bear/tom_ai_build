@@ -2,6 +2,13 @@
 
 ## 1.8.0
 
+- The YAML encoder decides plain scalars by an explicit rule (SOM §12.5),
+  exported as `isPlainYamlScalar`: no line break or control character, no
+  leading indicator, no `: ` or ` #`, no trailing `:`, no YAML 1.1 boolean
+  word or sexagesimal number, and core-schema values only in their canonical
+  print. It no longer re-parses the value with its own reader, which accepted
+  `a: b` and a leading backtick and so wrote YAML a standard parser rejects;
+  the output now matches the Dart runtime byte for byte.
 - Question and team-answer times (SOM §11.9.2, §11.9.10): a question header
   may carry its time after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) —
   topic:**`, and the team answer in its label, `**Answer

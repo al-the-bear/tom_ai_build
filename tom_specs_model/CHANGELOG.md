@@ -8,6 +8,10 @@
   their reserved paths.
 - The chain moves with the runtimes, which read and write question and
   team-answer change times (SOM §11.9.2, §11.9.10).
+- `som_multiplatform_spec_model.md` §12.5: the plain-scalar rule written out
+  (`isPlainYamlScalar` in every runtime) — the runtimes no longer decide by
+  re-reading with their own YAML readers, so all nine write the same bytes and
+  only plain scalars a standard YAML 1.2 parser reads.
 
 - Gate checklists 1.1.0 (no change of structure): every gate G1–G8 has the
   item `G<N>-RISK-1` *Risk register reviewed* — the register (`SBP` INSC >

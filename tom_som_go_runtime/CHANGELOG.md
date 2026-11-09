@@ -2,6 +2,14 @@
 
 ## 1.8.0
 
+- Plain YAML scalars (SOM §12.5): whether a non-text value (int, double,
+  bool, enum member name, scalar list item) is written plain is decided by an
+  explicit rule, the new public `IsPlainYamlScalar`, and no longer by re-reading the
+  scalar with the runtime's own YAML reader, which let through values a
+  standard YAML parser rejects (`a: b`, `x #y`, a leading backtick). The rule
+  also keeps out indicators, the YAML 1.1-only boolean words and sexagesimal
+  numbers, and core-schema values (null, bool, number) that are not in their
+  canonical print, so every runtime writes the same bytes.
 - Question and team-answer times (SOM §11.9.2, §11.9.10): a question header
   may carry its time after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) —
   topic:**`, and the team answer in its label, `**Answer

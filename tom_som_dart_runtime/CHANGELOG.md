@@ -2,6 +2,14 @@
 
 ## 1.8.0
 
+- YAML plain scalars by one rule (SOM §12.5): a non-text value is written plain
+  exactly when the new public `isPlainYamlScalar` holds — no indicator first,
+  no `: `, ` #` or trailing `:`, no control character or edge space, no YAML
+  1.1 special, and a core-schema null/bool/number only in a canonical form
+  (`true`/`false`, decimal ints up to 15 digits, canonical decimal fractions).
+  The decision no longer re-parses with package:yaml, so all nine runtimes
+  write the same bytes; Dart's own output is unchanged (the Tom UAM Blueprint
+  and the Meridian sample re-encode identically).
 - Question and team-answer times (SOM §11.9.2, §11.9.10): a question header
   may carry its time after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) —
   topic:**`, and the team answer in its label, `**Answer

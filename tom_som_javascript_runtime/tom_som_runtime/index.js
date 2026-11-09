@@ -208,6 +208,7 @@ const {
   FORMAT_VERSION,
   SpecYamlFormatException,
   SpecYamlContents,
+  isPlainYamlScalar,
   nodeKey,
   yamlKey,
   plainKey,
@@ -447,6 +448,7 @@ module.exports = {
   staleReviewPaths,
   rekeyReview,
   SpecDocumentYaml,
+  isPlainYamlScalar,
   yamlEncode,
   yamlDecode,
   // markdown codec

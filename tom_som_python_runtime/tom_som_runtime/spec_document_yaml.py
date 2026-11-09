@@ -23,8 +23,9 @@ escaping rules: the emitter is **self-verifying** (it re-parses each scalar it
 produces and falls back to a double-quoted JSON-escaped flow scalar when the
 parse differs). Text is written as stored: runs of empty lines are kept, so
 a value round-trips exactly. Non-text values
-(``int``/``double``/``bool``, enum member names) are plain scalars when they
-self-verify (SOM §12.5).
+(``int``/``double``/``bool``, enum member names) are plain scalars when
+:func:`is_plain_yaml_scalar` allows it (SOM §12.5) — an explicit rule, not a
+re-parse with PyYAML, so every runtime makes the same decision.
 
 Both :func:`encode` and :func:`decode` walk the :class:`SomMetaTree` of the
 document root: the file carries **no paths** — the runtime reconstructs them
@@ -36,7 +37,7 @@ values the tree cannot place (nothing is silently dropped).
 The optional ``review:`` pass is carried by the runtime uninterpreted, read and written back (:func:`decode`
 returns it as a raw map for the editor to interpret). Its scalars are typed by
 the YAML 1.2 core schema rather than PyYAML's 1.1 resolver (SOM §12.5, review
-scalars): see :func:`_load_review_pass` and :func:`review_scalar`.
+scalars): see :func:`_core_loader` and :func:`review_scalar`.
 """
 
 from __future__ import annotations
@@ -83,7 +84,8 @@ _core_loader_class: Any = None
 
 def _core_loader() -> Any:
     """A PyYAML ``SafeLoader`` whose implicit resolvers are the YAML 1.2 core
-    schema instead of PyYAML's 1.1 ones (SOM §12.5, review scalars).
+    schema instead of PyYAML's 1.1 ones (SOM §12.5); :func:`decode` reads the
+    whole file with it, the ``document:`` pass and the ``review:`` pass alike.
 
     Only *plain* scalars are resolved — quoted and block scalars stay strings:
     null ``~``/``null``/``Null``/``NULL`` (and an empty value); bool
@@ -144,14 +146,6 @@ def _core_loader() -> Any:
     _CoreLoader.add_constructor("tag:yaml.org,2002:bool", _bool)
     _core_loader_class = _CoreLoader
     return _CoreLoader
-
-
-def _load_review_pass(yaml_text: str) -> Any:
-    """The ``review:`` pass of *yaml_text* read with the YAML 1.2 core schema
-    (:func:`_core_loader`, SOM §12.5). The ``document:`` pass is read by the
-    plain ``safe_load``, whose string-typed stores it feeds."""
-    root = _require_yaml().load(yaml_text, Loader=_core_loader())
-    return root.get("review") if isinstance(root, dict) else None
 
 
 #: The on-disk format version (independent of the model-version stamp).
@@ -315,44 +309,122 @@ def _scalar(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-_YAML11_BOOL = re.compile(r"^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$")
-_YAML11_SEXAGESIMAL_INT = re.compile(r"^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$")
-_YAML11_SEXAGESIMAL_FLOAT = re.compile(r"^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$")
-
-
-def _is_yaml11_special(value: str) -> bool:
-    """Whether *value*'s text is a YAML **1.1** special that a 1.1 parser would
-    resolve to a non-string, so it must never be emitted as a plain scalar
-    (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal int/float
-    literals. Mirrors the Dart reference rule so every emitter's plain-scalar
-    decision is identical regardless of the local YAML library's schema."""
-    return bool(
-        _YAML11_BOOL.match(value)
-        or _YAML11_SEXAGESIMAL_INT.match(value)
-        or _YAML11_SEXAGESIMAL_FLOAT.match(value)
-    )
-
-
 def _plain_scalar(value: str) -> Optional[str]:
     """A plain one-line scalar for a non-text value (int/double/bool/enum
-    member name, SOM §12.5) when writing it plainly re-parses to exactly *value*
-    (string compare, matching the document's string-typed stores); ``None``
-    otherwise. Values whose text is a YAML 1.1 special are forced to the
-    quoted/block path so cross-language round-trips stay identical."""
-    if value == "" or "\n" in value:
-        return None
-    if _is_yaml11_special(value):
-        return None
-    try:
-        parsed = _require_yaml().safe_load(f"_v: {value}\n")
-        if not isinstance(parsed, dict):
-            return None
-        v = parsed.get("_v")
-        if v is None or isinstance(v, (dict, list)):
-            return None
-        return value if _parsed_scalar_str(v) == value else None
-    except Exception:
-        return None
+    member name, scalar list item; SOM §12.5) when :func:`is_plain_yaml_scalar`
+    allows it; ``None`` otherwise. The decision is the rule itself, never a
+    re-parse with this port's own reader, so every runtime writes the same
+    bytes and every plain scalar it writes is one a strict YAML 1.2 parser reads
+    back as exactly *value*."""
+    return value if is_plain_yaml_scalar(value) else None
+
+
+#: The indicators a plain scalar may not start with (``-`` is handled apart).
+_PLAIN_INDICATORS = "?:,[]{}#&*!|>'\"%@`"
+
+_YAML11_WORDS = re.compile(r"(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)")
+_YAML11_SEXAGESIMAL_INT_RULE = re.compile(r"[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+")
+_YAML11_SEXAGESIMAL_FLOAT_RULE = re.compile(
+    r"[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*"
+)
+_RULE_CORE_NULL = re.compile(r"(~|null|Null|NULL)")
+_RULE_CORE_BOOL = re.compile(r"(true|True|TRUE|false|False|FALSE)")
+_RULE_CORE_INT = re.compile(r"([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)")
+_RULE_CORE_FLOAT = re.compile(
+    r"([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?"
+    r"|[-+]?\.(inf|Inf|INF)|\.(nan|NaN|NAN))"
+)
+_CANONICAL_INT = re.compile(r"-?(0|[1-9][0-9]{0,14})")
+_CANONICAL_FLOAT = re.compile(r"-?(0|[1-9][0-9]*)\.([0-9]+)")
+
+
+def is_plain_yaml_scalar(value: str) -> bool:
+    """Whether *value* may be written as a plain one-line YAML scalar (SOM
+    §12.5): a strict YAML 1.2 parser reads ``_v: <value>`` (and ``- <value>``)
+    back as exactly *value*, and a YAML 1.1 parser does too. The rule, every
+    part needed by some reader:
+
+    - not empty, no line break, no control character (below U+0020, U+007F to
+      U+009F, U+FEFF, U+2028, U+2029), no space or tab at either end;
+    - not starting with an indicator — ``?`` ``:`` ``,`` ``[`` ``]`` ``{``
+      ``}`` ``#`` ``&`` ``*`` ``!`` ``|`` ``>`` ``'`` ``"`` ``%`` ``@`` and the backtick
+      — nor with ``-`` followed by a space or alone, nor with ``---`` or
+      ``...``;
+    - no ``": "``, no ``" #"``, not ending with ``:``;
+    - not a YAML 1.1-only boolean word or sexagesimal number;
+    - a value the YAML 1.2 core schema reads as null, a bool or a number only
+      in a form every runtime prints back the same: ``true``, ``false``, a
+      decimal integer of up to 15 digits (not ``-0``), or a decimal fraction
+      with up to 15 significant digits, no trailing zero (but ``x.0``), no
+      exponent and not below 0.000001 (``-0.0`` excluded).
+
+    Mirrors the Dart reference rule ``isPlainYamlScalar`` exactly."""
+    if value == "":
+        return False
+    for ch in value:  # code points
+        c = ord(ch)
+        if (
+            c < 0x20
+            or 0x7F <= c <= 0x9F
+            or c == 0xFEFF
+            or c == 0x2028
+            or c == 0x2029
+        ):
+            return False
+    first = value[0]
+    last = value[-1]
+    if first == " " or last == " ":
+        return False
+    if value.startswith("---") or value.startswith("..."):
+        return False
+    if first == "-":
+        if len(value) == 1 or value[1] == " ":
+            return False
+    elif first in _PLAIN_INDICATORS:
+        return False
+    if ": " in value or " #" in value or last == ":":
+        return False
+    if (
+        _YAML11_WORDS.fullmatch(value)
+        or _YAML11_SEXAGESIMAL_INT_RULE.fullmatch(value)
+        or _YAML11_SEXAGESIMAL_FLOAT_RULE.fullmatch(value)
+    ):
+        return False
+    if (
+        _RULE_CORE_NULL.fullmatch(value)
+        or _RULE_CORE_BOOL.fullmatch(value)
+        or _RULE_CORE_INT.fullmatch(value)
+        or _RULE_CORE_FLOAT.fullmatch(value)
+    ):
+        return _is_canonical_core_scalar(value)
+    return True
+
+
+def _is_canonical_core_scalar(value: str) -> bool:
+    """Whether a value the YAML 1.2 core schema types (null, bool, number) is
+    in a form every runtime prints back identically (see
+    :func:`is_plain_yaml_scalar`)."""
+    if value in ("true", "false"):
+        return True
+    if value in ("-0", "-0.0"):
+        return False
+    if _CANONICAL_INT.fullmatch(value):
+        return True
+    m = _CANONICAL_FLOAT.fullmatch(value)
+    if m is None:
+        return False
+    whole = m.group(1)
+    fraction = m.group(2)
+    if len(fraction) > 1 and fraction.endswith("0"):
+        return False
+    if whole == "0":
+        if fraction == "0":
+            return True
+        significant = fraction.lstrip("0")
+        leading_zeros = len(fraction) - len(significant)
+        return leading_zeros <= 5 and len(significant) <= 15
+    digits = len(whole) + (0 if fraction == "0" else len(fraction))
+    return digits <= 15
 
 
 class _Buffer:
@@ -846,8 +918,8 @@ class _Encoder:
     def _write_value(
         self, b: _Buffer, indent: int, key: str, value: str
     ) -> None:
-        """Non-text value (SOM §12.5): plain when it self-verifies, else the text
-        path."""
+        """Non-text value (SOM §12.5): plain when :func:`is_plain_yaml_scalar`
+        allows it, else the text path."""
         plain = _plain_scalar(value)
         if plain is not None:
             b.writeln(f"{' ' * indent}{plain_key(key)}: {plain}")
@@ -885,8 +957,14 @@ def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
     compatibility path), for any key the metadata tree cannot place, and for
     malformed value shapes. A missing/empty ``document:`` pass decodes as an
     empty document."""
-    root = None if yaml_text.strip() == "" else _require_yaml().safe_load(
-        yaml_text
+    # The whole file is read with the YAML 1.2 core schema (SOM §12.5), as
+    # every other port reads it: PyYAML's 1.1 resolver would read a plain `no`
+    # or `on` as a bool, `1:30` as a sexagesimal int and `1e+300` or `0o17` as
+    # strings, so a document value would come back changed.
+    root = (
+        None
+        if yaml_text.strip() == ""
+        else _require_yaml().load(yaml_text, Loader=_core_loader())
     )
     if not isinstance(root, dict):
         raise SpecYamlFormatException(
@@ -914,12 +992,7 @@ def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
         if stamp_raw is not None and _parsed_scalar_str(stamp_raw) != ""
         else None
     )
-    # The review pass is re-read with the YAML 1.2 core schema (SOM §12.5):
-    # PyYAML's 1.1 resolver would read `1e+300` or `0o17` as strings and
-    # `yes` as a bool, which the other ports do not.
     rev = root.get("review")
-    if isinstance(rev, dict) and rev:
-        rev = _load_review_pass(yaml_text)
 
     document = SpecDocument()
     document.model_version = stamp

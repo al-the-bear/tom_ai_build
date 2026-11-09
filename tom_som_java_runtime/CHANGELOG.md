@@ -2,6 +2,15 @@
 
 ## 1.8.0
 
+- Plain scalars (SOM §12.5): whether a non-text value (int/double/bool, enum
+  member name, scalar list item) is written as a plain one-line scalar is now
+  an explicit rule, `SpecDocumentYaml.isPlainYamlScalar` (public), the same as
+  Dart's `isPlainYamlScalar`, instead of a re-parse with the hand-rolled
+  reader, which let through plain scalars standard YAML rejects (`a: b`, a
+  leading backtick). A value holding `: ` or ` #`, ending with `:`, starting
+  with an indicator, or a core-schema null/bool/number not in its canonical
+  print (e.g. `True`, `007`, `1e3`, `1.10`, `-0`, more than 15 digits) is
+  written as a block scalar; every runtime writes the same bytes.
 - Question and team-answer times (SOM §11.9.2, §11.9.10): a question header
   may carry its time after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) —
   topic:**`, and the team answer in its label, `**Answer

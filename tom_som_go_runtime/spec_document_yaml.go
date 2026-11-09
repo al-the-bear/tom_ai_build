@@ -24,8 +24,9 @@ package somruntime
 // scalar when the parse differs). Text is written as stored: runs of empty
 // lines are kept, so a value round-trips exactly.
 // Non-text values (`int`/`double`/`bool`, enum member names) are plain scalars
-// when they self-verify (SOM §12.5). The JSON quoting is byte-for-byte identical to
-// JavaScript's JSON.stringify (see jsJSONString) so output is stable across
+// when IsPlainYamlScalar allows it — an explicit rule, no re-parse (SOM
+// §12.5). The JSON quoting is byte-for-byte identical to JavaScript's
+// JSON.stringify (see jsJSONString) so output is stable across
 // every language port — NOT Go's encoding/json, which HTML-escapes < > & and
 // U+2028/U+2029.
 //
@@ -270,52 +271,132 @@ func scalarRepr(value string) string {
 	return jsJSONString(value)
 }
 
-var yaml11Bool = regexp.MustCompile(
-	`^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$`)
-var yaml11SexagesimalInt = regexp.MustCompile(`^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$`)
-var yaml11SexagesimalFloat = regexp.MustCompile(
-	`^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$`)
-
-// isYaml11Special reports whether value's text is a YAML 1.1 special that a
-// 1.1 parser would resolve to a non-string, so it must never be emitted as a
-// plain scalar (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal
-// int/float literals. Mirrors the Dart reference rule so every emitter's
-// plain-scalar decision is identical regardless of the local YAML library.
-func isYaml11Special(value string) bool {
-	return yaml11Bool.MatchString(value) ||
-		yaml11SexagesimalInt.MatchString(value) ||
-		yaml11SexagesimalFloat.MatchString(value)
+// plainScalar returns a plain one-line scalar for a non-text value
+// (int/double/bool/enum member name, scalar list item; SOM §12.5) when
+// IsPlainYamlScalar allows it; ok=false otherwise. Reference rule for SOM
+// §12.5, mirrored by every port: the decision is the rule itself, never a
+// re-parse with a port's own reader, so every runtime writes the same bytes and
+// every plain scalar it writes is one a strict YAML 1.2 parser reads back as
+// exactly value.
+func plainScalar(value string) (string, bool) {
+	if IsPlainYamlScalar(value) {
+		return value, true
+	}
+	return "", false
 }
 
-// plainScalar returns a plain one-line scalar for a non-text value
-// (int/double/bool/enum member name, SOM §12.5) when writing it plainly re-parses
-// to exactly value (string compare, matching the document's string-typed
-// stores); ok=false otherwise. Values whose text is a YAML 1.1 special are
-// forced to the quoted/block path so cross-language round-trips stay identical.
-func plainScalar(value string) (string, bool) {
-	if value == "" || strings.Contains(value, "\n") {
-		return "", false
+// IsPlainYamlScalar reports whether value may be written as a plain one-line
+// YAML scalar (SOM §12.5): a strict YAML 1.2 parser reads `_v: <value>` (and
+// `- <value>`) back as exactly value, and a YAML 1.1 parser does too. The rule,
+// every part needed by some reader:
+//
+//   - not empty, no line break, no control character (below U+0020, U+007F to
+//     U+009F, U+FEFF, U+2028, U+2029), no space or tab at either end;
+//   - not starting with an indicator — `?` `:` `,` `[` `]` `{` `}` `#` `&` `*`
+//     `!` `|` `>` `'` `"` `%` `@` and the backtick — nor with `-` followed by
+//     a space or alone, nor with `---` or `...`;
+//   - no `: `, no ` #`, not ending with `:`;
+//   - not a YAML 1.1-only boolean word or sexagesimal number;
+//   - a value the YAML 1.2 core schema reads as null, a bool or a number only
+//     in a form every runtime prints back the same: `true`, `false`, a decimal
+//     integer of up to 15 digits (not `-0`), or a decimal fraction with up to
+//     15 significant digits, no trailing zero (but `x.0`), no exponent and not
+//     below 0.000001 (`-0.0` excluded).
+//
+// A port of the Dart reference `isPlainYamlScalar`.
+func IsPlainYamlScalar(value string) bool {
+	if value == "" {
+		return false
 	}
-	if isYaml11Special(value) {
-		return "", false
+	for _, c := range value {
+		if c < 0x20 || (c >= 0x7f && c <= 0x9f) || c == 0xfeff ||
+			c == 0x2028 || c == 0x2029 {
+			return false
+		}
 	}
-	parsed := YamlParse("_v: " + value + "\n")
-	m, ok := parsed.(*YamlMap)
-	if !ok {
-		return "", false
+	first := value[0]
+	last := value[len(value)-1]
+	if first == ' ' || last == ' ' {
+		return false
 	}
-	v, has := m.Get("_v")
-	if !has || v == nil {
-		return "", false
+	if strings.HasPrefix(value, "---") || strings.HasPrefix(value, "...") {
+		return false
 	}
-	switch v.(type) {
-	case *YamlMap, []interface{}:
-		return "", false
+	if first == '-' {
+		if len(value) == 1 || value[1] == ' ' {
+			return false
+		}
+	} else if strings.IndexByte(plainIndicators, first) >= 0 {
+		return false
 	}
-	if parsedScalarStr(v) != value {
-		return "", false
+	if strings.Contains(value, ": ") || strings.Contains(value, " #") || last == ':' {
+		return false
 	}
-	return value, true
+	if yaml11Words.MatchString(value) ||
+		yaml11SexagesimalIntRule.MatchString(value) ||
+		yaml11SexagesimalFloatRule.MatchString(value) {
+		return false
+	}
+	if coreNull.MatchString(value) ||
+		coreBool.MatchString(value) ||
+		coreInt.MatchString(value) ||
+		coreFloat.MatchString(value) {
+		return isCanonicalCoreScalar(value)
+	}
+	return true
+}
+
+// plainIndicators are the indicators a plain scalar may not start with (`-` is
+// handled apart).
+const plainIndicators = "?:,[]{}#&*!|>'\"%@`"
+
+var yaml11Words = regexp.MustCompile(
+	`^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$`)
+var yaml11SexagesimalIntRule = regexp.MustCompile(`^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$`)
+var yaml11SexagesimalFloatRule = regexp.MustCompile(
+	`^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$`)
+var coreNull = regexp.MustCompile(`^(~|null|Null|NULL)$`)
+var coreBool = regexp.MustCompile(`^(true|True|TRUE|false|False|FALSE)$`)
+var coreInt = regexp.MustCompile(`^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$`)
+var coreFloat = regexp.MustCompile(
+	`^([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?|[-+]?\.(inf|Inf|INF)|\.(nan|NaN|NAN))$`)
+var canonicalInt = regexp.MustCompile(`^-?(0|[1-9][0-9]{0,14})$`)
+var canonicalFloat = regexp.MustCompile(`^-?(0|[1-9][0-9]*)\.([0-9]+)$`)
+
+// isCanonicalCoreScalar reports whether a value the YAML 1.2 core schema types
+// (null, bool, number) is in a form every runtime prints back identically (see
+// IsPlainYamlScalar).
+func isCanonicalCoreScalar(value string) bool {
+	if value == "true" || value == "false" {
+		return true
+	}
+	if value == "-0" || value == "-0.0" {
+		return false
+	}
+	if canonicalInt.MatchString(value) {
+		return true
+	}
+	m := canonicalFloat.FindStringSubmatch(value)
+	if m == nil {
+		return false
+	}
+	whole, fraction := m[1], m[2]
+	if len(fraction) > 1 && strings.HasSuffix(fraction, "0") {
+		return false
+	}
+	if whole == "0" {
+		if fraction == "0" {
+			return true
+		}
+		significant := strings.TrimLeft(fraction, "0")
+		leadingZeros := len(fraction) - len(significant)
+		return leadingZeros <= 5 && len(significant) <= 15
+	}
+	digits := len(whole)
+	if fraction != "0" {
+		digits += len(fraction)
+	}
+	return digits <= 15
 }
 
 type yamlBuffer struct {

@@ -23,9 +23,10 @@
 //! it produces via the hand-rolled [`crate::yaml`] reader — the runtime ships
 //! no external YAML library — and falls back to a double-quoted JSON-escaped
 //! flow scalar when the parse differs). Text is written as stored: runs of
-//! empty lines are kept, so a value round-trips exactly. Non-text values (`int`/`double`/`bool`, enum member names) are
-//! plain scalars when they self-verify (SOM §12.5). The JSON quoting is
-//! byte-for-byte identical to JavaScript's `JSON.stringify` (see
+//! empty lines are kept, so a value round-trips exactly. Non-text values
+//! (`int`/`double`/`bool`, enum member names) are plain scalars when
+//! [`is_plain_yaml_scalar`] allows it — an explicit rule, no re-parse (SOM
+//! §12.5). The JSON quoting is byte-for-byte identical to JavaScript's `JSON.stringify` (see
 //! [`js_json_string`]) so output is stable across every language port.
 //!
 //! Both [`encode_yaml`] and [`decode_yaml`] walk the [`SomMetaTree`] of the
@@ -366,39 +367,214 @@ fn is_yaml11_sexagesimal(value: &str, float: bool) -> bool {
     i == n
 }
 
-/// Reports whether `value`'s text is a YAML 1.1 special that a 1.1 parser would
-/// resolve to a non-string, so it must never be emitted as a plain scalar
-/// (SOM §12.5). Covers the 1.1-only boolean words and sexagesimal int/float
-/// literals. Mirrors the Dart reference rule so every emitter's plain-scalar
-/// decision is identical regardless of the local YAML parser's schema.
-fn is_yaml11_special(value: &str) -> bool {
-    is_yaml11_bool(value)
-        || is_yaml11_sexagesimal(value, false)
-        || is_yaml11_sexagesimal(value, true)
+/// Returns a plain one-line scalar for a non-text value (int/double/bool/enum
+/// member name, scalar list item; SOM §12.5) when [`is_plain_yaml_scalar`]
+/// allows it; `None` otherwise. Reference rule for SOM §12.5, mirrored by
+/// every port: the decision is the rule itself, never a re-parse with a port's
+/// own reader, so every runtime writes the same bytes and every plain scalar it
+/// writes is one a strict YAML 1.2 parser reads back as exactly `value`.
+fn plain_scalar(value: &str) -> Option<String> {
+    if is_plain_yaml_scalar(value) {
+        Some(value.to_string())
+    } else {
+        None
+    }
 }
 
-/// Returns a plain one-line scalar for a non-text value (int/double/bool/enum
-/// member name, SOM §12.5) when writing it plainly re-parses to exactly `value`
-/// (string compare, matching the document's string-typed stores); `None`
-/// otherwise. Values whose text is a YAML 1.1 special are forced to the
-/// quoted/block path so cross-language round-trips stay identical.
-fn plain_scalar(value: &str) -> Option<String> {
-    if value.is_empty() || value.contains('\n') {
-        return None;
+/// The indicators a plain scalar may not start with (`-` is handled apart).
+const PLAIN_INDICATORS: &[u8] = b"?:,[]{}#&*!|>'\"%@`";
+
+/// Whether `value` may be written as a plain one-line YAML scalar (SOM §12.5):
+/// a strict YAML 1.2 parser reads `_v: <value>` (and `- <value>`) back as
+/// exactly `value`, and a YAML 1.1 parser does too. The rule, every part
+/// needed by some reader:
+///
+/// - not empty, no line break, no control character (below U+0020, U+007F to
+///   U+009F, U+FEFF, U+2028, U+2029), no space or tab at either end;
+/// - not starting with an indicator — `?` `:` `,` `[` `]` `{` `}` `#` `&` `*`
+///   `!` `|` `>` `'` `"` `%` `@` and the backtick — nor with `-` followed by
+///   a space or alone, nor with `---` or `...`;
+/// - no `: `, no ` #`, not ending with `:`;
+/// - not a YAML 1.1-only boolean word or sexagesimal number;
+/// - a value the YAML 1.2 core schema reads as null, a bool or a number only
+///   in a form every runtime prints back the same: `true`, `false`, a decimal
+///   integer of up to 15 digits (not `-0`), or a decimal fraction with up to
+///   15 significant digits, no trailing zero (but `x.0`), no exponent and not
+///   below 0.000001 (`-0.0` excluded).
+///
+/// A port of the Dart reference `isPlainYamlScalar` (the Rust runtime has no
+/// `regex` crate, so its regular expressions are written out as matchers).
+pub fn is_plain_yaml_scalar(value: &str) -> bool {
+    if value.is_empty() {
+        return false;
     }
-    if is_yaml11_special(value) {
-        return None;
+    for c in value.chars() {
+        let c = c as u32;
+        if c < 0x20 || (0x7f..=0x9f).contains(&c) || c == 0xfeff || c == 0x2028 || c == 0x2029 {
+            return false;
+        }
     }
-    let parsed = yaml_parse(&format!("_v: {}\n", value));
-    let v = parsed.get("_v")?;
-    match v {
-        YamlValue::Map(_) | YamlValue::Seq(_) => return None,
-        _ => {}
+    let b = value.as_bytes();
+    let first = b[0];
+    let last = b[b.len() - 1];
+    if first == b' ' || last == b' ' {
+        return false;
     }
-    if parsed_scalar_str(v) != value {
-        return None;
+    if value.starts_with("---") || value.starts_with("...") {
+        return false;
     }
-    Some(value.to_string())
+    if first == b'-' {
+        if b.len() == 1 || b[1] == b' ' {
+            return false;
+        }
+    } else if PLAIN_INDICATORS.contains(&first) {
+        return false;
+    }
+    if value.contains(": ") || value.contains(" #") || last == b':' {
+        return false;
+    }
+    if is_yaml11_bool(value)
+        || is_yaml11_sexagesimal(value, false)
+        || is_yaml11_sexagesimal(value, true)
+    {
+        return false;
+    }
+    if is_core_null(value) || is_core_bool(value) || is_core_int(value) || is_core_float(value) {
+        return is_canonical_core_scalar(value);
+    }
+    true
+}
+
+/// `^(~|null|Null|NULL)$`
+fn is_core_null(value: &str) -> bool {
+    matches!(value, "~" | "null" | "Null" | "NULL")
+}
+
+/// `^(true|True|TRUE|false|False|FALSE)$`
+fn is_core_bool(value: &str) -> bool {
+    matches!(
+        value,
+        "true" | "True" | "TRUE" | "false" | "False" | "FALSE"
+    )
+}
+
+/// Whether `s` is non-empty and every byte satisfies `pred`.
+fn all_of(s: &[u8], pred: impl Fn(u8) -> bool) -> bool {
+    !s.is_empty() && s.iter().all(|&c| pred(c))
+}
+
+/// Strips one leading `-` or `+`.
+fn strip_sign(s: &[u8]) -> &[u8] {
+    match s.first() {
+        Some(b'-') | Some(b'+') => &s[1..],
+        _ => s,
+    }
+}
+
+/// `^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$`
+fn is_core_int(value: &str) -> bool {
+    let b = value.as_bytes();
+    if let Some(rest) = b.strip_prefix(b"0o") {
+        if all_of(rest, |c| (b'0'..=b'7').contains(&c)) {
+            return true;
+        }
+    }
+    if let Some(rest) = b.strip_prefix(b"0x") {
+        if all_of(rest, |c| c.is_ascii_hexdigit()) {
+            return true;
+        }
+    }
+    all_of(strip_sign(b), |c| c.is_ascii_digit())
+}
+
+/// `^([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?|[-+]?\.(inf|Inf|INF)|\.(nan|NaN|NAN))$`
+fn is_core_float(value: &str) -> bool {
+    if matches!(value, ".nan" | ".NaN" | ".NAN") {
+        return true;
+    }
+    let b = strip_sign(value.as_bytes());
+    if matches!(b, b".inf" | b".Inf" | b".INF") {
+        return true;
+    }
+    // Mantissa: `\.[0-9]+` or `[0-9]+(\.[0-9]*)?`.
+    let n = b.len();
+    let mut i = 0usize;
+    while i < n && b[i].is_ascii_digit() {
+        i += 1;
+    }
+    if i == 0 {
+        if i >= n || b[i] != b'.' {
+            return false;
+        }
+        i += 1;
+        let start = i;
+        while i < n && b[i].is_ascii_digit() {
+            i += 1;
+        }
+        if i == start {
+            return false;
+        }
+    } else if i < n && b[i] == b'.' {
+        i += 1;
+        while i < n && b[i].is_ascii_digit() {
+            i += 1;
+        }
+    }
+    if i == n {
+        return true;
+    }
+    // Exponent: `[eE][-+]?[0-9]+`.
+    if b[i] != b'e' && b[i] != b'E' {
+        return false;
+    }
+    all_of(strip_sign(&b[i + 1..]), |c| c.is_ascii_digit())
+}
+
+/// Whether a value the YAML 1.2 core schema types (null, bool, number) is in a
+/// form every runtime prints back identically (see [`is_plain_yaml_scalar`]).
+fn is_canonical_core_scalar(value: &str) -> bool {
+    if value == "true" || value == "false" {
+        return true;
+    }
+    if value == "-0" || value == "-0.0" {
+        return false;
+    }
+    let unsigned = value.strip_prefix('-').unwrap_or(value).as_bytes();
+    // `^-?(0|[1-9][0-9]{0,14})$`
+    if unsigned == b"0"
+        || (!unsigned.is_empty()
+            && unsigned.len() <= 15
+            && (b'1'..=b'9').contains(&unsigned[0])
+            && unsigned.iter().all(|c| c.is_ascii_digit()))
+    {
+        return true;
+    }
+    // `^-?(0|[1-9][0-9]*)\.([0-9]+)$`
+    let Some(dot) = unsigned.iter().position(|&c| c == b'.') else {
+        return false;
+    };
+    let whole = &unsigned[..dot];
+    let fraction = &unsigned[dot + 1..];
+    let whole_ok = whole == b"0"
+        || (!whole.is_empty()
+            && (b'1'..=b'9').contains(&whole[0])
+            && whole.iter().all(|c| c.is_ascii_digit()));
+    if !whole_ok || !all_of(fraction, |c| c.is_ascii_digit()) {
+        return false;
+    }
+    if fraction.len() > 1 && fraction.ends_with(b"0") {
+        return false;
+    }
+    if whole == b"0" {
+        if fraction == b"0" {
+            return true;
+        }
+        let leading_zeros = fraction.iter().take_while(|&&c| c == b'0').count();
+        let significant = fraction.len() - leading_zeros;
+        return leading_zeros <= 5 && significant <= 15;
+    }
+    let digits = whole.len() + if fraction == b"0" { 0 } else { fraction.len() };
+    digits <= 15
 }
 
 struct YamlBuffer {

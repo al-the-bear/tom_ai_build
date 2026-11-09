@@ -358,56 +358,13 @@ class SpecDocumentYaml {
   }
 
   /// A plain one-line scalar for a non-text value (int/double/bool/enum member
-  /// name, SOM §12.5) when writing it plainly re-parses to exactly [value] (string
-  /// compare, matching the document's string-typed stores); `null` otherwise.
-  ///
-  /// The self-verification uses package:yaml, which is a **YAML 1.2** parser
-  /// (only `true`/`false` are booleans, no sexagesimal numbers). A value whose
-  /// text is a YAML **1.1** special — a 1.1-only boolean word (`yes`/`no`/
-  /// `on`/`off`/`y`/`n` and case variants) or a sexagesimal int/float — parses
-  /// as a plain string here yet would be mis-read as a bool/number by a 1.1
-  /// parser (e.g. PyYAML). Emitting it plainly would break cross-language
-  /// round-trips, so such values are forced to the quoted/block path
-  /// (returns `null`). Reference rule for SOM §12.5; mirrored by every port.
-  static String? _plainScalar(String value) {
-    if (value.isEmpty || value.contains('\n')) return null;
-    if (_isYaml11Special(value)) return null;
-    try {
-      final parsed = loadYaml('_v: $value\n');
-      if (parsed is! Map) return null;
-      final v = parsed['_v'];
-      if (v == null || v is Map || v is List) return null;
-      return '$v' == value ? value : null;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  /// Whether [value]'s text is a YAML **1.1** special that a 1.1 parser would
-  /// resolve to a non-string (so it must never be emitted as a plain scalar,
-  /// SOM §12.5). Covers the 1.1-only boolean words (`y`/`yes`/`n`/`no`/`on`/
-  /// `off` and their case variants — lowercase `true`/`false` are consistent
-  /// across 1.1/1.2 and handled by the normal self-verify) and sexagesimal
-  /// int/float literals.
-  static bool _isYaml11Special(String value) =>
-      _yaml11Bool.hasMatch(value) ||
-      _yaml11SexagesimalInt.hasMatch(value) ||
-      _yaml11SexagesimalFloat.hasMatch(value);
-
-  /// YAML 1.1 boolean words that YAML 1.2 treats as plain strings.
-  static final RegExp _yaml11Bool = RegExp(
-    r'^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$',
-  );
-
-  /// YAML 1.1 sexagesimal integer (e.g. `1:30`, `-12:00:00`).
-  static final RegExp _yaml11SexagesimalInt = RegExp(
-    r'^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$',
-  );
-
-  /// YAML 1.1 sexagesimal float (e.g. `1:30.5`).
-  static final RegExp _yaml11SexagesimalFloat = RegExp(
-    r'^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$',
-  );
+  /// name, scalar list item; SOM §12.5) when [isPlainYamlScalar] allows it;
+  /// `null` otherwise. Reference rule for SOM §12.5, mirrored by every port: the
+  /// decision is the rule itself, never a re-parse with a port's own reader, so
+  /// every runtime writes the same bytes and every plain scalar it writes is one
+  /// a strict YAML 1.2 parser reads back as exactly [value].
+  static String? _plainScalar(String value) =>
+      isPlainYamlScalar(value) ? value : null;
 
   /// Builds a literal block scalar (`|2<chomp>`) with body at relative indent
   /// 2, or `null` when chomping can't reproduce the value's trailing newlines
@@ -1045,4 +1002,100 @@ class _Decoder {
     }
     return '$value';
   }
+}
+
+/// Whether [value] may be written as a plain one-line YAML scalar (SOM §12.5):
+/// a strict YAML 1.2 parser reads `_v: <value>` (and `- <value>`) back as
+/// exactly [value], and a YAML 1.1 parser does too. The rule, every part
+/// needed by some reader:
+///
+/// - not empty, no line break, no control character (below U+0020, U+007F to
+///   U+009F, U+FEFF, U+2028, U+2029), no space or tab at either end;
+/// - not starting with an indicator — `?` `:` `,` `[` `]` `{` `}` `#` `&` `*`
+///   `!` `|` `>` `'` `"` `%` `@` `` ` `` — nor with `-` followed by a space or
+///   alone, nor with `---` or `...`;
+/// - no `: `, no ` #`, not ending with `:`;
+/// - not a YAML 1.1-only boolean word or sexagesimal number;
+/// - a value the YAML 1.2 core schema reads as null, a bool or a number only
+///   in a form every runtime prints back the same: `true`, `false`, a decimal
+///   integer of up to 15 digits (not `-0`), or a decimal fraction with up to 15
+///   significant digits, no trailing zero (but `x.0`), no exponent and not
+///   below 0.000001 (`-0.0` excluded).
+bool isPlainYamlScalar(String value) {
+  if (value.isEmpty) return false;
+  for (final c in value.runes) {
+    if (c < 0x20 ||
+        (c >= 0x7f && c <= 0x9f) ||
+        c == 0xfeff ||
+        c == 0x2028 ||
+        c == 0x2029) {
+      return false;
+    }
+  }
+  final first = value[0];
+  final last = value[value.length - 1];
+  if (first == ' ' || last == ' ') return false;
+  if (value.startsWith('---') || value.startsWith('...')) return false;
+  if (first == '-') {
+    if (value.length == 1 || value[1] == ' ') return false;
+  } else if (_plainIndicators.contains(first)) {
+    return false;
+  }
+  if (value.contains(': ') || value.contains(' #') || last == ':') {
+    return false;
+  }
+  if (_yaml11Words.hasMatch(value) ||
+      _yaml11SexagesimalIntRule.hasMatch(value) ||
+      _yaml11SexagesimalFloatRule.hasMatch(value)) {
+    return false;
+  }
+  if (_coreNull.hasMatch(value) ||
+      _coreBool.hasMatch(value) ||
+      _coreInt.hasMatch(value) ||
+      _coreFloat.hasMatch(value)) {
+    return _isCanonicalCoreScalar(value);
+  }
+  return true;
+}
+
+/// The indicators a plain scalar may not start with (`-` is handled apart).
+const _plainIndicators = '?:,[]{}#&*!|>\'"%@`';
+
+final RegExp _yaml11Words = RegExp(
+  r'^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$',
+);
+final RegExp _yaml11SexagesimalIntRule = RegExp(
+  r'^[-+]?[1-9][0-9_]*(:[0-5]?[0-9])+$',
+);
+final RegExp _yaml11SexagesimalFloatRule = RegExp(
+  r'^[-+]?[0-9][0-9_]*(:[0-5]?[0-9])+\.[0-9_]*$',
+);
+final RegExp _coreNull = RegExp(r'^(~|null|Null|NULL)$');
+final RegExp _coreBool = RegExp(r'^(true|True|TRUE|false|False|FALSE)$');
+final RegExp _coreInt = RegExp(r'^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$');
+final RegExp _coreFloat = RegExp(
+  r'^([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?|[-+]?\.(inf|Inf|INF)|\.(nan|NaN|NAN))$',
+);
+final RegExp _canonicalInt = RegExp(r'^-?(0|[1-9][0-9]{0,14})$');
+final RegExp _canonicalFloat = RegExp(r'^-?(0|[1-9][0-9]*)\.([0-9]+)$');
+
+/// Whether a value the YAML 1.2 core schema types (null, bool, number) is in a
+/// form every runtime prints back identically (see [isPlainYamlScalar]).
+bool _isCanonicalCoreScalar(String value) {
+  if (value == 'true' || value == 'false') return true;
+  if (value == '-0' || value == '-0.0') return false;
+  if (_canonicalInt.hasMatch(value)) return true;
+  final m = _canonicalFloat.firstMatch(value);
+  if (m == null) return false;
+  final whole = m[1]!;
+  final fraction = m[2]!;
+  if (fraction.length > 1 && fraction.endsWith('0')) return false;
+  if (whole == '0') {
+    if (fraction == '0') return true;
+    final significant = fraction.replaceFirst(RegExp(r'^0+'), '');
+    final leadingZeros = fraction.length - significant.length;
+    return leadingZeros <= 5 && significant.length <= 15;
+  }
+  final digits = whole.length + (fraction == '0' ? 0 : fraction.length);
+  return digits <= 15;
 }

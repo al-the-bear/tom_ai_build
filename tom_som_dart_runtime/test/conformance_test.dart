@@ -18,6 +18,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:yaml/yaml.dart';
 
 void main() {
   // The corpus lives next to this package so every language port reads the
@@ -322,6 +323,31 @@ void main() {
   // The `review:` pass is written back by the runtime: a reviewed document
   // round-trips byte for byte, and the stale-entry helper names the review
   // entries a removed list item left behind (it never deletes them).
+  group('isPlainYamlScalar (SOM §12.5)', () {
+    // The rule is the decision; this pins it to the strict YAML 1.2 reference
+    // reader: whatever the rule writes plain, package:yaml reads back as
+    // exactly the value, as a mapping value and as a sequence item.
+    for (final v in _plainScalarProbes) {
+      test('"$v"', () {
+        if (!isPlainYamlScalar(v)) return;
+        final asValue = (loadYaml('_v: $v\n') as Map)['_v'];
+        final asItem = (loadYaml('- $v\n') as List).single;
+        expect('$asValue', v);
+        expect('$asItem', v);
+      });
+    }
+    test('the Blueprint values a lenient reader let through are not plain', () {
+      expect(
+        isPlainYamlScalar(
+          'Confirming would exceed the quota: the confirmation is refused.',
+        ),
+        isFalse,
+      );
+      expect(isPlainYamlScalar('`userName` → username'), isFalse);
+      expect(isPlainYamlScalar('retry #2 later'), isFalse);
+    });
+  });
+
   group('yaml_review_cases.json (the review pass)', () {
     final onDisk = File('${corpusDir.path}/yaml_review_cases.json');
     final table = update && !onDisk.existsSync()
@@ -331,6 +357,11 @@ void main() {
       final c = raw as Map<String, dynamic>;
       test(c['name'] as String, () {
         expect(_runYamlReviewCase(model, tree, c), c['expect']);
+        // What every runtime writes is standard YAML: the strict 1.2 reader
+        // takes each expected file as it is (SOM §12.5).
+        if (c['op'] == 'roundTrip') {
+          expect(() => loadYaml(c['expect'] as String), returnsNormally);
+        }
       });
     }
   });
@@ -6623,6 +6654,67 @@ Map<String, dynamic> _markdownApplyCases(SpecModel model, String golden) {
   return {'cases': cases};
 }
 
+/// The values the SOM §12.5 plain-scalar case writes (`yaml_review_cases.json`):
+/// each arm of [isPlainYamlScalar], with values from the Tom UAM Blueprint
+/// that a lenient reader once let through as plain.
+const _plainScalarProbes = <String>[
+  'plain words',
+  'Confirming would exceed the quota: the confirmation is refused.',
+  '`userName` → username',
+  'retry #2 later',
+  'ends with a colon:',
+  'a:b and a#b stay plain',
+  '- a dash and a space',
+  '-',
+  '-x',
+  '-5',
+  '[list]',
+  '{map}',
+  'a, b',
+  '?question',
+  ':colon',
+  '#hash',
+  '&anchor',
+  '*alias',
+  '!tag',
+  '|pipe',
+  '>fold',
+  "'single",
+  '"double',
+  '%percent',
+  '@at',
+  '---',
+  '...more',
+  'null',
+  '~',
+  'True',
+  'TRUE',
+  'true',
+  'false',
+  'yes',
+  '1:30',
+  '15',
+  '-15',
+  '-0',
+  '007',
+  '0x1F',
+  '0o17',
+  '1e3',
+  '.inf',
+  '.nan',
+  '1.5',
+  '1.0',
+  '1.10',
+  '-0.0',
+  '0.000001',
+  '0.0000001',
+  '123456789012345',
+  '1234567890123456',
+  '12345678901234.5',
+  '123456789012345.6',
+  '→ arrows and é',
+];
+
 /// Runs one `yaml_review_cases.json` case and returns what it observed.
 Object? _runYamlReviewCase(
   SpecModel model,
@@ -6676,7 +6768,85 @@ Map<String, dynamic> _yamlReviewCases(
   SpecDocumentYaml.writeReviewPass(withReview, review);
   final withEmpty = StringBuffer(golden);
   SpecDocumentYaml.writeReviewPass(withEmpty, const {});
+  // SOM §12.5 plain scalars: the `tags` list of the golden written with the
+  // probe values as block scalars; every runtime must write each one back by
+  // the one rule (`isPlainYamlScalar`), plain or as a block, byte for byte.
+  String withTags(List<String> values, {bool plain = false}) {
+    final lines = golden.split('\n');
+    final at = lines.indexWhere((l) => l.trim() == 'tags:');
+    final indent = lines[at].length - lines[at].trimLeft().length;
+    var end = at + 1;
+    while (end < lines.length &&
+        (lines[end].length - lines[end].trimLeft().length) > indent) {
+      end++;
+    }
+    final pad = ' ' * (indent + 2);
+    return [
+      ...lines.sublist(0, at + 1),
+      for (var i = 0; i < values.length; i++)
+        if (plain)
+          '${pad}tags-${i + 1}: ${values[i]}'
+        else ...[
+          '${pad}tags-${i + 1}: |2-',
+          '$pad  ${values[i]}',
+        ],
+      ...lines.sublist(end),
+    ].join('\n');
+  }
+
+  // The `DET` form's fields in an order unlike the model's: the encoder writes
+  // the model's order whatever the file held (SOM §12.3).
+  String withShuffledForm() {
+    final lines = golden.split('\n');
+    final at = lines.indexWhere((l) => l.trim() == 'DET details:');
+    final indent = lines[at].length - lines[at].trimLeft().length + 2;
+    var end = at + 1;
+    while (end < lines.length &&
+        (lines[end].trim().isEmpty ||
+            (lines[end].length - lines[end].trimLeft().length) >= indent)) {
+      end++;
+    }
+    // Split the body into entries (a key line at [indent] and its block).
+    final entries = <List<String>>[];
+    for (final l in lines.sublist(at + 1, end)) {
+      final i = l.length - l.trimLeft().length;
+      if (i == indent && l.trim().isNotEmpty) {
+        entries.add([l]);
+      } else {
+        entries.last.add(l);
+      }
+    }
+    return [
+      ...lines.sublist(0, at + 1),
+      for (final e in entries.reversed) ...e,
+      ...lines.sublist(end),
+    ].join('\n');
+  }
+
   final cases = <Map<String, dynamic>>[
+    {
+      'name':
+          'plain scalars follow the YAML 1.2 rule (SOM §12.5): indicators, '
+          '": ", " #", core-schema forms and their canonical prints',
+      'op': 'roundTrip',
+      'yaml': withTags(_plainScalarProbes),
+    },
+    {
+      // A hand-written file may hold YAML 1.1 words plain; every reader takes
+      // them as the strings they are under YAML 1.2 (SOM §12.5), so the writer
+      // gives them back as blocks — never as booleans or numbers.
+      'name':
+          'plain YAML 1.1 words in a file are read as YAML 1.2 strings '
+          '(no, on, yes, Off, 1:30)',
+      'op': 'roundTrip',
+      'yaml': withTags(const ['no', 'on', 'yes', 'Off', '1:30'], plain: true),
+    },
+    {
+      'name':
+          'form fields come back in the model order, whatever the file held',
+      'op': 'roundTrip',
+      'yaml': withShuffledForm(),
+    },
     {
       'name': 'a reviewed document round-trips byte for byte',
       'op': 'roundTrip',

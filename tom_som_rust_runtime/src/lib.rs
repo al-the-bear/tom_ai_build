@@ -98,7 +98,7 @@ pub use spec_document_markdown::{
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{
-    decode_yaml, dedup_empty_lines, encode_yaml, encode_yaml_with_review, js_json_string,
+    decode_yaml, dedup_empty_lines, encode_yaml, encode_yaml_with_review, is_plain_yaml_scalar, js_json_string,
     node_key, plain_key, rekey_review, stale_review_paths, write_review_pass, SpecYamlContents,
     SpecYamlError, SpecYamlFormatException, FORMAT_VERSION,
 };

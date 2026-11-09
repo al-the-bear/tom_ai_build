@@ -2,6 +2,19 @@
 
 ## 1.8.0
 
+- The YAML encoder decides plain scalars by an explicit rule (SOM §12.5), a
+  port of the Dart reference: `isPlainYamlScalar` (public) is the decision, and a non-text
+  value is written plain exactly when it holds — no more re-parse with this
+  port's own lenient YAML reader, which let through plain scalars standard YAML
+  rejects (`a: b`, a leading backtick, ` #`). The rule: no control character
+  (tested on decoded UTF-8 code points), no space at either end, no leading
+  indicator (`-` only alone or before a space), no `---` / `...` start, no
+  `: ` or ` #`, no trailing `:`, no YAML 1.1 boolean word or sexagesimal
+  number, and a core-schema null/bool/number only in its canonical print
+  (`true`, `false`, integers up to 15 digits but not `-0`, fractions up to 15
+  significant digits without trailing zero, exponent or a value below
+  0.000001, not `-0.0`). Every runtime now writes the same bytes; the corpus
+  case "plain scalars follow the YAML 1.2 rule" pins it.
 - Question and team-answer change times (SOM §11.9.2, §11.9.10), a port of
   the Dart reference: a question header may carry its time,
   `**❓ <ID> (<time>) — <topic>:**` (a parenthesis without a change time is a

@@ -242,34 +242,240 @@ static bool isYaml11Sexagesimal(const std::string& value, bool isFloat) {
 }
 
 /* Whether `value`'s text is a YAML 1.1 special that a 1.1 parser would resolve
- * to a non-string, so it must never be emitted as a plain scalar (SOM §12.5).
- * Mirrors the Dart reference rule so every emitter agrees regardless of the
- * local YAML parser's schema. */
+ * to a non-string, so it must never be emitted as a plain scalar (one arm of
+ * isPlainYamlScalar, SOM §12.5). */
 static bool isYaml11Special(const std::string& value) {
   return isYaml11Bool(value) || isYaml11Sexagesimal(value, false) ||
          isYaml11Sexagesimal(value, true);
 }
 
-/* A plain one-line scalar for a non-text value (SOM §12.5) when writing it plainly
- * re-parses to exactly `value`. Values whose text is a YAML 1.1 special are
- * forced to the quoted/block path so cross-language round-trips match. */
-static bool plainScalarOk(const std::string& value) {
-  if (value.empty() || value.find('\n') != std::string::npos) {
+/* ---- the plain-scalar rule (SOM §12.5) ----------------------------------- */
+
+/* Decodes the UTF-8 code point at `s[*i]` and advances `*i` past it; a
+ * malformed sequence yields its first byte and advances by one. */
+static unsigned long utf8Next(const std::string& s, std::size_t* i) {
+  const std::size_t n = s.size();
+  const unsigned char c = static_cast<unsigned char>(s[*i]);
+  std::size_t len;
+  unsigned long cp;
+  if (c < 0x80) {
+    (*i)++;
+    return c;
+  } else if ((c & 0xE0) == 0xC0) {
+    len = 2;
+    cp = c & 0x1F;
+  } else if ((c & 0xF0) == 0xE0) {
+    len = 3;
+    cp = c & 0x0F;
+  } else if ((c & 0xF8) == 0xF0) {
+    len = 4;
+    cp = c & 0x07;
+  } else {
+    (*i)++;
+    return c;
+  }
+  if (*i + len > n) {
+    (*i)++;
+    return c;
+  }
+  for (std::size_t k = 1; k < len; k++) {
+    const unsigned char cc = static_cast<unsigned char>(s[*i + k]);
+    if ((cc & 0xC0) != 0x80) {
+      (*i)++;
+      return c;
+    }
+    cp = (cp << 6) | (cc & 0x3F);
+  }
+  *i += len;
+  return cp;
+}
+
+static bool ruleDigit(char c) { return c >= '0' && c <= '9'; }
+static bool ruleOctal(char c) { return c >= '0' && c <= '7'; }
+static bool ruleHex(char c) {
+  return ruleDigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
+}
+
+/* Whether `s[from..)` is non-empty and every byte satisfies `pred`. */
+static bool ruleRun(const std::string& s, std::size_t from, bool (*pred)(char)) {
+  if (from >= s.size()) {
+    return false;
+  }
+  for (std::size_t i = from; i < s.size(); i++) {
+    if (!pred(s[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/* Whether `s` equals one of `words`. */
+template <std::size_t N>
+static bool ruleOneOf(const std::string& s, const char* const (&words)[N]) {
+  for (const char* w : words) {
+    if (s == w) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/* ^(~|null|Null|NULL)$ and ^(true|True|TRUE|false|False|FALSE)$ */
+static bool ruleCoreNullOrBool(const std::string& v) {
+  static const char* const words[] = {"~",     "null", "Null", "NULL",
+                                      "true",  "True", "TRUE", "false",
+                                      "False", "FALSE"};
+  return ruleOneOf(v, words);
+}
+
+/* ^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$ */
+static bool ruleCoreInt(const std::string& v) {
+  const std::size_t n = v.size();
+  if (n >= 2 && v[0] == '0' && v[1] == 'o' && ruleRun(v, 2, ruleOctal)) {
+    return true;
+  }
+  if (n >= 2 && v[0] == '0' && v[1] == 'x' && ruleRun(v, 2, ruleHex)) {
+    return true;
+  }
+  const std::size_t i = (n > 0 && (v[0] == '-' || v[0] == '+')) ? 1 : 0;
+  return ruleRun(v, i, ruleDigit);
+}
+
+/* ^([-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?|[-+]?\.(inf|Inf|INF)
+ *  |\.(nan|NaN|NAN))$ */
+static bool ruleCoreFloat(const std::string& v) {
+  static const char* const nans[] = {".nan", ".NaN", ".NAN"};
+  static const char* const infs[] = {".inf", ".Inf", ".INF"};
+  const std::size_t n = v.size();
+  if (ruleOneOf(v, nans)) {
+    return true;
+  }
+  std::size_t i = (n > 0 && (v[0] == '-' || v[0] == '+')) ? 1 : 0;
+  if (ruleOneOf(v.substr(i), infs)) {
+    return true;
+  }
+  if (i < n && v[i] == '.') {
+    i++;
+    if (i >= n || !ruleDigit(v[i])) {
+      return false;
+    }
+    while (i < n && ruleDigit(v[i])) {
+      i++;
+    }
+  } else {
+    if (i >= n || !ruleDigit(v[i])) {
+      return false;
+    }
+    while (i < n && ruleDigit(v[i])) {
+      i++;
+    }
+    if (i < n && v[i] == '.') {
+      i++;
+      while (i < n && ruleDigit(v[i])) {
+        i++;
+      }
+    }
+  }
+  if (i < n && (v[i] == 'e' || v[i] == 'E')) {
+    i++;
+    if (i < n && (v[i] == '-' || v[i] == '+')) {
+      i++;
+    }
+    if (i >= n || !ruleDigit(v[i])) {
+      return false;
+    }
+    while (i < n && ruleDigit(v[i])) {
+      i++;
+    }
+  }
+  return i == n;
+}
+
+/* Whether a value the YAML 1.2 core schema types (null, bool, number) is in a
+ * form every runtime prints back identically (see isPlainYamlScalar): `true`,
+ * `false`, ^-?(0|[1-9][0-9]{0,14})$ (not `-0`), or ^-?(0|[1-9][0-9]*)\.([0-9]+)$
+ * within the digit bounds (not `-0.0`). */
+static bool ruleCanonicalCoreScalar(const std::string& v) {
+  if (v == "true" || v == "false") {
+    return true;
+  }
+  if (v == "-0" || v == "-0.0") {
+    return false;
+  }
+  const std::size_t n = v.size();
+  const std::size_t i = (n > 0 && v[0] == '-') ? 1 : 0;
+  // canonical int
+  if (ruleRun(v, i, ruleDigit) && n - i <= 15 && (n - i == 1 || v[i] != '0')) {
+    return true;
+  }
+  // canonical float: whole part, '.', fraction
+  std::size_t w = i;
+  while (w < n && ruleDigit(v[w])) {
+    w++;
+  }
+  const std::size_t wholeLen = w - i;
+  if (wholeLen == 0 || (wholeLen > 1 && v[i] == '0')) {
+    return false;
+  }
+  if (w >= n || v[w] != '.' || !ruleRun(v, w + 1, ruleDigit)) {
+    return false;
+  }
+  const std::string fraction = v.substr(w + 1);
+  if (fraction.size() > 1 && fraction.back() == '0') {
+    return false;
+  }
+  const bool fractionZero = fraction == "0";
+  if (wholeLen == 1 && v[i] == '0') {
+    if (fractionZero) {
+      return true;
+    }
+    std::size_t leadingZeros = 0;
+    while (leadingZeros < fraction.size() && fraction[leadingZeros] == '0') {
+      leadingZeros++;
+    }
+    return leadingZeros <= 5 && fraction.size() - leadingZeros <= 15;
+  }
+  const std::size_t digits = wholeLen + (fractionZero ? 0 : fraction.size());
+  return digits <= 15;
+}
+
+bool isPlainYamlScalar(const std::string& value) {
+  if (value.empty()) {
+    return false;
+  }
+  for (std::size_t i = 0; i < value.size();) {
+    const unsigned long c = utf8Next(value, &i);
+    if (c < 0x20 || (c >= 0x7f && c <= 0x9f) || c == 0xfeff || c == 0x2028 ||
+        c == 0x2029) {
+      return false;
+    }
+  }
+  const char first = value.front();
+  const char last = value.back();
+  if (first == ' ' || last == ' ') {
+    return false;
+  }
+  if (value.compare(0, 3, "---") == 0 || value.compare(0, 3, "...") == 0) {
+    return false;
+  }
+  if (first == '-') {
+    if (value.size() == 1 || value[1] == ' ') {
+      return false;
+    }
+  } else if (std::string("?:,[]{}#&*!|>'\"%@`").find(first) != std::string::npos) {
+    return false;
+  }
+  if (value.find(": ") != std::string::npos ||
+      value.find(" #") != std::string::npos || last == ':') {
     return false;
   }
   if (isYaml11Special(value)) {
     return false;
   }
-  std::string probe = "_v: " + value + "\n";
-  YamlPtr parsed = yamlParse(probe);
-  if (parsed == nullptr || parsed->type != YamlType::Map) {
-    return false;
+  if (ruleCoreNullOrBool(value) || ruleCoreInt(value) || ruleCoreFloat(value)) {
+    return ruleCanonicalCoreScalar(value);
   }
-  YamlRef v = yamlGet(parsed, "_v");
-  if (v == nullptr || v->type == YamlType::Map || v->type == YamlType::Seq) {
-    return false;
-  }
-  return yamlScalarString(v) == value;
+  return true;
 }
 
 /* `<pad><renderedKey>: <first line>` then the remaining repr lines re-indented
@@ -402,7 +608,7 @@ class YamlEncoder {
 
   void writeValue(std::string& b, std::size_t indent, const std::string& key,
                   const std::string& value) {
-    if (plainScalarOk(value)) {
+    if (isPlainYamlScalar(value)) {
       b.append(indent, ' ');
       b += specYamlPlainKey(key);
       b += ": ";
