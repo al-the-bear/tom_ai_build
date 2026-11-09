@@ -1,67 +1,67 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-11-09T16:01:36.106617 by tom_d4rt_generator 1.58.0
+// Generated: 2026-11-09T21:39:22.907141 by tom_d4rt_generator 1.60.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/tom_d4rt.dart';
 
-import 'package:tom_som_dart_runtime/src/docspecs_validator.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_1;
-import 'package:tom_som_dart_runtime/src/som_facade.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_2;
-import 'package:tom_som_dart_runtime/src/spec_annotation_display.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_3;
-import 'package:tom_som_dart_runtime/src/spec_answers.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_4;
-import 'package:tom_som_dart_runtime/src/spec_codespecs_extract.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_5;
-import 'package:tom_som_dart_runtime/src/spec_codespecs_gate.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_6;
-import 'package:tom_som_dart_runtime/src/spec_codespecs_records.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_7;
-import 'package:tom_som_dart_runtime/src/spec_document.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_8;
-import 'package:tom_som_dart_runtime/src/spec_document_assembly.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_9;
-import 'package:tom_som_dart_runtime/src/spec_document_markdown.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_10;
-import 'package:tom_som_dart_runtime/src/spec_document_yaml.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_11;
-import 'package:tom_som_dart_runtime/src/spec_editor.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_12;
-import 'package:tom_som_dart_runtime/src/spec_meta.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_13;
-import 'package:tom_som_dart_runtime/src/spec_meta_bridge.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_14;
-import 'package:tom_som_dart_runtime/src/spec_meta_diff.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_15;
-import 'package:tom_som_dart_runtime/src/spec_model.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_16;
-import 'package:tom_som_dart_runtime/src/spec_node_creation.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_17;
-import 'package:tom_som_dart_runtime/src/spec_paths.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_18;
-import 'package:tom_som_dart_runtime/src/spec_query.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_19;
-import 'package:tom_som_dart_runtime/src/spec_reflection.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_20;
 import 'package:tom_som_dart_runtime/src/spec_review_annotations.dart'
     as $tom_som_dart_runtime_21;
-import 'package:tom_som_dart_runtime/src/spec_review_merge.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_22;
-import 'package:tom_som_dart_runtime/src/spec_schema_validation.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_23;
-import 'package:tom_som_dart_runtime/src/spec_section_id.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_24;
-import 'package:tom_som_dart_runtime/src/spec_serialization_order.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_25;
-import 'package:tom_som_dart_runtime/src/spec_text_pattern.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_26;
-import 'package:tom_som_dart_runtime/src/spec_typed_values.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_27;
-import 'package:tom_som_dart_runtime/src/spec_validator.dart'
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     as $tom_som_dart_runtime_28;
 
 /// Bridge class for som_runtime module.
@@ -933,6 +933,7 @@ class SomRuntimeBridge {
           'reviewMarks',
           'reviewPieces',
           'reviewTeamAnswers',
+          'reviewTeamAnswerTimes',
           'setIndividualAnswerText',
           'transplantEdits',
           'withAttribution',
@@ -1575,7 +1576,11 @@ class SomRuntimeBridge {
           'q',
           'formatQuestionBlock',
         );
-        return $tom_som_dart_runtime_21.formatQuestionBlock(q);
+        final changedAt = D4.getOptionalNamedArg<String?>(named, 'changedAt');
+        return $tom_som_dart_runtime_21.formatQuestionBlock(
+          q,
+          changedAt: changedAt,
+        );
       },
       'applyInlineMarksText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'applyInlineMarksText');
@@ -2427,7 +2432,7 @@ class SomRuntimeBridge {
       'formatCommentBlock':
           'List<String> formatCommentBlock({required String id, required String text, String? author, String? changedAt})',
       'formatQuestionBlock':
-          'List<String> formatQuestionBlock(SpecQuestionDraft q)',
+          'List<String> formatQuestionBlock(SpecQuestionDraft q, {String? changedAt})',
       'applyInlineMarksText':
           'String applyInlineMarksText(String value, {required bool accept})',
       'decideAllMarksText':
@@ -4455,6 +4460,10 @@ BridgedClass _createSpecReviewAnnotationBridge() {
               )
             : const <$tom_som_dart_runtime_21.SpecConflictAlternative>[];
         final changedAt = D4.getOptionalNamedArg<String?>(named, 'changedAt');
+        final answerChangedAt = D4.getOptionalNamedArg<String?>(
+          named,
+          'answerChangedAt',
+        );
         return $tom_som_dart_runtime_21.SpecReviewAnnotation(
           kind: kind,
           path: path,
@@ -4480,6 +4489,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
           base: base,
           alternatives: alternatives,
           changedAt: changedAt,
+          answerChangedAt: answerChangedAt,
         );
       },
     },
@@ -4616,6 +4626,12 @@ BridgedClass _createSpecReviewAnnotationBridge() {
             'SpecReviewAnnotation',
           )
           .changedAt,
+      'answerChangedAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
+            target,
+            'SpecReviewAnnotation',
+          )
+          .answerChangedAt,
       'base': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
             target,
@@ -4665,7 +4681,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecReviewAnnotation({required SpecReviewAnnotationKind kind, required String path, String? field, required int line, String? id, String? qualifiedId, String? author, String text = \'\', String context = \'\', String? topic, bool starred = false, bool combined = false, String answer = \'\', List<SpecQuestionOption> options = const [], String? recommended, SpecMarkKind? markKind, String? newText, String? comment, List<String> authors = const [], List<SpecMarkVote> votes = const [], List<SpecIndividualAnswer> answers = const [], String base = \'\', List<SpecConflictAlternative> alternatives = const [], String? changedAt})',
+      '': 'const SpecReviewAnnotation({required SpecReviewAnnotationKind kind, required String path, String? field, required int line, String? id, String? qualifiedId, String? author, String text = \'\', String context = \'\', String? topic, bool starred = false, bool combined = false, String answer = \'\', List<SpecQuestionOption> options = const [], String? recommended, SpecMarkKind? markKind, String? newText, String? comment, List<String> authors = const [], List<SpecMarkVote> votes = const [], List<SpecIndividualAnswer> answers = const [], String base = \'\', List<SpecConflictAlternative> alternatives = const [], String? changedAt, String? answerChangedAt})',
     },
     methodSignatures: {
       'toJson': 'Map<String, Object?> toJson({bool team = false})',
@@ -4693,6 +4709,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
       'votes': 'List<SpecMarkVote> get votes',
       'answers': 'List<SpecIndividualAnswer> get answers',
       'changedAt': 'String? get changedAt',
+      'answerChangedAt': 'String? get answerChangedAt',
       'base': 'String get base',
       'alternatives': 'List<SpecConflictAlternative> get alternatives',
       'answerLetter': 'String? get answerLetter',
@@ -5791,11 +5808,13 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
               'question',
               'insertQuestion',
             );
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
         t.insertQuestion(
           path: path,
           field: field,
           afterParagraph: afterParagraph,
           question: question,
+          at: at,
         );
         return null;
       },
@@ -5820,7 +5839,8 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
                   'question',
                   'insertQuestionAfterComment',
                 );
-            t.insertQuestionAfterComment(commentId, question);
+            final at = D4.getOptionalNamedArg<String?>(named, 'at');
+            t.insertQuestionAfterComment(commentId, question, at: at);
             return null;
           },
       'setAnswer': (visitor, target, positional, named, typeArgs) {
@@ -6103,9 +6123,9 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       'insertComment':
           'String insertComment({required String path, String? field, required int afterParagraph, required String text, String? author, String? id, String? at})',
       'insertQuestion':
-          'void insertQuestion({required String path, String? field, required int afterParagraph, required SpecQuestionDraft question})',
+          'void insertQuestion({required String path, String? field, required int afterParagraph, required SpecQuestionDraft question, String? at})',
       'insertQuestionAfterComment':
-          'void insertQuestionAfterComment(String commentId, SpecQuestionDraft question)',
+          'void insertQuestionAfterComment(String commentId, SpecQuestionDraft question, {String? at})',
       'setAnswer':
           'void setAnswer(String questionId, String answer, {String? author, String? at})',
       'editComment':
