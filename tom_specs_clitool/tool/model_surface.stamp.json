@@ -1,5 +1,5 @@
 {
-  "fingerprint": "9829a94146feb15881acbe5c3d48221ff1a5d0bbe38f3df22598ef03e4a15ce1",
+  "fingerprint": "88a0993bd6d6ce603daafc07c9054091899407458f8e8ed20c0794e554c8e0c2",
   "fileCount": 46,
   "declarationCount": 1311,
   "packages": [
@@ -14,5 +14,5 @@
     "tom_som_typescript_v0"
   ],
   "modelHash": "a4c5000f2b20b4ddbaf919da18847e2a53d0063126ab9632cd06ab35ff8cff63",
-  "modelVersion": "1.7.3"
+  "modelVersion": "1.7.4"
 }

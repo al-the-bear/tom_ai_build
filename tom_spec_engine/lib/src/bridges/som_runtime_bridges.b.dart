@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-11-09T12:44:11.456394 by tom_d4rt_generator 1.56.0
+// Generated: 2026-11-09T16:01:36.106617 by tom_d4rt_generator 1.58.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1528,6 +1528,25 @@ class SomRuntimeBridge {
         );
         return $tom_som_dart_runtime_21.isReviewMemberId(s);
       },
+      'isReviewTime': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'isReviewTime');
+        final s = D4.getRequiredArg<String>(positional, 0, 's', 'isReviewTime');
+        return $tom_som_dart_runtime_21.isReviewTime(s);
+      },
+      'normalizeReviewTime': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'normalizeReviewTime');
+        final at = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'at',
+          'normalizeReviewTime',
+        );
+        return $tom_som_dart_runtime_21.normalizeReviewTime(at);
+      },
+      'systemReviewTime': (visitor, positional, named, typeArgs) {
+        final now = positional.isNotEmpty ? positional[0] as DateTime? : null;
+        return $tom_som_dart_runtime_21.systemReviewTime(now);
+      },
       'formatCommentBlock': (visitor, positional, named, typeArgs) {
         final id = D4.getRequiredNamedArg<String>(
           named,
@@ -1540,10 +1559,12 @@ class SomRuntimeBridge {
           'formatCommentBlock',
         );
         final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final changedAt = D4.getOptionalNamedArg<String?>(named, 'changedAt');
         return $tom_som_dart_runtime_21.formatCommentBlock(
           id: id,
           text: text,
           author: author,
+          changedAt: changedAt,
         );
       },
       'formatQuestionBlock': (visitor, positional, named, typeArgs) {
@@ -2295,6 +2316,12 @@ class SomRuntimeBridge {
       'renderAnswers': 'package:tom_som_dart_runtime/src/spec_answers.dart',
       'isReviewMemberId':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'isReviewTime':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'normalizeReviewTime':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'systemReviewTime':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'formatCommentBlock':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'formatQuestionBlock':
@@ -2394,8 +2421,11 @@ class SomRuntimeBridge {
       'renderAnswers':
           'String renderAnswers(List<SpecAnswerExtract> extracts, {SpecAnswerRenderOptions options = const SpecAnswerRenderOptions()})',
       'isReviewMemberId': 'bool isReviewMemberId(String s)',
+      'isReviewTime': 'bool isReviewTime(String s)',
+      'normalizeReviewTime': 'String normalizeReviewTime(String at)',
+      'systemReviewTime': 'String systemReviewTime([DateTime? now])',
       'formatCommentBlock':
-          'List<String> formatCommentBlock({required String id, required String text, String? author})',
+          'List<String> formatCommentBlock({required String id, required String text, String? author, String? changedAt})',
       'formatQuestionBlock':
           'List<String> formatQuestionBlock(SpecQuestionDraft q)',
       'applyInlineMarksText':
@@ -4202,7 +4232,12 @@ BridgedClass _createSpecIndividualAnswerBridge() {
           'answer',
           'SpecIndividualAnswer',
         );
-        return $tom_som_dart_runtime_21.SpecIndividualAnswer(members, answer);
+        final changedAt = D4.getOptionalNamedArg<String?>(named, 'changedAt');
+        return $tom_som_dart_runtime_21.SpecIndividualAnswer(
+          members,
+          answer,
+          changedAt: changedAt,
+        );
       },
     },
     getters: {
@@ -4218,6 +4253,12 @@ BridgedClass _createSpecIndividualAnswerBridge() {
             'SpecIndividualAnswer',
           )
           .answer,
+      'changedAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecIndividualAnswer>(
+            target,
+            'SpecIndividualAnswer',
+          )
+          .changedAt,
       'answerLetter': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_21.SpecIndividualAnswer>(
             target,
@@ -4236,12 +4277,13 @@ BridgedClass _createSpecIndividualAnswerBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecIndividualAnswer(List<String> members, String answer)',
+      '': 'const SpecIndividualAnswer(List<String> members, String answer, {String? changedAt})',
     },
     methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
     getterSignatures: {
       'members': 'List<String> get members',
       'answer': 'String get answer',
+      'changedAt': 'String? get changedAt',
       'answerLetter': 'String? get answerLetter',
     },
   );
@@ -4412,6 +4454,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
                 'alternatives',
               )
             : const <$tom_som_dart_runtime_21.SpecConflictAlternative>[];
+        final changedAt = D4.getOptionalNamedArg<String?>(named, 'changedAt');
         return $tom_som_dart_runtime_21.SpecReviewAnnotation(
           kind: kind,
           path: path,
@@ -4436,6 +4479,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
           answers: answers,
           base: base,
           alternatives: alternatives,
+          changedAt: changedAt,
         );
       },
     },
@@ -4566,6 +4610,12 @@ BridgedClass _createSpecReviewAnnotationBridge() {
             'SpecReviewAnnotation',
           )
           .answers,
+      'changedAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
+            target,
+            'SpecReviewAnnotation',
+          )
+          .changedAt,
       'base': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
             target,
@@ -4615,7 +4665,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecReviewAnnotation({required SpecReviewAnnotationKind kind, required String path, String? field, required int line, String? id, String? qualifiedId, String? author, String text = \'\', String context = \'\', String? topic, bool starred = false, bool combined = false, String answer = \'\', List<SpecQuestionOption> options = const [], String? recommended, SpecMarkKind? markKind, String? newText, String? comment, List<String> authors = const [], List<SpecMarkVote> votes = const [], List<SpecIndividualAnswer> answers = const [], String base = \'\', List<SpecConflictAlternative> alternatives = const []})',
+      '': 'const SpecReviewAnnotation({required SpecReviewAnnotationKind kind, required String path, String? field, required int line, String? id, String? qualifiedId, String? author, String text = \'\', String context = \'\', String? topic, bool starred = false, bool combined = false, String answer = \'\', List<SpecQuestionOption> options = const [], String? recommended, SpecMarkKind? markKind, String? newText, String? comment, List<String> authors = const [], List<SpecMarkVote> votes = const [], List<SpecIndividualAnswer> answers = const [], String base = \'\', List<SpecConflictAlternative> alternatives = const [], String? changedAt})',
     },
     methodSignatures: {
       'toJson': 'Map<String, Object?> toJson({bool team = false})',
@@ -4642,6 +4692,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
       'authors': 'List<String> get authors',
       'votes': 'List<SpecMarkVote> get votes',
       'answers': 'List<SpecIndividualAnswer> get answers',
+      'changedAt': 'String? get changedAt',
       'base': 'String get base',
       'alternatives': 'List<SpecConflictAlternative> get alternatives',
       'answerLetter': 'String? get answerLetter',
@@ -4981,6 +5032,7 @@ BridgedClass _createSpecMarkEntryBridge() {
         );
         final commentId = D4.getOptionalNamedArg<String?>(named, 'commentId');
         final changeId = D4.getOptionalNamedArg<String?>(named, 'changeId');
+        final changedAt = D4.getOptionalNamedArg<String?>(named, 'changedAt');
         return $tom_som_dart_runtime_21.SpecMarkEntry(
           id: id,
           path: path,
@@ -4997,6 +5049,7 @@ BridgedClass _createSpecMarkEntryBridge() {
           quotedChange: quotedChange,
           commentId: commentId,
           changeId: changeId,
+          changedAt: changedAt,
         );
       },
     },
@@ -5085,6 +5138,12 @@ BridgedClass _createSpecMarkEntryBridge() {
             'SpecMarkEntry',
           )
           .commentId,
+      'changedAt': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .changedAt,
       'changeId': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_21.SpecMarkEntry>(
             target,
@@ -5103,7 +5162,7 @@ BridgedClass _createSpecMarkEntryBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecMarkEntry({required String id, required String path, String? field, required int line, required SpecMarkKind markKind, required String oldText, required String newText, String? comment, required String markup, required String context, List<String> authors = const [], List<SpecMarkVote> votes = const [], Map<String, Object?>? quotedChange, String? commentId, String? changeId})',
+      '': 'const SpecMarkEntry({required String id, required String path, String? field, required int line, required SpecMarkKind markKind, required String oldText, required String newText, String? comment, required String markup, required String context, List<String> authors = const [], List<SpecMarkVote> votes = const [], Map<String, Object?>? quotedChange, String? commentId, String? changeId, String? changedAt})',
     },
     methodSignatures: {
       'toJson': 'Map<String, Object?> toJson({bool team = false})',
@@ -5123,6 +5182,7 @@ BridgedClass _createSpecMarkEntryBridge() {
       'votes': 'List<SpecMarkVote> get votes',
       'quotedChange': 'Map<String, Object?>? get quotedChange',
       'commentId': 'String? get commentId',
+      'changedAt': 'String? get changedAt',
       'changeId': 'String? get changeId',
     },
   );
@@ -5604,9 +5664,17 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'SpecReviewAnnotations',
         );
         final qualifier = D4.getOptionalNamedArg<String?>(named, 'qualifier');
+        final clockRaw = named['clock'];
         return $tom_som_dart_runtime_21.SpecReviewAnnotations(
           doc,
           qualifier: qualifier,
+          clock: clockRaw == null
+              ? null
+              : (() {
+                      return D4.callInterpreterCallback(visitor!, clockRaw, [])
+                          as String;
+                    })
+                    as String Function(),
         );
       },
     },
@@ -5623,6 +5691,12 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
             'SpecReviewAnnotations',
           )
           .qualifier,
+      'clock': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotations>(
+            target,
+            'SpecReviewAnnotations',
+          )
+          .clock,
     },
     methods: {
       'list': (visitor, target, positional, named, typeArgs) {
@@ -5683,6 +5757,7 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
         );
         final author = D4.getOptionalNamedArg<String?>(named, 'author');
         final id = D4.getOptionalNamedArg<String?>(named, 'id');
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
         return t.insertComment(
           path: path,
           field: field,
@@ -5690,6 +5765,7 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           text: text,
           author: author,
           id: id,
+          at: at,
         );
       },
       'insertQuestion': (visitor, target, positional, named, typeArgs) {
@@ -5767,7 +5843,8 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'setAnswer',
         );
         final author = D4.getOptionalNamedArg<String?>(named, 'author');
-        t.setAnswer(questionId, answer, author: author);
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
+        t.setAnswer(questionId, answer, author: author, at: at);
         return null;
       },
       'editComment': (visitor, target, positional, named, typeArgs) {
@@ -5789,7 +5866,8 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'text',
           'editComment',
         );
-        t.editComment(commentId, text);
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
+        t.editComment(commentId, text, at: at);
         return null;
       },
       'resolve': (visitor, target, positional, named, typeArgs) {
@@ -5896,11 +5974,13 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
         );
         final author = D4.getOptionalNamedArg<String?>(named, 'author');
         final revision = D4.getOptionalNamedArg<String?>(named, 'revision');
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
         return t.commentChange(
           markId,
           text,
           author: author,
           revision: revision,
+          at: at,
         );
       },
       'editMarkComment': (visitor, target, positional, named, typeArgs) {
@@ -5923,7 +6003,8 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'editMarkComment',
         );
         final revision = D4.getOptionalNamedArg<String?>(named, 'revision');
-        t.editMarkComment(markId, text, revision: revision);
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
+        t.editMarkComment(markId, text, revision: revision, at: at);
         return null;
       },
       'removeAllAnnotations': (visitor, target, positional, named, typeArgs) {
@@ -5943,7 +6024,15 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
         final path = D4.getRequiredNamedArg<String>(named, 'path', 'setMarked');
         final field = D4.getOptionalNamedArg<String?>(named, 'field');
         final text = D4.getRequiredNamedArg<String>(named, 'text', 'setMarked');
-        return t.setMarked(path: path, field: field, text: text);
+        final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
+        return t.setMarked(
+          path: path,
+          field: field,
+          text: text,
+          author: author,
+          at: at,
+        );
       },
       'markAgainst': (visitor, target, positional, named, typeArgs) {
         final t = D4
@@ -5962,7 +6051,15 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'earlier',
           'markAgainst',
         );
-        return t.markAgainst(path: path, field: field, earlier: earlier);
+        final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final at = D4.getOptionalNamedArg<String?>(named, 'at');
+        return t.markAgainst(
+          path: path,
+          field: field,
+          earlier: earlier,
+          author: author,
+          at: at,
+        );
       },
       'paragraphs': (visitor, target, positional, named, typeArgs) {
         final t = D4
@@ -5996,7 +6093,7 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       },
     },
     constructorSignatures: {
-      '': 'SpecReviewAnnotations(SpecDocument doc, {String? qualifier})',
+      '': 'SpecReviewAnnotations(SpecDocument doc, {String? qualifier, String Function()? clock})',
     },
     methodSignatures: {
       'list': 'List<SpecReviewAnnotation> list()',
@@ -6004,14 +6101,15 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       'nextCommentId': 'String nextCommentId({int floor = 0})',
       'assignCommentIds': 'List<String> assignCommentIds({int floor = 0})',
       'insertComment':
-          'String insertComment({required String path, String? field, required int afterParagraph, required String text, String? author, String? id})',
+          'String insertComment({required String path, String? field, required int afterParagraph, required String text, String? author, String? id, String? at})',
       'insertQuestion':
           'void insertQuestion({required String path, String? field, required int afterParagraph, required SpecQuestionDraft question})',
       'insertQuestionAfterComment':
           'void insertQuestionAfterComment(String commentId, SpecQuestionDraft question)',
       'setAnswer':
-          'void setAnswer(String questionId, String answer, {String? author})',
-      'editComment': 'void editComment(String commentId, String text)',
+          'void setAnswer(String questionId, String answer, {String? author, String? at})',
+      'editComment':
+          'void editComment(String commentId, String text, {String? at})',
       'resolve': 'void resolve(String id)',
       'applyMark':
           'void applyMark({required String path, String? field, required int index, bool accept = true})',
@@ -6022,14 +6120,14 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       'acceptAllMarks': 'SpecMarkReport acceptAllMarks({String? path})',
       'rejectAllMarks': 'SpecMarkReport rejectAllMarks({String? path})',
       'commentChange':
-          'String commentChange(String markId, String text, {String? author, String? revision})',
+          'String commentChange(String markId, String text, {String? author, String? revision, String? at})',
       'editMarkComment':
-          'void editMarkComment(String markId, String text, {String? revision})',
+          'void editMarkComment(String markId, String text, {String? revision, String? at})',
       'removeAllAnnotations': 'SpecMarkReport removeAllAnnotations()',
       'setMarked':
-          'SpecMarkedChange setMarked({required String path, String? field, required String text})',
+          'SpecMarkedChange setMarked({required String path, String? field, required String text, String? author, String? at})',
       'markAgainst':
-          'SpecMarkedChange markAgainst({required String path, String? field, required String earlier})',
+          'SpecMarkedChange markAgainst({required String path, String? field, required String earlier, String? author, String? at})',
       'paragraphs':
           'List<SpecParagraph> paragraphs({required String path, String? field})',
       'stripped': 'SpecDocument stripped()',
@@ -6038,6 +6136,7 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
     getterSignatures: {
       'doc': 'SpecDocument get doc',
       'qualifier': 'String? get qualifier',
+      'clock': 'String Function()? get clock',
     },
   );
 }

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.7.4
 
 - Change times (SOM §11.9.10), a port of the Dart reference: comment headers,
   attribution tokens and individual answers carry the time of their last

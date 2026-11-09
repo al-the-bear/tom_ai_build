@@ -1,3 +1,15 @@
+## 1.7.4
+
+- No change of structure. The chain moves with the runtimes, which write and
+  read change times on review annotations (SOM §11.9.10) and keep a change
+  mark's edge space after punctuation when it is decided (SOM §11.9.3), in all
+  nine languages.
+- The model sources are formatted with Dart 3.13's formatter; `modelHash` is
+  unchanged.
+- Documentation: `som_multiplatform_spec_model.md` §11.9.3 and §11.9.10;
+  `som_toolchains.md` on the clitool's analyzer 14.7 and the SDK summary;
+  `llm_and_d4rt_tools.md` on the engine's analyzer 14.
+
 ## 1.7.3
 
 - No change of structure. The shipped tests are corrected: the registry and
