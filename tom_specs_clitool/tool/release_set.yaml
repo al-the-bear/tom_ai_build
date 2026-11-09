@@ -98,22 +98,9 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_som_dart_runtime: >-
-    Since 1.7.3: change times on review annotations (SOM §11.9.10, tom_specs
-    annot9) — read and written in comment headers, attribution tokens and
-    individual answers, a clock on SpecReviewAnnotations, `at` on the writes.
-    Ships with the next chain release.
   tom_core_codespecs: >-
     Formatting only since 0.13.3: two tests reformatted to Dart 3.13's
     `dart format`. Ships with the next release.
-  tom_specs_model: >-
-    Documentation only since 1.7.3: llm_and_d4rt_tools.md states that the
-    engine and the Flutter editor are on analyzer ^14 (tom_d4rt ^1.231.1,
-    Flutter 3.47.9), and som_toolchains.md the clitool's tom_analyzer_shared
-    ^0.12.0; nine model sources and three tests are reformatted to Dart 3.13's
-    `dart format` (no change of structure: modelHash a4c5000f… stands);
-    som_multiplatform_spec_model.md specifies change times on review
-    annotations (§11.9.10). Ships with the next release.
   tom_code_specs: >-
     Documentation only since 0.16.0: the links into tom_core_codespecs's
     documents were re-pointed when that package moved from tom_core to this
