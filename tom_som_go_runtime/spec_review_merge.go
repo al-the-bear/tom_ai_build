@@ -979,14 +979,30 @@ func mergeTeamAnswers(texts []string) (map[string]string, []string) {
 	return out, order
 }
 
+// mergeTeamAnswerTimes are the times of the team answers of texts, by id (the
+// first, when an id repeats; SOM §11.9.10).
+func mergeTeamAnswerTimes(texts []string) map[string]*string {
+	out := map[string]*string{}
+	for _, t := range texts {
+		for id, at := range reviewTeamAnswerTimes(t) {
+			if _, ok := out[id]; !ok {
+				out[id] = at
+			}
+		}
+	}
+	return out
+}
+
 // mergeAnswers writes each copy's team answer to a base question, where it
 // differs from the base's, as that member's individual answer (copies in
-// round order).
+// round order), with the copy's answer time (SOM §11.9.10).
 func mergeAnswers(texts mergeTexts, baseTexts []string, copyTexts [][]string, ctx *mergeContext) {
 	baseAnswers, order := mergeTeamAnswers(baseTexts)
 	copyAnswers := make([]map[string]string, len(copyTexts))
+	copyTimes := make([]map[string]*string, len(copyTexts))
 	for i, ts := range copyTexts {
 		copyAnswers[i], _ = mergeTeamAnswers(ts)
+		copyTimes[i] = mergeTeamAnswerTimes(ts)
 	}
 	for _, id := range order {
 		var members []string
@@ -996,7 +1012,11 @@ func mergeAnswers(texts mergeTexts, baseTexts []string, copyTexts [][]string, ct
 				continue
 			}
 			for _, key := range texts.keys() {
-				written, found := setIndividualAnswerText(texts.get(key), id, ctx.members[i], a, "")
+				changedAt := ""
+				if at := copyTimes[i][id]; at != nil {
+					changedAt = *at
+				}
+				written, found := setIndividualAnswerText(texts.get(key), id, ctx.members[i], a, changedAt)
 				if !found {
 					continue
 				}
@@ -1024,7 +1044,7 @@ func mergeGuestQuestion(id string, g SpecReviewMember) string {
 		Text:        "add " + g.MemberID + " (" + who + ") to the review team?",
 		Options:     []string{"(a) yes, from the next round on", "(b) no, this round only"},
 		Recommended: "a",
-	}), "\n")
+	}, ""), "\n")
 }
 
 // mergeHome is where the guest questions go: a key of the merged texts and

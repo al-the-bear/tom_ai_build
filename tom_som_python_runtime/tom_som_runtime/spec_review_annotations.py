@@ -226,8 +226,12 @@ class SpecReviewAnnotation:
     base: str = ""
     #: A conflict's lettered alternatives.
     alternatives: tuple[SpecConflictAlternative, ...] = ()
-    #: When a comment or mark was last changed (SOM §11.9.10), or ``None``.
+    #: When a comment, mark or question was last changed (SOM §11.9.10), or
+    #: ``None``. A question's is the time in its header.
     changed_at: Optional[str] = None
+    #: When a question's team answer was last changed (SOM §11.9.10): the
+    #: time in ``**Answer (<time>):**``, or ``None``.
+    answer_changed_at: Optional[str] = None
 
     @property
     def open(self) -> bool:
@@ -300,6 +304,10 @@ class SpecReviewAnnotation:
             out["answerLetter"] = self.answer_letter
             if team:
                 out["answers"] = [a.to_json() for a in self.answers]
+            if self.changed_at is not None:
+                out["changedAt"] = self.changed_at
+            if self.answer_changed_at is not None:
+                out["answerChangedAt"] = self.answer_changed_at
             return out
         if self.kind is SpecReviewAnnotationKind.CONFLICT:
             return {
@@ -773,6 +781,8 @@ class _Question:
     options: tuple[SpecQuestionOption, ...] = ()
     recommended: Optional[str] = None
     answers: list[_IndividualAnswer] = dc_field(default_factory=list)
+    changed_at: Optional[str] = None  # the time in the header (SOM §11.9.10)
+    answer_changed_at: Optional[str] = None  # the time of the team answer
 
 
 @dataclass(eq=False)
@@ -1211,15 +1221,26 @@ def _parse_comment(p: _Parsed, b: _Block) -> _Comment:
     )
 
 
-def _parse_header(inner: str) -> Optional[tuple[str, str, bool, str]]:
+#: A question header's id with its optional change time (SOM §11.9.2,
+#: §11.9.10): ``BQ-81`` or ``BQ-81 (2026-11-07T14:05+01:00)``.
+_HEADER_ID = re.compile(r"([A-Z][A-Z0-9]*-[0-9]+)(?: \(([^)]*)\))?")
+
+
+def _parse_header(
+    inner: str,
+) -> Optional[tuple[str, str, bool, str, Optional[str]]]:
     """Parses a question header's remainder after ``**❓ ``; ``None`` when
-    malformed. Answers (id, topic, starred, rest)."""
+    malformed. Answers (id, topic, starred, rest, changed_at)."""
     h = inner[len(_QUESTION_OPEN) + 1:]
     sep = h.find(_EM_DASH_SEP)
     if sep <= 0:
         return None
-    qid = h[:sep]
-    if not _QUESTION_ID.fullmatch(qid):
+    id_match = _HEADER_ID.fullmatch(h[:sep])
+    if id_match is None:
+        return None
+    qid = id_match.group(1)
+    changed_at = id_match.group(2)
+    if changed_at is not None and not is_review_time(changed_at):
         return None
     t = h[sep + len(_EM_DASH_SEP):]
     starred = False
@@ -1233,13 +1254,36 @@ def _parse_header(inner: str) -> Optional[tuple[str, str, bool, str]]:
     rest = t[close + 3:]
     if rest.startswith(" "):
         rest = rest[1:]
-    return (qid, topic, starred, rest)
+    return (qid, topic, starred, rest, changed_at)
+
+
+def _team_answer_time(line: str) -> Optional[str]:
+    """The time of a team answer line ``**Answer (<time>):**`` (SOM
+    §11.9.10), or ``None`` when *line* is no such line."""
+    m = _INDIVIDUAL_ANSWER.match(line)
+    if m is None:
+        return None
+    t = _trim(m.group(1))
+    return t if is_review_time(t) else None
+
+
+def _team_answer_label_length(line: str) -> Optional[int]:
+    """The length of a team answer's label on *line* (``**Answer:**`` or
+    ``**Answer (<time>):**``), or ``None`` when *line* does not start with
+    one."""
+    if line.startswith(_ANSWER_LABEL):
+        return len(_ANSWER_LABEL)
+    if _team_answer_time(line) is None:
+        return None
+    m = _INDIVIDUAL_ANSWER.match(line)
+    assert m is not None
+    return len(m.group(0))
 
 
 def _parse_questions(p: _Parsed, b: _Block) -> None:
     inner = [_inner(p.lines[k]) for k in range(b.start, b.end + 1)]
     b.combined = inner[0].startswith(_COMBINED_OPENER)
-    headers: dict[int, tuple[str, str, bool, str]] = {}
+    headers: dict[int, tuple[str, str, bool, str, Optional[str]]] = {}
     for k, text in enumerate(inner):
         if not text.startswith(_QUESTION_OPEN + " "):
             continue
@@ -1249,14 +1293,15 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
         if h is None:
             p.malformed.append(
                 f"line {b.start + k}: question header is not "
-                '"**❓ <ID> — <topic>:**" (SOM §11.9.2)'
+                '"**❓ <ID> — <topic>:**" or "**❓ <ID> (<time>) — <topic>:**" '
+                "(SOM §11.9.2)"
             )
             continue
         headers[k] = h
     keys = list(headers.keys())
     out: list[_Question] = []
     for q, k in enumerate(keys):
-        qid, topic, starred, rest = headers[k]
+        qid, topic, starred, rest, header_time = headers[k]
         region_end = keys[q + 1] - 1 if q + 1 < len(keys) else len(inner) - 1
         # Every `**Answer` line of the region: the individual ones and the
         # team's.
@@ -1282,7 +1327,7 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
         individual: list[_IndividualAnswer] = []
         answered: set[str] = set()
         for m in answer_lines:
-            if inner[m].startswith(_ANSWER_LABEL):
+            if _team_answer_label_length(inner[m]) is not None:
                 if answer is None:
                     answer = m
                 continue
@@ -1309,7 +1354,11 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                     answer_time,
                 )
             )
-        answer_text = "" if answer is None else answer_text_at(answer, len(_ANSWER_LABEL))
+        answer_text = (
+            ""
+            if answer is None
+            else answer_text_at(answer, _team_answer_label_length(inner[answer]) or 0)
+        )
         out.append(
             _Question(
                 b.start + k,
@@ -1323,6 +1372,8 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                 options,
                 recommended,
                 individual,
+                header_time,
+                None if answer is None else _team_answer_time(inner[answer]),
             )
         )
     b.questions = out
@@ -1745,6 +1796,8 @@ def _annotations_of(
                             )
                             for a in q.answers
                         ),
+                        changed_at=q.changed_at,
+                        answer_changed_at=q.answer_changed_at,
                     ),
                 ))
                 seq += 1
@@ -1849,12 +1902,16 @@ def _author_and_time(author: Optional[str], changed_at: Optional[str]) -> Option
     return a if changed_at is None else f"{a}, {changed_at}"
 
 
-def format_question_block(q: SpecQuestionDraft) -> list[str]:
-    """The lines of a question block."""
+def format_question_block(
+    q: SpecQuestionDraft, changed_at: Optional[str] = None
+) -> list[str]:
+    """The lines of a question block; *changed_at* is written after the id
+    (SOM §11.9.10)."""
     t = q.text.split("\n")
     star = f"{_STAR} " if q.starred else ""
+    qid = q.id if changed_at is None else f"{q.id} ({changed_at})"
     lines = [
-        f"> {_QUESTION_OPEN} {q.id}{_EM_DASH_SEP}{star}{q.topic}:** {t[0]}",
+        f"> {_QUESTION_OPEN} {qid}{_EM_DASH_SEP}{star}{q.topic}:** {t[0]}",
         *_quoted(t[1:]),
         *[
             f"> - **({q.recommended})**{o[3:]}"
@@ -2539,20 +2596,31 @@ class SpecReviewAnnotations:
         after_paragraph: int,
         question: SpecQuestionDraft,
         field: Optional[str] = None,
+        at: Optional[str] = None,
     ) -> None:
         """Inserts a question block after paragraph *after_paragraph* (0-based;
-        -1: at the start) of the value at *path* / *field*."""
+        -1: at the start) of the value at *path* / *field*; its header carries
+        the time *at* or the clock's (SOM §11.9.10)."""
+        time = self._time(at)
         value = self._get(path, field)
         end = self._paragraph_last_line(value, after_paragraph)
-        self._set(path, field, _insert_after_line(value, end, format_question_block(question)))
+        self._set(
+            path,
+            field,
+            _insert_after_line(value, end, format_question_block(question, time)),
+        )
 
-    def insert_question_after_comment(self, comment_id: str, question: SpecQuestionDraft) -> None:
-        """Inserts a question block directly after the comment *comment_id*."""
+    def insert_question_after_comment(
+        self, comment_id: str, question: SpecQuestionDraft, at: Optional[str] = None
+    ) -> None:
+        """Inserts a question block directly after the comment *comment_id*;
+        its header carries the time *at* or the clock's (SOM §11.9.10)."""
+        time = self._time(at)
         path, field, text, c = self._find_comment(comment_id)
         self._set(
             path,
             field,
-            _insert_after_line(text, c.block.end, format_question_block(question)),
+            _insert_after_line(text, c.block.end, format_question_block(question, time)),
         )
 
     def set_answer(
@@ -2562,8 +2630,9 @@ class SpecReviewAnnotations:
         author: Optional[str] = None,
         at: Optional[str] = None,
     ) -> None:
-        """Writes *answer* after the question's ``**Answer:**`` (empty: reopens
-        it). With *author*, writes that member's individual answer instead,
+        """Writes *answer* as the question's team answer, ``**Answer
+        (<time>):**`` with the time *at* or the clock's (SOM §11.9.10); empty
+        reopens it as ``**Answer:**``. With *author*, writes that member's individual answer instead,
         grouped and placed by the rules of SOM §11.9.8 (empty: only takes the
         member out); an author that is not a member id is refused."""
         if author is not None and not is_review_member_id(author):
@@ -2580,7 +2649,7 @@ class SpecReviewAnnotations:
         if answer == "":
             written = [f"> {_ANSWER_LABEL}"]
         else:
-            written = [f"> {_ANSWER_LABEL} {a[0]}", *_quoted(a[1:])]
+            written = [f"> **Answer ({self._time(at)}):** {a[0]}", *_quoted(a[1:])]
         # The answer runs to the region's last non-empty line.
         last = q.region_end
         while last > q.header and _trim(_inner(lines[last])) == "":
@@ -3737,6 +3806,17 @@ def review_team_answers(value: str) -> dict[str, str]:
     for b in _parse(value).blocks:
         for q in b.questions:
             out.setdefault(q.id, q.answer)
+    return out
+
+
+def review_team_answer_times(value: str) -> dict[str, Optional[str]]:
+    """The time of every question's team answer in *value*, by id (SOM
+    §11.9.10): the first question with that id; ``None`` for an answer
+    written without one."""
+    out: dict[str, Optional[str]] = {}
+    for b in _parse(value).blocks:
+        for q in b.questions:
+            out.setdefault(q.id, q.answer_changed_at)
     return out
 
 

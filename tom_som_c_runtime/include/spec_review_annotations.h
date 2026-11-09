@@ -183,9 +183,13 @@ typedef struct {
   /* A conflict's lettered alternatives. */
   SpecConflictAlternative *alternatives;
   size_t alternatives_len;
-  /* When a comment or mark was last changed (SOM §11.9.10); NULL without a
-   * change time and for the other kinds. */
+  /* When a comment, mark or question was last changed (SOM §11.9.10); NULL
+   * without a change time and for the other kinds. A question's is the time
+   * in its header. */
   char *changed_at;
+  /* When a question's team answer was last changed (SOM §11.9.10): the time
+   * in `**Answer (<time>):**`; NULL without one and for the other kinds. */
+  char *answer_changed_at;
 } SpecReviewAnnotation;
 
 void spec_review_annotation_free(SpecReviewAnnotation *a);
@@ -488,8 +492,9 @@ char *spec_review_format_attribution_token(const SomStrList *authors,
                                            const char *changed_at);
 
 /* The lines of a question block, written into `out` (initialised by the
- * callee). */
-void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out);
+ * callee); `changed_at` (NULL: none) is written after the id (SOM §11.9.10). */
+void spec_format_question_block(const SpecQuestionDraft *q,
+                                const char *changed_at, SomStrList *out);
 
 /* The lines of a conflict block (SOM §11.9.8) into `out` (initialised by the
  * callee): the header, the `(base)` line, one lettered alternative per entry
@@ -608,24 +613,34 @@ char *spec_review_annotations_insert_comment(const SpecReviewAnnotations *r,
                                              SpecReviewAnnotationError *err);
 
 /* Inserts a question block after paragraph `after_paragraph` (0-based; -1: at
- * the start) of the value at `path` / `field`. Returns 1, or 0 (filling
- * `*err`) when the paragraph does not exist. */
+ * the start) of the value at `path` / `field`; its header carries the change
+ * time (SOM §11.9.10): `at` normalized when non-NULL, else the clock's.
+ * Returns 1, or 0 (filling `*err`, nothing changes) when the paragraph does
+ * not exist or `at` is not a time. */
 int spec_review_annotations_insert_question(const SpecReviewAnnotations *r,
                                             const char *path,
                                             const char *field,
                                             long long after_paragraph,
                                             const SpecQuestionDraft *question,
+                                            const char *at,
                                             SpecReviewAnnotationError *err);
 
-/* Inserts a question block directly after the comment `comment_id`. */
+/* Inserts a question block directly after the comment `comment_id`; its
+ * header carries the change time as `spec_review_annotations_insert_question`
+ * writes it. */
 int spec_review_annotations_insert_question_after_comment(
     const SpecReviewAnnotations *r, const char *comment_id,
-    const SpecQuestionDraft *question, SpecReviewAnnotationError *err);
+    const SpecQuestionDraft *question, const char *at,
+    SpecReviewAnnotationError *err);
 
-/* Writes `answer` after the question's `**Answer:**` (empty: reopens it). */
+/* Writes `answer` as the question's team answer, `**Answer (<time>):**` with
+ * the change time (SOM §11.9.10): `at` normalized when non-NULL, else the
+ * clock's. Empty reopens it as `**Answer:**` (`at` is then not read).
+ * Refused — 0, `*err` filled, nothing changes — when the question does not
+ * exist or `at` is not a time. */
 int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
                                        const char *question_id,
-                                       const char *answer,
+                                       const char *answer, const char *at,
                                        SpecReviewAnnotationError *err);
 
 /* Writes member `author`'s individual answer to the question instead of the
@@ -863,6 +878,17 @@ char *spec_review_with_attribution(const char *value, const SpecReviewMark *m,
  * the callee. */
 void spec_review_team_answers(const char *value, SomStrList *ids,
                               SomStrList *answers);
+
+/* The time of every question's team answer in `value` (SOM §11.9.10), in
+ * order: `ids[k]`'s team answer was written at `times[k]`, NULL for an answer
+ * written without one (the first of a repeated id wins). `ids` is initialised
+ * by the callee; `*times` (length `ids->len`) and its strings are owned by
+ * the caller — free with `spec_review_team_answer_times_free`. */
+void spec_review_team_answer_times(const char *value, SomStrList *ids,
+                                   char ***times);
+
+/* Frees the `times` of `spec_review_team_answer_times` (`n` entries). */
+void spec_review_team_answer_times_free(char **times, size_t n);
 
 /* `value` with `member`'s individual answer to question `question_id` set, as
  * `spec_review_annotations_set_member_answer` does, with the change time

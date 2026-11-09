@@ -1283,6 +1283,20 @@
     ]
   },
   {
+    "name": "annotationMalformed: question times",
+    "state": {
+      "content": {
+        "DEMO/SUM": "> **❓ BQ-1 (yesterday) — Bad:** no time\n>\n> **Answer:**\n\n> **❓ BQ-2 (2026-11-07T14:05+01:00) — Good:** a time\n>\n> **Answer (2026-11-07T15:00Z):** yes"
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      }
+    ]
+  },
+  {
     "name": "duplicateAnnotationId",
     "state": {
       "content": {

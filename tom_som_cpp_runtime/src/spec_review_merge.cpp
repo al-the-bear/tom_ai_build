@@ -767,13 +767,35 @@ std::vector<std::pair<std::string, std::string>> teamAnswers(
   return out;
 }
 
+/* The times of the team answers of `texts`' questions, by id, first
+ * occurrence winning (SOM §11.9.10). */
+std::vector<std::pair<std::string, std::optional<std::string>>> teamAnswerTimes(
+    const std::vector<std::string>& texts) {
+  std::vector<std::pair<std::string, std::optional<std::string>>> out;
+  for (const std::string& t : texts) {
+    for (const auto& time : review_internal::reviewTeamAnswerTimes(t)) {
+      const bool seen = std::any_of(out.begin(), out.end(), [&](const auto& e) {
+        return e.first == time.first;
+      });
+      if (!seen) out.push_back(time);
+    }
+  }
+  return out;
+}
+
 /* Writes each copy's team answer to a base question, where it differs from
- * the base's, as that member's individual answer (copies in round order). */
+ * the base's, as that member's individual answer (copies in round order),
+ * with the copy's answer time (SOM §11.9.10). */
 void mergeAnswers(MergeTexts& texts, const std::vector<std::string>& baseTexts,
                   const std::vector<std::vector<std::string>>& copyTexts,
                   MergeContext& ctx) {
   std::vector<std::vector<std::pair<std::string, std::string>>> copyAnswers;
-  for (const auto& ts : copyTexts) copyAnswers.push_back(teamAnswers(ts));
+  std::vector<std::vector<std::pair<std::string, std::optional<std::string>>>>
+      copyTimes;
+  for (const auto& ts : copyTexts) {
+    copyAnswers.push_back(teamAnswers(ts));
+    copyTimes.push_back(teamAnswerTimes(ts));
+  }
   for (const auto& baseEntry : teamAnswers(baseTexts)) {
     const std::string& id = baseEntry.first;
     const std::string& baseAnswer = baseEntry.second;
@@ -784,9 +806,13 @@ void mergeAnswers(MergeTexts& texts, const std::vector<std::string>& baseTexts,
       if (a == copyAnswers[i].end() || a->second == baseAnswer ||
           a->second.empty())
         continue;
+      const auto t = std::find_if(copyTimes[i].begin(), copyTimes[i].end(),
+                                  [&](const auto& e) { return e.first == id; });
+      const std::optional<std::string> time =
+          t == copyTimes[i].end() ? std::nullopt : t->second;
       for (const std::string& key : texts.keys()) {
         const auto written = review_internal::setIndividualAnswerText(
-            texts.get(key), id, ctx.members[i], a->second);
+            texts.get(key), id, ctx.members[i], a->second, time);
         if (!written) continue;
         texts.set(key, *written);
         members.push_back(ctx.members[i]);

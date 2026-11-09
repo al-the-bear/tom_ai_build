@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- Question and team-answer times (SOM §11.9.2, §11.9.10): a question header
+  may carry its time after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) —
+  topic:**`, and the team answer in its label, `**Answer
+  (2026-11-07T14:05+01:00):**` (a parenthesis holding only a time is the team
+  answer). `InsertQuestion` and `InsertQuestionAfterComment` take a new `at`
+  argument and write the header time; `SetAnswer` without an author writes the
+  team answer with a time (reopening writes `**Answer:**`);
+  `FormatQuestionBlock` takes the time to write after the id. A question lists
+  `ChangedAt` (header) and the new `AnswerChangedAt`, and `MergeReviews` gives
+  a copy's team answer its time when it writes it as an individual answer. A
+  header parenthesis holding no time is malformed.
+
 ## 1.7.4
 
 - Change times (SOM §11.9.10): comment headers, attribution tokens and

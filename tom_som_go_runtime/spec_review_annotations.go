@@ -141,9 +141,12 @@ type SpecReviewAnnotation struct {
 	Base string
 	// Alternatives are a conflict's lettered alternatives.
 	Alternatives []SpecConflictAlternative
-	// ChangedAt is when a comment or mark was last changed (SOM §11.9.10);
-	// nil without a time.
+	// ChangedAt is when a comment, mark or question was last changed (SOM
+	// §11.9.10); nil without a time. A question's is the time in its header.
 	ChangedAt *string
+	// AnswerChangedAt is when a question's team answer was last changed (SOM
+	// §11.9.10): the time in `**Answer (<time>):**`, or nil.
+	AnswerChangedAt *string
 }
 
 // Open reports whether a question is still open (no team answer written), or
@@ -372,6 +375,12 @@ func (a SpecReviewAnnotation) ToJSONWith(opts SpecReviewJSONOptions) map[string]
 			out["unresolved"] = a.Unresolved()
 			out["answers"] = answers
 		}
+		if a.ChangedAt != nil {
+			out["changedAt"] = *a.ChangedAt
+		}
+		if a.AnswerChangedAt != nil {
+			out["answerChangedAt"] = *a.AnswerChangedAt
+		}
 		return out
 	case SpecReviewAnnotationKindConflict:
 		alternatives := make([]any, 0, len(a.Alternatives))
@@ -505,7 +514,6 @@ const (
 
 var (
 	annCommentNumber = regexp.MustCompile(`^[1-9][0-9]*$`)
-	annQuestionID    = regexp.MustCompile(`^[A-Z][A-Z0-9]*-[0-9]+$`)
 	// annIndividualAnswerRE is the start of an individual answer line,
 	// `**Answer (alice, bob):**`.
 	annIndividualAnswerRE = regexp.MustCompile(`^\*\*Answer \(([^)]*)\):\*\*`)
@@ -639,6 +647,10 @@ type annQuestion struct {
 	options     []SpecQuestionOption
 	recommended *string
 	answers     []annIndividualAnswer
+	// changedAt is the time in the header (SOM §11.9.10), or nil.
+	changedAt *string
+	// answerChangedAt is the time of the team answer, or nil.
+	answerChangedAt *string
 }
 
 func annIsLetter(c byte) bool { return c >= 'a' && c <= 'z' }
@@ -1084,7 +1096,12 @@ func annParseComment(p *annParsed, b *annBlock) *annComment {
 type annHeader struct {
 	id, topic, rest string
 	starred         bool
+	changedAt       *string
 }
+
+// annHeaderID is a question header's id with its optional change time (SOM
+// §11.9.2, §11.9.10): `BQ-81` or `BQ-81 (2026-11-07T14:05+01:00)`.
+var annHeaderID = regexp.MustCompile(`^([A-Z][A-Z0-9]*-[0-9]+)(?: \(([^)]*)\))?$`)
 
 // annParseHeader parses a question header's remainder after `**❓ `; ok=false
 // when malformed.
@@ -1094,9 +1111,18 @@ func annParseHeader(inner string) (annHeader, bool) {
 	if sep <= 0 {
 		return annHeader{}, false
 	}
-	id := h[:sep]
-	if !annQuestionID.MatchString(id) {
+	idMatch := annHeaderID.FindStringSubmatchIndex(h[:sep])
+	if idMatch == nil {
 		return annHeader{}, false
+	}
+	id := h[idMatch[2]:idMatch[3]]
+	var changedAt *string
+	if idMatch[4] >= 0 {
+		t := h[idMatch[4]:idMatch[5]]
+		if !IsReviewTime(t) {
+			return annHeader{}, false
+		}
+		changedAt = &t
 	}
 	t := h[sep+len(annEmDashSep):]
 	starred := false
@@ -1110,7 +1136,34 @@ func annParseHeader(inner string) (annHeader, bool) {
 	}
 	topic := t[:closeAt]
 	rest := strings.TrimPrefix(t[closeAt+3:], " ")
-	return annHeader{id: id, topic: topic, rest: rest, starred: starred}, true
+	return annHeader{id: id, topic: topic, rest: rest, starred: starred, changedAt: changedAt}, true
+}
+
+// annTeamAnswerTime is the time of a team answer line `**Answer (<time>):**`
+// (SOM §11.9.10), or nil when line is no such line.
+func annTeamAnswerTime(line string) *string {
+	m := annIndividualAnswerRE.FindStringSubmatch(line)
+	if m == nil {
+		return nil
+	}
+	t := strings.TrimSpace(m[1])
+	if !IsReviewTime(t) {
+		return nil
+	}
+	return &t
+}
+
+// annTeamAnswerLabelLength is the length of a team answer's label on line
+// (`**Answer:**` or `**Answer (<time>):**`), or -1 when line does not start
+// with one.
+func annTeamAnswerLabelLength(line string) int {
+	if strings.HasPrefix(line, annAnswerLabel) {
+		return len(annAnswerLabel)
+	}
+	if annTeamAnswerTime(line) == nil {
+		return -1
+	}
+	return len(annIndividualAnswerRE.FindString(line))
 }
 
 func annParseQuestions(p *annParsed, b *annBlock) {
@@ -1132,7 +1185,7 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 		if !ok {
 			p.malformed = append(p.malformed,
 				"line "+strconv.Itoa(b.start+k)+": question header is not "+
-					"\"**❓ <ID> — <topic>:**\" (SOM §11.9.2)")
+					"\"**❓ <ID> — <topic>:**\" or \"**❓ <ID> (<time>) — <topic>:**\" (SOM §11.9.2)")
 			continue
 		}
 		headers[k] = h
@@ -1178,7 +1231,7 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 		var individual []annIndividualAnswer
 		answered := map[string]bool{}
 		for _, m := range answerLines {
-			if strings.HasPrefix(inner[m], annAnswerLabel) {
+			if annTeamAnswerLabelLength(inner[m]) >= 0 {
 				if answer < 0 {
 					answer = m
 				}
@@ -1212,22 +1265,26 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 		}
 		teamAnswer := ""
 		answerLine := -1
+		var answerChangedAt *string
 		if answer >= 0 {
-			teamAnswer = answerText(answer, len(annAnswerLabel))
+			teamAnswer = answerText(answer, annTeamAnswerLabelLength(inner[answer]))
 			answerLine = b.start + answer
+			answerChangedAt = annTeamAnswerTime(inner[answer])
 		}
 		b.questions = append(b.questions, &annQuestion{
-			header:      b.start + k,
-			regionEnd:   b.start + regionEnd,
-			answerLine:  answerLine,
-			id:          h.id,
-			topic:       h.topic,
-			starred:     h.starred,
-			text:        text,
-			answer:      teamAnswer,
-			options:     options,
-			recommended: recommended,
-			answers:     individual,
+			header:          b.start + k,
+			regionEnd:       b.start + regionEnd,
+			answerLine:      answerLine,
+			id:              h.id,
+			topic:           h.topic,
+			starred:         h.starred,
+			text:            text,
+			answer:          teamAnswer,
+			options:         options,
+			recommended:     recommended,
+			answers:         individual,
+			changedAt:       h.changedAt,
+			answerChangedAt: answerChangedAt,
 		})
 	}
 }
@@ -1725,19 +1782,21 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 					ChangedAt: a.changedAt})
 			}
 			out = append(out, entry{q.header, 0, seq, SpecReviewAnnotation{
-				Kind:        SpecReviewAnnotationKindQuestion,
-				Path:        path,
-				Field:       fp,
-				Line:        q.header,
-				ID:          &id,
-				Topic:       &topic,
-				Starred:     q.starred,
-				Combined:    b.combined,
-				Text:        q.text,
-				Answer:      q.answer,
-				Options:     q.options,
-				Recommended: q.recommended,
-				Answers:     answers,
+				Kind:            SpecReviewAnnotationKindQuestion,
+				Path:            path,
+				Field:           fp,
+				Line:            q.header,
+				ID:              &id,
+				Topic:           &topic,
+				Starred:         q.starred,
+				Combined:        b.combined,
+				Text:            q.text,
+				Answer:          q.answer,
+				Options:         q.options,
+				Recommended:     q.recommended,
+				Answers:         answers,
+				ChangedAt:       q.changedAt,
+				AnswerChangedAt: q.answerChangedAt,
 			}})
 			seq++
 		}
@@ -1873,14 +1932,19 @@ func annAuthorAndTime(author, changedAt string) string {
 	return author + ", " + changedAt
 }
 
-// FormatQuestionBlock returns the lines of a question block.
-func FormatQuestionBlock(q SpecQuestionDraft) []string {
+// FormatQuestionBlock returns the lines of a question block; changedAt ("" for
+// none) is written after the id (SOM §11.9.10).
+func FormatQuestionBlock(q SpecQuestionDraft, changedAt string) []string {
 	t := strings.Split(q.Text, "\n")
 	star := ""
 	if q.Starred {
 		star = annStar + " "
 	}
-	lines := []string{"> " + annQuestionOpen + " " + q.ID + annEmDashSep + star + q.Topic + ":** " + t[0]}
+	id := q.ID
+	if changedAt != "" {
+		id += " (" + changedAt + ")"
+	}
+	lines := []string{"> " + annQuestionOpen + " " + id + annEmDashSep + star + q.Topic + ":** " + t[0]}
 	lines = append(lines, annQuoted(t[1:])...)
 	for _, o := range q.Options {
 		if q.Recommended != "" && strings.HasPrefix(o, "("+q.Recommended+")") {
@@ -2737,30 +2801,42 @@ func (r *SpecReviewAnnotations) Paragraphs(path, field string) ([]SpecParagraph,
 }
 
 // InsertQuestion inserts a question block after paragraph afterParagraph
-// (0-based; -1: at the start) of the value at path / field.
-func (r *SpecReviewAnnotations) InsertQuestion(path, field string, afterParagraph int, question SpecQuestionDraft) error {
+// (0-based; -1: at the start) of the value at path / field; its header
+// records at (an ISO 8601 time; "" for the clock's) as the change time (SOM
+// §11.9.10).
+func (r *SpecReviewAnnotations) InsertQuestion(path, field string, afterParagraph int, question SpecQuestionDraft, at string) error {
+	when, err := r.changeTime(at)
+	if err != nil {
+		return err
+	}
 	value := r.get(path, field)
 	end, err := r.paragraphLastLine(value, afterParagraph)
 	if err != nil {
 		return err
 	}
-	r.set(path, field, annInsertAfterLine(value, end, FormatQuestionBlock(question)))
+	r.set(path, field, annInsertAfterLine(value, end, FormatQuestionBlock(question, when)))
 	return nil
 }
 
 // InsertQuestionAfterComment inserts a question block directly after the
-// comment commentID.
-func (r *SpecReviewAnnotations) InsertQuestionAfterComment(commentID string, question SpecQuestionDraft) error {
+// comment commentID; its header records at (an ISO 8601 time; "" for the
+// clock's) as the change time (SOM §11.9.10).
+func (r *SpecReviewAnnotations) InsertQuestionAfterComment(commentID string, question SpecQuestionDraft, at string) error {
+	when, err := r.changeTime(at)
+	if err != nil {
+		return err
+	}
 	v, c, err := r.findComment(commentID)
 	if err != nil {
 		return err
 	}
-	r.set(v.path, v.field, annInsertAfterLine(v.text, c.block.end, FormatQuestionBlock(question)))
+	r.set(v.path, v.field, annInsertAfterLine(v.text, c.block.end, FormatQuestionBlock(question, when)))
 	return nil
 }
 
-// SetAnswer writes answer after the question's `**Answer:**` (empty: reopens
-// it). With author (a member id; "" for the team), it writes that member's
+// SetAnswer writes answer as the question's team answer, `**Answer
+// (<time>):**` with at (an ISO 8601 time; "" for the clock's) as its change
+// time (SOM §11.9.10); empty reopens it as `**Answer:**`. With author (a member id; "" for the team), it writes that member's
 // individual answer instead, grouped and placed by the rules of SOM §11.9.8
 // (empty: only takes the member out); an author that is not a member id is
 // refused. A member's non-empty answer records at (an ISO 8601 time; "" for
@@ -2790,7 +2866,11 @@ func (r *SpecReviewAnnotations) SetAnswer(questionID, answer, author, at string)
 	if answer == "" {
 		written = []string{"> " + annAnswerLabel}
 	} else {
-		written = append([]string{"> " + annAnswerLabel + " " + a[0]}, annQuoted(a[1:])...)
+		when, err := r.changeTime(at)
+		if err != nil {
+			return err
+		}
+		written = append([]string{"> **Answer (" + when + "):** " + a[0]}, annQuoted(a[1:])...)
 	}
 	// The answer runs to the region's last non-empty line.
 	last := q.regionEnd
@@ -4427,6 +4507,21 @@ func reviewTeamAnswers(value string) (map[string]string, []string) {
 		}
 	}
 	return out, order
+}
+
+// reviewTeamAnswerTimes are the times of the team answer of every question of
+// value, by id (SOM §11.9.10): the first question with that id; nil for an
+// answer written without one.
+func reviewTeamAnswerTimes(value string) map[string]*string {
+	out := map[string]*string{}
+	for _, b := range annParse(value).blocks {
+		for _, q := range b.questions {
+			if _, ok := out[q.id]; !ok {
+				out[q.id] = q.answerChangedAt
+			}
+		}
+	}
+	return out
 }
 
 // setIndividualAnswerText is value with member's individual answer to

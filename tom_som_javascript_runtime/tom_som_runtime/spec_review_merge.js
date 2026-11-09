@@ -41,6 +41,7 @@ const {
   reviewMarks,
   reviewPieces,
   reviewTeamAnswers,
+  reviewTeamAnswerTimes,
   setIndividualAnswerText,
   transplantEdits,
   withAttribution,
@@ -631,19 +632,39 @@ function _teamAnswers(texts) {
 }
 
 /**
+ * The times of the team answers of `texts`, by id (the first, when an id
+ * repeats; SOM §11.9.10).
+ */
+function _teamAnswerTimes(texts) {
+  const out = new Map();
+  for (const t of texts) {
+    for (const [id, at] of reviewTeamAnswerTimes(t)) if (!out.has(id)) out.set(id, at);
+  }
+  return out;
+}
+
+/**
  * Writes each copy's team answer to a base question, where it differs from
- * the base's, as that member's individual answer (copies in round order).
+ * the base's, as that member's individual answer (copies in round order),
+ * with the copy's answer time (SOM §11.9.10).
  */
 function _mergeAnswers(texts, baseTexts, copyTexts, ctx) {
   const baseAnswers = _teamAnswers(baseTexts);
   const copyAnswers = copyTexts.map(_teamAnswers);
+  const copyTimes = copyTexts.map(_teamAnswerTimes);
   for (const [id, baseAnswer] of baseAnswers) {
     const members = [];
     copyAnswers.forEach((answers, i) => {
       const a = answers.get(id);
       if (a === undefined || a === baseAnswer || a.length === 0) return;
       for (const key of texts.keys()) {
-        const written = setIndividualAnswerText(texts.get(key), id, ctx.members[i], a);
+        const written = setIndividualAnswerText(
+          texts.get(key),
+          id,
+          ctx.members[i],
+          a,
+          copyTimes[i].get(id) ?? null,
+        );
         if (written === null) continue;
         texts.set(key, written);
         members.push(ctx.members[i]);

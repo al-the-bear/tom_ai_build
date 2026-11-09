@@ -208,8 +208,12 @@ struct SpecReviewAnnotation {
   std::string base;
   /* A conflict's lettered alternatives. */
   std::vector<SpecConflictAlternative> alternatives;
-  /* When a comment or mark was last changed (SOM §11.9.10), or nullopt. */
+  /* When a comment, mark or question was last changed (SOM §11.9.10), or
+   * nullopt. A question's is the time in its header. */
   std::optional<std::string> changedAt;
+  /* When a question's team answer was last changed (SOM §11.9.10): the time
+   * in `**Answer (<time>):**`, or nullopt. */
+  std::optional<std::string> answerChangedAt;
 
   /* Whether a question is still open (no team answer written), or a conflict
    * (no decision written). */
@@ -440,8 +444,11 @@ std::vector<std::string> formatCommentBlock(
     const std::optional<std::string>& author = std::nullopt,
     const std::optional<std::string>& changedAt = std::nullopt);
 
-/* The lines of a question block. */
-std::vector<std::string> formatQuestionBlock(const SpecQuestionDraft& q);
+/* The lines of a question block; `changedAt` is written after the id (SOM
+ * §11.9.10). */
+std::vector<std::string> formatQuestionBlock(
+    const SpecQuestionDraft& q,
+    const std::optional<std::string>& changedAt = std::nullopt);
 
 /* The lines of a conflict block (SOM §11.9.8): the header, the `(base)` line,
  * one lettered alternative per entry naming its members, and an empty
@@ -519,18 +526,23 @@ class SpecReviewAnnotations {
                             const std::optional<std::string>& at = std::nullopt);
 
   /* Inserts a question block after paragraph `afterParagraph` (0-based; -1:
-   * at the start) of the value at `path` / `field`. */
+   * at the start) of the value at `path` / `field`; its header carries the
+   * time `at`, else the clock's (SOM §11.9.10). */
   void insertQuestion(const std::string& path,
                       const std::optional<std::string>& field,
                       long long afterParagraph,
-                      const SpecQuestionDraft& question);
+                      const SpecQuestionDraft& question,
+                      const std::optional<std::string>& at = std::nullopt);
 
-  /* Inserts a question block directly after the comment `commentId`. */
-  void insertQuestionAfterComment(const std::string& commentId,
-                                  const SpecQuestionDraft& question);
+  /* Inserts a question block directly after the comment `commentId`; its
+   * header carries the time `at`, else the clock's (SOM §11.9.10). */
+  void insertQuestionAfterComment(
+      const std::string& commentId, const SpecQuestionDraft& question,
+      const std::optional<std::string>& at = std::nullopt);
 
-  /* Writes `answer` after the question's `**Answer:**` (empty: reopens it).
-   * With `author`, writes that member's individual answer instead, grouped and
+  /* Writes `answer` as the question's team answer, `**Answer (<time>):**`
+   * with the time `at`, else the clock's (SOM §11.9.10); empty reopens it as
+   * `**Answer:**`. With `author`, writes that member's individual answer instead, grouped and
    * placed by the rules of SOM §11.9.8 (empty: only takes the member out); an
    * author that is not a member id is refused. A non-empty individual answer
    * records the change time `at`, else the clock's (SOM §11.9.10). */
@@ -745,6 +757,12 @@ std::string withAttribution(const std::string& value, const ReviewMark& m,
  * of a repeated id wins). */
 std::vector<std::pair<std::string, std::string>> reviewTeamAnswers(
     const std::string& value);
+
+/* The time of every question's team answer in `value` (SOM §11.9.10), by id,
+ * in order (the first of a repeated id wins); nullopt for an answer written
+ * without one. */
+std::vector<std::pair<std::string, std::optional<std::string>>>
+reviewTeamAnswerTimes(const std::string& value);
 
 /* `value` with `member`'s individual answer to question `questionId` set, as
  * `setAnswer` with an `author` does; nullopt when the value holds no such

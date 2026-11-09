@@ -74,8 +74,9 @@ int main(void) {
   SpecReviewAnnotationError err;
   spec_review_annotation_error_init(&err);
   if (!spec_review_annotations_insert_question_after_comment(&review, "C-1",
-                                                             &q, &err) ||
-      !spec_review_annotations_set_answer(&review, "BQ-1", "yes", &err)) {
+                                                             &q, NULL, &err) ||
+      !spec_review_annotations_set_answer(&review, "BQ-1", "yes", NULL,
+                                          &err)) {
     fprintf(stderr, "%s\n", err.message);
   }
   spec_review_annotation_error_free(&err);
@@ -125,9 +126,9 @@ Every operation is `spec_review_annotations_<name>(&review, …)`.
 | `assign_comment_ids(floor, out)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `paragraphs(path, field, out, err)` | The value's paragraphs as a `SpecParagraphList` of `SpecParagraph`, each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block, else `NULL`; `spec_paragraph_to_json`). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is refused (returns 0) |
 | `insert_comment(path, field, after_paragraph, text, author, id, at, err)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side, its header holding the change time ([Change times](#change-times)); returns its id (the next free one unless `id` is given) |
-| `insert_question(path, field, after_paragraph, question, err)` | A question block after a paragraph |
-| `insert_question_after_comment(comment_id, question, err)` | A question block directly after a comment block |
-| `set_answer(question_id, answer, err)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. `set_member_answer(question_id, author, answer, at, err)` writes a member's individual answer instead ([Team reviews](#team-reviews)) |
+| `insert_question(path, field, after_paragraph, question, at, err)` | A question block after a paragraph, its header carrying the change time |
+| `insert_question_after_comment(comment_id, question, at, err)` | A question block directly after a comment block, its header carrying the change time |
+| `set_answer(question_id, answer, at, err)` | Writes the team answer as `**Answer (<time>):**`; an empty answer reopens the question (`**Answer:**`); adds the line when it is missing. `set_member_answer(question_id, author, answer, at, err)` writes a member's individual answer instead ([Team reviews](#team-reviews)) |
 | `edit_comment(comment_id, text, at, err)` | New text; the marker, id and author stay as written, the change time is written anew |
 | `resolve(id, err)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, field, index, accept, err)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
@@ -417,13 +418,18 @@ minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
 | Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
 | Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
 | Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+| Question | in parentheses after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) — Timeout:**` |
+| Team answer | in the label's parentheses, `**Answer (2026-11-07T14:05+01:00):**` (a time alone marks the team's answer) |
 
 The writes record it, each with an `at` argument (`NULL`, or ISO 8601 with an
 offset or `Z`; seconds are cut, any other shape is refused: 0 or `NULL`,
 `*err` filled, nothing changed): `insert_comment`, `edit_comment` (the author
 stays), `comment_change`, `edit_mark_comment` (authors and votes stay),
 `set_marked` and `mark_against` (both take an `author`, `NULL` for none; a mark
-written again unchanged keeps its token) and `set_member_answer`. Without `at`
+written again unchanged keeps its token), `insert_question` and
+`insert_question_after_comment` (the header), `set_answer` (the team answer;
+reopening with an empty answer writes `**Answer:**` without a time) and
+`set_member_answer`. Without `at`
 the time comes from the clock the `SpecReviewAnnotations` was made with
 (`spec_review_annotations_make_with_clock(doc, qualifier, clock, context)`; a
 `SpecReviewClock` returns a `malloc`ed string the runtime frees), else from the
@@ -433,8 +439,13 @@ an annotation takes its time with it. `spec_review_normalize_time` (owned, or
 (owned) and `spec_review_format_attribution_token` are the helpers.
 
 Reading reports `changed_at` (owned, `NULL` without one) on
-`SpecReviewAnnotation` (comments and marks), `SpecMarkEntry` and
-`SpecIndividualAnswer`; the JSON forms write `changedAt` only when there is one.
+`SpecReviewAnnotation` (comments, marks and questions — a question's is its
+header time), `SpecMarkEntry` and `SpecIndividualAnswer`, and
+`answer_changed_at` (the team answer's time) on a question; the JSON forms
+write `changedAt` and `answerChangedAt` only when there is one.
+`spec_review_team_answer_times` lists the team answers' times by question id
+(free them with `spec_review_team_answer_times_free`); merging copies carries
+a copy's team-answer time into the member's individual answer.
 
 ```c
 static char *fixed_clock(void *context) {

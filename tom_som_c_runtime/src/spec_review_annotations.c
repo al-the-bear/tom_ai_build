@@ -425,6 +425,8 @@ typedef struct {
   char *recommended; /* NULL for none */
   IndividualAnswer *answers;
   size_t answers_len, answers_cap;
+  char *changed_at;        /* the time in the header (SOM §11.9.10), or NULL */
+  char *answer_changed_at; /* the time of the team answer, or NULL */
 } Question;
 
 /* One parsed conflict block (SOM §11.9.8). */
@@ -588,6 +590,8 @@ static void parsed_free(Parsed *p) {
       free(q->answers[a].changed_at);
     }
     free(q->answers);
+    free(q->changed_at);
+    free(q->answer_changed_at);
   }
   free(p->questions);
   for (size_t i = 0; i < p->conflicts_len; i++) {
@@ -686,6 +690,28 @@ static size_t individual_answer_label(const char *line, char **inside) {
                            (size_t)(close - line) - strlen(open));
   }
   return (size_t)(close - line) + 4;
+}
+
+/* The time of a team answer line `**Answer (<time>):**` (SOM §11.9.10),
+ * owned; NULL when `line` is no such line. */
+static char *team_answer_time(const char *line) {
+  char *inside = NULL;
+  if (individual_answer_label(line, &inside) == 0) return NULL;
+  char *t = trim_dup(inside);
+  free(inside);
+  if (spec_review_is_time(t)) return t;
+  free(t);
+  return NULL;
+}
+
+/* The length of a team answer's label on `line` (`**Answer:**` or
+ * `**Answer (<time>):**`); 0 when `line` does not start with one. */
+static size_t team_answer_label_length(const char *line) {
+  if (starts_with(line, ANSWER_LABEL)) return strlen(ANSWER_LABEL);
+  char *t = team_answer_time(line);
+  if (t == NULL) return 0;
+  free(t);
+  return individual_answer_label(line, NULL);
 }
 
 /* `s` split on `sep` into `out` (initialised here), each piece trimmed; empty
@@ -820,15 +846,37 @@ typedef struct {
   char *topic;
   int starred;
   const char *rest; /* borrowed from the line */
+  char *changed_at; /* the header's change time (SOM §11.9.10), or NULL */
 } Header;
 
-/* Parses a question header's remainder after `**❓ `; 0 when malformed. */
+/* Parses a question header's remainder after `**❓ `; 0 when malformed. The
+ * id may carry a change time (SOM §11.9.2, §11.9.10): `BQ-81` or
+ * `BQ-81 (2026-11-07T14:05+01:00)`. */
 static int parse_header(const char *inner, Header *out) {
   const char *h = inner + strlen(QOPEN) + 1;
   const char *sep = strstr(h, EM_SEP);
   if (sep == NULL || sep == h) return 0;
   char *id = som_strdup_n(h, (size_t)(sep - h));
+  char *changed_at = NULL;
+  char *open = strstr(id, " (");
+  if (open != NULL) {
+    size_t n = strlen(open);
+    /* ` (<time>)` up to the end, the time holding no `)`. */
+    if (n < 3 || open[n - 1] != ')' ||
+        memchr(open + 2, ')', n - 3) != NULL) {
+      free(id);
+      return 0;
+    }
+    changed_at = som_strdup_n(open + 2, n - 3);
+    *open = '\0';
+    if (!spec_review_is_time(changed_at)) {
+      free(changed_at);
+      free(id);
+      return 0;
+    }
+  }
   if (!is_question_id(id)) {
+    free(changed_at);
     free(id);
     return 0;
   }
@@ -840,9 +888,11 @@ static int parse_header(const char *inner, Header *out) {
   }
   const char *close = strstr(t, ":**");
   if (close == NULL) {
+    free(changed_at);
     free(id);
     return 0;
   }
+  out->changed_at = changed_at;
   out->id = id;
   out->topic = som_strdup_n(t, (size_t)(close - t));
   out->starred = starred;
@@ -1007,6 +1057,8 @@ static void parse_questions(Parsed *p, size_t bi) {
       som_strlist_push(&p->malformed,
                        fmt("line %zu: question header is not "
                            "\"**\xE2\x9D\x93 <ID> \xE2\x80\x94 <topic>:**\" "
+                           "or \"**\xE2\x9D\x93 <ID> (<time>) \xE2\x80\x94 "
+                           "<topic>:**\" "
                            "(SOM \xC2\xA7"
                            "11.9.2)",
                            b->start + k));
@@ -1047,13 +1099,15 @@ static void parse_questions(Parsed *p, size_t bi) {
       /* An answer runs to the next `**Answer` line or the end of the region. */
       size_t a_end =
           a + 1 < answer_count ? answer_lines[a + 1] - 1 : region_end;
-      if (starts_with(in[m], ANSWER_LABEL)) {
+      size_t team_label = team_answer_label_length(in[m]);
+      if (team_label > 0) {
         if (answer < 0) {
           answer = (long long)m;
-          char *aj = join_from(in[m] + strlen(ANSWER_LABEL), in,
-                               (long long)m + 1, (long long)a_end);
+          char *aj = join_from(in[m] + team_label, in, (long long)m + 1,
+                               (long long)a_end);
           qq.answer = trim_dup(aj);
           free(aj);
+          qq.answer_changed_at = team_answer_time(in[m]);
         }
         continue;
       }
@@ -1100,6 +1154,7 @@ static void parse_questions(Parsed *p, size_t bi) {
     qq.id = hs[q].id;
     qq.topic = hs[q].topic;
     qq.starred = hs[q].starred;
+    qq.changed_at = hs[q].changed_at;
     PUSH(p->questions, p->questions_len, p->questions_cap, qq);
   }
   free(hs);
@@ -1855,6 +1910,7 @@ void spec_review_annotation_free(SpecReviewAnnotation *a) {
   free(a->base);
   alternatives_free(a->alternatives, a->alternatives_len);
   free(a->changed_at);
+  free(a->answer_changed_at);
   memset(a, 0, sizeof(*a));
 }
 
@@ -2031,6 +2087,12 @@ static char *annotation_json(const SpecReviewAnnotation *a, int team) {
           som_buf_putc(&b, '}');
         }
         som_buf_putc(&b, ']');
+      }
+      if (a->changed_at != NULL) {
+        put_str(&b, &first, "changedAt", a->changed_at);
+      }
+      if (a->answer_changed_at != NULL) {
+        put_str(&b, &first, "answerChangedAt", a->answer_changed_at);
       }
       break;
     case SPEC_REVIEW_ANNOTATION_CONFLICT: {
@@ -2228,6 +2290,8 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
           e.a.answers[ai].answer = som_strdup(q->answers[ai].answer);
           e.a.answers[ai].changed_at = dup_or_null(q->answers[ai].changed_at);
         }
+        e.a.changed_at = dup_or_null(q->changed_at);
+        e.a.answer_changed_at = dup_or_null(q->answer_changed_at);
         PUSH(o, len, cap, e);
       }
     }
@@ -2434,12 +2498,16 @@ char *spec_review_format_attribution_token(const SomStrList *authors,
   return out;
 }
 
-void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out) {
+void spec_format_question_block(const SpecQuestionDraft *q,
+                                const char *changed_at, SomStrList *out) {
   SomStrList t;
   split_lines(q->text, &t);
   som_strlist_init(out);
-  som_strlist_push(out, fmt("> " QOPEN " %s" EM_SEP "%s%s:** %s", q->id,
+  char *id = changed_at == NULL ? som_strdup(q->id)
+                                : fmt("%s (%s)", q->id, changed_at);
+  som_strlist_push(out, fmt("> " QOPEN " %s" EM_SEP "%s%s:** %s", id,
                             q->starred ? STAR " " : "", q->topic, t.items[0]));
+  free(id);
   push_quoted(out, &t, 1);
   for (size_t i = 0; i < q->options_len; i++) {
     const char *o = q->options[i];
@@ -3217,20 +3285,25 @@ int spec_review_annotations_insert_question(const SpecReviewAnnotations *r,
                                             const char *field,
                                             long long after_paragraph,
                                             const SpecQuestionDraft *question,
+                                            const char *at,
                                             SpecReviewAnnotationError *err) {
+  char *time = review_time(r, at, err);
+  if (time == NULL) return 0;
   char *value = som_strdup(get_value(r->doc, path, field));
   long long end;
   if (!paragraph_last_line(value, after_paragraph, &end, err)) {
     free(value);
+    free(time);
     return 0;
   }
   SomStrList block;
-  spec_format_question_block(question, &block);
+  spec_format_question_block(question, time, &block);
   char *updated = insert_after_line(value, end, &block);
   set_value(r->doc, path, field, updated);
   free(updated);
   som_strlist_free(&block);
   free(value);
+  free(time);
   return 1;
 }
 
@@ -3310,11 +3383,18 @@ static int find_question(const SpecReviewAnnotations *r, const char *id,
 
 int spec_review_annotations_insert_question_after_comment(
     const SpecReviewAnnotations *r, const char *comment_id,
-    const SpecQuestionDraft *question, SpecReviewAnnotationError *err) {
+    const SpecQuestionDraft *question, const char *at,
+    SpecReviewAnnotationError *err) {
+  char *time = review_time(r, at, err);
+  if (time == NULL) return 0;
   Found f;
-  if (!find_comment(r, comment_id, &f, err)) return 0;
+  if (!find_comment(r, comment_id, &f, err)) {
+    free(time);
+    return 0;
+  }
   SomStrList block;
-  spec_format_question_block(question, &block);
+  spec_format_question_block(question, time, &block);
+  free(time);
   char *updated = insert_after_line(
       f.value.text, (long long)f.parsed.blocks[f.block].end, &block);
   set_value(r->doc, f.value.path, f.value.field, updated);
@@ -3539,10 +3619,18 @@ int spec_review_annotations_set_member_answer(const SpecReviewAnnotations *r,
 
 int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
                                        const char *question_id,
-                                       const char *answer,
+                                       const char *answer, const char *at,
                                        SpecReviewAnnotationError *err) {
   Found f;
   if (!find_question(r, question_id, &f, err)) return 0;
+  char *time = NULL;
+  if (answer[0] != '\0') {
+    time = review_time(r, at, err);
+    if (time == NULL) {
+      found_free(&f);
+      return 0;
+    }
+  }
   const Question *q = &f.parsed.questions[f.index];
   SomStrList lines;
   split_lines(f.value.text, &lines);
@@ -3553,9 +3641,11 @@ int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
   if (answer[0] == '\0') {
     som_strlist_push_copy(&written, "> " ANSWER_LABEL);
   } else {
-    som_strlist_push(&written, fmt("> " ANSWER_LABEL " %s", a.items[0]));
+    som_strlist_push(&written,
+                     fmt("> **Answer (%s):** %s", time, a.items[0]));
     push_quoted(&written, &a, 1);
   }
+  free(time);
   /* The answer runs to the region's last non-empty line. */
   size_t last = q->region_end;
   while (last > q->header && is_blank(inner_of(lines.items[last]))) last--;
@@ -5606,6 +5696,30 @@ void spec_review_team_answers(const char *value, SomStrList *ids,
     som_strlist_push_copy(answers, p.questions[i].answer);
   }
   parsed_free(&p);
+}
+
+void spec_review_team_answer_times(const char *value, SomStrList *ids,
+                                   char ***times) {
+  som_strlist_init(ids);
+  *times = NULL;
+  size_t cap = 0;
+  Parsed p;
+  parse(value, &p);
+  for (size_t i = 0; i < p.questions_len; i++) {
+    if (som_strlist_contains(ids, p.questions[i].id)) continue;
+    if (ids->len == cap) {
+      cap = cap ? cap * 2 : 4;
+      *times = realloc(*times, cap * sizeof(char *));
+    }
+    (*times)[ids->len] = dup_or_null(p.questions[i].answer_changed_at);
+    som_strlist_push_copy(ids, p.questions[i].id);
+  }
+  parsed_free(&p);
+}
+
+void spec_review_team_answer_times_free(char **times, size_t n) {
+  for (size_t i = 0; i < n; i++) free(times[i]);
+  free(times);
 }
 
 char *spec_review_set_individual_answer_text(const char *value,

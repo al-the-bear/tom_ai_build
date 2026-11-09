@@ -641,13 +641,14 @@
                   "answerLetter": "a",
                   "changedAt": "2026-11-07T14:05+01:00"
                 }
-              ]
+              ],
+              "answerChangedAt": "2026-11-07T14:05+01:00"
             }
           ]
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (carol, bob, 2026-11-07T14:05+01:00):** (b)\n> **Answer (dave, 2026-11-07T14:05+01:00):** (a), only for internal packages\n>\n> **Answer:** (b)"
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (carol, bob, 2026-11-07T14:05+01:00):** (b)\n> **Answer (dave, 2026-11-07T14:05+01:00):** (a), only for internal packages\n>\n> **Answer (2026-11-07T14:05+01:00):** (b)"
           }
         }
       }

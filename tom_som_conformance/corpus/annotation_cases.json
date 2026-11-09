@@ -931,8 +931,8 @@
         "state": {
           "content": {
             "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
-            "DEMO/MIX/tail": "Tail text.\n\n> **❓ BQ-91 — ★ C-3 scope:** kiosks only, or\n> all shared devices?\n> - (a) kiosks only\n> - (b) all shared devices\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**",
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> **❓ BQ-92 — C-3 wording:** keep the sentence?\n>\n> **Answer:**\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+            "DEMO/MIX/tail": "Tail text.\n\n> **❓ BQ-91 (2026-11-07T14:05+01:00) — ★ C-3 scope:** kiosks only, or\n> all shared devices?\n> - (a) kiosks only\n> - (b) all shared devices\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> **❓ BQ-92 (2026-11-07T14:05+01:00) — C-3 wording:** keep the sentence?\n>\n> **Answer:**\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
           },
           "forms": {
             "DEMO/DET": {
@@ -1024,7 +1024,8 @@
               "open": false,
               "options": [],
               "recommended": null,
-              "answerLetter": null
+              "answerLetter": null,
+              "answerChangedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "question",
@@ -1163,7 +1164,8 @@
                 }
               ],
               "recommended": "a",
-              "answerLetter": "a"
+              "answerLetter": "a",
+              "answerChangedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "question",
@@ -1179,7 +1181,8 @@
               "open": false,
               "options": [],
               "recommended": null,
-              "answerLetter": null
+              "answerLetter": null,
+              "answerChangedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "mark",
@@ -1195,9 +1198,9 @@
         ],
         "state": {
           "content": {
-            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:** Bob\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:**\n\n> ⬆️ **C-7** (Alexis, 2026-11-07T14:05+01:00): Only the owner.",
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer (2026-11-07T14:05+01:00):** Bob\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:**\n\n> ⬆️ **C-7** (Alexis, 2026-11-07T14:05+01:00): Only the owner.",
             "DEMO/MIX/tail": "Tail text.",
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis, 2026-11-07T14:05+01:00): Far too long.\n> Split it.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a)\n> and 5 minutes.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n>\n> **Answer:** 10 years\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis, 2026-11-07T14:05+01:00): Far too long.\n> Split it.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer (2026-11-07T14:05+01:00):** (a)\n> and 5 minutes.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n>\n> **Answer (2026-11-07T14:05+01:00):** 10 years\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
           },
           "forms": {
             "DEMO/DET": {
@@ -1856,7 +1859,8 @@
                 }
               ],
               "recommended": "b",
-              "answerLetter": null
+              "answerLetter": null,
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "question",
@@ -1991,7 +1995,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "> **❓ BQ-6 — Written bold:** which one?\n> - (a) first\n> - **(b)** second\n>\n> **Answer:**\n\n> **❓ BQ-1 — Bold:** which one?\n> - (a) the first\n> - **(b)** the second\n>\n> *Recommendation:* (b) — cheaper.\n>\n> **Answer:** (b) because it is cheaper\n\n> **❓ BQ-2 — Says recommended:** which one?\n> - (a) one\n> - (b) two (recommended)\n>\n> **Answer:** **(a)**\n\n> **❓ BQ-3 — Recommendation line:** which one?\n> - (a) a long option that goes on\n>   over a second line\n> - (b) short\n> - (c) third\n>\n> *Recommendation:* (c) — the reason.\n>\n> **Answer:**\n\n> **❓ BQ-4 — No options:** is it fine?\n>\n> **Answer:** yes\n\n> **❓ BQ-5 — No recommendation:** which one?\n> - (a) one\n> - (b) two\n>\n> *Recommendation:* keep it simple.\n>\n> **Answer:**"
+            "DEMO/SUM": "> **❓ BQ-6 (2026-11-07T14:05+01:00) — Written bold:** which one?\n> - (a) first\n> - **(b)** second\n>\n> **Answer:**\n\n> **❓ BQ-1 — Bold:** which one?\n> - (a) the first\n> - **(b)** the second\n>\n> *Recommendation:* (b) — cheaper.\n>\n> **Answer:** (b) because it is cheaper\n\n> **❓ BQ-2 — Says recommended:** which one?\n> - (a) one\n> - (b) two (recommended)\n>\n> **Answer:** **(a)**\n\n> **❓ BQ-3 — Recommendation line:** which one?\n> - (a) a long option that goes on\n>   over a second line\n> - (b) short\n> - (c) third\n>\n> *Recommendation:* (c) — the reason.\n>\n> **Answer:**\n\n> **❓ BQ-4 — No options:** is it fine?\n>\n> **Answer:** yes\n\n> **❓ BQ-5 — No recommendation:** which one?\n> - (a) one\n> - (b) two\n>\n> *Recommendation:* keep it simple.\n>\n> **Answer:**"
           }
         }
       }
@@ -2717,6 +2721,313 @@
         "state": {
           "content": {
             "DEMO/SUM": "> ⬆️ **C-6** (2026-11-07T14:05+01:00): At the clock, no author.\n\nSessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.\n\n> ⬆️ **C-5** (alexis, 2026-11-08T09:15+01:00): At a given time, seconds cut.\n\n> ⬆️ **C-1** (Alexis, 2026-11-08T10:00Z): Edited: the author stays, the time moves.\n\n> ⬆️ **C-2** (2026-11-02T10:00Z): No author, a time.\n\n> ⬆️ **C-3** (Bea, 2026-11-07T14:05+01:00): Edited: an author without a time gets one.\n\n> ⬆️ **C-4** (Alexis, 2026-11-07): A date is no time.\n\nMarks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00} and {>> plain <<}."
+          }
+        }
+      }
+    },
+    {
+      "name": "question times: read from headers and team answers",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes.\n\n> **❓ BQ-1 (2026-11-01T09:30+01:00) — Timeout:** shorter?\n> - (a) 30\n> - **(b)** 15\n>\n> **Answer (2026-11-02T10:00Z):** (b)\n\n> **❓ BQ-2 — Kiosks:** also on kiosks?\n>\n> **Answer:** yes\n\n> **❓ BQ-3 (2026-11-03T08:00+01:00) — Owner:** who owns it?\n>\n> **Answer (alice, 2026-11-03T09:00+01:00):** Bob\n>\n> **Answer (2026-11-03T10:00+01:00):** Bob, decided\n\n> **❓ BQ-4 (yesterday) — Broken:** a parenthesis without a time\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "id": "BQ-1",
+              "topic": "Timeout",
+              "starred": false,
+              "combined": false,
+              "text": "shorter?\n- (a) 30\n- **(b)** 15",
+              "answer": "(b)",
+              "open": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "30",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "15",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": "b",
+              "changedAt": "2026-11-01T09:30+01:00",
+              "answerChangedAt": "2026-11-02T10:00Z"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": "BQ-2",
+              "topic": "Kiosks",
+              "starred": false,
+              "combined": false,
+              "text": "also on kiosks?",
+              "answer": "yes",
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 12,
+              "id": "BQ-3",
+              "topic": "Owner",
+              "starred": false,
+              "combined": false,
+              "text": "who owns it?",
+              "answer": "Bob, decided",
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null,
+              "changedAt": "2026-11-03T08:00+01:00",
+              "answerChangedAt": "2026-11-03T10:00+01:00"
+            }
+          ],
+          {
+            "questions": 3,
+            "openQuestions": 0,
+            "answeredQuestions": 3,
+            "comments": 0,
+            "marks": 0
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 30 minutes.\n\n> **❓ BQ-1 (2026-11-01T09:30+01:00) — Timeout:** shorter?\n> - (a) 30\n> - **(b)** 15\n>\n> **Answer (2026-11-02T10:00Z):** (b)\n\n> **❓ BQ-2 — Kiosks:** also on kiosks?\n>\n> **Answer:** yes\n\n> **❓ BQ-3 (2026-11-03T08:00+01:00) — Owner:** who owns it?\n>\n> **Answer (alice, 2026-11-03T09:00+01:00):** Bob\n>\n> **Answer (2026-11-03T10:00+01:00):** Bob, decided\n\n> **❓ BQ-4 (yesterday) — Broken:** a parenthesis without a time\n>\n> **Answer:**"
+          }
+        }
+      }
+    },
+    {
+      "name": "question times: written and refused",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes.\n\n> **❓ BQ-1 (2026-11-01T09:30+01:00) — Timeout:** shorter?\n> - (a) 30\n> - **(b)** 15\n>\n> **Answer (2026-11-02T10:00Z):** (b)\n\n> **❓ BQ-2 — Kiosks:** also on kiosks?\n>\n> **Answer:** yes\n\n> **❓ BQ-3 (2026-11-03T08:00+01:00) — Owner:** who owns it?\n>\n> **Answer (alice, 2026-11-03T09:00+01:00):** Bob\n>\n> **Answer (2026-11-03T10:00+01:00):** Bob, decided\n\n> **❓ BQ-4 (yesterday) — Broken:** a parenthesis without a time\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "insertQuestion",
+          "path": "DEMO/SUM",
+          "afterParagraph": 0,
+          "question": {
+            "id": "BQ-5",
+            "topic": "At a given time",
+            "text": "seconds cut?",
+            "options": [
+              "(a) yes",
+              "(b) no"
+            ],
+            "recommended": "a"
+          },
+          "at": "2026-11-08T09:15:42+01:00"
+        },
+        {
+          "op": "insertQuestion",
+          "path": "DEMO/SUM",
+          "afterParagraph": -1,
+          "question": {
+            "id": "BQ-6",
+            "topic": "At the clock",
+            "text": "now?"
+          }
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-2",
+          "answer": "yes, and on terminals",
+          "at": "2026-11-08T10:00Z"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-3",
+          "answer": "Bea"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "answer": ""
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-3",
+          "answer": "Bea",
+          "author": "bob",
+          "at": "2026-11-08T11:00+01:00"
+        },
+        {
+          "op": "list"
+        },
+        {
+          "op": "insertQuestion",
+          "path": "DEMO/SUM",
+          "afterParagraph": 0,
+          "question": {
+            "id": "BQ-7",
+            "topic": "x",
+            "text": "y"
+          },
+          "at": "yesterday"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-6",
+          "answer": "refused",
+          "at": "2026-11-08T10:00"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "BQ-6",
+              "topic": "At the clock",
+              "starred": false,
+              "combined": false,
+              "text": "now?",
+              "answer": "",
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null,
+              "changedAt": "2026-11-07T14:05+01:00"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 6,
+              "id": "BQ-5",
+              "topic": "At a given time",
+              "starred": false,
+              "combined": false,
+              "text": "seconds cut?\n- **(a)** yes\n- (b) no",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "yes",
+                  "bold": true
+                },
+                {
+                  "letter": "b",
+                  "text": "no",
+                  "bold": false
+                }
+              ],
+              "recommended": "a",
+              "answerLetter": null,
+              "changedAt": "2026-11-08T09:15+01:00"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 12,
+              "id": "BQ-1",
+              "topic": "Timeout",
+              "starred": false,
+              "combined": false,
+              "text": "shorter?\n- (a) 30\n- **(b)** 15",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "30",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "15",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": null,
+              "changedAt": "2026-11-01T09:30+01:00"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 18,
+              "id": "BQ-2",
+              "topic": "Kiosks",
+              "starred": false,
+              "combined": false,
+              "text": "also on kiosks?",
+              "answer": "yes, and on terminals",
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null,
+              "answerChangedAt": "2026-11-08T10:00Z"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 22,
+              "id": "BQ-3",
+              "topic": "Owner",
+              "starred": false,
+              "combined": false,
+              "text": "who owns it?",
+              "answer": "Bea",
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null,
+              "changedAt": "2026-11-03T08:00+01:00",
+              "answerChangedAt": "2026-11-07T14:05+01:00"
+            }
+          ],
+          {
+            "error": true
+          },
+          {
+            "error": true
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> **❓ BQ-6 (2026-11-07T14:05+01:00) — At the clock:** now?\n>\n> **Answer:**\n\nSessions expire after 30 minutes.\n\n> **❓ BQ-5 (2026-11-08T09:15+01:00) — At a given time:** seconds cut?\n> - **(a)** yes\n> - (b) no\n>\n> **Answer:**\n\n> **❓ BQ-1 (2026-11-01T09:30+01:00) — Timeout:** shorter?\n> - (a) 30\n> - **(b)** 15\n>\n> **Answer:**\n\n> **❓ BQ-2 — Kiosks:** also on kiosks?\n>\n> **Answer (2026-11-08T10:00Z):** yes, and on terminals\n\n> **❓ BQ-3 (2026-11-03T08:00+01:00) — Owner:** who owns it?\n>\n> **Answer (alice, 2026-11-03T09:00+01:00):** Bob\n> **Answer (bob, 2026-11-08T11:00+01:00):** Bea\n>\n> **Answer (2026-11-07T14:05+01:00):** Bea\n\n> **❓ BQ-4 (yesterday) — Broken:** a parenthesis without a time\n>\n> **Answer:**"
           }
         }
       }

@@ -103,9 +103,9 @@ All in namespace `som`.
 | `assignCommentIds(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `paragraphs(path, field)` | The value's paragraphs as `SpecParagraph`, each with its `index` (what `afterParagraph` takes), `startLine` / `endLine` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold throws `SpecReviewAnnotationError` |
 | `insertComment(path, field, afterParagraph, text, author, id, at)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
-| `insertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
-| `insertQuestionAfterComment(commentId, question)` | A question block directly after a comment block |
-| `setAnswer(questionId, answer, author, at)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With `author`, writes that member's individual answer instead ([Team reviews](#team-reviews)) |
+| `insertQuestion(path, field, afterParagraph, question, at)` | A question block after a paragraph, its header carrying the change time |
+| `insertQuestionAfterComment(commentId, question, at)` | A question block directly after a comment block, its header carrying the change time |
+| `setAnswer(questionId, answer, author, at)` | Writes the team answer as `**Answer (<time>):**`; an empty answer reopens the question (`**Answer:**`); adds the line when it is missing. With `author`, writes that member's individual answer instead ([Team reviews](#team-reviews)) |
 | `editComment(commentId, text, at)` | New text; the marker, id and author stay as written, the change time is updated ([Change times](#change-times)) |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `applyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
@@ -349,22 +349,30 @@ minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
 | Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
 | Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
 | Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+| Question | in parentheses after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) — Timeout:**` |
+| Team answer | in the label's parentheses, `**Answer (2026-11-07T14:05+01:00):**` (a time alone marks the team's answer) |
 
 The writes record it, each with an optional `at` (ISO 8601 with an offset or
 `Z`; seconds are cut, any other shape throws `SpecReviewAnnotationError` and
 nothing changes): `insertComment`, `editComment` (the author stays),
 `commentChange`, `editMarkComment` (authors and votes stay), `setMarked` and
 `markAgainst` (both take an optional `author`; a mark written again unchanged
-keeps its token) and `setAnswer` with an `author`. Without `at` the time comes
+keeps its token), `insertQuestion` and `insertQuestionAfterComment` (the
+header), and `setAnswer` (an individual answer with an `author`, else the team
+answer; reopening writes `**Answer:**` without a time). Without `at` the time comes
 from the `SpecReviewAnnotations::Clock` (a `std::function<std::string()>`) the
 `SpecReviewAnnotations` was constructed with, else from the system clock.
 Deciding, voting, answering and merging keep the times; removing an
 annotation takes its time with it. `som::normalizeReviewTime`,
 `som::isReviewTime` and `som::systemReviewTime` are the helpers.
 
-Reading reports `changedAt` on `SpecReviewAnnotation` (comments and marks),
-`SpecMarkEntry` and `SpecIndividualAnswer`; `toJson()` writes it only when
-there is one.
+Reading reports `changedAt` on `SpecReviewAnnotation` (comments, marks and
+questions — a question's is its header time), `SpecMarkEntry` and
+`SpecIndividualAnswer`, and `answerChangedAt` (the team answer's time) on a
+question; `toJson()` writes each only when there is one.
+`reviewTeamAnswerTimes` lists the team answers' times by question id; merging
+copies carries a copy's team-answer time into the member's individual
+answer.
 
 ```cpp
 som::SpecDocument doc;

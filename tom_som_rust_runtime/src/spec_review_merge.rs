@@ -33,10 +33,10 @@ use crate::spec_reflection::{
 };
 use crate::spec_review_annotations::{
     apply_inline_marks_text, decide_review_marks, format_comment_block, format_conflict_block,
-    format_question_block, mark_change_text, review_marks, review_pieces, review_team_answers,
-    set_individual_answer_text, transplant_edits, with_attribution, ReviewMark, ReviewPiece,
-    SpecConflictAlternative, SpecMarkKind, SpecMarkVote, SpecQuestionDraft,
-    SpecReviewAnnotationKind,
+    format_question_block, mark_change_text, review_marks, review_pieces, review_team_answer_times,
+    review_team_answers, set_individual_answer_text, transplant_edits, with_attribution,
+    ReviewMark, ReviewPiece, SpecConflictAlternative, SpecMarkKind, SpecMarkVote,
+    SpecQuestionDraft, SpecReviewAnnotationKind,
 };
 use crate::spec_section_id::{effective_list_item_section_id, generate_list_item_section_id};
 
@@ -1129,8 +1129,23 @@ fn team_answers(texts: &[String]) -> Vec<(String, String)> {
     out
 }
 
+/// The times of the team answers of `texts` by question id (the first, when
+/// an id repeats; SOM §11.9.10).
+fn team_answer_times(texts: &[String]) -> Vec<(String, Option<String>)> {
+    let mut out: Vec<(String, Option<String>)> = Vec::new();
+    for t in texts {
+        for (id, at) in review_team_answer_times(t) {
+            if !out.iter().any(|(x, _)| *x == id) {
+                out.push((id, at));
+            }
+        }
+    }
+    out
+}
+
 /// Writes each copy's team answer to a base question, where it differs from
-/// the base's, as that member's individual answer (copies in round order).
+/// the base's, as that member's individual answer (copies in round order),
+/// with the copy's answer time (SOM §11.9.10).
 fn merge_answers(
     texts: &mut dyn MergeTexts,
     base_texts: &[String],
@@ -1139,6 +1154,8 @@ fn merge_answers(
 ) {
     let copy_answers: Vec<Vec<(String, String)>> =
         copy_texts.iter().map(|ts| team_answers(ts)).collect();
+    let copy_times: Vec<Vec<(String, Option<String>)>> =
+        copy_texts.iter().map(|ts| team_answer_times(ts)).collect();
     for (id, base_answer) in team_answers(base_texts) {
         let mut members: Vec<String> = Vec::new();
         for (i, answers) in copy_answers.iter().enumerate() {
@@ -1148,10 +1165,18 @@ fn merge_answers(
             if *a == base_answer || a.is_empty() {
                 continue;
             }
+            let changed_at = copy_times[i]
+                .iter()
+                .find(|(x, _)| *x == id)
+                .and_then(|(_, at)| at.as_deref());
             for key in texts.keys() {
-                let Some(written) =
-                    set_individual_answer_text(&texts.get(&key), &id, &ctx.members[i], a, None)
-                else {
+                let Some(written) = set_individual_answer_text(
+                    &texts.get(&key),
+                    &id,
+                    &ctx.members[i],
+                    a,
+                    changed_at,
+                ) else {
                     continue;
                 };
                 texts.set(&key, &written);
@@ -1185,7 +1210,7 @@ fn guest_question(id: &str, g: &SpecReviewMember) -> String {
         "(b) no, this round only".to_string(),
     ];
     draft.recommended = Some("a".to_string());
-    format_question_block(&draft).join("\n")
+    format_question_block(&draft, None).join("\n")
 }
 
 /// Where the guest questions go: the key of a value and its path.

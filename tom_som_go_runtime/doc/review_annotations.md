@@ -62,7 +62,7 @@ func main() {
 	fmt.Println(*review.List()[0].QualifiedID)
 	if err := review.InsertQuestionAfterComment("C-1", som.SpecQuestionDraft{
 		ID: "BQ-1", Topic: "C-1 kiosks", Text: "Kiosks only?",
-	}); err != nil {
+	}, ""); err != nil {
 		panic(err)
 	}
 	if err := review.SetAnswer("BQ-1", "yes", "", ""); err != nil {
@@ -109,9 +109,9 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `AssignCommentIDs(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `Paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `Index` (what `afterParagraph` takes), `StartLine` / `EndLine` within the value, its `Text` and `Annotation` (`comment` / `question` / `conflict` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is an error |
 | `InsertComment(path, field, afterParagraph, text, author, id, at)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one when `id` is `""`). The header records the [change time](#change-times) |
-| `InsertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
-| `InsertQuestionAfterComment(commentID, question)` | A question block directly after a comment block |
-| `SetAnswer(questionID, answer, author, at)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With an `author` (a member id; `""` for the team), writes that member's individual answer instead (see [Team reviews](#team-reviews)) |
+| `InsertQuestion(path, field, afterParagraph, question, at)` | A question block after a paragraph, its header carrying the change time |
+| `InsertQuestionAfterComment(commentID, question, at)` | A question block directly after a comment block, its header carrying the change time |
+| `SetAnswer(questionID, answer, author, at)` | Writes the team answer as `**Answer (<time>):**`; an empty answer reopens the question as `**Answer:**`; adds the line when it is missing. With an `author` (a member id; `""` for the team), writes that member's individual answer instead (see [Team reviews](#team-reviews)) |
 | `EditComment(commentID, text, at)` | New text; the marker, id and author stay as written, the change time moves |
 | `Resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `ApplyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
@@ -360,22 +360,31 @@ minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
 | Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
 | Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
 | Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+| Question | in parentheses after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) — Timeout:**` |
+| Team answer | in the label's parentheses, `**Answer (2026-11-07T14:05+01:00):**` (a time alone marks the team's answer) |
 
 The writes record it, each with an `at` argument (ISO 8601 with an offset or
 `Z`; seconds are cut, any other shape returns a `*SpecReviewAnnotationError`
 and changes nothing; `""` for none): `InsertComment`, `EditComment` (the
 author stays), `CommentChange`, `EditMarkComment` (authors and votes stay),
 `SetMarked` and `MarkAgainst` (both take an `author`, `""` for none; a mark
-written again unchanged keeps its token) and `SetAnswer` with an `author`.
+written again unchanged keeps its token), `InsertQuestion` and
+`InsertQuestionAfterComment` (the header), and `SetAnswer` (an individual
+answer with an `author`, else the team answer; reopening writes
+`**Answer:**` without a time).
 Without `at` the time comes from the clock the `SpecReviewAnnotations` was
 made with (`NewSpecReviewAnnotationsWithClock`, or its `Clock` field), else
 from the system clock. Deciding, voting, answering and merging keep the
 times; removing an annotation takes its time with it. `NormalizeReviewTime`,
 `IsReviewTime` and `SystemReviewTime` are the helpers.
 
-Reading reports `ChangedAt` on `SpecReviewAnnotation` (comments and marks),
-`SpecMarkEntry` and `SpecIndividualAnswer`; `ToJSON` writes `changedAt` only
-when there is one.
+Reading reports `ChangedAt` on `SpecReviewAnnotation` (comments, marks and
+questions — a question's is its header time), `SpecMarkEntry` and
+`SpecIndividualAnswer`, and `AnswerChangedAt` (the team answer's time) on a
+question; `ToJSON` writes `changedAt` / `answerChangedAt` only when there is
+one. Merging copies carries a copy's team-answer time into the member's
+individual answer. `FormatQuestionBlock` takes the time to write after the id
+(`""` for none).
 
 ```go
 review := som.NewSpecReviewAnnotationsWithClock(doc, "",

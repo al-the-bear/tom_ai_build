@@ -34,6 +34,7 @@ import {
   markChangeText,
   reviewMarks,
   reviewPieces,
+  reviewTeamAnswerTimes,
   reviewTeamAnswers,
   setIndividualAnswerText,
   transplantEdits,
@@ -733,7 +734,8 @@ function _numberIds(texts: _Texts, baseTexts: string[], ctx: _MergeContext): voi
 
 /**
  * Writes each copy's team answer to a base question, where it differs from
- * the base's, as that member's individual answer (copies in round order).
+ * the base's, as that member's individual answer (copies in round order),
+ * with the copy's answer time (SOM §11.9.10).
  */
 function _mergeAnswers(
   texts: _Texts,
@@ -750,13 +752,26 @@ function _mergeAnswers(
     for (const t of ts) for (const [id, a] of reviewTeamAnswers(t)) if (!m.has(id)) m.set(id, a);
     return m;
   });
+  const copyTimes = copyTexts.map((ts) => {
+    const m = new Map<string, string | null>();
+    for (const t of ts) {
+      for (const [id, at] of reviewTeamAnswerTimes(t)) if (!m.has(id)) m.set(id, at);
+    }
+    return m;
+  });
   for (const [id, baseAnswer] of baseAnswers) {
     const members: string[] = [];
     copyAnswers.forEach((answers, i) => {
       const a = answers.get(id);
       if (a === undefined || a === baseAnswer || a.length === 0) return;
       for (const key of texts.keys()) {
-        const written = setIndividualAnswerText(texts.get(key), id, ctx.members[i], a);
+        const written = setIndividualAnswerText(
+          texts.get(key),
+          id,
+          ctx.members[i],
+          a,
+          copyTimes[i].get(id) ?? null,
+        );
         if (written === null) continue;
         texts.set(key, written);
         members.push(ctx.members[i]);

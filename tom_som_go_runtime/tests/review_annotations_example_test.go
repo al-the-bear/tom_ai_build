@@ -21,7 +21,7 @@ func ExampleSpecReviewAnnotations() {
 	fmt.Println(*review.List()[0].QualifiedID)
 	if err := review.InsertQuestionAfterComment("C-1", som.SpecQuestionDraft{
 		ID: "BQ-1", Topic: "C-1 kiosks", Text: "Kiosks only?",
-	}); err != nil {
+	}, ""); err != nil {
 		panic(err)
 	}
 	if err := review.SetAnswer("BQ-1", "yes", "", ""); err != nil {

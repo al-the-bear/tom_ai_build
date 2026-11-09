@@ -1067,8 +1067,21 @@ Map<String, String> _teamAnswers(List<String> texts) {
   return out;
 }
 
+/// The times of the team answers of [texts], by id (the first, when an id
+/// repeats; SOM §11.9.10).
+Map<String, String?> _teamAnswerTimes(List<String> texts) {
+  final out = <String, String?>{};
+  for (final t in texts) {
+    for (final MapEntry(:key, :value) in reviewTeamAnswerTimes(t).entries) {
+      out.putIfAbsent(key, () => value);
+    }
+  }
+  return out;
+}
+
 /// Writes each copy's team answer to a base question, where it differs from
-/// the base's, as that member's individual answer (copies in round order).
+/// the base's, as that member's individual answer (copies in round order),
+/// with the copy's answer time (SOM §11.9.10).
 void _mergeAnswers(
   _Texts texts,
   List<String> baseTexts,
@@ -1076,6 +1089,7 @@ void _mergeAnswers(
   _MergeContext ctx,
 ) {
   final copyAnswers = [for (final ts in copyTexts) _teamAnswers(ts)];
+  final copyTimes = [for (final ts in copyTexts) _teamAnswerTimes(ts)];
   for (final MapEntry(key: id, value: baseAnswer) in _teamAnswers(
     baseTexts,
   ).entries) {
@@ -1089,6 +1103,7 @@ void _mergeAnswers(
           id,
           ctx.members[i],
           a,
+          changedAt: copyTimes[i][id],
         );
         if (written == null) continue;
         texts.set(key, written);

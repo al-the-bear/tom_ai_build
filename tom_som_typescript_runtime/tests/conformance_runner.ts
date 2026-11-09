@@ -626,10 +626,13 @@ function _runAnnotationOp(
         field: op.field ?? null,
         afterParagraph: op.afterParagraph,
         question: SpecQuestionDraft.fromJson(op.question),
+        at: op.at ?? null,
       });
       return null;
     case 'insertQuestionAfterComment':
-      api.insertQuestionAfterComment(op.commentId, SpecQuestionDraft.fromJson(op.question));
+      api.insertQuestionAfterComment(op.commentId, SpecQuestionDraft.fromJson(op.question), {
+        at: op.at ?? null,
+      });
       return null;
     case 'setAnswer':
       api.setAnswer(op.id, op.answer, { author: op.author ?? null, at: op.at ?? null });

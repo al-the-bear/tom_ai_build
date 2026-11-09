@@ -25,6 +25,7 @@ fn quick_start_output_is_true() {
         .insert_question_after_comment(
             "C-1",
             &SpecQuestionDraft::new("BQ-1", "C-1 kiosks", "Kiosks only?"),
+            None,
         )
         .unwrap();
     review.set_answer("BQ-1", "yes").unwrap();

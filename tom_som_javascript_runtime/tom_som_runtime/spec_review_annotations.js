@@ -195,7 +195,8 @@ class SpecReviewAnnotation {
    *   recommended?: string|null, markKind?: string|null,
    *   newText?: string|null, comment?: string|null, authors?: string[],
    *   votes?: SpecMarkVote[], answers?: SpecIndividualAnswer[], base?: string,
-   *   alternatives?: SpecConflictAlternative[], changedAt?: string|null}} options
+   *   alternatives?: SpecConflictAlternative[], changedAt?: string|null,
+   *   answerChangedAt?: string|null}} options
    */
   constructor({
     kind,
@@ -222,6 +223,7 @@ class SpecReviewAnnotation {
     base = '',
     alternatives = [],
     changedAt = null,
+    answerChangedAt = null,
   }) {
     /** The kind (a {@link SpecReviewAnnotationKind} value). */
     this.kind = kind;
@@ -272,8 +274,16 @@ class SpecReviewAnnotation {
     this.base = base;
     /** A conflict's lettered alternatives. */
     this.alternatives = alternatives;
-    /** When a comment or mark was last changed (SOM §11.9.10), or null. */
+    /**
+     * When a comment, mark or question was last changed (SOM §11.9.10), or
+     * null. A question's is the time in its header.
+     */
     this.changedAt = changedAt;
+    /**
+     * When a question's team answer was last changed (SOM §11.9.10): the time
+     * in `**Answer (<time>):**`, or null.
+     */
+    this.answerChangedAt = answerChangedAt;
   }
 
   /**
@@ -348,6 +358,8 @@ class SpecReviewAnnotation {
           recommended: this.recommended,
           answerLetter: this.answerLetter,
           ...(team ? { answers: this.answers.map((a) => a.toJson()) } : {}),
+          ...(this.changedAt !== null ? { changedAt: this.changedAt } : {}),
+          ...(this.answerChangedAt !== null ? { answerChangedAt: this.answerChangedAt } : {}),
         };
       case SpecReviewAnnotationKind.CONFLICT:
         return {
@@ -1008,13 +1020,22 @@ function _parseComment(p, b) {
   };
 }
 
+/**
+ * A question header's id with its optional change time (SOM §11.9.2,
+ * §11.9.10): `BQ-81` or `BQ-81 (2026-11-07T14:05+01:00)`.
+ */
+const _HEADER_ID = /^([A-Z][A-Z0-9]*-[0-9]+)(?: \(([^)]*)\))?$/;
+
 /** Parses a question header's remainder after `**❓ `; null when malformed. */
 function _parseHeader(inner) {
   const h = inner.substring(_QUESTION_OPEN.length + 1);
   const sep = h.indexOf(_EM_DASH_SEP);
   if (sep <= 0) return null;
-  const id = h.substring(0, sep);
-  if (!/^[A-Z][A-Z0-9]*-[0-9]+$/.test(id)) return null;
+  const idMatch = _HEADER_ID.exec(h.substring(0, sep));
+  if (idMatch === null) return null;
+  const id = idMatch[1];
+  const changedAt = idMatch[2] ?? null;
+  if (changedAt !== null && !isReviewTime(changedAt)) return null;
   let t = h.substring(sep + _EM_DASH_SEP.length);
   let starred = false;
   if (t.startsWith(`${_STAR} `)) {
@@ -1026,7 +1047,27 @@ function _parseHeader(inner) {
   const topic = t.substring(0, close);
   let rest = t.substring(close + 3);
   if (rest.startsWith(' ')) rest = rest.substring(1);
-  return { id, topic, starred, rest };
+  return { id, topic, starred, rest, changedAt };
+}
+
+/**
+ * The time of a team answer line `**Answer (<time>):**` (SOM §11.9.10), or
+ * null when `line` is no such line.
+ */
+function _teamAnswerTime(line) {
+  const m = _INDIVIDUAL_ANSWER.exec(line);
+  if (m === null) return null;
+  const t = m[1].trim();
+  return isReviewTime(t) ? t : null;
+}
+
+/**
+ * The length of a team answer's label on `line` (`**Answer:**` or
+ * `**Answer (<time>):**`), or null when `line` does not start with one.
+ */
+function _teamAnswerLabelLength(line) {
+  if (line.startsWith(_ANSWER_LABEL)) return _ANSWER_LABEL.length;
+  return _teamAnswerTime(line) === null ? null : _INDIVIDUAL_ANSWER.exec(line)[0].length;
 }
 
 function _isLetter(c) {
@@ -1117,7 +1158,8 @@ function _parseQuestions(p, b) {
     if (h === null) {
       p.malformed.push(
         `line ${b.start + k}: question header is not ` +
-          '"**❓ <ID> — <topic>:**" (SOM §11.9.2)',
+          '"**❓ <ID> — <topic>:**" or "**❓ <ID> (<time>) — <topic>:**" ' +
+          '(SOM §11.9.2)',
       );
       continue;
     }
@@ -1150,7 +1192,7 @@ function _parseQuestions(p, b) {
     const individual = [];
     const answered = new Set();
     for (const m of answerLines) {
-      if (inner[m].startsWith(_ANSWER_LABEL)) {
+      if (_teamAnswerLabelLength(inner[m]) !== null) {
         if (answer === null) answer = m;
         continue;
       }
@@ -1184,10 +1226,12 @@ function _parseQuestions(p, b) {
       topic: h.topic,
       starred: h.starred,
       text,
-      answer: answer === null ? '' : answerText(answer, _ANSWER_LABEL.length),
+      answer: answer === null ? '' : answerText(answer, _teamAnswerLabelLength(inner[answer])),
       options,
       recommended,
       answers: individual,
+      changedAt: h.changedAt,
+      answerChangedAt: answer === null ? null : _teamAnswerTime(inner[answer]),
     });
   }
   b.questions = list;
@@ -1779,6 +1823,8 @@ function _annotationsOf(p, path, field, qualifier) {
             answers: q.answers.map(
               (a) => new SpecIndividualAnswer(a.members, a.answer, a.changedAt),
             ),
+            changedAt: q.changedAt,
+            answerChangedAt: q.answerChangedAt,
           }),
         ]);
       }
@@ -1895,15 +1941,18 @@ function _authorAndTime(author, changedAt) {
 }
 
 /**
- * The lines of a question block.
+ * The lines of a question block; `changedAt` is written after the id
+ * (SOM §11.9.10).
  *
  * @param {SpecQuestionDraft} q
+ * @param {string|null} [changedAt]
  * @returns {string[]}
  */
-function formatQuestionBlock(q) {
+function formatQuestionBlock(q, changedAt = null) {
   const t = q.text.split('\n');
+  const id = changedAt == null ? q.id : `${q.id} (${changedAt})`;
   const lines = [
-    `> ${_QUESTION_OPEN} ${q.id}${_EM_DASH_SEP}${q.starred ? `${_STAR} ` : ''}` +
+    `> ${_QUESTION_OPEN} ${id}${_EM_DASH_SEP}${q.starred ? `${_STAR} ` : ''}` +
       `${q.topic}:** ${t[0]}`,
     ..._quoted(t.slice(1)),
     ...q.options.map((o) =>
@@ -2623,26 +2672,37 @@ class SpecReviewAnnotations {
 
   /**
    * Inserts a question block after paragraph `afterParagraph` (0-based; -1: at
-   * the start) of the value at `path` / `field`.
+   * the start) of the value at `path` / `field`; its header carries the time
+   * `at` or the clock's (SOM §11.9.10).
    *
    * @param {{path: string, field?: string|null, afterParagraph: number,
-   *   question: SpecQuestionDraft}} options
+   *   question: SpecQuestionDraft, at?: string|null}} options
    */
-  insertQuestion({ path, field = null, afterParagraph, question }) {
+  insertQuestion({ path, field = null, afterParagraph, question, at = null }) {
+    const time = this._time(at);
     const value = this._get(path, field);
     const end = this._paragraphLastLine(value, afterParagraph);
-    this._set(path, field, _insertAfterLine(value, end, formatQuestionBlock(question)));
-  }
-
-  /** Inserts a question block directly after the comment `commentId`. */
-  insertQuestionAfterComment(commentId, question) {
-    const [path, field, text, c] = this._findComment(commentId);
-    this._set(path, field, _insertAfterLine(text, c.block.end, formatQuestionBlock(question)));
+    this._set(path, field, _insertAfterLine(value, end, formatQuestionBlock(question, time)));
   }
 
   /**
-   * Writes `answer` after the question's `**Answer:**` (empty: reopens it).
-   * With `author`, writes that member's individual answer instead, grouped and
+   * Inserts a question block directly after the comment `commentId`; its
+   * header carries the time `at` or the clock's (SOM §11.9.10).
+   *
+   * @param {string} commentId
+   * @param {SpecQuestionDraft} question
+   * @param {{at?: string|null}} [options]
+   */
+  insertQuestionAfterComment(commentId, question, { at = null } = {}) {
+    const time = this._time(at);
+    const [path, field, text, c] = this._findComment(commentId);
+    this._set(path, field, _insertAfterLine(text, c.block.end, formatQuestionBlock(question, time)));
+  }
+
+  /**
+   * Writes `answer` as the question's team answer, `**Answer (<time>):**` with
+   * the time `at` or the clock's (SOM §11.9.10); empty reopens it as
+   * `**Answer:**`. With `author`, writes that member's individual answer instead, grouped and
    * placed by the rules of SOM §11.9.8 (empty: only takes the member out); an
    * author that is not a member id is refused.
    *
@@ -2667,7 +2727,7 @@ class SpecReviewAnnotations {
     const written =
       answer.length === 0
         ? [`> ${_ANSWER_LABEL}`]
-        : [`> ${_ANSWER_LABEL} ${a[0]}`, ..._quoted(a.slice(1))];
+        : [`> **Answer (${this._time(at)}):** ${a[0]}`, ..._quoted(a.slice(1))];
     // The answer runs to the region's last non-empty line.
     let last = q.regionEnd;
     while (last > q.header && _inner(lines[last]).trim().length === 0) {
@@ -3808,6 +3868,21 @@ function reviewTeamAnswers(value) {
 }
 
 /**
+ * The time of every question's team answer in `value`, as a Map by id (SOM
+ * §11.9.10): the first question with that id; null for an answer written
+ * without one.
+ */
+function reviewTeamAnswerTimes(value) {
+  const out = new Map();
+  for (const b of _parse(value).blocks) {
+    for (const q of b.questions ?? []) {
+      if (!out.has(q.id)) out.set(q.id, q.answerChangedAt);
+    }
+  }
+  return out;
+}
+
+/**
  * `value` with `member`'s individual answer to question `questionId` set, as
  * `setAnswer` with an `author` does; null when the value holds no such
  * question.
@@ -3953,6 +4028,7 @@ module.exports = {
   formatAttributionToken,
   withAttribution,
   reviewTeamAnswers,
+  reviewTeamAnswerTimes,
   setIndividualAnswerText,
   formatConflictBlock,
   transplantEdits,

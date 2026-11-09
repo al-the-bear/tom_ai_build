@@ -250,6 +250,8 @@ struct Question {
   std::vector<SpecQuestionOption> options;
   std::optional<std::string> recommended;
   std::vector<IndividualAnswer> answers;
+  std::optional<std::string> changedAt;  // the time in the header (§11.9.10)
+  std::optional<std::string> answerChangedAt;  // the team answer's time
 };
 
 /* One parsed conflict block (SOM §11.9.8). */
@@ -418,6 +420,24 @@ std::optional<std::pair<std::string, std::size_t>> individualAnswerLabel(
                         close + 4);
 }
 
+/* The time of a team answer line `**Answer (<time>):**` (SOM §11.9.10), or
+ * nullopt when `line` is no such line. */
+std::optional<std::string> teamAnswerTime(const std::string& line) {
+  const auto label = individualAnswerLabel(line);
+  if (!label) return std::nullopt;
+  std::string t = trim(label->first);
+  if (!isReviewTime(t)) return std::nullopt;
+  return t;
+}
+
+/* The length of a team answer's label on `line` (`**Answer:**` or
+ * `**Answer (<time>):**`), or nullopt when `line` does not start with one. */
+std::optional<std::size_t> teamAnswerLabelLength(const std::string& line) {
+  if (startsWith(line, kAnswerLabel)) return kAnswerLabel.size();
+  if (!teamAnswerTime(line)) return std::nullopt;
+  return individualAnswerLabel(line)->second;
+}
+
 /* `s` split on `sep`, each piece trimmed (empty pieces kept). */
 std::vector<std::string> splitTrimmed(const std::string& s, char sep) {
   std::vector<std::string> out;
@@ -554,16 +574,31 @@ struct Header {
   std::string topic;
   bool starred = false;
   std::string rest;
+  std::optional<std::string> changedAt;  // the header's time (§11.9.10)
 };
 
 /* Parses a question header's remainder after `**❓ `; nullopt when
- * malformed. */
+ * malformed. The id may carry a change time (SOM §11.9.2, §11.9.10): `BQ-81`
+ * or `BQ-81 (2026-11-07T14:05+01:00)`. */
 std::optional<Header> parseHeader(const std::string& inner) {
   const std::string h = inner.substr(kQuestionOpen.size() + 1);
   std::size_t sep = h.find(kEmDashSep);
   if (sep == std::string::npos || sep == 0) return std::nullopt;
   Header out;
   out.id = h.substr(0, sep);
+  const std::size_t open = out.id.find(" (");
+  if (open != std::string::npos) {
+    // ` (<time>)` up to the end, the time holding no `)`.
+    const std::string tail = out.id.substr(open);
+    if (tail.size() < 3 || tail.back() != ')' ||
+        tail.find(')') != tail.size() - 1) {
+      return std::nullopt;
+    }
+    std::string time = tail.substr(2, tail.size() - 3);
+    if (!isReviewTime(time)) return std::nullopt;
+    out.changedAt = std::move(time);
+    out.id = out.id.substr(0, open);
+  }
   if (!isQuestionId(out.id)) return std::nullopt;
   std::string t = h.substr(sep + kEmDashSep.size());
   if (startsWith(t, kStar + " ")) {
@@ -698,7 +733,9 @@ void parseQuestions(Parsed& p, std::size_t bi) {
     if (!h) {
       p.malformed.push_back("line " + std::to_string(b.start + k) +
                             ": question header is not \"**\xE2\x9D\x93 <ID> "
-                            "\xE2\x80\x94 <topic>:**\" (SOM \xC2\xA7"
+                            "\xE2\x80\x94 <topic>:**\" or \"**\xE2\x9D\x93 "
+                            "<ID> (<time>) \xE2\x80\x94 <topic>:**\" (SOM "
+                            "\xC2\xA7"
                             "11.9.2)");
       continue;
     }
@@ -744,7 +781,7 @@ void parseQuestions(Parsed& p, std::size_t bi) {
     std::optional<std::size_t> answer;
     std::set<std::string> answered;
     for (std::size_t m : answerLines) {
-      if (startsWith(in[m], kAnswerLabel)) {
+      if (teamAnswerLabelLength(in[m])) {
         if (!answer) answer = m;
         continue;
       }
@@ -768,7 +805,11 @@ void parseQuestions(Parsed& p, std::size_t bi) {
       entry.answer = answerText(m, label->second);
       qq.answers.push_back(std::move(entry));
     }
-    if (answer) qq.answer = answerText(*answer, kAnswerLabel.size());
+    if (answer) {
+      qq.answer = answerText(*answer, *teamAnswerLabelLength(in[*answer]));
+      qq.answerChangedAt = teamAnswerTime(in[*answer]);
+    }
+    qq.changedAt = h.changedAt;
     qq.header = b.start + k;
     qq.regionEnd = b.start + regionEnd;
     if (answer) qq.answerLine = b.start + *answer;
@@ -1478,6 +1519,8 @@ void annotationsOf(const Parsed& p, const std::string& path,
         for (const IndividualAnswer& ia : q.answers) {
           a.answers.push_back({ia.members, ia.answer, ia.changedAt});
         }
+        a.changedAt = q.changedAt;
+        a.answerChangedAt = q.answerChangedAt;
         o.push_back({q.header, 0, seq++, std::move(a)});
       }
     }
@@ -2231,6 +2274,10 @@ std::string SpecReviewAnnotation::toJson(bool team) const {
            ",\"recommended\":" + jsonStrOrNull(recommended) +
            ",\"answerLetter\":" + jsonStrOrNull(answerLetter());
       if (team) b += ",\"answers\":" + jsonList(answers);
+      if (changedAt) b += ",\"changedAt\":" + jsonEncodeStr(*changedAt);
+      if (answerChangedAt) {
+        b += ",\"answerChangedAt\":" + jsonEncodeStr(*answerChangedAt);
+      }
       break;
     case SpecReviewAnnotationKind::Conflict:
       b += ",\"id\":" + jsonStrOrNull(id) +
@@ -2305,9 +2352,11 @@ std::vector<std::string> formatCommentBlock(
   return out;
 }
 
-std::vector<std::string> formatQuestionBlock(const SpecQuestionDraft& q) {
+std::vector<std::string> formatQuestionBlock(
+    const SpecQuestionDraft& q, const std::optional<std::string>& changedAt) {
   const std::vector<std::string> t = splitLines(q.text);
-  std::vector<std::string> lines{"> " + kQuestionOpen + " " + q.id + kEmDashSep +
+  const std::string id = changedAt ? q.id + " (" + *changedAt + ")" : q.id;
+  std::vector<std::string> lines{"> " + kQuestionOpen + " " + id + kEmDashSep +
                                  (q.starred ? kStar + " " : "") + q.topic +
                                  ":** " + t[0]};
   for (std::string& l : quoted(t, 1)) lines.push_back(std::move(l));
@@ -2710,20 +2759,24 @@ std::string SpecReviewAnnotations::insertComment(
 
 void SpecReviewAnnotations::insertQuestion(
     const std::string& path, const std::optional<std::string>& field,
-    long long afterParagraph, const SpecQuestionDraft& question) {
+    long long afterParagraph, const SpecQuestionDraft& question,
+    const std::optional<std::string>& at) {
+  const std::string time = changeTime(at);
   const std::string value = getValue(*doc_, path, field);
   const long long end = paragraphLastLine(value, afterParagraph);
   setValue(*doc_, path, field,
-           insertAfterLine(value, end, formatQuestionBlock(question)));
+           insertAfterLine(value, end, formatQuestionBlock(question, time)));
 }
 
 void SpecReviewAnnotations::insertQuestionAfterComment(
-    const std::string& commentId, const SpecQuestionDraft& question) {
+    const std::string& commentId, const SpecQuestionDraft& question,
+    const std::optional<std::string>& at) {
+  const std::string time = changeTime(at);
   const Found f = findComment(*doc_, commentId);
   setValue(*doc_, f.value.path, f.value.field,
            insertAfterLine(f.value.text,
                            static_cast<long long>(f.parsed.blocks[f.block].end),
-                           formatQuestionBlock(question)));
+                           formatQuestionBlock(question, time)));
 }
 
 void SpecReviewAnnotations::setAnswer(
@@ -2748,7 +2801,8 @@ void SpecReviewAnnotations::setAnswer(
   std::vector<std::string> lines = splitLines(f.value.text);
   const std::vector<std::string> a = splitLines(answer);
   std::vector<std::string> written{
-      answer.empty() ? "> " + kAnswerLabel : "> " + kAnswerLabel + " " + a[0]};
+      answer.empty() ? "> " + kAnswerLabel
+                     : "> **Answer (" + changeTime(at) + "):** " + a[0]};
   if (!answer.empty()) {
     for (std::string& l : quoted(a, 1)) written.push_back(std::move(l));
   }
@@ -3943,6 +3997,17 @@ std::vector<std::pair<std::string, std::string>> reviewTeamAnswers(
     bool seen = false;
     for (const auto& e : out) seen = seen || e.first == q.id;
     if (!seen) out.emplace_back(q.id, q.answer);
+  }
+  return out;
+}
+
+std::vector<std::pair<std::string, std::optional<std::string>>>
+reviewTeamAnswerTimes(const std::string& value) {
+  std::vector<std::pair<std::string, std::optional<std::string>>> out;
+  for (const Question& q : parse(value).questions) {
+    bool seen = false;
+    for (const auto& e : out) seen = seen || e.first == q.id;
+    if (!seen) out.emplace_back(q.id, q.answerChangedAt);
   }
   return out;
 }

@@ -100,6 +100,13 @@ public final class SpecReviewAnnotations {
   private static final Pattern COMMENT_NUMBER = Pattern.compile("[1-9][0-9]*");
   private static final Pattern QUESTION_ID = Pattern.compile("[A-Z][A-Z0-9]*-[0-9]+");
 
+  /**
+   * A question header's id with its optional change time (SOM §11.9.2, §11.9.10): {@code BQ-81} or
+   * {@code BQ-81 (2026-11-07T14:05+01:00)}.
+   */
+  private static final Pattern HEADER_ID =
+      Pattern.compile("([A-Z][A-Z0-9]*-[0-9]+)(?: \\(([^)]*)\\))?");
+
   private static final List<String> OPENERS = Arrays.asList("{>>", "{==", "{++", "{--", "{~~");
   private static final Map<String, String> CLOSERS = new LinkedHashMap<>();
 
@@ -254,6 +261,10 @@ public final class SpecReviewAnnotations {
     final List<SpecQuestionOption> options;
     final String recommended;
     final List<IndividualAnswer> answers;
+    /** The time in the header (SOM §11.9.10), or null. */
+    final String changedAt;
+    /** The time of the team answer (SOM §11.9.10), or null. */
+    final String answerChangedAt;
 
     Question(
         int header,
@@ -266,7 +277,9 @@ public final class SpecReviewAnnotations {
         String answer,
         List<SpecQuestionOption> options,
         String recommended,
-        List<IndividualAnswer> answers) {
+        List<IndividualAnswer> answers,
+        String changedAt,
+        String answerChangedAt) {
       this.header = header;
       this.regionEnd = regionEnd;
       this.answerLine = answerLine;
@@ -278,6 +291,8 @@ public final class SpecReviewAnnotations {
       this.options = options;
       this.recommended = recommended;
       this.answers = answers;
+      this.changedAt = changedAt;
+      this.answerChangedAt = answerChangedAt;
     }
   }
 
@@ -686,12 +701,15 @@ public final class SpecReviewAnnotations {
     final String topic;
     final boolean starred;
     final String rest;
+    /** The time in the header (SOM §11.9.10), or null. */
+    final String changedAt;
 
-    Header(String id, String topic, boolean starred, String rest) {
+    Header(String id, String topic, boolean starred, String rest, String changedAt) {
       this.id = id;
       this.topic = topic;
       this.starred = starred;
       this.rest = rest;
+      this.changedAt = changedAt;
     }
   }
 
@@ -949,8 +967,13 @@ public final class SpecReviewAnnotations {
     if (sep <= 0) {
       return null;
     }
-    String id = h.substring(0, sep);
-    if (!QUESTION_ID.matcher(id).matches()) {
+    Matcher idMatch = HEADER_ID.matcher(h.substring(0, sep));
+    if (!idMatch.matches()) {
+      return null;
+    }
+    String id = idMatch.group(1);
+    String changedAt = idMatch.group(2);
+    if (changedAt != null && !isReviewTime(changedAt)) {
       return null;
     }
     String t = h.substring(sep + EM_DASH_SEP.length());
@@ -968,7 +991,36 @@ public final class SpecReviewAnnotations {
     if (rest.startsWith(" ")) {
       rest = rest.substring(1);
     }
-    return new Header(id, topic, starred, rest);
+    return new Header(id, topic, starred, rest, changedAt);
+  }
+
+  /**
+   * The time of a team answer line {@code **Answer (<time>):**} (SOM §11.9.10), or null when
+   * {@code line} is no such line.
+   */
+  private static String teamAnswerTime(String line) {
+    Matcher m = INDIVIDUAL_ANSWER.matcher(line);
+    if (!m.find()) {
+      return null;
+    }
+    String t = trim(m.group(1));
+    return isReviewTime(t) ? t : null;
+  }
+
+  /**
+   * The length of a team answer's label on {@code line} ({@code **Answer:**} or {@code **Answer
+   * (<time>):**}), or null when {@code line} does not start with one.
+   */
+  private static Integer teamAnswerLabelLength(String line) {
+    if (line.startsWith(ANSWER_LABEL)) {
+      return ANSWER_LABEL.length();
+    }
+    if (teamAnswerTime(line) == null) {
+      return null;
+    }
+    Matcher m = INDIVIDUAL_ANSWER.matcher(line);
+    m.find();
+    return m.group(0).length();
   }
 
   private static void parseQuestions(Parsed p, Block b) {
@@ -991,7 +1043,8 @@ public final class SpecReviewAnnotations {
         p.malformed.add(
             "line "
                 + (b.start + k)
-                + ": question header is not \"**❓ <ID> — <topic>:**\" (SOM §11.9.2)");
+                + ": question header is not \"**❓ <ID> — <topic>:**\" or"
+                + " \"**❓ <ID> (<time>) — <topic>:**\" (SOM §11.9.2)");
         continue;
       }
       keys.add(k);
@@ -1024,7 +1077,7 @@ public final class SpecReviewAnnotations {
       List<IndividualAnswer> individual = new ArrayList<>();
       Set<String> answered = new HashSet<>();
       for (int m : answerLines) {
-        if (in.get(m).startsWith(ANSWER_LABEL)) {
+        if (teamAnswerLabelLength(in.get(m)) != null) {
           if (answer == null) {
             answer = m;
           }
@@ -1073,10 +1126,13 @@ public final class SpecReviewAnnotations {
               text,
               answer == null
                   ? ""
-                  : answerText(in, answerLines, answer, ANSWER_LABEL.length(), regionEnd),
+                  : answerText(
+                      in, answerLines, answer, teamAnswerLabelLength(in.get(answer)), regionEnd),
               po.options,
               po.recommended,
-              individual));
+              individual,
+              h.changedAt,
+              answer == null ? null : teamAnswerTime(in.get(answer))));
     }
     b.questions = list;
   }
@@ -1705,7 +1761,9 @@ public final class SpecReviewAnnotations {
                       null,
                       answers,
                       null,
-                      null)));
+                      null,
+                      q.changedAt,
+                      q.answerChangedAt)));
         }
       }
     }
@@ -1844,13 +1902,21 @@ public final class SpecReviewAnnotations {
 
   /** The lines of a question block. */
   public static List<String> formatQuestionBlock(SpecQuestionDraft q) {
+    return formatQuestionBlock(q, null);
+  }
+
+  /**
+   * The lines of a question block; {@code changedAt} (null: none) is written after the id (SOM
+   * §11.9.10).
+   */
+  public static List<String> formatQuestionBlock(SpecQuestionDraft q, String changedAt) {
     List<String> t = splitLines(q.text);
     List<String> lines = new ArrayList<>();
     lines.add(
         "> "
             + QUESTION_OPEN
             + " "
-            + q.id
+            + (changedAt == null ? q.id : q.id + " (" + changedAt + ")")
             + EM_DASH_SEP
             + (q.starred ? STAR + " " : "")
             + q.topic
@@ -2776,31 +2842,59 @@ public final class SpecReviewAnnotations {
 
   /**
    * Inserts a question block after paragraph {@code afterParagraph} (0-based; -1: at the start) of
-   * the value at {@code path} / {@code field} (null for content).
+   * the value at {@code path} / {@code field} (null for content); its header carries the clock's
+   * time (SOM §11.9.10).
    */
   public void insertQuestion(
       String path, String field, int afterParagraph, SpecQuestionDraft question) {
-    String value = get(path, field);
-    int end = paragraphLastLine(value, afterParagraph);
-    set(path, field, insertAfterLine(value, end, formatQuestionBlock(question)));
+    insertQuestion(path, field, afterParagraph, question, null);
   }
 
-  /** Inserts a question block directly after the comment {@code commentId}. */
+  /**
+   * {@link #insertQuestion(String, String, int, SpecQuestionDraft)} whose header carries the time
+   * {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
+   */
+  public void insertQuestion(
+      String path, String field, int afterParagraph, SpecQuestionDraft question, String at) {
+    String time = time(at);
+    String value = get(path, field);
+    int end = paragraphLastLine(value, afterParagraph);
+    set(path, field, insertAfterLine(value, end, formatQuestionBlock(question, time)));
+  }
+
+  /**
+   * Inserts a question block directly after the comment {@code commentId}; its header carries the
+   * clock's time (SOM §11.9.10).
+   */
   public void insertQuestionAfterComment(String commentId, SpecQuestionDraft question) {
+    insertQuestionAfterComment(commentId, question, null);
+  }
+
+  /**
+   * {@link #insertQuestionAfterComment(String, SpecQuestionDraft)} whose header carries the time
+   * {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
+   */
+  public void insertQuestionAfterComment(String commentId, SpecQuestionDraft question, String at) {
+    String time = time(at);
     FoundComment f = findComment(commentId);
     set(
         f.value.path,
         f.value.field,
-        insertAfterLine(f.value.text, f.comment.block.end, formatQuestionBlock(question)));
+        insertAfterLine(
+            f.value.text, f.comment.block.end, formatQuestionBlock(question, time)));
   }
 
-  /** Writes {@code answer} after the question's {@code **Answer:**} (empty: reopens it). */
+  /**
+   * Writes {@code answer} as the question's team answer, {@code **Answer (<time>):**} with the
+   * clock's time (SOM §11.9.10); empty reopens it as {@code **Answer:**}.
+   */
   public void setAnswer(String questionId, String answer) {
     setAnswer(questionId, answer, null);
   }
 
   /**
-   * Writes {@code answer} after the question's {@code **Answer:**} (empty: reopens it). With an
+   * Writes {@code answer} as the question's team answer, {@code **Answer (<time>):**} with the
+   * clock's time (SOM §11.9.10); empty reopens it as {@code **Answer:**}. With an
    * {@code author}, writes that member's individual answer instead, grouped and placed by the rules
    * of SOM §11.9.8 (empty: only takes the member out); an author that is not a member id is
    * refused. {@code author} may be null.
@@ -2810,8 +2904,8 @@ public final class SpecReviewAnnotations {
   }
 
   /**
-   * {@link #setAnswer(String, String, String)} whose individual answer records the change time
-   * {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
+   * {@link #setAnswer(String, String, String)} whose team or individual answer records the change
+   * time {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
    */
   public void setAnswer(String questionId, String answer, String author, String at) {
     if (author != null && !isReviewMemberId(author)) {
@@ -2834,7 +2928,7 @@ public final class SpecReviewAnnotations {
     if (answer.isEmpty()) {
       written.add("> " + ANSWER_LABEL);
     } else {
-      written.add("> " + ANSWER_LABEL + " " + a.get(0));
+      written.add("> **Answer (" + time(at) + "):** " + a.get(0));
       written.addAll(quoted(a.subList(1, a.size())));
     }
     // The answer runs to the region's last non-empty line.
@@ -4360,6 +4454,22 @@ public final class SpecReviewAnnotations {
     for (Block b : parse(value).blocks) {
       for (Question q : b.questions) {
         out.putIfAbsent(q.id, q.answer);
+      }
+    }
+    return out;
+  }
+
+  /**
+   * The time of every question's team answer in {@code value}, by id (SOM §11.9.10): the first
+   * question with that id; null for an answer written without one.
+   */
+  static Map<String, String> reviewTeamAnswerTimes(String value) {
+    Map<String, String> out = new LinkedHashMap<>();
+    for (Block b : parse(value).blocks) {
+      for (Question q : b.questions) {
+        if (!out.containsKey(q.id)) {
+          out.put(q.id, q.answerChangedAt);
+        }
       }
     }
     return out;

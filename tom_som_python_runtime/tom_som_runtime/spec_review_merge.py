@@ -44,6 +44,7 @@ from .spec_review_annotations import (
     mark_change_text,
     review_marks,
     review_pieces,
+    review_team_answer_times,
     review_team_answers,
     set_individual_answer_text,
     transplant_edits,
@@ -903,13 +904,24 @@ def _team_answers(texts: list[str]) -> dict[str, str]:
     return out
 
 
+def _team_answer_times(texts: list[str]) -> dict[str, Optional[str]]:
+    """The times of the team answers of *texts*, by id (the first, when an
+    id repeats; SOM §11.9.10)."""
+    out: dict[str, Optional[str]] = {}
+    for t in texts:
+        for k, a in review_team_answer_times(t).items():
+            out.setdefault(k, a)
+    return out
+
+
 def _merge_answers(
     texts: _Texts, base_texts: list[str], copy_texts: list[list[str]], ctx: _MergeContext
 ) -> None:
     """Writes each copy's team answer to a base question, where it differs
     from the base's, as that member's individual answer (copies in round
-    order)."""
+    order), with the copy's answer time (SOM §11.9.10)."""
     copy_answers = [_team_answers(ts) for ts in copy_texts]
+    copy_times = [_team_answer_times(ts) for ts in copy_texts]
     for qid, base_answer in _team_answers(base_texts).items():
         members: list[str] = []
         for i, answers in enumerate(copy_answers):
@@ -917,7 +929,9 @@ def _merge_answers(
             if a is None or a == base_answer or a == "":
                 continue
             for key in texts.keys():
-                written = set_individual_answer_text(texts.get(key), qid, ctx.members[i], a)
+                written = set_individual_answer_text(
+                    texts.get(key), qid, ctx.members[i], a, copy_times[i].get(qid)
+                )
                 if written is None:
                     continue
                 texts.set(key, written)

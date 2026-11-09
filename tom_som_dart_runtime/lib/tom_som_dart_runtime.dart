@@ -81,6 +81,7 @@ export 'src/spec_review_annotations.dart'
         reviewMarks,
         reviewPieces,
         reviewTeamAnswers,
+        reviewTeamAnswerTimes,
         setIndividualAnswerText,
         transplantEdits,
         withAttribution;

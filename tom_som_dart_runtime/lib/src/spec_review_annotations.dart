@@ -277,8 +277,13 @@ class SpecReviewAnnotation {
   /// A question's individual answers, in the order written.
   final List<SpecIndividualAnswer> answers;
 
-  /// When a comment or mark was last changed (SOM §11.9.10), or null.
+  /// When a comment, mark or question was last changed (SOM §11.9.10), or
+  /// null. A question's is the time in its header.
   final String? changedAt;
+
+  /// When a question's team answer was last changed (SOM §11.9.10): the time
+  /// in `**Answer (<time>):**`, or null.
+  final String? answerChangedAt;
 
   /// A conflict's `(base)` text.
   final String base;
@@ -312,6 +317,7 @@ class SpecReviewAnnotation {
     this.base = '',
     this.alternatives = const [],
     this.changedAt,
+    this.answerChangedAt,
   });
 
   /// Whether a question is still open (no team answer written), or a
@@ -360,6 +366,8 @@ class SpecReviewAnnotation {
       'recommended': recommended,
       'answerLetter': answerLetter,
       if (team) 'answers': [for (final a in answers) a.toJson()],
+      if (changedAt != null) 'changedAt': changedAt,
+      if (answerChangedAt != null) 'answerChangedAt': answerChangedAt,
     },
     SpecReviewAnnotationKind.conflict => {
       'kind': 'conflict',
@@ -894,6 +902,8 @@ class _Question {
   final List<SpecQuestionOption> options;
   final String? recommended;
   final List<_IndividualAnswer> answers;
+  final String? changedAt; // the time in the header (SOM §11.9.10)
+  final String? answerChangedAt; // the time of the team answer
   _Question(
     this.header,
     this.regionEnd,
@@ -906,6 +916,8 @@ class _Question {
     this.options,
     this.recommended,
     this.answers,
+    this.changedAt,
+    this.answerChangedAt,
   );
 }
 
@@ -1397,15 +1409,21 @@ _Comment _parseComment(_Parsed p, _Block b) {
   );
 }
 
+/// A question header's id with its optional change time (SOM §11.9.2,
+/// §11.9.10): `BQ-81` or `BQ-81 (2026-11-07T14:05+01:00)`.
+final _headerId = RegExp(r'^([A-Z][A-Z0-9]*-[0-9]+)(?: \(([^)]*)\))?$');
+
 /// Parses a question header's remainder after `**❓ `; null when malformed.
-({String id, String topic, bool starred, String rest})? _parseHeader(
-  String inner,
-) {
+({String id, String topic, bool starred, String rest, String? changedAt})?
+_parseHeader(String inner) {
   final h = inner.substring(_questionOpen.length + 1);
   final sep = h.indexOf(_emDashSep);
   if (sep <= 0) return null;
-  final id = h.substring(0, sep);
-  if (!RegExp(r'^[A-Z][A-Z0-9]*-[0-9]+$').hasMatch(id)) return null;
+  final idMatch = _headerId.firstMatch(h.substring(0, sep));
+  if (idMatch == null) return null;
+  final id = idMatch[1]!;
+  final changedAt = idMatch[2];
+  if (changedAt != null && !isReviewTime(changedAt)) return null;
   var t = h.substring(sep + _emDashSep.length);
   var starred = false;
   if (t.startsWith('$_star ')) {
@@ -1417,7 +1435,31 @@ _Comment _parseComment(_Parsed p, _Block b) {
   final topic = t.substring(0, close);
   var rest = t.substring(close + 3);
   if (rest.startsWith(' ')) rest = rest.substring(1);
-  return (id: id, topic: topic, starred: starred, rest: rest);
+  return (
+    id: id,
+    topic: topic,
+    starred: starred,
+    rest: rest,
+    changedAt: changedAt,
+  );
+}
+
+/// The time of a team answer line `**Answer (<time>):**` (SOM §11.9.10), or
+/// null when [line] is no such line.
+String? _teamAnswerTime(String line) {
+  final m = _individualAnswer.firstMatch(line);
+  if (m == null) return null;
+  final t = m[1]!.trim();
+  return isReviewTime(t) ? t : null;
+}
+
+/// The length of a team answer's label on [line] (`**Answer:**` or
+/// `**Answer (<time>):**`), or null when [line] does not start with one.
+int? _teamAnswerLabelLength(String line) {
+  if (line.startsWith(_answerLabel)) return _answerLabel.length;
+  return _teamAnswerTime(line) == null
+      ? null
+      : _individualAnswer.firstMatch(line)![0]!.length;
 }
 
 void _parseQuestions(_Parsed p, _Block b) {
@@ -1425,7 +1467,16 @@ void _parseQuestions(_Parsed p, _Block b) {
   final combined = inner.first.startsWith(_combinedOpener);
   p.combined[b] = combined;
   final headers =
-      <int, ({String id, String topic, bool starred, String rest})>{};
+      <
+        int,
+        ({
+          String id,
+          String topic,
+          bool starred,
+          String rest,
+          String? changedAt,
+        })
+      >{};
   for (var k = 0; k < inner.length; k++) {
     if (!inner[k].startsWith('$_questionOpen ')) continue;
     if (inner[k].startsWith(_combinedOpener)) continue;
@@ -1433,7 +1484,8 @@ void _parseQuestions(_Parsed p, _Block b) {
     if (h == null) {
       p.malformed.add(
         'line ${b.start + k}: question header is not '
-        '"**❓ <ID> — <topic>:**" (SOM §11.9.2)',
+        '"**❓ <ID> — <topic>:**" or "**❓ <ID> (<time>) — <topic>:**" '
+        '(SOM §11.9.2)',
       );
       continue;
     }
@@ -1477,7 +1529,7 @@ void _parseQuestions(_Parsed p, _Block b) {
     final individual = <_IndividualAnswer>[];
     final answered = <String>{};
     for (final m in answerLines) {
-      if (inner[m].startsWith(_answerLabel)) {
+      if (_teamAnswerLabelLength(inner[m]) != null) {
         answer ??= m;
         continue;
       }
@@ -1508,7 +1560,7 @@ void _parseQuestions(_Parsed p, _Block b) {
     }
     final answerText0 = answer == null
         ? ''
-        : answerText(answer, _answerLabel.length);
+        : answerText(answer, _teamAnswerLabelLength(inner[answer])!);
     list.add(
       _Question(
         b.start + k,
@@ -1522,6 +1574,8 @@ void _parseQuestions(_Parsed p, _Block b) {
         options,
         recommended,
         individual,
+        h.changedAt,
+        answer == null ? null : _teamAnswerTime(inner[answer]),
       ),
     );
   }
@@ -2047,6 +2101,8 @@ List<SpecReviewAnnotation> _annotationsOf(
                   changedAt: a.changedAt,
                 ),
             ],
+            changedAt: q.changedAt,
+            answerChangedAt: q.answerChangedAt,
           ),
         ));
       }
@@ -2161,11 +2217,13 @@ String? _authorAndTime(String? author, String? changedAt) {
   return changedAt == null ? a : '$a, $changedAt';
 }
 
-/// The lines of a question block.
-List<String> formatQuestionBlock(SpecQuestionDraft q) {
+/// The lines of a question block; [changedAt] is written after the id
+/// (SOM §11.9.10).
+List<String> formatQuestionBlock(SpecQuestionDraft q, {String? changedAt}) {
   final t = q.text.split('\n');
+  final id = changedAt == null ? q.id : '${q.id} ($changedAt)';
   final lines = <String>[
-    '> $_questionOpen ${q.id}$_emDashSep${q.starred ? '$_star ' : ''}'
+    '> $_questionOpen $id$_emDashSep${q.starred ? '$_star ' : ''}'
         '${q.topic}:** ${t.first}',
     ..._quoted(t.sublist(1)),
     for (final o in q.options)
@@ -2902,39 +2960,54 @@ class SpecReviewAnnotations {
   }
 
   /// Inserts a question block after paragraph [afterParagraph] (0-based; -1:
-  /// at the start) of the value at [path] / [field].
+  /// at the start) of the value at [path] / [field]; its header carries the
+  /// time [at] or the clock's (SOM §11.9.10).
   void insertQuestion({
     required String path,
     String? field,
     required int afterParagraph,
     required SpecQuestionDraft question,
+    String? at,
   }) {
+    final time = _time(at);
     final value = _get(path, field);
     final end = _paragraphLastLine(value, afterParagraph);
     _set(
       path,
       field,
-      _insertAfterLine(value, end, formatQuestionBlock(question)),
+      _insertAfterLine(
+        value,
+        end,
+        formatQuestionBlock(question, changedAt: time),
+      ),
     );
   }
 
-  /// Inserts a question block directly after the comment [commentId].
+  /// Inserts a question block directly after the comment [commentId]; its
+  /// header carries the time [at] or the clock's (SOM §11.9.10).
   void insertQuestionAfterComment(
     String commentId,
-    SpecQuestionDraft question,
-  ) {
+    SpecQuestionDraft question, {
+    String? at,
+  }) {
+    final time = _time(at);
     final (path, field, text, c) = _findComment(commentId);
     _set(
       path,
       field,
-      _insertAfterLine(text, c.block.end, formatQuestionBlock(question)),
+      _insertAfterLine(
+        text,
+        c.block.end,
+        formatQuestionBlock(question, changedAt: time),
+      ),
     );
   }
 
-  /// Writes [answer] after the question's `**Answer:**` (empty: reopens it).
-  /// With [author], writes that member's individual answer instead, grouped
-  /// and placed by the rules of SOM §11.9.8 (empty: only takes the member
-  /// out); an author that is not a member id is refused.
+  /// Writes [answer] as the question's team answer, `**Answer (<time>):**`
+  /// with the time [at] or the clock's (SOM §11.9.10); empty reopens it as
+  /// `**Answer:**`. With [author], writes that member's individual answer
+  /// instead, grouped and placed by the rules of SOM §11.9.8 (empty: only
+  /// takes the member out); an author that is not a member id is refused.
   void setAnswer(
     String questionId,
     String answer, {
@@ -2955,7 +3028,9 @@ class SpecReviewAnnotations {
     final lines = text.split('\n');
     final a = answer.split('\n');
     final written = [
-      answer.isEmpty ? '> $_answerLabel' : '> $_answerLabel ${a.first}',
+      answer.isEmpty
+          ? '> $_answerLabel'
+          : '> **Answer (${_time(at)}):** ${a.first}',
       if (answer.isNotEmpty) ..._quoted(a.sublist(1)),
     ];
     // The answer runs to the region's last non-empty line.
@@ -4264,6 +4339,20 @@ Map<String, String> reviewTeamAnswers(String value) {
   for (final b in p.blocks) {
     for (final q in p.questions[b] ?? const <_Question>[]) {
       out.putIfAbsent(q.id, () => q.answer);
+    }
+  }
+  return out;
+}
+
+/// The time of every question's team answer in [value], by id (SOM
+/// §11.9.10): the first question with that id; null for an answer written
+/// without one.
+Map<String, String?> reviewTeamAnswerTimes(String value) {
+  final out = <String, String?>{};
+  final p = _parse(value);
+  for (final b in p.blocks) {
+    for (final q in p.questions[b] ?? const <_Question>[]) {
+      out.putIfAbsent(q.id, () => q.answerChangedAt);
     }
   }
   return out;

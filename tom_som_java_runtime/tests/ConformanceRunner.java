@@ -1218,12 +1218,14 @@ public final class ConformanceRunner {
             (String) op.get("path"),
             (String) op.get("field"),
             ((Number) op.get("afterParagraph")).intValue(),
-            SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")));
+            SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")),
+            (String) op.get("at"));
         return null;
       case "insertQuestionAfterComment":
         api.insertQuestionAfterComment(
             (String) op.get("commentId"),
-            SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")));
+            SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")),
+            (String) op.get("at"));
         return null;
       case "setAnswer":
         api.setAnswer(

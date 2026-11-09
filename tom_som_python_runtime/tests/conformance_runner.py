@@ -1065,11 +1065,12 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             field=op.get("field"),
             after_paragraph=op["afterParagraph"],
             question=SpecQuestionDraft.from_json(op["question"]),
+            at=op.get("at"),
         )
         return None
     if kind == "insertQuestionAfterComment":
         api.insert_question_after_comment(
-            op["commentId"], SpecQuestionDraft.from_json(op["question"]))
+            op["commentId"], SpecQuestionDraft.from_json(op["question"]), at=op.get("at"))
         return None
     if kind == "setAnswer":
         api.set_answer(op["id"], op["answer"], author=op.get("author"), at=op.get("at"))

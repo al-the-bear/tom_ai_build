@@ -2959,9 +2959,9 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 				opInt(op, "afterParagraph"), opString(op, "text"), opString(op, "author"), opString(op, "id"), opString(op, "at"))
 		case "insertQuestion":
 			err = api.InsertQuestion(opString(op, "path"), opString(op, "field"),
-				opInt(op, "afterParagraph"), opDraft(op))
+				opInt(op, "afterParagraph"), opDraft(op), opString(op, "at"))
 		case "insertQuestionAfterComment":
-			err = api.InsertQuestionAfterComment(opString(op, "commentId"), opDraft(op))
+			err = api.InsertQuestionAfterComment(opString(op, "commentId"), opDraft(op), opString(op, "at"))
 		case "setAnswer":
 			err = api.SetAnswer(opString(op, "id"), opString(op, "answer"), opString(op, "author"), opString(op, "at"))
 		case "editComment":

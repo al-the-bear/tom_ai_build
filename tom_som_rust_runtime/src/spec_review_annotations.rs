@@ -154,9 +154,12 @@ pub struct SpecReviewAnnotation {
     pub base: String,
     /// A conflict's lettered alternatives.
     pub alternatives: Vec<SpecConflictAlternative>,
-    /// When a comment or mark was last changed (SOM §11.9.10); `None`
-    /// without a time.
+    /// When a comment, mark or question was last changed (SOM §11.9.10);
+    /// `None` without a time. A question's is the time in its header.
     pub changed_at: Option<String>,
+    /// When a question's team answer was last changed (SOM §11.9.10): the
+    /// time in `**Answer (<time>):**`, or `None`.
+    pub answer_changed_at: Option<String>,
 }
 
 impl SpecReviewAnnotation {
@@ -186,6 +189,7 @@ impl SpecReviewAnnotation {
             base: String::new(),
             alternatives: Vec::new(),
             changed_at: None,
+            answer_changed_at: None,
         }
     }
 
@@ -284,6 +288,12 @@ impl SpecReviewAnnotation {
                         "answers",
                         Json::Array(self.answers.iter().map(|a| a.to_json()).collect()),
                     ));
+                }
+                if let Some(t) = &self.changed_at {
+                    pairs.push(("changedAt", s(t)));
+                }
+                if let Some(t) = &self.answer_changed_at {
+                    pairs.push(("answerChangedAt", s(t)));
                 }
                 pairs
             }
@@ -1101,6 +1111,10 @@ struct Question {
     recommended: Option<String>,
     /// The individual answers, in the order written.
     answers: Vec<IndividualAnswerEntry>,
+    /// The time in the header (SOM §11.9.10), or `None`.
+    changed_at: Option<String>,
+    /// The time of the team answer, or `None`.
+    answer_changed_at: Option<String>,
 }
 
 /// One parsed conflict block (SOM §11.9.8).
@@ -1630,6 +1644,42 @@ struct Header {
     topic: String,
     starred: bool,
     rest: String,
+    changed_at: Option<String>,
+}
+
+/// A question header's id with its optional change time (SOM §11.9.2,
+/// §11.9.10): `BQ-81` or `BQ-81 (2026-11-07T14:05+01:00)`, as (id, time);
+/// `None` when malformed.
+fn parse_header_id(s: &str) -> Option<(&str, Option<&str>)> {
+    let (id, time) = match s.find(" (") {
+        None => (s, None),
+        Some(open) => {
+            let t = s[open + 2..].strip_suffix(')')?;
+            if t.contains(')') {
+                return None;
+            }
+            (&s[..open], Some(t))
+        }
+    };
+    is_question_id(id).then_some((id, time))
+}
+
+/// The time of a team answer line `**Answer (<time>):**` (SOM §11.9.10), or
+/// `None` when `line` is no such line.
+fn team_answer_time(line: &str) -> Option<String> {
+    let (inside, _) = individual_answer_label(line)?;
+    let t = inside.trim();
+    is_review_time(t).then(|| t.to_string())
+}
+
+/// The length of a team answer's label on `line` (`**Answer:**` or
+/// `**Answer (<time>):**`), or `None` when `line` does not start with one.
+fn team_answer_label_length(line: &str) -> Option<usize> {
+    if line.starts_with(ANSWER_LABEL) {
+        return Some(ANSWER_LABEL.len());
+    }
+    team_answer_time(line)?;
+    individual_answer_label(line).map(|(_, len)| len)
 }
 
 fn is_question_id(id: &str) -> bool {
@@ -1654,8 +1704,8 @@ fn parse_header(inn: &str) -> Option<Header> {
     if sep == 0 {
         return None;
     }
-    let id = &h[..sep];
-    if !is_question_id(id) {
+    let (id, changed_at) = parse_header_id(&h[..sep])?;
+    if changed_at.is_some_and(|t| !is_review_time(t)) {
         return None;
     }
     let mut t = &h[sep + EM_DASH_SEP.len()..];
@@ -1674,6 +1724,7 @@ fn parse_header(inn: &str) -> Option<Header> {
         topic: topic.to_string(),
         starred,
         rest: rest.to_string(),
+        changed_at: changed_at.map(str::to_string),
     })
 }
 
@@ -1690,7 +1741,7 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
             Some(h) => headers.push((k, h)),
             None => p.malformed.push(format!(
                 "line {}: question header is not \"**\u{2753} <ID> \u{2014} <topic>:**\" \
-                 (SOM §11.9.2)",
+                 or \"**\u{2753} <ID> (<time>) \u{2014} <topic>:**\" (SOM §11.9.2)",
                 start + k
             )),
         }
@@ -1736,8 +1787,11 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
         let mut individual: Vec<IndividualAnswerEntry> = Vec::new();
         let mut answered: HashSet<String> = HashSet::new();
         for &m in &answer_lines {
-            let Some((ids, label)) = individual_answer_label(&inn[m]) else {
+            if team_answer_label_length(&inn[m]).is_some() {
                 answer = answer.or(Some(m));
+                continue;
+            }
+            let Some((ids, label)) = individual_answer_label(&inn[m]) else {
                 continue;
             };
             let ids: Vec<&str> = ids.split(',').collect();
@@ -1775,11 +1829,13 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
             starred: h.starred,
             text,
             answer: answer
-                .map(|a| answer_text(a, ANSWER_LABEL.len()))
+                .and_then(|a| team_answer_label_length(&inn[a]).map(|l| answer_text(a, l)))
                 .unwrap_or_default(),
             options,
             recommended,
             answers: individual,
+            changed_at: h.changed_at.clone(),
+            answer_changed_at: answer.and_then(|a| team_answer_time(&inn[a])),
         });
     }
     (list, combined)
@@ -2388,6 +2444,8 @@ fn annotations_of(
                         ..SpecIndividualAnswer::new(x.members.clone(), &x.answer)
                     })
                     .collect();
+                a.changed_at = q.changed_at.clone();
+                a.answer_changed_at = q.answer_changed_at.clone();
                 out.push((q.header, 0, seq, a));
                 seq += 1;
             }
@@ -2506,17 +2564,22 @@ pub fn format_comment_block(
     out
 }
 
-/// The lines of a question block.
-pub fn format_question_block(q: &SpecQuestionDraft) -> Vec<String> {
+/// The lines of a question block; `changed_at` is written after the id (SOM
+/// §11.9.10).
+pub fn format_question_block(q: &SpecQuestionDraft, changed_at: Option<&str>) -> Vec<String> {
     let t: Vec<&str> = q.text.split('\n').collect();
     let star = if q.starred {
         format!("{} ", STAR)
     } else {
         String::new()
     };
+    let id = match changed_at {
+        Some(time) => format!("{} ({})", q.id, time),
+        None => q.id.clone(),
+    };
     let mut lines = vec![format!(
         "> {} {}{}{}{}:** {}",
-        QUESTION_OPEN, q.id, EM_DASH_SEP, star, q.topic, t[0]
+        QUESTION_OPEN, id, EM_DASH_SEP, star, q.topic, t[0]
     )];
     lines.extend(quoted(&t[1..]));
     for o in &q.options {
@@ -3449,29 +3512,37 @@ impl<'a> SpecReviewAnnotations<'a> {
     }
 
     /// Inserts a question block after paragraph `after_paragraph` (0-based;
-    /// negative: at the start) of the value at `path` / `field`.
+    /// negative: at the start) of the value at `path` / `field`; its header
+    /// records `at` (an ISO 8601 time; `None`: the clock's) as the change
+    /// time (SOM §11.9.10).
     pub fn insert_question(
         &mut self,
         path: &str,
         field: Option<&str>,
         after_paragraph: i64,
         question: &SpecQuestionDraft,
+        at: Option<&str>,
     ) -> Result<(), SpecReviewAnnotationError> {
+        let time = self.change_time(at)?;
         let value = self.get(path, field);
         let end = paragraph_last_line(&value, after_paragraph)?;
-        let block = format_question_block(question);
+        let block = format_question_block(question, Some(&time));
         self.set(path, field, &insert_after_line(&value, end, &block));
         Ok(())
     }
 
-    /// Inserts a question block directly after the comment `comment_id`.
+    /// Inserts a question block directly after the comment `comment_id`; its
+    /// header records `at` (an ISO 8601 time; `None`: the clock's) as the
+    /// change time (SOM §11.9.10).
     pub fn insert_question_after_comment(
         &mut self,
         comment_id: &str,
         question: &SpecQuestionDraft,
+        at: Option<&str>,
     ) -> Result<(), SpecReviewAnnotationError> {
+        let time = self.change_time(at)?;
         let (path, field, text, c) = self.find_comment(comment_id)?;
-        let block = format_question_block(question);
+        let block = format_question_block(question, Some(&time));
         self.set(
             &path,
             field.as_deref(),
@@ -3480,7 +3551,9 @@ impl<'a> SpecReviewAnnotations<'a> {
         Ok(())
     }
 
-    /// Writes `answer` after the question's `**Answer:**` (empty: reopens it).
+    /// Writes `answer` as the question's team answer, `**Answer (<time>):**`
+    /// with the clock's time (SOM §11.9.10); empty reopens it as
+    /// `**Answer:**`.
     pub fn set_answer(
         &mut self,
         question_id: &str,
@@ -3489,11 +3562,11 @@ impl<'a> SpecReviewAnnotations<'a> {
         self.set_answer_by(question_id, answer, None, None)
     }
 
-    /// Like [`set_answer`](Self::set_answer); with `author`, writes that
-    /// member's individual answer instead, grouped and placed by the rules of
-    /// SOM §11.9.8 (empty: only takes the member out). An author that is not
-    /// a member id is refused. A member's non-empty answer records `at` (an
-    /// ISO 8601 time; `None`: the clock's) as its change time (SOM §11.9.10).
+    /// Like [`set_answer`](Self::set_answer), recording `at` (an ISO 8601
+    /// time; `None`: the clock's) as the change time of a non-empty answer
+    /// (SOM §11.9.10); with `author`, writes that member's individual answer
+    /// instead, grouped and placed by the rules of SOM §11.9.8 (empty: only
+    /// takes the member out). An author that is not a member id is refused.
     pub fn set_answer_by(
         &mut self,
         question_id: &str,
@@ -3525,7 +3598,7 @@ impl<'a> SpecReviewAnnotations<'a> {
         let mut written = vec![if answer.is_empty() {
             format!("> {}", ANSWER_LABEL)
         } else {
-            format!("> {} {}", ANSWER_LABEL, a[0])
+            format!("> **Answer ({}):** {}", self.change_time(at)?, a[0])
         }];
         if !answer.is_empty() {
             written.extend(quoted(&a[1..]));
@@ -4988,6 +5061,21 @@ pub(crate) fn review_team_answers(value: &str) -> Vec<(String, String)> {
         for q in b.questions {
             if !out.iter().any(|(id, _)| *id == q.id) {
                 out.push((q.id, q.answer));
+            }
+        }
+    }
+    out
+}
+
+/// The time of the team answer of every question of `value`, by id, in order
+/// (SOM §11.9.10): the first question with that id; `None` for an answer
+/// written without one.
+pub(crate) fn review_team_answer_times(value: &str) -> Vec<(String, Option<String>)> {
+    let mut out: Vec<(String, Option<String>)> = Vec::new();
+    for b in parse(value).blocks {
+        for q in b.questions {
+            if !out.iter().any(|(id, _)| *id == q.id) {
+                out.push((q.id, q.answer_changed_at));
             }
         }
     }

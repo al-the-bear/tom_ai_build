@@ -3126,6 +3126,18 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
             '{>> [see FR-3] plain <<} and {++ x ++}{>> [++ x ++] fine <<}.',
       },
     }),
+    // A question header's parenthesis must hold a change time (SOM §11.9.2,
+    // §11.9.10); a team answer `**Answer (<time>):**` and a timed header are
+    // well formed.
+    caseFor('annotationMalformed: question times', {
+      'content': {
+        'DEMO/SUM':
+            '> **\u2753 BQ-1 (yesterday) \u2014 Bad:** no time\n>\n'
+            '> **Answer:**\n\n'
+            '> **\u2753 BQ-2 (2026-11-07T14:05+01:00) \u2014 Good:** a time\n'
+            '>\n> **Answer (2026-11-07T15:00Z):** yes',
+      },
+    }),
     caseFor('duplicateAnnotationId', {
       'content': {
         'DEMO/SUM':
@@ -7996,6 +8008,32 @@ Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
           '{>> plain <<}.',
     },
   };
+  // Question and team-answer times (SOM §11.9.2, §11.9.10): a header with a
+  // time and one without, a team answer with a time, one without, a time-only
+  // parenthesis read as the team answer beside an individual answer, and a
+  // header whose parenthesis holds no time (malformed).
+  final questionTimes = <String, Object?>{
+    'content': {
+      'DEMO/SUM':
+          'Sessions expire after 30 minutes.\n\n'
+          '> **❓ BQ-1 (2026-11-01T09:30+01:00) — Timeout:** shorter?\n'
+          '> - (a) 30\n'
+          '> - **(b)** 15\n'
+          '>\n'
+          '> **Answer (2026-11-02T10:00Z):** (b)\n\n'
+          '> **❓ BQ-2 — Kiosks:** also on kiosks?\n'
+          '>\n'
+          '> **Answer:** yes\n\n'
+          '> **❓ BQ-3 (2026-11-03T08:00+01:00) — Owner:** who owns it?\n'
+          '>\n'
+          '> **Answer (alice, 2026-11-03T09:00+01:00):** Bob\n'
+          '>\n'
+          '> **Answer (2026-11-03T10:00+01:00):** Bob, decided\n\n'
+          '> **❓ BQ-4 (yesterday) — Broken:** a parenthesis without a time\n'
+          '>\n'
+          '> **Answer:**',
+    },
+  };
   final base = _annotationState();
   const draft = {
     'id': 'BQ-91',
@@ -8317,6 +8355,68 @@ Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
       ],
     },
     {
+      'name': 'question times: read from headers and team answers',
+      'state': questionTimes,
+      'ops': [
+        {'op': 'list'},
+        {'op': 'counts'},
+      ],
+    },
+    {
+      'name': 'question times: written and refused',
+      'state': questionTimes,
+      'ops': [
+        {
+          'op': 'insertQuestion',
+          'path': 'DEMO/SUM',
+          'afterParagraph': 0,
+          'question': {
+            'id': 'BQ-5',
+            'topic': 'At a given time',
+            'text': 'seconds cut?',
+            'options': ['(a) yes', '(b) no'],
+            'recommended': 'a',
+          },
+          'at': '2026-11-08T09:15:42+01:00',
+        },
+        {
+          'op': 'insertQuestion',
+          'path': 'DEMO/SUM',
+          'afterParagraph': -1,
+          'question': {'id': 'BQ-6', 'topic': 'At the clock', 'text': 'now?'},
+        },
+        {
+          'op': 'setAnswer',
+          'id': 'BQ-2',
+          'answer': 'yes, and on terminals',
+          'at': '2026-11-08T10:00Z',
+        },
+        {'op': 'setAnswer', 'id': 'BQ-3', 'answer': 'Bea'},
+        {'op': 'setAnswer', 'id': 'BQ-1', 'answer': ''},
+        {
+          'op': 'setAnswer',
+          'id': 'BQ-3',
+          'answer': 'Bea',
+          'author': 'bob',
+          'at': '2026-11-08T11:00+01:00',
+        },
+        {'op': 'list'},
+        {
+          'op': 'insertQuestion',
+          'path': 'DEMO/SUM',
+          'afterParagraph': 0,
+          'question': {'id': 'BQ-7', 'topic': 'x', 'text': 'y'},
+          'at': 'yesterday',
+        },
+        {
+          'op': 'setAnswer',
+          'id': 'BQ-6',
+          'answer': 'refused',
+          'at': '2026-11-08T10:00',
+        },
+      ],
+    },
+    {
       'name': 'change times: setMarked keeps the token of an unchanged mark',
       'state': {
         'content': {
@@ -8478,6 +8578,7 @@ Map<String, Object?> _runAnnotationCase(
             question: SpecQuestionDraft.fromJson(
               (op['question'] as Map).cast<String, dynamic>(),
             ),
+            at: op['at'] as String?,
           );
           return null;
         }(),
@@ -8487,6 +8588,7 @@ Map<String, Object?> _runAnnotationCase(
             SpecQuestionDraft.fromJson(
               (op['question'] as Map).cast<String, dynamic>(),
             ),
+            at: op['at'] as String?,
           );
           return null;
         }(),

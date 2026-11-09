@@ -1579,7 +1579,10 @@ single form asks one question:
   and the topic, all on the header's first line: a topic wrapped onto the
   next line is a malformed header. A `★` in front of the topic marks a question that blocks the
   phase gate or settles an architecture decision: `**❓ BQ-02 — ★ Tenancy
-  model:**`.
+  model:**`. The id may be followed by the time the question was written, in
+  parentheses (§11.9.10): `**❓ BQ-81 (2026-11-07T14:05+01:00) — Explain for the
+  principal:**`; a parenthesis there that holds anything but a time makes the
+  header malformed.
 - **Id.** `<PREFIX>-<n>`. The upper-case prefix is chosen per project, and the
   project states it where it states its other conventions. tom_uam uses `BQ-`
   for Blueprint questions and `PR-` for first-draft proposals. Unlike comment
@@ -1605,14 +1608,20 @@ single form asks one question:
   and on any further `>` lines up to the next `**❓` header or the end of the
   block. An empty answer means the question is **open**. A choice is answered
   with its letter, `(b)` or `**(b)**`, optionally followed by text
-  (`**Answer:** (b) — and only on kiosks`). `**Answer:**` stays bold, so §11.4
-  rule 3 never reads `Answer:` as a field label.
+  (`**Answer:** (b) — and only on kiosks`). The label may carry the time the
+  answer was last written (§11.9.10): `**Answer (2026-11-07T14:05+01:00):**
+  (b)`. A parenthesis holding only a time marks the team answer; one holding
+  member ids marks an individual answer (§11.9.8). `**Answer:**` stays bold, so
+  §11.4 rule 3 never reads `Answer:` as a field label.
 - **What the API reports.** The runtime API lists a question with:
   - its options (letter, text, bold);
   - its recommended letter;
-  - the letter its answer starts with.
+  - the letter its answer starts with;
+  - `changedAt`, the time in its header, and `answerChangedAt`, the time of its
+    team answer (§11.9.10), each only when written.
 
-  A question written through the API carries its recommended option bold.
+  A question written through the API carries its recommended option bold and
+  the time in its header.
 - **Merged.** A question that asks the same decision as another shrinks to a
   pointer in the same shape. Its id stays findable:
 
@@ -1903,7 +1912,7 @@ The rest of the document still validates and imports.
 | Code | When |
 |------|------|
 | `annotationMisplaced` | A comment or question block inside a form field's value, i.e. between or below the form's fields |
-| `annotationMalformed` | An unclosed or nested inline mark, or a substitution without `~>`; a change comment's quote that is never closed, or a substitution quote without `~>` (the comment is read as a plain one); a comment header whose id is not `C-<n>`; a question header that is not `**❓ <ID> — <topic>:**`; a `**❓` header or an `**Answer:**` line inside a comment block |
+| `annotationMalformed` | An unclosed or nested inline mark, or a substitution without `~>`; a change comment's quote that is never closed, or a substitution quote without `~>` (the comment is read as a plain one); a comment header whose id is not `C-<n>`; a question header that is not `**❓ <ID> — <topic>:**` or `**❓ <ID> (<time>) — <topic>:**`; a `**❓` header or an `**Answer:**` line inside a comment block |
 | `duplicateAnnotationId` | One comment id, or one question id, used twice in the same document. A merged pointer is not a second use of the surviving id |
 
 Annotations are review state, not specification content. A document submitted
@@ -2108,7 +2117,9 @@ answers:
 
 - `<ids>` is one or more member ids separated by `, ` (a missing space is
   read). The last part may be the time the answer was last written
-  (§11.9.10): `**Answer (alice, 2026-11-07T14:05+01:00):**`. An individual
+  (§11.9.10): `**Answer (alice, 2026-11-07T14:05+01:00):**`. A parenthesis
+  holding a time and no member id is the team answer (§11.9.2), not an
+  individual one. An individual
   answer runs to the next `**Answer` line, the next `**❓` header or the end of
   the block, like the team answer.
 - Members whose answers are identical share one line; with a time, the times
@@ -2433,9 +2444,11 @@ who and when travel together:
 | Inline mark (change, highlight, comment, change comment) | the last word of its attribution token (§11.9.8): `{@alice 2026-11-07T14:05+01:00}`; a token may hold the time alone, `{@2026-11-07T14:05+01:00}` |
 | Comment block | the last part of its header's parentheses (§11.9.1): `> ⬆️ **C-12** (Alexis, 2026-11-07T14:05+01:00): …`, or `(2026-11-07T14:05+01:00):` without an author |
 | Individual answer | the last part of its member list (§11.9.8): `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+| Question block | in parentheses after the id in its header (§11.9.2): `> **❓ BQ-1 (2026-11-07T14:05+01:00) — Timeout:** …` |
+| Team answer | in parentheses in its label (§11.9.2): `> **Answer (2026-11-07T14:05+01:00):** (b)`; a parenthesis holding only a time marks the team answer, one holding member ids an individual answer |
 
-A question block and the team answer `**Answer:**` have no author and carry no
-time.
+A question and its team answer have no author: their parenthesis holds the
+time alone.
 
 **Format.** Minutes with the writer's UTC offset:
 `YYYY-MM-DDTHH:MM` followed by `Z` or `±HH:MM` (`2026-11-07T14:05+01:00`).
@@ -2454,6 +2467,8 @@ writes the time, and every one that edits it replaces the time:
 | `editMarkComment` | the mark's token (a token is added when the mark has none; its authors and votes stay) |
 | `setMarked` | every change mark it writes that the value did not hold before; a mark it writes again unchanged (same kind, same old and new text) keeps its token |
 | `setAnswer` with an author | the member's individual answer |
+| `insertQuestion`, `insertQuestionAfterComment` | the new question's header |
+| `setAnswer` without an author | the team answer; reopening a question (an empty answer) writes `**Answer:**` without a time |
 
 The caller may pass the time (`at`, ISO 8601 with an offset or `Z`; seconds
 and fractions are cut to minutes, the offset is kept as given). Otherwise the
@@ -2469,9 +2484,12 @@ text, so they keep its time. A change comment keeps its time when its change is
 decided; an annotation that is removed takes its time with it.
 
 **Reading.** The listing reports `changedAt` — the time as written, or none — on
-every comment, mark and individual answer it lists (`SpecReviewAnnotation`,
-`SpecMarkEntry`, the individual answers); the JSON forms write it only when
-there is one. A time that is not of the format is not a time: it is read as
+every comment, mark, question and individual answer it lists
+(`SpecReviewAnnotation`, `SpecMarkEntry`, the individual answers); a question's
+is the time in its header, and the time of its team answer is
+`answerChangedAt`. The JSON forms write each only when there is one. Merging
+copies (§11.9.9) writes a copy's team answer as the member's individual answer
+with the copy's answer time. A time that is not of the format is not a time: it is read as
 before (an author, a member id) and reported where that reading is a finding.
 
 ## 12. The hierarchical `*.docspecs.yaml` format

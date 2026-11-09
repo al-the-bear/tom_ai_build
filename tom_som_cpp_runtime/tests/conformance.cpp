@@ -2890,13 +2890,15 @@ static std::string run_annotation_op(const som::SpecModel& model,
     if (name == "insertQuestion") {
       api.insertQuestion(som::jsonStrOr(op, "path"), json_opt_str(op, "field"),
                          afterParagraph,
-                         draft_from_json(som::jsonGet(op, "question")));
+                         draft_from_json(som::jsonGet(op, "question")),
+                         json_opt_str(op, "at"));
       return "null";
     }
     if (name == "insertQuestionAfterComment") {
       api.insertQuestionAfterComment(
           som::jsonStrOr(op, "commentId"),
-          draft_from_json(som::jsonGet(op, "question")));
+          draft_from_json(som::jsonGet(op, "question")),
+          json_opt_str(op, "at"));
       return "null";
     }
     if (name == "setAnswer") {

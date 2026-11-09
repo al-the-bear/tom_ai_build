@@ -1256,8 +1256,36 @@ static void team_answers(const SomStrList *texts, SomStrList *ids,
   }
 }
 
+/* The times of the team answers of `texts`' questions (SOM §11.9.10):
+ * `ids[k]`'s was written at `times[k]` (NULL: none), the first occurrence of
+ * an id winning. `ids` initialised here; free `*times` with
+ * `spec_review_team_answer_times_free(*times, ids->len)`. */
+static void team_answer_times(const SomStrList *texts, SomStrList *ids,
+                              char ***times) {
+  som_strlist_init(ids);
+  *times = NULL;
+  size_t cap = 0;
+  for (size_t t = 0; t < texts->len; t++) {
+    SomStrList vi;
+    char **vt;
+    spec_review_team_answer_times(texts->items[t], &vi, &vt);
+    for (size_t k = 0; k < vi.len; k++) {
+      if (som_strlist_contains(ids, vi.items[k])) continue;
+      if (ids->len == cap) {
+        cap = cap ? cap * 2 : 4;
+        *times = realloc(*times, cap * sizeof(char *));
+      }
+      (*times)[ids->len] = vt[k] ? som_strdup(vt[k]) : NULL;
+      som_strlist_push_copy(ids, vi.items[k]);
+    }
+    spec_review_team_answer_times_free(vt, vi.len);
+    som_strlist_free(&vi);
+  }
+}
+
 /* Writes each copy's team answer to a base question, where it differs from
- * the base's, as that member's individual answer (copies in round order). */
+ * the base's, as that member's individual answer (copies in round order),
+ * with the copy's answer time (SOM §11.9.10). */
 static void merge_answers(MergeTexts *texts, const SomStrList *base_texts,
                           const SomStrList *copy_texts, size_t n,
                           MergeContext *ctx) {
@@ -1265,8 +1293,12 @@ static void merge_answers(MergeTexts *texts, const SomStrList *base_texts,
   team_answers(base_texts, &base_ids, &base_answers);
   SomStrList *copy_ids = calloc(n ? n : 1, sizeof(SomStrList));
   SomStrList *copy_answers = calloc(n ? n : 1, sizeof(SomStrList));
-  for (size_t i = 0; i < n; i++)
+  SomStrList *time_ids = calloc(n ? n : 1, sizeof(SomStrList));
+  char ***copy_times = calloc(n ? n : 1, sizeof(char **));
+  for (size_t i = 0; i < n; i++) {
     team_answers(&copy_texts[i], &copy_ids[i], &copy_answers[i]);
+    team_answer_times(&copy_texts[i], &time_ids[i], &copy_times[i]);
+  }
   for (size_t q = 0; q < base_ids.len; q++) {
     const char *id = base_ids.items[q];
     SomStrList members;
@@ -1276,12 +1308,14 @@ static void merge_answers(MergeTexts *texts, const SomStrList *base_texts,
       if (at < 0) continue;
       const char *a = copy_answers[i].items[at];
       if (strcmp(a, base_answers.items[q]) == 0 || a[0] == '\0') continue;
+      long long ti = index_of(&time_ids[i], id);
+      const char *time = ti < 0 ? NULL : copy_times[i][ti];
       SomStrList keys;
       texts->keys(texts, &keys);
       for (size_t k = 0; k < keys.len; k++) {
         char *value = texts->get(texts, keys.items[k]);
         char *written = spec_review_set_individual_answer_text(
-            value, id, member_at(ctx, i), a, NULL);
+            value, id, member_at(ctx, i), a, time);
         free(value);
         if (written == NULL) continue;
         texts->set(texts, keys.items[k], written);
@@ -1302,9 +1336,13 @@ static void merge_answers(MergeTexts *texts, const SomStrList *base_texts,
   for (size_t i = 0; i < n; i++) {
     som_strlist_free(&copy_ids[i]);
     som_strlist_free(&copy_answers[i]);
+    spec_review_team_answer_times_free(copy_times[i], time_ids[i].len);
+    som_strlist_free(&time_ids[i]);
   }
   free(copy_ids);
   free(copy_answers);
+  free(copy_times);
+  free(time_ids);
   som_strlist_free(&base_ids);
   som_strlist_free(&base_answers);
 }
@@ -1327,7 +1365,7 @@ static char *guest_question(const char *id, const SpecReviewMember *g) {
   q.options_len = 2;
   q.recommended = "a";
   SomStrList lines;
-  spec_format_question_block(&q, &lines);
+  spec_format_question_block(&q, NULL, &lines);
   char *block = som_strlist_join(&lines, "\n");
   som_strlist_free(&lines);
   free(text);

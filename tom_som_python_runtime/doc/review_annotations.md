@@ -331,21 +331,29 @@ minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
 | Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
 | Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
 | Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+| Question | in parentheses after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) — Timeout:**` |
+| Team answer | in the label's parentheses, `**Answer (2026-11-07T14:05+01:00):**` (a time alone marks the team's answer) |
 
 The writes record it, each with an optional `at=` (ISO 8601 with an offset or
 `Z`; seconds are cut, any other shape raises `SpecReviewAnnotationError`):
 `insert_comment`, `edit_comment` (the author stays), `comment_change`,
 `edit_mark_comment` (authors and votes stay), `set_marked` and `mark_against`
 (both take an optional `author=`; a mark written again unchanged keeps its
-token) and `set_answer` with an `author=`. Without `at` the time comes from the
+token), `insert_question` and `insert_question_after_comment` (the header),
+and `set_answer` (an individual answer with an `author=`, else the team
+answer; reopening writes `**Answer:**` without a time). Without `at` the time comes from the
 `clock` the `SpecReviewAnnotations` was made with, else from the system clock.
 Deciding, voting, answering and merging keep the times; removing an annotation
 takes its time with it. `normalize_review_time`, `is_review_time` and
 `system_review_time` are the helpers.
 
-Reading reports `changed_at` on `SpecReviewAnnotation` (comments and marks),
-`SpecMarkEntry` and `SpecIndividualAnswer`; `to_json` writes it as
-`changedAt` only when there is one.
+Reading reports `changed_at` on `SpecReviewAnnotation` (comments, marks and
+questions — a question's is its header time), `SpecMarkEntry` and
+`SpecIndividualAnswer`, and `answer_changed_at` (the team answer's time) on a
+question; `to_json` writes each (as `changedAt` / `answerChangedAt`) only when
+there is one. `review_team_answer_times` lists the team answers' times by
+question id; merging copies carries a copy's team-answer time into the
+member's individual answer.
 
 ```python
 review = SpecReviewAnnotations(doc, clock=lambda: "2026-11-07T14:05+01:00")

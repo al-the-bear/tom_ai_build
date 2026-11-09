@@ -781,15 +781,35 @@ public final class SpecReviewMerge {
   }
 
   /**
+   * The times of the team answers of {@code texts}, by id, the first occurrence winning (SOM
+   * §11.9.10).
+   */
+  private static Map<String, String> teamAnswerTimes(List<String> texts) {
+    Map<String, String> out = new LinkedHashMap<>();
+    for (String t : texts) {
+      for (Map.Entry<String, String> e :
+          SpecReviewAnnotations.reviewTeamAnswerTimes(t).entrySet()) {
+        if (!out.containsKey(e.getKey())) {
+          out.put(e.getKey(), e.getValue());
+        }
+      }
+    }
+    return out;
+  }
+
+  /**
    * Writes each copy's team answer to a base question, where it differs from the base's, as that
-   * member's individual answer (copies in round order).
+   * member's individual answer (copies in round order), with the copy's answer time (SOM
+   * §11.9.10).
    */
   private static void mergeAnswers(
       Texts texts, List<String> baseTexts, List<List<String>> copyTexts, MergeContext ctx) {
     Map<String, String> baseAnswers = teamAnswers(baseTexts);
     List<Map<String, String>> copyAnswers = new ArrayList<>();
+    List<Map<String, String>> copyTimes = new ArrayList<>();
     for (List<String> ts : copyTexts) {
       copyAnswers.add(teamAnswers(ts));
+      copyTimes.add(teamAnswerTimes(ts));
     }
     for (Map.Entry<String, String> e : baseAnswers.entrySet()) {
       String id = e.getKey();
@@ -802,7 +822,7 @@ public final class SpecReviewMerge {
         for (String key : texts.keys()) {
           String written =
               SpecReviewAnnotations.setIndividualAnswerText(
-                  texts.get(key), id, ctx.members.get(i), a);
+                  texts.get(key), id, ctx.members.get(i), a, copyTimes.get(i).get(id));
           if (written == null) {
             continue;
           }

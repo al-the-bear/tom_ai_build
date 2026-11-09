@@ -4262,14 +4262,16 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     SpecQuestionDraft d = draft_from_json(som_json_get(op, "question"), &opts);
     ok = spec_review_annotations_insert_question(
         api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
-        json_i64_or(op, "afterParagraph", 0), &d, &err);
+        json_i64_or(op, "afterParagraph", 0), &d, json_opt_str(op, "at"),
+        &err);
     free(opts);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "insertQuestionAfterComment") == 0) {
     const char **opts = NULL;
     SpecQuestionDraft d = draft_from_json(som_json_get(op, "question"), &opts);
     ok = spec_review_annotations_insert_question_after_comment(
-        api, som_json_str_or(op, "commentId"), &d, &err);
+        api, som_json_str_or(op, "commentId"), &d, json_opt_str(op, "at"),
+        &err);
     free(opts);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "setAnswer") == 0) {
@@ -4280,7 +4282,8 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
                               json_opt_str(op, "at"), &err)
                         : spec_review_annotations_set_answer(
                               api, som_json_str_or(op, "id"),
-                              som_json_str_or(op, "answer"), &err);
+                              som_json_str_or(op, "answer"),
+                              json_opt_str(op, "at"), &err);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "editComment") == 0) {
     ok = spec_review_annotations_edit_comment(

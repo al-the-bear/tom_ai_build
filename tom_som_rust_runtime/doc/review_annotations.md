@@ -58,6 +58,7 @@ fn main() {
         .insert_question_after_comment(
             "C-1",
             &SpecQuestionDraft::new("BQ-1", "C-1 kiosks", "Kiosks only?"),
+            None,
         )
         .unwrap();
     review.set_answer("BQ-1", "yes").unwrap();
@@ -104,9 +105,9 @@ All are re-exported at the crate root.
 | `assign_comment_ids(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is an error |
 | `insert_comment(path, field, after_paragraph, text, author, id, at)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given). The header records the [change time](#change-times) |
-| `insert_question(path, field, after_paragraph, &question)` | A question block after a paragraph |
-| `insert_question_after_comment(comment_id, &question)` | A question block directly after a comment block |
-| `set_answer(question_id, answer)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing |
+| `insert_question(path, field, after_paragraph, &question, at)` | A question block after a paragraph, its header carrying the change time |
+| `insert_question_after_comment(comment_id, &question, at)` | A question block directly after a comment block, its header carrying the change time |
+| `set_answer(question_id, answer)` | Writes the team answer as `**Answer (<time>):**`; an empty answer reopens the question as `**Answer:**`; adds the line when it is missing |
 | `edit_comment(comment_id, text, at)` | New text; the marker, id and author stay as written, the change time moves |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
@@ -384,6 +385,8 @@ minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
 | Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
 | Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
 | Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+| Question | in parentheses after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) — Timeout:**` |
+| Team answer | in the label's parentheses, `**Answer (2026-11-07T14:05+01:00):**` (a time alone marks the team's answer) |
 
 The writes record it, each with an `at: Option<&str>` (ISO 8601 with an
 offset or `Z`; seconds are cut, any other shape returns
@@ -391,7 +394,11 @@ offset or `Z`; seconds are cut, any other shape returns
 `edit_comment` (the author stays), `comment_change`, `edit_mark_comment`
 (authors and votes stay), `set_marked` and `mark_against` (both take an
 `author: Option<&str>` and now return a `Result`; a mark written again
-unchanged keeps its token) and `set_answer_by` with an author. Without `at`
+unchanged keeps its token), `insert_question` and
+`insert_question_after_comment` (the header), and `set_answer_by` (an
+individual answer with an author, else the team answer; reopening writes
+`**Answer:**` without a time; `set_answer` is the team answer with the clock's
+time). Without `at`
 the time comes from the clock the `SpecReviewAnnotations` was made with
 (`SpecReviewAnnotations::with_clock`), else from the system clock — written in
 UTC (`…Z`), since the standard library knows no local offset. Deciding,
@@ -399,9 +406,13 @@ voting, answering and merging keep the times; removing an annotation takes its
 time with it. `normalize_review_time`, `is_review_time` and
 `system_review_time` are the helpers.
 
-Reading reports `changed_at` on `SpecReviewAnnotation` (comments and marks),
-`SpecMarkEntry` and `SpecIndividualAnswer`; `to_json` writes `changedAt` only
-when there is one.
+Reading reports `changed_at` on `SpecReviewAnnotation` (comments, marks and
+questions — a question's is its header time), `SpecMarkEntry` and
+`SpecIndividualAnswer`, and `answer_changed_at` (the team answer's time) on a
+question; `to_json` writes `changedAt` / `answerChangedAt` only when there is
+one. Merging copies carries a copy's team-answer time into the member's
+individual answer. `format_question_block` takes the time to write after the
+id (`None` for none).
 
 ```rust
 let mut review =

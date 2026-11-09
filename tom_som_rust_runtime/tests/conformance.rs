@@ -3472,10 +3472,13 @@ fn run_annotation_case(
                 s("field"),
                 op.get("afterParagraph").and_then(|v| v.as_i64()).unwrap_or(0),
                 &draft(),
+                s("at"),
             )),
-            "insertQuestionAfterComment" => {
-                unit(api.insert_question_after_comment(s("commentId").unwrap_or(""), &draft()))
-            }
+            "insertQuestionAfterComment" => unit(api.insert_question_after_comment(
+                s("commentId").unwrap_or(""),
+                &draft(),
+                s("at"),
+            )),
             "setAnswer" => unit(api.set_answer_by(
                 s("id").unwrap_or(""),
                 s("answer").unwrap_or(""),

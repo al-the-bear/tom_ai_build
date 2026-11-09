@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- Question and team-answer change times (SOM §11.9.2, §11.9.10), a port of
+  the Dart reference: a question header may carry its time,
+  `**❓ <ID> (<time>) — <topic>:**` (a parenthesis without a change time is a
+  malformed header), and `**Answer (<time>):**` is the team answer with its
+  time. Listings report `changed_at` (header) and the new
+  `answer_changed_at` on questions, written to JSON as `changedAt` /
+  `answerChangedAt` when set. `spec_format_question_block` takes a
+  `changed_at`; `spec_review_annotations_insert_question`,
+  `_insert_question_after_comment` and `_set_answer` take an `at` and write the
+  time (from `at` or the clock); reopening writes `**Answer:**` without one.
+  New `spec_review_team_answer_times` (and `_free`); merging carries a copy's
+  team-answer time into the member's individual answer.
+
 ## 1.7.4
 
 - Change times (SOM §11.9.10), a port of the Dart reference: comment headers,

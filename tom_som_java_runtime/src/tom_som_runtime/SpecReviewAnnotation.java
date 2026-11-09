@@ -83,8 +83,17 @@ public final class SpecReviewAnnotation {
   /** A conflict's lettered alternatives; empty for the other kinds. */
   public final List<SpecConflictAlternative> alternatives;
 
-  /** When a comment or mark was last changed (SOM §11.9.10), or null. */
+  /**
+   * When a comment, mark or question was last changed (SOM §11.9.10), or null. A question's is the
+   * time in its header.
+   */
   public final String changedAt;
+
+  /**
+   * When a question's team answer was last changed (SOM §11.9.10): the time in {@code **Answer
+   * (<time>):**}, or null.
+   */
+  public final String answerChangedAt;
 
   SpecReviewAnnotation(
       SpecReviewAnnotationKind kind,
@@ -185,6 +194,37 @@ public final class SpecReviewAnnotation {
       String base,
       List<SpecConflictAlternative> alternatives,
       String changedAt) {
+    this(kind, path, field, line, id, qualifiedId, author, text, context, topic, starred,
+        combined, answer, options, recommended, markKind, newText, comment, authors, votes,
+        answers, base, alternatives, changedAt, null);
+  }
+
+  SpecReviewAnnotation(
+      SpecReviewAnnotationKind kind,
+      String path,
+      String field,
+      int line,
+      String id,
+      String qualifiedId,
+      String author,
+      String text,
+      String context,
+      String topic,
+      boolean starred,
+      boolean combined,
+      String answer,
+      List<SpecQuestionOption> options,
+      String recommended,
+      SpecMarkKind markKind,
+      String newText,
+      String comment,
+      List<String> authors,
+      List<SpecMarkVote> votes,
+      List<SpecIndividualAnswer> answers,
+      String base,
+      List<SpecConflictAlternative> alternatives,
+      String changedAt,
+      String answerChangedAt) {
     this.kind = kind;
     this.path = path;
     this.field = field;
@@ -212,6 +252,7 @@ public final class SpecReviewAnnotation {
     this.base = base == null ? "" : base;
     this.alternatives = frozen(alternatives);
     this.changedAt = changedAt;
+    this.answerChangedAt = answerChangedAt;
   }
 
   private static <T> List<T> frozen(List<T> list) {
@@ -305,6 +346,12 @@ public final class SpecReviewAnnotation {
             as.add(a.toJson());
           }
           out.put("answers", as);
+        }
+        if (changedAt != null) {
+          out.put("changedAt", changedAt);
+        }
+        if (answerChangedAt != null) {
+          out.put("answerChangedAt", answerChangedAt);
         }
         break;
       case CONFLICT:
