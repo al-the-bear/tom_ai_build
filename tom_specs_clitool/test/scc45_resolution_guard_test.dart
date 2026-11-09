@@ -93,10 +93,10 @@ class _HeldBack {
 const Map<String, _HeldBack> _heldBackVersions = <String, _HeldBack>{
   'tom_analyzer_shared': _HeldBack(
     from: '0.12.0',
-    owner: 'd4rt vstdm15_akgm-generator-analyzer-shared-caret',
+    owner: 'tom_specs frzhold2_akip-specs-clitool-onto-analyzer-shared-0-13',
     reason:
-        'tom_spec_engine takes tom_analyzer_shared only through its path '
-        'dev-dependency tom_d4rt_generator, which declares ^0.11.0',
+        'tom_specs_clitool declares tom_analyzer_shared ^0.12.0 itself, so its '
+        'lock cannot take 0.13.0',
   ),
 };
 
