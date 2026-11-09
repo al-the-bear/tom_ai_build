@@ -98,6 +98,9 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_core_codespecs: >-
+    Formatting only since 0.13.3: two tests reformatted to Dart 3.13's
+    `dart format`. Ships with the next release.
   tom_specs_model: >-
     Documentation only since 1.7.3: llm_and_d4rt_tools.md states that the
     engine and the Flutter editor are on analyzer ^14 (tom_d4rt ^1.231.1,
