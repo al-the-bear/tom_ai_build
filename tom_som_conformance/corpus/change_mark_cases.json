@@ -73,6 +73,24 @@
       "reject": "word"
     },
     {
+      "name": "a sentence added after a full stop",
+      "old": "sentence.",
+      "new": "sentence. Next sentence.",
+      "marked": "sentence. {++ Next sentence. ++}",
+      "exact": true,
+      "accept": "sentence. Next sentence.",
+      "reject": "sentence."
+    },
+    {
+      "name": "a clause added after a comma",
+      "old": "first, third",
+      "new": "first, second, third",
+      "marked": "first, {++ second, ++} third",
+      "exact": true,
+      "accept": "first, second, third",
+      "reject": "first, third"
+    },
+    {
       "name": "a whitespace-only change",
       "old": "a b",
       "new": "a  b",

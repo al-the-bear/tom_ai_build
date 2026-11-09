@@ -13,6 +13,12 @@
   take an `author`. `changedAt` on `SpecReviewAnnotation`, `SpecMarkEntry` and
   `SpecIndividualAnswer`; `mergeReviews` carries a copy's times over. New:
   `normalizeReviewTime`, `isReviewTime`, `systemReviewTime`.
+- Edge spaces after punctuation (SOM §11.9.3): whitespace written inside a
+  change mark beside the text a decision keeps stands for one space before
+  that text after `.,;:!?)]}` and after it before a word, `(` or `[`, so
+  `Done.{++ Next step.++}` accepted reads `Done. Next step.`. Applies when a
+  mark is accepted or rejected (`applyInlineMarksText`, `decideMarks`,
+  `stripAnnotationsText`, `setMarked`), not when it is removed.
 
 ## 1.7.3
 

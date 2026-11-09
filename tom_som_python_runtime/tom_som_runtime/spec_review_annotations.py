@@ -910,6 +910,13 @@ class _Mark:
     comment_index: Optional[int] = None
     #: The time in the mark's attribution token (SOM §11.9.10), or ``None``.
     changed_at: Optional[str] = None
+    #: Whether whitespace was written inside the delimiters at the leading /
+    #: trailing edge of ``text`` and of ``new_text`` (SOM §11.9.3, edge
+    #: spaces).
+    text_lead: bool = False
+    text_trail: bool = False
+    new_lead: bool = False
+    new_trail: bool = False
 
     def __post_init__(self) -> None:
         if self.body_end < 0:
@@ -1545,11 +1552,13 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
             )
         elif opener == "{++":
             p.marks.append(
-                _Mark(base + i, base + end, line, SpecMarkKind.INSERTION, _trim(inner), None, None)
+                _Mark(base + i, base + end, line, SpecMarkKind.INSERTION, _trim(inner), None, None,
+                      text_lead=_ws_edge(inner, True), text_trail=_ws_edge(inner, False))
             )
         elif opener == "{--":
             p.marks.append(
-                _Mark(base + i, base + end, line, SpecMarkKind.DELETION, _trim(inner), None, None)
+                _Mark(base + i, base + end, line, SpecMarkKind.DELETION, _trim(inner), None, None,
+                      text_lead=_ws_edge(inner, True), text_trail=_ws_edge(inner, False))
             )
         else:  # {~~
             arrow = inner.find("~>")
@@ -1560,15 +1569,21 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
                 p.mark_issues.append((line, "noArrow"))
                 i = end
                 continue
+            old_raw = inner[:arrow]
+            new_raw = inner[arrow + 2:]
             p.marks.append(
                 _Mark(
                     base + i,
                     base + end,
                     line,
                     SpecMarkKind.SUBSTITUTION,
-                    _trim(inner[:arrow]),
-                    _trim(inner[arrow + 2:]),
+                    _trim(old_raw),
+                    _trim(new_raw),
                     None,
+                    text_lead=_ws_edge(old_raw, True),
+                    text_trail=_ws_edge(old_raw, False),
+                    new_lead=_ws_edge(new_raw, True),
+                    new_trail=_ws_edge(new_raw, False),
                 )
             )
         if len(p.marks) > before and seg.startswith("{@", end):
@@ -1889,10 +1904,15 @@ def _trim_start_spaces(s: str) -> str:
     return s[k:]
 
 
-def _replace_mark(value: str, m: _Mark, replacement: str) -> str:
+def _replace_mark(
+    value: str, m: _Mark, replacement: str, accept: Optional[bool] = None
+) -> str:
     """Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
-    never join two words, never leave a double space or a space before
-    punctuation, and a mark that was a whole line leaves no blank line."""
+    never join two words, keep an edge space written inside a change mark
+    after punctuation and before a word, never leave a double space or a space
+    before punctuation, and a mark that was a whole line leaves no blank line.
+    *accept* names the decision the replacement comes from; ``None`` when the
+    mark is removed rather than decided."""
     before = value[: m.start]
     after = value[m.end:]
     if replacement == "":
@@ -1917,18 +1937,49 @@ def _replace_mark(value: str, m: _Mark, replacement: str) -> str:
         if before != "" and _is_space(before[-1]):
             if after != "" and _is_space(after[0]):
                 after = _trim_start_spaces(after)
-            elif after == "" or after.startswith("\n") or after[0] in ".,;:!?)]}":
+            elif after == "" or after.startswith("\n") or after[0] in _CLOSING_PUNCTUATION:
                 before = _trim_end_spaces(before)
         elif (before == "" or before.endswith("\n")) and after != "" and _is_space(after[0]):
             after = _trim_start_spaces(after)
         return before + after
     # Never join two words: a mark written flush against a word keeps a space
-    # on that side.
-    if _word_char(before) and _word_char_at(replacement, 0):
+    # on that side. An edge space written inside a change mark, beside the
+    # text the decision keeps, is kept after punctuation and before a word or
+    # an opening bracket.
+    lead, trail = (False, False) if accept is None else _kept_edges(m, accept)
+    if (_word_char(before) and _word_char_at(replacement, 0)) or (
+        lead and before != "" and before[-1] in _CLOSING_PUNCTUATION
+    ):
         replacement = " " + replacement
-    if _word_char_at(replacement, len(replacement) - 1) and after != "" and _word_char_at(after, 0):
+    if after != "" and (
+        (_word_char_at(replacement, len(replacement) - 1) and _word_char_at(after, 0))
+        or (trail and (_word_char_at(after, 0) or after[0] in "(["))
+    ):
         replacement = replacement + " "
     return before + replacement + after
+
+
+#: The punctuation no space is left before, and after which an edge space is
+#: kept (SOM §11.9.3).
+_CLOSING_PUNCTUATION = ".,;:!?)]}"
+
+
+def _ws_edge(raw: str, leading: bool) -> bool:
+    """Whether *raw*, a mark's text as written between its delimiters, begins
+    (*leading*) or ends with whitespace."""
+    return raw != "" and _is_ws(raw[0 if leading else len(raw) - 1])
+
+
+def _kept_edges(m: _Mark, accept: bool) -> tuple[bool, bool]:
+    """The edge spaces written beside the text *accept* keeps of *m*: the
+    leading and the trailing one."""
+    if m.kind is SpecMarkKind.INSERTION and accept:
+        return (m.text_lead, m.text_trail)
+    if m.kind is SpecMarkKind.DELETION and not accept:
+        return (m.text_lead, m.text_trail)
+    if m.kind is SpecMarkKind.SUBSTITUTION:
+        return (m.new_lead, m.new_trail) if accept else (m.text_lead, m.text_trail)
+    return (False, False)
 
 
 def _mark_replacement(m: _Mark, accept: bool) -> str:
@@ -1950,7 +2001,7 @@ def apply_inline_marks_text(value: str, accept: bool) -> str:
     Marks in code and malformed marks stay as written."""
     v = value
     for m in reversed(_parse(v).marks):
-        v = _replace_mark(v, m, _mark_replacement(m, accept))
+        v = _replace_mark(v, m, _mark_replacement(m, accept), accept)
     return v
 
 
@@ -1978,7 +2029,7 @@ def _decide_mark(value: str, marks: "list[_Mark]", k: int, accept: bool) -> str:
         q = marks[ci].quote
         assert q is not None
         v = _record_outcome(v, q, accept)
-    return _replace_mark(v, m, _mark_replacement(m, accept))
+    return _replace_mark(v, m, _mark_replacement(m, accept), accept)
 
 
 def _record_outcome(value: str, q: _Quote, accept: bool) -> str:
@@ -2065,7 +2116,7 @@ def _mark_keeping_change_comments(current: str, text: str) -> "SpecMarkedChange"
     for k in range(len(marks) - 1, -1, -1):
         if marks[k].quote is not None:
             continue
-        original = _replace_mark(original, marks[k], _mark_replacement(marks[k], False))
+        original = _replace_mark(original, marks[k], _mark_replacement(marks[k], False), False)
     # 2. Each change comment's markup, anchor and leading space.
     kept = [m for m in _parse(original).marks if m.quote is not None]
     anchors: list[tuple[str, int, bool]] = []
@@ -2138,7 +2189,7 @@ def strip_annotations_text(value: str) -> str:
         if not p.marks:
             break
         m = p.marks[-1]
-        v = _replace_mark(v, m, _mark_replacement(m, True))
+        v = _replace_mark(v, m, _mark_replacement(m, True), True)
     return v
 
 
@@ -2718,7 +2769,7 @@ class SpecReviewAnnotations:
                         result=repl,
                     ),
                 )
-                v = _replace_mark(v, m, repl)
+                v = _replace_mark(v, m, repl, d is SpecMarkDecision.ACCEPT)
             if v != text:
                 self._set(path, field, v)
             applied.extend(outcomes)
@@ -3643,7 +3694,7 @@ def decide_review_marks(value: str, decisions: dict[int, bool]) -> str:
         accept = decisions.get(k)
         if accept is None:
             continue
-        v = _replace_mark(v, marks[k], _mark_replacement(marks[k], accept))
+        v = _replace_mark(v, marks[k], _mark_replacement(marks[k], accept), accept)
     return v
 
 

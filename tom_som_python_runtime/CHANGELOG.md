@@ -14,6 +14,11 @@
   `SpecIndividualAnswer` (`changedAt` in `to_json`); `merge_reviews` carries
   a copy's times over. New: `normalize_review_time`, `is_review_time`,
   `system_review_time`.
+- Edge spaces after punctuation (SOM §11.9.3): whitespace written inside a
+  change mark beside the text a decision keeps is kept as one space after
+  `.,;:!?)]}` and before a word or `(` / `[`, so accepting
+  `sentence.{++ Next sentence.++}` gives `sentence. Next sentence.` rather than
+  `sentence.Next sentence.`. A mark written without it stays joined.
 
 ## 1.7.3
 

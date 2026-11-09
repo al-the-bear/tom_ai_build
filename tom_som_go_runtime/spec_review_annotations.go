@@ -755,6 +755,10 @@ type annMark struct {
 	changeIndex int
 	// commentIndex is the index of this change's attached comment, or -1.
 	commentIndex int
+	// textLead, textTrail, newLead and newTrail say whether whitespace was
+	// written inside the delimiters at the leading / trailing edge of text
+	// and of newText (SOM §11.9.3, edge spaces).
+	textLead, textTrail, newLead, newTrail bool
 }
 
 // annQuote is the quote a change comment opens with (SOM §11.9.3); offsets
@@ -1515,9 +1519,13 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 			}
 			p.marks = append(p.marks, mark(SpecMarkKindHighlight, strings.TrimSpace(inner), nil, comment))
 		case "{++":
-			p.marks = append(p.marks, mark(SpecMarkKindInsertion, strings.TrimSpace(inner), nil, nil))
+			m := mark(SpecMarkKindInsertion, strings.TrimSpace(inner), nil, nil)
+			m.textLead, m.textTrail = annWsEdge(inner, true), annWsEdge(inner, false)
+			p.marks = append(p.marks, m)
 		case "{--":
-			p.marks = append(p.marks, mark(SpecMarkKindDeletion, strings.TrimSpace(inner), nil, nil))
+			m := mark(SpecMarkKindDeletion, strings.TrimSpace(inner), nil, nil)
+			m.textLead, m.textTrail = annWsEdge(inner, true), annWsEdge(inner, false)
+			p.marks = append(p.marks, m)
 		case "{~~":
 			arrow := strings.Index(inner, "~>")
 			if arrow < 0 {
@@ -1527,8 +1535,12 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 				i = end
 				continue
 			}
-			nt := strings.TrimSpace(inner[arrow+2:])
-			p.marks = append(p.marks, mark(SpecMarkKindSubstitution, strings.TrimSpace(inner[:arrow]), &nt, nil))
+			oldRaw, newRaw := inner[:arrow], inner[arrow+2:]
+			nt := strings.TrimSpace(newRaw)
+			m := mark(SpecMarkKindSubstitution, strings.TrimSpace(oldRaw), &nt, nil)
+			m.textLead, m.textTrail = annWsEdge(oldRaw, true), annWsEdge(oldRaw, false)
+			m.newLead, m.newTrail = annWsEdge(newRaw, true), annWsEdge(newRaw, false)
+			p.marks = append(p.marks, m)
 		}
 		if len(p.marks) > before && strings.HasPrefix(seg[end:], "{@") {
 			end = annAttachToken(p, seg, end, base, p.marks[len(p.marks)-1])
@@ -1890,9 +1902,12 @@ func FormatQuestionBlock(q SpecQuestionDraft) []string {
 }
 
 // annReplaceMark applies a mark's replacement with the whitespace rules of
-// SOM §11.9.3: never join two words, never leave a double space or a space
-// before punctuation, and a mark that was a whole line leaves no blank line.
-func annReplaceMark(value string, m *annMark, replacement string) string {
+// SOM §11.9.3: never join two words, keep an edge space written inside a
+// change mark after punctuation and before a word, never leave a double space
+// or a space before punctuation, and a mark that was a whole line leaves no
+// blank line. accept names the decision the replacement comes from; nil when
+// the mark is removed rather than decided.
+func annReplaceMark(value string, m *annMark, replacement string, accept *bool) string {
 	before := value[:m.start]
 	after := value[m.end:]
 	isSpace := func(c byte) bool { return c == ' ' || c == '\t' }
@@ -1924,7 +1939,7 @@ func annReplaceMark(value string, m *annMark, replacement string) string {
 		if before != "" && isSpace(before[len(before)-1]) {
 			if after != "" && isSpace(after[0]) {
 				after = trimStart(after)
-			} else if after == "" || after[0] == '\n' || strings.IndexByte(".,;:!?)]}", after[0]) >= 0 {
+			} else if after == "" || after[0] == '\n' || strings.IndexByte(annClosingPunctuation, after[0]) >= 0 {
 				before = trimEnd(before)
 			}
 		} else if (before == "" || strings.HasSuffix(before, "\n")) && after != "" && isSpace(after[0]) {
@@ -1933,15 +1948,57 @@ func annReplaceMark(value string, m *annMark, replacement string) string {
 		return before + after
 	}
 	// Never join two words: a mark written flush against a word keeps a space
-	// on that side.
-	if annLastIsWord(before) && annFirstIsWord(replacement) {
+	// on that side. An edge space written inside a change mark, beside the
+	// text the decision keeps, is kept after punctuation and before a word or
+	// an opening bracket.
+	lead, trail := false, false
+	if accept != nil {
+		lead, trail = annKeptEdges(m, *accept)
+	}
+	if (annLastIsWord(before) && annFirstIsWord(replacement)) ||
+		(lead && before != "" && strings.IndexByte(annClosingPunctuation, before[len(before)-1]) >= 0) {
 		replacement = " " + replacement
 	}
-	if annLastIsWord(replacement) && annFirstIsWord(after) {
+	if after != "" && ((annLastIsWord(replacement) && annFirstIsWord(after)) ||
+		(trail && (annFirstIsWord(after) || after[0] == '(' || after[0] == '['))) {
 		replacement = replacement + " "
 	}
 	return before + replacement + after
 }
+
+// annClosingPunctuation is the punctuation no space is left before, and
+// after which an edge space is kept (SOM §11.9.3).
+const annClosingPunctuation = ".,;:!?)]}"
+
+// annWsEdge reports whether raw, a mark's text as written between its
+// delimiters, begins (leading) or ends with whitespace.
+func annWsEdge(raw string, leading bool) bool {
+	if raw == "" {
+		return false
+	}
+	c := raw[len(raw)-1]
+	if leading {
+		c = raw[0]
+	}
+	return c == ' ' || c == '\t' || c == '\n'
+}
+
+// annKeptEdges returns the edge spaces written beside the text accept keeps
+// of m: the leading and the trailing one.
+func annKeptEdges(m *annMark, accept bool) (bool, bool) {
+	switch {
+	case m.kind == SpecMarkKindInsertion && accept,
+		m.kind == SpecMarkKindDeletion && !accept,
+		m.kind == SpecMarkKindSubstitution && !accept:
+		return m.textLead, m.textTrail
+	case m.kind == SpecMarkKindSubstitution:
+		return m.newLead, m.newTrail
+	}
+	return false, false
+}
+
+// annBoolPtr returns a pointer to b.
+func annBoolPtr(b bool) *bool { return &b }
 
 // annIsWordRune: letters (lowercase ≠ uppercase, any script) and ASCII digits.
 func annIsWordRune(r rune) bool {
@@ -1995,7 +2052,7 @@ func ApplyInlineMarksText(value string, accept bool) string {
 	v := value
 	marks := annParse(v).marks
 	for k := len(marks) - 1; k >= 0; k-- {
-		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept))
+		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept), &accept)
 	}
 	return v
 }
@@ -2025,7 +2082,7 @@ func annDecideMark(value string, marks []*annMark, k int, accept bool) string {
 	if m.commentIndex >= 0 {
 		v = annRecordOutcome(v, marks[m.commentIndex].quote, accept)
 	}
-	return annReplaceMark(v, m, annMarkReplacement(m, accept))
+	return annReplaceMark(v, m, annMarkReplacement(m, accept), &accept)
 }
 
 // annRecordOutcome returns value with the outcome written into the quote q:
@@ -2079,7 +2136,7 @@ func annMarkKeepingChangeComments(current, text string) SpecMarkedChange {
 		if marks[k].quote != nil {
 			continue
 		}
-		original = annReplaceMark(original, marks[k], annMarkReplacement(marks[k], false))
+		original = annReplaceMark(original, marks[k], annMarkReplacement(marks[k], false), annBoolPtr(false))
 	}
 	// 2. Each change comment's markup, anchor and leading space.
 	var kept []*annMark
@@ -2107,7 +2164,7 @@ func annMarkKeepingChangeComments(current, text string) SpecMarkedChange {
 	// 3. Removed, compared.
 	base := original
 	for k := len(kept) - 1; k >= 0; k-- {
-		base = annReplaceMark(base, kept[k], "")
+		base = annReplaceMark(base, kept[k], "", nil)
 	}
 	result := MarkChangeText(base, text)
 	if len(anchors) == 0 {
@@ -2178,7 +2235,7 @@ func StripAnnotationsText(value string) string {
 			break
 		}
 		m := p.marks[len(p.marks)-1]
-		v = annReplaceMark(v, m, annMarkReplacement(m, true))
+		v = annReplaceMark(v, m, annMarkReplacement(m, true), annBoolPtr(true))
 	}
 	return v
 }
@@ -3315,7 +3372,7 @@ func (r *SpecReviewAnnotations) applyMarks(decide func(id string, m *annMark) Sp
 				Markup:   v.text[m.start:m.end],
 				Result:   repl,
 			}}, outcomes...)
-			value = annReplaceMark(value, m, repl)
+			value = annReplaceMark(value, m, repl, annBoolPtr(d == SpecMarkDecisionAccept))
 		}
 		if value != v.text {
 			r.set(v.path, v.field, value)
@@ -4321,7 +4378,7 @@ func decideReviewMarks(value string, decisions map[int]bool) string {
 		if !ok {
 			continue
 		}
-		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept))
+		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept), &accept)
 	}
 	return v
 }

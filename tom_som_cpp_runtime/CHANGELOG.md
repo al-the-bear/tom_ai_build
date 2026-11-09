@@ -15,6 +15,12 @@
   `SpecReviewAnnotation`, `SpecMarkEntry` and `SpecIndividualAnswer`;
   `mergeReviews` carries a copy's times over. New: `som::normalizeReviewTime`,
   `som::isReviewTime`, `som::systemReviewTime`.
+- Edge spaces after punctuation (SOM §11.9.3), a port of the Dart reference:
+  whitespace written inside a change mark beside the text a decision keeps is
+  kept as one space after `.,;:!?)]}` and before a word or `(` / `[`, so
+  accepting `sentence.{++ Next sentence.++}` gives `sentence. Next sentence.`
+  rather than `sentence.Next sentence.`. A mark written without it stays
+  joined.
 
 ## 1.7.3
 

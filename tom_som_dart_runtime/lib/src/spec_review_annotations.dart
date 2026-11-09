@@ -1059,6 +1059,10 @@ class _Mark {
 
   /// The index of this change's attached comment, or null.
   int? commentIndex;
+
+  /// Whether whitespace was written inside the delimiters at the leading /
+  /// trailing edge of [text] and of [newText] (SOM §11.9.3, edge spaces).
+  bool textLead = false, textTrail = false, newLead = false, newTrail = false;
   _Mark(
     this.start,
     this.end,
@@ -1804,26 +1808,30 @@ void _scanSegment(_Parsed p, String seg, int base, int Function(int) lineOf) {
       case '{++':
         p.marks.add(
           _Mark(
-            base + i,
-            base + end,
-            line,
-            SpecMarkKind.insertion,
-            inner.trim(),
-            null,
-            null,
-          ),
+              base + i,
+              base + end,
+              line,
+              SpecMarkKind.insertion,
+              inner.trim(),
+              null,
+              null,
+            )
+            ..textLead = _wsEdge(inner, true)
+            ..textTrail = _wsEdge(inner, false),
         );
       case '{--':
         p.marks.add(
           _Mark(
-            base + i,
-            base + end,
-            line,
-            SpecMarkKind.deletion,
-            inner.trim(),
-            null,
-            null,
-          ),
+              base + i,
+              base + end,
+              line,
+              SpecMarkKind.deletion,
+              inner.trim(),
+              null,
+              null,
+            )
+            ..textLead = _wsEdge(inner, true)
+            ..textTrail = _wsEdge(inner, false),
         );
       case '{~~':
         final arrow = inner.indexOf('~>');
@@ -1835,16 +1843,22 @@ void _scanSegment(_Parsed p, String seg, int base, int Function(int) lineOf) {
           i = end;
           continue;
         }
+        final oldRaw = inner.substring(0, arrow);
+        final newRaw = inner.substring(arrow + 2);
         p.marks.add(
           _Mark(
-            base + i,
-            base + end,
-            line,
-            SpecMarkKind.substitution,
-            inner.substring(0, arrow).trim(),
-            inner.substring(arrow + 2).trim(),
-            null,
-          ),
+              base + i,
+              base + end,
+              line,
+              SpecMarkKind.substitution,
+              oldRaw.trim(),
+              newRaw.trim(),
+              null,
+            )
+            ..textLead = _wsEdge(oldRaw, true)
+            ..textTrail = _wsEdge(oldRaw, false)
+            ..newLead = _wsEdge(newRaw, true)
+            ..newTrail = _wsEdge(newRaw, false),
         );
     }
     if (p.marks.length > before && seg.startsWith('{@', end)) {
@@ -2175,9 +2189,17 @@ List<String> formatQuestionBlock(SpecQuestionDraft q) {
 }
 
 /// Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
-/// never join two words, never leave a double space or a space before
-/// punctuation, and a mark that was a whole line leaves no blank line.
-String _replaceMark(String value, _Mark m, String replacement0) {
+/// never join two words, keep an edge space written inside a change mark
+/// after punctuation and before a word, never leave a double space or a space
+/// before punctuation, and a mark that was a whole line leaves no blank line.
+/// [accept] names the decision the replacement comes from; null when the mark
+/// is removed rather than decided.
+String _replaceMark(
+  String value,
+  _Mark m,
+  String replacement0, {
+  bool? accept,
+}) {
   var replacement = replacement0;
   var before = value.substring(0, m.start);
   var after = value.substring(m.end);
@@ -2230,7 +2252,7 @@ String _replaceMark(String value, _Mark m, String replacement0) {
         after = trimStartSpaces(after);
       } else if (after.isEmpty ||
           after.startsWith('\n') ||
-          '.,;:!?)]}'.contains(after[0])) {
+          _closingPunctuation.contains(after[0])) {
         before = trimEndSpaces(before);
       }
     } else if ((before.isEmpty || before.endsWith('\n')) &&
@@ -2241,17 +2263,43 @@ String _replaceMark(String value, _Mark m, String replacement0) {
     return '$before$after';
   }
   // Never join two words: a mark written flush against a word keeps a space
-  // on that side.
-  if (_wordChar(before) && _wordCharAt(replacement, 0)) {
+  // on that side. An edge space written inside a change mark, beside the
+  // text the decision keeps, is kept after punctuation and before a word or
+  // an opening bracket.
+  final (lead, trail) = accept == null ? (false, false) : _keptEdges(m, accept);
+  if ((_wordChar(before) && _wordCharAt(replacement, 0)) ||
+      (lead &&
+          before.isNotEmpty &&
+          _closingPunctuation.contains(before[before.length - 1]))) {
     replacement = ' $replacement';
   }
-  if (_wordCharAt(replacement, replacement.length - 1) &&
-      after.isNotEmpty &&
-      _wordCharAt(after, 0)) {
+  if (after.isNotEmpty &&
+      ((_wordCharAt(replacement, replacement.length - 1) &&
+              _wordCharAt(after, 0)) ||
+          (trail && (_wordCharAt(after, 0) || '(['.contains(after[0]))))) {
     replacement = '$replacement ';
   }
   return '$before$replacement$after';
 }
+
+/// The punctuation no space is left before, and after which an edge space is
+/// kept (SOM §11.9.3).
+const _closingPunctuation = '.,;:!?)]}';
+
+/// Whether [raw], a mark's text as written between its delimiters, begins
+/// ([leading]) or ends with whitespace.
+bool _wsEdge(String raw, bool leading) =>
+    raw.isNotEmpty && _isWs(raw[leading ? 0 : raw.length - 1]);
+
+/// The edge spaces written beside the text [accept] keeps of [m]: the
+/// leading and the trailing one.
+(bool, bool) _keptEdges(_Mark m, bool accept) => switch (m.kind) {
+  SpecMarkKind.insertion when accept => (m.textLead, m.textTrail),
+  SpecMarkKind.deletion when !accept => (m.textLead, m.textTrail),
+  SpecMarkKind.substitution =>
+    accept ? (m.newLead, m.newTrail) : (m.textLead, m.textTrail),
+  _ => (false, false),
+};
 
 bool _wordChar(String s) => s.isNotEmpty && _wordCharAt(s, s.length - 1);
 
@@ -2278,7 +2326,7 @@ String applyInlineMarksText(String value, {required bool accept}) {
   var v = value;
   final marks = _parse(v).marks;
   for (final m in marks.reversed) {
-    v = _replaceMark(v, m, _markReplacement(m, accept));
+    v = _replaceMark(v, m, _markReplacement(m, accept), accept: accept);
   }
   return v;
 }
@@ -2304,7 +2352,7 @@ String _decideMark(String value, List<_Mark> marks, int k, bool accept) {
   var v = value;
   final ci = m.commentIndex;
   if (ci != null) v = _recordOutcome(v, marks[ci].quote!, accept);
-  return _replaceMark(v, m, _markReplacement(m, accept));
+  return _replaceMark(v, m, _markReplacement(m, accept), accept: accept);
 }
 
 /// [value] with the outcome written into the quote [q]: everything from its
@@ -2392,6 +2440,7 @@ SpecMarkedChange _markKeepingChangeComments(String current, String text) {
       original,
       marks[k],
       _markReplacement(marks[k], false),
+      accept: false,
     );
   }
   // 2. Each change comment's markup, anchor and leading space.
@@ -2467,7 +2516,7 @@ String stripAnnotationsText(String value) {
     final p = _parse(v);
     if (p.marks.isEmpty) break;
     final m = p.marks.last;
-    v = _replaceMark(v, m, _markReplacement(m, true));
+    v = _replaceMark(v, m, _markReplacement(m, true), accept: true);
   }
   return v;
 }
@@ -3108,7 +3157,7 @@ class SpecReviewAnnotations {
             result: repl,
           ),
         );
-        v = _replaceMark(v, m, repl);
+        v = _replaceMark(v, m, repl, accept: d == SpecMarkDecision.accept);
       }
       if (v != text) _set(path, field, v);
       applied.addAll(outcomes);
@@ -4169,7 +4218,12 @@ String decideReviewMarks(String value, Map<int, bool> decisions) {
   for (var k = marks.length - 1; k >= 0; k--) {
     final accept = decisions[k];
     if (accept == null) continue;
-    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept));
+    v = _replaceMark(
+      v,
+      marks[k],
+      _markReplacement(marks[k], accept),
+      accept: accept,
+    );
   }
   return v;
 }

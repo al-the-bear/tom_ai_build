@@ -1249,6 +1249,12 @@ struct Mark {
     change_index: Option<usize>,
     /// The index of this change's attached comment, or `None`.
     comment_index: Option<usize>,
+    /// Whether whitespace was written inside the delimiters at the leading /
+    /// trailing edge of `text` and of `new_text` (SOM §11.9.3, edge spaces).
+    text_lead: bool,
+    text_trail: bool,
+    new_lead: bool,
+    new_trail: bool,
 }
 
 /// The quote a change comment opens with (SOM §11.9.3); offsets are byte
@@ -2104,6 +2110,10 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
             changed_at: None,
             change_index: None,
             comment_index: None,
+            text_lead: false,
+            text_trail: false,
+            new_lead: false,
+            new_trail: false,
         };
         let before = p.marks.len();
         match opener {
@@ -2153,11 +2163,15 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
                 p.marks.push(m);
             }
             "{++" => {
-                let m = mark(SpecMarkKind::Insertion, inn.trim().to_string(), None, None, end);
+                let mut m = mark(SpecMarkKind::Insertion, inn.trim().to_string(), None, None, end);
+                m.text_lead = ws_edge(inn, true);
+                m.text_trail = ws_edge(inn, false);
                 p.marks.push(m);
             }
             "{--" => {
-                let m = mark(SpecMarkKind::Deletion, inn.trim().to_string(), None, None, end);
+                let mut m = mark(SpecMarkKind::Deletion, inn.trim().to_string(), None, None, end);
+                m.text_lead = ws_edge(inn, true);
+                m.text_trail = ws_edge(inn, false);
                 p.marks.push(m);
             }
             _ => {
@@ -2170,13 +2184,18 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
                     i = end;
                     continue;
                 };
-                let m = mark(
+                let (old_raw, new_raw) = (&inn[..arrow], &inn[arrow + 2..]);
+                let mut m = mark(
                     SpecMarkKind::Substitution,
-                    inn[..arrow].trim().to_string(),
-                    Some(inn[arrow + 2..].trim().to_string()),
+                    old_raw.trim().to_string(),
+                    Some(new_raw.trim().to_string()),
                     None,
                     end,
                 );
+                m.text_lead = ws_edge(old_raw, true);
+                m.text_trail = ws_edge(old_raw, false);
+                m.new_lead = ws_edge(new_raw, true);
+                m.new_trail = ws_edge(new_raw, false);
                 p.marks.push(m);
             }
         }
@@ -2531,9 +2550,12 @@ fn is_word_char(c: char) -> bool {
 }
 
 /// Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
-/// never join two words, never leave a double space or a space before
-/// punctuation, and a mark that was a whole line leaves no blank line.
-fn replace_mark(value: &str, m: &Mark, replacement: &str) -> String {
+/// never join two words, keep an edge space written inside a change mark
+/// after punctuation and before a word, never leave a double space or a space
+/// before punctuation, and a mark that was a whole line leaves no blank line.
+/// `accept` names the decision the replacement comes from; `None` when the
+/// mark is removed rather than decided.
+fn replace_mark(value: &str, m: &Mark, replacement: &str, accept: Option<bool>) -> String {
     let mut replacement = replacement.to_string();
     let mut before = &value[..m.start];
     let mut after = &value[m.end..];
@@ -2575,7 +2597,7 @@ fn replace_mark(value: &str, m: &Mark, replacement: &str) -> String {
                 || after
                     .chars()
                     .next()
-                    .is_some_and(|c| ".,;:!?)]}".contains(c))
+                    .is_some_and(|c| CLOSING_PUNCTUATION.contains(c))
             {
                 before = trim_end_spaces(before);
             }
@@ -2587,17 +2609,52 @@ fn replace_mark(value: &str, m: &Mark, replacement: &str) -> String {
         return format!("{}{}", before, after);
     }
     // Never join two words: a mark written flush against a word keeps a space
-    // on that side.
-    let before_word = before.chars().next_back().is_some_and(is_word_char);
-    if before_word && replacement.chars().next().is_some_and(is_word_char) {
+    // on that side. An edge space written inside a change mark, beside the
+    // text the decision keeps, is kept after punctuation and before a word or
+    // an opening bracket.
+    let (lead, trail) = accept.map_or((false, false), |a| kept_edges(m, a));
+    let before_last = before.chars().next_back();
+    let after_first = after.chars().next();
+    if (before_last.is_some_and(is_word_char)
+        && replacement.chars().next().is_some_and(is_word_char))
+        || (lead && before_last.is_some_and(|c| CLOSING_PUNCTUATION.contains(c)))
+    {
         replacement.insert(0, ' ');
     }
-    if replacement.chars().next_back().is_some_and(is_word_char)
-        && after.chars().next().is_some_and(is_word_char)
+    if (replacement.chars().next_back().is_some_and(is_word_char)
+        && after_first.is_some_and(is_word_char))
+        || (trail && after_first.is_some_and(|c| is_word_char(c) || c == '(' || c == '['))
     {
         replacement.push(' ');
     }
     format!("{}{}{}", before, replacement, after)
+}
+
+/// The punctuation no space is left before, and after which an edge space is
+/// kept (SOM §11.9.3).
+const CLOSING_PUNCTUATION: &str = ".,;:!?)]}";
+
+/// Whether `raw`, a mark's text as written between its delimiters, begins
+/// (`leading`) or ends with whitespace.
+fn ws_edge(raw: &str, leading: bool) -> bool {
+    let c = if leading {
+        raw.chars().next()
+    } else {
+        raw.chars().next_back()
+    };
+    matches!(c, Some(' ' | '\t' | '\n'))
+}
+
+/// The edge spaces written beside the text `accept` keeps of `m`: the
+/// leading and the trailing one.
+fn kept_edges(m: &Mark, accept: bool) -> (bool, bool) {
+    match m.kind {
+        SpecMarkKind::Insertion if accept => (m.text_lead, m.text_trail),
+        SpecMarkKind::Deletion if !accept => (m.text_lead, m.text_trail),
+        SpecMarkKind::Substitution if accept => (m.new_lead, m.new_trail),
+        SpecMarkKind::Substitution => (m.text_lead, m.text_trail),
+        _ => (false, false),
+    }
 }
 
 fn mark_replacement(m: &Mark, accept: bool) -> String {
@@ -2635,7 +2692,7 @@ pub fn apply_inline_marks_text(value: &str, accept: bool) -> String {
     let mut v = value.to_string();
     let marks = parse(&v).marks;
     for m in marks.iter().rev() {
-        v = replace_mark(&v, m, &mark_replacement(m, accept));
+        v = replace_mark(&v, m, &mark_replacement(m, accept), Some(accept));
     }
     v
 }
@@ -2664,7 +2721,7 @@ fn decide_mark(value: &str, marks: &[Mark], k: usize, accept: bool) -> String {
     if let Some(q) = m.comment_index.and_then(|ci| marks[ci].quote.as_ref()) {
         v = record_outcome(&v, q, accept);
     }
-    replace_mark(&v, m, &mark_replacement(m, accept))
+    replace_mark(&v, m, &mark_replacement(m, accept), Some(accept))
 }
 
 /// `value` with the outcome written into the quote `q`: everything from its
@@ -2732,7 +2789,7 @@ fn mark_keeping_change_comments(current: &str, text: &str) -> SpecMarkedChange {
         if m.quote.is_some() {
             continue;
         }
-        original = replace_mark(&original, m, &mark_replacement(m, false));
+        original = replace_mark(&original, m, &mark_replacement(m, false), Some(false));
     }
     // 2. Each change comment's markup, anchor and leading space.
     let kept: Vec<Mark> = parse(&original)
@@ -2756,7 +2813,7 @@ fn mark_keeping_change_comments(current: &str, text: &str) -> SpecMarkedChange {
     // 3. Removed, compared.
     let mut base = original.clone();
     for m in kept.iter().rev() {
-        base = replace_mark(&base, m, "");
+        base = replace_mark(&base, m, "", None);
     }
     let result = mark_change_text(&base, text);
     if anchors.is_empty() {
@@ -2822,7 +2879,7 @@ pub fn strip_annotations_text(value: &str) -> String {
     loop {
         let p = parse(&v);
         let Some(m) = p.marks.last() else { break };
-        v = replace_mark(&v, m, &mark_replacement(m, true));
+        v = replace_mark(&v, m, &mark_replacement(m, true), Some(true));
     }
     v
 }
@@ -3800,7 +3857,7 @@ impl<'a> SpecReviewAnnotations<'a> {
                         result: repl.clone(),
                     },
                 );
-                v = replace_mark(&v, m, &repl);
+                v = replace_mark(&v, m, &repl, Some(d == SpecMarkDecision::Accept));
             }
             if v != text {
                 self.set(&path, field.as_deref(), &v);
@@ -4876,7 +4933,7 @@ pub(crate) fn decide_review_marks(value: &str, decisions: &HashMap<usize, bool>)
     let mut v = value.to_string();
     for (k, m) in marks.iter().enumerate().rev() {
         if let Some(&accept) = decisions.get(&k) {
-            v = replace_mark(&v, m, &mark_replacement(m, accept));
+            v = replace_mark(&v, m, &mark_replacement(m, accept), Some(accept));
         }
     }
     v

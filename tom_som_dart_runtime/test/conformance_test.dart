@@ -8656,6 +8656,23 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
     'substitution without arrow stays': '{~~ no arrow ~~} y',
     'several marks in one line':
         'Use {~~ red ~> blue ~~} paint{++ twice ++}, {-- not --} once.',
+    // Edge spaces after punctuation (SOM §11.9.3): a space written inside a
+    // change mark, beside the text the decision keeps, is kept.
+    'insertion after a full stop': 'sentence.{++ Next sentence.++}',
+    'insertion after a comma': 'first,{++ second ++} third',
+    'insertion after a semicolon': 'one;{++ two ++}',
+    'insertion after a colon': 'note:{++ read this ++}',
+    'insertion after a parenthesis': '(see above){++ and below ++}',
+    'substitution after a full stop': 'Done.{~~ Later ~> Next ~~} step.',
+    'substitution after a comma': 'red,{~~ green ~> blue ~~} and gold',
+    'substitution after a semicolon': 'one;{~~ two ~> three ~~}',
+    'substitution after a colon': 'note:{~~ old ~> new ~~}',
+    'substitution after a parenthesis': '(see above){~~ or ~> and ~~} below',
+    'deletion after a full stop': 'sentence.{-- Old sentence.--}',
+    'edge space before a word': '{++ First. ++}Second',
+    'edge space before a bracket': 'see{++ also ++}(below)',
+    'no edge space stays joined': 'config.{~~yaml~>json~~}',
+    'no edge space in a number': 'version 1.{++5++}',
   };
   final textCases = [
     for (final e in texts.entries)
@@ -8670,6 +8687,14 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
   // accept all / reject all on the text (`decideAllMarksText`), `removed`
   // the text once every annotation is gone (`applyInlineMarksText`).
   final changeCommentTextCases = <Map<String, String>>[
+    {
+      'name': 'an insertion after a full stop keeps its edge space',
+      'text': 'Done.{++ Next step. ++}{>> [++ Next step. ++] why? <<} End',
+      'accept':
+          'Done. Next step.{>> [++ Next step. ++ | accepted] why? <<} End',
+      'reject': 'Done.{>> [++ Next step. ++ | rejected] why? <<} End',
+      'removed': 'Done. Next step. End',
+    },
     {
       'name': 'insertion with its comment',
       'text': 'Sessions {++ on kiosks ++}{>> [++ on kiosks ++] why? <<} end.',
@@ -8828,6 +8853,25 @@ Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
         },
         {'op': 'listMarks'},
         {'op': 'revision'},
+      ],
+    },
+    {
+      'name': 'deciding keeps an edge space after punctuation',
+      'state': () {
+        final st = jsonDecode(jsonEncode(base)) as Map<String, dynamic>;
+        st['content'] = {
+          'DEMO/SUM': 'Done.{++ Next step.++} Then;{~~ old ~> new ~~} end.',
+        };
+        st.remove('forms');
+        return st;
+      }(),
+      'ops': [
+        {
+          'op': 'decideMarks',
+          'revision': '@current',
+          'decisions': {'M-1': 'accept', 'M-2': 'reject'},
+        },
+        {'op': 'listMarks'},
       ],
     },
     {
@@ -9008,6 +9052,11 @@ Map<String, dynamic> _changeMarkCases(SpecModel model, SomMetaTree tree) {
     ),
     'insertion at the start': ('Start here.', 'Now start here.'),
     'punctuation added to a word': ('word', 'word.'),
+    'a sentence added after a full stop': (
+      'sentence.',
+      'sentence. Next sentence.',
+    ),
+    'a clause added after a comma': ('first, third', 'first, second, third'),
     'a whitespace-only change': ('a b', 'a  b'),
     'a list item removed and one added': (
       '- first item\n- second item\n- third item',

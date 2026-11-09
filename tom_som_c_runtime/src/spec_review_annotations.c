@@ -487,6 +487,9 @@ typedef struct {
    * is attached to, and of this change's attached comment; -1 for none. */
   long long change_index;
   long long comment_index;
+  /* Whether whitespace was written inside the delimiters at the leading /
+   * trailing edge of `text` and of `new_text` (SOM §11.9.3, edge spaces). */
+  int text_lead, text_trail, new_lead, new_trail;
 } Mark;
 
 typedef struct {
@@ -1329,6 +1332,24 @@ static void add_mark(Parsed *p, size_t start, size_t end, size_t line,
   PUSH(p->marks, p->marks_len, p->marks_cap, m);
 }
 
+/* Whether `c` is whitespace for the edge-space rule (SOM §11.9.3). */
+static int is_edge_ws(char c) { return c == ' ' || c == '\t' || c == '\n'; }
+
+/* Records whether `raw[0, len)`, a mark's text as written between its
+ * delimiters, begins / ends with whitespace: into the mark's text edges, or
+ * (`is_new`) its new-text edges. */
+static void set_edges(Mark *m, const char *raw, size_t len, int is_new) {
+  int lead = len > 0 && is_edge_ws(raw[0]);
+  int trail = len > 0 && is_edge_ws(raw[len - 1]);
+  if (is_new) {
+    m->new_lead = lead;
+    m->new_trail = trail;
+  } else {
+    m->text_lead = lead;
+    m->text_trail = trail;
+  }
+}
+
 /* Whether a code point is whitespace as JavaScript's `\s` reads it. */
 static int js_is_space(unsigned long c) {
   return c != 0x85 && dart_is_space(c);
@@ -1703,10 +1724,12 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
       case 2:
         add_mark(p, base + i, base + end, line, SPEC_MARK_INSERTION,
                  trim_n(inner, inner_len), NULL, NULL);
+        set_edges(&p->marks[p->marks_len - 1], inner, inner_len, 0);
         break;
       case 3:
         add_mark(p, base + i, base + end, line, SPEC_MARK_DELETION,
                  trim_n(inner, inner_len), NULL, NULL);
+        set_edges(&p->marks[p->marks_len - 1], inner, inner_len, 0);
         break;
       default: {
         long long arrow = find(inner, inner_len, 0, "~>");
@@ -1724,6 +1747,9 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
                  trim_n(inner, (size_t)arrow),
                  trim_n(inner + arrow + 2, inner_len - (size_t)arrow - 2),
                  NULL);
+        set_edges(&p->marks[p->marks_len - 1], inner, (size_t)arrow, 0);
+        set_edges(&p->marks[p->marks_len - 1], inner + arrow + 2,
+                  inner_len - (size_t)arrow - 2, 1);
         break;
       }
     }
@@ -2444,11 +2470,33 @@ void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out) {
 
 static int is_sp(char c) { return c == ' ' || c == '\t'; }
 
+/* The punctuation no space is left before, and after which an edge space is
+ * kept (SOM §11.9.3). */
+static const char CLOSING_PUNCTUATION[] = ".,;:!?)]}";
+
+/* The edge spaces written beside the text decision `accept` keeps of `m`:
+ * into `lead` and `trail`. */
+static void kept_edges(const Mark *m, int accept, int *lead, int *trail) {
+  *lead = *trail = 0;
+  if ((m->kind == SPEC_MARK_INSERTION && accept) ||
+      (m->kind == SPEC_MARK_DELETION && !accept) ||
+      (m->kind == SPEC_MARK_SUBSTITUTION && !accept)) {
+    *lead = m->text_lead;
+    *trail = m->text_trail;
+  } else if (m->kind == SPEC_MARK_SUBSTITUTION) {
+    *lead = m->new_lead;
+    *trail = m->new_trail;
+  }
+}
+
 /* Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
- * never join two words, never leave a double space or a space before
- * punctuation, and a mark that was a whole line leaves no blank line. Owned. */
+ * never join two words, keep an edge space written inside a change mark
+ * after punctuation and before a word, never leave a double space or a space
+ * before punctuation, and a mark that was a whole line leaves no blank line.
+ * `decision` names the decision the replacement comes from (1 accept,
+ * 0 reject); -1 when the mark is removed rather than decided. Owned. */
 static char *replace_mark(const char *value, const Mark *m,
-                          const char *replacement) {
+                          const char *replacement, int decision) {
   size_t blen = m->start;
   const char *after = value + m->end;
   size_t rlen = strlen(replacement);
@@ -2482,7 +2530,7 @@ static char *replace_mark(const char *value, const Mark *m,
       if (is_sp(after[0])) {
         while (is_sp(after[0])) after++;
       } else if (after[0] == '\0' || after[0] == '\n' ||
-                 strchr(".,;:!?)]}", after[0]) != NULL) {
+                 strchr(CLOSING_PUNCTUATION, after[0]) != NULL) {
         while (blen > 0 && is_sp(value[blen - 1])) blen--;
       }
     } else if ((blen == 0 || value[blen - 1] == '\n') && is_sp(after[0])) {
@@ -2491,10 +2539,19 @@ static char *replace_mark(const char *value, const Mark *m,
   } else {
     size_t alen = strlen(after);
     /* Never join two words: a mark written flush against a word keeps a
-     * space on that side. */
-    pre = word_char_last(value, blen) && word_char_first(replacement, rlen);
-    post = word_char_last(replacement, rlen) && alen > 0 &&
-           word_char_first(after, alen);
+     * space on that side. An edge space written inside a change mark, beside
+     * the text the decision keeps, is kept after punctuation and before a
+     * word or an opening bracket. */
+    int lead = 0, trail = 0;
+    if (decision >= 0) kept_edges(m, decision, &lead, &trail);
+    pre = (word_char_last(value, blen) && word_char_first(replacement, rlen)) ||
+          (lead && blen > 0 &&
+           strchr(CLOSING_PUNCTUATION, value[blen - 1]) != NULL);
+    post = alen > 0 &&
+           ((word_char_last(replacement, rlen) &&
+             word_char_first(after, alen)) ||
+            (trail && (word_char_first(after, alen) || after[0] == '(' ||
+                       after[0] == '[')));
   }
   SomBuf b;
   som_buf_init(&b);
@@ -2528,7 +2585,8 @@ char *spec_apply_inline_marks_text(const char *value, int accept) {
   parse(value, &p);
   for (size_t k = p.marks_len; k-- > 0;) {
     const Mark *m = &p.marks[k];
-    char *next = replace_mark(v, m, mark_replacement(m, accept));
+    char *next = replace_mark(v, m, mark_replacement(m, accept),
+                              accept != 0);
     free(v);
     v = next;
   }
@@ -2559,7 +2617,7 @@ static char *decide_mark(const char *value, const Parsed *p, size_t k,
     free(v);
     v = next;
   }
-  char *out = replace_mark(v, m, mark_replacement(m, accept));
+  char *out = replace_mark(v, m, mark_replacement(m, accept), accept != 0);
   free(v);
   return out;
 }
@@ -2709,8 +2767,8 @@ static SpecMarkedChange mark_keeping_change_comments(const char *current,
     parse(current, &p);
     for (size_t k = p.marks_len; k-- > 0;) {
       if (p.marks[k].has_quote) continue;
-      char *next =
-          replace_mark(original, &p.marks[k], mark_replacement(&p.marks[k], 0));
+      char *next = replace_mark(original, &p.marks[k],
+                                mark_replacement(&p.marks[k], 0), 0);
       free(original);
       original = next;
     }
@@ -2739,7 +2797,7 @@ static SpecMarkedChange mark_keeping_change_comments(const char *current,
   char *base = som_strdup(original);
   for (size_t k = op.marks_len; k-- > 0;) {
     if (!op.marks[k].has_quote) continue;
-    char *next = replace_mark(base, &op.marks[k], "");
+    char *next = replace_mark(base, &op.marks[k], "", -1);
     free(base);
     base = next;
   }
@@ -2801,7 +2859,7 @@ char *spec_strip_annotations_text(const char *value) {
       break;
     }
     const Mark *m = &p.marks[p.marks_len - 1];
-    char *next = replace_mark(v, m, mark_replacement(m, 1));
+    char *next = replace_mark(v, m, mark_replacement(m, 1), 1);
     parsed_free(&p);
     free(v);
     v = next;
@@ -4138,7 +4196,8 @@ static void apply_marks(const SpecReviewAnnotations *r, const Decider *d,
       o.markup = som_strdup_n(v->text + m->start, m->end - m->start);
       o.result = som_strdup(repl);
       PUSH(out->applied, out->applied_len, out->applied_cap, o);
-      char *next = replace_mark(text, m, repl);
+      char *next =
+          replace_mark(text, m, repl, dec == SPEC_MARK_DECISION_ACCEPT);
       free(text);
       text = next;
     }
@@ -5511,7 +5570,8 @@ char *spec_review_decide_marks_text(const char *value, const int *decisions,
   for (size_t k = p.marks_len; k-- > 0;) {
     if (k >= len || decisions[k] < 0) continue;
     char *next = replace_mark(v, &p.marks[k],
-                              mark_replacement(&p.marks[k], decisions[k]));
+                              mark_replacement(&p.marks[k], decisions[k]),
+                              decisions[k] != 0);
     free(v);
     v = next;
   }

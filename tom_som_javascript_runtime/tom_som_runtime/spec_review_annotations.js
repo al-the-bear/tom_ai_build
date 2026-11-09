@@ -1576,11 +1576,18 @@ function _scanSegment(p, seg, base, lineOf) {
         break;
       }
       case '{++':
-        p.marks.push(mark(SpecMarkKind.INSERTION, inner.trim(), null, null));
+      case '{--': {
+        const m = mark(
+          opener === '{++' ? SpecMarkKind.INSERTION : SpecMarkKind.DELETION,
+          inner.trim(),
+          null,
+          null,
+        );
+        m.textLead = _wsEdge(inner, true);
+        m.textTrail = _wsEdge(inner, false);
+        p.marks.push(m);
         break;
-      case '{--':
-        p.marks.push(mark(SpecMarkKind.DELETION, inner.trim(), null, null));
-        break;
+      }
       case '{~~': {
         const arrow = inner.indexOf('~>');
         if (arrow < 0) {
@@ -1589,14 +1596,14 @@ function _scanSegment(p, seg, base, lineOf) {
           i = end;
           continue;
         }
-        p.marks.push(
-          mark(
-            SpecMarkKind.SUBSTITUTION,
-            inner.substring(0, arrow).trim(),
-            inner.substring(arrow + 2).trim(),
-            null,
-          ),
-        );
+        const oldRaw = inner.substring(0, arrow);
+        const newRaw = inner.substring(arrow + 2);
+        const m = mark(SpecMarkKind.SUBSTITUTION, oldRaw.trim(), newRaw.trim(), null);
+        m.textLead = _wsEdge(oldRaw, true);
+        m.textTrail = _wsEdge(oldRaw, false);
+        m.newLead = _wsEdge(newRaw, true);
+        m.newTrail = _wsEdge(newRaw, false);
+        p.marks.push(m);
         break;
       }
       default:
@@ -1949,10 +1956,13 @@ function _trimStartSpaces(s) {
 
 /**
  * Applies a mark's replacement with the whitespace rules of SOM §11.9.3: never
- * join two words, never leave a double space or a space before punctuation, and
- * a mark that was a whole line leaves no blank line.
+ * join two words, keep an edge space written inside a change mark after
+ * punctuation and before a word, never leave a double space or a space before
+ * punctuation, and a mark that was a whole line leaves no blank line. `accept`
+ * names the decision the replacement comes from; null when the mark is removed
+ * rather than decided.
  */
-function _replaceMark(value, m, replacement0) {
+function _replaceMark(value, m, replacement0, accept = null) {
   let replacement = replacement0;
   let before = value.substring(0, m.start);
   let after = value.substring(m.end);
@@ -1982,7 +1992,11 @@ function _replaceMark(value, m, replacement0) {
     if (before.length > 0 && _isSpace(before[before.length - 1])) {
       if (after.length > 0 && _isSpace(after[0])) {
         after = _trimStartSpaces(after);
-      } else if (after.length === 0 || after.startsWith('\n') || '.,;:!?)]}'.includes(after[0])) {
+      } else if (
+        after.length === 0 ||
+        after.startsWith('\n') ||
+        _CLOSING_PUNCTUATION.includes(after[0])
+      ) {
         before = _trimEndSpaces(before);
       }
     } else if (
@@ -1995,18 +2009,49 @@ function _replaceMark(value, m, replacement0) {
     return `${before}${after}`;
   }
   // Never join two words: a mark written flush against a word keeps a space
-  // on that side.
-  if (_wordChar(before) && _wordCharAt(replacement, 0)) {
+  // on that side. An edge space written inside a change mark, beside the
+  // text the decision keeps, is kept after punctuation and before a word or
+  // an opening bracket.
+  const [lead, trail] = accept === null ? [false, false] : _keptEdges(m, accept);
+  if (
+    (_wordChar(before) && _wordCharAt(replacement, 0)) ||
+    (lead && before.length > 0 && _CLOSING_PUNCTUATION.includes(before[before.length - 1]))
+  ) {
     replacement = ` ${replacement}`;
   }
   if (
-    _wordCharAt(replacement, replacement.length - 1) &&
     after.length > 0 &&
-    _wordCharAt(after, 0)
+    ((_wordCharAt(replacement, replacement.length - 1) && _wordCharAt(after, 0)) ||
+      (trail && (_wordCharAt(after, 0) || '(['.includes(after[0]))))
   ) {
     replacement = `${replacement} `;
   }
   return `${before}${replacement}${after}`;
+}
+
+/**
+ * The punctuation no space is left before, and after which an edge space is
+ * kept (SOM §11.9.3).
+ */
+const _CLOSING_PUNCTUATION = '.,;:!?)]}';
+
+/** Whether `raw`, a mark's text as written between its delimiters, begins (`leading`) or ends with whitespace. */
+function _wsEdge(raw, leading) {
+  return raw.length > 0 && _isWs(raw[leading ? 0 : raw.length - 1]);
+}
+
+/** The edge spaces written beside the text `accept` keeps of `m`: the leading and the trailing one. */
+function _keptEdges(m, accept) {
+  switch (m.kind) {
+    case SpecMarkKind.INSERTION:
+      return accept ? [!!m.textLead, !!m.textTrail] : [false, false];
+    case SpecMarkKind.DELETION:
+      return accept ? [false, false] : [!!m.textLead, !!m.textTrail];
+    case SpecMarkKind.SUBSTITUTION:
+      return accept ? [!!m.newLead, !!m.newTrail] : [!!m.textLead, !!m.textTrail];
+    default:
+      return [false, false];
+  }
 }
 
 function _markReplacement(m, accept) {
@@ -2037,7 +2082,7 @@ function applyInlineMarksText(value, { accept }) {
   let v = value;
   const marks = _parse(v).marks;
   for (let k = marks.length - 1; k >= 0; k--) {
-    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept));
+    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept), accept);
   }
   return v;
 }
@@ -2068,7 +2113,7 @@ function _decideMark(value, marks, k, accept) {
   let v = value;
   const ci = m.commentIndex;
   if (ci !== null) v = _recordOutcome(v, marks[ci].quote, accept);
-  return _replaceMark(v, m, _markReplacement(m, accept));
+  return _replaceMark(v, m, _markReplacement(m, accept), accept);
 }
 
 /**
@@ -2172,7 +2217,7 @@ function _markKeepingChangeComments(current, text) {
   const marks = _parse(current).marks;
   for (let k = marks.length - 1; k >= 0; k--) {
     if (marks[k].quote !== null) continue;
-    original = _replaceMark(original, marks[k], _markReplacement(marks[k], false));
+    original = _replaceMark(original, marks[k], _markReplacement(marks[k], false), false);
   }
   // 2. Each change comment's markup, anchor and leading space.
   const kept = _parse(original).marks.filter((m) => m.quote !== null);
@@ -2246,7 +2291,7 @@ function stripAnnotationsText(value) {
     const p = _parse(v);
     if (p.marks.length === 0) break;
     const m = p.marks[p.marks.length - 1];
-    v = _replaceMark(v, m, _markReplacement(m, true));
+    v = _replaceMark(v, m, _markReplacement(m, true), true);
   }
   return v;
 }
@@ -2808,7 +2853,7 @@ class SpecReviewAnnotations {
             result: repl,
           }),
         );
-        v = _replaceMark(v, m, repl);
+        v = _replaceMark(v, m, repl, d === SpecMarkDecision.ACCEPT);
       }
       if (v !== text) this._set(path, field, v);
       applied.push(...outcomes);
@@ -3723,7 +3768,7 @@ function decideReviewMarks(value, decisions) {
   for (let k = marks.length - 1; k >= 0; k--) {
     const accept = decisions.get(k);
     if (accept === undefined) continue;
-    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept));
+    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept), accept);
   }
   return v;
 }

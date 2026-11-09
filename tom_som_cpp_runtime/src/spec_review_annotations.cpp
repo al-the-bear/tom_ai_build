@@ -304,7 +304,18 @@ struct Mark {
   std::optional<std::size_t> commentIndex;
   /* The time in the mark's attribution token (SOM §11.9.10), or nullopt. */
   std::optional<std::string> changedAt;
+  /* Whether whitespace was written inside the delimiters at the leading /
+   * trailing edge of `text` and of `newText` (SOM §11.9.3, edge spaces). */
+  bool textLead = false, textTrail = false, newLead = false, newTrail = false;
 };
+
+/* Whether `raw`, a mark's text as written between its delimiters, begins
+ * (`leading`) or ends with whitespace. */
+bool wsEdge(const std::string& raw, bool leading) {
+  if (raw.empty()) return false;
+  const char c = leading ? raw.front() : raw.back();
+  return c == ' ' || c == '\t' || c == '\n';
+}
 
 /* The quote a change comment opens with (SOM §11.9.3); offsets are byte
  * offsets into the value. */
@@ -1297,10 +1308,14 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
       case 2:
         m.kind = SpecMarkKind::Insertion;
         m.text = trim(inner);
+        m.textLead = wsEdge(inner, true);
+        m.textTrail = wsEdge(inner, false);
         break;
       case 3:
         m.kind = SpecMarkKind::Deletion;
         m.text = trim(inner);
+        m.textLead = wsEdge(inner, true);
+        m.textTrail = wsEdge(inner, false);
         break;
       default: {
         std::size_t arrow = inner.find("~>");
@@ -1313,8 +1328,14 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
           continue;
         }
         m.kind = SpecMarkKind::Substitution;
-        m.text = trim(inner.substr(0, arrow));
-        m.newText = trim(inner.substr(arrow + 2));
+        const std::string oldRaw = inner.substr(0, arrow);
+        const std::string newRaw = inner.substr(arrow + 2);
+        m.text = trim(oldRaw);
+        m.newText = trim(newRaw);
+        m.textLead = wsEdge(oldRaw, true);
+        m.textTrail = wsEdge(oldRaw, false);
+        m.newLead = wsEdge(newRaw, true);
+        m.newTrail = wsEdge(newRaw, false);
         break;
       }
     }
@@ -1561,11 +1582,38 @@ std::string trimStartSpaces(const std::string& s) {
   return s.substr(k);
 }
 
+/* The punctuation no space is left before, and after which an edge space is
+ * kept (SOM §11.9.3). */
+const std::string kClosingPunctuation = ".,;:!?)]}";
+
+/* The edge spaces written beside the text decision `accept` keeps of `m`:
+ * the leading and the trailing one. */
+std::pair<bool, bool> keptEdges(const Mark& m, bool accept) {
+  switch (m.kind) {
+    case SpecMarkKind::Insertion:
+      if (accept) return {m.textLead, m.textTrail};
+      break;
+    case SpecMarkKind::Deletion:
+      if (!accept) return {m.textLead, m.textTrail};
+      break;
+    case SpecMarkKind::Substitution:
+      return accept ? std::make_pair(m.newLead, m.newTrail)
+                    : std::make_pair(m.textLead, m.textTrail);
+    default:
+      break;
+  }
+  return {false, false};
+}
+
 /* Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
- * never join two words, never leave a double space or a space before
- * punctuation, and a mark that was a whole line leaves no blank line. */
+ * never join two words, keep an edge space written inside a change mark
+ * after punctuation and before a word, never leave a double space or a space
+ * before punctuation, and a mark that was a whole line leaves no blank line.
+ * `accept` names the decision the replacement comes from; nullopt when the
+ * mark is removed rather than decided. */
 std::string replaceMark(const std::string& value, const Mark& m,
-                        std::string replacement) {
+                        std::string replacement,
+                        std::optional<bool> accept = std::nullopt) {
   std::string before = value.substr(0, m.start);
   std::string after = value.substr(m.end);
   if (replacement.empty()) {
@@ -1598,7 +1646,7 @@ std::string replaceMark(const std::string& value, const Mark& m,
       if (!after.empty() && isSp(after[0])) {
         after = trimStartSpaces(after);
       } else if (after.empty() || after[0] == '\n' ||
-                 std::string(".,;:!?)]}").find(after[0]) != std::string::npos) {
+                 kClosingPunctuation.find(after[0]) != std::string::npos) {
         before = trimEndSpaces(before);
       }
     } else if ((before.empty() || before.back() == '\n') && !after.empty() &&
@@ -1608,11 +1656,20 @@ std::string replaceMark(const std::string& value, const Mark& m,
     return before + after;
   }
   // Never join two words: a mark written flush against a word keeps a space
-  // on that side.
-  if (wordCharLast(before) && wordCharFirst(replacement)) {
+  // on that side. An edge space written inside a change mark, beside the
+  // text the decision keeps, is kept after punctuation and before a word or
+  // an opening bracket.
+  const auto [lead, trail] =
+      accept ? keptEdges(m, *accept) : std::make_pair(false, false);
+  if ((wordCharLast(before) && wordCharFirst(replacement)) ||
+      (lead && !before.empty() &&
+       kClosingPunctuation.find(before.back()) != std::string::npos)) {
     replacement = " " + replacement;
   }
-  if (wordCharLast(replacement) && !after.empty() && wordCharFirst(after)) {
+  if (!after.empty() &&
+      ((wordCharLast(replacement) && wordCharFirst(after)) ||
+       (trail &&
+        (wordCharFirst(after) || after[0] == '(' || after[0] == '[')))) {
     replacement += " ";
   }
   return before + replacement + after;
@@ -2289,7 +2346,7 @@ std::string stripAnnotationsText(const std::string& value) {
     const Parsed p = parse(v);
     if (p.marks.empty()) break;
     const Mark& m = p.marks.back();
-    v = replaceMark(v, m, markReplacement(m, true));
+    v = replaceMark(v, m, markReplacement(m, true), true);
   }
   return v;
 }
@@ -2298,7 +2355,7 @@ std::string applyInlineMarksText(const std::string& value, bool accept) {
   std::string v = value;
   const Parsed p = parse(value);
   for (auto it = p.marks.rbegin(); it != p.marks.rend(); ++it) {
-    v = replaceMark(v, *it, markReplacement(*it, accept));
+    v = replaceMark(v, *it, markReplacement(*it, accept), accept);
   }
   return v;
 }
@@ -2322,7 +2379,7 @@ std::string decideMark(const std::string& value, const Parsed& p,
   if (m.commentIndex) {
     v = recordOutcome(v, p.quotes[*p.marks[*m.commentIndex].quote], accept);
   }
-  return replaceMark(v, m, markReplacement(m, accept));
+  return replaceMark(v, m, markReplacement(m, accept), accept);
 }
 
 /* Whether `t` holds a blank line: a newline, then only spaces, tabs and
@@ -2379,8 +2436,8 @@ SpecMarkedChange markKeepingChangeComments(const std::string& current,
     const Parsed p = parse(current);
     for (std::size_t k = p.marks.size(); k-- > 0;) {
       if (p.marks[k].quote) continue;
-      original =
-          replaceMark(original, p.marks[k], markReplacement(p.marks[k], false));
+      original = replaceMark(original, p.marks[k],
+                             markReplacement(p.marks[k], false), false);
     }
   }
   // 2. Each change comment's markup, anchor and leading space.
@@ -3005,7 +3062,7 @@ SpecMarkReport SpecReviewAnnotations::applyMarks(
       o.markup = v.text.substr(m.start, m.end - m.start);
       o.result = repl;
       outcomes.insert(outcomes.begin(), std::move(o));
-      text = replaceMark(text, m, repl);
+      text = replaceMark(text, m, repl, d == SpecMarkDecision::Accept);
     }
     if (text != v.text) setValue(*doc_, v.path, v.field, text);
     for (SpecMarkOutcome& o : outcomes) report.applied.push_back(std::move(o));
@@ -3839,7 +3896,8 @@ std::string decideReviewMarks(const std::string& value,
   for (std::size_t k = marks.size(); k-- > 0;) {
     const auto it = decisions.find(k);
     if (it == decisions.end()) continue;
-    v = replaceMark(v, marks[k], markReplacement(marks[k], it->second));
+    v = replaceMark(v, marks[k], markReplacement(marks[k], it->second),
+                    it->second);
   }
   return v;
 }

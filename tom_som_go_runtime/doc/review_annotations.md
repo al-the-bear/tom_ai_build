@@ -145,8 +145,10 @@ left as written.
 | `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
 | `{>> c <<}` | nothing | nothing |
 
-The whitespace rules (words never join, no double space and no space before
-punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+The whitespace rules (words never join, an edge space written inside a change
+mark is kept after punctuation — `sentence.{++ Next sentence.++}` accepts to
+`sentence. Next sentence.` —, no double space and no space before punctuation,
+a whole-line mark leaves no blank line) are SOM §11.9.3.
 
 ```go
 review := som.NewSpecReviewAnnotations(doc, "")

@@ -138,8 +138,15 @@ left as written.
 | `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
 | `{>> c <<}` | nothing | nothing |
 
-The whitespace rules (words never join, no double space and no space before
-punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+The whitespace rules (words never join, an edge space written inside a
+decided change mark is kept after punctuation and before a word, no double
+space and no space before punctuation, a whole-line mark leaves no blank line)
+are SOM §11.9.3. An edge space is whitespace between a delimiter and the text
+the decision keeps (`Done.{++ Next step.++}` accepted reads `Done. Next
+step.`): it stands for one space before that text when the mark follows one of
+`.,;:!?)]}`, and after it when the mark is followed by a word character, `(` or
+`[`. Without one the text stays joined (`config.{~~yaml~>json~~}` accepted
+reads `config.json`).
 
 ```typescript
 const review = new SpecReviewAnnotations(doc);

@@ -490,6 +490,16 @@ public final class SpecReviewAnnotations {
     /** The time in the mark's attribution token (SOM §11.9.10), or null. */
     String changedAt;
 
+    /**
+     * Whether whitespace was written inside the delimiters at the leading / trailing edge of
+     * {@code text} and of {@code newText} (SOM §11.9.3, edge spaces).
+     */
+    boolean textLead;
+
+    boolean textTrail;
+    boolean newLead;
+    boolean newTrail;
+
     Mark(int start, int end, int line, SpecMarkKind kind, String text, String newText, String comment) {
       this.start = start;
       this.end = end;
@@ -1389,13 +1399,23 @@ public final class SpecReviewAnnotations {
             break;
           }
         case "{++":
-          p.marks.add(
-              new Mark(base + i, base + end, line, SpecMarkKind.INSERTION, trim(in), null, null));
-          break;
+          {
+            Mark mk =
+                new Mark(base + i, base + end, line, SpecMarkKind.INSERTION, trim(in), null, null);
+            mk.textLead = wsEdge(in, true);
+            mk.textTrail = wsEdge(in, false);
+            p.marks.add(mk);
+            break;
+          }
         case "{--":
-          p.marks.add(
-              new Mark(base + i, base + end, line, SpecMarkKind.DELETION, trim(in), null, null));
-          break;
+          {
+            Mark mk =
+                new Mark(base + i, base + end, line, SpecMarkKind.DELETION, trim(in), null, null);
+            mk.textLead = wsEdge(in, true);
+            mk.textTrail = wsEdge(in, false);
+            p.marks.add(mk);
+            break;
+          }
         default:
           {
             int arrow = in.indexOf("~>");
@@ -1405,15 +1425,22 @@ public final class SpecReviewAnnotations {
               i = end;
               continue;
             }
-            p.marks.add(
+            String oldRaw = in.substring(0, arrow);
+            String newRaw = in.substring(arrow + 2);
+            Mark mk =
                 new Mark(
                     base + i,
                     base + end,
                     line,
                     SpecMarkKind.SUBSTITUTION,
-                    trim(in.substring(0, arrow)),
-                    trim(in.substring(arrow + 2)),
-                    null));
+                    trim(oldRaw),
+                    trim(newRaw),
+                    null);
+            mk.textLead = wsEdge(oldRaw, true);
+            mk.textTrail = wsEdge(oldRaw, false);
+            mk.newLead = wsEdge(newRaw, true);
+            mk.newTrail = wsEdge(newRaw, false);
+            p.marks.add(mk);
             break;
           }
       }
@@ -1888,10 +1915,19 @@ public final class SpecReviewAnnotations {
 
   /**
    * Applies a mark's replacement with the whitespace rules of SOM §11.9.3: never join two words,
-   * never leave a double space or a space before punctuation, and a mark that was a whole line
-   * leaves no blank line.
+   * keep an edge space written inside a change mark after punctuation and before a word, never
+   * leave a double space or a space before punctuation, and a mark that was a whole line leaves no
+   * blank line. The mark is removed rather than decided.
    */
   private static String replaceMark(String value, Mark m, String replacement0) {
+    return replaceMark(value, m, replacement0, null);
+  }
+
+  /**
+   * As {@link #replaceMark(String, Mark, String)}; {@code accept} names the decision the
+   * replacement comes from, null when the mark is removed rather than decided.
+   */
+  private static String replaceMark(String value, Mark m, String replacement0, Boolean accept) {
     String replacement = replacement0;
     String before = value.substring(0, m.start);
     String after = value.substring(m.end);
@@ -1925,7 +1961,7 @@ public final class SpecReviewAnnotations {
           after = trimStartSpaces(after);
         } else if (after.isEmpty()
             || after.startsWith("\n")
-            || ".,;:!?)]}".indexOf(after.charAt(0)) >= 0) {
+            || CLOSING_PUNCTUATION.indexOf(after.charAt(0)) >= 0) {
           before = trimEndSpaces(before);
         }
       } else if ((before.isEmpty() || before.endsWith("\n"))
@@ -1936,16 +1972,56 @@ public final class SpecReviewAnnotations {
       return before + after;
     }
     // Never join two words: a mark written flush against a word keeps a space
-    // on that side.
-    if (wordChar(before) && wordCharAt(replacement, 0)) {
+    // on that side. An edge space written inside a change mark, beside the
+    // text the decision keeps, is kept after punctuation and before a word or
+    // an opening bracket.
+    boolean[] edges = accept == null ? new boolean[] {false, false} : keptEdges(m, accept);
+    boolean lead = edges[0];
+    boolean trail = edges[1];
+    if ((wordChar(before) && wordCharAt(replacement, 0))
+        || (lead
+            && !before.isEmpty()
+            && CLOSING_PUNCTUATION.indexOf(before.charAt(before.length() - 1)) >= 0)) {
       replacement = " " + replacement;
     }
-    if (wordCharAt(replacement, replacement.length() - 1)
-        && !after.isEmpty()
-        && wordCharAt(after, 0)) {
+    if (!after.isEmpty()
+        && ((wordCharAt(replacement, replacement.length() - 1) && wordCharAt(after, 0))
+            || (trail && (wordCharAt(after, 0) || "([".indexOf(after.charAt(0)) >= 0)))) {
       replacement = replacement + " ";
     }
     return before + replacement + after;
+  }
+
+  /**
+   * The punctuation no space is left before, and after which an edge space is kept (SOM §11.9.3).
+   */
+  private static final String CLOSING_PUNCTUATION = ".,;:!?)]}";
+
+  /**
+   * Whether {@code raw}, a mark's text as written between its delimiters, begins ({@code leading})
+   * or ends with whitespace.
+   */
+  private static boolean wsEdge(String raw, boolean leading) {
+    return !raw.isEmpty() && isWs(raw.charAt(leading ? 0 : raw.length() - 1));
+  }
+
+  /**
+   * The edge spaces written beside the text {@code accept} keeps of {@code m}: the leading and the
+   * trailing one.
+   */
+  private static boolean[] keptEdges(Mark m, boolean accept) {
+    if (m.kind == SpecMarkKind.INSERTION && accept) {
+      return new boolean[] {m.textLead, m.textTrail};
+    }
+    if (m.kind == SpecMarkKind.DELETION && !accept) {
+      return new boolean[] {m.textLead, m.textTrail};
+    }
+    if (m.kind == SpecMarkKind.SUBSTITUTION) {
+      return accept
+          ? new boolean[] {m.newLead, m.newTrail}
+          : new boolean[] {m.textLead, m.textTrail};
+    }
+    return new boolean[] {false, false};
   }
 
   private static String markReplacement(Mark m, boolean accept) {
@@ -1973,7 +2049,7 @@ public final class SpecReviewAnnotations {
     List<Mark> marks = parse(v).marks;
     for (int k = marks.size() - 1; k >= 0; k--) {
       Mark m = marks.get(k);
-      v = replaceMark(v, m, markReplacement(m, accept));
+      v = replaceMark(v, m, markReplacement(m, accept), accept);
     }
     return v;
   }
@@ -2007,7 +2083,7 @@ public final class SpecReviewAnnotations {
     if (ci != null) {
       v = recordOutcome(v, marks.get(ci).quote, accept);
     }
-    return replaceMark(v, m, markReplacement(m, accept));
+    return replaceMark(v, m, markReplacement(m, accept), accept);
   }
 
   /**
@@ -2158,7 +2234,8 @@ public final class SpecReviewAnnotations {
       if (marks.get(k).quote != null) {
         continue;
       }
-      original = replaceMark(original, marks.get(k), markReplacement(marks.get(k), false));
+      original =
+          replaceMark(original, marks.get(k), markReplacement(marks.get(k), false), false);
     }
     // 2. Each change comment's markup, anchor and leading space.
     List<Mark> kept = new ArrayList<>();
@@ -2227,7 +2304,7 @@ public final class SpecReviewAnnotations {
         break;
       }
       Mark m = p.marks.get(p.marks.size() - 1);
-      v = replaceMark(v, m, markReplacement(m, true));
+      v = replaceMark(v, m, markReplacement(m, true), true);
     }
     return v;
   }
@@ -2984,7 +3061,7 @@ public final class SpecReviewAnnotations {
                 d,
                 val.text.substring(m.start, m.end),
                 repl));
-        v = replaceMark(v, m, repl);
+        v = replaceMark(v, m, repl, d == SpecMarkDecision.ACCEPT);
       }
       if (!v.equals(val.text)) {
         set(val.path, val.field, v);
@@ -4239,7 +4316,7 @@ public final class SpecReviewAnnotations {
       if (accept == null) {
         continue;
       }
-      v = replaceMark(v, marks.get(k), markReplacement(marks.get(k), accept));
+      v = replaceMark(v, marks.get(k), markReplacement(marks.get(k), accept), accept);
     }
     return v;
   }

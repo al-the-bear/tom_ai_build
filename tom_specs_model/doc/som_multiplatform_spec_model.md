@@ -1779,12 +1779,27 @@ A change comment is decided like a comment: either decision removes it.
 Deciding its **change** leaves it, with the outcome in its quote.
 
 The text between the delimiters is trimmed, and it may hold markdown and line
-breaks.
+breaks. The whitespace trimmed off a change mark's text is not lost: it decides
+whether the result keeps a space at that edge (below).
 
 The whitespace comes out right both ways:
 
 - **Words never join.** A mark written flush against a word keeps a space on
   that side (`flush{++ added ++}word` → `flush added word`).
+- **An edge space is kept after punctuation.** Whitespace written inside a
+  change mark, between a delimiter and the text the decision keeps (the
+  insertion or the new text when accepting, the removed or the old text when
+  rejecting), stands for one space in the result:
+  - before the text, when the mark follows one of `.,;:!?)]}`
+    (`sentence.{++ Next sentence.++}` → `sentence. Next sentence.`,
+    `note:{~~ old ~> new ~~}` → `note: new`);
+  - after the text, when the mark is followed by a word or by `(` or `[`
+    (`{++ First. ++}Second` → `First. Second`).
+
+  A mark written without that whitespace stays joined
+  (`config.{~~yaml~>json~~}` → `config.json`, `1.{++5++}` → `1.5`). A writer
+  that marks a change (`markChangeText`, `setMarked`) puts a space the old and
+  the new text share outside the mark, so its marks never depend on this rule.
 - **No double space, and no space before punctuation.** A removal between two
   spaces leaves one, and a removal before `.,;:!?)]}` or a line end leaves
   none (`end {-- gone --}.` → `end.`).

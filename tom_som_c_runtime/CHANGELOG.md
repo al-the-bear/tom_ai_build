@@ -24,6 +24,13 @@
   member id or an `at` that is not a time; `spec_format_comment_block` takes
   `changed_at` and `spec_review_set_individual_answer_text` a change time.
 
+- Edge spaces after punctuation (SOM §11.9.3), a port of the Dart reference:
+  whitespace written inside a change mark beside the text a decision keeps is
+  kept as one space after `.,;:!?)]}` and before a word or `(` / `[`, so
+  accepting `sentence.{++ Next sentence.++}` gives `sentence. Next sentence.`
+  rather than `sentence.Next sentence.`. A mark written without it stays
+  joined.
+
 ## 1.7.3
 
 - No change. The chain moves with `tom_specs_model` 1.7.3, whose shipped

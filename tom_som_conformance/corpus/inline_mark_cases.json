@@ -161,9 +161,106 @@
       "text": "Use {~~ red ~> blue ~~} paint{++ twice ++}, {-- not --} once.",
       "accept": "Use blue paint twice, once.",
       "reject": "Use red paint, not once."
+    },
+    {
+      "name": "insertion after a full stop",
+      "text": "sentence.{++ Next sentence.++}",
+      "accept": "sentence. Next sentence.",
+      "reject": "sentence."
+    },
+    {
+      "name": "insertion after a comma",
+      "text": "first,{++ second ++} third",
+      "accept": "first, second third",
+      "reject": "first, third"
+    },
+    {
+      "name": "insertion after a semicolon",
+      "text": "one;{++ two ++}",
+      "accept": "one; two",
+      "reject": "one;"
+    },
+    {
+      "name": "insertion after a colon",
+      "text": "note:{++ read this ++}",
+      "accept": "note: read this",
+      "reject": "note:"
+    },
+    {
+      "name": "insertion after a parenthesis",
+      "text": "(see above){++ and below ++}",
+      "accept": "(see above) and below",
+      "reject": "(see above)"
+    },
+    {
+      "name": "substitution after a full stop",
+      "text": "Done.{~~ Later ~> Next ~~} step.",
+      "accept": "Done. Next step.",
+      "reject": "Done. Later step."
+    },
+    {
+      "name": "substitution after a comma",
+      "text": "red,{~~ green ~> blue ~~} and gold",
+      "accept": "red, blue and gold",
+      "reject": "red, green and gold"
+    },
+    {
+      "name": "substitution after a semicolon",
+      "text": "one;{~~ two ~> three ~~}",
+      "accept": "one; three",
+      "reject": "one; two"
+    },
+    {
+      "name": "substitution after a colon",
+      "text": "note:{~~ old ~> new ~~}",
+      "accept": "note: new",
+      "reject": "note: old"
+    },
+    {
+      "name": "substitution after a parenthesis",
+      "text": "(see above){~~ or ~> and ~~} below",
+      "accept": "(see above) and below",
+      "reject": "(see above) or below"
+    },
+    {
+      "name": "deletion after a full stop",
+      "text": "sentence.{-- Old sentence.--}",
+      "accept": "sentence.",
+      "reject": "sentence. Old sentence."
+    },
+    {
+      "name": "edge space before a word",
+      "text": "{++ First. ++}Second",
+      "accept": "First. Second",
+      "reject": "Second"
+    },
+    {
+      "name": "edge space before a bracket",
+      "text": "see{++ also ++}(below)",
+      "accept": "see also (below)",
+      "reject": "see(below)"
+    },
+    {
+      "name": "no edge space stays joined",
+      "text": "config.{~~yaml~>json~~}",
+      "accept": "config.json",
+      "reject": "config.yaml"
+    },
+    {
+      "name": "no edge space in a number",
+      "text": "version 1.{++5++}",
+      "accept": "version 1.5",
+      "reject": "version 1."
     }
   ],
   "changeCommentTextCases": [
+    {
+      "name": "an insertion after a full stop keeps its edge space",
+      "text": "Done.{++ Next step. ++}{>> [++ Next step. ++] why? <<} End",
+      "accept": "Done. Next step.{>> [++ Next step. ++ | accepted] why? <<} End",
+      "reject": "Done.{>> [++ Next step. ++ | rejected] why? <<} End",
+      "removed": "Done. Next step. End"
+    },
     {
       "name": "insertion with its comment",
       "text": "Sessions {++ on kiosks ++}{>> [++ on kiosks ++] why? <<} end.",
@@ -541,6 +638,62 @@
               "contact": "bob@example.com",
               "owner": "Bob here"
             }
+          }
+        }
+      }
+    },
+    {
+      "name": "deciding keeps an edge space after punctuation",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Done.{++ Next step.++} Then;{~~ old ~> new ~~} end."
+        }
+      },
+      "ops": [
+        {
+          "op": "decideMarks",
+          "revision": "@current",
+          "decisions": {
+            "M-1": "accept",
+            "M-2": "reject"
+          }
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "accept",
+                "markup": "{++ Next step.++}",
+                "result": "Next step."
+              },
+              {
+                "id": "M-2",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "reject",
+                "markup": "{~~ old ~> new ~~}",
+                "result": "old"
+              }
+            ],
+            "malformed": []
+          },
+          []
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Done. Next step. Then; old end."
           }
         }
       }
