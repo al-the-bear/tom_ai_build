@@ -1949,6 +1949,77 @@
           "revision": null
         }
       }
+    },
+    {
+      "name": "a copy's team-answer time travels into its individual answer",
+      "model": null,
+      "format": "markdown",
+      "base": "# A\n\n> **❓ BQ-1 (2026-11-03T08:00+01:00) — Channel:** which channel?\n> - (a) private\n> - **(b)** pub.dev\n>\n> **Answer:**\n",
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": "# A\n\n> **❓ BQ-1 (2026-11-03T08:00+01:00) — Channel:** which channel?\n> - (a) private\n> - **(b)** pub.dev\n>\n> **Answer (2026-11-04T09:10+01:00):** (b)\n"
+        },
+        {
+          "memberId": "bob",
+          "displayName": "Bob Dev",
+          "role": "Developer",
+          "document": "# A\n\n> **❓ BQ-1 (2026-11-03T08:00+01:00) — Channel:** which channel?\n> - (a) private\n> - **(b)** pub.dev\n>\n> **Answer:** (a)\n"
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": "# A\n\n> **❓ BQ-1 (2026-11-03T08:00+01:00) — Channel:** which channel?\n> - (a) private\n> - **(b)** pub.dev\n>\n> **Answer (alice, 2026-11-04T09:10+01:00):** (b)\n> **Answer (bob):** (a)\n>\n> **Answer:**\n",
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            },
+            {
+              "memberId": "bob",
+              "displayName": "Bob Dev",
+              "role": "Developer",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [
+            {
+              "questionId": "BQ-1",
+              "members": [
+                "alice",
+                "bob"
+              ]
+            }
+          ],
+          "comments": [],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
     }
   ]
 }

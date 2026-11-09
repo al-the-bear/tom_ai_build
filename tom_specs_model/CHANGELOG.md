@@ -11,6 +11,8 @@
   Phase 7's documentation verification in PF-PHA-P7.
 - `som_toolchains.md`: the clitool on `tom_analyzer_shared` ^0.13.0, whose
   bundles are named by their dependency closure.
+- `som_multiplatform_spec_model.md` §11.9.2, §11.9.8, §11.9.10: question
+  headers and team answers carry a change time.
 
 ## 1.7.4
 
