@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.17.0
+
+- `CsProtocolFeature.saml2IdentityProvider`: a SAML 2.0 identity provider as
+  the third framework protocol feature. `csFeatureHooks` gains its five hooks
+  — `serviceProviderRegistry`, `signOnDecision` and `assertionProvider`
+  (required), `singleLogout` and `assertionAudit` (optional) — against the
+  provisional contracts `TomSamlServiceProviderRegistry`,
+  `TomSamlSignOnDecider`, `TomSamlAssertionProvider`,
+  `TomSamlSingleLogoutHandler` and `TomSamlAuditSink`, all `available: false`
+  until `tom_core` ships them; `csFeatureReservedPaths` reserves `/saml2`.
+- Documentation since 0.16.0: the links into `tom_core_codespecs`' documents
+  follow that package's move to this repository.
+
 ## 0.16.0
 
 - `CsJobTrigger.interval`: a job fired at a fixed period from an anchor,

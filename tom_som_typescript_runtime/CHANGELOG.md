@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.8.0
 
 - Question and team-answer times (SOM §11.9.2, §11.9.10): a question header
   may carry its time after the id, `**❓ BQ-1 (2026-11-07T14:05+01:00) —

@@ -435,6 +435,10 @@ enum CsProtocolFeature {
   /// A SCIM 2.0 server: identity providers provision and deprovision the
   /// application's users and groups.
   scim2Server,
+
+  /// A SAML 2.0 identity provider: the application's users sign in to SAML
+  /// service providers (Web Browser SSO and Single Logout profiles).
+  saml2IdentityProvider,
 }
 
 /// One hook a [CsProtocolFeature] asks the application to implement
@@ -487,7 +491,9 @@ class CsFeatureHookSpec {
 /// **requested** from `tom_core` (its todo "OAuth 2.0 / OpenID Connect
 /// authorization server with hooks") and do not exist yet, so their contract
 /// names are provisional until `tom_core` ships them and
-/// [CsFeatureHookSpec.available] records which is which.
+/// [CsFeatureHookSpec.available] records which is which. The SAML identity
+/// provider's are requested from `tom_core` too (collected by the Tom UAM
+/// quest for its G3) and are provisional in the same way.
 ///
 /// One entry per line, in one fixed form, so a text parser can read the table
 /// without a Dart analyzer.
@@ -500,6 +506,11 @@ const List<CsFeatureHookSpec> csFeatureHooks = [
   CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'subjectAuthentication', contract: 'TomOidcSubjectAuthenticator', required: true, available: false),
   CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'claimsProvider', contract: 'TomOidcClaimsProvider', required: true, available: false),
   CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'consentStore', contract: 'TomOidcConsentStore', required: false, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.saml2IdentityProvider, 'serviceProviderRegistry', contract: 'TomSamlServiceProviderRegistry', required: true, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.saml2IdentityProvider, 'signOnDecision', contract: 'TomSamlSignOnDecider', required: true, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.saml2IdentityProvider, 'assertionProvider', contract: 'TomSamlAssertionProvider', required: true, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.saml2IdentityProvider, 'singleLogout', contract: 'TomSamlSingleLogoutHandler', required: false, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.saml2IdentityProvider, 'assertionAudit', contract: 'TomSamlAuditSink', required: false, available: false),
   // dart format on
 ];
 
@@ -515,4 +526,5 @@ const Map<CsProtocolFeature, List<String>> csFeatureReservedPaths = {
     '/.well-known/openid-configuration',
     '/oauth2',
   ],
+  CsProtocolFeature.saml2IdentityProvider: ['/saml2'],
 };

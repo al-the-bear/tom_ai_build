@@ -200,7 +200,7 @@ edit, not by a specification inventing a value in passing.
 Beside the enums sits the **protocol-feature hook catalogue**
 ([`codespecs_derivation_contract.md`](../tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §3.4.6). A protocol feature is a `tom_core_server` standard protocol server the
-app enables (SCIM 2.0, an OIDC authorization server); the class implementing
+app enables (SCIM 2.0, an OIDC authorization server, a SAML 2.0 identity provider); the class implementing
 one of its hook contracts *is* the `@CsFeatureHook` CodeSpec.
 
 | Symbol | Role |

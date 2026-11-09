@@ -495,6 +495,9 @@ std::optional<std::string> ProtocolFeatureKind::parse(const std::string& token) 
   if (token == scim2Server) {
     return token;
   }
+  if (token == saml2IdentityProvider) {
+    return token;
+  }
   return std::nullopt;
 }
 

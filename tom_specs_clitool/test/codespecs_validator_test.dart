@@ -4090,6 +4090,24 @@ const userSavePutBinding = 'PUT /users';
         '/.well-known/openid-configuration',
         '/oauth2',
       ]);
+      expect(
+        catalogue
+            .hooksOf('saml2IdentityProvider')
+            .map((e) => (e.hook, e.contract, e.required, e.available)),
+        [
+          (
+            'serviceProviderRegistry',
+            'TomSamlServiceProviderRegistry',
+            true,
+            false,
+          ),
+          ('signOnDecision', 'TomSamlSignOnDecider', true, false),
+          ('assertionProvider', 'TomSamlAssertionProvider', true, false),
+          ('singleLogout', 'TomSamlSingleLogoutHandler', false, false),
+          ('assertionAudit', 'TomSamlAuditSink', false, false),
+        ],
+      );
+      expect(catalogue.reservedPaths['saml2IdentityProvider'], ['/saml2']);
     });
 
     test('a source declaring neither table yields no catalogue', () {
@@ -4115,6 +4133,64 @@ const csFeatureReservedPaths = {};
       expect(
         () => readCsFeatureCatalogue(['const csFeatureReservedPaths = {};']),
         throwsA(isA<CsFeatureCatalogueException>()),
+      );
+    });
+  });
+
+  group('the SAML identity provider against the real catalogue', () {
+    // codespecs_mapping.md §5.30: the SAML 2.0 identity provider's hooks are
+    // requested from tom_core, so a trio implementing one is refused until
+    // tom_core ships the contract, and the framework's /saml2 endpoints are
+    // never re-declared.
+    CsFeatureCatalogue real() => readCsFeatureCatalogue([
+      File(
+        '../tom_code_specs/lib/src/annotations/vocabulary.dart',
+      ).readAsStringSync(),
+    ])!;
+
+    test('check 40: a SAML hook is refused until tom_core ships it', () {
+      final input = _input(
+        server: {
+          'lib/h.dart': _hook(
+            'serviceProviderRegistry',
+            feature: 'saml2IdentityProvider',
+            className: 'UamSamlServiceProviderRegistry',
+          ),
+        },
+        features: real(),
+      );
+      final messages = _forCheck(40, input).map((v) => v.message).toList();
+      expect(
+        messages,
+        contains(
+          contains('TomSamlServiceProviderRegistry tom_core does not ship yet'),
+        ),
+      );
+      // Enabled, the feature owes its two other required hooks.
+      expect(
+        messages,
+        contains(contains("not its required hook 'signOnDecision'")),
+      );
+      expect(
+        messages,
+        contains(contains("not its required hook 'assertionProvider'")),
+      );
+      expect(
+        messages,
+        isNot(contains(contains("required hook 'singleLogout'"))),
+        reason: 'single logout is optional',
+      );
+    });
+
+    test('check 41: no binding under /saml2', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(versionPrefix: '/saml2')},
+        features: real(),
+      );
+      expect(
+        _forCheck(41, input).single.message,
+        contains('which lies under /saml2'),
       );
     });
   });

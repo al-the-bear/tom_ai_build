@@ -10,7 +10,7 @@
 # VERSION is the TomSpecs model version. It is realigned by the packaging hook
 # (tom_specs_clitool/bin/generate_som.dart) so the runtime, the generated facade,
 # and the emitted pkg-config file all agree on one version.
-VERSION := 1.7.4
+VERSION := 1.8.0
 
 CXX      ?= g++
 AR       ?= ar

@@ -1450,10 +1450,11 @@ void main() {
           spec.hook,
     };
 
-    test('CsProtocolFeature is the closed two', () {
+    test('CsProtocolFeature is the closed three', () {
       expect(CsProtocolFeature.values, [
         CsProtocolFeature.oidcAuthorizationServer,
         CsProtocolFeature.scim2Server,
+        CsProtocolFeature.saml2IdentityProvider,
       ]);
     });
 
@@ -1479,6 +1480,21 @@ void main() {
       );
     });
 
+    test('the SAML 2.0 identity provider requires three hooks', () {
+      expect(hooks(CsProtocolFeature.saml2IdentityProvider, required: true), {
+        'serviceProviderRegistry',
+        'signOnDecision',
+        'assertionProvider',
+      });
+      expect(hooks(CsProtocolFeature.saml2IdentityProvider, required: false), {
+        'singleLogout',
+        'assertionAudit',
+      });
+      expect(csFeatureReservedPaths[CsProtocolFeature.saml2IdentityProvider], [
+        '/saml2',
+      ]);
+    });
+
     test('each hook names its contract, and availability tracks tom_core', () {
       final byHook = {for (final spec in csFeatureHooks) spec.hook: spec};
       expect(byHook, hasLength(csFeatureHooks.length));
@@ -1498,9 +1514,17 @@ void main() {
       );
       expect(byHook['claimsProvider']!.contract, 'TomOidcClaimsProvider');
       expect(byHook['consentStore']!.contract, 'TomOidcConsentStore');
+      expect(
+        byHook['serviceProviderRegistry']!.contract,
+        'TomSamlServiceProviderRegistry',
+      );
+      expect(byHook['signOnDecision']!.contract, 'TomSamlSignOnDecider');
+      expect(byHook['assertionProvider']!.contract, 'TomSamlAssertionProvider');
+      expect(byHook['singleLogout']!.contract, 'TomSamlSingleLogoutHandler');
+      expect(byHook['assertionAudit']!.contract, 'TomSamlAuditSink');
       for (final spec in csFeatureHooks) {
-        // The SCIM contracts ship in tom_core_server; the OIDC ones are
-        // requested and provisional.
+        // The SCIM contracts ship in tom_core_server; the OIDC and SAML ones
+        // are requested and provisional.
         expect(
           spec.available,
           spec.feature == CsProtocolFeature.scim2Server,

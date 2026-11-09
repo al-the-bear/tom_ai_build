@@ -188,7 +188,8 @@ class CsServiceUnit {
 /// (`codespecs_mapping.md` §5.30, `codespecs_derivation_contract.md` §3.4.6).
 ///
 /// A protocol feature is a `tom_core_server` standard protocol server the
-/// application enables — a SCIM 2.0 server, an OIDC authorization server. The
+/// application enables — a SCIM 2.0 server, an OIDC authorization server, a SAML
+/// 2.0 identity provider. The
 /// framework owns the protocol: its paths, its wire format, its conformance.
 /// What it cannot own is where the application keeps the data the protocol
 /// speaks about, so it asks for that through hook contracts, and the

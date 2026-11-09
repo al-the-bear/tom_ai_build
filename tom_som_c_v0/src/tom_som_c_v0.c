@@ -287,7 +287,8 @@ char *parse_probability(const char *token) {
 
 char *parse_protocol_feature_kind(const char *token) {
   if (strcmp(token, PROTOCOL_FEATURE_KIND_OIDC_AUTHORIZATION_SERVER) == 0 ||
-      strcmp(token, PROTOCOL_FEATURE_KIND_SCIM2_SERVER) == 0) {
+      strcmp(token, PROTOCOL_FEATURE_KIND_SCIM2_SERVER) == 0 ||
+      strcmp(token, PROTOCOL_FEATURE_KIND_SAML2_IDENTITY_PROVIDER) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");

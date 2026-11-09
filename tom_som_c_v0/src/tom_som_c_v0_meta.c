@@ -108769,10 +108769,11 @@ static void meta_build_protocol_feature_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("The framework protocol server the system enables");
   n->form->fields[0].order = 0;
-  n->form->fields[0].enum_values_len = 2;
-  n->form->fields[0].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[0].enum_values_len = 3;
+  n->form->fields[0].enum_values = (char **)calloc(3, sizeof(char *));
   n->form->fields[0].enum_values[0] = som_strdup("oidcAuthorizationServer");
   n->form->fields[0].enum_values[1] = som_strdup("scim2Server");
+  n->form->fields[0].enum_values[2] = som_strdup("saml2IdentityProvider");
   n->form->fields[1].name = som_strdup("purpose");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Purpose");
@@ -131033,7 +131034,7 @@ static void meta_build_server_operation_registry_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->content_help, "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n");
+  meta_set(&n->content_help, "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM, SAML), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n");
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
 }
 static void meta_build_server_operation_registry_operations(SomMetaNode *n) {

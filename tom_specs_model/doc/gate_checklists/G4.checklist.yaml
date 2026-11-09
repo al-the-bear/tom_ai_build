@@ -8,7 +8,7 @@
 formatVersion: 1
 gate: G4
 title: CodeSpecs Complete
-checklistVersion: 1.1.0
+checklistVersion: 1.1.1
 criteria: tom_specs_project_flow.md §PF-GAT-G4
 document: the CodeSpecs trio, its extracts and the specification document
 items:
@@ -154,14 +154,14 @@ items:
     pass: Both pass.
   - id: G4-HOOK-1
     criterion: Feature hooks complete
-    inspect: Every required hook of every enabled framework protocol feature is implemented exactly once, against a contract tom_core ships.
+    inspect: Every required hook of every enabled framework protocol feature — the OIDC authorization server, the SCIM 2.0 server, the SAML 2.0 identity provider (the catalogue csFeatureHooks, codespecs_mapping.md §5.30) — is implemented exactly once, against a contract tom_core ships.
     method: tool
     how: Check 40 of G4-VAL-1 (it needs --cs-vocabulary).
     evidence: Check 40.
     pass: Check 40 passes.
   - id: G4-PROTO-1
     criterion: No protocol endpoint re-declared
-    inspect: No binding declares a route under a path the framework reserves for a protocol feature.
+    inspect: No binding declares a route under a path the framework reserves for a protocol feature (csFeatureReservedPaths — /scim/v2, /.well-known/openid-configuration and /oauth2, /saml2).
     method: tool
     how: Check 41 of G4-VAL-1.
     evidence: Check 41.

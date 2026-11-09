@@ -1,4 +1,13 @@
-## Unreleased
+## 1.8.0
+
+- `ProtocolFeatureKind.saml2IdentityProvider`: a SAML 2.0 identity provider as a
+  framework protocol feature (`ProtocolFeatureEntry.feature`), beside the OIDC
+  authorization server and the SCIM 2.0 server. Additive: every 1.7 document
+  stays valid. The server operation registry's help names it.
+- Gate checklist G4 1.1.1: G4-HOOK-1 and G4-PROTO-1 name the three features and
+  their reserved paths.
+- The chain moves with the runtimes, which read and write question and
+  team-answer change times (SOM §11.9.2, §11.9.10).
 
 - Gate checklists 1.1.0 (no change of structure): every gate G1–G8 has the
   item `G<N>-RISK-1` *Risk register reviewed* — the register (`SBP` INSC >

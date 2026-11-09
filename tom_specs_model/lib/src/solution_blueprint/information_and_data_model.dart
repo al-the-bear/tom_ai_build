@@ -79,6 +79,10 @@ enum ProtocolFeatureKind {
 
   /// A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
   scim2Server,
+
+  /// A SAML 2.0 identity provider (Web Browser SSO and Single Logout
+  /// profiles): the application's users sign in to SAML service providers.
+  saml2IdentityProvider,
 }
 
 /// Lifecycle role of a business-object state (`ObjectStateEntry.stateType`).
@@ -6221,7 +6225,7 @@ operation: the operation name carries the intent, and every outcome — success
 or structured error — is returned in the Result envelope (RSLTE). When third
 parties call an operation in a standard HTTP shape, add a **protocol binding**
 to the operation instead; when the system enables a standard protocol server
-the framework provides (OIDC, SCIM), list it under **protocol features** with
+the framework provides (OIDC, SCIM, SAML), list it under **protocol features** with
 the hooks the system implements.
 
 This registry is for the system's **own** operations. Interfaces to third-party

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.8.0
 
 - Question and team-answer change times (SOM §11.9.2, §11.9.10), a port of
   the Dart reference: a question header may carry its time,

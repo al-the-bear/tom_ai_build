@@ -613,6 +613,9 @@ char *parse_probability(const char *token);
 #define PROTOCOL_FEATURE_KIND_OIDC_AUTHORIZATION_SERVER "oidcAuthorizationServer"
 // A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
 #define PROTOCOL_FEATURE_KIND_SCIM2_SERVER "scim2Server"
+// A SAML 2.0 identity provider (Web Browser SSO and Single Logout
+// profiles): the application's users sign in to SAML service providers.
+#define PROTOCOL_FEATURE_KIND_SAML2_IDENTITY_PROVIDER "saml2IdentityProvider"
 // parse_protocol_feature_kind returns the token (owned) when it is a known ProtocolFeatureKind value, else "".
 char *parse_protocol_feature_kind(const char *token);
 
@@ -1253,33 +1256,33 @@ char *parse_translation_review_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.7"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.8"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.7"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.8"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.7"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.8"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.7"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.8"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.7"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.8"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.7"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.8"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.7"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.8"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.7"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.8"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.7"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.8"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.7"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.8"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.7"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.8"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.7"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.8"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.7"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.8"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.7"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.8"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;

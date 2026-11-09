@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.13.4
+
+- Documentation: `codespecs_mapping.md` §5.30 and
+  `codespecs_derivation_contract.md` §3.4.6 state the SAML 2.0 identity
+  provider's five hooks (the catalogue rows, what each supplies, why the OIDC
+  hooks do not cover them) with a worked example beside the SCIM and OIDC ones;
+  the mapping's SCIM example names its class `UamScimStore` as the naming rule
+  gives it. Two tests are formatted with Dart 3.13's `dart format`.
+
 ## 0.13.3
 
 - The package moved from the `tom_core` repository to `tom_ai_build`, beside

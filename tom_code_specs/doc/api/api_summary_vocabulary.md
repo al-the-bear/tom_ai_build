@@ -297,6 +297,7 @@ A framework protocol feature: a `tom_core_server` standard protocol server an ap
 |-------|---------|
 | `oidcAuthorizationServer` | An OpenID Connect authorization server: the application issues identity and access tokens to third-party clients. |
 | `scim2Server` | A SCIM 2.0 server: identity providers provision and deprovision the application's users and groups. |
+| `saml2IdentityProvider` | A SAML 2.0 identity provider: the application's users sign in to SAML service providers (Web Browser SSO and Single Logout profiles). |
 
 ## Classes
 
@@ -331,5 +332,5 @@ take — `CsFileReference` and `CsGradedAccess` — live in
 
 | Constant | Type | Description |
 |----------|------|-------------|
-| `csFeatureHooks` | `List<CsFeatureHookSpec>` | Every hook of every feature. SCIM: `scimStore` (`TomScimStore`, required), `scimIdentityDirectory` (`TomScimIdentityDirectory`), `scimSessionRevocation` (`TomScimService.revoke`) — all shipped. OIDC: `clientRegistry`, `subjectAuthentication`, `claimsProvider` (required), `consentStore` — requested from `tom_core`, contract names provisional. |
-| `csFeatureReservedPaths` | `Map<CsProtocolFeature, List<String>>` | The path prefixes the framework serves per feature (`/scim/v2`; `/.well-known/openid-configuration`, `/oauth2`), which no `@CsOperationBinding` may declare. |
+| `csFeatureHooks` | `List<CsFeatureHookSpec>` | Every hook of every feature. SCIM: `scimStore` (`TomScimStore`, required), `scimIdentityDirectory` (`TomScimIdentityDirectory`), `scimSessionRevocation` (`TomScimService.revoke`) — all shipped. OIDC: `clientRegistry`, `subjectAuthentication`, `claimsProvider` (required), `consentStore` — requested from `tom_core`, contract names provisional. SAML: `serviceProviderRegistry`, `signOnDecision`, `assertionProvider` (required), `singleLogout`, `assertionAudit` — requested from `tom_core`, contract names provisional. |
+| `csFeatureReservedPaths` | `Map<CsProtocolFeature, List<String>>` | The path prefixes the framework serves per feature (`/scim/v2`; `/.well-known/openid-configuration`, `/oauth2`; `/saml2`), which no `@CsOperationBinding` may declare. |

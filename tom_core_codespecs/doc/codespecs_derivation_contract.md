@@ -1657,7 +1657,7 @@ three handlers are the §3.4.2 ones, unchanged.
 | **1 Input** | `ProtocolFeatureEntry` (`PROTF`) → its `hooks` list of `FeatureHookEntry` (`FEHOK`) → each hook's `methods` list of `HookMethodEntry` (`FEHOM`). Consumed: `PROTF.feature`; `FEHOK.hook`; and per `FEHOM` its headline (the contract member it implements), `callsOperations` (in order), `readsEntities`, `writesEntities` and its content (the behaviour). |
 | **2 Output** | An **ordinary class implementing the hook's framework contract**, the `contract` its `csFeatureHooks` entry names (`codespecs_mapping.md` §5.30). The class **is** the CodeSpec, as §3.4.4's `TomAuthenticationService` implementation is. One method per contract member, each with the contract's own signature. Its body is **form 3b** when the member's `callsOperations` lists operations: one statement per operation, in list order, each `await collaborator.<op>(<the member's parameters>)`, the last one returned when the member returns a value. A member with no listed operation is **form 3a**, `throw UnsupportedError('<FEHOM content>')`. The abstract collaborator is emitted per §3.0.1; it declares one method per called operation, named lowerCamel of the full operation name (`user.create` → `userCreate`), taking the member's parameters and returning the member's return type for the last call and `Future<void>` otherwise. A hook whose catalogue entry is **not available** is not emitted at all: there is no tom_core contract to implement, and Stage B has already ruled the area insufficient (`codespecs_prompt.md` §6.3). |
 | **3 Arguments** | `feature` (**required**, first positional) ← `CsProtocolFeature.<PROTF.feature>`, constant for constant. `hook` (**required**, second positional) ← `FEHOK.hook` verbatim, an authored catalogue key (N5), never re-cased. |
-| **4 Naming** | The app name + the contract's name with its `Tom` prefix removed (`TomScimStore` → `UamScimStore`; *TomOidcClientRegistry* (provisional) → `UamOidcClientRegistry`). A contract that is a member, not a type (`TomScimService.revoke`), takes PascalCase of the hook instead (`UamScimSessionRevocation`). |
+| **4 Naming** | The app name + the contract's name with its `Tom` prefix removed (`TomScimStore` → `UamScimStore`; *TomOidcClientRegistry* (provisional) → `UamOidcClientRegistry`; *TomSamlServiceProviderRegistry* (provisional) → `UamSamlServiceProviderRegistry`). A contract that is a member, not a type (`TomScimService.revoke`), takes PascalCase of the hook instead (`UamScimSessionRevocation`). |
 | **5 Locus** | `server`. |
 | **6 Cross-refs** | `CsOperationRef` per called operation; `Type` literals for the entities in `readsEntities` / `writesEntities` (their repositories, §3.3.4). |
 | **7 Back-link** | On the class, `@DocSpec([DocRef('FEHOK', 'supplies the hook this class implements'), DocRef('PROTF', 'enables the protocol feature this hook belongs to')])`. On each method, `@DocSpec([DocRef('FEHOM', 'supplies what this contract member does')])`. |
@@ -1720,6 +1720,40 @@ run opens an L0 question for the missing tom_core contract instead of emitting
 this class.
 Once tom_core ships the contract, the entry flips to available and the class
 above is what the derivation writes.
+
+**Worked example — a SAML service-provider registry hook.** The SAML 2.0
+identity provider is the third feature, and its hooks are requested from
+tom_core in the same way. The registry hook's `findServiceProvider` member calls
+`samlServiceProvider.find`; the sign-on decision, the assertion's subject and
+attributes, single logout and audit are four more hooks of the same shape
+(`codespecs_mapping.md` §5.30):
+
+```dart
+import 'package:tom_core_server/tom_core_server.dart';
+
+@CsFeatureHook(CsProtocolFeature.saml2IdentityProvider, 'serviceProviderRegistry')
+@DocSpec([
+  DocRef('FEHOK', 'supplies the hook this class implements'),
+  DocRef('PROTF', 'enables the protocol feature this hook belongs to'),
+])
+class UamSamlServiceProviderRegistry
+    implements TomSamlServiceProviderRegistry {
+  late final UamSamlServiceProviderRegistryCollaborator collaborator;
+
+  /// Finds the registered service provider of an entity id.
+  @DocSpec([DocRef('FEHOM', 'supplies what this contract member does')])
+  @override
+  Future<TomSamlServiceProvider?> findServiceProvider(String entityId) async {
+    return await collaborator.samlServiceProviderFind(entityId);
+  }
+}
+```
+
+*TomSamlServiceProviderRegistry* (provisional) does not exist yet, so the
+entry is `available: false`, Stage B rules the area insufficient, and a run opens
+an L0 question instead of emitting the class; §6 check 40 refuses the class if
+a trio carries it anyway, and check 41 refuses any binding the system declares
+under `/saml2`, the framework's SAML endpoints.
 
 ### 3.5 Slice 5 — client interaction core
 

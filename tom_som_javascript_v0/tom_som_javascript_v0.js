@@ -927,6 +927,9 @@ const ProtocolFeatureKind = Object.freeze({
   "oidcAuthorizationServer": "oidcAuthorizationServer",
   // A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
   "scim2Server": "scim2Server",
+  // A SAML 2.0 identity provider (Web Browser SSO and Single Logout
+  // profiles): the application's users sign in to SAML service providers.
+  "saml2IdentityProvider": "saml2IdentityProvider",
 });
 
 // Parses a stored token into a ProtocolFeatureKind value, or null.
@@ -10372,7 +10375,7 @@ class CutoverProcedure extends SomNode {
 // per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10502,7 +10505,7 @@ class D00SolutionBlueprint extends SomNode {
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10619,7 +10622,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10747,7 +10750,7 @@ class D02TargetOperatingModel extends SomNode {
 // integrity constraints.
 class D03InformationModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10939,7 +10942,7 @@ class D03InformationModel extends SomNode {
 // and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11059,7 +11062,7 @@ class D04RequirementsSpecification extends SomNode {
 // and traceability.
 class D05InteractionScenarios extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11172,7 +11175,7 @@ class D05InteractionScenarios extends SomNode {
 // and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11309,7 +11312,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11437,7 +11440,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 // compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11567,7 +11570,7 @@ class D08SecurityAccessSpecification extends SomNode {
 // mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11710,7 +11713,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11883,7 +11886,7 @@ class D10QualityAcceptancePlan extends SomNode {
 // framework.
 class D11DeliveryRoadmap extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -12006,7 +12009,7 @@ class D11DeliveryRoadmap extends SomNode {
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -12154,7 +12157,7 @@ class D12TransitionRolloutPlan extends SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.7";
+  static MODEL_VERSION = "1.8";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).

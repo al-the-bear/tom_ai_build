@@ -5170,7 +5170,7 @@ CodeSpecs represents both:
    envelope, 5xx-only transport errors. An operation may have several bindings.
 2. **Framework protocol features** (CE-SU). A **standard protocol server** the
    framework provides — an OAuth 2.0 / OpenID Connect authorization server, a
-   SCIM 2.0 server — is enabled by the system, which plugs its domain in through
+   SCIM 2.0 server, a SAML 2.0 identity provider — is enabled by the system, which plugs its domain in through
    the feature's **hooks**. The framework owns the protocol's endpoints, wire
    format and error format; the system writes no protocol endpoint. What the
    system writes is one class per hook, implementing the framework contract.
@@ -5209,8 +5209,9 @@ interface. The binding is what the derivation reads.
   (`codespecs_derivation_contract.md` §2.3 test **b**: the attributes are the substrate constructor's).
 - **Hook:** the framework contract itself. For SCIM 2.0 these are
   `TomScimStore`, `TomScimIdentityDirectory` and the `revoke` callback of
-  `TomScimService` (`tom_core_server`). An OIDC authorization server is
-  requested from tom_core, and its contracts do not exist yet.
+  `TomScimService` (`tom_core_server`). An OIDC authorization server and a
+  SAML 2.0 identity provider are requested from tom_core, and their contracts
+  do not exist yet.
 
 **The hook catalogue.** Which hooks a feature has, which it requires and which
 contracts they implement is the closed catalogue `csFeatureHooks` in
@@ -5227,8 +5228,45 @@ its contract today (`available`):
 | `oidcAuthorizationServer` | `subjectAuthentication` | *TomOidcSubjectAuthenticator* (provisional) | yes | no |
 | `oidcAuthorizationServer` | `claimsProvider` | *TomOidcClaimsProvider* (provisional) | yes | no |
 | `oidcAuthorizationServer` | `consentStore` | *TomOidcConsentStore* (provisional) | no | no |
+| `saml2IdentityProvider` | `serviceProviderRegistry` | *TomSamlServiceProviderRegistry* (provisional) | yes | no |
+| `saml2IdentityProvider` | `signOnDecision` | *TomSamlSignOnDecider* (provisional) | yes | no |
+| `saml2IdentityProvider` | `assertionProvider` | *TomSamlAssertionProvider* (provisional) | yes | no |
+| `saml2IdentityProvider` | `singleLogout` | *TomSamlSingleLogoutHandler* (provisional) | no | no |
+| `saml2IdentityProvider` | `assertionAudit` | *TomSamlAuditSink* (provisional) | no | no |
 
-The OIDC contract names are provisional until tom_core ships them. A hook whose
+The reserved paths are `/scim/v2` (SCIM), `/.well-known/openid-configuration`
+and `/oauth2` (OIDC) and `/saml2` (SAML: metadata, single sign-on, IdP-initiated
+start, single logout).
+
+**The SAML 2.0 identity provider's hooks.** The framework owns the Web Browser
+SSO and Single Logout profiles: the bindings (HTTP-Redirect and HTTP-POST), the
+signed metadata, request validation, assertion signing and encryption, the
+NameID and the response. The system plugs in five things, each a hook:
+
+- `serviceProviderRegistry` — finds a registered service provider by entity id:
+  its assertion consumer service URLs and bindings, certificates, single-logout
+  endpoint, NameID format, attribute mapping, and whether IdP-initiated
+  sign-on is on. Required.
+- `signOnDecision` — decides whether a subject may sign on to a provider now:
+  the access to the provider's application, the account, organization and
+  tenant states, and the sign-in and step-up policies that apply, answering
+  allow, step up, or refuse with a reason. Required.
+- `assertionProvider` — the subject's NameID for the provider (persistent per
+  provider by default) and the attributes its mapping names, from the system's
+  account and rights. Required.
+- `singleLogout` — which providers a session signed on to, and ending the
+  system's session when a provider sends a logout request. Optional: a feature
+  without it does no single logout.
+- `assertionAudit` — records each assertion issued and each sign-on refused.
+  Optional: without it the framework records nothing beyond its own log.
+
+None maps onto the OIDC hooks unchanged: the SAML registry holds service
+providers rather than clients, the decision and the assertion take a provider
+and its mapping rather than a client and scopes, and single logout and audit
+have no OIDC counterpart in the catalogue; so the feature has hooks of its own
+rather than sharing the OIDC ones.
+
+The OIDC and SAML contract names are provisional until tom_core ships them. A hook whose
 contract is not available cannot be derived: no tom_core class exists to
 implement (pillar 2). Stage B rules such an area insufficient, with the
 missing tom_core contract as its gap line, and it becomes an L0 question
@@ -5255,7 +5293,8 @@ and §3.4.6):
 | REST save | `user.save`, binding `PUT /users/{userId}`, path parameter `userId`, body `user`, 200 with `ETag` | the same, with two parameters and `responseHeaders: ['ETag']` |
 | REST transition | `user.suspend`, binding `POST /users/{userId}/suspension`, 204 | the same, `successStatus: 204` |
 | OIDC client registry | `PROTF` `oidcAuthorizationServer`, hook `clientRegistry`, member `findClient` calling `client.find` | `@CsFeatureHook(CsProtocolFeature.oidcAuthorizationServer, 'clientRegistry')` on `class UamOidcClientRegistry implements` *TomOidcClientRegistry*. Insufficient at Stage B until tom_core ships the contract |
-| SCIM user mapping | `PROTF` `scim2Server`, hook `scimStore`, member `create` calling `user.create` then `user.assignGroups` | `@CsFeatureHook(CsProtocolFeature.scim2Server, 'scimStore')` on `class UamScimUserStore implements TomScimStore`, `create` a form-3b body of those two calls |
+| SCIM user mapping | `PROTF` `scim2Server`, hook `scimStore`, member `create` calling `user.create` then `user.assignGroups` | `@CsFeatureHook(CsProtocolFeature.scim2Server, 'scimStore')` on `class UamScimStore implements TomScimStore`, `create` a form-3b body of those two calls |
+| SAML service-provider registry | `PROTF` `saml2IdentityProvider`, hook `serviceProviderRegistry`, member `findServiceProvider` calling `samlServiceProvider.find` | `@CsFeatureHook(CsProtocolFeature.saml2IdentityProvider, 'serviceProviderRegistry')` on `class UamSamlServiceProviderRegistry implements` *TomSamlServiceProviderRegistry*. Insufficient at Stage B until tom_core ships the contract |
 
 ## 6. Completion elements (recap)
 
