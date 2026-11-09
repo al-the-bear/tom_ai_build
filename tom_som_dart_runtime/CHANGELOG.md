@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.8.1
+
+- A new library, `package:tom_som_dart_runtime/spec_checks.dart`: the TomSpecs
+  process checks as functions over a document's text, the project's own data
+  passed in (`doc/spec_checks.md`). `SpecRootDefinition` bundles what a root's
+  checks need (model, metadata tree, root type, DocSpecs schema), so the
+  library needs no facade. The checks: the answer import from the markdown
+  rendition into the YAML in place (`AnswerImporter`; an answer keeps the label
+  it was written with, untimed or the owner's time), accepting every inline
+  mark in place with a value-for-value check against `acceptAllMarks`
+  (`acceptMarksInPlace`, for documents a whole-file re-encode cannot handle),
+  required fields, the question register (its prefixes, count columns and
+  statuses now a `QuestionRegisterConfig`), the feature register, the Project
+  Idea coverage, the authorization cross-check and the model coverage table.
+  `tom_som_dart_runtime.dart` is unchanged.
+
 ## 1.8.0
 
 - YAML plain scalars by one rule (SOM §12.5): a non-text value is written plain

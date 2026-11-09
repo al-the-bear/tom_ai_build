@@ -132,6 +132,17 @@ const _skipDirectories = <String>{
   'generated-doc',
 };
 
+/// Directories of the reference plane that are no capability of the ports.
+///
+/// `spec_checks` is the TomSpecs process-check library
+/// (`package:tom_som_dart_runtime/spec_checks.dart`): a project's gate checks,
+/// run through `tom_specs_clitool`'s `spec_checks` command and the extension
+/// over it. It is Dart-only by decision — the other planes are document
+/// readers, and a check a gate runs once needs one implementation — so the
+/// document fields it reads (`featureId`, `actorAction`, …) are not a
+/// capability the eight ports lack.
+const _referenceOnlyDirectories = <String>{'spec_checks'};
+
 final _wordPattern = RegExp(r'[A-Za-z][A-Za-z0-9_]{2,60}');
 final _camelPattern = RegExp(r'^[a-z]+(?:[A-Z][a-z0-9]*)+$');
 
@@ -154,6 +165,10 @@ Set<String> planeTokens(String packageDirectory, String plane) {
     final relative = entity.path.substring(packageDirectory.length);
     final segments = relative.split(Platform.pathSeparator);
     if (segments.any(_skipDirectories.contains)) continue;
+    if (plane == somReferencePlane &&
+        segments.any(_referenceOnlyDirectories.contains)) {
+      continue;
+    }
     final name = segments.last;
     // A shipped fixture names things it does not implement — `alphaDetail` and
     // `betaDetail` are display fixtures in the Dart runtime's own lib/, and

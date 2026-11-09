@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.14.0
+
+- `bin/spec_checks.dart`: the TomSpecs process checks on any project's
+  document, one subcommand each — `validate`, `import-answers`,
+  `accept-marks`, `required-fields`, `question-register`, `feature-register`,
+  `project-idea-coverage`, `authorization`, `coverage` — over the runtime's new
+  `spec_checks.dart` library. A project's data is read from
+  `<spec-root>/checks/`; the model is the embedded one of `tom_som_dart_v0`.
+  See `doc/process_checks.md`.
+- `tom_som_dart_runtime: ^1.8.1`, `tom_som_dart_v0: ^1.8.0`.
+
 ## 0.13.0
 
 - `tom_analyzer_shared: ^0.13.0` (from ^0.12.0): a cached bundle is named by

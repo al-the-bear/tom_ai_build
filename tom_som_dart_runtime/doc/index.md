@@ -14,6 +14,7 @@ here cite it rather than restating it
 | Document | Covers |
 |----------|--------|
 | [generic_access.md](generic_access.md) | Driving a document by path, the model as data, and when to prefer this over the typed facade |
+| [spec_checks.md](spec_checks.md) | The process checks library (`spec_checks.dart`): answer import, in-place mark acceptance, required fields, registers, coverage and the authorization cross-check |
 | [review_annotations.md](review_annotations.md) | Listing and editing review annotations — comment blocks, question blocks and inline marks (SOM §11.9) |
 
 ## API reference

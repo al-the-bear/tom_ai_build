@@ -100,6 +100,7 @@ and how to pin.
 | `docspecs_validator.dart` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (`SOM §14`). |
 | `som_facade.dart` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`, `checkSomModelVersion`, `somEditabilityFor`) for the generated `tom_som_dart_v0`. |
 | `spec_section_id.dart`, `spec_serialization_order.dart` | Section-id and serialization-order helpers shared by the codecs. |
+| `spec_checks.dart` (a library of its own) | The TomSpecs process checks over a document's text — answer import, in-place mark acceptance, required fields, the question and feature registers, Project Idea and model coverage, the authorization cross-check; see [doc/spec_checks.md](doc/spec_checks.md). |
 | `spec_annotation_display.dart` | The annotations' display semantics (`SpecChip`, `SpecRowExtras`, `kRenderedAnnotations`), shared by both TomSpecs Flutter apps. |
 
 It holds **no document values of its own** and contains **no generated typed
