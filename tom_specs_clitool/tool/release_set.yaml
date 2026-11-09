@@ -98,27 +98,6 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_som_dart_runtime: >-
-    Since 1.7.4: question and team-answer change times (SOM §11.9.2,
-    §11.9.10, tom_specs annot10) — a header `**❓ BQ-1 (<time>) — topic:**` and a
-    team answer `**Answer (<time>):**` read and written, `answerChangedAt`,
-    `reviewTeamAnswerTimes`, merging carries a copy's team-answer time. Ships
-    with the next chain release.
-  tom_specs_model: >-
-    Documentation only since 1.7.4: the gate checklists 1.1.0 (the risk
-    register reviewed at every gate, documentation verified before G7) and the
-    criteria and process text behind them in tom_specs_project_flow.md
-    (tom_specs uamg2s1); som_toolchains.md on tom_analyzer_shared ^0.13.0
-    (tom_specs frzhold2); som_multiplatform_spec_model.md §11.9.2, §11.9.8 and
-    §11.9.10 on question and team-answer times (tom_specs annot10). Ships with
-    the next release.
-  tom_core_codespecs: >-
-    Formatting only since 0.13.3: two tests reformatted to Dart 3.13's
-    `dart format`. Ships with the next release.
-  tom_code_specs: >-
-    Documentation only since 0.16.0: the links into tom_core_codespecs's
-    documents were re-pointed when that package moved from tom_core to this
-    repository. Ships with the next release.
   tom_specs_core: >-
     Documentation only since 0.4.0: the links into tom_core_codespecs's
     documents were re-pointed when that package moved from tom_core to this
