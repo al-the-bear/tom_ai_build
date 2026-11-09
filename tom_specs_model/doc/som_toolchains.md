@@ -187,7 +187,7 @@ the outliner / validator / model-JSON exporter, and all nine
 | Driver bootstrap | `tom_specs_clitool/lib/src/analyzer_bootstrap.dart` | Reassembles the chunks, builds a `SummaryBasedDartSdk` from the bundle, and wires a `SourceFactory` of `DartUriResolver` + `PackageMapUriResolver` + `ResourceUriResolver` |
 | Summary generator | `tom_specs_clitool/bin/summaries.dart` | Produces the `sdk_summary.sum` this package's chunk set is split from. `--sdk-only` skips the package bundle, which `tom_specs_clitool` never loads. It is a one-off generator for *this* consumer — the editor's scoped asset set has a different producer (see "The `packages.sum` route") |
 | Chunk splitter | `tom_specs_clitool/tool/split_sdk_summary.dart` | Turns a `.sum` file into the chunk set — the only producer of the embedded summary above |
-| Shared infrastructure | `tom_analyzer_shared` (`tom_ai/basics/`), constraint `^0.8.0` | The base-first home of the grouped `packages.sum` builder (`GroupedPackageBundleBuilder`) and the package-config helpers (`readPackageRoots`, `mergePackageRootsForDirs`, `SummaryConfigException`), re-exported from the clitool barrel |
+| Shared infrastructure | `tom_analyzer_shared` (`tom_ai/basics/`), constraint `^0.12.0` | The base-first home of the grouped `packages.sum` builder (`GroupedPackageBundleBuilder`) and the package-config helpers (`readPackageRoots`, `mergePackageRootsForDirs`, `SummaryConfigException`), re-exported from the clitool barrel |
 
 **Only the SDK summary is needed here.** The model's own sources are analyzed
 from disk, and the target package's dependencies resolve through its
@@ -196,12 +196,13 @@ from disk, and the target package's dependencies resolve through its
 types only — so `tom_specs_clitool` never loads a `packages.sum`.
 
 The analyzer's summary APIs are **internal, not public API**. The dependency is
-pinned at `analyzer: ^14.1.0` and the version must be moved deliberately,
-together with `tom_analyzer_shared` (`^0.8.0`, the line that is on analyzer 14):
+pinned at `analyzer: ^14.7.0` and the version must be moved deliberately,
+together with `tom_analyzer_shared` (`^0.12.0`, on analyzer 14):
 a summary written by one analyzer major cannot be read by another, so the move
 also regenerates the embedded SDK summary (below). `tom_analyzer_shared` keys
-its summary cache on the Dart SDK version and invalidates a bundle when a
-transitive dependency changes version.
+its summary cache on the analyzer major, the Dart SDK version and the
+analyzer's data version, invalidates a bundle when a transitive dependency
+changes version, and caches a bundle only when it is complete.
 
 ### Regenerating after an SDK change
 

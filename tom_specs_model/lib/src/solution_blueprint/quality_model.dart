@@ -1793,12 +1793,9 @@ class Efficiency extends DocSpecsSection {
 }
 
 /// 11.3.2. Portability quality.
-@StandardReferences(
-  [
-    'ISO/IEC 25010:2023 — flexibility includes adaptability, installability, and replaceability, describing the degree to which a product can be transferred and adapted across environments',
-  ],
-  'This section captures portability quality across platforms and environments.',
-)
+@StandardReferences([
+  'ISO/IEC 25010:2023 — flexibility includes adaptability, installability, and replaceability, describing the degree to which a product can be transferred and adapted across environments',
+], 'This section captures portability quality across platforms and environments.')
 @SectionId('POQU')
 class Portability extends DocSpecsSection {
   @Form([
@@ -1911,12 +1908,9 @@ class Flexibility extends DocSpecsSection {
 
   /// Modularity and reuse goals.
   @SectionId('FLQUMO')
-  @StandardReferences(
-    [
-      'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments',
-    ],
-    'This section captures modularity and reuse goals supporting modifiability.',
-  )
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — adaptability is the degree to which a product can effectively and efficiently be adapted for different or evolving hardware, software, or other operational or usage environments',
+  ], 'This section captures modularity and reuse goals supporting modifiability.')
   @Form([
     Field(
       'modularityLevel',
@@ -2779,12 +2773,9 @@ class ServiceLevel extends DocSpecsSection {
 
   /// Remaining response targets.
   @SectionId('SLQR')
-  @StandardReferences(
-    [
-      'ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management',
-    ],
-    'This section describes remaining response-time targets for service levels.',
-  )
+  @StandardReferences([
+    'ISO/IEC 20000-1:2018 — response-time targets are set and monitored as part of service level management',
+  ], 'This section describes remaining response-time targets for service levels.')
   @Form([
     Field(
       'mediumResponseTime',
@@ -3793,12 +3784,9 @@ class DocCorrectness extends DocSpecsSection {
 }
 
 /// 11.5.4. Documentation changeability quality.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 26515:2018 — information for users is maintained and updated as the product evolves through successive iterations',
-  ],
-  'Captures how documentation is kept current as the product changes over time.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 26515:2018 — information for users is maintained and updated as the product evolves through successive iterations',
+], 'Captures how documentation is kept current as the product changes over time.')
 @SectionId('DOCHQU')
 class DocChangeability extends DocSpecsSection {
   @Form([
@@ -3895,12 +3883,9 @@ class DocChangeability extends DocSpecsSection {
 
   /// Review and retirement maintenance process.
   @SectionId('DCQM')
-  @StandardReferences(
-    [
-      'ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate',
-    ],
-    'Captures the review cadence and retirement process for user documentation.',
-  )
+  @StandardReferences([
+    'ISO/IEC/IEEE 26515:2018 — information is reviewed on a defined cycle and retired when it is no longer accurate',
+  ], 'Captures the review cadence and retirement process for user documentation.')
   @Form([
     Field(
       'reviewCycle',
@@ -4406,12 +4391,9 @@ class TradeOffDecisionEntry extends DocSpecsSection {
 
   /// Approval and governance.
   @SectionId('TODEA')
-  @StandardReferences(
-    [
-      'ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders',
-    ],
-    'Captures approval and governance details for a quality trade-off decision.',
-  )
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — quality trade-off decisions are approved and reviewed by accountable stakeholders',
+  ], 'Captures approval and governance details for a quality trade-off decision.')
   @Form([
     Field(
       'decisionDate',

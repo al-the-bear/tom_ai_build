@@ -104,26 +104,22 @@ void main() {
       skip: vectorRuntime.binariesSkipReason,
     );
 
-    test(
-      'remember then recall the same string finds it in-process',
-      () async {
-        final memory = openMemory();
-        final scope = MemoryScope(
-          application: 'tomspecs',
-          session: 'phase3-review',
-          document: 'pd00-acme',
-        );
-        const text = 'The system rollout concept covers staged deployment.';
+    test('remember then recall the same string finds it in-process', () async {
+      final memory = openMemory();
+      final scope = MemoryScope(
+        application: 'tomspecs',
+        session: 'phase3-review',
+        document: 'pd00-acme',
+      );
+      const text = 'The system rollout concept covers staged deployment.';
 
-        final doc = await memory.openDocument(scope);
-        await doc.remember(text);
+      final doc = await memory.openDocument(scope);
+      await doc.remember(text);
 
-        final hits = await doc.recall(text);
-        expect(hits, isNotEmpty);
-        expect(hits.map((h) => h.text), contains(text));
-      },
-      skip: skipNoBinary,
-    );
+      final hits = await doc.recall(text);
+      expect(hits, isNotEmpty);
+      expect(hits.map((h) => h.text), contains(text));
+    }, skip: skipNoBinary);
 
     test('two documents never cross-talk (profile isolation)', () async {
       final memory = openMemory();

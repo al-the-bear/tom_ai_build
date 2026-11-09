@@ -163,12 +163,9 @@ the changes, and how role clarity is maintained despite deviations.
 
   /// Role adjustment summary statistics.
   @SectionId('RLASM')
-  @StandardReferences(
-    [
-      'ISO 21500 — project management (organizational roles & responsibilities)',
-    ],
-    'Aggregate counts and governance impact of this project\'s role deviations.',
-  )
+  @StandardReferences([
+    'ISO 21500 — project management (organizational roles & responsibilities)',
+  ], 'Aggregate counts and governance impact of this project\'s role deviations.')
   @Form([
     Field(
       'standardRolesCount',
@@ -283,9 +280,7 @@ class RoleAdjustmentEntry extends DocSpecsSection {
   /// Adjustment details: name changes, affected responsibilities.
   @SectionId('RLAED')
   @StandardReferences(
-    [
-      'ISO 21500 — project management (organizational roles & responsibilities)',
-    ],
+    ['ISO 21500 — project management (organizational roles & responsibilities)'],
     'The concrete details of a role change: new name, what changed, and which '
     'responsibilities, merges, or splits are affected.',
   )
@@ -327,9 +322,7 @@ class RoleAdjustmentEntry extends DocSpecsSection {
   /// Rationale for the adjustment.
   @SectionId('RLAER')
   @StandardReferences(
-    [
-      'ISO 21500 — project management (organizational roles & responsibilities)',
-    ],
+    ['ISO 21500 — project management (organizational roles & responsibilities)'],
     'Why this role deviation was made — the driving factors and stakeholder '
     'agreement behind it.',
   )

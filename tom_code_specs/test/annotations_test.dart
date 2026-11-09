@@ -1135,18 +1135,14 @@ void main() {
     // failure `codespecs_mapping.md` §5.16's fail-safe rule exists to prevent.
     test('CsAuthRequirement folds six payload kinds and four presets', () {
       expect(CsAuthRequirement.values, hasLength(10));
-      expect(
-        CsAuthRequirement.values.take(6),
-        [
-          CsAuthRequirement.role,
-          CsAuthRequirement.group,
-          CsAuthRequirement.entitlement,
-          CsAuthRequirement.resourceKey,
-          CsAuthRequirement.custom,
-          CsAuthRequirement.graded,
-        ],
-        reason: 'the payload-bearing kinds precede the presets',
-      );
+      expect(CsAuthRequirement.values.take(6), [
+        CsAuthRequirement.role,
+        CsAuthRequirement.group,
+        CsAuthRequirement.entitlement,
+        CsAuthRequirement.resourceKey,
+        CsAuthRequirement.custom,
+        CsAuthRequirement.graded,
+      ], reason: 'the payload-bearing kinds precede the presets');
     });
 
     test('a preset fills no slot at all', () {

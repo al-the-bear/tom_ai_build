@@ -99,54 +99,46 @@ void main() {
         );
       }, timeout: const Timeout(Duration(minutes: 2)));
 
-      test(
-        '$path refuses to run without it',
-        () async {
-          // The other half. The run above keeps the example honest; it does
-          // nothing for a reader who runs it from memory without the flag, and
-          // under a flagless run every assert compiles out, so the example would
-          // print its transcript and exit 0 having verified nothing. It must
-          // refuse instead, loudly and with the fix in the message.
-          final result = await Process.run(Platform.resolvedExecutable, [
-            'run',
-            path,
-          ]);
-          expect(
-            result.exitCode,
-            2,
-            reason:
-                '$path ran without $_assertsFlag and did not refuse: '
-                '${result.stdout}${result.stderr}',
-          );
-          expect(result.stderr, contains(_assertsFlag));
-        },
-        timeout: const Timeout(Duration(minutes: 2)),
-      );
-    }
-
-    test(
-      'the aggregator runs every example',
-      () async {
+      test('$path refuses to run without it', () async {
+        // The other half. The run above keeps the example honest; it does
+        // nothing for a reader who runs it from memory without the flag, and
+        // under a flagless run every assert compiles out, so the example would
+        // print its transcript and exit 0 having verified nothing. It must
+        // refuse instead, loudly and with the fix in the message.
         final result = await Process.run(Platform.resolvedExecutable, [
           'run',
-          _assertsFlag,
-          'example/run_all_samples.dart',
+          path,
         ]);
         expect(
           result.exitCode,
-          0,
-          reason: 'aggregator failed: ${result.stdout}${result.stderr}',
-        );
-        expect(
-          result.stdout,
-          contains('all ${examples.length} tom_core_codespecs examples'),
+          2,
           reason:
-              'the aggregator reported a count that is not the number of '
-              'examples on disk (${examples.length})',
+              '$path ran without $_assertsFlag and did not refuse: '
+              '${result.stdout}${result.stderr}',
         );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+        expect(result.stderr, contains(_assertsFlag));
+      }, timeout: const Timeout(Duration(minutes: 2)));
+    }
+
+    test('the aggregator runs every example', () async {
+      final result = await Process.run(Platform.resolvedExecutable, [
+        'run',
+        _assertsFlag,
+        'example/run_all_samples.dart',
+      ]);
+      expect(
+        result.exitCode,
+        0,
+        reason: 'aggregator failed: ${result.stdout}${result.stderr}',
+      );
+      expect(
+        result.stdout,
+        contains('all ${examples.length} tom_core_codespecs examples'),
+        reason:
+            'the aggregator reported a count that is not the number of '
+            'examples on disk (${examples.length})',
+      );
+    }, timeout: const Timeout(Duration(minutes: 3)));
   });
 
   group('the examples match the gap-class inventory', () {

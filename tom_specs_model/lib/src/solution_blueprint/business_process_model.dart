@@ -3316,13 +3316,10 @@ modeling conventions with Cockburn-style goal and scope annotations.
   DocSpecsSection? overview;
 
   /// Contains 1+× Actor.
-  @StandardReferences(
-    [
-      'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
-      'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
-    ],
-    'The set of actor entries defining the roles that interact with the system.',
-  )
+  @StandardReferences([
+    'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
+    'Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)',
+  ], 'The set of actor entries defining the roles that interact with the system.')
   @SectionId('ACEN-ACTO-LST')
   @SectionIdPattern('ACEN-ACTO-xxx')
   @Min(1)

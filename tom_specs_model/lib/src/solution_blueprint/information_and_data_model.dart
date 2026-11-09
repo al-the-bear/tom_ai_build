@@ -6108,9 +6108,7 @@ class MessageKeyEntry extends DocSpecsSection {
 
   /// 7.8.x. Locale Variants — one entry per non-default locale.
   @StandardReferences(
-    [
-      'Unicode CLDR / BCP 47 — locale identification and localized message data',
-    ],
+    ['Unicode CLDR / BCP 47 — locale identification and localized message data'],
     'The per-locale copy variants of this message key (the default copy is the base locale).',
   )
   @SectionId('MSGLV-LOCV-LST')

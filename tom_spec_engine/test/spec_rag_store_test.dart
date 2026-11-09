@@ -127,26 +127,22 @@ void main() {
       expect(result.edgeCount, graph.edges.length);
     }, skip: skipNoBinary);
 
-    test(
-      'recall returns the section whose text matches the query',
-      () async {
-        final memory = openMemory();
-        final graph = buildGraph();
-        final doc = await memory.openDocument(scopeFor('pd00-recall'));
-        await doc.indexDocument(graph);
+    test('recall returns the section whose text matches the query', () async {
+      final memory = openMemory();
+      final graph = buildGraph();
+      final doc = await memory.openDocument(scopeFor('pd00-recall'));
+      await doc.indexDocument(graph);
 
-        final vis = graph.nodes.firstWhere((n) => n.path == 'PD00/VIS');
-        final hits = await doc.recallSections(vis.text);
+      final vis = graph.nodes.firstWhere((n) => n.path == 'PD00/VIS');
+      final hits = await doc.recallSections(vis.text);
 
-        expect(hits, isNotEmpty);
-        expect(hits.map((h) => h.path), contains('PD00/VIS'));
-        expect(
-          hits.firstWhere((h) => h.path == 'PD00/VIS').text,
-          contains('resilient rollout platform'),
-        );
-      },
-      skip: skipNoBinary,
-    );
+      expect(hits, isNotEmpty);
+      expect(hits.map((h) => h.path), contains('PD00/VIS'));
+      expect(
+        hits.firstWhere((h) => h.path == 'PD00/VIS').text,
+        contains('resilient rollout platform'),
+      );
+    }, skip: skipNoBinary);
 
     test(
       'persisted edges round-trip: a tree edge and a mentions edge',

@@ -84,11 +84,11 @@ void main() {
         packageRoots: const ['tom_ai/ai_build/tom_fake'],
       );
 
-      expect(
-        gaps.map((g) => g.kind).toSet(),
-        {'README', 'doc folder', 'source tree'},
-        reason: 'all three set kinds must be checked, not just the first',
-      );
+      expect(gaps.map((g) => g.kind).toSet(), {
+        'README',
+        'doc folder',
+        'source tree',
+      }, reason: 'all three set kinds must be checked, not just the first');
       expect(gaps.first.toString(), contains('no default'));
     });
 

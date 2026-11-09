@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- `analyzer: ^14.7.0` (from ^14.1.0), with the embedded SDK summary rebuilt
+  on Dart 3.13 / analyzer 14.7 (analyzer 14.5 and 14.7 cannot read each
+  other's summaries; Flutter 3.47.9). A host still on an older SDK now fails
+  at resolution rather than reading a summary it cannot decode.
+- `tom_analyzer_shared: ^0.12.0` (from ^0.8.0): summaries are built with
+  Flutter's `dart:ui`, the summary cache is keyed by the analyzer's data
+  version, and a bundle is cached only when it is complete (0.12.0 fixes
+  bundles missing types when two processes filled one cache partition).
+
 ## 0.12.0
 
 - On analyzer 14: `analyzer: ^14.1.0` and `tom_analyzer_shared: ^0.8.0` (from

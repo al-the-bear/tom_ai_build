@@ -3,7 +3,7 @@
 **Quest:** tom_specs
 **Status:** The `tom_spec_engine` plane — a D4rt host with `spec` / `files` /
 `memory` scopes plus an embeddable Tom Brain memory — links **in-process** into the
-Flutter editor (`tom_forge/tom_specs_editor`); both sit on `analyzer ^10`. The
+Flutter editor (`tom_forge/tom_specs_editor`); both sit on `analyzer ^14` (§2). The
 `spec` scope exposes the controller-bound editing facade (`SpecApi`) alongside
 read-only `model` (reflection) and `search` (query/grep) globals; `files` and
 `memory` expose the audited file facade and the fused two-tier recall.
@@ -55,10 +55,12 @@ guidelines this layer briefs the model with, §11).
 | `tom_brain_procedure` (`tom_assistant/tom_brain_procedure`) | `ProcedureEngine` running sandboxed D4rt over `BridgeLibraries`; `FreeTimeScheduler` (optional). | **Host/bridge/scope pattern reused** for the multi-scope engine and the complex agent procedure (mode a); free-time **off** (req i). |
 | `tom_specs_editor` agent integration (§7 of the editor spec) | Claude Code via the **Agent SDK over the VS Code bridge**, provider abstraction in `tom_core_agentic`, MCP tools via reverse-RPC. | **Conversational substrate for both agent modes.** Mode (a) drives it directly (+ memory + procedure); mode (b) routes it through `tom_brain` (§10). |
 
-**Analyzer alignment.** `tom_d4rt` (`^1.10.1`) and `tom_dart_editor` (the embedded
-code editor the document fields use) both pin **`analyzer: ^10.0.0`**, so a single
-Flutter app resolves both. In-process D4rt is therefore the path (§3, §12): the
-engine plane links directly into the Flutter app.
+**Analyzer alignment.** `tom_d4rt` (`^1.231.1`) and `tom_dart_editor` (the
+embedded code editor the document fields use) both sit on **`analyzer ^14`**
+(`^14.5.0`), so a single Flutter app resolves both. In-process D4rt is therefore
+the path (§3, §12): the engine plane links directly into the Flutter app. Both
+need Flutter 3.47.9 (Dart 3.13), the first release whose SDK admits analyzer
+14.6 and later.
 
 ---
 
@@ -73,8 +75,9 @@ Three planes, one mutation authority:
 2. **Scripting/engine plane (pure Dart, `tom_spec_engine`).** The D4rt host, the
    scope/bridge registry, the `dcli` facade, the search index, and the RAG
    memory. Factored as its **own pure-Dart project** so it stays reusable
-   headless, but — now that `tom_d4rt` is on `analyzer ^10` (§2) — it links
-   **in-process** into the Flutter editor with no version conflict.
+   headless, but — with `tom_d4rt` and the editor on the same analyzer line
+   (§2) — it links **in-process** into the Flutter editor with no version
+   conflict.
 3. **Agent plane.** Claude Code over the VS Code bridge. New MCP tools (§8) let
    the agent author/run scripts, search, query memory, and read files. Because
    the engine is in-process, mutating tools and mutating script calls reach the
@@ -83,8 +86,8 @@ Three planes, one mutation authority:
 
 ### 3.1 Where D4rt runs — in-process
 
-- **In-process.** With `tom_d4rt` on `analyzer ^10` (matching `tom_dart_editor`),
-  the engine plane links directly into the Flutter app; D4rt calls the controller
+- **In-process.** With `tom_d4rt` on `analyzer ^14` (matching
+  `tom_dart_editor`, §2), the engine plane links directly into the Flutter app; D4rt calls the controller
   in-process and shares the change log, undo, and live `tom_som` objects with
   **zero IPC**. This also enables live d4rt-flutter rendering (editor §13).
 - **Engine factoring.** `tom_spec_engine` is a separate pure-Dart project (the
@@ -520,7 +523,7 @@ prompt, MCP surface, and scope profile bound to the running Tom Brain instance.
 | `tom_specs_editor` (Flutter) | Editor (Flutter) | Owns the document/controller/change-log/undo + UI + Agent-SDK loop; registers the §8 tools; hosts the **in-process** engine. |
 | **`tom_spec_engine`** (new, pure Dart, `tom_ai/ai_build`) | Engine | D4rt host + `ScopeRegistry` (§4) + `SpecFileFacade` (§7) + search index (§6) + RAG memory (§9, on `tom_brain_memory`) + the `AgentSubstrate` abstraction (§10). Built on the `tom_brain_procedure` host pattern; a standalone pure-Dart project (reusable headless) linked **in-process** by the editor. |
 | `tom_som_dart_runtime` / `tom_som_dart_v0` | Shared (pure Dart) | The document API exposed to D4rt (§5); generated D4rt bridges (§13.1). |
-| `tom_d4rt`, `tom_d4rt_dcli`, `tom_d4rt_generator` | Engine | Interpreter (`analyzer ^10`, `^1.10.1`), dcli source for the facade, bridge generation. |
+| `tom_d4rt`, `tom_d4rt_dcli`, `tom_d4rt_generator` | Engine | Interpreter (`analyzer ^14`, `^1.231.1`), dcli source for the facade, bridge generation (from path). |
 | `tom_brain_memory`, `tom_brain_procedure` | Engine | Memory + procedure-host reuse (§9, §10), free-time off. |
 
 The Flutter editor links `tom_spec_engine` **in-process** (§3); D4rt and the §8
@@ -566,8 +569,8 @@ The `tom_som` API satisfies three obligations this scripting layer depends on:
 
 ## 14. Settled decisions
 
-- **Hosting — in-process.** `tom_d4rt` (`^1.10.1`) and `tom_dart_editor` both sit
-  on `analyzer ^10`, so the engine links directly into the Flutter editor; D4rt
+- **Hosting — in-process.** `tom_d4rt` (`^1.231.1`) and `tom_dart_editor` both
+  sit on `analyzer ^14`, so the engine links directly into the Flutter editor; D4rt
   calls the controller in-process and shares the change log, undo, and live
   `tom_som` objects with zero IPC (§3).
 - **Agent substrate — both modes, mode (b) default.** The engine exposes a
@@ -597,7 +600,8 @@ The `tom_som` API satisfies three obligations this scripting layer depends on:
   (default `agent/scratchpad`); the `model`, `search`, and `memory` globals bridge
   no mutation path, so the `SpecDocumentController` stays the one change log
   (§4–§7).
-- **Versions.** The engine pins `tom_d4rt: ^1.10.1` and `tom_d4rt_dcli: ^1.1.6`;
+- **Versions.** The engine declares `tom_d4rt: ^1.231.1`,
+  `tom_d4rt_dcli: ">=1.1.6"` and, for its own tooling, `analyzer: ^14.1.0`;
   the embeddable Tom Brain packages (`tom_brain_memory`, `tom_brain_shared`,
   `tom_brain_substrate`) are `publish_to: none` siblings consumed by path. The
   canonical editor carries no direct D4rt / Tom Brain pins — all transitive via the

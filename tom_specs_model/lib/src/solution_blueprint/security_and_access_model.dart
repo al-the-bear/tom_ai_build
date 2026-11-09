@@ -10479,12 +10479,9 @@ simplifies administration and ensures consistent access control.
   List<RoleInheritanceRuleEntry> inheritanceRules = [];
 
   /// Contains 0+× RoleCombinationConstraint.
-  @StandardReferences(
-    [
-      'NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty',
-    ],
-    'The catalog of role combination rules that govern which roles can coexist.',
-  )
+  @StandardReferences([
+    'NIST RBAC INCITS 359-2012 — constrained RBAC and static separation of duty',
+  ], 'The catalog of role combination rules that govern which roles can coexist.')
   @SectionId('RLCMB-COMB-LST')
   @SectionIdPattern('RLCMB-COMB-xxx')
   @ContentHelp('Add one entry per role combination rule.')
@@ -12914,9 +12911,7 @@ Define how data is protected while moving over networks, both externally
 
   /// Contains 0+× CommunicationChannelEncryption.
   @StandardReferences(
-    [
-      'NIST SP 800-53 — control SC-8 transmission confidentiality and integrity',
-    ],
+    ['NIST SP 800-53 — control SC-8 transmission confidentiality and integrity'],
     'The catalog of communication channels, each with its own transport encryption requirements.',
   )
   @SectionId('COCHEN-COMM-LST')

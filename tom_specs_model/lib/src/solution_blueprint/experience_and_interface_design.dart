@@ -1414,13 +1414,10 @@ class PersonaEntry extends DocSpecsSection {
 }
 
 /// 10.1.3.n.1. Persona Goals.
-@StandardReferences(
-  [
-    'ISO 9241-11:2018 — usability is defined relative to specified users and their goals',
-    'ISO 9241-210:2019 — specify the context of use including the goals users pursue',
-  ],
-  'The set of specific goals a persona pursues that drive feature requirements.',
-)
+@StandardReferences([
+  'ISO 9241-11:2018 — usability is defined relative to specified users and their goals',
+  'ISO 9241-210:2019 — specify the context of use including the goals users pursue',
+], 'The set of specific goals a persona pursues that drive feature requirements.')
 @SectionId('PERGL')
 class PersonaGoals extends DocSpecsSection {
   @ContentHelp('''
@@ -2132,13 +2129,10 @@ Sections map to Flutter layout widgets:
 /// A screen section entry (form).
 ///
 /// A logical zone within a screen: header, toolbar, content area, sidebar, etc.
-@StandardReferences(
-  [
-    'ISO 9241-112:2017 — grouping and structuring of information into presentation zones',
-    'ISO 9241-125:2017 — spatial organisation of content within a display',
-  ],
-  'A single logical zone within a screen that groups related elements together.',
-)
+@StandardReferences([
+  'ISO 9241-112:2017 — grouping and structuring of information into presentation zones',
+  'ISO 9241-125:2017 — spatial organisation of content within a display',
+], 'A single logical zone within a screen that groups related elements together.')
 @SectionId('SCRSC')
 @CodeSpecKind(
   [CodeSpecPart.layout],
@@ -4348,13 +4342,10 @@ class NavigationGroupEntry extends DocSpecsSection {
 
   /// Badge and hierarchy settings.
   @SectionId('NGES')
-  @StandardReferences(
-    [
-      'ISO 9241-14:1997 — hierarchical menu structure organises groups into nested levels',
-      'ISO/IEC 25010:2023 — appropriateness recognisability is aided by aggregated badges on groups',
-    ],
-    'Badge aggregation and hierarchy placement settings for a navigation group.',
-  )
+  @StandardReferences([
+    'ISO 9241-14:1997 — hierarchical menu structure organises groups into nested levels',
+    'ISO/IEC 25010:2023 — appropriateness recognisability is aided by aggregated badges on groups',
+  ], 'Badge aggregation and hierarchy placement settings for a navigation group.')
   @Form([
     Field(
       'badgeType',
@@ -4557,13 +4548,10 @@ class NavigationItemEntry extends DocSpecsSection {
 
   /// Badge configuration.
   @SectionId('NIEB')
-  @StandardReferences(
-    [
-      'ISO 9241-110:2020 — self-descriptiveness is aided by badges that convey status at a glance',
-      'ISO/IEC 25010:2023 — appropriateness recognisability improves when counts and indicators are visible',
-    ],
-    'Badge configuration such as type, source, and color for a navigation item.',
-  )
+  @StandardReferences([
+    'ISO 9241-110:2020 — self-descriptiveness is aided by badges that convey status at a glance',
+    'ISO/IEC 25010:2023 — appropriateness recognisability improves when counts and indicators are visible',
+  ], 'Badge configuration such as type, source, and color for a navigation item.')
   @Form([
     Field('badgeType', String, 'Badge Type', hint: 'None/Count/Dot/Text/Icon'),
     Field(
@@ -6021,13 +6009,10 @@ class PrintAndExportLayout extends DocSpecsSection {
   DocSpecsSection? archive;
 
   /// 10.4.1. Export Formats — contains 0+× Export Format.
-  @StandardReferences(
-    [
-      'ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option',
-      'ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks',
-    ],
-    'The collection of export formats in which printed reports can be produced.',
-  )
+  @StandardReferences([
+    'ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option',
+    'ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks',
+  ], 'The collection of export formats in which printed reports can be produced.')
   @SectionId('EFE-EXPO-LST')
   @SectionIdPattern('EFE-EXPO-xxx')
   @ContentHelp('Add one entry per export format.')
@@ -6506,13 +6491,10 @@ class ReportEntry extends DocSpecsSection {
   DocSpecsSection? lifecycle;
 
   /// Contains 0+× Report Section.
-  @StandardReferences(
-    [
-      'ISO 9241-125:2017 — presentation of information groups related content in sections',
-      'ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units',
-    ],
-    'The collection of report-section entries composing the body of the report.',
-  )
+  @StandardReferences([
+    'ISO 9241-125:2017 — presentation of information groups related content in sections',
+    'ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units',
+  ], 'The collection of report-section entries composing the body of the report.')
   @SectionId('RSE-SECT-LST')
   @SectionIdPattern('RSE-SECT-xxx')
   @ContentHelp('Add one entry per report section.')
@@ -9777,13 +9759,10 @@ class SystemErrorDisplay extends DocSpecsSection {
 
   /// Error type handling configuration.
   @SectionId('SEDET')
-  @StandardReferences(
-    [
-      'ISO/IEC 25010:2023 — fault tolerance defines how each class of system fault is handled',
-      'ISO 9241-13:1998 — user guidance tailors clear feedback to each type of error condition',
-    ],
-    'The per-type handling configuration for different classes of system error.',
-  )
+  @StandardReferences([
+    'ISO/IEC 25010:2023 — fault tolerance defines how each class of system fault is handled',
+    'ISO 9241-13:1998 — user guidance tailors clear feedback to each type of error condition',
+  ], 'The per-type handling configuration for different classes of system error.')
   @Form([
     Field(
       'serverErrorHandling',
@@ -10590,14 +10569,11 @@ class UserAssistance extends DocSpecsSection {
 }
 
 /// 10.8.1. Contextual Help.
-@StandardReferences(
-  [
-    'ISO 9241-13:1998 — user guidance provides help prompts and feedback in context',
-    'ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance',
-    'ISO 9241-110:2020 — self-descriptiveness lets the interface explain itself in place',
-  ],
-  'The contextual-help configuration providing on-screen assistance in context.',
-)
+@StandardReferences([
+  'ISO 9241-13:1998 — user guidance provides help prompts and feedback in context',
+  'ISO/IEC/IEEE 26514:2022 — designs and develops embedded user assistance',
+  'ISO 9241-110:2020 — self-descriptiveness lets the interface explain itself in place',
+], 'The contextual-help configuration providing on-screen assistance in context.')
 @SectionId('COHE')
 @CodeSpecKind(
   [CodeSpecPart.text],
@@ -11153,13 +11129,10 @@ class FeatureTourEntry extends DocSpecsSection {
 }
 
 /// A tour step entry.
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 26514:2022 — presents guided assistance as ordered steps that highlight interface elements',
-    'ISO 9241-13:1998 — delivers context-sensitive prompts and guidance at each step of a task',
-  ],
-  'A single step within a guided feature tour, targeting one interface element.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 26514:2022 — presents guided assistance as ordered steps that highlight interface elements',
+  'ISO 9241-13:1998 — delivers context-sensitive prompts and guidance at each step of a task',
+], 'A single step within a guided feature tour, targeting one interface element.')
 @SectionId('TURST')
 @CodeSpecKind(
   [CodeSpecPart.text],
@@ -14786,14 +14759,11 @@ class MultiLanguageSupport extends DocSpecsSection {
 }
 
 /// Locale modeling and fallback behavior.
-@StandardReferences(
-  [
-    'W3C Internationalization / BCP 47 — language tags identify each locale and country variant',
-    'ISO 639 — language codes; ISO 3166 — country codes compose the locale identifier',
-    'ISO/IEC 25010:2023 — locale detection and fallback support portability adaptability',
-  ],
-  'The locale format, country variants, detection, and fallback-chain behavior.',
-)
+@StandardReferences([
+  'W3C Internationalization / BCP 47 — language tags identify each locale and country variant',
+  'ISO 639 — language codes; ISO 3166 — country codes compose the locale identifier',
+  'ISO/IEC 25010:2023 — locale detection and fallback support portability adaptability',
+], 'The locale format, country variants, detection, and fallback-chain behavior.')
 @SectionId('MLARLH')
 @CodeSpecKind(
   [CodeSpecPart.text],
@@ -15187,13 +15157,10 @@ class TranslationProcess extends DocSpecsSection {
 
   /// Ongoing localization operations.
   @SectionId('TRPRON')
-  @StandardReferences(
-    [
-      'ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work',
-      'ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations',
-    ],
-    'The continuous localization and translation-memory maintenance operations.',
-  )
+  @StandardReferences([
+    'ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work',
+    'ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations',
+  ], 'The continuous localization and translation-memory maintenance operations.')
   @Form([
     Field(
       'continuousLocalization',
@@ -16230,12 +16197,9 @@ class Prototype extends DocSpecsSection {
 
   /// Prototype staffing and environment.
   @SectionId('PRORES')
-  @StandardReferences(
-    [
-      'ISO 9241-210:2019 — human-centred design is resourced with appropriate people, budget, and environment',
-    ],
-    'The staffing, budget, and environment allocated to building the prototype.',
-  )
+  @StandardReferences([
+    'ISO 9241-210:2019 — human-centred design is resourced with appropriate people, budget, and environment',
+  ], 'The staffing, budget, and environment allocated to building the prototype.')
   @Form([
     Field(
       'prototypeTeam',
@@ -17091,12 +17055,9 @@ class ThrowawayPrototype extends DocSpecsSection {
 
   /// Findings and decisions captured from evaluation.
   @SectionId('THPRFI')
-  @StandardReferences(
-    [
-      'ISO 9241-210:2019 — findings and decisions from evaluation are documented to inform the design',
-    ],
-    'The findings and decisions captured from evaluating a throwaway prototype.',
-  )
+  @StandardReferences([
+    'ISO 9241-210:2019 — findings and decisions from evaluation are documented to inform the design',
+  ], 'The findings and decisions captured from evaluating a throwaway prototype.')
   @Form([
     Field(
       'findingsDocumentation',

@@ -327,11 +327,9 @@ void main() {
       for (final f in cls.fields) {
         if (f.reference != null && f.sectionId != null) {
           found.add(f.sectionId!);
-          expect(
-            f.formFields.single.refersTo,
-            [for (final t in _references[f.sectionId]!) '$t.$kSectionIdSlot'],
-            reason: '${f.sectionId} resolves against its registry',
-          );
+          expect(f.formFields.single.refersTo, [
+            for (final t in _references[f.sectionId]!) '$t.$kSectionIdSlot',
+          ], reason: '${f.sectionId} resolves against its registry');
         }
         final t = f.type ?? f.elementType;
         if (t != null) walk(t, seen);

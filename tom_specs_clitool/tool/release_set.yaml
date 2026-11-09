@@ -98,6 +98,13 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_model: >-
+    Documentation only since 1.7.3: llm_and_d4rt_tools.md states that the
+    engine and the Flutter editor are on analyzer ^14 (tom_d4rt ^1.231.1,
+    Flutter 3.47.9), and som_toolchains.md the clitool's tom_analyzer_shared
+    ^0.12.0; nine model sources and three tests are reformatted to Dart 3.13's
+    `dart format` (no change of structure: modelHash a4c5000f… stands). Ships
+    with the next release.
   tom_code_specs: >-
     Documentation only since 0.16.0: the links into tom_core_codespecs's
     documents were re-pointed when that package moved from tom_core to this
@@ -110,7 +117,10 @@ unpublished_drift:
     Ships with the next release.
   tom_specs_clitool: >-
     Since 0.12.0: tool/dartdoc_build_set.yaml lists tom_som_dart_v0, and the
-    README and doc/gates.md say so. Ships with the next release.
+    README and doc/gates.md say so; analyzer ^14.7.0 with the embedded SDK
+    summary rebuilt on Dart 3.13; tom_analyzer_shared ^0.12.0 (summaries
+    built with Flutter's dart:ui, the cache keyed by the analyzer's data
+    version, a bundle cached only complete). Ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

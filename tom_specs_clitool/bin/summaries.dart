@@ -130,14 +130,15 @@ Future<void> main(List<String> arguments) async {
   print('\nBuilding package bundle...');
   final sw = Stopwatch()..start();
   try {
-    final bundle = await GroupedPackageBundleBuilder(
-      resourceProvider: resourceProvider,
-    ).buildFromDirs(
-      packageDirs,
-      sdkPath: sdkPath,
-      embedderYamlPath: embedder,
-      onLog: print,
-    );
+    final bundle =
+        await GroupedPackageBundleBuilder(
+          resourceProvider: resourceProvider,
+        ).buildFromDirs(
+          packageDirs,
+          sdkPath: sdkPath,
+          embedderYamlPath: embedder,
+          onLog: print,
+        );
     final pkgOut = io.File(p.join(outDir, 'packages.sum'));
     pkgOut.writeAsBytesSync(bundle.bytes);
     print('Done in ${sw.elapsedMilliseconds}ms');

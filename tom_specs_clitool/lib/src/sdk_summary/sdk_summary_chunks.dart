@@ -77,6 +77,7 @@ import 'chunk_073.dart';
 import 'chunk_074.dart';
 import 'chunk_075.dart';
 import 'chunk_076.dart';
+import 'chunk_077.dart';
 
 /// The base64 slices of the bundled SDK summary, in concatenation order.
 ///
@@ -161,4 +162,5 @@ const sdkSummaryChunks = [
   sdkSummaryChunk074,
   sdkSummaryChunk075,
   sdkSummaryChunk076,
+  sdkSummaryChunk077,
 ];

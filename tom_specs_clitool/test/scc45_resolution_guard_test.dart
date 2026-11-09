@@ -27,12 +27,12 @@
 // consumer nothing. It skips when the repo root is not reachable.
 //
 // THE CACHE PROVES A VERSION WAS ON HAND, NOT THAT IT WAS ADMISSIBLE. A newer
-// release can require something no lock here can take: tom_analyzer_shared
-// 0.8.0 needs analyzer ^14, while tom_spec_engine reaches it through
-// tom_d4rt_generator, which is on analyzer ^10. Such a range is HELD BACK, with
-// the todo that lifts it, the same mechanism as tom_build's
-// `frozen_lock_guard_test.dart` and tom_d4rt_ast's `heldBackVersions`;
-// F-SCC45-5 fails once a hold no longer holds any lock back.
+// release can require something no lock here can take — typically a new
+// analyzer major that a package here still reaches an older line of through
+// another dependency. Such a range is HELD BACK, with the todo that lifts it,
+// the same mechanism as tom_build's `frozen_lock_guard_test.dart` and
+// tom_d4rt_ast's `heldBackVersions`; F-SCC45-5 fails once a hold no longer
+// holds any lock back.
 //
 // MANY GUARDS, NOT ONE. A single workspace guard would need one exception list
 // spanning a dozen repos with no owner; each repo carries its own copy with its
@@ -86,35 +86,17 @@ class _HeldBack {
 
 /// Cached versions F-SCC45-2 ignores, by package name. F-SCC45-5 fails once
 /// one no longer holds any lock back.
+///
+/// Empty is the intended resting state. Keep the map when it empties: an
+/// entry names its `owner` todo, and re-deriving the shape under time pressure
+/// is how a hold gets added without one.
 const Map<String, _HeldBack> _heldBackVersions = <String, _HeldBack>{
   'tom_analyzer_shared': _HeldBack(
-    from: '0.8.0',
-    owner:
-        'tom_specs uamtcc2_akfd-spec-engine-onto-analyzer-14 (after d4rt '
-        'vstdm3_akex-d4rt-repo-to-analyzer-14)',
+    from: '0.12.0',
+    owner: 'd4rt vstdm15_akgm-generator-analyzer-shared-caret',
     reason:
-        'tom_analyzer_shared 0.8.0 requires analyzer ^14.1, and '
-        'tom_spec_engine reaches it through tom_d4rt_generator 1.52.0 '
-        '(tom_analyzer_shared ^0.7.6) and tom_d4rt, both on analyzer ^10',
-  ),
-  'tom_d4rt': _HeldBack(
-    from: '1.230.0',
-    owner:
-        'tom_specs uamtcc2_akfd-spec-engine-onto-analyzer-14 (after d4rt '
-        'vstdm3_akex-d4rt-repo-to-analyzer-14)',
-    reason:
-        'tom_d4rt 1.230.0 requires analyzer ^14.5, and tom_spec_engine pins '
-        'analyzer <11 and reaches tom_d4rt through tom_d4rt_generator 1.52.0, '
-        'on analyzer ^10',
-  ),
-  'tom_d4rt_dcli': _HeldBack(
-    from: '1.12.0',
-    owner:
-        'tom_specs uamtcc2_akfd-spec-engine-onto-analyzer-14 (after d4rt '
-        'vstdm3_akex-d4rt-repo-to-analyzer-14)',
-    reason:
-        'tom_d4rt_dcli 1.12.0 requires tom_d4rt ^1.230.0, which is held back '
-        'above (analyzer ^14.5)',
+        'tom_spec_engine takes tom_analyzer_shared only through its path '
+        'dev-dependency tom_d4rt_generator, which declares ^0.11.0',
   ),
 };
 

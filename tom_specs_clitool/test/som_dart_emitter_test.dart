@@ -211,18 +211,16 @@ void main() {
       expect(source, golden.readAsStringSync());
     });
 
-    test(
-      'the generated library analyzes clean (no analyzer errors)',
-      () async {
-        final source = SomDartEmitter(_fixtureModel()).generateLibrary();
-        final dir = await Directory.systemTemp.createTemp('som_emit_');
-        try {
-          // A throwaway package that depends on the runtime by absolute path so
-          // `dart analyze` can resolve the generated facade's imports.
-          final runtimePath = p.normalize(
-            p.join(Directory.current.path, '..', 'tom_som_dart_runtime'),
-          );
-          File(p.join(dir.path, 'pubspec.yaml')).writeAsStringSync('''
+    test('the generated library analyzes clean (no analyzer errors)', () async {
+      final source = SomDartEmitter(_fixtureModel()).generateLibrary();
+      final dir = await Directory.systemTemp.createTemp('som_emit_');
+      try {
+        // A throwaway package that depends on the runtime by absolute path so
+        // `dart analyze` can resolve the generated facade's imports.
+        final runtimePath = p.normalize(
+          p.join(Directory.current.path, '..', 'tom_som_dart_runtime'),
+        );
+        File(p.join(dir.path, 'pubspec.yaml')).writeAsStringSync('''
 name: som_emit_check
 publish_to: none
 environment:
@@ -231,42 +229,36 @@ dependencies:
   tom_som_dart_runtime:
     path: $runtimePath
 ''');
-          final libDir = Directory(p.join(dir.path, 'lib'))..createSync();
-          // The facade exports its sibling meta library (SOM §8), so write both —
-          // the export in the facade is by the committed package file name.
-          File(
-            p.join(libDir.path, 'tom_som_dart_v0.dart'),
-          ).writeAsStringSync(source);
-          File(
-            p.join(libDir.path, 'tom_som_dart_v0_meta.dart'),
-          ).writeAsStringSync(
-            SomDartMetaEmitter(_fixtureModel()).generateLibrary(),
-          );
-          final pubGet = await Process.run('dart', [
-            'pub',
-            'get',
-          ], workingDirectory: dir.path);
-          expect(
-            pubGet.exitCode,
-            0,
-            reason: 'pub get failed:\n${pubGet.stderr}',
-          );
-          final analyze = await Process.run('dart', [
-            'analyze',
-            '--no-fatal-warnings',
-          ], workingDirectory: dir.path);
-          expect(
-            analyze.exitCode,
-            0,
-            reason:
-                'analyzer reported issues:\n${analyze.stdout}\n${analyze.stderr}',
-          );
-        } finally {
-          dir.deleteSync(recursive: true);
-        }
-      },
-      timeout: const Timeout(Duration(minutes: 2)),
-    );
+        final libDir = Directory(p.join(dir.path, 'lib'))..createSync();
+        // The facade exports its sibling meta library (SOM §8), so write both —
+        // the export in the facade is by the committed package file name.
+        File(
+          p.join(libDir.path, 'tom_som_dart_v0.dart'),
+        ).writeAsStringSync(source);
+        File(
+          p.join(libDir.path, 'tom_som_dart_v0_meta.dart'),
+        ).writeAsStringSync(
+          SomDartMetaEmitter(_fixtureModel()).generateLibrary(),
+        );
+        final pubGet = await Process.run('dart', [
+          'pub',
+          'get',
+        ], workingDirectory: dir.path);
+        expect(pubGet.exitCode, 0, reason: 'pub get failed:\n${pubGet.stderr}');
+        final analyze = await Process.run('dart', [
+          'analyze',
+          '--no-fatal-warnings',
+        ], workingDirectory: dir.path);
+        expect(
+          analyze.exitCode,
+          0,
+          reason:
+              'analyzer reported issues:\n${analyze.stdout}\n${analyze.stderr}',
+        );
+      } finally {
+        dir.deleteSync(recursive: true);
+      }
+    }, timeout: const Timeout(Duration(minutes: 2)));
 
     test(
       'a typed mutation is visible through the generic path and vice-versa',

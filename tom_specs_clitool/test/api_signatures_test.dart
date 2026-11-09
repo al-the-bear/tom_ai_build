@@ -35,25 +35,21 @@ void main() {
     });
 
     for (final e in set.entries) {
-      test(
-        'APISIG-2: ${p.basename(e.package)} quotes the code',
-        () async {
-          final dir = p.join(_containerRoot(), e.package);
-          final report = await checkApiSignatures(
-            packageDir: dir,
-            docDir: p.join(dir, e.docs),
-          );
-          expect(report.faults, isEmpty);
-          // A package whose fences all read as samples would pass having
-          // compared nothing.
-          expect(
-            report.members,
-            greaterThan(0),
-            reason: '${e.package} compared no quoted member',
-          );
-        },
-        timeout: const Timeout(Duration(minutes: 3)),
-      );
+      test('APISIG-2: ${p.basename(e.package)} quotes the code', () async {
+        final dir = p.join(_containerRoot(), e.package);
+        final report = await checkApiSignatures(
+          packageDir: dir,
+          docDir: p.join(dir, e.docs),
+        );
+        expect(report.faults, isEmpty);
+        // A package whose fences all read as samples would pass having
+        // compared nothing.
+        expect(
+          report.members,
+          greaterThan(0),
+          reason: '${e.package} compared no quoted member',
+        );
+      }, timeout: const Timeout(Duration(minutes: 3)));
     }
   });
 
@@ -81,19 +77,15 @@ void main() {
       return report.faults;
     }
 
-    test(
-      'APISIG-3: a parameter quoted with the wrong type',
-      () async {
-        final faults = await mutated(
-          'tom_specs_core',
-          'api_summary_annotations.md',
-          '  String name,\n',
-          '  int name,\n',
-        );
-        expect(faults, [contains('is `String`, quoted as `int`')]);
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    test('APISIG-3: a parameter quoted with the wrong type', () async {
+      final faults = await mutated(
+        'tom_specs_core',
+        'api_summary_annotations.md',
+        '  String name,\n',
+        '  int name,\n',
+      );
+      expect(faults, [contains('is `String`, quoted as `int`')]);
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     test('APISIG-4: a named parameter the code does not have, and the one it '
         'replaced', () async {
@@ -112,19 +104,15 @@ void main() {
       );
     }, timeout: const Timeout(Duration(minutes: 3)));
 
-    test(
-      'APISIG-5: a const constructor quoted without const',
-      () async {
-        final faults = await mutated(
-          'tom_code_specs',
-          'api_summary_annotations.md',
-          'const CsWidget({this.note});',
-          'CsWidget({this.note});',
-        );
-        expect(faults, [contains('is const, quoted without it')]);
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    test('APISIG-5: a const constructor quoted without const', () async {
+      final faults = await mutated(
+        'tom_code_specs',
+        'api_summary_annotations.md',
+        'const CsWidget({this.note});',
+        'CsWidget({this.note});',
+      );
+      expect(faults, [contains('is const, quoted without it')]);
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     test(
       'APISIG-6: a fence cut off before its closing `})` does not parse',
@@ -140,18 +128,14 @@ void main() {
       timeout: const Timeout(Duration(minutes: 3)),
     );
 
-    test(
-      'APISIG-7: a type the package does not make public',
-      () async {
-        final faults = await mutated(
-          'tom_code_specs',
-          'api_summary_annotations.md',
-          'const CsWidget({this.note});',
-          'const CsNotAType({this.note});',
-        );
-        expect(faults, [contains('`CsNotAType` is not a type')]);
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    test('APISIG-7: a type the package does not make public', () async {
+      final faults = await mutated(
+        'tom_code_specs',
+        'api_summary_annotations.md',
+        'const CsWidget({this.note});',
+        'const CsNotAType({this.note});',
+      );
+      expect(faults, [contains('`CsNotAType` is not a type')]);
+    }, timeout: const Timeout(Duration(minutes: 3)));
   });
 }

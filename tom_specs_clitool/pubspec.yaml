@@ -9,7 +9,7 @@ environment:
   sdk: ^3.11.4
 
 dependencies:
-  analyzer: ^14.1.0
+  analyzer: ^14.7.0
   args: ^2.6.0
   # The model-freshness fingerprint (lib/src/model_freshness.dart). Declared
   # explicitly rather than leaned on as an analyzer transitive.
@@ -30,7 +30,7 @@ dependencies:
   # 0.9.1: grouped bundles link against the SDK with Flutter's embedder
   # (dart:ui), and the embedder lookups this CLI builds the SDK summary with.
   # 0.10.0: the summary cache keyed by the analyzer's data version.
-  tom_analyzer_shared: ^0.10.0
+  tom_analyzer_shared: ^0.12.0
   # Co-developed release-set siblings, resolved by path locally via
   # pubspec_overrides.yaml (excluded from publish); the published package uses
   # these hosted constraints.

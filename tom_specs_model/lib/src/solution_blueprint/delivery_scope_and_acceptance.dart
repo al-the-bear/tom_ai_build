@@ -636,13 +636,10 @@ Each criterion must be:
   String? content;
 
   /// Contains 0+× DeliveryAcceptanceCriterion.
-  @StandardReferences(
-    [
-      'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-criteria and test-item structures',
-      'IEEE 829-2008 — the standard for software and system test documentation defines the list of acceptance criteria in the acceptance-test plan',
-    ],
-    'Lists the individual acceptance criteria that delivered work must satisfy.',
-  )
+  @StandardReferences([
+    'ISO/IEC/IEEE 29119 2022 — the software testing standard defines the acceptance-criteria and test-item structures',
+    'IEEE 829-2008 — the standard for software and system test documentation defines the list of acceptance criteria in the acceptance-test plan',
+  ], 'Lists the individual acceptance criteria that delivered work must satisfy.')
   @SectionId('DACEN-ITEM-LST')
   @SectionIdPattern('DACEN-ITEM-xxx')
   @ContentHelp('Add one entry per acceptance criterion.')

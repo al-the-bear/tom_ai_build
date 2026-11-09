@@ -827,11 +827,10 @@ void main() {
         channelsByTypeId: {'order.shipped': <String>[]},
       );
       expect(shipped().channelsFor(prefs), isEmpty);
-      expect(
-        shipped().channelsFor(TomNotificationPreferences()),
-        ['email', 'push'],
-        reason: 'no entry at all falls back to the declared defaults',
-      );
+      expect(shipped().channelsFor(TomNotificationPreferences()), [
+        'email',
+        'push',
+      ], reason: 'no entry at all falls back to the declared defaults');
     });
 
     test('a selection cannot drop a mandatory channel', () {
@@ -898,11 +897,9 @@ void main() {
     // The whole CE-NT resolution in one call: type constraints, then user
     // preference, then the channel's own urgency ceiling.
     test('delivery filters out channels that cannot carry the urgency', () {
-      expect(
-        catalog().deliveryChannelsFor('order.shipped', null),
-        ['email'],
-        reason: 'sms only carries critical; the type is medium',
-      );
+      expect(catalog().deliveryChannelsFor('order.shipped', null), [
+        'email',
+      ], reason: 'sms only carries critical; the type is medium');
     });
 
     test('a critical type reaches the restricted channel', () {

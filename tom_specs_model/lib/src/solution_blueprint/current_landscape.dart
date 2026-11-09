@@ -944,9 +944,7 @@ class ExternalServiceDependencyEntry extends DocSpecsSection {
   /// Internal dependency and contract details.
   @SectionId('EXSRL')
   @StandardReferences(
-    [
-      'BABOK v3 §10 — current-state analysis (external dependency relationship)',
-    ],
+    ['BABOK v3 §10 — current-state analysis (external dependency relationship)'],
     'The relationship and contract facts for one external-service dependency: '
     'which systems depend on it, its criticality, and contract status.',
   )
@@ -2298,9 +2296,7 @@ class CurrentBusinessProcess extends DocSpecsSection {
 
 /// Process-specific pain points and improvement opportunities.
 @StandardReferences(
-  [
-    'BABOK v3 §10 — current-state analysis (process problems and opportunities)',
-  ],
+  ['BABOK v3 §10 — current-state analysis (process problems and opportunities)'],
   'The known issues, inefficiencies, and improvement opportunities specific to '
   'one process in its current state.',
 )
@@ -3611,9 +3607,7 @@ and technical capabilities. Highlight interdependencies between pain points.
 /// Problems that affect day-to-day operations: downtime, slow response,
 /// data inconsistencies, manual workarounds, and process interruptions.
 @StandardReferences(
-  [
-    'BABOK v3 §10 — current-state analysis (operational performance shortfalls)',
-  ],
+  ['BABOK v3 §10 — current-state analysis (operational performance shortfalls)'],
   'Day-to-day operational problems in the current state — downtime, manual '
   'workarounds, and data inconsistencies that disrupt routine work.',
 )

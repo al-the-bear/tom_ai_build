@@ -24,29 +24,25 @@ void main() {
   });
 
   group('doc-coverage gate', () {
-    test(
-      'every measured package is at or above its floor',
-      () async {
-        final report = await checkDocCoverage(
-          manifest: manifest,
-          containerRoot: containerRoot,
-        );
-        expect(
-          report.violations.map((v) => v.toString()),
-          isEmpty,
-          reason:
-              'raise the missing documentation, or — if a package was '
-              'deliberately narrowed — lower nothing and say so in the '
-              'manifest header',
-        );
-        expect(
-          report.results,
-          isNotEmpty,
-          reason: 'a walk that measured nothing is not a passing gate',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    test('every measured package is at or above its floor', () async {
+      final report = await checkDocCoverage(
+        manifest: manifest,
+        containerRoot: containerRoot,
+      );
+      expect(
+        report.violations.map((v) => v.toString()),
+        isEmpty,
+        reason:
+            'raise the missing documentation, or — if a package was '
+            'deliberately narrowed — lower nothing and say so in the '
+            'manifest header',
+      );
+      expect(
+        report.results,
+        isNotEmpty,
+        reason: 'a walk that measured nothing is not a passing gate',
+      );
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     test('the manifest carries the §5 target beside every floor', () {
       for (final e in manifest.entries) {
@@ -70,61 +66,49 @@ void main() {
   });
 
   group('membership', () {
-    test(
-      'an exempt package may not carry a threshold',
-      () async {
-        final poisoned = DocCoverageManifest(
-          entries: [
-            ...manifest.entries,
-            DocCoverageEntry(path: manifest.exempt.first, floor: 0, target: 95),
-          ],
-          exempt: manifest.exempt,
-          excluded: manifest.excluded,
-        );
-        final report = await checkDocCoverage(
-          manifest: poisoned,
-          containerRoot: containerRoot,
-        );
-        expect(
-          report.violations.map((v) => v.package),
-          contains(manifest.exempt.first),
-          reason:
-              'a generated package with a threshold blames the wrong '
-              'artifact for an emitter bug',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    test('an exempt package may not carry a threshold', () async {
+      final poisoned = DocCoverageManifest(
+        entries: [
+          ...manifest.entries,
+          DocCoverageEntry(path: manifest.exempt.first, floor: 0, target: 95),
+        ],
+        exempt: manifest.exempt,
+        excluded: manifest.excluded,
+      );
+      final report = await checkDocCoverage(
+        manifest: poisoned,
+        containerRoot: containerRoot,
+      );
+      expect(
+        report.violations.map((v) => v.package),
+        contains(manifest.exempt.first),
+        reason:
+            'a generated package with a threshold blames the wrong '
+            'artifact for an emitter bug',
+      );
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
-    test(
-      'an excluded package may not carry a threshold',
-      () async {
-        final poisoned = DocCoverageManifest(
-          entries: [
-            ...manifest.entries,
-            DocCoverageEntry(
-              path: manifest.excluded.first,
-              floor: 0,
-              target: 95,
-            ),
-          ],
-          exempt: manifest.exempt,
-          excluded: manifest.excluded,
-        );
-        final report = await checkDocCoverage(
-          manifest: poisoned,
-          containerRoot: containerRoot,
-        );
-        expect(
-          report.violations.map((v) => v.package),
-          contains(manifest.excluded.first),
-          reason:
-              'an excluded package present at 0% reads as a standing debt, '
-              'which is exactly what §6 decided it is not',
-        );
-      },
-      timeout: const Timeout(Duration(minutes: 3)),
-    );
+    test('an excluded package may not carry a threshold', () async {
+      final poisoned = DocCoverageManifest(
+        entries: [
+          ...manifest.entries,
+          DocCoverageEntry(path: manifest.excluded.first, floor: 0, target: 95),
+        ],
+        exempt: manifest.exempt,
+        excluded: manifest.excluded,
+      );
+      final report = await checkDocCoverage(
+        manifest: poisoned,
+        containerRoot: containerRoot,
+      );
+      expect(
+        report.violations.map((v) => v.package),
+        contains(manifest.excluded.first),
+        reason:
+            'an excluded package present at 0% reads as a standing debt, '
+            'which is exactly what §6 decided it is not',
+      );
+    }, timeout: const Timeout(Duration(minutes: 3)));
 
     test('the nine generated facades are all exempt', () {
       expect(

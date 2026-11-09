@@ -12102,9 +12102,7 @@ class SystemTechnicalAssessment extends DocSpecsSection {
   /// Technical quality indicators.
   @SectionId('STAQ')
   @StandardReferences(
-    [
-      'ISO/IEC 25010 — product quality (maintainability, performance, security)',
-    ],
+    ['ISO/IEC 25010 — product quality (maintainability, performance, security)'],
     'Captures technical-debt, performance, scalability, maintainability, and '
     'documentation quality indicators that justify replacement.',
   )
@@ -12167,9 +12165,7 @@ class SystemTechnicalAssessment extends DocSpecsSection {
 
   /// Security vulnerabilities and compliance gaps.
   @StandardReferences(
-    [
-      'ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)',
-    ],
+    ['ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)'],
     'Lists security vulnerabilities and compliance gaps in the system that '
     'raise replacement urgency and shape migration controls.',
   )

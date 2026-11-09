@@ -118,42 +118,37 @@ void main() {
   );
 
   group('SpecRecall (fused over a real vector tier)', () {
-    test(
-      'a section is surfaced by both the lexical and vector modes',
-      () async {
-        final memory = openMemory();
-        final f = fixture();
-        final mem = await memory.openDocument(scopeFor('fused'));
-        final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
-        await mem.indexDocument(graph);
+    test('a section is surfaced by both the lexical and vector modes', () async {
+      final memory = openMemory();
+      final f = fixture();
+      final mem = await memory.openDocument(scopeFor('fused'));
+      final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
+      await mem.indexDocument(graph);
 
-        final index = StructuralLexicalIndex()
-          ..rebuild(f.engine.projectNodes());
-        final recall = SpecRecall(
-          index: index,
-          vectorRecall: (query, {k = 10}) => mem.recallSections(query, k: k),
-          graph: graph,
-        );
+      final index = StructuralLexicalIndex()..rebuild(f.engine.projectNodes());
+      final recall = SpecRecall(
+        index: index,
+        vectorRecall: (query, {k = 10}) => mem.recallSections(query, k: k),
+        graph: graph,
+      );
 
-        // The query is VIS's exact text, so the deterministic embedder makes VIS
-        // the top vector hit; it also matches "platform"/"rollout" lexically.
-        final result = await recall.recall(
-          const SpecRecallQuery(text: 'resilient rollout platform'),
-        );
+      // The query is VIS's exact text, so the deterministic embedder makes VIS
+      // the top vector hit; it also matches "platform"/"rollout" lexically.
+      final result = await recall.recall(
+        const SpecRecallQuery(text: 'resilient rollout platform'),
+      );
 
-        expect(result.tier2Warm, isTrue);
-        expect(result.degraded, isFalse);
-        final vis = result.hits.firstWhere((h) => h.path == 'PD00/VIS');
-        expect(
-          vis.modes,
-          containsAll(<SpecRecallMode>{
-            SpecRecallMode.lexical,
-            SpecRecallMode.vector,
-          }),
-        );
-      },
-      skip: skipNoBinary,
-    );
+      expect(result.tier2Warm, isTrue);
+      expect(result.degraded, isFalse);
+      final vis = result.hits.firstWhere((h) => h.path == 'PD00/VIS');
+      expect(
+        vis.modes,
+        containsAll(<SpecRecallMode>{
+          SpecRecallMode.lexical,
+          SpecRecallMode.vector,
+        }),
+      );
+    }, skip: skipNoBinary);
   });
 
   group('indexChangedSections (embed changed only)', () {
@@ -193,27 +188,23 @@ void main() {
       );
     }, skip: skipNoBinary);
 
-    test(
-      'a removed section is forgotten and stops being recalled',
-      () async {
-        final memory = openMemory();
-        final f = fixture();
-        final mem = await memory.openDocument(scopeFor('removal'));
-        final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
-        await mem.indexDocument(graph);
+    test('a removed section is forgotten and stops being recalled', () async {
+      final memory = openMemory();
+      final f = fixture();
+      final mem = await memory.openDocument(scopeFor('removal'));
+      final graph = SpecRagGraph.fromProjections(f.engine.projectNodes());
+      await mem.indexDocument(graph);
 
-        final result = await mem.indexChangedSections(
-          graph,
-          removedPaths: const ['PD00/SIT/DET'],
-        );
-        expect(result.removed, 1);
+      final result = await mem.indexChangedSections(
+        graph,
+        removedPaths: const ['PD00/SIT/DET'],
+      );
+      expect(result.removed, 1);
 
-        final hits = await mem.recallSections('current situation analysis');
-        expect(hits.map((h) => h.path), isNot(contains('PD00/SIT/DET')));
-        expect(await mem.edgesFrom('PD00/SIT/DET'), isEmpty);
-      },
-      skip: skipNoBinary,
-    );
+      final hits = await mem.recallSections('current situation analysis');
+      expect(hits.map((h) => h.path), isNot(contains('PD00/SIT/DET')));
+      expect(await mem.edgesFrom('PD00/SIT/DET'), isEmpty);
+    }, skip: skipNoBinary);
 
     test('re-running with no real changes embeds nothing', () async {
       final memory = openMemory();
