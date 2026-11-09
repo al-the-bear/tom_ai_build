@@ -518,7 +518,10 @@ and deployed for testing.
    against the `RSP` and `ATS` numbers
 7. **Derive user documentation** from the CodeSpecs configuration and
    preferences surfaces
-8. **Obtain acceptance sign-off** from the business
+8. **Verify the documentation** against the release before G7: every
+   procedure walked against the deployed candidate, every sample run as a
+   test, every link checked, and a reading review by the quality role
+9. **Obtain acceptance sign-off** from the business
 
 **Output.** A tested Application Candidate, a completed QAP result set, business
 acceptance documentation, and user/administrator documentation.
@@ -611,6 +614,14 @@ work returns to the current phase for rework.
 cheap. A gate that never fails is not evidence of quality — it is evidence that
 the criteria are too weak.
 
+**Risk review.** The risk register (`SBP` INSC > RIANAS) is reviewed at every
+gate, and again whenever a dependency of the assumptions, constraints and
+dependencies register (`SBP` ACDP > ACRG) changes state. The steps where
+dependencies move say so: the Phase 2 and 3 iterations, CodeSpecs Stages B and C,
+the Phase 6 build order and the Phase 8 rollout. Every gate checks that the review
+took place and records what changed since the previous gate (criterion *Risk
+register reviewed*).
+
 **Rework scope.** A failed gate returns work to the **current** phase. When the
 root cause lies in an **earlier** phase, the process re-enters that phase
 instead — see [PF-ITR-REE](#pf-itr-ree-phase-re-entry).
@@ -694,6 +705,7 @@ Two families of measure run continuously alongside the gates:
 | Rough scope stated | Content check | In-scope and out-of-scope boundaries are sketched |
 | Sources recorded | Content check | The material the idea was drawn from is listed and retrievable |
 | No blocking clarifications | Clarification check | No open items in `_ai/clarifications/` that prevent Blueprint work |
+| Risk register reviewed | Risk review | The risks known so far are listed in the PI with what would trigger each, or the PI states that none is known |
 
 ### PF-GAT-G2 G2 — Solution Blueprint Complete
 
@@ -711,6 +723,7 @@ Two families of measure run continuously alongside the gates:
 | Architecture decisions recorded | Content check | Key technology and pattern decisions are stated with rationale |
 | Delivery roadmap drafted | Content check | Initial phase structure with goals and gate criteria |
 | Business review recorded | Sign-off check | The business review of the Blueprint is documented |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 **Why this gate is heavy.** Twelve documents are derived from this one. Every
 defect that survives G2 is multiplied by the Phase-3 expansion.
@@ -731,6 +744,7 @@ defect that survives G2 is multiplied by the Phase-3 expansion.
 | Roadmap phases fully defined | Content check | Every `DRM` phase has goals, deliverables and gate criteria |
 | Acceptance plan complete | Content check | `QAP` defines the acceptance scenarios and their pass criteria |
 | Cross-document consistency | Consistency check | No contradictions between related sections |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 **Consistency check.** A dedicated agent compares related sections across
 documents and reports four classes of defect:
@@ -768,6 +782,7 @@ documents and reports four classes of defect:
 | Protocol bindings resolve | `validate_codespecs.dart` (checks 38, 39) | Every `@CsOperationBinding` names an operation the trio declares; no two bindings share a method and a route; every path capture is mapped (`codespecs_mapping.md` §5.30) |
 | Feature hooks complete | `validate_codespecs.dart` (check 40) | Every required hook of every enabled framework protocol feature is implemented exactly once, and no hook implements a contract tom_core does not ship |
 | No protocol endpoint re-declared | `validate_codespecs.dart` (check 41) | No binding declares a route under a path the framework reserves for a protocol feature |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 The four rows from *Trio is self-sufficient* to *Output is determined, not preferred* are what PF-PHA-P4's two-pass production model makes checkable:
 pass 1 is verified by comparing extracts against their source, pass 2 by the
@@ -790,6 +805,7 @@ validator and by the determinism the derivation contract obliges it to.
 | Conventions followed | Standards agent | Test file naming, grouping and ID conventions are met |
 | No redundant coverage | Redundancy check | Tests do not unnecessarily overlap |
 | Baseline recorded | Baseline check | A test baseline exists for Phase 6 comparison |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 ### PF-GAT-G6 G6 — Implementation Complete
 
@@ -810,6 +826,7 @@ The most comprehensive gate — it evaluates the actual code.
 | Documentation synced | Doc sync agent | No doc–code drift |
 | No untracked markers | Pattern scan | 0 untracked TODO / FIXME |
 | Coverage adequate | Coverage analysis | Line coverage above the project threshold (default 80%) |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 **Execution order.** The orchestrator runs the checks fast-failure-first —
 static analysis, tests, security audit, code review passes, traceability, doc
@@ -835,8 +852,10 @@ business logic can still leak data or bypass a rule.
 | Non-functional targets met | Performance test agent | Every `RSP` / `ATS` benchmark within target |
 | Operability verified | Operations review | Monitoring, logging and support procedures are in place and usable |
 | Documentation complete | Content check | User and administrator documentation exists and matches the delivered system |
+| Documentation verified | Documentation walk-through | Every procedure walked against the release, every sample run as a test, every link resolves, and the quality role's reading review is recorded |
 | Open defects acceptable | Defect review | No open critical or high defect; remaining defects explicitly accepted |
 | Human sign-off recorded | File check | A signed acceptance record exists |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 **This is the only gate where human sign-off is a hard requirement.** The agents
 assemble the evidence and recommend; the business decides.
@@ -856,6 +875,7 @@ assemble the evidence and recommend; the business decides.
 | Tenant isolation verified *(multi-tenant only)* | Isolation test | All isolation tests pass |
 | Provisioning verified *(multi-tenant only)* | Provisioning test | Sample subscriber provisioned and onboarded end to end |
 | Quota enforcement verified *(multi-tenant only)* | SQM test | Plan quotas, user limits and feature toggles enforce correctly |
+| Risk register reviewed | Risk review | The register is reviewed and records what changed since the previous gate; every dependency that changed state has its risks re-assessed |
 
 ### PF-GAT-CHK Gate Checklists
 

@@ -6,7 +6,7 @@
 formatVersion: 1
 gate: G1
 title: Project Idea Captured
-checklistVersion: 1.0.0
+checklistVersion: 1.1.0
 criteria: tom_specs_project_flow.md §PF-GAT-G1
 document: PI
 items:
@@ -59,3 +59,10 @@ items:
     how: The project's clarification files.
     evidence: The open clarifications and whether each blocks Phase 2.
     pass: None blocks Phase 2.
+  - id: G1-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risks known so far are listed, each with what would trigger it; the Blueprint's risk register (SBP/INSC/RIANAS) starts from them.
+    method: reading
+    how: The risks part of the Project Idea, and the dependencies it names (systems, teams, vendors, decisions the project waits on).
+    evidence: The risks found with their triggers, and the dependencies found.
+    pass: Every risk the Project Idea mentions is listed with a trigger, or the Project Idea states that none is known.

@@ -9,7 +9,7 @@
 formatVersion: 1
 gate: G5
 title: Test Suite Derived
-checklistVersion: 1.0.0
+checklistVersion: 1.1.0
 criteria: tom_specs_project_flow.md §PF-GAT-G5
 document: the derived test suite, the CodeSpecs trio and RSP, IIS, SAS, QAP
 items:
@@ -91,3 +91,10 @@ items:
     how: testkit :baseline in each test project, then copy testlog/baseline_<stamp>.csv into the gate report's evidence folder (testlog/ is gitignored).
     evidence: The copied baseline files.
     pass: One baseline per test project in the evidence folder.
+  - id: G5-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risk register was reviewed for this gate, and the risks of every dependency that changed state since G4 were re-assessed.
+    method: reading
+    how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status now and as G4's gate report recorded it, and the risks that name the dependency or its subject.
+    evidence: The review record — the risks added, changed and closed since G4, each dependency that changed state with the risks re-assessed for it, or "no change".
+    pass: The review is recorded, and no dependency that changed state is left without a re-assessment of its risks.

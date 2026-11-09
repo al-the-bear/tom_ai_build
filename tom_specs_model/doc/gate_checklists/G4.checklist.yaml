@@ -8,7 +8,7 @@
 formatVersion: 1
 gate: G4
 title: CodeSpecs Complete
-checklistVersion: 1.0.0
+checklistVersion: 1.1.0
 criteria: tom_specs_project_flow.md §PF-GAT-G4
 document: the CodeSpecs trio, its extracts and the specification document
 items:
@@ -166,3 +166,10 @@ items:
     how: Check 41 of G4-VAL-1.
     evidence: Check 41.
     pass: Check 41 passes.
+  - id: G4-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risk register was reviewed for this gate, and the risks of every dependency that changed state since G3 were re-assessed.
+    method: reading
+    how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status now and as G3's gate report recorded it, and the risks that name the dependency or its subject.
+    evidence: The review record — the risks added, changed and closed since G3, each dependency that changed state with the risks re-assessed for it, or "no change".
+    pass: The review is recorded, and no dependency that changed state is left without a re-assessment of its risks.

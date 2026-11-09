@@ -9,7 +9,7 @@
 formatVersion: 1
 gate: G8
 title: Release Readiness
-checklistVersion: 1.0.0
+checklistVersion: 1.1.0
 criteria: tom_specs_project_flow.md §PF-GAT-G8
 document: the release candidate, its deployment configuration and TRP
 items:
@@ -79,3 +79,10 @@ items:
     evidence: The SQM test results, or the multiTenant parameter.
     pass: Every quota, limit and toggle enforces, or multiTenant is false.
     parameters: [multiTenant]
+  - id: G8-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risk register was reviewed for this gate, and the risks of every dependency that changed state since G7 were re-assessed.
+    method: reading
+    how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status now and as G7's gate report recorded it, and the risks that name the dependency or its subject.
+    evidence: The review record — the risks added, changed and closed since G7, each dependency that changed state with the risks re-assessed for it, or "no change".
+    pass: The review is recorded, and no dependency that changed state is left without a re-assessment of its risks.

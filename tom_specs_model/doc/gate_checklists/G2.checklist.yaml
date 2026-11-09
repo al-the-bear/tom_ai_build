@@ -10,7 +10,7 @@
 formatVersion: 1
 gate: G2
 title: Solution Blueprint Complete
-checklistVersion: 1.0.0
+checklistVersion: 1.1.0
 criteria: tom_specs_project_flow.md §PF-GAT-G2
 document: SBP
 items:
@@ -231,3 +231,10 @@ items:
     how: The project's clarification register.
     evidence: The open questions and, for each, whether it blocks Phase 3.
     pass: No open question marked as blocking Phase 3.
+  - id: G2-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risk register exists and was reviewed for this gate — it carries the Project Idea's risks, and every risk names the dependencies it rests on.
+    method: reading
+    how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against the Project Idea's risks (G1-RISK-1) and SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status and the risks that name it.
+    evidence: The review record — the risks taken over from the Project Idea, the risks added in Phase 2, each dependency with a status other than Confirmed or Resolved and its risks.
+    pass: The review is recorded; every Project Idea risk is in the register or closed with a reason; every Blocking or At-risk dependency has a risk.

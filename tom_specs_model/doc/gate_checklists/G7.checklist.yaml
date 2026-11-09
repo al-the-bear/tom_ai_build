@@ -8,7 +8,7 @@
 formatVersion: 1
 gate: G7
 title: Business Acceptance Complete
-checklistVersion: 1.0.0
+checklistVersion: 1.1.0
 criteria: tom_specs_project_flow.md §PF-GAT-G7
 document: the application candidate in its acceptance environment
 items:
@@ -55,6 +55,34 @@ items:
     how: Read the documentation against the delivered system's screens, operations and configuration.
     evidence: Every gap or mismatch.
     pass: None.
+  - id: G7-DOCV-1
+    criterion: Documentation verified
+    inspect: Every procedure of the user and administrator documentation works on the release as written.
+    method: reading
+    how: Walk each procedure step by step on the Application Candidate in its acceptance environment, doing exactly what the text says.
+    evidence: Each procedure with its result, and every step that failed or needed knowledge the text does not give.
+    pass: Every procedure completes as written.
+  - id: G7-DOCV-2
+    criterion: Documentation verified
+    inspect: Every sample and example the documentation shows runs against the release and gives the output it states.
+    method: tool
+    how: The project's documentation sample run, executing each sample as a test against the Application Candidate.
+    evidence: The run's result per sample.
+    pass: Every sample passes.
+  - id: G7-DOCV-3
+    criterion: Documentation verified
+    inspect: Every link in the documentation resolves — to a page, a heading anchor or a file that exists.
+    method: tool
+    how: The project's link check over the documentation set.
+    evidence: Every broken link with its source.
+    pass: None.
+  - id: G7-DOCV-4
+    criterion: Documentation verified
+    inspect: The quality role has read the documentation as its reader would and recorded the review.
+    method: reading
+    how: A reading review by the quality role (spec_quality_manager in the tom_specs process) of the whole documentation set — clarity, completeness for its audience, terminology consistent with the delivered system.
+    evidence: The review record with every finding and how each was resolved.
+    pass: The review is recorded and no finding is left open.
   - id: G7-DEF-1
     criterion: Open defects acceptable
     inspect: No open critical or high defect; every remaining defect is explicitly accepted.
@@ -69,3 +97,10 @@ items:
     how: The acceptance record under the QAP sign-off process (QAP/SIOFPR), signed by the sign-off authority it names.
     evidence: The record's path, signer and date.
     pass: The record exists and is signed by the named authority.
+  - id: G7-RISK-1
+    criterion: Risk register reviewed
+    inspect: The risk register was reviewed for this gate, and the risks of every dependency that changed state since G6 were re-assessed.
+    method: reading
+    how: SBP/INSC/RIANAS/RISENT-KEYR-LST[] read against SBP/ACDP/ACRG/DEPRE-DEPS-LST[] — each dependency's status now and as G6's gate report recorded it, and the risks that name the dependency or its subject.
+    evidence: The review record — the risks added, changed and closed since G6, each dependency that changed state with the risks re-assessed for it, or "no change".
+    pass: The review is recorded, and no dependency that changed state is left without a re-assessment of its risks.

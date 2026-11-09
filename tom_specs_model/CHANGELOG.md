@@ -1,3 +1,15 @@
+## Unreleased
+
+- Gate checklists 1.1.0 (no change of structure): every gate G1–G8 has the
+  item `G<N>-RISK-1` *Risk register reviewed* — the register (`SBP` INSC >
+  RIANAS) read against the dependencies' state (`SBP` ACDP > ACRG), with what
+  changed since the previous gate; G7 has `G7-DOCV-1..4` *Documentation
+  verified* — procedures walked against the release, samples run as tests,
+  links checked, a reading review by the quality role.
+- `tom_specs_project_flow.md`: the criterion rows behind them (every gate
+  table; G7 *Documentation verified*), the risk review in PF-GAT-MOD, and
+  Phase 7's documentation verification in PF-PHA-P7.
+
 ## 1.7.4
 
 - No change of structure. The chain moves with the runtimes, which write and
