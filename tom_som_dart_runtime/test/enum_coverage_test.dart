@@ -119,6 +119,12 @@ enum ExemptionReason {
   /// should ever implement it, so it will never be corpus-guarded.
   presentation,
 
+  /// Part of the process-check library (`spec_checks.dart`), Dart-only by
+  /// decision: a project's gate checks run once, through `tom_specs_clitool`'s
+  /// `spec_checks` command, and need one implementation, so no port will carry
+  /// it (tom_specs `tstool1_akiq-spec-process-tooling-out-of-tom-uam`).
+  processCheck,
+
   /// Private to its library: never serialized, never returned across the API
   /// boundary, so no corpus token could name one of its constants even in
   /// principle. What such an enum drives is behaviour, and the behaviour is
@@ -137,6 +143,7 @@ enum ExemptionReason {
     ExemptionReason.noCorpusYet || ExemptionReason.dartOnly => true,
     ExemptionReason.mirrors ||
     ExemptionReason.presentation ||
+    ExemptionReason.processCheck ||
     ExemptionReason.internal => false,
   };
 }
@@ -434,6 +441,23 @@ final List<CorpusGuardedEnum> _guarded = [
 /// above, so the list doubles as the standing answer to "which parts of the
 /// runtime vocabulary are outside the shared corpus, and on whose authority".
 final List<ExemptEnum> _exempt = [
+  ExemptEnum(
+    enumName: 'CoverageClass',
+    reason: ExemptionReason.processCheck,
+    note:
+        'The Project Idea coverage classes (covered / via / excluded / '
+        'uncovered) of spec_checks.dart; pinned by tom_specs_clitool\'s '
+        'test/spec_checks/project_idea_coverage_test.dart.',
+  ),
+  ExemptEnum(
+    enumName: 'ValueRole',
+    reason: ExemptionReason.processCheck,
+    note:
+        'Whether a YAML value the layout-keeping rewrite of spec_checks.dart '
+        'located is narrative (where question blocks live) or a leaf; what it '
+        'drives is guarded by tom_specs_clitool\'s answer-import tests '
+        '(test/spec_checks/import_sbp_answers_test.dart).',
+  ),
   ExemptEnum(
     enumName: '_AtomKind',
     reason: ExemptionReason.internal,
