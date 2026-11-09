@@ -116,12 +116,6 @@ unpublished_drift:
     repository, and DocSpecsSection.content's doc names the section's `form`
     in backticks rather than as a link a generated facade cannot resolve.
     Ships with the next release.
-  tom_specs_clitool: >-
-    Since 0.12.0: tool/dartdoc_build_set.yaml lists tom_som_dart_v0, and the
-    README and doc/gates.md say so; analyzer ^14.7.0 with the embedded SDK
-    summary rebuilt on Dart 3.13; tom_analyzer_shared ^0.12.0 (summaries
-    built with Flutter's dart:ui, the cache keyed by the analyzer's data
-    version, a bundle cached only complete). Ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

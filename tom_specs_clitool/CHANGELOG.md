@@ -1,12 +1,18 @@
 # Changelog
 
-## Unreleased
+## 0.13.0
 
+- `tom_analyzer_shared: ^0.13.0` (from ^0.12.0): a cached bundle is named by
+  its dependency closure, so no run deletes a bundle another run links
+  against. The CLI uses only `GroupedPackageBundleBuilder` and the embedder
+  lookups, which 0.13.0 leaves as they are.
+- `tool/dartdoc_build_set.yaml` lists `tom_som_dart_v0`; the README and
+  `doc/gates.md` say so.
 - `analyzer: ^14.7.0` (from ^14.1.0), with the embedded SDK summary rebuilt
   on Dart 3.13 / analyzer 14.7 (analyzer 14.5 and 14.7 cannot read each
   other's summaries; Flutter 3.47.9). A host still on an older SDK now fails
   at resolution rather than reading a summary it cannot decode.
-- `tom_analyzer_shared: ^0.12.0` (from ^0.8.0): summaries are built with
+- `tom_analyzer_shared` 0.12.0 (from ^0.8.0): summaries are built with
   Flutter's `dart:ui`, the summary cache is keyed by the analyzer's data
   version, and a bundle is cached only when it is complete (0.12.0 fixes
   bundles missing types when two processes filled one cache partition).

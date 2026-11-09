@@ -90,15 +90,7 @@ class _HeldBack {
 /// Empty is the intended resting state. Keep the map when it empties: an
 /// entry names its `owner` todo, and re-deriving the shape under time pressure
 /// is how a hold gets added without one.
-const Map<String, _HeldBack> _heldBackVersions = <String, _HeldBack>{
-  'tom_analyzer_shared': _HeldBack(
-    from: '0.12.0',
-    owner: 'tom_specs frzhold2_akip-specs-clitool-onto-analyzer-shared-0-13',
-    reason:
-        'tom_specs_clitool declares tom_analyzer_shared ^0.12.0 itself, so its '
-        'lock cannot take 0.13.0',
-  ),
-};
+const Map<String, _HeldBack> _heldBackVersions = <String, _HeldBack>{};
 
 /// The packages whose floors F-SCC45-4 holds sample and example pubspecs to:
 /// the release-1 Dart chain (`tool/release_set.yaml`). Tooling a sample merely
