@@ -113,5 +113,6 @@ unpublished_drift:
 # next bump supersedes it without anyone having to delete it. Quote both values:
 # a hash like 5e903509 is otherwise a YAML float, and is then ignored.
 published_from:
-  tom_specs_model: {version: '1.6.1', commit: '5d6be9ea'}
+  tom_som_dart_runtime: {version: '1.8.0', commit: '7cd7cf41'}
+  tom_specs_model: {version: '1.8.0', commit: '7cd7cf41'}
   tom_code_specs: {version: '0.14.2', commit: '47dba5ea'}
