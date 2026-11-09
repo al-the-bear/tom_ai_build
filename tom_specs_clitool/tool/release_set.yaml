@@ -102,7 +102,8 @@ unpublished_drift:
     Documentation only since 1.7.4: the gate checklists 1.1.0 (the risk
     register reviewed at every gate, documentation verified before G7) and the
     criteria and process text behind them in tom_specs_project_flow.md
-    (tom_specs uamg2s1). Ships with the next release.
+    (tom_specs uamg2s1); som_toolchains.md on tom_analyzer_shared ^0.13.0
+    (tom_specs frzhold2). Ships with the next release.
   tom_core_codespecs: >-
     Formatting only since 0.13.3: two tests reformatted to Dart 3.13's
     `dart format`. Ships with the next release.
