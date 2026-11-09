@@ -52,7 +52,7 @@ fn unknown_ids_are_errors_and_change_nothing() {
     assert!(review.set_answer("BQ-9", "x").is_err());
     assert!(review.apply_mark("DEMO/SUM", None, 1, true).is_err());
     assert!(review
-        .insert_comment("DEMO/SUM", None, 3, "x", None, None)
+        .insert_comment("DEMO/SUM", None, 3, "x", None, None, None)
         .is_err());
     assert_eq!(review.list()[0].kind, SpecReviewAnnotationKind::Mark);
     assert_eq!(review.doc().content_or("DEMO/SUM"), before);

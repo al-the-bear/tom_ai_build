@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define ARROW "\xE2\xAC\x86"         /* U+2B06 */
 #define VS16 "\xEF\xB8\x8F"          /* U+FE0F */
@@ -196,6 +197,93 @@ static int blank_n(const char *s, size_t len) {
 
 static int is_blank(const char *s) { return blank_n(s, strlen(s)); }
 
+/* ---- change times (SOM §11.9.10) ----------------------------------------- */
+
+static int is_digit_char(char c) { return c >= '0' && c <= '9'; }
+
+/* Whether `s[0, n)` are digits. */
+static int digits_n(const char *s, size_t n) {
+  for (size_t i = 0; i < n; i++) {
+    if (!is_digit_char(s[i])) return 0;
+  }
+  return 1;
+}
+
+/* The length of the `YYYY-MM-DDTHH:MM` at the start of `s`: 16, or 0. */
+static size_t time_minutes_len(const char *s) {
+  if (strlen(s) < 16) return 0;
+  if (!digits_n(s, 4) || s[4] != '-' || !digits_n(s + 5, 2) || s[7] != '-' ||
+      !digits_n(s + 8, 2) || s[10] != 'T' || !digits_n(s + 11, 2) ||
+      s[13] != ':' || !digits_n(s + 14, 2)) {
+    return 0;
+  }
+  return 16;
+}
+
+/* Whether `s` is exactly an offset: `Z`, `+HH:MM` or `-HH:MM`. */
+static int is_time_offset(const char *s) {
+  if (strcmp(s, "Z") == 0) return 1;
+  return (s[0] == '+' || s[0] == '-') && strlen(s) == 6 &&
+         digits_n(s + 1, 2) && s[3] == ':' && digits_n(s + 4, 2);
+}
+
+int spec_review_is_time(const char *s) {
+  if (s == NULL) return 0;
+  size_t n = time_minutes_len(s);
+  return n > 0 && is_time_offset(s + n);
+}
+
+char *spec_review_normalize_time(const char *at,
+                                 SpecReviewAnnotationError *err) {
+  char *t = trim_dup(at != NULL ? at : "");
+  size_t n = time_minutes_len(t);
+  const char *zone = NULL;
+  if (n > 0) {
+    const char *q = t + n;
+    if (q[0] == ':' && digits_n(q + 1, 2)) {
+      q += 3;
+      if (q[0] == '.' && is_digit_char(q[1])) {
+        q++;
+        while (is_digit_char(*q)) q++;
+      }
+    }
+    if (is_time_offset(q)) zone = q;
+  }
+  char *out = NULL;
+  if (zone != NULL) {
+    out = fmt("%.*s%s", (int)n, t, zone);
+  } else {
+    set_error(err,
+              "\"%s\" is not an ISO 8601 time with an offset or Z "
+              "(e.g. 2026-11-07T14:05+01:00)",
+              at != NULL ? at : "");
+  }
+  free(t);
+  return out;
+}
+
+char *spec_review_system_time(void) {
+  time_t now = time(NULL);
+  struct tm local = *localtime(&now);
+  struct tm utc = *gmtime(&now);
+  /* The offset, from the two broken-down times of the same instant: the day
+   * apart (at most one), then hours, minutes and seconds. */
+  long days = (long)local.tm_yday - (long)utc.tm_yday;
+  if (local.tm_year != utc.tm_year) days = local.tm_year < utc.tm_year ? -1 : 1;
+  long seconds = ((days * 24 + (local.tm_hour - utc.tm_hour)) * 60 +
+                  (local.tm_min - utc.tm_min)) *
+                     60 +
+                 (local.tm_sec - utc.tm_sec);
+  long minutes = seconds / 60; /* truncated toward zero, as Dart's inMinutes */
+  char sign = minutes < 0 ? '-' : '+';
+  if (minutes < 0) minutes = -minutes;
+  char stamp[64];
+  if (strftime(stamp, sizeof(stamp), "%Y-%m-%dT%H:%M", &local) == 0) {
+    stamp[0] = '\0';
+  }
+  return fmt("%s%c%02ld:%02ld", stamp, sign, minutes / 60, minutes % 60);
+}
+
 /* The index of `needle` in `s[0, len)` at or after `from`, or -1. */
 static long long find(const char *s, size_t len, size_t from,
                       const char *needle) {
@@ -320,6 +408,7 @@ typedef struct {
   size_t end;  /* last value line of the entry with text (inclusive) */
   SomStrList members;
   char *answer;
+  char *changed_at; /* the change time of SOM §11.9.10, or NULL */
 } IndividualAnswer;
 
 typedef struct {
@@ -358,6 +447,10 @@ typedef struct {
   char *context;
   char *header_prefix; /* the first line up to where the text starts */
   size_t marker_end;   /* where an id is inserted into the first line */
+  /* The first line up to where the author's parentheses (or the text)
+   * start. */
+  char *before_author;
+  char *changed_at; /* the change time of SOM §11.9.10, or NULL */
 } Comment;
 
 /* One parsed mark; start/end are byte offsets into the value (never
@@ -376,6 +469,8 @@ typedef struct {
   SomStrList authors;
   SpecMarkVote *votes;
   size_t votes_len;
+  /* The time in the mark's attribution token (SOM §11.9.10), or NULL. */
+  char *changed_at;
   /* A comment mark's quote of a change (SOM §11.9.3): `has_quote` set, the
    * quoted kind and texts, the outcome (a static "accepted" / "rejected", or
    * NULL while open), `q_delim_end` right after the closing delimiter and
@@ -468,6 +563,8 @@ static void parsed_free(Parsed *p) {
     free(c->text);
     free(c->context);
     free(c->header_prefix);
+    free(c->before_author);
+    free(c->changed_at);
   }
   free(p->comments);
   for (size_t i = 0; i < p->questions_len; i++) {
@@ -485,6 +582,7 @@ static void parsed_free(Parsed *p) {
     for (size_t a = 0; a < q->answers_len; a++) {
       som_strlist_free(&q->answers[a].members);
       free(q->answers[a].answer);
+      free(q->answers[a].changed_at);
     }
     free(q->answers);
   }
@@ -508,6 +606,7 @@ static void parsed_free(Parsed *p) {
     free(p->marks[i].q_comment);
     som_strlist_free(&p->marks[i].authors);
     votes_free(p->marks[i].votes, p->marks[i].votes_len);
+    free(p->marks[i].changed_at);
   }
   free(p->marks);
   som_strlist_free(&p->malformed);
@@ -632,10 +731,34 @@ static void parse_comment(Parsed *p, size_t bi) {
     }
   }
   char *author = NULL;
+  char *changed_at = NULL;
+  char *before_author = som_strdup_n(raw0, (size_t)(rest - raw0));
   if (rest[0] == '(') {
     const char *close = strchr(rest, ')');
     if (close != NULL && close > rest) {
-      author = som_strdup_n(rest + 1, (size_t)(close - rest - 1));
+      /* `(<author>, <time>)`: a last comma-separated part that is a change
+       * time is the time (SOM §11.9.10), the rest the author. */
+      const char *inside = rest + 1;
+      size_t inside_len = (size_t)(close - rest - 1);
+      const char *comma = NULL;
+      for (const char *q = inside; q < close; q++) {
+        if (*q == ',') comma = q;
+      }
+      const char *last = comma != NULL ? comma + 1 : inside;
+      char *tail = trim_n(last, (size_t)(close - last));
+      if (spec_review_is_time(tail)) {
+        changed_at = tail;
+        char *a = comma != NULL ? trim_n(inside, (size_t)(comma - inside))
+                                : som_strdup("");
+        if (a[0] == '\0') {
+          free(a);
+        } else {
+          author = a;
+        }
+      } else {
+        free(tail);
+        author = som_strdup_n(inside, inside_len);
+      }
       rest = close + 1;
       if (rest[0] == ':') rest++;
       rest = lstrip(rest);
@@ -672,6 +795,8 @@ static void parse_comment(Parsed *p, size_t bi) {
   c.context = context_of(p, b->start);
   c.header_prefix = header_prefix;
   c.marker_end = marker_end;
+  c.before_author = before_author;
+  c.changed_at = changed_at;
   PUSH(p->comments, p->comments_len, p->comments_cap, c);
 }
 
@@ -934,6 +1059,14 @@ static void parse_questions(Parsed *p, size_t bi) {
       IndividualAnswer entry;
       split_trimmed(inside, ',', 0, &entry.members);
       free(inside);
+      /* A last part that is a change time is the time (SOM §11.9.10). */
+      entry.changed_at = NULL;
+      if (entry.members.len > 0 &&
+          spec_review_is_time(entry.members.items[entry.members.len - 1])) {
+        entry.changed_at =
+            som_strdup(entry.members.items[entry.members.len - 1]);
+        som_strlist_remove_at(&entry.members, entry.members.len - 1);
+      }
       for (size_t i = 0; i < entry.members.len; i++) {
         if (som_strlist_contains(&answered, entry.members.items[i])) {
           som_strlist_push(&p->malformed,
@@ -1229,9 +1362,10 @@ static int is_change_mark(SpecMarkKind kind) {
          kind == SPEC_MARK_SUBSTITUTION;
 }
 
-/* Reads a token's inside `s[0, len)`, `<authors>[ <votes>]`, into `m`; or
- * returns the reason (owned) it breaks the grammar of SOM §11.9.8, leaving
- * `m` alone. */
+/* Reads a token's inside `s[0, len)`, `[<authors>][ <votes>][ <time>]`, into
+ * `m`; or returns the reason (owned) it breaks the grammar of SOM §11.9.8,
+ * leaving `m`'s authors and votes alone. A last word that is a change time is
+ * `m`'s time (SOM §11.9.10) either way. */
 static char *read_token(const char *s, size_t len, Mark *m) {
   /* A space after a comma is allowed: `,` and the whitespace after it is one
    * separator. */
@@ -1260,9 +1394,14 @@ static char *read_token(const char *s, size_t len, Mark *m) {
   size_t votes_len = 0, votes_cap = 0;
   if (words.len == 0) {
     why = som_strdup("is empty");
+  } else if (spec_review_is_time(words.items[words.len - 1])) {
+    free(m->changed_at);
+    m->changed_at = som_strdup(words.items[words.len - 1]);
+    som_strlist_remove_at(&words, words.len - 1);
   }
   size_t k = 0;
-  if (why == NULL && words.items[0][0] != '+' && words.items[0][0] != '-') {
+  if (why == NULL && words.len > 0 && words.items[0][0] != '+' &&
+      words.items[0][0] != '-') {
     split_trimmed(words.items[0], ',', 0, &authors);
     k = 1;
   }
@@ -1684,10 +1823,12 @@ void spec_review_annotation_free(SpecReviewAnnotation *a) {
   for (size_t i = 0; i < a->answers_len; i++) {
     som_strlist_free(&a->answers[i].members);
     free(a->answers[i].answer);
+    free(a->answers[i].changed_at);
   }
   free(a->answers);
   free(a->base);
   alternatives_free(a->alternatives, a->alternatives_len);
+  free(a->changed_at);
   memset(a, 0, sizeof(*a));
 }
 
@@ -1815,6 +1956,9 @@ static char *annotation_json(const SpecReviewAnnotation *a, int team) {
       put_str(&b, &first, "author", a->author);
       put_str(&b, &first, "text", a->text);
       put_str(&b, &first, "context", a->context);
+      if (a->changed_at != NULL) {
+        put_str(&b, &first, "changedAt", a->changed_at);
+      }
       break;
     case SPEC_REVIEW_ANNOTATION_QUESTION:
       put_str(&b, &first, "id", a->id);
@@ -1855,6 +1999,9 @@ static char *annotation_json(const SpecReviewAnnotation *a, int team) {
           char *al = leading_letter(a->answers[i].answer);
           put_str(&b, &f, "answerLetter", al);
           free(al);
+          if (a->answers[i].changed_at != NULL) {
+            put_str(&b, &f, "changedAt", a->answers[i].changed_at);
+          }
           som_buf_putc(&b, '}');
         }
         som_buf_putc(&b, ']');
@@ -1892,6 +2039,9 @@ static char *annotation_json(const SpecReviewAnnotation *a, int team) {
       put_str(&b, &first, "text", a->text);
       put_str(&b, &first, "newText", a->new_text);
       put_str(&b, &first, "comment", a->comment);
+      if (a->changed_at != NULL) {
+        put_str(&b, &first, "changedAt", a->changed_at);
+      }
       if (team) {
         put_str_list(&b, &first, "authors", &a->authors);
         put_votes(&b, &first, "votes", a->votes, a->votes_len);
@@ -1993,6 +2143,7 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
       e.a.text = som_strdup(c->text);
       e.a.context = som_strdup(c->context);
       e.a.answer = som_strdup("");
+      e.a.changed_at = dup_or_null(c->changed_at);
       PUSH(o, len, cap, e);
     } else if (b->kind == SPEC_REVIEW_ANNOTATION_CONFLICT) {
       const Conflict *c = &p->conflicts[b->conflict];
@@ -2049,6 +2200,7 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
         for (size_t ai = 0; ai < q->answers_len; ai++) {
           som_strlist_copy(&e.a.answers[ai].members, &q->answers[ai].members);
           e.a.answers[ai].answer = som_strdup(q->answers[ai].answer);
+          e.a.answers[ai].changed_at = dup_or_null(q->answers[ai].changed_at);
         }
         PUSH(o, len, cap, e);
       }
@@ -2070,6 +2222,7 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
     som_strlist_copy(&e.a.authors, &m->authors);
     e.a.votes = votes_copy(m->votes, m->votes_len);
     e.a.votes_len = m->votes_len;
+    e.a.changed_at = dup_or_null(m->changed_at);
     PUSH(o, len, cap, e);
   }
   if (len > 1) qsort(o, len, sizeof(Ordered), cmp_ordered);
@@ -2194,8 +2347,17 @@ static void replace_range(SomStrList *lines, size_t from, size_t to,
   *lines = out;
 }
 
+/* A comment header's parentheses: the author and the change time, either
+ * alone, or NULL when there is neither (SOM §11.9.10). Owned. */
+static char *author_and_time(const char *author, const char *changed_at) {
+  const char *a = author != NULL && author[0] != '\0' ? author : NULL;
+  if (a == NULL) return dup_or_null(changed_at);
+  return changed_at == NULL ? som_strdup(a) : fmt("%s, %s", a, changed_at);
+}
+
 void spec_format_comment_block(const char *id, const char *text,
-                               const char *author, SomStrList *out) {
+                               const char *author, const char *changed_at,
+                               SomStrList *out) {
   SomStrList t;
   split_lines(text, &t);
   SomBuf head;
@@ -2203,10 +2365,12 @@ void spec_format_comment_block(const char *id, const char *text,
   som_buf_puts(&head, "> " ARROW VS16 " **");
   som_buf_puts(&head, id);
   som_buf_puts(&head, "**");
-  if (author != NULL && author[0] != '\0') {
+  char *who = author_and_time(author, changed_at);
+  if (who != NULL) {
     som_buf_puts(&head, " (");
-    som_buf_puts(&head, author);
+    som_buf_puts(&head, who);
     som_buf_puts(&head, "):");
+    free(who);
   }
   if (t.items[0][0] != '\0') {
     som_buf_putc(&head, ' ');
@@ -2216,6 +2380,32 @@ void spec_format_comment_block(const char *id, const char *text,
   som_strlist_push(out, som_buf_take(&head));
   push_quoted(out, &t, 1);
   som_strlist_free(&t);
+}
+
+char *spec_review_format_attribution_token(const SomStrList *authors,
+                                           const SpecMarkVote *votes,
+                                           size_t votes_len,
+                                           const char *changed_at) {
+  SomStrList parts;
+  som_strlist_init(&parts);
+  if (authors != NULL && authors->len > 0) {
+    som_strlist_push(&parts, som_strlist_join(authors, ","));
+  }
+  for (size_t i = 0; i < votes_len; i++) {
+    som_strlist_push(&parts,
+                     fmt("%c%s", votes[i].accept ? '+' : '-', votes[i].member));
+  }
+  if (changed_at != NULL) som_strlist_push_copy(&parts, changed_at);
+  char *out;
+  if (parts.len == 0) {
+    out = som_strdup("");
+  } else {
+    char *joined = som_strlist_join(&parts, " ");
+    out = fmt("{@%s}", joined);
+    free(joined);
+  }
+  som_strlist_free(&parts);
+  return out;
 }
 
 void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out) {
@@ -2452,6 +2642,61 @@ static size_t anchor_place(const char *r, const Parsed *rm, size_t k) {
   return len;
 }
 
+/* `after` (a value just written as marks) with an attribution token on every
+ * change mark it lacks one on (SOM §11.9.10): the token of the same change in
+ * `before` (same kind, old and new text; each used once, in order) when
+ * `before` held it, else a new one with `author` and `time`. Owned. */
+static char *stamp_marks(const char *before, const char *after,
+                         const char *author, const char *time) {
+  Parsed bp;
+  parse(before, &bp);
+  size_t *old = calloc(bp.marks_len ? bp.marks_len : 1, sizeof(size_t));
+  unsigned char *used = calloc(bp.marks_len ? bp.marks_len : 1, 1);
+  size_t old_len = 0;
+  for (size_t k = 0; k < bp.marks_len; k++) {
+    if (is_change_mark(bp.marks[k].kind)) old[old_len++] = k;
+  }
+  SomStrList who;
+  som_strlist_init(&who);
+  if (author != NULL) som_strlist_push_copy(&who, author);
+  char *fresh = spec_review_format_attribution_token(&who, NULL, 0, time);
+  som_strlist_free(&who);
+  Parsed ap;
+  parse(after, &ap);
+  SomBuf b;
+  som_buf_init(&b);
+  size_t from = 0;
+  for (size_t k = 0; k < ap.marks_len; k++) {
+    const Mark *m = &ap.marks[k];
+    if (!is_change_mark(m->kind) || m->end > m->body_end) continue;
+    const char *token = fresh;
+    size_t token_len = strlen(fresh);
+    for (size_t i = 0; i < old_len; i++) {
+      const Mark *o = &bp.marks[old[i]];
+      if (used[i] || o->kind != m->kind ||
+          strcmp(mark_replacement(o, 0), mark_replacement(m, 0)) != 0 ||
+          strcmp(mark_replacement(o, 1), mark_replacement(m, 1)) != 0) {
+        continue;
+      }
+      used[i] = 1;
+      token = before + o->body_end;
+      token_len = o->end - o->body_end;
+      break;
+    }
+    if (token_len == 0) continue;
+    som_buf_putn(&b, after + from, m->body_end - from);
+    som_buf_putn(&b, token, token_len);
+    from = m->body_end;
+  }
+  som_buf_puts(&b, after + from);
+  parsed_free(&ap);
+  parsed_free(&bp);
+  free(fresh);
+  free(used);
+  free(old);
+  return som_buf_take(&b);
+}
+
 /* `spec_review_annotations_set_marked` with the value's change comments kept
  * (SOM §11.9.3): taken out of the original, then written back where their
  * anchor falls. */
@@ -2638,10 +2883,31 @@ static void set_value(SpecDocument *doc, const char *path, const char *field,
 
 SpecReviewAnnotations spec_review_annotations_make(SpecDocument *doc,
                                                    const char *qualifier) {
+  return spec_review_annotations_make_with_clock(doc, qualifier, NULL, NULL);
+}
+
+SpecReviewAnnotations spec_review_annotations_make_with_clock(
+    SpecDocument *doc, const char *qualifier, SpecReviewClock clock,
+    void *clock_context) {
   SpecReviewAnnotations r;
   r.doc = doc;
   r.qualifier = qualifier;
+  r.clock = clock;
+  r.clock_context = clock_context;
   return r;
+}
+
+/* The change time a write records (SOM §11.9.10): `at` normalized, else the
+ * clock's, else the system clock's. Owned; NULL (filling `*err`) when `at` is
+ * not a time. */
+static char *review_time(const SpecReviewAnnotations *r, const char *at,
+                         SpecReviewAnnotationError *err) {
+  if (at != NULL) return spec_review_normalize_time(at, err);
+  if (r->clock != NULL) {
+    char *t = r->clock(r->clock_context);
+    if (t != NULL) return t;
+  }
+  return spec_review_system_time();
 }
 
 void spec_review_annotations_list(const SpecReviewAnnotations *r,
@@ -2863,8 +3129,10 @@ char *spec_review_annotations_insert_comment(const SpecReviewAnnotations *r,
                                              long long after_paragraph,
                                              const char *text,
                                              const char *author,
-                                             const char *id,
+                                             const char *id, const char *at,
                                              SpecReviewAnnotationError *err) {
+  char *time = review_time(r, at, err);
+  if (time == NULL) return NULL;
   char *cid = id != NULL ? som_strdup(id)
                          : spec_review_annotations_next_comment_id(r, 0);
   char *value = som_strdup(get_value(r->doc, path, field));
@@ -2872,15 +3140,17 @@ char *spec_review_annotations_insert_comment(const SpecReviewAnnotations *r,
   if (!paragraph_last_line(value, after_paragraph, &end, err)) {
     free(value);
     free(cid);
+    free(time);
     return NULL;
   }
   SomStrList block;
-  spec_format_comment_block(cid, text, author, &block);
+  spec_format_comment_block(cid, text, author, time, &block);
   char *updated = insert_after_line(value, end, &block);
   set_value(r->doc, path, field, updated);
   free(updated);
   som_strlist_free(&block);
   free(value);
+  free(time);
   return cid;
 }
 
@@ -3027,10 +3297,15 @@ static int is_commented_answer(const char *answer, const Question *q) {
 /* Pushes the lines of one individual-answer entry onto `out`. */
 static void push_individual_answer_lines(SomStrList *out,
                                          const SomStrList *members,
-                                         const char *answer) {
+                                         const char *answer,
+                                         const char *changed_at) {
   SomStrList a;
   split_lines(answer, &a);
-  char *names = som_strlist_join(members, ", ");
+  SomStrList who;
+  som_strlist_copy(&who, members);
+  if (changed_at != NULL) som_strlist_push_copy(&who, changed_at);
+  char *names = som_strlist_join(&who, ", ");
+  som_strlist_free(&who);
   char *head = fmt("> **Answer (%s):** %s", names, a.items[0]);
   som_strlist_push(out, trim_right_dup(head));
   free(head);
@@ -3042,8 +3317,9 @@ static void push_individual_answer_lines(SomStrList *out,
 /* One entry of the individual-answer run being rewritten. */
 typedef struct {
   SomStrList members;
-  char *answer; /* borrowed */
-  int rewrite;  /* 0: keep the entry's lines `[line, end]` of the value */
+  char *answer;           /* borrowed */
+  const char *changed_at; /* borrowed; NULL without a change time */
+  int rewrite; /* 0: keep the entry's lines `[line, end]` of the value */
   size_t line, end;
 } AnswerEntry;
 
@@ -3056,7 +3332,8 @@ typedef struct {
  * answer, and a run left empty takes that line with it. Entries left alone
  * keep their bytes. Owned. */
 static char *set_individual_answer(const char *value, const Question *q,
-                                   const char *member, const char *answer) {
+                                   const char *member, const char *answer,
+                                   const char *changed_at) {
   SomStrList lines;
   split_lines(value, &lines);
   AnswerEntry *kept = malloc((q->answers_len + 1) * sizeof(AnswerEntry));
@@ -3065,6 +3342,7 @@ static char *set_individual_answer(const char *value, const Question *q,
     AnswerEntry e;
     som_strlist_copy(&e.members, &q->answers[i].members);
     e.answer = q->answers[i].answer;
+    e.changed_at = q->answers[i].changed_at;
     e.rewrite = 0;
     e.line = q->answers[i].line;
     e.end = q->answers[i].end;
@@ -3086,7 +3364,12 @@ static char *set_individual_answer(const char *value, const Question *q,
     AnswerEntry *join = NULL;
     if (!is_commented_answer(text, q)) {
       for (size_t i = 0; i < kept_len && join == NULL; i++) {
-        if (strcmp(kept[i].answer, text) == 0 &&
+        int same_time =
+            kept[i].changed_at == NULL
+                ? changed_at == NULL
+                : changed_at != NULL &&
+                      strcmp(kept[i].changed_at, changed_at) == 0;
+        if (strcmp(kept[i].answer, text) == 0 && same_time &&
             !is_commented_answer(kept[i].answer, q)) {
           join = &kept[i];
         }
@@ -3100,6 +3383,7 @@ static char *set_individual_answer(const char *value, const Question *q,
       som_strlist_init(&e.members);
       som_strlist_push_copy(&e.members, member);
       e.answer = text;
+      e.changed_at = changed_at;
       e.rewrite = 1;
       e.line = e.end = 0;
       kept[kept_len++] = e;
@@ -3109,7 +3393,8 @@ static char *set_individual_answer(const char *value, const Question *q,
   som_strlist_init(&run);
   for (size_t i = 0; i < kept_len; i++) {
     if (kept[i].rewrite) {
-      push_individual_answer_lines(&run, &kept[i].members, kept[i].answer);
+      push_individual_answer_lines(&run, &kept[i].members, kept[i].answer,
+                                   kept[i].changed_at);
     } else {
       for (size_t k = kept[i].line; k <= kept[i].end; k++) {
         som_strlist_push_copy(&run, lines.items[k]);
@@ -3167,6 +3452,7 @@ int spec_review_annotations_set_member_answer(const SpecReviewAnnotations *r,
                                               const char *question_id,
                                               const char *author,
                                               const char *answer,
+                                              const char *at,
                                               SpecReviewAnnotationError *err) {
   if (!spec_review_is_member_id(author)) {
     set_error(err,
@@ -3176,10 +3462,19 @@ int spec_review_annotations_set_member_answer(const SpecReviewAnnotations *r,
   }
   Found f;
   if (!find_question(r, question_id, &f, err)) return 0;
+  char *time = NULL;
+  if (!is_blank(answer)) {
+    time = review_time(r, at, err);
+    if (time == NULL) {
+      found_free(&f);
+      return 0;
+    }
+  }
   char *updated = set_individual_answer(
-      f.value.text, &f.parsed.questions[f.index], author, answer);
+      f.value.text, &f.parsed.questions[f.index], author, answer, time);
   set_value(r->doc, f.value.path, f.value.field, updated);
   free(updated);
+  free(time);
   found_free(&f);
   return 1;
 }
@@ -3239,10 +3534,15 @@ int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
 
 int spec_review_annotations_edit_comment(const SpecReviewAnnotations *r,
                                          const char *comment_id,
-                                         const char *text,
+                                         const char *text, const char *at,
                                          SpecReviewAnnotationError *err) {
+  char *time = review_time(r, at, err);
+  if (time == NULL) return 0;
   Found f;
-  if (!find_comment(r, comment_id, &f, err)) return 0;
+  if (!find_comment(r, comment_id, &f, err)) {
+    free(time);
+    return 0;
+  }
   const Comment *c = &f.parsed.comments[f.index];
   const Block *b = &f.parsed.blocks[f.block];
   SomStrList lines;
@@ -3251,9 +3551,15 @@ int spec_review_annotations_edit_comment(const SpecReviewAnnotations *r,
   split_lines(text, &t);
   SomStrList block;
   som_strlist_init(&block);
-  char *head = fmt("%s%s", c->header_prefix, t.items[0]);
+  /* The header rebuilt: the author stays, the time moves (SOM §11.9.10). */
+  char *before = trim_right_dup(c->before_author);
+  char *who = author_and_time(c->author, time);
+  char *head = fmt("%s (%s): %s", before, who, t.items[0]);
   som_strlist_push(&block, trim_right_dup(head));
   free(head);
+  free(who);
+  free(before);
+  free(time);
   push_quoted(&block, &t, 1);
   replace_range(&lines, b->start, b->end, &block);
   char *updated = som_strlist_join(&lines, "\n");
@@ -3485,6 +3791,7 @@ void spec_mark_entry_free(SpecMarkEntry *e) {
   }
   free(e->comment_id);
   free(e->change_id);
+  free(e->changed_at);
   memset(e, 0, sizeof(*e));
 }
 
@@ -3516,6 +3823,7 @@ static char *mark_entry_json(const SpecMarkEntry *e, int team) {
   }
   if (e->comment_id != NULL) put_str(&b, &first, "commentId", e->comment_id);
   if (e->change_id != NULL) put_str(&b, &first, "changeId", e->change_id);
+  if (e->changed_at != NULL) put_str(&b, &first, "changedAt", e->changed_at);
   if (team) {
     put_str_list(&b, &first, "authors", &e->authors);
     put_votes(&b, &first, "votes", e->votes, e->votes_len);
@@ -3734,6 +4042,7 @@ void spec_review_annotations_list_marks(const SpecReviewAnnotations *r,
       e.change_id = m->change_index < 0
                         ? NULL
                         : fmt("M-%zu", first + (size_t)m->change_index);
+      e.changed_at = dup_or_null(m->changed_at);
       PUSH(out->items, out->len, out->cap, e);
     }
     parsed_free(&p);
@@ -3946,11 +4255,17 @@ char *spec_review_annotations_comment_change(const SpecReviewAnnotations *r,
                                              const char *text,
                                              const char *author,
                                              const char *revision,
+                                             const char *at,
                                              SpecReviewAnnotationError *err) {
+  char *time = review_time(r, at, err);
+  if (time == NULL) return NULL;
   Value v;
   Parsed p;
   size_t k;
-  if (!find_mark(r, mark_id, revision, &v, &p, &k, err)) return NULL;
+  if (!find_mark(r, mark_id, revision, &v, &p, &k, err)) {
+    free(time);
+    return NULL;
+  }
   const Mark *m = &p.marks[k];
   char *result = NULL;
   char *comment = NULL;
@@ -3996,10 +4311,14 @@ char *spec_review_annotations_comment_change(const SpecReviewAnnotations *r,
   som_buf_puts(&b, "] ");
   som_buf_puts(&b, comment);
   som_buf_puts(&b, " <<}");
-  if (author != NULL) {
-    som_buf_puts(&b, "{@");
-    som_buf_puts(&b, author);
-    som_buf_putc(&b, '}');
+  {
+    SomStrList who;
+    som_strlist_init(&who);
+    if (author != NULL) som_strlist_push_copy(&who, author);
+    char *token = spec_review_format_attribution_token(&who, NULL, 0, time);
+    som_buf_puts(&b, token);
+    free(token);
+    som_strlist_free(&who);
   }
   som_buf_puts(&b, v.text + m->end);
   char *updated = som_buf_take(&b);
@@ -4007,6 +4326,7 @@ char *spec_review_annotations_comment_change(const SpecReviewAnnotations *r,
   free(updated);
   result = fmt("M-%lld", strtoll(mark_id + 2, NULL, 10) + 1);
 done:
+  free(time);
   free(body);
   free(comment);
   parsed_free(&p);
@@ -4020,11 +4340,17 @@ int spec_review_annotations_edit_mark_comment(const SpecReviewAnnotations *r,
                                               const char *mark_id,
                                               const char *text,
                                               const char *revision,
+                                              const char *at,
                                               SpecReviewAnnotationError *err) {
+  char *time = review_time(r, at, err);
+  if (time == NULL) return 0;
   Value v;
   Parsed p;
   size_t k;
-  if (!find_mark(r, mark_id, revision, &v, &p, &k, err)) return 0;
+  if (!find_mark(r, mark_id, revision, &v, &p, &k, err)) {
+    free(time);
+    return 0;
+  }
   const Mark *m = &p.marks[k];
   int ok = 0;
   char *comment = check_inline_comment(text, err);
@@ -4051,7 +4377,13 @@ int spec_review_annotations_edit_mark_comment(const SpecReviewAnnotations *r,
     if (ok) {
       som_buf_puts(&b, comment);
       som_buf_puts(&b, " <<}");
-      som_buf_puts(&b, v.text + m->body_end);
+      /* The token keeps its authors and votes and records the time (SOM
+       * §11.9.10). */
+      char *token = spec_review_format_attribution_token(
+          &m->authors, m->votes, m->votes_len, time);
+      som_buf_puts(&b, token);
+      free(token);
+      som_buf_puts(&b, v.text + m->end);
       char *updated = som_buf_take(&b);
       set_value(r->doc, v.path, v.field, updated);
       free(updated);
@@ -4061,6 +4393,7 @@ int spec_review_annotations_edit_mark_comment(const SpecReviewAnnotations *r,
     }
   }
   free(comment);
+  free(time);
   parsed_free(&p);
   free(v.path);
   free(v.field);
@@ -5011,24 +5344,66 @@ SpecMarkedChange spec_mark_change_text(const char *old_value,
   return res;
 }
 
-SpecMarkedChange spec_review_annotations_set_marked(
-    const SpecReviewAnnotations *r, const char *path, const char *field,
-    const char *text) {
-  char *current = som_strdup(get_value(r->doc, path, field));
-  SpecMarkedChange result = mark_keeping_change_comments(current, text);
-  free(current);
-  set_value(r->doc, path, field, result.text);
-  return result;
+/* The change time of a marked write, once `author` is checked; NULL
+ * (filling `*err`) when either is refused. Owned. */
+static char *marked_write_time(const SpecReviewAnnotations *r,
+                               const char *author, const char *at,
+                               SpecReviewAnnotationError *err) {
+  if (author != NULL && !spec_review_is_member_id(author)) {
+    set_error(err,
+              "\"%s\" is not a member id (lowercase letters, digits and _)",
+              author);
+    return NULL;
+  }
+  return review_time(r, at, err);
 }
 
-SpecMarkedChange spec_review_annotations_mark_against(
-    const SpecReviewAnnotations *r, const char *path, const char *field,
-    const char *earlier) {
+/* Writes `result` at `path` / `field` with its change marks stamped against
+ * `current`, the value before (SOM §11.9.10), into `*out`. */
+static void write_stamped(const SpecReviewAnnotations *r, const char *path,
+                          const char *field, const char *current,
+                          SpecMarkedChange result, const char *author,
+                          const char *time, SpecMarkedChange *out) {
+  out->text = stamp_marks(current, result.text, author, time);
+  out->exact = result.exact;
+  spec_marked_change_free(&result);
+  set_value(r->doc, path, field, out->text);
+}
+
+int spec_review_annotations_set_marked(const SpecReviewAnnotations *r,
+                                       const char *path, const char *field,
+                                       const char *text, const char *author,
+                                       const char *at, SpecMarkedChange *out,
+                                       SpecReviewAnnotationError *err) {
+  out->text = NULL;
+  out->exact = 0;
+  char *time = marked_write_time(r, author, at, err);
+  if (time == NULL) return 0;
   char *current = som_strdup(get_value(r->doc, path, field));
-  SpecMarkedChange result = spec_mark_change_text(earlier, current);
+  write_stamped(r, path, field, current,
+                mark_keeping_change_comments(current, text), author, time,
+                out);
   free(current);
-  set_value(r->doc, path, field, result.text);
-  return result;
+  free(time);
+  return 1;
+}
+
+int spec_review_annotations_mark_against(const SpecReviewAnnotations *r,
+                                         const char *path, const char *field,
+                                         const char *earlier,
+                                         const char *author, const char *at,
+                                         SpecMarkedChange *out,
+                                         SpecReviewAnnotationError *err) {
+  out->text = NULL;
+  out->exact = 0;
+  char *time = marked_write_time(r, author, at, err);
+  if (time == NULL) return 0;
+  char *current = som_strdup(get_value(r->doc, path, field));
+  write_stamped(r, path, field, current,
+                spec_mark_change_text(earlier, current), author, time, out);
+  free(current);
+  free(time);
+  return 1;
 }
 
 /* ---- text-level building blocks of the merge (SOM §11.9.9) --------------- */
@@ -5058,6 +5433,7 @@ void spec_review_pieces(const char *value, SpecReviewPieces *out) {
         piece.id = dup_or_null(c->id);
         piece.author = dup_or_null(c->author);
         piece.comment_text = som_strdup(c->text);
+        piece.changed_at = dup_or_null(c->changed_at);
       } else if (b->kind == SPEC_REVIEW_ANNOTATION_CONFLICT) {
         piece.id = dup_or_null(p.conflicts[b->conflict].id);
       } else {
@@ -5084,6 +5460,7 @@ void spec_review_pieces_free(SpecReviewPieces *ps) {
     free(p->author);
     free(p->comment_text);
     som_strlist_free(&p->question_ids);
+    free(p->changed_at);
   }
   free(ps->items);
   memset(ps, 0, sizeof(*ps));
@@ -5106,6 +5483,7 @@ void spec_review_marks(const char *value, SpecReviewMarks *out) {
     rm.votes_len = m->votes_len;
     rm.accepted = som_strdup(mark_replacement(m, 1));
     rm.rejected = som_strdup(mark_replacement(m, 0));
+    rm.changed_at = dup_or_null(m->changed_at);
     PUSH(out->items, out->len, out->cap, rm);
   }
   parsed_free(&p);
@@ -5119,6 +5497,7 @@ void spec_review_marks_free(SpecReviewMarks *ms) {
     votes_free(m->votes, m->votes_len);
     free(m->accepted);
     free(m->rejected);
+    free(m->changed_at);
   }
   free(ms->items);
   memset(ms, 0, sizeof(*ms));
@@ -5147,17 +5526,10 @@ char *spec_review_with_attribution(const char *value, const SpecReviewMark *m,
   SomBuf b;
   som_buf_init(&b);
   som_buf_putn(&b, value, m->body_end);
-  som_buf_puts(&b, "{@");
-  for (size_t i = 0; i < authors->len; i++) {
-    if (i > 0) som_buf_putc(&b, ',');
-    som_buf_puts(&b, authors->items[i]);
-  }
-  for (size_t i = 0; i < votes_len; i++) {
-    if (i > 0 || authors->len > 0) som_buf_putc(&b, ' ');
-    som_buf_putc(&b, votes[i].accept ? '+' : '-');
-    som_buf_puts(&b, votes[i].member);
-  }
-  som_buf_putc(&b, '}');
+  char *token = spec_review_format_attribution_token(authors, votes, votes_len,
+                                                     m->changed_at);
+  som_buf_puts(&b, token);
+  free(token);
   som_buf_puts(&b, value + m->end);
   return som_buf_take(&b);
 }
@@ -5179,13 +5551,15 @@ void spec_review_team_answers(const char *value, SomStrList *ids,
 char *spec_review_set_individual_answer_text(const char *value,
                                              const char *question_id,
                                              const char *member,
-                                             const char *answer) {
+                                             const char *answer,
+                                             const char *changed_at) {
   Parsed p;
   parse(value, &p);
   char *out = NULL;
   for (size_t i = 0; i < p.questions_len && out == NULL; i++) {
     if (strcmp(p.questions[i].id, question_id) == 0) {
-      out = set_individual_answer(value, &p.questions[i], member, answer);
+      out = set_individual_answer(value, &p.questions[i], member, answer,
+                                  changed_at);
     }
   }
   parsed_free(&p);

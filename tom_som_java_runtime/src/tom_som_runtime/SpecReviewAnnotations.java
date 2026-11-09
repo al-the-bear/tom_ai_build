@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.function.Supplier;
+import java.time.OffsetDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,10 +46,33 @@ public final class SpecReviewAnnotations {
     this(doc, null);
   }
 
+  /**
+   * The clock the write operations take a change time from when no {@code at} is passed (SOM
+   * §11.9.10); null: the system clock in the writer's offset.
+   */
+  public final Supplier<String> clock;
+
   /** Wraps {@code doc}; {@code qualifier} may be null. */
   public SpecReviewAnnotations(SpecDocument doc, String qualifier) {
+    this(doc, qualifier, null);
+  }
+
+  /**
+   * Wraps {@code doc}; {@code qualifier} and {@code clock} may be null. {@code clock} fixes the
+   * change time the writes record (the conformance drivers pass a fixed one).
+   */
+  public SpecReviewAnnotations(SpecDocument doc, String qualifier, Supplier<String> clock) {
     this.doc = doc;
     this.qualifier = qualifier;
+    this.clock = clock;
+  }
+
+  /** The change time a write records: {@code at} normalized, else the clock's. */
+  private String time(String at) {
+    if (at != null) {
+      return normalizeReviewTime(at);
+    }
+    return clock != null ? clock.get() : systemReviewTime();
   }
 
   // -------------------------------------------------------------------------
@@ -89,6 +114,93 @@ public final class SpecReviewAnnotations {
   /** Whether {@code s} is a member id (SOM §11.9.8): lowercase letters, digits and {@code _}. */
   public static boolean isReviewMemberId(String s) {
     return MEMBER_ID.matcher(s).matches();
+  }
+
+  /**
+   * A change time as annotations write it (SOM §11.9.10): minutes with the writer's UTC offset,
+   * {@code 2026-11-07T14:05+01:00} or {@code 2026-11-07T13:05Z}.
+   */
+  private static final Pattern REVIEW_TIME =
+      Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(?:Z|[+-][0-9]{2}:[0-9]{2})");
+
+  /**
+   * An ISO 8601 time a caller may pass as {@code at}: minutes, optional seconds and fraction, and
+   * an offset or {@code Z}.
+   */
+  private static final Pattern REVIEW_TIME_IN =
+      Pattern.compile(
+          "([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2})(?::[0-9]{2}(?:\\.[0-9]+)?)?"
+              + "(Z|[+-][0-9]{2}:[0-9]{2})");
+
+  /** Whether {@code s} is a change time of the form SOM §11.9.10 fixes. */
+  public static boolean isReviewTime(String s) {
+    return REVIEW_TIME.matcher(s).matches();
+  }
+
+  /**
+   * {@code at} as a change time (SOM §11.9.10): seconds and fractions cut, the offset kept as
+   * given. Throws {@link SpecReviewAnnotationError} for any other shape.
+   */
+  public static String normalizeReviewTime(String at) {
+    Matcher m = REVIEW_TIME_IN.matcher(trim(at));
+    if (!m.matches()) {
+      throw new SpecReviewAnnotationError(
+          "\""
+              + at
+              + "\" is not an ISO 8601 time with an offset or Z (e.g. 2026-11-07T14:05+01:00)");
+    }
+    return m.group(1) + m.group(2);
+  }
+
+  /** The system clock's time as a change time in its local offset. */
+  public static String systemReviewTime() {
+    return systemReviewTime(OffsetDateTime.now());
+  }
+
+  /** {@code now} as a change time in its offset. */
+  public static String systemReviewTime(OffsetDateTime now) {
+    int secs = now.getOffset().getTotalSeconds();
+    String sign = secs < 0 ? "-" : "+";
+    int mins = Math.abs(secs) / 60;
+    return String.format(
+        Locale.ROOT,
+        "%04d-%02d-%02dT%02d:%02d%s%02d:%02d",
+        now.getYear(),
+        now.getMonthValue(),
+        now.getDayOfMonth(),
+        now.getHour(),
+        now.getMinute(),
+        sign,
+        mins / 60,
+        mins % 60);
+  }
+
+  /** Comma-separated parts with a trailing change time taken off (SOM §11.9.10). */
+  private static final class TimeSplit {
+    final List<String> parts;
+    final String time;
+
+    TimeSplit(List<String> parts, String time) {
+      this.parts = parts;
+      this.time = time;
+    }
+  }
+
+  /**
+   * {@code parts} (a header's or an answer's comma-separated parts) split into the parts before a
+   * trailing change time and the time (SOM §11.9.10).
+   */
+  private static TimeSplit splitTime(List<String> parts) {
+    if (!parts.isEmpty() && isReviewTime(trim(parts.get(parts.size() - 1)))) {
+      return new TimeSplit(
+          parts.subList(0, parts.size() - 1), trim(parts.get(parts.size() - 1)));
+    }
+    return new TimeSplit(parts, null);
+  }
+
+  /** {@code s} split on commas, empty parts kept. */
+  private static List<String> commaParts(String s) {
+    return Arrays.asList(s.split(",", -1));
   }
 
   /** Whether an answer or a decision begins with {@code open:} (SOM §11.9.8). */
@@ -177,12 +289,14 @@ public final class SpecReviewAnnotations {
     final int end;
     final List<String> members;
     final String answer;
+    final String changedAt;
 
-    IndividualAnswer(int line, int end, List<String> members, String answer) {
+    IndividualAnswer(int line, int end, List<String> members, String answer, String changedAt) {
       this.line = line;
       this.end = end;
       this.members = members;
       this.answer = answer;
+      this.changedAt = changedAt;
     }
   }
 
@@ -319,6 +433,12 @@ public final class SpecReviewAnnotations {
     final String headerPrefix;
     final int markerEnd;
 
+    /** The first line up to where the author's parentheses (or the text) start. */
+    final String beforeAuthor;
+
+    /** When the comment was last changed (SOM §11.9.10), or null. */
+    final String changedAt;
+
     Comment(
         Block block,
         String id,
@@ -326,7 +446,9 @@ public final class SpecReviewAnnotations {
         String text,
         String context,
         String headerPrefix,
-        int markerEnd) {
+        int markerEnd,
+        String beforeAuthor,
+        String changedAt) {
       this.block = block;
       this.id = id;
       this.author = author;
@@ -334,6 +456,8 @@ public final class SpecReviewAnnotations {
       this.context = context;
       this.headerPrefix = headerPrefix;
       this.markerEnd = markerEnd;
+      this.beforeAuthor = beforeAuthor;
+      this.changedAt = changedAt;
     }
   }
 
@@ -362,6 +486,9 @@ public final class SpecReviewAnnotations {
 
     /** The index of this change's attached comment, or null. */
     Integer commentIndex;
+
+    /** The time in the mark's attribution token (SOM §11.9.10), or null. */
+    String changedAt;
 
     Mark(int start, int end, int line, SpecMarkKind kind, String text, String newText, String comment) {
       this.start = start;
@@ -760,10 +887,15 @@ public final class SpecReviewAnnotations {
       }
     }
     String author = null;
+    String changedAt = null;
+    String beforeAuthor = raw0.substring(0, raw0.length() - rest.length());
     if (rest.startsWith("(")) {
       int close = rest.indexOf(')');
       if (close > 0) {
-        author = rest.substring(1, close);
+        TimeSplit split = splitTime(commaParts(rest.substring(1, close)));
+        changedAt = split.time;
+        String a = trim(String.join(",", split.parts));
+        author = split.time == null ? rest.substring(1, close) : (a.isEmpty() ? null : a);
         rest = rest.substring(close + 1);
         if (rest.startsWith(":")) {
           rest = rest.substring(1);
@@ -795,7 +927,9 @@ public final class SpecReviewAnnotations {
         trim(String.join("\n", textLines)),
         context(p, b.start),
         headerPrefix,
-        markerEnd);
+        markerEnd,
+        beforeAuthor,
+        changedAt);
   }
 
   /** Parses a question header's remainder after {@code **❓ }; null when malformed. */
@@ -888,8 +1022,9 @@ public final class SpecReviewAnnotations {
         }
         Matcher match = INDIVIDUAL_ANSWER.matcher(in.get(m));
         match.find();
+        TimeSplit memberParts = splitTime(commaParts(match.group(1)));
         List<String> members = new ArrayList<>();
-        for (String x : match.group(1).split(",", -1)) {
+        for (String x : memberParts.parts) {
           members.add(trim(x));
         }
         for (String member : members) {
@@ -914,7 +1049,8 @@ public final class SpecReviewAnnotations {
                 b.start + m,
                 b.start + end,
                 members,
-                answerText(in, answerLines, m, match.group(0).length(), regionEnd)));
+                answerText(in, answerLines, m, match.group(0).length(), regionEnd),
+                memberParts.time));
       }
       list.add(
           new Question(
@@ -1303,6 +1439,7 @@ public final class SpecReviewAnnotations {
       return at;
     }
     TokenRead read = readToken(seg.substring(at + 2, close), m.kind);
+    m.changedAt = read.time;
     if (read.error != null) {
       p.malformed.add("line " + m.line + ": attribution token " + read.error + " (SOM §11.9.8)");
     } else {
@@ -1326,6 +1463,9 @@ public final class SpecReviewAnnotations {
     final List<SpecMarkVote> votes;
     final String error;
 
+    /** The token's change time (SOM §11.9.10), or null. */
+    String time;
+
     TokenRead(List<String> authors, List<SpecMarkVote> votes, String error) {
       this.authors = authors;
       this.votes = votes;
@@ -1345,8 +1485,8 @@ public final class SpecReviewAnnotations {
       Pattern.compile(",[\\s\\u00a0\\u1680\\u2000-\\u200a\\u2028\\u2029\\u202f\\u205f\\u3000\\ufeff]+");
 
   /**
-   * The members of a token's inside, {@code <authors>[ <votes>]}, or the reason it breaks the
-   * grammar of SOM §11.9.8.
+   * The members of a token's inside, {@code <authors>[ <votes>][ <time>]}, or the reason it breaks
+   * the grammar of SOM §11.9.8; its change time (SOM §11.9.10) in {@code time} either way.
    */
   private static TokenRead readToken(String inside, SpecMarkKind kind) {
     List<String> words = new ArrayList<>();
@@ -1357,6 +1497,23 @@ public final class SpecReviewAnnotations {
     }
     if (words.isEmpty()) {
       return TokenRead.refused("is empty");
+    }
+    String time = null;
+    if (isReviewTime(words.get(words.size() - 1))) {
+      time = words.remove(words.size() - 1);
+    }
+    TokenRead read = readMembers(words, kind);
+    read.time = time;
+    return read;
+  }
+
+  /**
+   * The authors and votes of a token's words (its time taken off), or the reason they break the
+   * grammar of SOM §11.9.8.
+   */
+  private static TokenRead readMembers(List<String> words, SpecMarkKind kind) {
+    if (words.isEmpty()) {
+      return new TokenRead(new ArrayList<>(), new ArrayList<>(), null);
     }
     List<String> authors = new ArrayList<>();
     List<SpecMarkVote> votes = new ArrayList<>();
@@ -1444,7 +1601,15 @@ public final class SpecReviewAnnotations {
                     "",
                     null,
                     null,
-                    null)));
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    c.changedAt)));
       } else if (b.kind == SpecReviewAnnotationKind.CONFLICT) {
         Conflict c = b.conflict;
         if (c.id == null) {
@@ -1483,7 +1648,7 @@ public final class SpecReviewAnnotations {
         for (Question q : b.questions) {
           List<SpecIndividualAnswer> answers = new ArrayList<>();
           for (IndividualAnswer a : q.answers) {
-            answers.add(new SpecIndividualAnswer(a.members, a.answer));
+            answers.add(new SpecIndividualAnswer(a.members, a.answer, a.changedAt));
           }
           out.add(
               new Ordered(
@@ -1546,7 +1711,8 @@ public final class SpecReviewAnnotations {
                   m.votes,
                   null,
                   null,
-                  null)));
+                  null,
+                  m.changedAt)));
     }
     out.sort(
         Comparator.comparingInt((Ordered o) -> o.line)
@@ -1625,10 +1791,20 @@ public final class SpecReviewAnnotations {
 
   /** The lines of a comment block; {@code author} may be null. */
   public static List<String> formatCommentBlock(String id, String text, String author) {
+    return formatCommentBlock(id, text, author, null);
+  }
+
+  /**
+   * The lines of a comment block; {@code changedAt} goes into the header's parentheses after the
+   * author (SOM §11.9.10).
+   */
+  public static List<String> formatCommentBlock(
+      String id, String text, String author, String changedAt) {
     List<String> t = splitLines(text);
     StringBuilder head = new StringBuilder("> " + ARROW + VS16 + " **" + id + "**");
-    if (author != null && !author.isEmpty()) {
-      head.append(" (").append(author).append("):");
+    String who = authorAndTime(author, changedAt);
+    if (who != null) {
+      head.append(" (").append(who).append("):");
     }
     if (!t.get(0).isEmpty()) {
       head.append(' ').append(t.get(0));
@@ -1913,6 +2089,64 @@ public final class SpecReviewAnnotations {
   }
 
   /**
+   * {@code after} (a value just written as marks) with an attribution token on every change mark it
+   * lacks one on (SOM §11.9.10): the token of the same change in {@code before} (same kind, old and
+   * new text; each used once, in order) when {@code before} held it, else a new one with {@code
+   * author} and {@code time}.
+   */
+  private static String stampMarks(String before, String after, String author, String time) {
+    List<String> oldKeys = new ArrayList<>();
+    List<String> oldTokens = new ArrayList<>();
+    for (Mark m : parse(before).marks) {
+      if (isChangeMark(m.kind)) {
+        oldKeys.add(stampKey(m));
+        oldTokens.add(before.substring(m.bodyEnd, m.end));
+      }
+    }
+    boolean[] used = new boolean[oldKeys.size()];
+    List<String> authors = new ArrayList<>();
+    if (author != null) {
+      authors.add(author);
+    }
+    String fresh = formatAttributionToken(authors, Collections.emptyList(), time);
+    List<Integer> insertAt = new ArrayList<>();
+    List<String> insertToken = new ArrayList<>();
+    for (Mark m : parse(after).marks) {
+      if (!isChangeMark(m.kind) || m.end > m.bodyEnd) {
+        continue;
+      }
+      String k = stampKey(m);
+      String token = fresh;
+      for (int i = 0; i < oldKeys.size(); i++) {
+        if (!used[i] && oldKeys.get(i).equals(k)) {
+          used[i] = true;
+          token = oldTokens.get(i);
+          break;
+        }
+      }
+      if (!token.isEmpty()) {
+        insertAt.add(m.bodyEnd);
+        insertToken.add(token);
+      }
+    }
+    String v = after;
+    for (int i = insertAt.size() - 1; i >= 0; i--) {
+      int at = insertAt.get(i);
+      v = v.substring(0, at) + insertToken.get(i) + v.substring(at);
+    }
+    return v;
+  }
+
+  /** A change mark's identity for {@link #stampMarks}: kind, old text and new text. */
+  private static String stampKey(Mark m) {
+    return m.kind.value
+        + "\u0000"
+        + markReplacement(m, false)
+        + "\u0000"
+        + markReplacement(m, true);
+  }
+
+  /**
    * {@code setMarked} with the value's change comments kept (SOM §11.9.3): taken out of the
    * original, then written back where their anchor falls.
    */
@@ -2024,10 +2258,27 @@ public final class SpecReviewAnnotations {
   }
 
   /** The lines of one individual-answer entry. */
-  private static List<String> individualAnswerLines(List<String> members, String answer) {
+  /**
+   * A comment header's parentheses: the author and the change time, either alone, or null when
+   * there is neither (SOM §11.9.10).
+   */
+  private static String authorAndTime(String author, String changedAt) {
+    String a = author != null && !author.isEmpty() ? author : null;
+    if (a == null) {
+      return changedAt;
+    }
+    return changedAt == null ? a : a + ", " + changedAt;
+  }
+
+  private static List<String> individualAnswerLines(
+      List<String> members, String answer, String changedAt) {
     List<String> a = splitLines(answer);
+    List<String> who = new ArrayList<>(members);
+    if (changedAt != null) {
+      who.add(changedAt);
+    }
     List<String> out = new ArrayList<>();
-    out.add(trimRight("> **Answer (" + String.join(", ", members) + "):** " + a.get(0)));
+    out.add(trimRight("> **Answer (" + String.join(", ", who) + "):** " + a.get(0)));
     out.addAll(quoted(a.subList(1, a.size())));
     return out;
   }
@@ -2038,11 +2289,13 @@ public final class SpecReviewAnnotations {
     final String answer;
     /** The entry's lines as written; null once it changed and is written anew. */
     List<String> lines;
+    final String changedAt;
 
-    AnswerEntry(List<String> members, String answer, List<String> lines) {
+    AnswerEntry(List<String> members, String answer, List<String> lines, String changedAt) {
       this.members = members;
       this.answer = answer;
       this.lines = lines;
+      this.changedAt = changedAt;
     }
   }
 
@@ -2056,7 +2309,7 @@ public final class SpecReviewAnnotations {
    * alone keep their bytes.
    */
   private static String setIndividualAnswer(
-      String value, Question q, String member, String answer) {
+      String value, Question q, String member, String answer, String changedAt) {
     List<String> lines = splitLines(value);
     List<AnswerEntry> entries = new ArrayList<>();
     for (IndividualAnswer a : q.answers) {
@@ -2064,7 +2317,8 @@ public final class SpecReviewAnnotations {
           new AnswerEntry(
               new ArrayList<>(a.members),
               a.answer,
-              new ArrayList<>(lines.subList(a.line, a.end + 1))));
+              new ArrayList<>(lines.subList(a.line, a.end + 1)),
+              a.changedAt));
     }
     for (AnswerEntry e : entries) {
       if (e.members.remove(member)) {
@@ -2082,7 +2336,9 @@ public final class SpecReviewAnnotations {
       AnswerEntry join = null;
       if (!isCommentedAnswer(text, q.options)) {
         for (AnswerEntry e : kept) {
-          if (e.answer.equals(text) && !isCommentedAnswer(e.answer, q.options)) {
+          if (e.answer.equals(text)
+              && Objects.equals(e.changedAt, changedAt)
+              && !isCommentedAnswer(e.answer, q.options)) {
             join = e;
             break;
           }
@@ -2094,12 +2350,13 @@ public final class SpecReviewAnnotations {
       } else {
         List<String> members = new ArrayList<>();
         members.add(member);
-        kept.add(new AnswerEntry(members, text, null));
+        kept.add(new AnswerEntry(members, text, null, changedAt));
       }
     }
     List<String> run = new ArrayList<>();
     for (AnswerEntry e : kept) {
-      run.addAll(e.lines != null ? e.lines : individualAnswerLines(e.members, e.answer));
+      run.addAll(
+          e.lines != null ? e.lines : individualAnswerLines(e.members, e.answer, e.changedAt));
     }
     if (!q.answers.isEmpty()) {
       int from = q.answers.get(0).line;
@@ -2417,10 +2674,26 @@ public final class SpecReviewAnnotations {
    */
   public String insertComment(
       String path, String field, int afterParagraph, String text, String author, String id) {
+    return insertComment(path, field, afterParagraph, text, author, id, null);
+  }
+
+  /**
+   * {@link #insertComment(String, String, int, String, String, String)} whose header records the
+   * change time {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
+   */
+  public String insertComment(
+      String path,
+      String field,
+      int afterParagraph,
+      String text,
+      String author,
+      String id,
+      String at) {
+    String time = time(at);
     String cid = id != null ? id : nextCommentId();
     String value = get(path, field);
     int end = paragraphLastLine(value, afterParagraph);
-    set(path, field, insertAfterLine(value, end, formatCommentBlock(cid, text, author)));
+    set(path, field, insertAfterLine(value, end, formatCommentBlock(cid, text, author, time)));
     return cid;
   }
 
@@ -2456,6 +2729,14 @@ public final class SpecReviewAnnotations {
    * refused. {@code author} may be null.
    */
   public void setAnswer(String questionId, String answer, String author) {
+    setAnswer(questionId, answer, author, null);
+  }
+
+  /**
+   * {@link #setAnswer(String, String, String)} whose individual answer records the change time
+   * {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
+   */
+  public void setAnswer(String questionId, String answer, String author, String at) {
     if (author != null && !isReviewMemberId(author)) {
       throw new SpecReviewAnnotationError(
           "\"" + author + "\" is not a member id (lowercase letters, digits and _)");
@@ -2463,7 +2744,11 @@ public final class SpecReviewAnnotations {
     FoundQuestion f = findQuestion(questionId);
     Question q = f.question;
     if (author != null) {
-      set(f.value.path, f.value.field, setIndividualAnswer(f.value.text, q, author, answer));
+      String time = trim(answer).isEmpty() ? null : time(at);
+      set(
+          f.value.path,
+          f.value.field,
+          setIndividualAnswer(f.value.text, q, author, answer, time));
       return;
     }
     List<String> lines = splitLines(f.value.text);
@@ -2497,12 +2782,22 @@ public final class SpecReviewAnnotations {
 
   /** Replaces a comment's text; its marker, id and author stay as written. */
   public void editComment(String commentId, String text) {
+    editComment(commentId, text, null);
+  }
+
+  /**
+   * Replaces a comment's text; its marker, id and author stay as written, the change time becomes
+   * {@code at}, else the clock's (SOM §11.9.10). {@code at} may be null.
+   */
+  public void editComment(String commentId, String text, String at) {
+    String time = time(at);
     FoundComment f = findComment(commentId);
     Comment c = f.comment;
     List<String> lines = splitLines(f.value.text);
     List<String> t = splitLines(text);
     List<String> block = new ArrayList<>();
-    block.add(trimRight(c.headerPrefix + t.get(0)));
+    String who = authorAndTime(c.author, time);
+    block.add(trimRight(trimRight(c.beforeAuthor) + " (" + who + "): " + t.get(0)));
     block.addAll(quoted(t.subList(1, t.size())));
     List<String> range = lines.subList(c.block.start, c.block.end + 1);
     range.clear();
@@ -2633,7 +2928,8 @@ public final class SpecReviewAnnotations {
                 m.votes,
                 m.quote == null ? null : m.quote.toJson(),
                 m.commentIndex == null ? null : "M-" + (first + m.commentIndex),
-                m.changeIndex == null ? null : "M-" + (first + m.changeIndex)));
+                m.changeIndex == null ? null : "M-" + (first + m.changeIndex),
+                m.changedAt));
       }
     }
     return out;
@@ -2811,6 +3107,16 @@ public final class SpecReviewAnnotations {
    * id.
    */
   public String commentChange(String markId, String text, String author, String revision) {
+    return commentChange(markId, text, author, revision, null);
+  }
+
+  /**
+   * {@link #commentChange(String, String, String, String)} whose token records the change time
+   * {@code at}, else the clock's (SOM §11.9.10); {@code at} may be null.
+   */
+  public String commentChange(
+      String markId, String text, String author, String revision, String at) {
+    String time = time(at);
     FoundMark f = findMark(markId, revision);
     Mark m = f.parsed.marks.get(f.index);
     String value = f.value.text;
@@ -2843,7 +3149,10 @@ public final class SpecReviewAnnotations {
     }
     String markup =
         "{>> [" + d + " " + body + " " + d + "] " + comment + " <<}"
-            + (author == null ? "" : "{@" + author + "}");
+            + formatAttributionToken(
+                author == null ? Collections.emptyList() : Collections.singletonList(author),
+                Collections.emptyList(),
+                time);
     set(
         f.value.path,
         f.value.field,
@@ -2864,6 +3173,15 @@ public final class SpecReviewAnnotations {
    * or holds a mark delimiter or a blank line.
    */
   public void editMarkComment(String markId, String text, String revision) {
+    editMarkComment(markId, text, revision, null);
+  }
+
+  /**
+   * {@link #editMarkComment(String, String, String)} whose token's change time becomes {@code at},
+   * else the clock's (SOM §11.9.10); authors and votes stay. {@code at} may be null.
+   */
+  public void editMarkComment(String markId, String text, String revision, String at) {
+    String time = time(at);
     FoundMark f = findMark(markId, revision);
     Mark m = f.parsed.marks.get(f.index);
     String value = f.value.text;
@@ -2881,10 +3199,11 @@ public final class SpecReviewAnnotations {
     } else {
       throw new SpecReviewAnnotationError(markId + " holds no comment");
     }
+    String token = formatAttributionToken(m.authors, m.votes, time);
     set(
         f.value.path,
         f.value.field,
-        value.substring(0, m.start) + markup + value.substring(m.bodyEnd));
+        value.substring(0, m.start) + markup + token + value.substring(m.end));
   }
 
   /**
@@ -3038,9 +3357,31 @@ public final class SpecReviewAnnotations {
    * instead of nesting one.
    */
   public SpecMarkedChange setMarked(String path, String field, String text) {
-    SpecMarkedChange result = markKeepingChangeComments(get(path, field), text);
-    set(path, field, result.text);
-    return result;
+    return setMarked(path, field, text, null, null);
+  }
+
+  /**
+   * {@link #setMarked(String, String, String)} with every change mark carrying a token (SOM
+   * §11.9.10): an unchanged mark keeps its own, a new one gets {@code author} and {@code at} (else
+   * the clock's time). {@code author} and {@code at} may be null.
+   */
+  public SpecMarkedChange setMarked(
+      String path, String field, String text, String author, String at) {
+    checkAuthor(author);
+    String time = time(at);
+    String current = get(path, field);
+    SpecMarkedChange result = markKeepingChangeComments(current, text);
+    SpecMarkedChange stamped =
+        new SpecMarkedChange(stampMarks(current, result.text, author, time), result.exact);
+    set(path, field, stamped.text);
+    return stamped;
+  }
+
+  private static void checkAuthor(String author) {
+    if (author != null && !isReviewMemberId(author)) {
+      throw new SpecReviewAnnotationError(
+          "\"" + author + "\" is not a member id (lowercase letters, digits and _)");
+    }
   }
 
   /**
@@ -3048,9 +3389,23 @@ public final class SpecReviewAnnotations {
    * earlier}, an earlier version of it.
    */
   public SpecMarkedChange markAgainst(String path, String field, String earlier) {
-    SpecMarkedChange result = markChangeText(earlier, get(path, field));
-    set(path, field, result.text);
-    return result;
+    return markAgainst(path, field, earlier, null, null);
+  }
+
+  /**
+   * {@link #markAgainst(String, String, String)} with its change marks stamped as {@link
+   * #setMarked(String, String, String, String, String)} stamps them.
+   */
+  public SpecMarkedChange markAgainst(
+      String path, String field, String earlier, String author, String at) {
+    checkAuthor(author);
+    String time = time(at);
+    String current = get(path, field);
+    SpecMarkedChange result = markChangeText(earlier, current);
+    SpecMarkedChange stamped =
+        new SpecMarkedChange(stampMarks(current, result.text, author, time), result.exact);
+    set(path, field, stamped.text);
+    return stamped;
   }
 
   /**
@@ -3752,6 +4107,9 @@ public final class SpecReviewAnnotations {
     /** The ids of a question block's questions. */
     final List<String> questionIds;
 
+    /** A comment's change time (SOM §11.9.10), null without one. */
+    final String changedAt;
+
     ReviewPiece(
         String kind,
         String text,
@@ -3759,12 +4117,24 @@ public final class SpecReviewAnnotations {
         String author,
         String commentText,
         List<String> questionIds) {
+      this(kind, text, id, author, commentText, questionIds, null);
+    }
+
+    ReviewPiece(
+        String kind,
+        String text,
+        String id,
+        String author,
+        String commentText,
+        List<String> questionIds,
+        String changedAt) {
       this.kind = kind;
       this.text = text;
       this.id = id;
       this.author = author;
       this.commentText = commentText;
       this.questionIds = questionIds;
+      this.changedAt = changedAt;
     }
 
     boolean isText() {
@@ -3805,7 +4175,8 @@ public final class SpecReviewAnnotations {
               id,
               b.comment == null ? null : b.comment.author,
               b.comment == null ? "" : b.comment.text,
-              questionIds));
+              questionIds,
+              b.comment == null ? null : b.comment.changedAt));
     }
     return out;
   }
@@ -3825,6 +4196,9 @@ public final class SpecReviewAnnotations {
     /** The text rejecting it leaves. */
     final String rejected;
 
+    /** Its token's change time (SOM §11.9.10), or null. */
+    final String changedAt;
+
     ReviewMark(String value, Mark m) {
       this.start = m.start;
       this.end = m.end;
@@ -3835,6 +4209,7 @@ public final class SpecReviewAnnotations {
       this.votes = m.votes;
       this.accepted = markReplacement(m, true);
       this.rejected = markReplacement(m, false);
+      this.changedAt = m.changedAt;
     }
 
     /** Whether the mark carries an attribution token. */
@@ -3871,23 +4246,34 @@ public final class SpecReviewAnnotations {
 
   /** The attribution token for {@code authors} and {@code votes}, {@code {@agent +alice -bob}}. */
   static String formatAttributionToken(List<String> authors, List<SpecMarkVote> votes) {
-    List<String> v = new ArrayList<>();
-    for (SpecMarkVote x : votes) {
-      v.add((x.accepts() ? "+" : "-") + x.member);
+    return formatAttributionToken(authors, votes, null);
+  }
+
+  /**
+   * The attribution token for {@code authors}, {@code votes} and {@code changedAt}, {@code {@agent
+   * +alice -bob 2026-11-07T14:05+01:00}} (SOM §11.9.8, §11.9.10); empty when there is nothing to
+   * write.
+   */
+  static String formatAttributionToken(
+      List<String> authors, List<SpecMarkVote> votes, String changedAt) {
+    List<String> parts = new ArrayList<>();
+    if (!authors.isEmpty()) {
+      parts.add(String.join(",", authors));
     }
-    String vs = String.join(" ", v);
-    return "{@"
-        + String.join(",", authors)
-        + (!authors.isEmpty() && !vs.isEmpty() ? " " : "")
-        + vs
-        + "}";
+    for (SpecMarkVote x : votes) {
+      parts.add((x.accepts() ? "+" : "-") + x.member);
+    }
+    if (changedAt != null) {
+      parts.add(changedAt);
+    }
+    return parts.isEmpty() ? "" : "{@" + String.join(" ", parts) + "}";
   }
 
   /** {@code value} with mark {@code m}'s token replaced by one for {@code authors} and {@code votes}. */
   static String withAttribution(
       String value, ReviewMark m, List<String> authors, List<SpecMarkVote> votes) {
     return value.substring(0, m.bodyEnd)
-        + formatAttributionToken(authors, votes)
+        + formatAttributionToken(authors, votes, m.changedAt)
         + value.substring(m.end);
   }
 
@@ -3908,10 +4294,19 @@ public final class SpecReviewAnnotations {
    */
   static String setIndividualAnswerText(
       String value, String questionId, String member, String answer) {
+    return setIndividualAnswerText(value, questionId, member, answer, null);
+  }
+
+  /**
+   * {@link #setIndividualAnswerText(String, String, String, String)} whose new entry records the
+   * change time {@code changedAt} (null: none).
+   */
+  static String setIndividualAnswerText(
+      String value, String questionId, String member, String answer, String changedAt) {
     for (Block b : parse(value).blocks) {
       for (Question q : b.questions) {
         if (q.id.equals(questionId)) {
-          return setIndividualAnswer(value, q, member, answer);
+          return setIndividualAnswer(value, q, member, answer, changedAt);
         }
       }
     }

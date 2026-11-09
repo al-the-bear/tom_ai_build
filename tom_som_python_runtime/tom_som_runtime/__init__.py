@@ -116,8 +116,11 @@ from .spec_review_annotations import (
     decide_all_marks_text,
     format_question_block,
     is_review_member_id,
+    is_review_time,
     mark_change_text,
+    normalize_review_time,
     strip_annotations_text,
+    system_review_time,
 )
 from .spec_review_merge import (
     SpecMergeAddition,
@@ -411,6 +414,9 @@ __all__ = [
     "encode_two_letter_date",
     "format_comment_block",
     "is_review_member_id",
+    "is_review_time",
+    "normalize_review_time",
+    "system_review_time",
     "merge_reviews",
     "apply_inline_marks_text",
     "decide_all_marks_text",

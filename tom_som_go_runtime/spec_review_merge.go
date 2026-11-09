@@ -830,7 +830,7 @@ func mergeNewBlock(p reviewPiece, member string, v *mergeValue, ctx *mergeContex
 		author = *p.author
 	}
 	ctx.pendingComments[id] = SpecMergeComment{ID: id, Author: author, Path: v.path, Field: annFieldPtr(v.field)}
-	return strings.Join(FormatCommentBlock(id, p.commentText, author), "\n")
+	return strings.Join(FormatCommentBlock(id, p.commentText, author, p.changedAt), "\n")
 }
 
 // mergeOneValue merges one value; the base text when no copy differs from it.
@@ -996,7 +996,7 @@ func mergeAnswers(texts mergeTexts, baseTexts []string, copyTexts [][]string, ct
 				continue
 			}
 			for _, key := range texts.keys() {
-				written, found := setIndividualAnswerText(texts.get(key), id, ctx.members[i], a)
+				written, found := setIndividualAnswerText(texts.get(key), id, ctx.members[i], a, "")
 				if !found {
 					continue
 				}

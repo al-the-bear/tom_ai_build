@@ -2885,7 +2885,7 @@ static std::string run_annotation_op(const som::SpecModel& model,
       return som::jsonEncodeStr(api.insertComment(
           som::jsonStrOr(op, "path"), json_opt_str(op, "field"), afterParagraph,
           som::jsonStrOr(op, "text"), json_opt_str(op, "author"),
-          json_opt_str(op, "id")));
+          json_opt_str(op, "id"), json_opt_str(op, "at")));
     }
     if (name == "insertQuestion") {
       api.insertQuestion(som::jsonStrOr(op, "path"), json_opt_str(op, "field"),
@@ -2901,11 +2901,12 @@ static std::string run_annotation_op(const som::SpecModel& model,
     }
     if (name == "setAnswer") {
       api.setAnswer(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "answer"),
-                    json_opt_str(op, "author"));
+                    json_opt_str(op, "author"), json_opt_str(op, "at"));
       return "null";
     }
     if (name == "editComment") {
-      api.editComment(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"));
+      api.editComment(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"),
+                      json_opt_str(op, "at"));
       return "null";
     }
     if (name == "resolve") {
@@ -2974,22 +2975,26 @@ static std::string run_annotation_op(const som::SpecModel& model,
       if (name == "commentChange") {
         return som::jsonEncodeStr(api.commentChange(
             som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"),
-            json_opt_str(op, "author"), rev));
+            json_opt_str(op, "author"), rev, json_opt_str(op, "at")));
       }
       api.editMarkComment(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"),
-                          rev);
+                          rev, json_opt_str(op, "at"));
       return "null";
     }
     if (name == "setMarked") {
       return json_text_canon(api.setMarked(som::jsonStrOr(op, "path"),
                                            json_opt_str(op, "field"),
-                                           som::jsonStrOr(op, "text"))
+                                           som::jsonStrOr(op, "text"),
+                                           json_opt_str(op, "author"),
+                                           json_opt_str(op, "at"))
                                  .toJson());
     }
     if (name == "markAgainst") {
       return json_text_canon(api.markAgainst(som::jsonStrOr(op, "path"),
                                              json_opt_str(op, "field"),
-                                             som::jsonStrOr(op, "earlier"))
+                                             som::jsonStrOr(op, "earlier"),
+                                             json_opt_str(op, "author"),
+                                             json_opt_str(op, "at"))
                                  .toJson());
     }
     if (name == "strip") return doc_canonical(api.stripped());
@@ -3020,6 +3025,10 @@ static std::string run_annotation_op(const som::SpecModel& model,
   std::exit(2);
 }
 
+/* The change time every annotation write records in the conformance cases
+ * (SOM §11.9.10) unless a case names its own `now`. */
+static const char* const kCorpusNow = "2026-11-07T14:05+01:00";
+
 /* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
  * every op runs in order on one document loaded from `state`; each op's
  * result and the final state must equal `expect` (JSON equality). `team`
@@ -3037,7 +3046,11 @@ static void run_annotation_cases(Checker& c, const som::SpecModel& model,
     const std::string label = prefix + "[" + som::jsonStrOr(kase, "name") + "]";
     som::SpecDocument doc =
         doc_from_state(som::documentJsonFromJson(som::jsonGet(kase, "state")));
-    som::SpecReviewAnnotations api(doc, json_opt_str(kase, "qualifier"));
+    // A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+    // every runtime: the case's `now`, else the corpus default.
+    const std::string now = json_opt_str(kase, "now").value_or(kCorpusNow);
+    som::SpecReviewAnnotations api(doc, json_opt_str(kase, "qualifier"),
+                                   [now] { return now; });
     som::JsonRef ops = som::jsonGet(kase, "ops");
     som::JsonRef expect = som::jsonGet(kase, "expect");
     som::JsonRef wantResults = som::jsonGet(expect, "results");

@@ -59,6 +59,9 @@ public final class SpecMarkEntry {
   /** The change an attached change comment is about, by id; null otherwise. */
   public final String changeId;
 
+  /** When the mark was last changed (SOM §11.9.10), or null. */
+  public final String changedAt;
+
   public SpecMarkEntry(
       String id,
       String path,
@@ -107,6 +110,28 @@ public final class SpecMarkEntry {
       Map<String, Object> quotedChange,
       String commentId,
       String changeId) {
+    this(
+        id, path, field, line, markKind, oldText, newText, comment, markup, context, authors, votes,
+        quotedChange, commentId, changeId, null);
+  }
+
+  public SpecMarkEntry(
+      String id,
+      String path,
+      String field,
+      int line,
+      SpecMarkKind markKind,
+      String oldText,
+      String newText,
+      String comment,
+      String markup,
+      String context,
+      List<String> authors,
+      List<SpecMarkVote> votes,
+      Map<String, Object> quotedChange,
+      String commentId,
+      String changeId,
+      String changedAt) {
     this.id = id;
     this.path = path;
     this.field = field;
@@ -129,6 +154,7 @@ public final class SpecMarkEntry {
             : Collections.unmodifiableMap(new LinkedHashMap<>(quotedChange));
     this.commentId = commentId;
     this.changeId = changeId;
+    this.changedAt = changedAt;
   }
 
   /** The canonical JSON form the older case files pin. */
@@ -161,6 +187,9 @@ public final class SpecMarkEntry {
     }
     if (changeId != null) {
       out.put("changeId", changeId);
+    }
+    if (changedAt != null) {
+      out.put("changedAt", changedAt);
     }
     if (team) {
       out.put("authors", new ArrayList<Object>(authors));

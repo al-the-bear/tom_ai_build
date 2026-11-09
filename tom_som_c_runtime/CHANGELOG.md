@@ -1,5 +1,29 @@
 # Changelog
 
+## Unreleased
+
+- Change times (SOM §11.9.10), a port of the Dart reference: comment headers,
+  attribution tokens and individual answers carry the time of their last
+  change next to the author (`(Alexis, 2026-11-07T14:05+01:00)`,
+  `{@alice 2026-11-07T14:05+01:00}`,
+  `**Answer (alice, 2026-11-07T14:05+01:00):**`). The writes record it from
+  `at` or the new clock of `SpecReviewAnnotations` (`SpecReviewClock`,
+  `spec_review_annotations_make_with_clock`); `set_marked` keeps the token of
+  a mark it writes again unchanged. `changed_at` on `SpecReviewAnnotation`,
+  `SpecMarkEntry`, `SpecIndividualAnswer`, `SpecReviewPiece` and
+  `SpecReviewMark`; `spec_review_merge_*` carries a copy's times over. New:
+  `spec_review_normalize_time`, `spec_review_is_time`,
+  `spec_review_system_time`, `spec_review_format_attribution_token`.
+
+- **Changed signatures:** an `at` argument (`NULL`: the clock) on
+  `spec_review_annotations_insert_comment`, `_edit_comment`,
+  `_set_member_answer`, `_comment_change` and `_edit_mark_comment`;
+  `spec_review_annotations_set_marked` and `_mark_against` take `author` and
+  `at`, return `int` and write the `SpecMarkedChange` into an `out` argument,
+  refused (0, `*err` filled, nothing changed) for an author that is not a
+  member id or an `at` that is not a time; `spec_format_comment_block` takes
+  `changed_at` and `spec_review_set_individual_answer_text` a change time.
+
 ## 1.7.3
 
 - No change. The chain moves with `tom_specs_model` 1.7.3, whose shipped

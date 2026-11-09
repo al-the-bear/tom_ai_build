@@ -205,6 +205,9 @@ export {
   SpecConflictOutcome,
   formatConflictBlock,
   isReviewMemberId,
+  isReviewTime,
+  normalizeReviewTime,
+  systemReviewTime,
 } from './spec_review_annotations';
 export type {
   SpecReviewAnnotationKindValue,

@@ -154,6 +154,9 @@ pub struct SpecReviewAnnotation {
     pub base: String,
     /// A conflict's lettered alternatives.
     pub alternatives: Vec<SpecConflictAlternative>,
+    /// When a comment or mark was last changed (SOM §11.9.10); `None`
+    /// without a time.
+    pub changed_at: Option<String>,
 }
 
 impl SpecReviewAnnotation {
@@ -182,6 +185,7 @@ impl SpecReviewAnnotation {
             answers: Vec::new(),
             base: String::new(),
             alternatives: Vec::new(),
+            changed_at: None,
         }
     }
 
@@ -248,7 +252,10 @@ impl SpecReviewAnnotation {
                 ("author", o(&self.author)),
                 ("text", s(&self.text)),
                 ("context", s(&self.context)),
-            ],
+            ]
+            .into_iter()
+            .chain(self.changed_at.as_deref().map(|t| ("changedAt", s(t))))
+            .collect(),
             SpecReviewAnnotationKind::Question => {
                 let mut pairs = vec![
                     ("kind", s("question")),
@@ -313,6 +320,9 @@ impl SpecReviewAnnotation {
                     ("newText", o(&self.new_text)),
                     ("comment", o(&self.comment)),
                 ];
+                if let Some(t) = &self.changed_at {
+                    pairs.push(("changedAt", s(t)));
+                }
                 if options.team {
                     pairs.push(("authors", json_strs(&self.authors)));
                     pairs.push(("votes", votes_json(&self.votes)));
@@ -447,6 +457,8 @@ pub struct SpecIndividualAnswer {
     pub answer: String,
     /// The letter the answer starts with (`(a)` or `**(a)**`), or `None`.
     pub answer_letter: Option<String>,
+    /// When the answer was last written (SOM §11.9.10), or `None`.
+    pub changed_at: Option<String>,
 }
 
 impl SpecIndividualAnswer {
@@ -456,16 +468,21 @@ impl SpecIndividualAnswer {
             members,
             answer: answer.to_string(),
             answer_letter: leading_letter(answer),
+            changed_at: None,
         }
     }
 
-    /// The canonical JSON form.
+    /// The canonical JSON form; `changedAt` only when the answer has a time.
     pub fn to_json(&self) -> Json {
-        json_obj(vec![
+        let mut pairs = vec![
             ("members", json_strs(&self.members)),
             ("answer", json_str(&self.answer)),
             ("answerLetter", json_opt(&self.answer_letter)),
-        ])
+        ];
+        if let Some(t) = &self.changed_at {
+            pairs.push(("changedAt", json_str(t)));
+        }
+        json_obj(pairs)
     }
 }
 
@@ -720,6 +737,8 @@ pub struct SpecMarkEntry {
     /// The change an attached change comment is about, by id; `None`
     /// otherwise.
     pub change_id: Option<String>,
+    /// When the mark was last changed (SOM §11.9.10); `None` without a time.
+    pub changed_at: Option<String>,
 }
 
 impl SpecMarkEntry {
@@ -753,6 +772,9 @@ impl SpecMarkEntry {
         }
         if let Some(id) = &self.change_id {
             pairs.push(("changeId", json_str(id)));
+        }
+        if let Some(t) = &self.changed_at {
+            pairs.push(("changedAt", json_str(t)));
         }
         if options.team {
             pairs.push(("authors", json_strs(&self.authors)));
@@ -925,6 +947,102 @@ pub fn is_review_member_id(s: &str) -> bool {
             .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_')
 }
 
+/// Whether `b` from `i` holds `n` ASCII digits.
+fn digits_at(b: &[u8], i: usize, n: usize) -> bool {
+    b.len() >= i + n && b[i..i + n].iter().all(u8::is_ascii_digit)
+}
+
+/// The length of a UTC offset or `Z` at the start of `b` (`Z`,
+/// `+01:00`, `-05:00`), or `None`.
+fn offset_len(b: &[u8]) -> Option<usize> {
+    match b.first() {
+        Some(b'Z') => Some(1),
+        Some(b'+' | b'-')
+            if digits_at(b, 1, 2) && b.get(3) == Some(&b':') && digits_at(b, 4, 2) =>
+        {
+            Some(6)
+        }
+        _ => None,
+    }
+}
+
+/// Whether `b` starts with `YYYY-MM-DDTHH:MM` (16 bytes).
+fn is_minute_stamp(b: &[u8]) -> bool {
+    digits_at(b, 0, 4)
+        && b.get(4) == Some(&b'-')
+        && digits_at(b, 5, 2)
+        && b.get(7) == Some(&b'-')
+        && digits_at(b, 8, 2)
+        && b.get(10) == Some(&b'T')
+        && digits_at(b, 11, 2)
+        && b.get(13) == Some(&b':')
+        && digits_at(b, 14, 2)
+}
+
+/// Whether `s` is a change time of the form SOM §11.9.10 fixes: minutes with
+/// the writer's UTC offset, `2026-11-07T14:05+01:00` or `2026-11-07T13:05Z`.
+pub fn is_review_time(s: &str) -> bool {
+    let b = s.as_bytes();
+    is_minute_stamp(b) && offset_len(&b[16..]) == Some(b.len() - 16)
+}
+
+/// `at` (an ISO 8601 time: minutes, optional seconds and fraction, and an
+/// offset or `Z`) as a change time (SOM §11.9.10): seconds and fractions cut,
+/// the offset kept as given. Any other shape is refused.
+pub fn normalize_review_time(at: &str) -> Result<String, SpecReviewAnnotationError> {
+    let t = at.trim();
+    let b = t.as_bytes();
+    let refused = || {
+        SpecReviewAnnotationError::new(format!(
+            "\"{}\" is not an ISO 8601 time with an offset or Z (e.g. 2026-11-07T14:05+01:00)",
+            at
+        ))
+    };
+    if !is_minute_stamp(b) {
+        return Err(refused());
+    }
+    let mut i = 16;
+    if b.get(i) == Some(&b':') && digits_at(b, i + 1, 2) {
+        i += 3;
+        if b.get(i) == Some(&b'.') && digits_at(b, i + 1, 1) {
+            i += 1;
+            while i < b.len() && b[i].is_ascii_digit() {
+                i += 1;
+            }
+        }
+    }
+    match offset_len(&b[i..]) {
+        Some(n) if i + n == b.len() => Ok(format!("{}{}", &t[..16], &t[i..])),
+        _ => Err(refused()),
+    }
+}
+
+/// The current time as a change time (SOM §11.9.10). The standard library
+/// knows no local offset, so it is written in UTC, `…Z`.
+pub fn system_review_time() -> String {
+    let secs = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs() as i64)
+        .unwrap_or(0);
+    let (y, mo, d) = crate::spec_section_id::civil_from_days(secs.div_euclid(86_400));
+    let m = secs.rem_euclid(86_400) / 60;
+    format!("{:04}-{:02}-{:02}T{:02}:{:02}Z", y, mo, d, m / 60, m % 60)
+}
+
+/// `parts` (a header's or an answer's comma-separated parts) split into the
+/// parts before a trailing change time and the time (SOM §11.9.10).
+fn split_time<'s>(parts: &[&'s str]) -> (Vec<&'s str>, Option<String>) {
+    if let Some(last) = parts.last() {
+        if is_review_time(last.trim()) {
+            return (
+                parts[..parts.len() - 1].to_vec(),
+                Some(last.trim().to_string()),
+            );
+        }
+    }
+    (parts.to_vec(), None)
+}
+
 fn is_unresolved(answer: &str) -> bool {
     answer.starts_with(UNRESOLVED_PREFIX)
 }
@@ -963,6 +1081,8 @@ struct IndividualAnswerEntry {
     end: usize,
     members: Vec<String>,
     answer: String,
+    /// The entry's change time (SOM §11.9.10), or `None`.
+    changed_at: Option<String>,
 }
 
 /// One question region inside a question block.
@@ -1095,10 +1215,13 @@ struct Comment {
     author: Option<String>,
     text: String,
     context: String,
-    /// The first line up to where the text starts (kept by an edit).
-    header_prefix: String,
     /// Where an id is inserted into the first line (a byte offset).
     marker_end: usize,
+    /// The first line up to where the author's parentheses (or the text)
+    /// start.
+    before_author: String,
+    /// When the comment was last changed (SOM §11.9.10), or `None`.
+    changed_at: Option<String>,
 }
 
 /// One parsed mark; `start`/`end` are byte offsets into the value. `end`
@@ -1119,6 +1242,8 @@ struct Mark {
     votes: Vec<SpecMarkVote>,
     /// A comment mark's quote of a change (SOM §11.9.3), or `None`.
     quote: Option<Quote>,
+    /// The time in the mark's attribution token (SOM §11.9.10), or `None`.
+    changed_at: Option<String>,
     /// The index (among the value's marks) of the change this change comment
     /// is attached to, or `None`.
     change_index: Option<usize>,
@@ -1442,10 +1567,19 @@ fn parse_comment(p: &mut Parsed, start: usize, end: usize) -> Comment {
         }
     }
     let mut author = None;
+    let mut changed_at = None;
+    let before_author = raw0[..raw0.len() - rest.len()].to_string();
     if rest.starts_with('(') {
         if let Some(close) = rest.find(')') {
             if close > 0 {
-                author = Some(rest[1..close].to_string());
+                let inside: Vec<&str> = rest[1..close].split(',').collect();
+                let (parts, time) = split_time(&inside);
+                author = if time.is_none() {
+                    Some(rest[1..close].to_string())
+                } else {
+                    Some(parts.join(",").trim().to_string()).filter(|a| !a.is_empty())
+                };
+                changed_at = time;
                 rest = &rest[close + 1..];
                 if let Some(r) = rest.strip_prefix(':') {
                     rest = r;
@@ -1456,7 +1590,6 @@ fn parse_comment(p: &mut Parsed, start: usize, end: usize) -> Comment {
     } else if let Some(r) = rest.strip_prefix(':') {
         rest = lstrip(r);
     }
-    let header_prefix = raw0[..raw0.len() - rest.len()].to_string();
     let mut text_lines: Vec<String> = vec![rest.to_string()];
     for k in start + 1..=end {
         let inn = inner(&p.lines[k]).to_string();
@@ -1480,8 +1613,9 @@ fn parse_comment(p: &mut Parsed, start: usize, end: usize) -> Comment {
         author,
         text: text_lines.join("\n").trim().to_string(),
         context: context_of(p, start),
-        header_prefix,
         marker_end,
+        before_author,
+        changed_at,
     }
 }
 
@@ -1600,7 +1734,9 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
                 answer = answer.or(Some(m));
                 continue;
             };
-            let members: Vec<String> = ids.split(',').map(|x| x.trim().to_string()).collect();
+            let ids: Vec<&str> = ids.split(',').collect();
+            let (member_parts, answer_time) = split_time(&ids);
+            let members: Vec<String> = member_parts.iter().map(|x| x.trim().to_string()).collect();
             for member in &members {
                 if !answered.insert(member.clone()) {
                     p.malformed.push(format!(
@@ -1621,6 +1757,7 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
                 end: start + end,
                 members,
                 answer: answer_text(m, label),
+                changed_at: answer_time,
             });
         }
         list.push(Question {
@@ -1964,6 +2101,7 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
             authors: Vec::new(),
             votes: Vec::new(),
             quote: None,
+            changed_at: None,
             change_index: None,
             comment_index: None,
         };
@@ -2070,9 +2208,10 @@ fn attach_token(p: &mut Parsed, seg: &str, at: usize, base: usize) -> usize {
         }
     };
     let kind = p.marks.last().map_or(SpecMarkKind::Comment, |m| m.kind);
-    let read = read_token(&seg[at + 2..close], kind);
+    let (changed_at, read) = read_token(&seg[at + 2..close], kind);
     let m = p.marks.last_mut().expect("a token follows a mark");
     m.end = base + close + 1;
+    m.changed_at = changed_at;
     match read {
         Ok((authors, votes)) => {
             m.authors = authors;
@@ -2096,9 +2235,10 @@ fn is_change_mark(kind: SpecMarkKind) -> bool {
 
 type TokenMembers = (Vec<String>, Vec<SpecMarkVote>);
 
-/// The members of a token's inside, `<authors>[ <votes>]`, or the reason it
-/// breaks the grammar of SOM §11.9.8.
-fn read_token(inside: &str, kind: SpecMarkKind) -> Result<TokenMembers, String> {
+/// The change time of a token's inside, `[<authors>][ <votes>][ <time>]`
+/// (SOM §11.9.10), and its members or the reason they break the grammar of
+/// SOM §11.9.8 (the time is read either way).
+fn read_token(inside: &str, kind: SpecMarkKind) -> (Option<String>, Result<TokenMembers, String>) {
     // A space after a comma is allowed: `alice, bob` reads as `alice,bob`.
     let mut compact = String::with_capacity(inside.len());
     let mut after_comma = false;
@@ -2109,9 +2249,22 @@ fn read_token(inside: &str, kind: SpecMarkKind) -> Result<TokenMembers, String> 
         after_comma = ch == ',';
         compact.push(ch);
     }
-    let words: Vec<&str> = compact.split_whitespace().collect();
+    let mut words: Vec<&str> = compact.split_whitespace().collect();
     if words.is_empty() {
-        return Err("is empty".to_string());
+        return (None, Err("is empty".to_string()));
+    }
+    let mut time = None;
+    if words.last().is_some_and(|w| is_review_time(w)) {
+        time = words.pop().map(str::to_string);
+    }
+    (time, read_members(&words, kind))
+}
+
+/// The authors and votes of a token's words (its time taken off), or the
+/// reason they break the grammar of SOM §11.9.8.
+fn read_members(words: &[&str], kind: SpecMarkKind) -> Result<TokenMembers, String> {
+    if words.is_empty() {
+        return Ok((Vec::new(), Vec::new()));
     }
     let is_vote = |w: &str| w.starts_with('+') || w.starts_with('-');
     let mut authors: Vec<String> = Vec::new();
@@ -2172,6 +2325,7 @@ fn annotations_of(
             a.author = c.author.clone();
             a.text = c.text.clone();
             a.context = c.context.clone();
+            a.changed_at = c.changed_at.clone();
             out.push((b.start, 0, seq, a));
             seq += 1;
         } else if let Some(c) = &b.conflict {
@@ -2210,7 +2364,10 @@ fn annotations_of(
                 a.answers = q
                     .answers
                     .iter()
-                    .map(|x| SpecIndividualAnswer::new(x.members.clone(), &x.answer))
+                    .map(|x| SpecIndividualAnswer {
+                        changed_at: x.changed_at.clone(),
+                        ..SpecIndividualAnswer::new(x.members.clone(), &x.answer)
+                    })
                     .collect();
                 out.push((q.header, 0, seq, a));
                 seq += 1;
@@ -2225,6 +2382,7 @@ fn annotations_of(
         a.comment = m.comment.clone();
         a.authors = m.authors.clone();
         a.votes = m.votes.clone();
+        a.changed_at = m.changed_at.clone();
         out.push((m.line, 1, seq, a));
         seq += 1;
     }
@@ -2309,13 +2467,16 @@ fn quoted(lines: &[&str]) -> Vec<String> {
 
 /// The lines of a comment block: `> ⬆️ **ID** (author): first line`, further
 /// lines quoted.
-pub fn format_comment_block(id: &str, text: &str, author: Option<&str>) -> Vec<String> {
+pub fn format_comment_block(
+    id: &str,
+    text: &str,
+    author: Option<&str>,
+    changed_at: Option<&str>,
+) -> Vec<String> {
     let t: Vec<&str> = text.split('\n').collect();
     let mut head = format!("> {}{} **{}**", ARROW, VS16, id);
-    if let Some(a) = author {
-        if !a.is_empty() {
-            head.push_str(&format!(" ({}):", a));
-        }
+    if let Some(who) = author_and_time(author, changed_at) {
+        head.push_str(&format!(" ({}):", who));
     }
     if !t[0].is_empty() {
         head.push(' ');
@@ -2696,9 +2857,25 @@ fn is_commented_answer(answer: &str, options: &[SpecQuestionOption]) -> bool {
 }
 
 /// The lines of one individual-answer entry.
-fn individual_answer_lines(members: &[String], answer: &str) -> Vec<String> {
+/// A comment header's parentheses: the author and the change time, either
+/// alone, or `None` when there is neither (SOM §11.9.10).
+fn author_and_time(author: Option<&str>, changed_at: Option<&str>) -> Option<String> {
+    match (author.filter(|a| !a.is_empty()), changed_at) {
+        (None, t) => t.map(str::to_string),
+        (Some(a), None) => Some(a.to_string()),
+        (Some(a), Some(t)) => Some(format!("{}, {}", a, t)),
+    }
+}
+
+fn individual_answer_lines(
+    members: &[String],
+    answer: &str,
+    changed_at: Option<&str>,
+) -> Vec<String> {
     let a: Vec<&str> = answer.split('\n').collect();
-    let mut out = vec![format!("> **Answer ({}):** {}", members.join(", "), a[0])
+    let mut who = members.to_vec();
+    who.extend(changed_at.map(str::to_string));
+    let mut out = vec![format!("> **Answer ({}):** {}", who.join(", "), a[0])
         .trim_end()
         .to_string()];
     out.extend(quoted(&a[1..]));
@@ -2712,11 +2889,20 @@ fn individual_answer_lines(members: &[String], answer: &str) -> Vec<String> {
 /// gets a new line after the last individual answer. The first individual
 /// answer opens the run before the team's `**Answer:**`, with a `>` line
 /// between run and team answer, and a run left empty takes that line with
-/// it. Entries left alone keep their bytes.
-fn set_individual_answer(value: &str, q: &Question, member: &str, answer: &str) -> String {
+/// it. Entries left alone keep their bytes. `changed_at` is the new entry's
+/// change time (SOM §11.9.10); entries join only when answer and time are
+/// equal.
+fn set_individual_answer(
+    value: &str,
+    q: &Question,
+    member: &str,
+    answer: &str,
+    changed_at: Option<&str>,
+) -> String {
     let mut lines = split_lines(value);
-    // (members, answer, its lines as written while untouched)
-    let mut entries: Vec<(Vec<String>, String, Option<Vec<String>>)> = q
+    // (members, answer, its lines as written while untouched, change time)
+    type Entry = (Vec<String>, String, Option<Vec<String>>, Option<String>);
+    let mut entries: Vec<Entry> = q
         .answers
         .iter()
         .map(|a| {
@@ -2724,6 +2910,7 @@ fn set_individual_answer(value: &str, q: &Question, member: &str, answer: &str) 
                 a.members.clone(),
                 a.answer.clone(),
                 Some(lines[a.line..=a.end].to_vec()),
+                a.changed_at.clone(),
             )
         })
         .collect();
@@ -2739,23 +2926,31 @@ fn set_individual_answer(value: &str, q: &Question, member: &str, answer: &str) 
         let join = if is_commented_answer(text, &q.options) {
             None
         } else {
-            kept.iter_mut()
-                .find(|e| e.1 == text && !is_commented_answer(&e.1, &q.options))
+            kept.iter_mut().find(|e| {
+                e.1 == text
+                    && e.3.as_deref() == changed_at
+                    && !is_commented_answer(&e.1, &q.options)
+            })
         };
         match join {
             Some(e) => {
                 e.0.push(member.to_string());
                 e.2 = None;
             }
-            None => kept.push((vec![member.to_string()], text.to_string(), None)),
+            None => kept.push((
+                vec![member.to_string()],
+                text.to_string(),
+                None,
+                changed_at.map(str::to_string),
+            )),
         }
     }
     let run: Vec<String> = kept
         .iter()
-        .flat_map(|(members, answer, written)| {
+        .flat_map(|(members, answer, written, time)| {
             written
                 .clone()
-                .unwrap_or_else(|| individual_answer_lines(members, answer))
+                .unwrap_or_else(|| individual_answer_lines(members, answer, time.as_deref()))
         })
         .collect();
     if let (Some(first), Some(last)) = (q.answers.first(), q.answers.last()) {
@@ -2980,6 +3175,9 @@ pub struct SpecReviewAnnotations<'a> {
     /// The document's id or name, written in front of a comment id cited
     /// outside the document (`SBP` → `SBP C-12`); `None` for bare ids.
     pub qualifier: Option<String>,
+    /// The clock the write operations take a change time from when no `at`
+    /// is passed (SOM §11.9.10); `None`: the system clock.
+    clock: Option<Box<dyn Fn() -> String + 'a>>,
 }
 
 type FoundQuestion = (String, Option<String>, String, Block, Question);
@@ -2991,6 +3189,7 @@ impl<'a> SpecReviewAnnotations<'a> {
         SpecReviewAnnotations {
             doc,
             qualifier: None,
+            clock: None,
         }
     }
 
@@ -3002,6 +3201,31 @@ impl<'a> SpecReviewAnnotations<'a> {
         SpecReviewAnnotations {
             doc,
             qualifier: qualifier.map(str::to_string),
+            clock: None,
+        }
+    }
+
+    /// Wraps `doc` like [`with_qualifier`](Self::with_qualifier); `clock`
+    /// fixes the change time the writes record (SOM §11.9.10; the conformance
+    /// drivers pass a fixed one).
+    pub fn with_clock(
+        doc: &'a mut SpecDocument,
+        qualifier: Option<&str>,
+        clock: impl Fn() -> String + 'a,
+    ) -> SpecReviewAnnotations<'a> {
+        SpecReviewAnnotations {
+            doc,
+            qualifier: qualifier.map(str::to_string),
+            clock: Some(Box::new(clock)),
+        }
+    }
+
+    /// The change time a write records: `at` normalized, else the clock's.
+    fn change_time(&self, at: Option<&str>) -> Result<String, SpecReviewAnnotationError> {
+        match (at, &self.clock) {
+            (Some(t), _) => normalize_review_time(t),
+            (None, Some(clock)) => Ok(clock()),
+            (None, None) => Ok(system_review_time()),
         }
     }
 
@@ -3107,7 +3331,10 @@ impl<'a> SpecReviewAnnotations<'a> {
 
     /// Inserts a comment block after paragraph `after_paragraph` (0-based;
     /// negative: at the start) of the value at `path` / `field`, and returns
-    /// its id — `id` when given, else the next free one.
+    /// its id — `id` when given, else the next free one. The header records
+    /// `at` (an ISO 8601 time; `None`: the clock's) as the change time (SOM
+    /// §11.9.10).
+    #[allow(clippy::too_many_arguments)]
     pub fn insert_comment(
         &mut self,
         path: &str,
@@ -3116,14 +3343,16 @@ impl<'a> SpecReviewAnnotations<'a> {
         text: &str,
         author: Option<&str>,
         id: Option<&str>,
+        at: Option<&str>,
     ) -> Result<String, SpecReviewAnnotationError> {
+        let time = self.change_time(at)?;
         let cid = match id {
             Some(i) => i.to_string(),
             None => self.next_comment_id(0),
         };
         let value = self.get(path, field);
         let end = paragraph_last_line(&value, after_paragraph)?;
-        let block = format_comment_block(&cid, text, author);
+        let block = format_comment_block(&cid, text, author, Some(&time));
         self.set(path, field, &insert_after_line(&value, end, &block));
         Ok(cid)
     }
@@ -3200,18 +3429,20 @@ impl<'a> SpecReviewAnnotations<'a> {
         question_id: &str,
         answer: &str,
     ) -> Result<(), SpecReviewAnnotationError> {
-        self.set_answer_by(question_id, answer, None)
+        self.set_answer_by(question_id, answer, None, None)
     }
 
     /// Like [`set_answer`](Self::set_answer); with `author`, writes that
     /// member's individual answer instead, grouped and placed by the rules of
     /// SOM §11.9.8 (empty: only takes the member out). An author that is not
-    /// a member id is refused.
+    /// a member id is refused. A member's non-empty answer records `at` (an
+    /// ISO 8601 time; `None`: the clock's) as its change time (SOM §11.9.10).
     pub fn set_answer_by(
         &mut self,
         question_id: &str,
         answer: &str,
         author: Option<&str>,
+        at: Option<&str>,
     ) -> Result<(), SpecReviewAnnotationError> {
         if let Some(a) = author {
             if !is_review_member_id(a) {
@@ -3223,7 +3454,12 @@ impl<'a> SpecReviewAnnotations<'a> {
         }
         let (path, field, text, _b, q) = self.find_question(question_id)?;
         if let Some(a) = author {
-            let written = set_individual_answer(&text, &q, a, answer);
+            let time = if answer.trim().is_empty() {
+                None
+            } else {
+                Some(self.change_time(at)?)
+            };
+            let written = set_individual_answer(&text, &q, a, answer, time.as_deref());
             self.set(&path, field.as_deref(), &written);
             return Ok(());
         }
@@ -3257,16 +3493,25 @@ impl<'a> SpecReviewAnnotations<'a> {
         Ok(())
     }
 
-    /// Replaces a comment's text; its marker, id and author stay as written.
+    /// Replaces a comment's text; its marker, id and author stay as written,
+    /// and the header records `at` (an ISO 8601 time; `None`: the clock's) as
+    /// the change time (SOM §11.9.10).
     pub fn edit_comment(
         &mut self,
         comment_id: &str,
         text: &str,
+        at: Option<&str>,
     ) -> Result<(), SpecReviewAnnotationError> {
+        let time = self.change_time(at)?;
         let (path, field, value, c) = self.find_comment(comment_id)?;
         let mut lines = split_lines(&value);
         let t: Vec<&str> = text.split('\n').collect();
-        let mut block = vec![format!("{}{}", c.header_prefix, t[0]).trim_end().to_string()];
+        let who = author_and_time(c.author.as_deref(), Some(&time)).unwrap_or_default();
+        let mut block = vec![
+            format!("{} ({}): {}", c.before_author.trim_end(), who, t[0])
+                .trim_end()
+                .to_string(),
+        ];
         block.extend(quoted(&t[1..]));
         lines.splice(c.block_start..=c.block_end, block);
         self.set(&path, field.as_deref(), &lines.join("\n"));
@@ -3484,6 +3729,7 @@ impl<'a> SpecReviewAnnotations<'a> {
                     quoted_change: m.quote.as_ref().map(Quote::to_json),
                     comment_id: mark_id(m.comment_index),
                     change_id: mark_id(m.change_index),
+                    changed_at: m.changed_at.clone(),
                 });
             }
         }
@@ -3663,7 +3909,9 @@ impl<'a> SpecReviewAnnotations<'a> {
         text: &str,
         author: Option<&str>,
         revision: Option<&str>,
+        at: Option<&str>,
     ) -> Result<String, SpecReviewAnnotationError> {
+        let time = self.change_time(at)?;
         let f = self.find_mark(mark_id, revision)?;
         let m = &f.marks[f.index];
         if !is_change_mark(m.kind) {
@@ -3708,9 +3956,10 @@ impl<'a> SpecReviewAnnotations<'a> {
                 mark_id, d
             )));
         }
+        let authors: Vec<String> = author.map(str::to_string).into_iter().collect();
         let markup = format!(
             "{{>> [{d} {body} {d}] {comment} <<}}{}",
-            author.map(|a| format!("{{@{}}}", a)).unwrap_or_default()
+            format_attribution_token(&authors, &[], Some(&time))
         );
         let out = format!("{}{}{}", &f.text[..m.end], markup, &f.text[m.end..]);
         self.set(&f.path, f.field.as_deref(), &out);
@@ -3720,7 +3969,9 @@ impl<'a> SpecReviewAnnotations<'a> {
 
     /// Replaces the comment of the comment mark, change comment or commented
     /// highlight `mark_id` with `text` (SOM §11.9.3). A change comment keeps
-    /// its quote as written, and the attribution token stays. Refused —
+    /// its quote as written, and the attribution token keeps its authors and
+    /// votes and records `at` (an ISO 8601 time; `None`: the clock's) as the
+    /// change time (SOM §11.9.10). Refused —
     /// nothing changes — for an unknown id, a stale `revision`, a mark that
     /// holds no comment, and a `text` that is empty or holds a mark delimiter
     /// or a blank line.
@@ -3729,7 +3980,9 @@ impl<'a> SpecReviewAnnotations<'a> {
         mark_id: &str,
         text: &str,
         revision: Option<&str>,
+        at: Option<&str>,
     ) -> Result<(), SpecReviewAnnotationError> {
+        let time = self.change_time(at)?;
         let f = self.find_mark(mark_id, revision)?;
         let m = &f.marks[f.index];
         let comment = check_inline_comment(text)?;
@@ -3750,7 +4003,14 @@ impl<'a> SpecReviewAnnotations<'a> {
                 mark_id
             )));
         };
-        let out = format!("{}{}{}", &f.text[..m.start], markup, &f.text[m.body_end..]);
+        let token = format_attribution_token(&m.authors, &m.votes, Some(&time));
+        let out = format!(
+            "{}{}{}{}",
+            &f.text[..m.start],
+            markup,
+            token,
+            &f.text[m.end..]
+        );
         self.set(&f.path, f.field.as_deref(), &out);
         Ok(())
     }
@@ -3931,24 +4191,107 @@ impl<'a> SpecReviewAnnotations<'a> {
     /// the same passage updates its mark instead of nesting one. Change
     /// comments stay: each is taken out of the original and written back
     /// after the same number of non-whitespace characters (SOM §11.9.3).
-    pub fn set_marked(&mut self, path: &str, field: Option<&str>, text: &str) -> SpecMarkedChange {
-        let result = mark_keeping_change_comments(&self.get(path, field), text);
-        self.set(path, field, &result.text);
-        result
+    /// Every change mark gets an attribution token (SOM §11.9.10): the one it
+    /// had when the change was there before, else `{@author T}` (T: `at`, an
+    /// ISO 8601 time, or the clock's). An author that is not a member id and
+    /// an invalid `at` are refused; nothing changes.
+    pub fn set_marked(
+        &mut self,
+        path: &str,
+        field: Option<&str>,
+        text: &str,
+        author: Option<&str>,
+        at: Option<&str>,
+    ) -> Result<SpecMarkedChange, SpecReviewAnnotationError> {
+        check_author(author)?;
+        let time = self.change_time(at)?;
+        let current = self.get(path, field);
+        let result = mark_keeping_change_comments(&current, text);
+        let stamped = SpecMarkedChange {
+            text: stamp_marks(&current, &result.text, author, &time),
+            exact: result.exact,
+        };
+        self.set(path, field, &stamped.text);
+        Ok(stamped)
     }
 
     /// Marks the value at `path` / `field` as a change against `earlier`, an
-    /// earlier version of it.
+    /// earlier version of it; `author` and `at` as for
+    /// [`set_marked`](Self::set_marked).
     pub fn mark_against(
         &mut self,
         path: &str,
         field: Option<&str>,
         earlier: &str,
-    ) -> SpecMarkedChange {
-        let result = mark_change_text(earlier, &self.get(path, field));
-        self.set(path, field, &result.text);
-        result
+        author: Option<&str>,
+        at: Option<&str>,
+    ) -> Result<SpecMarkedChange, SpecReviewAnnotationError> {
+        check_author(author)?;
+        let time = self.change_time(at)?;
+        let current = self.get(path, field);
+        let result = mark_change_text(earlier, &current);
+        let stamped = SpecMarkedChange {
+            text: stamp_marks(&current, &result.text, author, &time),
+            exact: result.exact,
+        };
+        self.set(path, field, &stamped.text);
+        Ok(stamped)
     }
+}
+
+/// Refuses an author that is not a member id.
+fn check_author(author: Option<&str>) -> Result<(), SpecReviewAnnotationError> {
+    match author {
+        Some(a) if !is_review_member_id(a) => Err(SpecReviewAnnotationError::new(format!(
+            "\"{}\" is not a member id (lowercase letters, digits and _)",
+            a
+        ))),
+        _ => Ok(()),
+    }
+}
+
+/// `after` (a value just written as marks) with an attribution token on every
+/// change mark it lacks one on (SOM §11.9.10): the token of the same change
+/// in `before` (same kind, old and new text; each used once, in order) when
+/// `before` held it, else a new one with `author` and `time`.
+fn stamp_marks(before: &str, after: &str, author: Option<&str>, time: &str) -> String {
+    let key = |m: &Mark| {
+        format!(
+            "{}\u{0}{}\u{0}{}",
+            m.kind.name(),
+            mark_replacement(m, false),
+            mark_replacement(m, true)
+        )
+    };
+    let old: Vec<(String, &str)> = parse(before)
+        .marks
+        .iter()
+        .filter(|m| is_change_mark(m.kind))
+        .map(|m| (key(m), &before[m.body_end..m.end]))
+        .collect();
+    let mut used = vec![false; old.len()];
+    let authors: Vec<String> = author.map(str::to_string).into_iter().collect();
+    let fresh = format_attribution_token(&authors, &[], Some(time));
+    let mut inserts: Vec<(usize, String)> = Vec::new();
+    for m in &parse(after).marks {
+        if !is_change_mark(m.kind) || m.end > m.body_end {
+            continue;
+        }
+        let k = key(m);
+        let mut token = fresh.clone();
+        if let Some(i) = (0..old.len()).find(|&i| !used[i] && old[i].0 == k) {
+            used[i] = true;
+            token = old[i].1.to_string();
+        }
+        if !token.is_empty() {
+            inserts.push((m.body_end, token));
+        }
+    }
+    let mut v = after.to_string();
+    for (at, token) in inserts.iter().rev() {
+        v.insert_str(*at, token);
+    }
+    v
 }
 
 // ---------------------------------------------------------------------------
@@ -4451,6 +4794,8 @@ pub(crate) struct ReviewPiece {
     pub(crate) author: Option<String>,
     /// A comment's text.
     pub(crate) comment_text: String,
+    /// A comment's change time (SOM §11.9.10), `None` without one.
+    pub(crate) changed_at: Option<String>,
     /// The ids of a question block's questions.
     pub(crate) question_ids: Vec<String>,
 }
@@ -4475,6 +4820,7 @@ pub(crate) fn review_pieces(value: &str) -> Vec<ReviewPiece> {
                 }),
                 author: comment.and_then(|c| c.author.clone()),
                 comment_text: comment.map(|c| c.text.clone()).unwrap_or_default(),
+                changed_at: comment.and_then(|c| c.changed_at.clone()),
                 question_ids: b
                     .map(|b| b.questions.iter().map(|q| q.id.clone()).collect())
                     .unwrap_or_default(),
@@ -4495,6 +4841,8 @@ pub(crate) struct ReviewMark {
     pub(crate) markup: String,
     pub(crate) authors: Vec<String>,
     pub(crate) votes: Vec<SpecMarkVote>,
+    /// Its token's change time (SOM §11.9.10), or `None`.
+    pub(crate) changed_at: Option<String>,
     /// The text accepting it leaves.
     pub(crate) accepted: String,
     /// The text rejecting it leaves.
@@ -4515,6 +4863,7 @@ pub(crate) fn review_marks(value: &str) -> Vec<ReviewMark> {
             rejected: mark_replacement(&m, false),
             authors: m.authors,
             votes: m.votes,
+            changed_at: m.changed_at,
         })
         .collect()
 }
@@ -4533,22 +4882,33 @@ pub(crate) fn decide_review_marks(value: &str, decisions: &HashMap<usize, bool>)
     v
 }
 
-/// The attribution token for `authors` and `votes`, `{@agent +alice -bob}`.
-pub(crate) fn format_attribution_token(authors: &[String], votes: &[SpecMarkVote]) -> String {
-    let v: Vec<String> = votes
-        .iter()
-        .map(|x| format!("{}{}", if x.accept { '+' } else { '-' }, x.member))
-        .collect();
-    let v = v.join(" ");
-    let gap = if !authors.is_empty() && !v.is_empty() {
-        " "
+/// The attribution token for `authors`, `votes` and `changed_at`,
+/// `{@agent +alice -bob 2026-11-07T14:05+01:00}` (SOM §11.9.8, §11.9.10);
+/// empty when there is nothing to write.
+pub(crate) fn format_attribution_token(
+    authors: &[String],
+    votes: &[SpecMarkVote],
+    changed_at: Option<&str>,
+) -> String {
+    let mut parts: Vec<String> = Vec::new();
+    if !authors.is_empty() {
+        parts.push(authors.join(","));
+    }
+    parts.extend(
+        votes
+            .iter()
+            .map(|x| format!("{}{}", if x.accept { '+' } else { '-' }, x.member)),
+    );
+    parts.extend(changed_at.map(str::to_string));
+    if parts.is_empty() {
+        String::new()
     } else {
-        ""
-    };
-    format!("{{@{}{}{}}}", authors.join(","), gap, v)
+        format!("{{@{}}}", parts.join(" "))
+    }
 }
 
-/// `value` with mark `m`'s token replaced by one for `authors` and `votes`.
+/// `value` with mark `m`'s token replaced by one for `authors` and `votes`;
+/// its change time stays.
 pub(crate) fn with_attribution(
     value: &str,
     m: &ReviewMark,
@@ -4558,7 +4918,7 @@ pub(crate) fn with_attribution(
     format!(
         "{}{}{}",
         &value[..m.body_end],
-        format_attribution_token(authors, votes),
+        format_attribution_token(authors, votes, m.changed_at.as_deref()),
         &value[m.end..]
     )
 }
@@ -4578,13 +4938,14 @@ pub(crate) fn review_team_answers(value: &str) -> Vec<(String, String)> {
 }
 
 /// `value` with `member`'s individual answer to question `question_id` set,
-/// as `set_answer_by` with an author does; `None` when the value holds no
-/// such question.
+/// as `set_answer_by` with an author does, with `changed_at` as its change
+/// time; `None` when the value holds no such question.
 pub(crate) fn set_individual_answer_text(
     value: &str,
     question_id: &str,
     member: &str,
     answer: &str,
+    changed_at: Option<&str>,
 ) -> Option<String> {
     let p = parse(value);
     let q = p
@@ -4592,7 +4953,7 @@ pub(crate) fn set_individual_answer_text(
         .iter()
         .flat_map(|b| b.questions.iter())
         .find(|q| q.id == question_id)?;
-    Some(set_individual_answer(value, q, member, answer))
+    Some(set_individual_answer(value, q, member, answer, changed_at))
 }
 
 /// The lines of a conflict's text: the first after its prefix, the rest

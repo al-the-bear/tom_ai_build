@@ -24,7 +24,7 @@ func ExampleSpecReviewAnnotations() {
 	}); err != nil {
 		panic(err)
 	}
-	if err := review.SetAnswer("BQ-1", "yes", ""); err != nil {
+	if err := review.SetAnswer("BQ-1", "yes", "", ""); err != nil {
 		panic(err)
 	}
 	fmt.Printf("%+v\n", review.Counts())

@@ -16,6 +16,7 @@ value byte for byte as it was.
 - [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
+- [Change times](#change-times)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -102,11 +103,11 @@ All are re-exported at the crate root.
 | `next_comment_id(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is an error |
-| `insert_comment(path, field, after_paragraph, text, author, id)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given) |
+| `insert_comment(path, field, after_paragraph, text, author, id, at)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given). The header records the [change time](#change-times) |
 | `insert_question(path, field, after_paragraph, &question)` | A question block after a paragraph |
 | `insert_question_after_comment(comment_id, &question)` | A question block directly after a comment block |
 | `set_answer(question_id, answer)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing |
-| `edit_comment(comment_id, text)` | New text; the marker, id and author stay as written |
+| `edit_comment(comment_id, text, at)` | New text; the marker, id and author stay as written, the change time moves |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
 | `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
@@ -160,8 +161,8 @@ let report = review.decide_marks(&decisions, &rev)?;
 | Operation | Does |
 |-----------|------|
 | `mark_change_text(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, `exact`); a free function |
-| `set_marked(path, field, text)` | Writes `text` as a marked change against the value there (`field` `None` for content). A value that already holds marks is compared from its original, so a second edit updates its mark |
-| `mark_against(path, field, earlier)` | Marks the value already written against an earlier version |
+| `set_marked(path, field, text, author, at)` | Writes `text` as a marked change against the value there (`field` `None` for content). A value that already holds marks is compared from its original, so a second edit updates its mark. Every change mark gets an attribution token with the [change time](#change-times) |
+| `mark_against(path, field, earlier, author, at)` | Marks the value already written against an earlier version |
 
 `exact` is false only when a difference could not be marked, i.e. a change
 inside fenced code. The new text is then written unmarked.
@@ -187,8 +188,8 @@ comment readable once the change is decided. The notation is SOM §11.9.3.
 |-----------|------|
 | `list_marks(path)` | A change comment's entry carries `quoted_change` (`kind`, `oldText`, `newText`, `outcome`) and `change_id`, its `comment` being the text after the quote. Its change's entry carries `comment_id` |
 | `decide_marks`, `apply_mark`, `accept_all_marks`, `reject_all_marks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
-| `comment_change(mark_id, text, author, revision)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id. `author` and `revision` are `Option<&str>` |
-| `edit_mark_comment(mark_id, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `comment_change(mark_id, text, author, revision, at)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id. `author`, `revision` and `at` are `Option<&str>` |
+| `edit_mark_comment(mark_id, text, revision, at)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
 | `set_marked(...)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
 
 `comment_change` and `edit_mark_comment` return
@@ -204,10 +205,16 @@ use tom_som_rust_runtime::{SpecMarkDecision, SpecReviewAnnotations};
 let mut review = SpecReviewAnnotations::new(&mut doc);
 let rev = review.revision();
 let change = review.list_marks(None).remove(0); // {~~ 30 ~> 15 ~~}
-let comment_id = review.comment_change(&change.id, "why shorter?", Some("alice"), Some(&rev))?;
+let comment_id = review.comment_change(
+    &change.id,
+    "why shorter?",
+    Some("alice"),
+    Some(&rev),
+    Some("2026-11-07T14:05+01:00"),
+)?;
 let decisions = HashMap::from([(change.id.clone(), SpecMarkDecision::Accept)]);
 review.decide_marks(&decisions, &review.revision())?;
-// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice 2026-11-07T14:05+01:00} minutes
 ```
 
 `comment_id` is the new comment's `M-<n>`, valid for the revision after the
@@ -274,12 +281,12 @@ and `open_conflicts`. Every JSON form has a `to_json_with(options)` beside
 `team_annotation_cases.json` pins; `to_json()` stays the form of the older case
 files.
 
-**Writing.** `set_answer_by(question_id, answer, Some("alice"))` writes that
+**Writing.** `set_answer_by(question_id, answer, Some("alice"), at)` writes that
 member's individual answer instead of the team's, grouped by SOM §11.9.8: a
 plain letter answer joins the line with the same answer, a commented one gets
 its own line, an empty one only takes the member out. An author that is not a
 member id (`is_review_member_id`) is refused with `SpecReviewAnnotationError`;
-`set_answer_by(id, answer, None)` is `set_answer`. `remove_all_annotations()`
+`set_answer_by(id, answer, None, None)` is `set_answer`. `remove_all_annotations()`
 applies every conflict's decision and lists it in the report's `conflicts`
 (`SpecConflictOutcome`: `id`, `path`, `field`, `line`, `decision`, `result`);
 it returns `Err`, changing nothing, while a conflict is open, unresolved or
@@ -363,6 +370,45 @@ and asserts the output.
 A unit whose copy no longer holds more than 16 of the base's marks as written
 is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
 grow past 65536.
+
+## Change times
+
+Every annotation records when it was last changed, next to its author, so a
+reviewer sees what is new since the last round (SOM §11.9.10). The time is
+minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
+
+| Annotation | Written as |
+|------------|------------|
+| Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
+| Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
+| Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+The writes record it, each with an `at: Option<&str>` (ISO 8601 with an
+offset or `Z`; seconds are cut, any other shape returns
+`Err(SpecReviewAnnotationError)` and changes nothing): `insert_comment`,
+`edit_comment` (the author stays), `comment_change`, `edit_mark_comment`
+(authors and votes stay), `set_marked` and `mark_against` (both take an
+`author: Option<&str>` and now return a `Result`; a mark written again
+unchanged keeps its token) and `set_answer_by` with an author. Without `at`
+the time comes from the clock the `SpecReviewAnnotations` was made with
+(`SpecReviewAnnotations::with_clock`), else from the system clock — written in
+UTC (`…Z`), since the standard library knows no local offset. Deciding,
+voting, answering and merging keep the times; removing an annotation takes its
+time with it. `normalize_review_time`, `is_review_time` and
+`system_review_time` are the helpers.
+
+Reading reports `changed_at` on `SpecReviewAnnotation` (comments and marks),
+`SpecMarkEntry` and `SpecIndividualAnswer`; `to_json` writes `changedAt` only
+when there is one.
+
+```rust
+let mut review =
+    SpecReviewAnnotations::with_clock(&mut doc, None, || "2026-11-07T14:05+01:00".to_string());
+review.insert_comment("SBP/INSC", None, 0, "Why 15?", Some("alexis"), None, None)?;
+// > ⬆️ **C-1** (alexis, 2026-11-07T14:05+01:00): Why 15?
+review.edit_comment("C-1", "Why 15 and not 20?", Some("2026-11-08T09:00Z"))?;
+// > ⬆️ **C-1** (alexis, 2026-11-08T09:00Z): Why 15 and not 20?
+```
 
 ## Validation
 

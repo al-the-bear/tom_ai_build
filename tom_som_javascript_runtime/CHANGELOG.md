@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- Change times (SOM §11.9.10): comment headers, attribution tokens and
+  individual answers carry the time of their last change next to the author
+  (`(Alexis, 2026-11-07T14:05+01:00)`, `{@alice 2026-11-07T14:05+01:00}`,
+  `**Answer (alice, 2026-11-07T14:05+01:00):**`). `insertComment`,
+  `editComment`, `commentChange`, `editMarkComment`, `setMarked`,
+  `markAgainst` and `setAnswer` (with an author) write it, from the `at` option
+  or the new `clock` option of `SpecReviewAnnotations`; `setMarked` keeps the
+  token of a mark it writes again unchanged, and `setMarked` / `markAgainst`
+  take an `author`. `changedAt` on `SpecReviewAnnotation`, `SpecMarkEntry` and
+  `SpecIndividualAnswer`; `mergeReviews` carries a copy's times over. New:
+  `normalizeReviewTime`, `isReviewTime`, `systemReviewTime`.
+
 ## 1.7.3
 
 - No change. The chain moves with `tom_specs_model` 1.7.3, whose shipped

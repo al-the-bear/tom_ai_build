@@ -16,6 +16,7 @@ value byte for byte as it was.
 - [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
+- [Change times](#change-times)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -64,7 +65,7 @@ func main() {
 	}); err != nil {
 		panic(err)
 	}
-	if err := review.SetAnswer("BQ-1", "yes", ""); err != nil {
+	if err := review.SetAnswer("BQ-1", "yes", "", ""); err != nil {
 		panic(err)
 	}
 	fmt.Printf("%+v\n", review.Counts())
@@ -107,11 +108,11 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `NextCommentID(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `AssignCommentIDs(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `Paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `Index` (what `afterParagraph` takes), `StartLine` / `EndLine` within the value, its `Text` and `Annotation` (`comment` / `question` / `conflict` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is an error |
-| `InsertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one when `id` is `""`) |
+| `InsertComment(path, field, afterParagraph, text, author, id, at)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one when `id` is `""`). The header records the [change time](#change-times) |
 | `InsertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `InsertQuestionAfterComment(commentID, question)` | A question block directly after a comment block |
-| `SetAnswer(questionID, answer, author)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With an `author` (a member id; `""` for the team), writes that member's individual answer instead (see [Team reviews](#team-reviews)) |
-| `EditComment(commentID, text)` | New text; the marker, id and author stay as written |
+| `SetAnswer(questionID, answer, author, at)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With an `author` (a member id; `""` for the team), writes that member's individual answer instead (see [Team reviews](#team-reviews)) |
+| `EditComment(commentID, text, at)` | New text; the marker, id and author stay as written, the change time moves |
 | `Resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `ApplyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
 | `Stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
@@ -161,8 +162,8 @@ report, err := review.DecideMarks(map[string]som.SpecMarkDecision{
 | Operation | Does |
 |-----------|------|
 | `MarkChangeText(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`Text`, `Exact`) |
-| `SetMarked(path, field, text)` | Writes `text` as a marked change against the value there (`field` `""` for content). A value that already holds marks is compared from its original, so a second edit updates its mark |
-| `MarkAgainst(path, field, earlier)` | Marks the value already written against an earlier version |
+| `SetMarked(path, field, text, author, at)` | Writes `text` as a marked change against the value there (`field` `""` for content). A value that already holds marks is compared from its original, so a second edit updates its mark. Every change mark gets an attribution token with the [change time](#change-times) |
+| `MarkAgainst(path, field, earlier, author, at)` | Marks the value already written against an earlier version |
 
 `Exact` is false only when a difference could not be marked, i.e. a change
 inside fenced code. The new text is then written unmarked.
@@ -186,8 +187,8 @@ comment readable once the change is decided. The notation is SOM §11.9.3.
 |-----------|------|
 | `ListMarks(path)` | A change comment's entry carries `QuotedChange` (`kind`, `oldText`, `newText`, `outcome`) and `ChangeID`, its `Comment` being the text after the quote. Its change's entry carries `CommentID` |
 | `DecideMarks`, `ApplyMark`, `AcceptAllMarks`, `RejectAllMarks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
-| `CommentChange(markID, text, author, revision)` | Writes a change comment after the change `markID`, its quote taken from the mark; returns the comment's id. `author` and `revision` may be `""` |
-| `EditMarkComment(markID, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `CommentChange(markID, text, author, revision, at)` | Writes a change comment after the change `markID`, its quote taken from the mark; returns the comment's id. `author`, `revision` and `at` may be `""` |
+| `EditMarkComment(markID, text, revision, at)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
 | `SetMarked(...)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
 
 `CommentChange` and `EditMarkComment` return a `*SpecReviewAnnotationError`
@@ -199,14 +200,15 @@ A quote opened and never closed makes the comment a plain one, and
 ```go
 review := som.NewSpecReviewAnnotations(doc, "")
 change := review.ListMarks("")[0] // {~~ 30 ~> 15 ~~}
-commentID, err := review.CommentChange(change.ID, "why shorter?", "alice", review.Revision())
+commentID, err := review.CommentChange(change.ID, "why shorter?", "alice", review.Revision(),
+	"2026-11-07T14:05+01:00")
 if err != nil {
 	return err
 }
 _, err = review.DecideMarks(map[string]som.SpecMarkDecision{
 	change.ID: som.SpecMarkDecisionAccept,
 }, review.Revision())
-// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice 2026-11-07T14:05+01:00} minutes
 ```
 
 `commentID` is the new comment's `M-<n>`, valid for the revision after the
@@ -271,7 +273,7 @@ and `OpenConflicts`. Every listing type has `ToJSONWith(SpecReviewJSONOptions{Te
 true})` for the members `team_annotation_cases.json` pins; `ToJSON()` keeps
 the forms of the older case files.
 
-**Writing.** `SetAnswer(questionID, answer, author)` with an `author` writes
+**Writing.** `SetAnswer(questionID, answer, author, at)` with an `author` writes
 that member's individual answer instead of the team's, grouped by SOM
 §11.9.8: a plain letter answer joins the line with the same answer, a
 commented one gets its own line, an empty one only takes the member out. An
@@ -344,6 +346,43 @@ The same program runs as `ExampleMergeReviews` in
 A unit whose copy no longer holds more than 16 of the base's marks as written
 is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
 grow past 65536.
+
+## Change times
+
+Every annotation records when it was last changed, next to its author, so a
+reviewer sees what is new since the last round (SOM §11.9.10). The time is
+minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
+
+| Annotation | Written as |
+|------------|------------|
+| Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
+| Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
+| Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+The writes record it, each with an `at` argument (ISO 8601 with an offset or
+`Z`; seconds are cut, any other shape returns a `*SpecReviewAnnotationError`
+and changes nothing; `""` for none): `InsertComment`, `EditComment` (the
+author stays), `CommentChange`, `EditMarkComment` (authors and votes stay),
+`SetMarked` and `MarkAgainst` (both take an `author`, `""` for none; a mark
+written again unchanged keeps its token) and `SetAnswer` with an `author`.
+Without `at` the time comes from the clock the `SpecReviewAnnotations` was
+made with (`NewSpecReviewAnnotationsWithClock`, or its `Clock` field), else
+from the system clock. Deciding, voting, answering and merging keep the
+times; removing an annotation takes its time with it. `NormalizeReviewTime`,
+`IsReviewTime` and `SystemReviewTime` are the helpers.
+
+Reading reports `ChangedAt` on `SpecReviewAnnotation` (comments and marks),
+`SpecMarkEntry` and `SpecIndividualAnswer`; `ToJSON` writes `changedAt` only
+when there is one.
+
+```go
+review := som.NewSpecReviewAnnotationsWithClock(doc, "",
+	func() string { return "2026-11-07T14:05+01:00" })
+_, err := review.InsertComment("SBP/INSC", "", 0, "Why 15?", "alexis", "", "")
+// > ⬆️ **C-1** (alexis, 2026-11-07T14:05+01:00): Why 15?
+err = review.EditComment("C-1", "Why 15 and not 20?", "2026-11-08T09:00Z")
+// > ⬆️ **C-1** (alexis, 2026-11-08T09:00Z): Why 15 and not 20?
+```
 
 ## Validation
 

@@ -398,13 +398,13 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
-            "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+            "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@carol} minutes{++ on kiosks ++}{@alice,bob}.\nA {-- very --}{@agent +alice -bob} long line and {>> unclear <<}{@bob} too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**"
           },
           "forms": {
             "DEMO/DET": {
-              "owner": "Bob{++ Smith ++}{@alice}",
-              "contact": "bob@example.com"
+              "contact": "bob@example.com",
+              "owner": "Bob{++ Smith ++}{@alice}"
             }
           }
         }
@@ -502,13 +502,13 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "Sessions expire after 15 minutes.\nA long line and too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**",
-            "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner."
+            "DEMO/DET": "> ⬆️ **C-2** (bob): Check the owner.",
+            "DEMO/SUM": "Sessions expire after 15 minutes.\nA long line and too, but `{++ x ++}{@alice}` is literal.\n\n> **❓ BQ-90 — Kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - **(b)** every device\n>\n> **Answer (alice, bob):** (a)\n> **Answer (carol):** (a), but only after the pilot\n> **Answer (dave):** **(b)**\n>\n> **Answer:**\n\n> **❓ BQ-91 — Audit retention:** how long?\n>\n> **Answer (alice):** ten years\n> **Answer (bob):** seven years\n>\n> **Answer:** open: alice ten years, bob seven years\n\nSecond paragraph base text.\n\n> ⚖️ **X-1 — Conflicting changes:** paragraph 3\n> - (base) Second paragraph base text.\n> - (a) **alice:** Second paragraph, Alice's text.\n> - (b) **bob, carol:** Second paragraph, Bob's text.\n>\n> **Decision:**"
           },
           "forms": {
             "DEMO/DET": {
-              "owner": "Bob",
-              "contact": "bob@example.com"
+              "contact": "bob@example.com",
+              "owner": "Bob"
             }
           }
         }
@@ -630,14 +630,16 @@
                     "bob"
                   ],
                   "answer": "(b)",
-                  "answerLetter": "b"
+                  "answerLetter": "b",
+                  "changedAt": "2026-11-07T14:05+01:00"
                 },
                 {
                   "members": [
                     "dave"
                   ],
                   "answer": "(a), only for internal packages",
-                  "answerLetter": "a"
+                  "answerLetter": "a",
+                  "changedAt": "2026-11-07T14:05+01:00"
                 }
               ]
             }
@@ -645,7 +647,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (carol, bob):** (b)\n> **Answer (dave):** (a), only for internal packages\n>\n> **Answer:** (b)"
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (carol, bob, 2026-11-07T14:05+01:00):** (b)\n> **Answer (dave, 2026-11-07T14:05+01:00):** (a), only for internal packages\n>\n> **Answer:** (b)"
           }
         }
       }
@@ -672,7 +674,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice):** (a)\n>\n> **Answer:**"
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice, 2026-11-07T14:05+01:00):** (a)\n>\n> **Answer:**"
           }
         }
       }
@@ -950,6 +952,153 @@
               "contact": "support@example.com",
               "owner": "Bob"
             }
+          }
+        }
+      }
+    },
+    {
+      "name": "change times on individual answers",
+      "state": {
+        "content": {
+          "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice, 2026-11-04T12:00+01:00):** (a)\n> **Answer (bob):** (b)\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "answer": "(a)",
+          "author": "carol",
+          "at": "2026-11-05T09:00+01:00"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "answer": "(a)",
+          "author": "bob",
+          "at": "2026-11-04T12:00+01:00"
+        },
+        {
+          "op": "list"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-1",
+          "answer": "(b)",
+          "author": "alice",
+          "at": "not a time"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "BQ-1",
+              "topic": "Channel",
+              "starred": false,
+              "combined": false,
+              "text": "which channel?\n- (a) the private registry\n- **(b)** pub.dev as well",
+              "answer": "",
+              "open": true,
+              "unresolved": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "the private registry",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "pub.dev as well",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": null,
+              "answers": [
+                {
+                  "members": [
+                    "alice"
+                  ],
+                  "answer": "(a)",
+                  "answerLetter": "a",
+                  "changedAt": "2026-11-04T12:00+01:00"
+                },
+                {
+                  "members": [
+                    "bob"
+                  ],
+                  "answer": "(b)",
+                  "answerLetter": "b"
+                }
+              ]
+            }
+          ],
+          null,
+          null,
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "BQ-1",
+              "topic": "Channel",
+              "starred": false,
+              "combined": false,
+              "text": "which channel?\n- (a) the private registry\n- **(b)** pub.dev as well",
+              "answer": "",
+              "open": true,
+              "unresolved": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "the private registry",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "pub.dev as well",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": null,
+              "answers": [
+                {
+                  "members": [
+                    "alice",
+                    "bob"
+                  ],
+                  "answer": "(a)",
+                  "answerLetter": "a",
+                  "changedAt": "2026-11-04T12:00+01:00"
+                },
+                {
+                  "members": [
+                    "carol"
+                  ],
+                  "answer": "(a)",
+                  "answerLetter": "a",
+                  "changedAt": "2026-11-05T09:00+01:00"
+                }
+              ]
+            }
+          ],
+          {
+            "error": true
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> **❓ BQ-1 — Channel:** which channel?\n> - (a) the private registry\n> - **(b)** pub.dev as well\n>\n> **Answer (alice, bob, 2026-11-04T12:00+01:00):** (a)\n> **Answer (carol, 2026-11-05T09:00+01:00):** (a)\n>\n> **Answer:**"
           }
         }
       }

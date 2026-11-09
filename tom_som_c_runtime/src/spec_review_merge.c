@@ -976,7 +976,8 @@ static char *new_block(const SpecReviewPiece *p, const char *member,
   PUSH(ctx->pending_comments, ctx->pending_comments_len,
        ctx->pending_comments_cap, entry);
   SomStrList lines;
-  spec_format_comment_block(id, p->comment_text, author, &lines);
+  spec_format_comment_block(id, p->comment_text, author, p->changed_at,
+                            &lines);
   char *block = som_strlist_join(&lines, "\n");
   som_strlist_free(&lines);
   free(id);
@@ -1280,7 +1281,7 @@ static void merge_answers(MergeTexts *texts, const SomStrList *base_texts,
       for (size_t k = 0; k < keys.len; k++) {
         char *value = texts->get(texts, keys.items[k]);
         char *written = spec_review_set_individual_answer_text(
-            value, id, member_at(ctx, i), a);
+            value, id, member_at(ctx, i), a, NULL);
         free(value);
         if (written == NULL) continue;
         texts->set(texts, keys.items[k], written);

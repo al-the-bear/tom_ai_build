@@ -1057,6 +1057,7 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             text=op["text"],
             author=op.get("author"),
             id=op.get("id"),
+            at=op.get("at"),
         )
     if kind == "insertQuestion":
         api.insert_question(
@@ -1071,10 +1072,10 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             op["commentId"], SpecQuestionDraft.from_json(op["question"]))
         return None
     if kind == "setAnswer":
-        api.set_answer(op["id"], op["answer"], author=op.get("author"))
+        api.set_answer(op["id"], op["answer"], author=op.get("author"), at=op.get("at"))
         return None
     if kind == "editComment":
-        api.edit_comment(op["id"], op["text"])
+        api.edit_comment(op["id"], op["text"], at=op.get("at"))
         return None
     if kind == "resolve":
         api.resolve(op["id"])
@@ -1115,6 +1116,7 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             op["text"],
             author=op.get("author"),
             revision=api.revision() if rev == "@current" else rev,
+            at=op.get("at"),
         )
     if kind == "editMarkComment":
         rev = op.get("revision")
@@ -1122,13 +1124,17 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
             op["id"],
             op["text"],
             revision=api.revision() if rev == "@current" else rev,
+            at=op.get("at"),
         )
         return None
     if kind == "setMarked":
-        return api.set_marked(op["path"], op["text"], field=op.get("field")).to_json()
+        return api.set_marked(
+            op["path"], op["text"], field=op.get("field"),
+            author=op.get("author"), at=op.get("at")).to_json()
     if kind == "markAgainst":
         return api.mark_against(
-            op["path"], op["earlier"], field=op.get("field")).to_json()
+            op["path"], op["earlier"], field=op.get("field"),
+            author=op.get("author"), at=op.get("at")).to_json()
     if kind == "roundTrip":
         yaml = yaml_encode(doc, tree, model_version=_MODEL_VERSION)
         from_yaml = yaml_decode(yaml, tree).document
@@ -1142,13 +1148,21 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
     raise ValueError(f"unknown annotation op {kind}")
 
 
+#: The change time every annotation write records in the conformance cases
+#: (SOM §11.9.10) unless a case names its own ``now``.
+_CORPUS_NOW = "2026-11-07T14:05+01:00"
+
+
 def _run_annotation_case(model: SpecModel, tree, case: dict, team: bool = False) -> dict:
     """Runs one case: ``{results: [one per op], state: final state}``. An
     operation that fails answers ``{error: true}`` and changes nothing.
     *team* renders the results in the team form
     ``team_annotation_cases.json`` pins (SOM §11.9.8)."""
     doc = _document_from_state(json.loads(json.dumps(case["state"])))
-    api = SpecReviewAnnotations(doc, qualifier=case.get("qualifier"))
+    # A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+    # every runtime: the case's `now`, else the corpus default.
+    now = case.get("now") or _CORPUS_NOW
+    api = SpecReviewAnnotations(doc, qualifier=case.get("qualifier"), clock=lambda: now)
     results = []
     for op in case["ops"]:
         try:

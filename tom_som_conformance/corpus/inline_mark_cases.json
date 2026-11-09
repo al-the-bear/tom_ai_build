@@ -1675,7 +1675,7 @@
               "newText": "15",
               "comment": null,
               "markup": "{~~ 30 ~> 15 ~~}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "commentId": "M-2"
             },
             {
@@ -1688,7 +1688,7 @@
               "newText": "",
               "comment": "why shorter?",
               "markup": "{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "quotedChange": {
                 "kind": "substitution",
                 "oldText": "30",
@@ -1707,7 +1707,7 @@
               "newText": "on kiosks",
               "comment": null,
               "markup": "{++ on kiosks ++}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "commentId": "M-4"
             },
             {
@@ -1719,15 +1719,16 @@
               "oldText": "",
               "newText": "",
               "comment": "is kiosks enough?",
-              "markup": "{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "markup": "{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "quotedChange": {
                 "kind": "insertion",
                 "oldText": "",
                 "newText": "on kiosks",
                 "outcome": null
               },
-              "changeId": "M-3"
+              "changeId": "M-3",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-5",
@@ -1739,7 +1740,7 @@
               "newText": "",
               "comment": null,
               "markup": "{-- very --}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "commentId": "M-6"
             },
             {
@@ -1751,15 +1752,16 @@
               "oldText": "",
               "newText": "",
               "comment": "still needed?",
-              "markup": "{>> [-- very --] still needed? <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "markup": "{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "quotedChange": {
                 "kind": "deletion",
                 "oldText": "very",
                 "newText": "",
                 "outcome": null
               },
-              "changeId": "M-5"
+              "changeId": "M-5",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-7",
@@ -1771,7 +1773,7 @@
               "newText": "",
               "comment": "decided before",
               "markup": "{>> [-- gone --| accepted] decided before <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}.",
               "quotedChange": {
                 "kind": "deletion",
                 "oldText": "gone",
@@ -1789,7 +1791,7 @@
               "newText": "",
               "comment": "plain",
               "markup": "{>> plain <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
             },
             {
               "id": "M-9",
@@ -1801,7 +1803,7 @@
               "newText": "this",
               "comment": "unclear",
               "markup": "{== this ==}{>> unclear <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
             },
             {
               "id": "M-10",
@@ -1839,7 +1841,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol}.\nA {-- very --}{>> [-- very --] still needed? <<} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob} minutes{++ on kiosks ++}{>> [++ on kiosks ++] is kiosks enough? <<}{@carol 2026-11-07T14:05+01:00}.\nA {-- very --}{>> [-- very --] still needed? <<}{@2026-11-07T14:05+01:00} long line, {>> [-- gone --| accepted] decided before <<} and {>> plain <<} and {== this ==}{>> unclear <<}."
           },
           "forms": {
             "DEMO/DET": {
@@ -1929,7 +1931,7 @@
               "newText": "15",
               "comment": null,
               "markup": "{~~ 30 ~> 15 ~~}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}.",
               "commentId": "M-2"
             },
             {
@@ -1941,15 +1943,16 @@
               "oldText": "",
               "newText": "",
               "comment": "why 15 and not 20?",
-              "markup": "{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}.",
+              "markup": "{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}.",
               "quotedChange": {
                 "kind": "substitution",
                 "oldText": "30",
                 "newText": "15",
                 "outcome": null
               },
-              "changeId": "M-1"
+              "changeId": "M-1",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-3",
@@ -1961,7 +1964,7 @@
               "newText": "on kiosks",
               "comment": null,
               "markup": "{++ on kiosks ++}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}."
             },
             {
               "id": "M-4",
@@ -1973,7 +1976,7 @@
               "newText": "",
               "comment": null,
               "markup": "{-- very --}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}."
             },
             {
               "id": "M-5",
@@ -1984,14 +1987,15 @@
               "oldText": "",
               "newText": "",
               "comment": "still decided",
-              "markup": "{>> [-- gone --| accepted] still decided <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}.",
+              "markup": "{>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}.",
               "quotedChange": {
                 "kind": "deletion",
                 "oldText": "gone",
                 "newText": "",
                 "outcome": "accepted"
-              }
+              },
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-6",
@@ -2002,8 +2006,9 @@
               "oldText": "",
               "newText": "",
               "comment": "a plain one",
-              "markup": "{>> a plain one <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+              "markup": "{>> a plain one <<}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}.",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-7",
@@ -2014,8 +2019,9 @@
               "oldText": "this",
               "newText": "this",
               "comment": "highlighted",
-              "markup": "{== this ==}{>> highlighted <<}",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+              "markup": "{== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}.",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-8",
@@ -2062,7 +2068,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<} and {>> a plain one <<} and {== this ==}{>> highlighted <<}."
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{>> [~~ 30 ~> 15 ~~] why 15 and not 20? <<}{@bob 2026-11-07T14:05+01:00} minutes{++ on kiosks ++}.\nA {-- very --} long line, {>> [-- gone --| accepted] still decided <<}{@2026-11-07T14:05+01:00} and {>> a plain one <<}{@2026-11-07T14:05+01:00} and {== this ==}{>> highlighted <<}{@2026-11-07T14:05+01:00}."
           },
           "forms": {
             "DEMO/DET": {
@@ -2100,7 +2106,7 @@
       "expect": {
         "results": [
           {
-            "text": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+            "text": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{@2026-11-07T14:05+01:00}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
             "exact": true
           },
           [
@@ -2113,8 +2119,9 @@
               "oldText": "30 minutes.",
               "newText": "10 minutes on shared kiosks.",
               "comment": null,
-              "markup": "{~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}",
-              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this."
+              "markup": "{~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{@2026-11-07T14:05+01:00}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-2",
@@ -2126,7 +2133,7 @@
               "newText": "",
               "comment": "why shorter?",
               "markup": "{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}",
-              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{@2026-11-07T14:05+01:00}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
               "quotedChange": {
                 "kind": "substitution",
                 "oldText": "30",
@@ -2144,7 +2151,7 @@
               "newText": "",
               "comment": "decided before",
               "markup": "{>> [-- gone --| accepted] decided before <<}",
-              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
+              "context": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{@2026-11-07T14:05+01:00}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this.",
               "quotedChange": {
                 "kind": "deletion",
                 "oldText": "gone",
@@ -2156,7 +2163,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this."
+            "DEMO/SUM": "Sessions expire after {~~ 30 minutes. ~> 10 minutes on shared kiosks. ~~}{@2026-11-07T14:05+01:00}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob}\nA very long line, {>> [-- gone --| accepted] decided before <<} and and this."
           },
           "forms": {
             "DEMO/DET": {

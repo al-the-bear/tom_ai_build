@@ -148,8 +148,11 @@ class SpecIndividualAnswer {
   /// The answer, trimmed.
   final String answer;
 
+  /// When the answer was last written (SOM §11.9.10), or null.
+  final String? changedAt;
+
   /// Creates an individual answer.
-  const SpecIndividualAnswer(this.members, this.answer);
+  const SpecIndividualAnswer(this.members, this.answer, {this.changedAt});
 
   /// The letter the answer starts with (`(a)` or `**(a)**`), or null.
   String? get answerLetter => _leadingLetter(answer);
@@ -159,6 +162,7 @@ class SpecIndividualAnswer {
     'members': members,
     'answer': answer,
     'answerLetter': answerLetter,
+    if (changedAt != null) 'changedAt': changedAt,
   };
 }
 
@@ -273,6 +277,9 @@ class SpecReviewAnnotation {
   /// A question's individual answers, in the order written.
   final List<SpecIndividualAnswer> answers;
 
+  /// When a comment or mark was last changed (SOM §11.9.10), or null.
+  final String? changedAt;
+
   /// A conflict's `(base)` text.
   final String base;
 
@@ -304,6 +311,7 @@ class SpecReviewAnnotation {
     this.answers = const [],
     this.base = '',
     this.alternatives = const [],
+    this.changedAt,
   });
 
   /// Whether a question is still open (no team answer written), or a
@@ -333,6 +341,7 @@ class SpecReviewAnnotation {
       'author': author,
       'text': text,
       'context': context,
+      if (changedAt != null) 'changedAt': changedAt,
     },
     SpecReviewAnnotationKind.question => {
       'kind': 'question',
@@ -377,6 +386,7 @@ class SpecReviewAnnotation {
       'text': text,
       'newText': newText,
       'comment': comment,
+      if (changedAt != null) 'changedAt': changedAt,
       if (team) 'authors': authors,
       if (team) 'votes': [for (final v in votes) v.toJson()],
     },
@@ -549,6 +559,9 @@ class SpecMarkEntry {
   /// A change's attached comment, by id; null without one.
   final String? commentId;
 
+  /// When the mark was last changed (SOM §11.9.10), or null.
+  final String? changedAt;
+
   /// The change an attached change comment is about, by id; null otherwise.
   final String? changeId;
 
@@ -569,6 +582,7 @@ class SpecMarkEntry {
     this.quotedChange,
     this.commentId,
     this.changeId,
+    this.changedAt,
   });
 
   /// The canonical JSON form the conformance corpus pins; [team] adds the
@@ -588,6 +602,7 @@ class SpecMarkEntry {
     if (quotedChange != null) 'quotedChange': quotedChange,
     if (commentId != null) 'commentId': commentId,
     if (changeId != null) 'changeId': changeId,
+    if (changedAt != null) 'changedAt': changedAt,
     if (team) 'authors': authors,
     if (team) 'votes': [for (final v in votes) v.toJson()],
   };
@@ -783,6 +798,55 @@ final _memberId = RegExp(r'^[a-z0-9_]+$');
 /// `_`.
 bool isReviewMemberId(String s) => _memberId.hasMatch(s);
 
+/// A change time as annotations write it (SOM §11.9.10): minutes with the
+/// writer's UTC offset, `2026-11-07T14:05+01:00` or `2026-11-07T13:05Z`.
+final _reviewTime = RegExp(
+  r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$',
+);
+
+/// An ISO 8601 time a caller may pass as `at`: minutes, optional seconds and
+/// fraction, and an offset or `Z`.
+final _reviewTimeIn = RegExp(
+  r'^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$',
+);
+
+/// Whether [s] is a change time of the form SOM §11.9.10 fixes.
+bool isReviewTime(String s) => _reviewTime.hasMatch(s);
+
+/// [at] as a change time (SOM §11.9.10): seconds and fractions cut, the
+/// offset kept as given. Throws [SpecReviewAnnotationError] for any other
+/// shape.
+String normalizeReviewTime(String at) {
+  final m = _reviewTimeIn.firstMatch(at.trim());
+  if (m == null) {
+    throw SpecReviewAnnotationError(
+      '"$at" is not an ISO 8601 time with an offset or Z '
+      '(e.g. 2026-11-07T14:05+01:00)',
+    );
+  }
+  return '${m[1]}${m[2]}';
+}
+
+/// [now] (default: the system clock) as a change time in its local offset.
+String systemReviewTime([DateTime? now]) {
+  final t = now ?? DateTime.now();
+  String two(int n) => n.toString().padLeft(2, '0');
+  final off = t.timeZoneOffset;
+  final sign = off.isNegative ? '-' : '+';
+  final mins = off.inMinutes.abs();
+  return '${t.year.toString().padLeft(4, '0')}-${two(t.month)}-${two(t.day)}'
+      'T${two(t.hour)}:${two(t.minute)}$sign${two(mins ~/ 60)}:${two(mins % 60)}';
+}
+
+/// [parts] (a header's or an answer's comma-separated parts) split into the
+/// parts before a trailing change time and the time (SOM §11.9.10).
+(List<String>, String?) _splitTime(List<String> parts) {
+  if (parts.isNotEmpty && isReviewTime(parts.last.trim())) {
+    return (parts.sublist(0, parts.length - 1), parts.last.trim());
+  }
+  return (parts, null);
+}
+
 bool _isUnresolved(String answer) => answer.startsWith(_unresolvedPrefix);
 
 /// A conflict decision's letter: `a`…, `base`, or null (rewritten text or
@@ -799,7 +863,14 @@ class _IndividualAnswer {
   final int end; // last value line of the entry with text (inclusive)
   final List<String> members;
   final String answer;
-  _IndividualAnswer(this.line, this.end, this.members, this.answer);
+  final String? changedAt;
+  _IndividualAnswer(
+    this.line,
+    this.end,
+    this.members,
+    this.answer,
+    this.changedAt,
+  );
 }
 
 /// One parsed block of a value (lines [start, end] inclusive).
@@ -941,6 +1012,12 @@ class _Comment {
 
   /// Where an id is inserted into the first line, and how.
   final int markerEnd;
+
+  /// The first line up to where the author's parentheses (or the text) start.
+  final String beforeAuthor;
+
+  /// When the comment was last changed (SOM §11.9.10), or null.
+  final String? changedAt;
   _Comment(
     this.block,
     this.id,
@@ -949,6 +1026,8 @@ class _Comment {
     this.context,
     this.headerPrefix,
     this.markerEnd,
+    this.beforeAuthor,
+    this.changedAt,
   );
 }
 
@@ -970,6 +1049,9 @@ class _Mark {
 
   /// A comment mark's quote of a change (SOM §11.9.3), or null.
   _Quote? quote;
+
+  /// The time in the mark's attribution token (SOM §11.9.10), or null.
+  String? changedAt;
 
   /// The index (among the value's marks) of the change this change comment
   /// is attached to, or null.
@@ -1267,10 +1349,15 @@ _Comment _parseComment(_Parsed p, _Block b) {
     }
   }
   String? author;
+  String? changedAt;
+  final beforeAuthor = raw0.substring(0, raw0.length - rest.length);
   if (rest.startsWith('(')) {
     final close = rest.indexOf(')');
     if (close > 0) {
-      author = rest.substring(1, close);
+      final (parts, time) = _splitTime(rest.substring(1, close).split(','));
+      changedAt = time;
+      final a = parts.join(',').trim();
+      author = time == null ? rest.substring(1, close) : (a.isEmpty ? null : a);
       rest = rest.substring(close + 1);
       if (rest.startsWith(':')) rest = rest.substring(1);
       rest = _lstrip(rest);
@@ -1301,6 +1388,8 @@ _Comment _parseComment(_Parsed p, _Block b) {
     _context(p, b.start),
     headerPrefix,
     markerEnd,
+    beforeAuthor,
+    changedAt,
   );
 }
 
@@ -1389,7 +1478,8 @@ void _parseQuestions(_Parsed p, _Block b) {
         continue;
       }
       final match = _individualAnswer.firstMatch(inner[m])!;
-      final members = [for (final x in match.group(1)!.split(',')) x.trim()];
+      final (memberParts, answerTime) = _splitTime(match.group(1)!.split(','));
+      final members = [for (final x in memberParts) x.trim()];
       for (final member in members) {
         if (!answered.add(member)) {
           p.malformed.add(
@@ -1408,6 +1498,7 @@ void _parseQuestions(_Parsed p, _Block b) {
           b.start + end,
           members,
           answerText(m, match.group(0)!.length),
+          answerTime,
         ),
       );
     }
@@ -1778,12 +1869,13 @@ int _attachToken(_Parsed p, String seg, int at, int base, _Mark m) {
     return at;
   }
   final read = _readToken(seg.substring(at + 2, close), m.kind);
+  m.changedAt = read.$4;
   switch (read) {
-    case (String reason, _, _):
+    case (String reason, _, _, _):
       p.malformed.add(
         'line ${m.line}: attribution token $reason (SOM §11.9.8)',
       );
-    case (null, final authors, final votes):
+    case (null, final authors, final votes, _):
       m.authors = authors;
       m.votes = votes;
   }
@@ -1799,17 +1891,30 @@ bool _isChangeMark(SpecMarkKind kind) =>
 
 /// The members of a token's inside, `<authors>[ <votes>]`, or (as the first
 /// member) the reason it breaks the grammar of SOM §11.9.8.
-(String?, List<String>, List<SpecMarkVote>) _readToken(
+(String?, List<String>, List<SpecMarkVote>, String?) _readToken(
   String inside,
   SpecMarkKind kind,
 ) {
-  const none = (<String>[], <SpecMarkVote>[]);
   final words = [
     for (final w
         in inside.replaceAll(RegExp(r',\s+'), ',').trim().split(RegExp(r'\s+')))
       if (w.isNotEmpty) w,
   ];
-  if (words.isEmpty) return ('is empty', none.$1, none.$2);
+  if (words.isEmpty) return ('is empty', const [], const [], null);
+  String? time;
+  if (isReviewTime(words.last)) time = words.removeLast();
+  final read = _readMembers(words, kind);
+  return (read.$1, read.$2, read.$3, time);
+}
+
+/// The authors and votes of a token's words (its time taken off), or (as the
+/// first member) the reason they break the grammar of SOM §11.9.8.
+(String?, List<String>, List<SpecMarkVote>) _readMembers(
+  List<String> words,
+  SpecMarkKind kind,
+) {
+  const none = (<String>[], <SpecMarkVote>[]);
+  if (words.isEmpty) return (null, none.$1, none.$2);
   final authors = <String>[];
   final votes = <SpecMarkVote>[];
   var k = 0;
@@ -1877,6 +1982,7 @@ List<SpecReviewAnnotation> _annotationsOf(
           author: c.author,
           text: c.text,
           context: c.context,
+          changedAt: c.changedAt,
         ),
       ));
     } else if (b.kind == SpecReviewAnnotationKind.conflict) {
@@ -1921,7 +2027,11 @@ List<SpecReviewAnnotation> _annotationsOf(
             recommended: q.recommended,
             answers: [
               for (final a in q.answers)
-                SpecIndividualAnswer(a.members, a.answer),
+                SpecIndividualAnswer(
+                  a.members,
+                  a.answer,
+                  changedAt: a.changedAt,
+                ),
             ],
           ),
         ));
@@ -1944,6 +2054,7 @@ List<SpecReviewAnnotation> _annotationsOf(
         comment: m.comment,
         authors: m.authors,
         votes: m.votes,
+        changedAt: m.changedAt,
       ),
     ));
   }
@@ -2018,12 +2129,22 @@ List<String> formatCommentBlock({
   required String id,
   required String text,
   String? author,
+  String? changedAt,
 }) {
   final t = text.split('\n');
   final head = StringBuffer('> $_arrow$_vs16 **$id**');
-  if (author != null && author.isNotEmpty) head.write(' ($author):');
+  final who = _authorAndTime(author, changedAt);
+  if (who != null) head.write(' ($who):');
   if (t.first.isNotEmpty) head.write(' ${t.first}');
   return [head.toString(), ..._quoted(t.sublist(1))];
+}
+
+/// A comment header's parentheses: the author and the change time, either
+/// alone, or null when there is neither (SOM §11.9.10).
+String? _authorAndTime(String? author, String? changedAt) {
+  final a = author != null && author.isNotEmpty ? author : null;
+  if (a == null) return changedAt;
+  return changedAt == null ? a : '$a, $changedAt';
 }
 
 /// The lines of a question block.
@@ -2220,6 +2341,45 @@ int _nonSpaceCount(String s) {
   return n;
 }
 
+/// [after] (a value just written as marks) with an attribution token on every
+/// change mark it lacks one on (SOM §11.9.10): the token of the same change
+/// in [before] (same kind, old and new text; each used once, in order) when
+/// [before] held it, else a new one with [author] and [time].
+String _stampMarks(String before, String after, String? author, String time) {
+  String key(_Mark m) =>
+      '${m.kind.name}\u0000${_markReplacement(m, false)}'
+      '\u0000${_markReplacement(m, true)}';
+  final old = [
+    for (final m in _parse(before).marks)
+      if (_isChangeMark(m.kind)) (key(m), before.substring(m.bodyEnd, m.end)),
+  ];
+  final used = List<bool>.filled(old.length, false);
+  final fresh = formatAttributionToken(
+    [if (author != null) author],
+    const [],
+    changedAt: time,
+  );
+  final inserts = <(int, String)>[];
+  for (final m in _parse(after).marks) {
+    if (!_isChangeMark(m.kind) || m.end > m.bodyEnd) continue;
+    final k = key(m);
+    var token = fresh;
+    for (var i = 0; i < old.length; i++) {
+      if (!used[i] && old[i].$1 == k) {
+        used[i] = true;
+        token = old[i].$2;
+        break;
+      }
+    }
+    if (token.isNotEmpty) inserts.add((m.bodyEnd, token));
+  }
+  var v = after;
+  for (final (at, token) in inserts.reversed) {
+    v = '${v.substring(0, at)}$token${v.substring(at)}';
+  }
+  return v;
+}
+
 /// `setMarked` with the value's change comments kept (SOM §11.9.3): taken
 /// out of the original, then written back where their anchor falls.
 SpecMarkedChange _markKeepingChangeComments(String current, String text) {
@@ -2332,10 +2492,15 @@ bool _isCommentedAnswer(String answer, List<SpecQuestionOption> options) {
 }
 
 /// The lines of one individual-answer entry.
-List<String> _individualAnswerLines(List<String> members, String answer) {
+List<String> _individualAnswerLines(
+  List<String> members,
+  String answer, [
+  String? changedAt,
+]) {
   final a = answer.split('\n');
+  final who = [...members, if (changedAt != null) changedAt].join(', ');
   return [
-    '> **Answer (${members.join(', ')}):** ${a.first}'.trimRight(),
+    '> **Answer ($who):** ${a.first}'.trimRight(),
     ..._quoted(a.sublist(1)),
   ];
 }
@@ -2345,8 +2510,9 @@ List<String> _individualAnswerLines(List<String> members, String answer) {
 class _AnswerEntry {
   final List<String> members;
   final String answer;
+  final String? changedAt;
   List<String>? lines;
-  _AnswerEntry(this.members, this.answer, this.lines);
+  _AnswerEntry(this.members, this.answer, this.lines, [this.changedAt]);
 }
 
 /// [value] with member [member]'s individual answer to question [q] set to
@@ -2361,8 +2527,9 @@ String _setIndividualAnswer(
   String value,
   _Question q,
   String member,
-  String answer,
-) {
+  String answer, [
+  String? changedAt,
+]) {
   final lines = value.split('\n');
   final entries = [
     for (final a in q.answers)
@@ -2370,6 +2537,7 @@ String _setIndividualAnswer(
         List.of(a.members),
         a.answer,
         lines.sublist(a.line, a.end + 1),
+        a.changedAt,
       ),
   ];
   for (final e in entries) {
@@ -2387,6 +2555,7 @@ String _setIndividualAnswer(
               .where(
                 (e) =>
                     e.answer == text &&
+                    e.changedAt == changedAt &&
                     !_isCommentedAnswer(e.answer, q.options),
               )
               .firstOrNull;
@@ -2394,12 +2563,12 @@ String _setIndividualAnswer(
       join.members.add(member);
       join.lines = null;
     } else {
-      kept.add(_AnswerEntry([member], text, null));
+      kept.add(_AnswerEntry([member], text, null, changedAt));
     }
   }
   final run = [
     for (final e in kept)
-      ...e.lines ?? _individualAnswerLines(e.members, e.answer),
+      ...e.lines ?? _individualAnswerLines(e.members, e.answer, e.changedAt),
   ];
   if (q.answers.isNotEmpty) {
     final from = q.answers.first.line;
@@ -2524,8 +2693,18 @@ class SpecReviewAnnotations {
   /// outside the document (`SBP` → `SBP C-12`); null for bare ids.
   final String? qualifier;
 
-  /// Wraps [doc].
-  SpecReviewAnnotations(this.doc, {this.qualifier});
+  /// The clock the write operations take a change time from when no `at` is
+  /// passed (SOM §11.9.10); null: the system clock in the writer's offset.
+  final String Function()? clock;
+
+  /// Wraps [doc]. [clock] fixes the change time the writes record (the
+  /// conformance drivers pass a fixed one).
+  SpecReviewAnnotations(this.doc, {this.qualifier, this.clock});
+
+  /// The change time a write records: [at] normalized, else the clock's.
+  String _time(String? at) => at != null
+      ? normalizeReviewTime(at)
+      : (clock?.call() ?? systemReviewTime());
 
   /// Every value as (path, field or null, text), in document order.
   List<(String, String?, String)> _values() {
@@ -2650,7 +2829,9 @@ class SpecReviewAnnotations {
     required String text,
     String? author,
     String? id,
+    String? at,
   }) {
+    final time = _time(at);
     final cid = id ?? nextCommentId();
     final value = _get(path, field);
     final end = _paragraphLastLine(value, afterParagraph);
@@ -2660,7 +2841,12 @@ class SpecReviewAnnotations {
       _insertAfterLine(
         value,
         end,
-        formatCommentBlock(id: cid, text: text, author: author),
+        formatCommentBlock(
+          id: cid,
+          text: text,
+          author: author,
+          changedAt: time,
+        ),
       ),
     );
     return cid;
@@ -2700,7 +2886,12 @@ class SpecReviewAnnotations {
   /// With [author], writes that member's individual answer instead, grouped
   /// and placed by the rules of SOM §11.9.8 (empty: only takes the member
   /// out); an author that is not a member id is refused.
-  void setAnswer(String questionId, String answer, {String? author}) {
+  void setAnswer(
+    String questionId,
+    String answer, {
+    String? author,
+    String? at,
+  }) {
     if (author != null && !_memberId.hasMatch(author)) {
       throw SpecReviewAnnotationError(
         '"$author" is not a member id (lowercase letters, digits and _)',
@@ -2708,7 +2899,8 @@ class SpecReviewAnnotations {
     }
     final (path, field, text, _, q) = _findQuestion(questionId);
     if (author != null) {
-      _set(path, field, _setIndividualAnswer(text, q, author, answer));
+      final time = answer.trim().isEmpty ? null : _time(at);
+      _set(path, field, _setIndividualAnswer(text, q, author, answer, time));
       return;
     }
     final lines = text.split('\n');
@@ -2733,12 +2925,14 @@ class SpecReviewAnnotations {
   }
 
   /// Replaces a comment's text; its marker, id and author stay as written.
-  void editComment(String commentId, String text) {
+  void editComment(String commentId, String text, {String? at}) {
+    final time = _time(at);
     final (path, field, value, c) = _findComment(commentId);
     final lines = value.split('\n');
     final t = text.split('\n');
+    final who = _authorAndTime(c.author, time);
     final block = [
-      '${c.headerPrefix}${t.first}'.trimRight(),
+      '${c.beforeAuthor.trimRight()} ($who): ${t.first}'.trimRight(),
       ..._quoted(t.sublist(1)),
     ];
     lines.replaceRange(c.block.start, c.block.end + 1, block);
@@ -2855,6 +3049,7 @@ class SpecReviewAnnotations {
             changeId: m.changeIndex == null
                 ? null
                 : 'M-${first + m.changeIndex!}',
+            changedAt: m.changedAt,
           ),
         );
       }
@@ -2997,7 +3192,9 @@ class SpecReviewAnnotations {
     String text, {
     String? author,
     String? revision,
+    String? at,
   }) {
+    final time = _time(at);
     final (path, field, value, p, k) = _findMark(markId, revision);
     final m = p.marks[k];
     if (!_isChangeMark(m.kind)) {
@@ -3028,7 +3225,8 @@ class SpecReviewAnnotations {
       );
     }
     final markup =
-        '{>> [$d $body $d] $comment <<}${author == null ? '' : '{@$author}'}';
+        '{>> [$d $body $d] $comment <<}'
+        '${formatAttributionToken([if (author != null) author], const [], changedAt: time)}';
     _set(
       path,
       field,
@@ -3043,7 +3241,13 @@ class SpecReviewAnnotations {
   /// nothing changes — for an unknown id, a stale [revision], a mark that
   /// holds no comment, and a [text] that is empty or holds a mark delimiter
   /// or a blank line.
-  void editMarkComment(String markId, String text, {String? revision}) {
+  void editMarkComment(
+    String markId,
+    String text, {
+    String? revision,
+    String? at,
+  }) {
+    final time = _time(at);
     final (path, field, value, p, k) = _findMark(markId, revision);
     final m = p.marks[k];
     final comment = _checkInlineComment(text);
@@ -3059,10 +3263,11 @@ class SpecReviewAnnotations {
     } else {
       throw SpecReviewAnnotationError('$markId holds no comment');
     }
+    final token = formatAttributionToken(m.authors, m.votes, changedAt: time);
     _set(
       path,
       field,
-      '${value.substring(0, m.start)}$markup${value.substring(m.bodyEnd)}',
+      '${value.substring(0, m.start)}$markup$token${value.substring(m.end)}',
     );
   }
 
@@ -3212,10 +3417,27 @@ class SpecReviewAnnotations {
     required String path,
     String? field,
     required String text,
+    String? author,
+    String? at,
   }) {
-    final result = _markKeepingChangeComments(_get(path, field), text);
-    _set(path, field, result.text);
-    return result;
+    _checkAuthor(author);
+    final time = _time(at);
+    final current = _get(path, field);
+    final result = _markKeepingChangeComments(current, text);
+    final stamped = SpecMarkedChange(
+      _stampMarks(current, result.text, author, time),
+      exact: result.exact,
+    );
+    _set(path, field, stamped.text);
+    return stamped;
+  }
+
+  void _checkAuthor(String? author) {
+    if (author != null && !_memberId.hasMatch(author)) {
+      throw SpecReviewAnnotationError(
+        '"$author" is not a member id (lowercase letters, digits and _)',
+      );
+    }
   }
 
   /// Marks the value at [path] / [field] as a change against [earlier], an
@@ -3224,10 +3446,19 @@ class SpecReviewAnnotations {
     required String path,
     String? field,
     required String earlier,
+    String? author,
+    String? at,
   }) {
-    final result = markChangeText(earlier, _get(path, field));
-    _set(path, field, result.text);
-    return result;
+    _checkAuthor(author);
+    final time = _time(at);
+    final current = _get(path, field);
+    final result = markChangeText(earlier, current);
+    final stamped = SpecMarkedChange(
+      _stampMarks(current, result.text, author, time),
+      exact: result.exact,
+    );
+    _set(path, field, stamped.text);
+    return stamped;
   }
 
   /// The paragraphs of the value at [path] / [field], in order — the units
@@ -3813,6 +4044,9 @@ class ReviewPiece {
   /// A comment's text.
   final String commentText;
 
+  /// A comment's change time (SOM §11.9.10), null without one.
+  final String? changedAt;
+
   /// The ids of a question block's questions.
   final List<String> questionIds;
 
@@ -3824,6 +4058,7 @@ class ReviewPiece {
     this.author,
     this.commentText = '',
     this.questionIds = const [],
+    this.changedAt,
   });
 
   /// Whether the paragraph is text, not an annotation block.
@@ -3850,6 +4085,7 @@ ReviewPiece _piece(_Parsed p, _Block? b, int s, int e) {
     id: comment?.id ?? (b == null ? null : p.conflicts[b]?.id),
     author: comment?.author,
     commentText: comment?.text ?? '',
+    changedAt: comment?.changedAt,
     questionIds: [
       if (b != null)
         for (final q in p.questions[b] ?? const <_Question>[]) q.id,
@@ -3880,6 +4116,9 @@ class ReviewMark {
   /// Its token's votes.
   final List<SpecMarkVote> votes;
 
+  /// Its token's change time (SOM §11.9.10), or null.
+  final String? changedAt;
+
   /// The text accepting it leaves.
   final String accepted;
 
@@ -3897,6 +4136,7 @@ class ReviewMark {
     required this.votes,
     required this.accepted,
     required this.rejected,
+    this.changedAt,
   });
 
   /// Whether the mark carries an attribution token.
@@ -3916,6 +4156,7 @@ List<ReviewMark> reviewMarks(String value) => [
       votes: m.votes,
       accepted: _markReplacement(m, true),
       rejected: _markReplacement(m, false),
+      changedAt: m.changedAt,
     ),
 ];
 
@@ -3933,14 +4174,21 @@ String decideReviewMarks(String value, Map<int, bool> decisions) {
   return v;
 }
 
-/// The attribution token for [authors] and [votes], `{@agent +alice -bob}`.
-String formatAttributionToken(List<String> authors, List<SpecMarkVote> votes) {
-  final v = [
+/// The attribution token for [authors], [votes] and [changedAt],
+/// `{@agent +alice -bob 2026-11-07T14:05+01:00}` (SOM §11.9.8, §11.9.10);
+/// empty when there is nothing to write.
+String formatAttributionToken(
+  List<String> authors,
+  List<SpecMarkVote> votes, {
+  String? changedAt,
+}) {
+  final parts = [
+    if (authors.isNotEmpty) authors.join(','),
     for (final x in votes)
       '${x.vote == SpecVote.accept ? '+' : '-'}${x.member}',
-  ].join(' ');
-  final sep = authors.isNotEmpty && v.isNotEmpty ? ' ' : '';
-  return '{@${authors.join(',')}$sep$v}';
+    if (changedAt != null) changedAt,
+  ];
+  return parts.isEmpty ? '' : '{@${parts.join(' ')}}';
 }
 
 /// [value] with mark [m]'s token replaced by one for [authors] and [votes].
@@ -3951,7 +4199,7 @@ String withAttribution(
   List<SpecMarkVote> votes,
 ) =>
     value.substring(0, m.bodyEnd) +
-    formatAttributionToken(authors, votes) +
+    formatAttributionToken(authors, votes, changedAt: m.changedAt) +
     value.substring(m.end);
 
 /// The team answer of every question of [value], by id (the first, when an
@@ -3974,13 +4222,14 @@ String? setIndividualAnswerText(
   String value,
   String questionId,
   String member,
-  String answer,
-) {
+  String answer, {
+  String? changedAt,
+}) {
   final p = _parse(value);
   for (final b in p.blocks) {
     for (final q in p.questions[b] ?? const <_Question>[]) {
       if (q.id == questionId) {
-        return _setIndividualAnswer(value, q, member, answer);
+        return _setIndividualAnswer(value, q, member, answer, changedAt);
       }
     }
   }

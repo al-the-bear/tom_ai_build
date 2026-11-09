@@ -18,6 +18,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 	"unicode/utf8"
 )
@@ -140,6 +141,9 @@ type SpecReviewAnnotation struct {
 	Base string
 	// Alternatives are a conflict's lettered alternatives.
 	Alternatives []SpecConflictAlternative
+	// ChangedAt is when a comment or mark was last changed (SOM §11.9.10);
+	// nil without a time.
+	ChangedAt *string
 }
 
 // Open reports whether a question is still open (no team answer written), or
@@ -207,6 +211,9 @@ type SpecIndividualAnswer struct {
 	Members []string
 	// Answer is the answer, trimmed.
 	Answer string
+	// ChangedAt is when the answer was last written (SOM §11.9.10); nil
+	// without a time.
+	ChangedAt *string
 }
 
 // AnswerLetter is the letter the answer starts with (`(a)` or `**(a)**`), or
@@ -215,11 +222,15 @@ func (a SpecIndividualAnswer) AnswerLetter() *string { return annLeadingLetter(a
 
 // ToJSON is the canonical JSON form.
 func (a SpecIndividualAnswer) ToJSON() map[string]any {
-	return map[string]any{
+	out := map[string]any{
 		"members":      annStringsJSON(a.Members),
 		"answer":       a.Answer,
 		"answerLetter": nullableString(a.AnswerLetter()),
 	}
+	if a.ChangedAt != nil {
+		out["changedAt"] = *a.ChangedAt
+	}
+	return out
 }
 
 // SpecConflictAlternative is one lettered alternative of a conflict block,
@@ -317,7 +328,7 @@ func (a SpecReviewAnnotation) ToJSON() map[string]any {
 func (a SpecReviewAnnotation) ToJSONWith(opts SpecReviewJSONOptions) map[string]any {
 	switch a.Kind {
 	case SpecReviewAnnotationKindComment:
-		return map[string]any{
+		out := map[string]any{
 			"kind":        "comment",
 			"path":        a.Path,
 			"field":       nullableString(a.Field),
@@ -328,6 +339,10 @@ func (a SpecReviewAnnotation) ToJSONWith(opts SpecReviewJSONOptions) map[string]
 			"text":        a.Text,
 			"context":     a.Context,
 		}
+		if a.ChangedAt != nil {
+			out["changedAt"] = *a.ChangedAt
+		}
+		return out
 	case SpecReviewAnnotationKindQuestion:
 		options := make([]any, 0, len(a.Options))
 		for _, o := range a.Options {
@@ -389,6 +404,9 @@ func (a SpecReviewAnnotation) ToJSONWith(opts SpecReviewJSONOptions) map[string]
 			"text":     a.Text,
 			"newText":  nullableString(a.NewText),
 			"comment":  nullableString(a.Comment),
+		}
+		if a.ChangedAt != nil {
+			out["changedAt"] = *a.ChangedAt
 		}
 		if opts.Team {
 			out["authors"] = annStringsJSON(a.Authors)
@@ -507,6 +525,57 @@ var (
 // letters, digits and `_`.
 func IsReviewMemberID(s string) bool { return annMemberIDRE.MatchString(s) }
 
+var (
+	// annReviewTimeRE is a change time as annotations write it (SOM
+	// §11.9.10): minutes with the writer's UTC offset,
+	// `2026-11-07T14:05+01:00` or `2026-11-07T13:05Z`.
+	annReviewTimeRE = regexp.MustCompile(`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$`)
+	// annReviewTimeInRE is an ISO 8601 time a caller may pass as `at`:
+	// minutes, optional seconds and fraction, and an offset or `Z`.
+	annReviewTimeInRE = regexp.MustCompile(`^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$`)
+)
+
+// IsReviewTime reports whether s is a change time of the form SOM §11.9.10
+// fixes.
+func IsReviewTime(s string) bool { return annReviewTimeRE.MatchString(s) }
+
+// NormalizeReviewTime is at as a change time (SOM §11.9.10): seconds and
+// fractions cut, the offset kept as given. Any other shape is a
+// *SpecReviewAnnotationError.
+func NormalizeReviewTime(at string) (string, error) {
+	m := annReviewTimeInRE.FindStringSubmatch(strings.TrimSpace(at))
+	if m == nil {
+		return "", &SpecReviewAnnotationError{Message: "\"" + at +
+			"\" is not an ISO 8601 time with an offset or Z (e.g. 2026-11-07T14:05+01:00)"}
+	}
+	return m[1] + m[2], nil
+}
+
+// SystemReviewTime is now as a change time in its local offset (SOM
+// §11.9.10).
+func SystemReviewTime(now time.Time) string {
+	_, off := now.Zone()
+	sign := "+"
+	if off < 0 {
+		sign = "-"
+		off = -off
+	}
+	mins := off / 60
+	return fmt.Sprintf("%04d-%02d-%02dT%02d:%02d%s%02d:%02d", now.Year(), int(now.Month()), now.Day(),
+		now.Hour(), now.Minute(), sign, mins/60, mins%60)
+}
+
+// annSplitTime splits parts (a header's or an answer's comma-separated parts)
+// into the parts before a trailing change time and the time (SOM §11.9.10).
+func annSplitTime(parts []string) ([]string, *string) {
+	if len(parts) > 0 {
+		if t := strings.TrimSpace(parts[len(parts)-1]); IsReviewTime(t) {
+			return parts[:len(parts)-1], &t
+		}
+	}
+	return parts, nil
+}
+
 func annIsUnresolved(answer string) bool { return strings.HasPrefix(answer, annUnresolvedPfx) }
 
 // annDecisionLetter is a conflict decision's letter: `a`…, `base`, or nil
@@ -530,6 +599,8 @@ type annIndividualAnswer struct {
 	end     int // last value line of the entry with text (inclusive)
 	members []string
 	answer  string
+	// changedAt is the entry's change time (SOM §11.9.10), or nil.
+	changedAt *string
 }
 
 // annConflict is one parsed conflict block (SOM §11.9.8).
@@ -648,13 +719,17 @@ func annLeadingLetter(s string) *string {
 
 // annComment is one parsed comment block.
 type annComment struct {
-	block        *annBlock
-	id           *string
-	author       *string
-	text         string
-	context      string
-	headerPrefix string // the first line up to where the text starts
-	markerEnd    int    // where an id is inserted into the first line
+	block     *annBlock
+	id        *string
+	author    *string
+	text      string
+	context   string
+	markerEnd int // where an id is inserted into the first line
+	// beforeAuthor is the first line up to where the author's parentheses
+	// (or the text) start.
+	beforeAuthor string
+	// changedAt is when the comment was last changed (SOM §11.9.10), or nil.
+	changedAt *string
 }
 
 // annMark is one parsed mark; start/end are byte offsets into the value.
@@ -672,6 +747,9 @@ type annMark struct {
 	votes      []SpecMarkVote
 	// quote is a comment mark's quote of a change (SOM §11.9.3), or nil.
 	quote *annQuote
+	// changedAt is the time in the mark's attribution token (SOM §11.9.10),
+	// or nil.
+	changedAt *string
 	// changeIndex is the index (among the value's marks) of the change this
 	// change comment is attached to, or -1.
 	changeIndex int
@@ -955,11 +1033,18 @@ func annParseComment(p *annParsed, b *annBlock) *annComment {
 			rest = annLstrip(rest[closeAt+2:])
 		}
 	}
-	var author *string
+	var author, changedAt *string
+	beforeAuthor := raw0[:len(raw0)-len(rest)]
 	if strings.HasPrefix(rest, "(") {
 		if closeAt := strings.Index(rest, ")"); closeAt > 0 {
-			a := rest[1:closeAt]
-			author = &a
+			parts, when := annSplitTime(strings.Split(rest[1:closeAt], ","))
+			changedAt = when
+			if when == nil {
+				a := rest[1:closeAt]
+				author = &a
+			} else if a := strings.TrimSpace(strings.Join(parts, ",")); a != "" {
+				author = &a
+			}
 			rest = rest[closeAt+1:]
 			rest = strings.TrimPrefix(rest, ":")
 			rest = annLstrip(rest)
@@ -967,7 +1052,6 @@ func annParseComment(p *annParsed, b *annBlock) *annComment {
 	} else if strings.HasPrefix(rest, ":") {
 		rest = annLstrip(rest[1:])
 	}
-	headerPrefix := raw0[:len(raw0)-len(rest)]
 	textLines := []string{rest}
 	for k := b.start + 1; k <= b.end; k++ {
 		inner := annInner(p.lines[k])
@@ -987,8 +1071,9 @@ func annParseComment(p *annParsed, b *annBlock) *annComment {
 		author:       author,
 		text:         strings.TrimSpace(strings.Join(textLines, "\n")),
 		context:      annContext(p, b.start),
-		headerPrefix: headerPrefix,
 		markerEnd:    markerEnd,
+		beforeAuthor: beforeAuthor,
+		changedAt:    changedAt,
 	}
 }
 
@@ -1096,8 +1181,9 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 				continue
 			}
 			match := annIndividualAnswerRE.FindStringSubmatch(inner[m])
+			memberParts, answerTime := annSplitTime(strings.Split(match[1], ","))
 			var members []string
-			for _, x := range strings.Split(match[1], ",") {
+			for _, x := range memberParts {
 				members = append(members, strings.TrimSpace(x))
 			}
 			for _, member := range members {
@@ -1113,10 +1199,11 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 				end--
 			}
 			individual = append(individual, annIndividualAnswer{
-				line:    b.start + m,
-				end:     b.start + end,
-				members: members,
-				answer:  answerText(m, len(match[0])),
+				line:      b.start + m,
+				end:       b.start + end,
+				members:   members,
+				answer:    answerText(m, len(match[0])),
+				changedAt: answerTime,
 			})
 		}
 		teamAnswer := ""
@@ -1463,7 +1550,8 @@ func annAttachToken(p *annParsed, seg string, at, base int, m *annMark) int {
 			": attribution token \"{@\" is not closed (SOM §11.9.8)")
 		return at
 	}
-	authors, votes, problem := annReadToken(seg[at+2:closeAt], m.kind)
+	authors, votes, changedAt, problem := annReadToken(seg[at+2:closeAt], m.kind)
+	m.changedAt = changedAt
 	if problem != "" {
 		p.malformed = append(p.malformed, "line "+strconv.Itoa(m.line)+": attribution token "+
 			problem+" (SOM §11.9.8)")
@@ -1483,15 +1571,31 @@ func annIsChangeMark(kind SpecMarkKind) bool {
 
 var annCommaSpaceRE = regexp.MustCompile(`,\s+`)
 
-// annReadToken reads a token's inside, `<authors>[ <votes>]`, into its
-// authors and votes, or answers the reason it breaks the grammar of SOM
-// §11.9.8 as problem.
-func annReadToken(inside string, kind SpecMarkKind) (authors []string, votes []SpecMarkVote, problem string) {
+// annReadToken reads a token's inside, `[<authors>][ <votes>][ <time>]`, into
+// its authors, votes and change time (SOM §11.9.10), or answers the reason it
+// breaks the grammar of SOM §11.9.8 as problem (the time is read either way).
+func annReadToken(inside string, kind SpecMarkKind) (authors []string, votes []SpecMarkVote, changedAt *string, problem string) {
 	words := strings.Fields(annCommaSpaceRE.ReplaceAllString(inside, ","))
 	if len(words) == 0 {
-		return nil, nil, "is empty"
+		return nil, nil, nil, "is empty"
 	}
+	if last := words[len(words)-1]; IsReviewTime(last) {
+		changedAt = &last
+		words = words[:len(words)-1]
+	}
+	authors, votes, problem = annReadMembers(words, kind)
+	return authors, votes, changedAt, problem
+}
+
+// annReadMembers reads the authors and votes of a token's words (its time
+// taken off), or answers the reason they break the grammar of SOM §11.9.8 as
+// problem.
+func annReadMembers(words []string, kind SpecMarkKind) (authors []string, votes []SpecMarkVote, problem string) {
 	authors = []string{}
+	votes = []SpecMarkVote{}
+	if len(words) == 0 {
+		return authors, votes, ""
+	}
 	votes = []SpecMarkVote{}
 	k := 0
 	if !strings.HasPrefix(words[0], "+") && !strings.HasPrefix(words[0], "-") {
@@ -1565,6 +1669,7 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 				Author:      c.author,
 				Text:        c.text,
 				Context:     c.context,
+				ChangedAt:   c.changedAt,
 			}})
 			seq++
 			continue
@@ -1604,7 +1709,8 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 			id, topic := q.id, q.topic
 			answers := make([]SpecIndividualAnswer, 0, len(q.answers))
 			for _, a := range q.answers {
-				answers = append(answers, SpecIndividualAnswer{Members: a.members, Answer: a.answer})
+				answers = append(answers, SpecIndividualAnswer{Members: a.members, Answer: a.answer,
+					ChangedAt: a.changedAt})
 			}
 			out = append(out, entry{q.header, 0, seq, SpecReviewAnnotation{
 				Kind:        SpecReviewAnnotationKindQuestion,
@@ -1626,16 +1732,17 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 	}
 	for _, m := range p.marks {
 		out = append(out, entry{m.line, 1, seq, SpecReviewAnnotation{
-			Kind:     SpecReviewAnnotationKindMark,
-			Path:     path,
-			Field:    fp,
-			Line:     m.line,
-			MarkKind: m.kind,
-			Text:     m.text,
-			NewText:  m.newText,
-			Comment:  m.comment,
-			Authors:  m.authors,
-			Votes:    m.votes,
+			Kind:      SpecReviewAnnotationKindMark,
+			Path:      path,
+			Field:     fp,
+			Line:      m.line,
+			MarkKind:  m.kind,
+			Text:      m.text,
+			NewText:   m.newText,
+			Comment:   m.comment,
+			Authors:   m.authors,
+			Votes:     m.votes,
+			ChangedAt: m.changedAt,
 		}})
 		seq++
 	}
@@ -1729,17 +1836,29 @@ func annQuoted(lines []string) []string {
 }
 
 // FormatCommentBlock returns the lines of a comment block; author "" writes
-// none.
-func FormatCommentBlock(id, text, author string) []string {
+// none, changedAt "" no change time (SOM §11.9.10).
+func FormatCommentBlock(id, text, author, changedAt string) []string {
 	t := strings.Split(text, "\n")
 	head := "> " + annArrow + annVS16 + " **" + id + "**"
-	if author != "" {
-		head += " (" + author + "):"
+	if who := annAuthorAndTime(author, changedAt); who != "" {
+		head += " (" + who + "):"
 	}
 	if t[0] != "" {
 		head += " " + t[0]
 	}
 	return append([]string{head}, annQuoted(t[1:])...)
+}
+
+// annAuthorAndTime is a comment header's parentheses: the author and the
+// change time, either alone, or "" when there is neither (SOM §11.9.10).
+func annAuthorAndTime(author, changedAt string) string {
+	switch {
+	case author == "":
+		return changedAt
+	case changedAt == "":
+		return author
+	}
+	return author + ", " + changedAt
 }
 
 // FormatQuestionBlock returns the lines of a question block.
@@ -2108,9 +2227,14 @@ func annIsCommentedAnswer(answer string, options []SpecQuestionOption) bool {
 }
 
 // annIndividualAnswerLines are the lines of one individual-answer entry.
-func annIndividualAnswerLines(members []string, answer string) []string {
+// changedAt "" writes no change time (SOM §11.9.10).
+func annIndividualAnswerLines(members []string, answer, changedAt string) []string {
 	a := strings.Split(answer, "\n")
-	head := strings.TrimRightFunc("> **Answer ("+strings.Join(members, ", ")+"):** "+a[0], unicode.IsSpace)
+	who := append([]string{}, members...)
+	if changedAt != "" {
+		who = append(who, changedAt)
+	}
+	head := strings.TrimRightFunc("> **Answer ("+strings.Join(who, ", ")+"):** "+a[0], unicode.IsSpace)
 	return append([]string{head}, annQuoted(a[1:])...)
 }
 
@@ -2121,17 +2245,22 @@ func annIndividualAnswerLines(members []string, answer string) []string {
 // a new line after the last individual answer. The first individual answer
 // opens the run before the team's `**Answer:**`, with a `>` line between run
 // and team answer, and a run left empty takes that line with it. Entries left
-// alone keep their bytes.
-func annSetIndividualAnswer(value string, q *annQuestion, member, answer string) string {
+// alone keep their bytes. changedAt ("" for none) is the new entry's change
+// time (SOM §11.9.10); entries join only when answer and time are equal.
+func annSetIndividualAnswer(value string, q *annQuestion, member, answer, changedAt string) string {
 	lines := strings.Split(value, "\n")
 	type entry struct {
-		members []string
-		answer  string
-		lines   []string // nil: rewritten
+		members   []string
+		answer    string
+		changedAt string
+		lines     []string // nil: rewritten
 	}
 	var kept []*entry
 	for _, a := range q.answers {
 		e := &entry{answer: a.answer, lines: append([]string{}, lines[a.line:a.end+1]...)}
+		if a.changedAt != nil {
+			e.changedAt = *a.changedAt
+		}
 		for _, m := range a.members {
 			if m == member {
 				e.lines = nil
@@ -2148,7 +2277,7 @@ func annSetIndividualAnswer(value string, q *annQuestion, member, answer string)
 		var join *entry
 		if !annIsCommentedAnswer(text, q.options) {
 			for _, e := range kept {
-				if e.answer == text && !annIsCommentedAnswer(e.answer, q.options) {
+				if e.answer == text && e.changedAt == changedAt && !annIsCommentedAnswer(e.answer, q.options) {
 					join = e
 					break
 				}
@@ -2158,7 +2287,7 @@ func annSetIndividualAnswer(value string, q *annQuestion, member, answer string)
 			join.members = append(join.members, member)
 			join.lines = nil
 		} else {
-			kept = append(kept, &entry{members: []string{member}, answer: text})
+			kept = append(kept, &entry{members: []string{member}, answer: text, changedAt: changedAt})
 		}
 	}
 	var run []string
@@ -2166,7 +2295,7 @@ func annSetIndividualAnswer(value string, q *annQuestion, member, answer string)
 		if e.lines != nil {
 			run = append(run, e.lines...)
 		} else {
-			run = append(run, annIndividualAnswerLines(e.members, e.answer)...)
+			run = append(run, annIndividualAnswerLines(e.members, e.answer, e.changedAt)...)
 		}
 	}
 	splice := func(from, count int, insert []string) {
@@ -2313,11 +2442,43 @@ type SpecReviewAnnotations struct {
 	// Qualifier is the document's id or name, written in front of a comment
 	// id cited outside the document (`SBP` → `SBP C-12`); "" for bare ids.
 	Qualifier string
+	// Clock is the clock the write operations take a change time from when
+	// no `at` is passed (SOM §11.9.10); nil: the system clock in the writer's
+	// offset.
+	Clock func() string
 }
 
 // NewSpecReviewAnnotations wraps doc; qualifier "" lists bare ids.
 func NewSpecReviewAnnotations(doc *SpecDocument, qualifier string) *SpecReviewAnnotations {
 	return &SpecReviewAnnotations{Doc: doc, Qualifier: qualifier}
+}
+
+// NewSpecReviewAnnotationsWithClock wraps doc like NewSpecReviewAnnotations;
+// clock fixes the change time the writes record (SOM §11.9.10; the
+// conformance drivers pass a fixed one).
+func NewSpecReviewAnnotationsWithClock(doc *SpecDocument, qualifier string, clock func() string) *SpecReviewAnnotations {
+	return &SpecReviewAnnotations{Doc: doc, Qualifier: qualifier, Clock: clock}
+}
+
+// changeTime is the change time a write records: at normalized, else the
+// clock's (at "" for none).
+func (r *SpecReviewAnnotations) changeTime(at string) (string, error) {
+	if at != "" {
+		return NormalizeReviewTime(at)
+	}
+	if r.Clock != nil {
+		return r.Clock(), nil
+	}
+	return SystemReviewTime(time.Now()), nil
+}
+
+// checkAuthor refuses an author that is not a member id ("" for none).
+func annCheckAuthor(author string) error {
+	if author != "" && !annMemberIDRE.MatchString(author) {
+		return &SpecReviewAnnotationError{Message: "\"" + author +
+			"\" is not a member id (lowercase letters, digits and _)"}
+	}
+	return nil
 }
 
 type annValue struct {
@@ -2456,8 +2617,13 @@ func (r *SpecReviewAnnotations) AssignCommentIDs(floor int) []string {
 // InsertComment inserts a comment block after paragraph afterParagraph
 // (0-based; -1: at the start) of the value at path / field (field "" for
 // content), and returns its id — id when non-empty, else the next free one.
-// author "" writes none.
-func (r *SpecReviewAnnotations) InsertComment(path, field string, afterParagraph int, text, author, id string) (string, error) {
+// author "" writes none. The header records at (an ISO 8601 time; "" for
+// the clock's) as the change time (SOM §11.9.10).
+func (r *SpecReviewAnnotations) InsertComment(path, field string, afterParagraph int, text, author, id, at string) (string, error) {
+	when, err := r.changeTime(at)
+	if err != nil {
+		return "", err
+	}
 	cid := id
 	if cid == "" {
 		cid = r.NextCommentID(0)
@@ -2467,7 +2633,7 @@ func (r *SpecReviewAnnotations) InsertComment(path, field string, afterParagraph
 	if err != nil {
 		return "", err
 	}
-	r.set(path, field, annInsertAfterLine(value, end, FormatCommentBlock(cid, text, author)))
+	r.set(path, field, annInsertAfterLine(value, end, FormatCommentBlock(cid, text, author, when)))
 	return cid, nil
 }
 
@@ -2540,8 +2706,9 @@ func (r *SpecReviewAnnotations) InsertQuestionAfterComment(commentID string, que
 // it). With author (a member id; "" for the team), it writes that member's
 // individual answer instead, grouped and placed by the rules of SOM §11.9.8
 // (empty: only takes the member out); an author that is not a member id is
-// refused.
-func (r *SpecReviewAnnotations) SetAnswer(questionID, answer, author string) error {
+// refused. A member's non-empty answer records at (an ISO 8601 time; "" for
+// the clock's) as its change time (SOM §11.9.10).
+func (r *SpecReviewAnnotations) SetAnswer(questionID, answer, author, at string) error {
 	if author != "" && !annMemberIDRE.MatchString(author) {
 		return &SpecReviewAnnotationError{Message: "\"" + author +
 			"\" is not a member id (lowercase letters, digits and _)"}
@@ -2551,7 +2718,13 @@ func (r *SpecReviewAnnotations) SetAnswer(questionID, answer, author string) err
 		return err
 	}
 	if author != "" {
-		r.set(v.path, v.field, annSetIndividualAnswer(v.text, q, author, answer))
+		when := ""
+		if strings.TrimSpace(answer) != "" {
+			if when, err = r.changeTime(at); err != nil {
+				return err
+			}
+		}
+		r.set(v.path, v.field, annSetIndividualAnswer(v.text, q, author, answer, when))
 		return nil
 	}
 	lines := strings.Split(v.text, "\n")
@@ -2583,15 +2756,25 @@ func (r *SpecReviewAnnotations) SetAnswer(questionID, answer, author string) err
 }
 
 // EditComment replaces a comment's text; its marker, id and author stay as
-// written.
-func (r *SpecReviewAnnotations) EditComment(commentID, text string) error {
+// written, and the header records at (an ISO 8601 time; "" for the clock's)
+// as the change time (SOM §11.9.10).
+func (r *SpecReviewAnnotations) EditComment(commentID, text, at string) error {
+	when, err := r.changeTime(at)
+	if err != nil {
+		return err
+	}
 	v, c, err := r.findComment(commentID)
 	if err != nil {
 		return err
 	}
 	lines := strings.Split(v.text, "\n")
 	t := strings.Split(text, "\n")
-	block := append([]string{strings.TrimRightFunc(c.headerPrefix+t[0], unicode.IsSpace)}, annQuoted(t[1:])...)
+	author := ""
+	if c.author != nil {
+		author = *c.author
+	}
+	head := strings.TrimRightFunc(c.beforeAuthor, unicode.IsSpace) + " (" + annAuthorAndTime(author, when) + "): " + t[0]
+	block := append([]string{strings.TrimRightFunc(head, unicode.IsSpace)}, annQuoted(t[1:])...)
 	out := append(append(append([]string{}, lines[:c.block.start]...), block...), lines[c.block.end+1:]...)
 	r.set(v.path, v.field, strings.Join(out, "\n"))
 	return nil
@@ -2832,6 +3015,9 @@ type SpecMarkEntry struct {
 	// ChangeID is the change an attached change comment is about, by id; nil
 	// otherwise.
 	ChangeID *string
+	// ChangedAt is when the mark was last changed (SOM §11.9.10); nil
+	// without a time.
+	ChangedAt *string
 }
 
 // ToJSON is the canonical JSON form the conformance corpus pins.
@@ -2863,6 +3049,9 @@ func (e SpecMarkEntry) ToJSONWith(options SpecReviewJSONOptions) map[string]any 
 	}
 	if e.ChangeID != nil {
 		out["changeId"] = *e.ChangeID
+	}
+	if e.ChangedAt != nil {
+		out["changedAt"] = *e.ChangedAt
 	}
 	if options.Team {
 		out["authors"] = annStringsJSON(e.Authors)
@@ -3065,6 +3254,7 @@ func (r *SpecReviewAnnotations) ListMarks(path string) []SpecMarkEntry {
 				Votes:     m.votes,
 				CommentID: markID(m.commentIndex),
 				ChangeID:  markID(m.changeIndex),
+				ChangedAt: m.changedAt,
 			}
 			if m.quote != nil {
 				c := m.quote.comment
@@ -3208,13 +3398,17 @@ func (r *SpecReviewAnnotations) findMark(markID, revision string) (annValue, *an
 
 // CommentChange writes a change comment (SOM §11.9.3) directly after the
 // change mark markID, its quote written from the mark and text after it,
-// with an attribution token `{@author}` when author is not "", and returns
-// the new comment's id. Refused with a SpecReviewAnnotationError — nothing
+// with an attribution token `{@author T}` (T: at, an ISO 8601 time, or the
+// clock's when at is ""; SOM §11.9.10), and returns the new comment's id. Refused with a SpecReviewAnnotationError — nothing
 // changes — for an unknown id, a stale revision (when not ""), a mark that
 // is not a change or already has an attached comment, a change its quote
 // cannot hold, a text that is empty or holds a mark delimiter or a blank
 // line, and an author that is not a member id.
-func (r *SpecReviewAnnotations) CommentChange(markID, text, author, revision string) (string, error) {
+func (r *SpecReviewAnnotations) CommentChange(markID, text, author, revision, at string) (string, error) {
+	when, err := r.changeTime(at)
+	if err != nil {
+		return "", err
+	}
 	v, p, k, err := r.findMark(markID, revision)
 	if err != nil {
 		return "", err
@@ -3247,10 +3441,12 @@ func (r *SpecReviewAnnotations) CommentChange(markID, text, author, revision str
 	if strings.Contains(body, d+"]") || strings.Contains(body, "<<}") {
 		return "", &SpecReviewAnnotationError{Message: markID + " holds \"" + d + "]\" or \"<<}\", which its quote cannot hold"}
 	}
-	markup := "{>> [" + d + " " + body + " " + d + "] " + comment + " <<}"
+	var authors []string
 	if author != "" {
-		markup += "{@" + author + "}"
+		authors = []string{author}
 	}
+	markup := "{>> [" + d + " " + body + " " + d + "] " + comment + " <<}" +
+		formatAttributionToken(authors, nil, when)
 	r.set(v.path, v.field, v.text[:m.end]+markup+v.text[m.end:])
 	n, _ := strconv.Atoi(markID[2:])
 	return "M-" + strconv.Itoa(n+1), nil
@@ -3258,11 +3454,17 @@ func (r *SpecReviewAnnotations) CommentChange(markID, text, author, revision str
 
 // EditMarkComment replaces the comment of the comment mark, change comment
 // or commented highlight markID with text (SOM §11.9.3). A change comment
-// keeps its quote as written, and the attribution token stays. Refused with
+// keeps its quote as written, and the attribution token keeps its authors and
+// votes and records at (an ISO 8601 time; "" for the clock's) as the change
+// time (SOM §11.9.10). Refused with
 // a SpecReviewAnnotationError — nothing changes — for an unknown id, a stale
 // revision (when not ""), a mark that holds no comment, and a text that is
 // empty or holds a mark delimiter or a blank line.
-func (r *SpecReviewAnnotations) EditMarkComment(markID, text, revision string) error {
+func (r *SpecReviewAnnotations) EditMarkComment(markID, text, revision, at string) error {
+	when, err := r.changeTime(at)
+	if err != nil {
+		return err
+	}
 	v, p, k, err := r.findMark(markID, revision)
 	if err != nil {
 		return err
@@ -3285,7 +3487,8 @@ func (r *SpecReviewAnnotations) EditMarkComment(markID, text, revision string) e
 	default:
 		return &SpecReviewAnnotationError{Message: markID + " holds no comment"}
 	}
-	r.set(v.path, v.field, v.text[:m.start]+markup+v.text[m.bodyEnd:])
+	token := formatAttributionToken(m.authors, m.votes, when)
+	r.set(v.path, v.field, v.text[:m.start]+markup+token+v.text[m.end:])
 	return nil
 }
 
@@ -3444,19 +3647,92 @@ func (r *SpecReviewAnnotations) applyConflict(path, field, value string, c *annC
 // change marks is compared from its original — every mark rejected — so a
 // second edit of the same passage updates its mark instead of nesting one.
 // Change comments stay: each is taken out of the original and written back
-// after the same number of non-whitespace characters (SOM §11.9.3).
-func (r *SpecReviewAnnotations) SetMarked(path, field, text string) SpecMarkedChange {
-	result := annMarkKeepingChangeComments(r.get(path, field), text)
-	r.set(path, field, result.Text)
-	return result
+// after the same number of non-whitespace characters (SOM §11.9.3). Every
+// change mark gets an attribution token (SOM §11.9.10): the one it had when
+// the change was there before, else `{@author T}` (author "" for none; T: at,
+// an ISO 8601 time, or the clock's when at is ""). An author that is not a
+// member id and an invalid at are refused with a SpecReviewAnnotationError;
+// nothing changes.
+func (r *SpecReviewAnnotations) SetMarked(path, field, text, author, at string) (SpecMarkedChange, error) {
+	if err := annCheckAuthor(author); err != nil {
+		return SpecMarkedChange{}, err
+	}
+	when, err := r.changeTime(at)
+	if err != nil {
+		return SpecMarkedChange{}, err
+	}
+	current := r.get(path, field)
+	result := annMarkKeepingChangeComments(current, text)
+	stamped := SpecMarkedChange{Text: annStampMarks(current, result.Text, author, when), Exact: result.Exact}
+	r.set(path, field, stamped.Text)
+	return stamped, nil
 }
 
 // MarkAgainst marks the value at path / field ("" for content) as a change
-// against earlier, an earlier version of it.
-func (r *SpecReviewAnnotations) MarkAgainst(path, field, earlier string) SpecMarkedChange {
-	result := MarkChangeText(earlier, r.get(path, field))
-	r.set(path, field, result.Text)
-	return result
+// against earlier, an earlier version of it; author and at as for SetMarked.
+func (r *SpecReviewAnnotations) MarkAgainst(path, field, earlier, author, at string) (SpecMarkedChange, error) {
+	if err := annCheckAuthor(author); err != nil {
+		return SpecMarkedChange{}, err
+	}
+	when, err := r.changeTime(at)
+	if err != nil {
+		return SpecMarkedChange{}, err
+	}
+	current := r.get(path, field)
+	result := MarkChangeText(earlier, current)
+	stamped := SpecMarkedChange{Text: annStampMarks(current, result.Text, author, when), Exact: result.Exact}
+	r.set(path, field, stamped.Text)
+	return stamped, nil
+}
+
+// annStampMarks is after (a value just written as marks) with an attribution
+// token on every change mark it lacks one on (SOM §11.9.10): the token of the
+// same change in before (same kind, old and new text; each used once, in
+// order) when before held it, else a new one with author and when.
+func annStampMarks(before, after, author, when string) string {
+	key := func(m *annMark) string {
+		return string(m.kind) + "\x00" + annMarkReplacement(m, false) + "\x00" + annMarkReplacement(m, true)
+	}
+	type oldMark struct{ key, token string }
+	var old []oldMark
+	for _, m := range annParse(before).marks {
+		if annIsChangeMark(m.kind) {
+			old = append(old, oldMark{key(m), before[m.bodyEnd:m.end]})
+		}
+	}
+	used := make([]bool, len(old))
+	var authors []string
+	if author != "" {
+		authors = []string{author}
+	}
+	fresh := formatAttributionToken(authors, nil, when)
+	type insert struct {
+		at    int
+		token string
+	}
+	var inserts []insert
+	for _, m := range annParse(after).marks {
+		if !annIsChangeMark(m.kind) || m.end > m.bodyEnd {
+			continue
+		}
+		k := key(m)
+		token := fresh
+		for i := range old {
+			if !used[i] && old[i].key == k {
+				used[i] = true
+				token = old[i].token
+				break
+			}
+		}
+		if token != "" {
+			inserts = append(inserts, insert{m.bodyEnd, token})
+		}
+	}
+	v := after
+	for i := len(inserts) - 1; i >= 0; i-- {
+		v = v[:inserts[i].at] + inserts[i].token + v[inserts[i].at:]
+	}
+	return v
 }
 
 // ---------------------------------------------------------------------------
@@ -3955,6 +4231,8 @@ type reviewPiece struct {
 	author *string
 	// commentText is a comment's text.
 	commentText string
+	// changedAt is a comment's change time (SOM §11.9.10), "" without one.
+	changedAt string
 	// questionIDs are the ids of a question block's questions.
 	questionIDs []string
 }
@@ -3979,6 +4257,9 @@ func reviewPieces(value string) []reviewPiece {
 				piece.id = b.comment.id
 				piece.author = b.comment.author
 				piece.commentText = b.comment.text
+				if b.comment.changedAt != nil {
+					piece.changedAt = *b.comment.changedAt
+				}
 			}
 			if b.conflict != nil {
 				piece.id = b.conflict.id
@@ -4001,6 +4282,8 @@ type reviewMark struct {
 	markup  string
 	authors []string
 	votes   []SpecMarkVote
+	// changedAt is its token's change time (SOM §11.9.10), "" without one.
+	changedAt string
 	// accepted is the text accepting it leaves; rejected rejecting it.
 	accepted, rejected string
 }
@@ -4011,14 +4294,18 @@ func reviewMarks(value string) []reviewMark {
 	marks := annParse(value).marks
 	out := make([]reviewMark, 0, len(marks))
 	for _, m := range marks {
-		out = append(out, reviewMark{
+		rm := reviewMark{
 			start: m.start, end: m.end, bodyEnd: m.bodyEnd, kind: m.kind,
 			markup:   value[m.start:m.end],
 			authors:  m.authors,
 			votes:    m.votes,
 			accepted: annMarkReplacement(m, true),
 			rejected: annMarkReplacement(m, false),
-		})
+		}
+		if m.changedAt != nil {
+			rm.changedAt = *m.changedAt
+		}
+		out = append(out, rm)
 	}
 	return out
 }
@@ -4039,28 +4326,34 @@ func decideReviewMarks(value string, decisions map[int]bool) string {
 	return v
 }
 
-// formatAttributionToken is the attribution token for authors and votes,
-// `{@agent +alice -bob}`.
-func formatAttributionToken(authors []string, votes []SpecMarkVote) string {
-	vs := make([]string, 0, len(votes))
+// formatAttributionToken is the attribution token for authors, votes and
+// changedAt ("" for none), `{@agent +alice -bob 2026-11-07T14:05+01:00}`
+// (SOM §11.9.8, §11.9.10); "" when there is nothing to write.
+func formatAttributionToken(authors []string, votes []SpecMarkVote, changedAt string) string {
+	parts := make([]string, 0, len(votes)+2)
+	if len(authors) > 0 {
+		parts = append(parts, strings.Join(authors, ","))
+	}
 	for _, x := range votes {
 		sign := "-"
 		if x.Vote == SpecMarkDecisionAccept {
 			sign = "+"
 		}
-		vs = append(vs, sign+x.Member)
+		parts = append(parts, sign+x.Member)
 	}
-	sep := ""
-	if len(authors) > 0 && len(vs) > 0 {
-		sep = " "
+	if changedAt != "" {
+		parts = append(parts, changedAt)
 	}
-	return "{@" + strings.Join(authors, ",") + sep + strings.Join(vs, " ") + "}"
+	if len(parts) == 0 {
+		return ""
+	}
+	return "{@" + strings.Join(parts, " ") + "}"
 }
 
 // withAttribution is value with mark m's token replaced by one for authors
-// and votes.
+// and votes; its change time stays.
 func withAttribution(value string, m reviewMark, authors []string, votes []SpecMarkVote) string {
-	return value[:m.bodyEnd] + formatAttributionToken(authors, votes) + value[m.end:]
+	return value[:m.bodyEnd] + formatAttributionToken(authors, votes, m.changedAt) + value[m.end:]
 }
 
 // reviewTeamAnswers are the team answer of every question of value, by id
@@ -4080,13 +4373,14 @@ func reviewTeamAnswers(value string) (map[string]string, []string) {
 }
 
 // setIndividualAnswerText is value with member's individual answer to
-// question questionID set, as SetAnswer with an author does; ok=false when the
-// value holds no such question.
-func setIndividualAnswerText(value, questionID, member, answer string) (string, bool) {
+// question questionID set, as SetAnswer with an author does, with changedAt
+// ("" for none) as its change time; ok=false when the value holds no such
+// question.
+func setIndividualAnswerText(value, questionID, member, answer, changedAt string) (string, bool) {
 	for _, b := range annParse(value).blocks {
 		for _, q := range b.questions {
 			if q.id == questionID {
-				return annSetIndividualAnswer(value, q, member, answer), true
+				return annSetIndividualAnswer(value, q, member, answer, changedAt), true
 			}
 		}
 	}

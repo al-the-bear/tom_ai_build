@@ -16,6 +16,7 @@ was.
 - [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
+- [Change times](#change-times)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -321,6 +322,43 @@ Output:
 ```text
 Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
 0
+```
+
+## Change times
+
+Every annotation records when it was last changed, next to its author, so a
+reviewer sees what is new since the last round (SOM §11.9.10). The time is
+minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
+
+| Annotation | Written as |
+|------------|------------|
+| Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
+| Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
+| Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+The writes record it, each through an overload with a trailing `at` (ISO 8601
+with an offset or `Z`; seconds are cut, any other shape throws
+`SpecReviewAnnotationError`; null: no explicit time): `insertComment`,
+`editComment` (the author stays), `commentChange`, `editMarkComment` (authors
+and votes stay), `setMarked` and `markAgainst` (both with an `author` before
+`at`, null for none; a mark written again unchanged keeps its token) and
+`setAnswer` with an author. Without `at` the time comes from the `clock` (a
+`Supplier<String>`) the `SpecReviewAnnotations` was made with, else from the
+system clock. Deciding, voting, answering and merging keep the times; removing
+an annotation takes its time with it. `normalizeReviewTime`, `isReviewTime` and
+`systemReviewTime` are the static helpers.
+
+Reading reports `changedAt` on `SpecReviewAnnotation` (comments and marks),
+`SpecMarkEntry` and `SpecIndividualAnswer`; `toJson` writes it only when there
+is one.
+
+```java
+SpecReviewAnnotations review =
+    new SpecReviewAnnotations(doc, null, () -> "2026-11-07T14:05+01:00");
+review.insertComment("DEMO/SUM", null, 0, "Why 15?", "alexis", null);
+// > ⬆️ **C-1** (alexis, 2026-11-07T14:05+01:00): Why 15?
+review.editComment("C-1", "Why 15 and not 20?", "2026-11-08T09:00Z");
+// > ⬆️ **C-1** (alexis, 2026-11-08T09:00Z): Why 15 and not 20?
 ```
 
 ## Validation

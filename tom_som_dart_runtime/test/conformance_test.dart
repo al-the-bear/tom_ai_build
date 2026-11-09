@@ -7979,6 +7979,23 @@ Map<String, Object?> _annotationState() => {
 /// result of every operation and the final state are computed by this
 /// reference runtime.
 Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
+  // Change times (SOM §11.9.10): comment headers with author and time, time
+  // alone, author alone, a date that is no time; marks whose tokens hold a
+  // time with and without authors and votes.
+  final changeTimes = <String, Object?>{
+    'content': {
+      'DEMO/SUM':
+          'Sessions expire after 30 minutes{++ on kiosks ++}.\n\n'
+          '> ⬆️ **C-1** (Alexis, 2026-11-01T09:30+01:00): First comment.\n\n'
+          '> ⬆️ **C-2** (2026-11-02T10:00Z): No author, a time.\n\n'
+          '> ⬆️ **C-3** (Bea): An author, no time.\n\n'
+          '> ⬆️ **C-4** (Alexis, 2026-11-07): A date is no time.\n\n'
+          'Marks {-- old --}{@2026-11-03T08:01Z} and '
+          '{~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and '
+          '{== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and '
+          '{>> plain <<}.',
+    },
+  };
   final base = _annotationState();
   const draft = {
     'id': 'BQ-91',
@@ -8232,6 +8249,135 @@ Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
         {'op': 'roundTrip'},
       ],
     },
+    {
+      'name': 'change times: read from headers and tokens',
+      'state': changeTimes,
+      'ops': [
+        {'op': 'list'},
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'change times: written and edited',
+      'state': changeTimes,
+      'ops': [
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'afterParagraph': 0,
+          'text': 'At a given time, seconds cut.',
+          'author': 'alexis',
+          'at': '2026-11-08T09:15:42.381+01:00',
+        },
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'afterParagraph': -1,
+          'text': 'At the clock, no author.',
+        },
+        {
+          'op': 'editComment',
+          'id': 'C-1',
+          'text': 'Edited: the author stays, the time moves.',
+          'at': '2026-11-08T10:00Z',
+        },
+        {
+          'op': 'editComment',
+          'id': 'C-3',
+          'text': 'Edited: an author without a time gets one.',
+        },
+        {
+          'op': 'commentChange',
+          'id': 'M-1',
+          'text': 'why add it?',
+          'author': 'bea',
+          'at': '2026-11-08T11:00-05:00',
+        },
+        {
+          'op': 'editMarkComment',
+          'id': 'M-5',
+          'text': 'still unclear',
+          'at': '2026-11-08T12:00+01:00',
+        },
+        {'op': 'list'},
+        {'op': 'listMarks'},
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'afterParagraph': 0,
+          'text': 'refused',
+          'at': 'yesterday',
+        },
+        {
+          'op': 'editComment',
+          'id': 'C-1',
+          'text': 'refused',
+          'at': '2026-11-08T10:00',
+        },
+      ],
+    },
+    {
+      'name': 'change times: setMarked keeps the token of an unchanged mark',
+      'state': {
+        'content': {
+          'DEMO/SUM':
+              'Sessions expire after {~~ 30 ~> 15 ~~}'
+              '{@alice 2026-11-01T09:30+01:00} minutes.\n'
+              'This line stays exactly as it is.\n'
+              'Kiosks {++ log out ++}{@bob 2026-11-01T09:31+01:00} at night.',
+          'DEMO/DET': 'Plain text to mark later.',
+        },
+      },
+      'ops': [
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/SUM',
+          'text':
+              'Sessions expire after 15 minutes.\n'
+              'This line stays exactly as it is.\n'
+              'Kiosks shut down at night.',
+          'author': 'carol',
+          'at': '2026-11-08T08:00+01:00',
+        },
+        {'op': 'listMarks', 'path': 'DEMO/SUM'},
+        {
+          'op': 'markAgainst',
+          'path': 'DEMO/DET',
+          'earlier': 'Plain text to keep.',
+        },
+        {'op': 'listMarks', 'path': 'DEMO/DET'},
+        {
+          'op': 'setMarked',
+          'path': 'DEMO/DET',
+          'text': 'refused',
+          'author': 'Carol',
+        },
+      ],
+    },
+    {
+      'name': 'change times: kept by decisions, removed with their annotation',
+      'state': {
+        'content': {
+          'DEMO/SUM':
+              'after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00}'
+              '{>> [~~ 30 ~> 15 ~~] why shorter? <<}'
+              '{@bob 2026-11-02T10:00+01:00} minutes{++ on kiosks ++}'
+              '{@2026-11-03T11:00Z}.',
+        },
+      },
+      'ops': [
+        {
+          'op': 'decideMarks',
+          'revision': '@current',
+          'decisions': {'M-1': 'accept'},
+        },
+        {'op': 'listMarks'},
+        {'op': 'acceptAll'},
+        {'op': 'listMarks'},
+        {'op': 'removeAll'},
+        {'op': 'listMarks'},
+      ],
+    },
   ];
   for (final c in cases) {
     c['expect'] = _runAnnotationCase(model, tree, c);
@@ -8287,6 +8433,10 @@ Map<String, Object?> _runReviewMergeCase(
 /// An operation that fails answers `{error: true}` and changes nothing.
 /// [team] renders the results in the team form `team_annotation_cases.json`
 /// pins (SOM §11.9.8).
+/// The change time every annotation write records in the conformance cases
+/// (SOM §11.9.10) unless a case names its own `now`.
+const _corpusNow = '2026-11-07T14:05+01:00';
+
 Map<String, Object?> _runAnnotationCase(
   SpecModel model,
   SomMetaTree tree,
@@ -8295,7 +8445,14 @@ Map<String, Object?> _runAnnotationCase(
 }) {
   final doc = SpecDocument()
     ..loadJson(jsonDecode(jsonEncode(c['state'])) as Map<String, dynamic>);
-  final api = SpecReviewAnnotations(doc, qualifier: c['qualifier'] as String?);
+  // A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+  // every runtime: the case's `now`, else the corpus default.
+  final now = c['now'] as String? ?? _corpusNow;
+  final api = SpecReviewAnnotations(
+    doc,
+    qualifier: c['qualifier'] as String?,
+    clock: () => now,
+  );
   final results = <Object?>[];
   for (final op in (c['ops'] as List).cast<Map<String, dynamic>>()) {
     try {
@@ -8311,6 +8468,7 @@ Map<String, Object?> _runAnnotationCase(
           text: op['text'] as String,
           author: op['author'] as String?,
           id: op['id'] as String?,
+          at: op['at'] as String?,
         ),
         'insertQuestion' => () {
           api.insertQuestion(
@@ -8337,11 +8495,16 @@ Map<String, Object?> _runAnnotationCase(
             op['id'] as String,
             op['answer'] as String,
             author: op['author'] as String?,
+            at: op['at'] as String?,
           );
           return null;
         }(),
         'editComment' => () {
-          api.editComment(op['id'] as String, op['text'] as String);
+          api.editComment(
+            op['id'] as String,
+            op['text'] as String,
+            at: op['at'] as String?,
+          );
           return null;
         }(),
         'resolve' => () {
@@ -8396,6 +8559,7 @@ Map<String, Object?> _runAnnotationCase(
           revision: op['revision'] == '@current'
               ? api.revision()
               : op['revision'] as String?,
+          at: op['at'] as String?,
         ),
         'editMarkComment' => () {
           api.editMarkComment(
@@ -8404,6 +8568,7 @@ Map<String, Object?> _runAnnotationCase(
             revision: op['revision'] == '@current'
                 ? api.revision()
                 : op['revision'] as String?,
+            at: op['at'] as String?,
           );
           return null;
         }(),
@@ -8413,6 +8578,8 @@ Map<String, Object?> _runAnnotationCase(
                 path: op['path'] as String,
                 field: op['field'] as String?,
                 text: op['text'] as String,
+                author: op['author'] as String?,
+                at: op['at'] as String?,
               )
               .toJson(),
         'markAgainst' =>
@@ -8421,6 +8588,8 @@ Map<String, Object?> _runAnnotationCase(
                 path: op['path'] as String,
                 field: op['field'] as String?,
                 earlier: op['earlier'] as String,
+                author: op['author'] as String?,
+                at: op['at'] as String?,
               )
               .toJson(),
         'roundTrip' => () {

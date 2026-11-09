@@ -959,6 +959,7 @@ String _newBlock(
     id: id,
     text: p.commentText,
     author: author,
+    changedAt: p.changedAt,
   ).join('\n');
 }
 

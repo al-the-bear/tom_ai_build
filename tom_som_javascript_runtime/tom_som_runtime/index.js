@@ -162,6 +162,9 @@ const {
   SpecConflictOutcome,
   formatConflictBlock,
   isReviewMemberId,
+  isReviewTime,
+  normalizeReviewTime,
+  systemReviewTime,
 } = require('./spec_review_annotations');
 const {
   SpecReviewMergeError,
@@ -391,6 +394,9 @@ module.exports = {
   SpecConflictOutcome,
   formatConflictBlock,
   isReviewMemberId,
+  isReviewTime,
+  normalizeReviewTime,
+  systemReviewTime,
   // merging the reviewed copies of a team review (SOM §11.9.9)
   SpecReviewMergeError,
   SpecReviewMergeReport,

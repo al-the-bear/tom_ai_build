@@ -568,9 +568,19 @@ function testAssembly(): void {
 // raises the annotation error answers `{error: true}` and changes nothing.
 // `team` renders the results in the extended form `team_annotation_cases.json`
 // pins (SOM §11.9.8).
+// The change time every annotation write records in the conformance cases
+// (SOM §11.9.10) unless a case names its own `now`.
+const _CORPUS_NOW = '2026-11-07T14:05+01:00';
+
 function _runAnnotationCase(model: SpecModel, tree: SomMetaTree, c: any, team = false): any {
   const doc = _documentFromState(JSON.parse(JSON.stringify(c.state)));
-  const api = new SpecReviewAnnotations(doc, { qualifier: c.qualifier ?? null });
+  // A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+  // every runtime: the case's `now`, else the corpus default.
+  const now: string = c.now ?? _CORPUS_NOW;
+  const api = new SpecReviewAnnotations(doc, {
+    qualifier: c.qualifier ?? null,
+    clock: () => now,
+  });
   const results: unknown[] = [];
   for (const op of c.ops as any[]) {
     try {
@@ -608,6 +618,7 @@ function _runAnnotationOp(
         text: op.text,
         author: op.author ?? null,
         id: op.id ?? null,
+        at: op.at ?? null,
       });
     case 'insertQuestion':
       api.insertQuestion({
@@ -621,10 +632,10 @@ function _runAnnotationOp(
       api.insertQuestionAfterComment(op.commentId, SpecQuestionDraft.fromJson(op.question));
       return null;
     case 'setAnswer':
-      api.setAnswer(op.id, op.answer, { author: op.author ?? null });
+      api.setAnswer(op.id, op.answer, { author: op.author ?? null, at: op.at ?? null });
       return null;
     case 'editComment':
-      api.editComment(op.id, op.text);
+      api.editComment(op.id, op.text, { at: op.at ?? null });
       return null;
     case 'resolve':
       api.resolve(op.id);
@@ -663,17 +674,33 @@ function _runAnnotationOp(
       return api.commentChange(op.id, op.text, {
         author: op.author ?? null,
         revision: op.revision === '@current' ? api.revision() : (op.revision ?? null),
+        at: op.at ?? null,
       });
     case 'editMarkComment':
       api.editMarkComment(op.id, op.text, {
         revision: op.revision === '@current' ? api.revision() : (op.revision ?? null),
+        at: op.at ?? null,
       });
       return null;
     case 'setMarked':
-      return api.setMarked({ path: op.path, field: op.field ?? null, text: op.text }).toJson();
+      return api
+        .setMarked({
+          path: op.path,
+          field: op.field ?? null,
+          text: op.text,
+          author: op.author ?? null,
+          at: op.at ?? null,
+        })
+        .toJson();
     case 'markAgainst':
       return api
-        .markAgainst({ path: op.path, field: op.field ?? null, earlier: op.earlier })
+        .markAgainst({
+          path: op.path,
+          field: op.field ?? null,
+          earlier: op.earlier,
+          author: op.author ?? null,
+          at: op.at ?? null,
+        })
         .toJson();
     case 'roundTrip': {
       const current = JSON.stringify(doc.toJson());

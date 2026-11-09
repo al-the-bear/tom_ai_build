@@ -16,6 +16,7 @@ value byte for byte as it was.
 - [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
+- [Change times](#change-times)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Memory and Ownership](#memory-and-ownership)
@@ -123,11 +124,11 @@ Every operation is `spec_review_annotations_<name>(&review, …)`.
 | `next_comment_id(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor, out)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `paragraphs(path, field, out, err)` | The value's paragraphs as a `SpecParagraphList` of `SpecParagraph`, each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block, else `NULL`; `spec_paragraph_to_json`). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is refused (returns 0) |
-| `insert_comment(path, field, after_paragraph, text, author, id, err)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
+| `insert_comment(path, field, after_paragraph, text, author, id, at, err)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side, its header holding the change time ([Change times](#change-times)); returns its id (the next free one unless `id` is given) |
 | `insert_question(path, field, after_paragraph, question, err)` | A question block after a paragraph |
 | `insert_question_after_comment(comment_id, question, err)` | A question block directly after a comment block |
-| `set_answer(question_id, answer, err)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. `set_member_answer(question_id, author, answer, err)` writes a member's individual answer instead ([Team reviews](#team-reviews)) |
-| `edit_comment(comment_id, text, err)` | New text; the marker, id and author stay as written |
+| `set_answer(question_id, answer, err)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. `set_member_answer(question_id, author, answer, at, err)` writes a member's individual answer instead ([Team reviews](#team-reviews)) |
+| `edit_comment(comment_id, text, at, err)` | New text; the marker, id and author stay as written, the change time is written anew |
 | `resolve(id, err)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `apply_mark(path, field, index, accept, err)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
 | `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
@@ -190,8 +191,8 @@ free(rev);
 | Operation | Does |
 |-----------|------|
 | `spec_mark_change_text(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, owned; `exact`) |
-| `spec_review_annotations_set_marked(&review, path, field, text)` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
-| `spec_review_annotations_mark_against(&review, path, field, earlier)` | Marks the value already written against an earlier version |
+| `spec_review_annotations_set_marked(&review, path, field, text, author, at, out, err)` | Writes `text` as a marked change against the value there, into `*out`. A value that already holds marks is compared from its original, so a second edit updates its mark. Every change mark gets an attribution token with its change time ([Change times](#change-times)) |
+| `spec_review_annotations_mark_against(&review, path, field, earlier, author, at, out, err)` | Marks the value already written against an earlier version, into `*out` |
 
 `exact` is 0 only when a difference could not be marked, i.e. a change inside
 fenced code. The new text is then written unmarked. Release a result with
@@ -216,15 +217,15 @@ comment readable once the change is decided. The notation is SOM §11.9.3.
 |-----------|------|
 | `list_marks(path, out)` | A change comment's `SpecMarkEntry` carries `quoted_change` (a `SpecQuotedChange`: `kind`, `old_text`, `new_text`, `outcome`) and `change_id`, its `comment` being the text after the quote. Its change's entry carries `comment_id`. All three are `NULL` on the other marks |
 | `decide_marks`, `apply_mark`, `accept_all_marks`, `reject_all_marks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
-| `comment_change(mark_id, text, author, revision, err)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id (owned), or `NULL` when refused |
-| `edit_mark_comment(mark_id, text, revision, err)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
-| `set_marked(path, field, text)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
+| `comment_change(mark_id, text, author, revision, at, err)` | Writes a change comment after the change `mark_id`, its quote taken from the mark; returns the comment's id (owned), or `NULL` when refused |
+| `edit_mark_comment(mark_id, text, revision, at, err)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote |
+| `set_marked(path, field, text, author, at, out, err)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
 
-`author` and `revision` may be `NULL`. A refusal returns `NULL` (or 0), fills
-`err` and changes nothing: an unknown id, a stale `revision`, a mark that is
-not a change (or holds no comment), a change that already has a comment, a
+`author`, `revision` and `at` may be `NULL`. A refusal returns `NULL` (or 0),
+fills `err` and changes nothing: an unknown id, a stale `revision`, a mark that
+is not a change (or holds no comment), a change that already has a comment, a
 `text` that is empty or holds a mark delimiter or a blank line, an `author`
-that is not a member id.
+that is not a member id, an `at` that is not a time.
 
 A quote opened and never closed makes the comment a plain one, and
 `validate()` reports it as `annotationMalformed`.
@@ -236,13 +237,13 @@ spec_review_annotations_list_marks(&review, NULL, &marks); /* {~~ 30 ~> 15 ~~} *
 SpecReviewAnnotationError err;
 spec_review_annotation_error_init(&err);
 char *comment_id = spec_review_annotations_comment_change(
-    &review, marks.items[0].id, "why shorter?", "alice", rev, &err);
+    &review, marks.items[0].id, "why shorter?", "alice", rev, NULL, &err);
 if (comment_id == NULL) fprintf(stderr, "%s\n", err.message);
 char *rev2 = spec_review_annotations_revision(&review);
 SpecMarkDecisionItem d = {marks.items[0].id, SPEC_MARK_DECISION_ACCEPT};
 SpecMarkReport report;
 spec_review_annotations_decide_marks(&review, &d, 1, rev2, &report, &err);
-/* after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes */
+/* after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice <time>} minutes */
 spec_mark_report_free(&report);
 spec_review_annotation_error_free(&err);
 spec_mark_entry_list_free(&marks);
@@ -321,7 +322,7 @@ and `spec_mark_report_to_team_json` give the members
 `team_annotation_cases.json` pins; the plain `*_to_json` forms are those of the
 older case files.
 
-**Writing.** `set_member_answer(question_id, author, answer, err)` writes that
+**Writing.** `set_member_answer(question_id, author, answer, at, err)` writes that
 member's individual answer instead of the team's, grouped by SOM §11.9.8: a
 plain letter answer joins the line with the same answer, a commented one gets
 its own line, an empty one only takes the member out. An author that is not a
@@ -403,6 +404,55 @@ A unit whose copy no longer holds more than 16 of the base's marks as written
 is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
 grow past 65536.
 
+## Change times
+
+Every annotation records when it was last changed, next to its author, so a
+reviewer sees what is new since the last round (SOM §11.9.10). The time is
+minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
+
+| Annotation | Written as |
+|------------|------------|
+| Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
+| Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
+| Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+The writes record it, each with an `at` argument (`NULL`, or ISO 8601 with an
+offset or `Z`; seconds are cut, any other shape is refused: 0 or `NULL`,
+`*err` filled, nothing changed): `insert_comment`, `edit_comment` (the author
+stays), `comment_change`, `edit_mark_comment` (authors and votes stay),
+`set_marked` and `mark_against` (both take an `author`, `NULL` for none; a mark
+written again unchanged keeps its token) and `set_member_answer`. Without `at`
+the time comes from the clock the `SpecReviewAnnotations` was made with
+(`spec_review_annotations_make_with_clock(doc, qualifier, clock, context)`; a
+`SpecReviewClock` returns a `malloc`ed string the runtime frees), else from the
+system clock. Deciding, voting, answering and merging keep the times; removing
+an annotation takes its time with it. `spec_review_normalize_time` (owned, or
+`NULL` with `*err` filled), `spec_review_is_time`, `spec_review_system_time`
+(owned) and `spec_review_format_attribution_token` are the helpers.
+
+Reading reports `changed_at` (owned, `NULL` without one) on
+`SpecReviewAnnotation` (comments and marks), `SpecMarkEntry` and
+`SpecIndividualAnswer`; the JSON forms write `changedAt` only when there is one.
+
+```c
+static char *fixed_clock(void *context) {
+  return som_strdup((const char *)context);
+}
+
+SpecReviewAnnotations review = spec_review_annotations_make_with_clock(
+    &doc, "SBP", fixed_clock, (void *)"2026-11-07T14:05+01:00");
+SpecReviewAnnotationError err;
+spec_review_annotation_error_init(&err);
+char *id = spec_review_annotations_insert_comment(
+    &review, "SBP/INSC", NULL, 0, "Why 15?", "alexis", NULL, NULL, &err);
+/* > ⬆️ **C-1** (alexis, 2026-11-07T14:05+01:00): Why 15? */
+spec_review_annotations_edit_comment(&review, id, "Why 15 and not 20?",
+                                     "2026-11-08T09:00Z", &err);
+/* > ⬆️ **C-1** (alexis, 2026-11-08T09:00Z): Why 15 and not 20? */
+free(id);
+spec_review_annotation_error_free(&err);
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by
@@ -425,7 +475,8 @@ owned message into the `SpecReviewAnnotationError` passed (which may be
 
 ## Memory and Ownership
 
-`SpecReviewAnnotations` borrows its document and qualifier and owns nothing.
+`SpecReviewAnnotations` borrows its document, qualifier and clock context and
+owns nothing.
 Everything an operation returns is the caller's:
 
 | Returned | Release with |
@@ -437,6 +488,8 @@ Everything an operation returns is the caller's:
 | `spec_render_answers`, `spec_answer_*_to_json` | `free` |
 | revision, `spec_apply_inline_marks_text`, `spec_decide_all_marks_text` | `free` |
 | `comment_change` id | `free` |
+| `SpecMarkedChange` of `set_marked` / `mark_against` | `spec_marked_change_free` |
+| `spec_review_normalize_time`, `spec_review_system_time`, `spec_review_format_attribution_token` | `free` |
 | ids, JSON text, `spec_strip_annotations_text` | `free` |
 | `SomStrList` (assigned ids, block lines) | `som_strlist_free` |
 | `stripped()` document | `spec_document_free` + `free` |

@@ -583,7 +583,8 @@ std::string newBlock(const ReviewPiece& p, const std::string& member,
   const std::string id = ctx.placeholder('C');
   const std::string author = p.author.value_or(member);
   ctx.pendingComments[id] = SpecMergeComment{id, author, v.path, v.field};
-  return joinOn(formatCommentBlock(id, p.commentText, author), "\n");
+  return joinOn(formatCommentBlock(id, p.commentText, author, p.changedAt),
+                "\n");
 }
 
 /* A content value: split into text paragraphs and annotation blocks, merged

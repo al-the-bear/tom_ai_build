@@ -111,11 +111,13 @@ struct SpecIndividualAnswer {
   std::vector<std::string>
       members;         // who gave this answer, in the order written
   std::string answer;  // the answer, trimmed
+  /* When the answer was last written (SOM §11.9.10), or nullopt. */
+  std::optional<std::string> changedAt;
 
   /* The letter the answer starts with (`(a)` or `**(a)**`), or nullopt. */
   std::optional<std::string> answerLetter() const;
 
-  /* `{members, answer, answerLetter}`. */
+  /* `{members, answer, answerLetter}`, plus `changedAt` when set. */
   std::string toJson() const;
 };
 
@@ -133,6 +135,20 @@ struct SpecConflictAlternative {
 /* Whether `s` is a member id (SOM §11.9.8): lowercase letters, digits and
  * `_`. */
 bool isReviewMemberId(const std::string& s);
+
+/* Whether `s` is a change time of the form SOM §11.9.10 fixes: minutes with
+ * the writer's UTC offset, `2026-11-07T14:05+01:00` or `2026-11-07T13:05Z`. */
+bool isReviewTime(const std::string& s);
+
+/* `at` — an ISO 8601 time with minutes, optional seconds and fraction, and an
+ * offset or `Z` — as a change time (SOM §11.9.10): seconds and fractions cut,
+ * the offset kept as given. Throws `SpecReviewAnnotationError` for any other
+ * shape. */
+std::string normalizeReviewTime(const std::string& at);
+
+/* The system clock as a change time in its local offset (SOM §11.9.10),
+ * `YYYY-MM-DDTHH:MM±HH:MM`. */
+std::string systemReviewTime();
 
 /* One annotation, located by the value that holds it. `std::nullopt` stands
  * for the Dart `null`. */
@@ -192,6 +208,8 @@ struct SpecReviewAnnotation {
   std::string base;
   /* A conflict's lettered alternatives. */
   std::vector<SpecConflictAlternative> alternatives;
+  /* When a comment or mark was last changed (SOM §11.9.10), or nullopt. */
+  std::optional<std::string> changedAt;
 
   /* Whether a question is still open (no team answer written), or a conflict
    * (no decision written). */
@@ -319,10 +337,12 @@ struct SpecMarkEntry {
   /* The change an attached change comment is about, by id; nullopt
    * otherwise. */
   std::optional<std::string> changeId;
+  /* When the mark was last changed (SOM §11.9.10), or nullopt. */
+  std::optional<std::string> changedAt;
 
   /* The canonical JSON form the conformance corpus pins; `team` adds
-   * `authors` and `votes`. `quotedChange`, `commentId` and `changeId` appear
-   * only on the marks they describe. */
+   * `authors` and `votes`. `quotedChange`, `commentId`, `changeId` and
+   * `changedAt` appear only on the marks they describe. */
   std::string toJson(bool team = false) const;
 };
 
@@ -412,10 +432,13 @@ struct SpecMarkedChange {
 SpecMarkedChange markChangeText(const std::string& oldValue,
                                 const std::string& newValue);
 
-/* The lines of a comment block (`author` nullopt or empty for none). */
+/* The lines of a comment block (`author` nullopt or empty for none); the
+ * header's parentheses hold the author and `changedAt` (SOM §11.9.10),
+ * either alone, or are left out when there is neither. */
 std::vector<std::string> formatCommentBlock(
     const std::string& id, const std::string& text,
-    const std::optional<std::string>& author = std::nullopt);
+    const std::optional<std::string>& author = std::nullopt,
+    const std::optional<std::string>& changedAt = std::nullopt);
 
 /* The lines of a question block. */
 std::vector<std::string> formatQuestionBlock(const SpecQuestionDraft& q);
@@ -445,14 +468,22 @@ std::vector<SpecValidationError> validateReviewAnnotations(
  * the document, which must outlive it. */
 class SpecReviewAnnotations {
  public:
+  /* The clock the write operations take a change time from when no `at` is
+   * passed (SOM §11.9.10): returns the time as a change time. */
+  using Clock = std::function<std::string()>;
+
   /* Wraps `doc`. `qualifier` is the document's id or name, written in front
-   * of a comment id cited outside the document (`SBP` → `SBP C-12`). */
+   * of a comment id cited outside the document (`SBP` → `SBP C-12`). `clock`
+   * fixes the change time the writes record (the conformance driver passes a
+   * fixed one); empty: the system clock in the writer's offset. */
   explicit SpecReviewAnnotations(
-      SpecDocument& doc, std::optional<std::string> qualifier = std::nullopt)
-      : doc_(&doc), qualifier_(std::move(qualifier)) {}
+      SpecDocument& doc, std::optional<std::string> qualifier = std::nullopt,
+      Clock clock = nullptr)
+      : doc_(&doc), qualifier_(std::move(qualifier)), clock_(std::move(clock)) {}
 
   SpecDocument& doc() const { return *doc_; }
   const std::optional<std::string>& qualifier() const { return qualifier_; }
+  const Clock& clock() const { return clock_; }
 
   /* Every annotation, in document order. */
   std::vector<SpecReviewAnnotation> list() const;
@@ -477,12 +508,15 @@ class SpecReviewAnnotations {
 
   /* Inserts a comment block after paragraph `afterParagraph` (0-based; -1: at
    * the start) of the value at `path` / `field`, and returns its id — `id`
-   * when given, else the next free one. */
+   * when given, else the next free one. The header records the change time
+   * `at` (normalized), else the clock's (SOM §11.9.10); an invalid `at` is
+   * refused before anything is written. */
   std::string insertComment(const std::string& path,
                             const std::optional<std::string>& field,
                             long long afterParagraph, const std::string& text,
                             const std::optional<std::string>& author = std::nullopt,
-                            const std::optional<std::string>& id = std::nullopt);
+                            const std::optional<std::string>& id = std::nullopt,
+                            const std::optional<std::string>& at = std::nullopt);
 
   /* Inserts a question block after paragraph `afterParagraph` (0-based; -1:
    * at the start) of the value at `path` / `field`. */
@@ -498,12 +532,17 @@ class SpecReviewAnnotations {
   /* Writes `answer` after the question's `**Answer:**` (empty: reopens it).
    * With `author`, writes that member's individual answer instead, grouped and
    * placed by the rules of SOM §11.9.8 (empty: only takes the member out); an
-   * author that is not a member id is refused. */
+   * author that is not a member id is refused. A non-empty individual answer
+   * records the change time `at`, else the clock's (SOM §11.9.10). */
   void setAnswer(const std::string& questionId, const std::string& answer,
-                 const std::optional<std::string>& author = std::nullopt);
+                 const std::optional<std::string>& author = std::nullopt,
+                 const std::optional<std::string>& at = std::nullopt);
 
-  /* Replaces a comment's text; its marker, id and author stay as written. */
-  void editComment(const std::string& commentId, const std::string& text);
+  /* Replaces a comment's text; its marker, id and author stay as written, and
+   * the header records the change time `at`, else the clock's (SOM
+   * §11.9.10). */
+  void editComment(const std::string& commentId, const std::string& text,
+                   const std::optional<std::string>& at = std::nullopt);
 
   /* Removes one comment or question by id (a qualified comment id,
    * `SBP C-12`, is accepted). A question of a combined block takes only its
@@ -546,26 +585,31 @@ class SpecReviewAnnotations {
 
   /* Writes a change comment (SOM §11.9.3) directly after the change mark
    * `markId`, its quote written from the mark and `text` after it, with an
-   * attribution token `{@author}` when `author` is given, and returns the new
+   * attribution token `{@author T}` (`T` the change time `at`, else the
+   * clock's; SOM §11.9.10), and returns the new
    * comment's id. Throws `SpecReviewAnnotationError` — nothing changes — for
    * an unknown id, a stale `revision` (when given), a mark that is not a
    * change or already has an attached comment, a change its quote cannot
    * hold, a `text` that is empty or holds a mark delimiter or a blank line,
-   * and an `author` that is not a member id. */
+   * an `author` that is not a member id, and an invalid `at`. */
   std::string commentChange(
       const std::string& markId, const std::string& text,
       const std::optional<std::string>& author = std::nullopt,
-      const std::optional<std::string>& revision = std::nullopt);
+      const std::optional<std::string>& revision = std::nullopt,
+      const std::optional<std::string>& at = std::nullopt);
 
   /* Replaces the comment of the comment mark, change comment or commented
    * highlight `markId` with `text` (SOM §11.9.3). A change comment keeps its
-   * quote as written, and the attribution token stays. Throws
+   * quote as written, and the attribution token keeps its authors and votes
+   * and records the change time `at`, else the clock's (SOM §11.9.10). Throws
    * `SpecReviewAnnotationError` — nothing changes — for an unknown id, a
-   * stale `revision` (when given), a mark that holds no comment, and a `text`
-   * that is empty or holds a mark delimiter or a blank line. */
+   * stale `revision` (when given), a mark that holds no comment, a `text`
+   * that is empty or holds a mark delimiter or a blank line, and an invalid
+   * `at`. */
   void editMarkComment(
       const std::string& markId, const std::string& text,
-      const std::optional<std::string>& revision = std::nullopt);
+      const std::optional<std::string>& revision = std::nullopt,
+      const std::optional<std::string>& at = std::nullopt);
 
   /* Removes every annotation and writes the result back: every inline mark
    * accepted (change comments included, so they go too), every conflict's
@@ -582,16 +626,25 @@ class SpecReviewAnnotations {
    * original — every mark rejected — so a second edit of the same passage
    * updates its mark instead of nesting one. Change comments (SOM §11.9.3)
    * are kept: each is written back after as many non-whitespace characters
-   * as preceded it in the original, detached from any change. */
+   * as preceded it in the original, detached from any change. Every change
+   * mark gets an attribution token (SOM §11.9.10): the one the same change
+   * had before the write, else `{@author T}` (`T` the change time `at`, else
+   * the clock's). An `author` that is not a member id and an invalid `at`
+   * are refused — `SpecReviewAnnotationError`, nothing changes. */
   SpecMarkedChange setMarked(const std::string& path,
                              const std::optional<std::string>& field,
-                             const std::string& text);
+                             const std::string& text,
+                             const std::optional<std::string>& author = std::nullopt,
+                             const std::optional<std::string>& at = std::nullopt);
 
   /* Marks the value at `path` / `field` as a change against `earlier`, an
-   * earlier version of it, and writes the result. */
+   * earlier version of it, and writes the result; its change marks get
+   * attribution tokens as `setMarked` writes them. */
   SpecMarkedChange markAgainst(const std::string& path,
                                const std::optional<std::string>& field,
-                               const std::string& earlier);
+                               const std::string& earlier,
+                               const std::optional<std::string>& author = std::nullopt,
+                               const std::optional<std::string>& at = std::nullopt);
 
   /* A copy of the document without any annotation, for reading. The document
    * itself is unchanged. */
@@ -609,6 +662,10 @@ class SpecReviewAnnotations {
                                                           bool)>& decide,
       const std::optional<std::string>& under);
 
+  /* The change time a write records: `at` normalized, else the clock's,
+   * else the system time (SOM §11.9.10). */
+  std::string changeTime(const std::optional<std::string>& at) const;
+
   struct DecidedConflict;
   std::vector<DecidedConflict> decidedConflicts() const;
   std::string applyConflicts(const std::string& path,
@@ -619,6 +676,7 @@ class SpecReviewAnnotations {
 
   SpecDocument* doc_;
   std::optional<std::string> qualifier_;
+  Clock clock_;
 };
 
 /* ---- text-level building blocks of the merge (SOM §11.9.9) ---------------
@@ -639,6 +697,7 @@ struct ReviewPiece {
   std::optional<std::string> id;
   std::optional<std::string> author;     // a comment's author
   std::string commentText;               // a comment's text
+  std::optional<std::string> changedAt;  // a comment's change time (§11.9.10)
   std::vector<std::string> questionIds;  // a question block's question ids
 };
 
@@ -655,6 +714,7 @@ struct ReviewMark {
   std::string markup;  // the mark as written, its token included
   std::vector<std::string> authors;
   std::vector<SpecMarkVote> votes;
+  std::optional<std::string> changedAt;  // its token's change time (§11.9.10)
   std::string accepted;  // the text accepting it leaves
   std::string rejected;  // the text rejecting it leaves
 };
@@ -667,11 +727,16 @@ std::vector<ReviewMark> reviewMarks(const std::string& value);
 std::string decideReviewMarks(const std::string& value,
                               const std::map<std::size_t, bool>& decisions);
 
-/* The attribution token for `authors` and `votes`, `{@agent +alice -bob}`. */
-std::string formatAttributionToken(const std::vector<std::string>& authors,
-                                   const std::vector<SpecMarkVote>& votes);
+/* The attribution token for `authors`, `votes` and `changedAt`,
+ * `{@agent +alice -bob 2026-11-07T14:05+01:00}` (SOM §11.9.8, §11.9.10);
+ * empty when there is nothing to write. */
+std::string formatAttributionToken(
+    const std::vector<std::string>& authors,
+    const std::vector<SpecMarkVote>& votes,
+    const std::optional<std::string>& changedAt = std::nullopt);
 
-/* `value` with mark `m`'s token replaced by one for `authors` and `votes`. */
+/* `value` with mark `m`'s token replaced by one for `authors` and `votes`;
+ * the mark's change time stays. */
 std::string withAttribution(const std::string& value, const ReviewMark& m,
                             const std::vector<std::string>& authors,
                             const std::vector<SpecMarkVote>& votes);
@@ -686,7 +751,8 @@ std::vector<std::pair<std::string, std::string>> reviewTeamAnswers(
  * question. */
 std::optional<std::string> setIndividualAnswerText(
     const std::string& value, const std::string& questionId,
-    const std::string& member, const std::string& answer);
+    const std::string& member, const std::string& answer,
+    const std::optional<std::string>& changedAt = std::nullopt);
 
 /* Carries the edits `x` → `y` over to `b`, a text equal to `x` except where
  * marks of `b` were decided in `x` (SOM §11.9.9, step 3): every edit lands in

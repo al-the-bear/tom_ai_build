@@ -666,7 +666,8 @@
               "qualifiedId": null,
               "author": "Alexis",
               "text": "Say more.\nAnd why.",
-              "context": "Tail text."
+              "context": "Tail text.",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "comment",
@@ -677,7 +678,8 @@
               "qualifiedId": null,
               "author": null,
               "text": "At the top.",
-              "context": ""
+              "context": "",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "comment",
@@ -688,7 +690,8 @@
               "qualifiedId": null,
               "author": null,
               "text": "After the first paragraph.",
-              "context": ""
+              "context": "",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "mark",
@@ -825,7 +828,8 @@
               "qualifiedId": null,
               "author": null,
               "text": "In a field value.",
-              "context": "bob@example.com"
+              "context": "bob@example.com",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "mark",
@@ -842,12 +846,12 @@
         "state": {
           "content": {
             "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
-            "DEMO/MIX/tail": "Tail text.\n\n> ⬆️ **C-8** (Alexis): Say more.\n> And why.",
-            "DEMO/SUM": "> ⬆️ **C-20** At the top.\n\n> ⬆️ **C-21** After the first paragraph.\n\nSessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+            "DEMO/MIX/tail": "Tail text.\n\n> ⬆️ **C-8** (Alexis, 2026-11-07T14:05+01:00): Say more.\n> And why.",
+            "DEMO/SUM": "> ⬆️ **C-20** (2026-11-07T14:05+01:00): At the top.\n\n> ⬆️ **C-21** (2026-11-07T14:05+01:00): After the first paragraph.\n\nSessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
           },
           "forms": {
             "DEMO/DET": {
-              "contact": "bob@example.com\n\n> ⬆️ **C-22** In a field value.",
+              "contact": "bob@example.com\n\n> ⬆️ **C-22** (2026-11-07T14:05+01:00): In a field value.",
               "owner": "Bob {== here ==}{>> really? <<}"
             }
           }
@@ -1047,7 +1051,8 @@
               "qualifiedId": null,
               "author": "Alexis",
               "text": "Only the owner.",
-              "context": ""
+              "context": "",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "mark",
@@ -1108,7 +1113,8 @@
               "qualifiedId": null,
               "author": "Alexis",
               "text": "Far too long.\nSplit it.",
-              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "kind": "comment",
@@ -1189,9 +1195,9 @@
         ],
         "state": {
           "content": {
-            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:** Bob\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:**\n\n> ⬆️ **C-7** (Alexis): Only the owner.",
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:** Bob\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:**\n\n> ⬆️ **C-7** (Alexis, 2026-11-07T14:05+01:00): Only the owner.",
             "DEMO/MIX/tail": "Tail text.",
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Far too long.\n> Split it.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a)\n> and 5 minutes.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n>\n> **Answer:** 10 years\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis, 2026-11-07T14:05+01:00): Far too long.\n> Split it.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a)\n> and 5 minutes.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n>\n> **Answer:** 10 years\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
           },
           "forms": {
             "DEMO/DET": {
@@ -2126,7 +2132,7 @@
               "index": 3,
               "startLine": 12,
               "endLine": 12,
-              "text": "> ⬆️ **C-2** After the code block.",
+              "text": "> ⬆️ **C-2** (2026-11-07T14:05+01:00): After the code block.",
               "annotation": "comment"
             },
             {
@@ -2161,7 +2167,7 @@
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "First paragraph,\nover two lines.\n\n- a list item\n- another item\n\n```\ncode line\n\nstill code after a blank line\n```\n\n> ⬆️ **C-2** After the code block.\n\n> ⬆️ **C-1** (Alexis): a comment.\n\n> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**\n\n> A plain quote.\n\n\nLast paragraph after two blank lines."
+            "DEMO/SUM": "First paragraph,\nover two lines.\n\n- a list item\n- another item\n\n```\ncode line\n\nstill code after a blank line\n```\n\n> ⬆️ **C-2** (2026-11-07T14:05+01:00): After the code block.\n\n> ⬆️ **C-1** (Alexis): a comment.\n\n> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**\n\n> A plain quote.\n\n\nLast paragraph after two blank lines."
           },
           "forms": {
             "DEMO/DET": {
@@ -2209,6 +2215,751 @@
               "contact": "bob@example.com",
               "owner": "Bob {== here ==}{>> really? <<}"
             }
+          }
+        }
+      }
+    },
+    {
+      "name": "change times: read from headers and tokens",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes{++ on kiosks ++}.\n\n> ⬆️ **C-1** (Alexis, 2026-11-01T09:30+01:00): First comment.\n\n> ⬆️ **C-2** (2026-11-02T10:00Z): No author, a time.\n\n> ⬆️ **C-3** (Bea): An author, no time.\n\n> ⬆️ **C-4** (Alexis, 2026-11-07): A date is no time.\n\nMarks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}."
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "id": "C-1",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "First comment.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}.",
+              "changedAt": "2026-11-01T09:30+01:00"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 4,
+              "id": "C-2",
+              "qualifiedId": null,
+              "author": null,
+              "text": "No author, a time.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}.",
+              "changedAt": "2026-11-02T10:00Z"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 6,
+              "id": "C-3",
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "An author, no time.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": "C-4",
+              "qualifiedId": null,
+              "author": "Alexis, 2026-11-07",
+              "text": "A date is no time.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}."
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "deletion",
+              "text": "old",
+              "newText": null,
+              "comment": null,
+              "changedAt": "2026-11-03T08:01Z"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "substitution",
+              "text": "a",
+              "newText": "b",
+              "comment": null,
+              "changedAt": "2026-11-03T08:02+01:00"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "unclear",
+              "changedAt": "2026-11-03T08:03+01:00"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "plain"
+            }
+          ],
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}."
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "deletion",
+              "oldText": "old",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- old --}{@2026-11-03T08:01Z}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}.",
+              "changedAt": "2026-11-03T08:01Z"
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "substitution",
+              "oldText": "a",
+              "newText": "b",
+              "comment": null,
+              "markup": "{~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}.",
+              "changedAt": "2026-11-03T08:02+01:00"
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "unclear",
+              "markup": "{== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}.",
+              "changedAt": "2026-11-03T08:03+01:00"
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "plain",
+              "markup": "{>> plain <<}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}."
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "Sessions expire after 30 minutes{++ on kiosks ++}.\n\n> ⬆️ **C-1** (Alexis, 2026-11-01T09:30+01:00): First comment.\n\n> ⬆️ **C-2** (2026-11-02T10:00Z): No author, a time.\n\n> ⬆️ **C-3** (Bea): An author, no time.\n\n> ⬆️ **C-4** (Alexis, 2026-11-07): A date is no time.\n\nMarks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}."
+          }
+        }
+      }
+    },
+    {
+      "name": "change times: written and edited",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after 30 minutes{++ on kiosks ++}.\n\n> ⬆️ **C-1** (Alexis, 2026-11-01T09:30+01:00): First comment.\n\n> ⬆️ **C-2** (2026-11-02T10:00Z): No author, a time.\n\n> ⬆️ **C-3** (Bea): An author, no time.\n\n> ⬆️ **C-4** (Alexis, 2026-11-07): A date is no time.\n\nMarks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> unclear <<}{@bob 2026-11-03T08:03+01:00} and {>> plain <<}."
+        }
+      },
+      "ops": [
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "afterParagraph": 0,
+          "text": "At a given time, seconds cut.",
+          "author": "alexis",
+          "at": "2026-11-08T09:15:42.381+01:00"
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "afterParagraph": -1,
+          "text": "At the clock, no author."
+        },
+        {
+          "op": "editComment",
+          "id": "C-1",
+          "text": "Edited: the author stays, the time moves.",
+          "at": "2026-11-08T10:00Z"
+        },
+        {
+          "op": "editComment",
+          "id": "C-3",
+          "text": "Edited: an author without a time gets one."
+        },
+        {
+          "op": "commentChange",
+          "id": "M-1",
+          "text": "why add it?",
+          "author": "bea",
+          "at": "2026-11-08T11:00-05:00"
+        },
+        {
+          "op": "editMarkComment",
+          "id": "M-5",
+          "text": "still unclear",
+          "at": "2026-11-08T12:00+01:00"
+        },
+        {
+          "op": "list"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "afterParagraph": 0,
+          "text": "refused",
+          "at": "yesterday"
+        },
+        {
+          "op": "editComment",
+          "id": "C-1",
+          "text": "refused",
+          "at": "2026-11-08T10:00"
+        }
+      ],
+      "expect": {
+        "results": [
+          "C-5",
+          "C-6",
+          null,
+          null,
+          "M-2",
+          null,
+          [
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "C-6",
+              "qualifiedId": null,
+              "author": null,
+              "text": "At the clock, no author.",
+              "context": "",
+              "changedAt": "2026-11-07T14:05+01:00"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "[++ on kiosks ++] why add it?",
+              "changedAt": "2026-11-08T11:00-05:00"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 4,
+              "id": "C-5",
+              "qualifiedId": null,
+              "author": "alexis",
+              "text": "At a given time, seconds cut.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.",
+              "changedAt": "2026-11-08T09:15+01:00"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 6,
+              "id": "C-1",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Edited: the author stays, the time moves.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.",
+              "changedAt": "2026-11-08T10:00Z"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": "C-2",
+              "qualifiedId": null,
+              "author": null,
+              "text": "No author, a time.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.",
+              "changedAt": "2026-11-02T10:00Z"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "id": "C-3",
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "Edited: an author without a time gets one.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.",
+              "changedAt": "2026-11-07T14:05+01:00"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 12,
+              "id": "C-4",
+              "qualifiedId": null,
+              "author": "Alexis, 2026-11-07",
+              "text": "A date is no time.",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}."
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "deletion",
+              "text": "old",
+              "newText": null,
+              "comment": null,
+              "changedAt": "2026-11-03T08:01Z"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "substitution",
+              "text": "a",
+              "newText": "b",
+              "comment": null,
+              "changedAt": "2026-11-03T08:02+01:00"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "still unclear",
+              "changedAt": "2026-11-08T12:00+01:00"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "plain"
+            }
+          ],
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.",
+              "commentId": "M-2"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why add it?",
+              "markup": "{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}",
+              "context": "Sessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.",
+              "quotedChange": {
+                "kind": "insertion",
+                "oldText": "",
+                "newText": "on kiosks",
+                "outcome": null
+              },
+              "changeId": "M-1",
+              "changedAt": "2026-11-08T11:00-05:00"
+            },
+            {
+              "id": "M-3",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "deletion",
+              "oldText": "old",
+              "newText": "",
+              "comment": null,
+              "markup": "{-- old --}{@2026-11-03T08:01Z}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00} and {>> plain <<}.",
+              "changedAt": "2026-11-03T08:01Z"
+            },
+            {
+              "id": "M-4",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "substitution",
+              "oldText": "a",
+              "newText": "b",
+              "comment": null,
+              "markup": "{~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00} and {>> plain <<}.",
+              "changedAt": "2026-11-03T08:02+01:00"
+            },
+            {
+              "id": "M-5",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "highlight",
+              "oldText": "this",
+              "newText": "this",
+              "comment": "still unclear",
+              "markup": "{== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00} and {>> plain <<}.",
+              "changedAt": "2026-11-08T12:00+01:00"
+            },
+            {
+              "id": "M-6",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "plain",
+              "markup": "{>> plain <<}",
+              "context": "Marks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00} and {>> plain <<}."
+            }
+          ],
+          {
+            "error": true
+          },
+          {
+            "error": true
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> ⬆️ **C-6** (2026-11-07T14:05+01:00): At the clock, no author.\n\nSessions expire after 30 minutes{++ on kiosks ++}{>> [++ on kiosks ++] why add it? <<}{@bea 2026-11-08T11:00-05:00}.\n\n> ⬆️ **C-5** (alexis, 2026-11-08T09:15+01:00): At a given time, seconds cut.\n\n> ⬆️ **C-1** (Alexis, 2026-11-08T10:00Z): Edited: the author stays, the time moves.\n\n> ⬆️ **C-2** (2026-11-02T10:00Z): No author, a time.\n\n> ⬆️ **C-3** (Bea, 2026-11-07T14:05+01:00): Edited: an author without a time gets one.\n\n> ⬆️ **C-4** (Alexis, 2026-11-07): A date is no time.\n\nMarks {-- old --}{@2026-11-03T08:01Z} and {~~ a ~> b ~~}{@agent +alice 2026-11-03T08:02+01:00} and {== this ==}{>> still unclear <<}{@bob 2026-11-08T12:00+01:00} and {>> plain <<}."
+          }
+        }
+      }
+    },
+    {
+      "name": "change times: setMarked keeps the token of an unchanged mark",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00} minutes.\nThis line stays exactly as it is.\nKiosks {++ log out ++}{@bob 2026-11-01T09:31+01:00} at night.",
+          "DEMO/DET": "Plain text to mark later."
+        }
+      },
+      "ops": [
+        {
+          "op": "setMarked",
+          "path": "DEMO/SUM",
+          "text": "Sessions expire after 15 minutes.\nThis line stays exactly as it is.\nKiosks shut down at night.",
+          "author": "carol",
+          "at": "2026-11-08T08:00+01:00"
+        },
+        {
+          "op": "listMarks",
+          "path": "DEMO/SUM"
+        },
+        {
+          "op": "markAgainst",
+          "path": "DEMO/DET",
+          "earlier": "Plain text to keep."
+        },
+        {
+          "op": "listMarks",
+          "path": "DEMO/DET"
+        },
+        {
+          "op": "setMarked",
+          "path": "DEMO/DET",
+          "text": "refused",
+          "author": "Carol"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "text": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00} minutes.\nThis line stays exactly as it is.\nKiosks {++ shut down ++}{@carol 2026-11-08T08:00+01:00} at night.",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "30",
+              "newText": "15",
+              "comment": null,
+              "markup": "{~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00} minutes.\nThis line stays exactly as it is.\nKiosks {++ shut down ++}{@carol 2026-11-08T08:00+01:00} at night.",
+              "changedAt": "2026-11-01T09:30+01:00"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "shut down",
+              "comment": null,
+              "markup": "{++ shut down ++}{@carol 2026-11-08T08:00+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00} minutes.\nThis line stays exactly as it is.\nKiosks {++ shut down ++}{@carol 2026-11-08T08:00+01:00} at night.",
+              "changedAt": "2026-11-08T08:00+01:00"
+            }
+          ],
+          {
+            "text": "Plain text to {~~ keep. ~> mark later. ~~}{@2026-11-07T14:05+01:00}",
+            "exact": true
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "oldText": "keep.",
+              "newText": "mark later.",
+              "comment": null,
+              "markup": "{~~ keep. ~> mark later. ~~}{@2026-11-07T14:05+01:00}",
+              "context": "Plain text to {~~ keep. ~> mark later. ~~}{@2026-11-07T14:05+01:00}",
+              "changedAt": "2026-11-07T14:05+01:00"
+            }
+          ],
+          {
+            "error": true
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "Plain text to {~~ keep. ~> mark later. ~~}{@2026-11-07T14:05+01:00}",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00} minutes.\nThis line stays exactly as it is.\nKiosks {++ shut down ++}{@carol 2026-11-08T08:00+01:00} at night."
+          }
+        }
+      }
+    },
+    {
+      "name": "change times: kept by decisions, removed with their annotation",
+      "state": {
+        "content": {
+          "DEMO/SUM": "after {~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00}{>> [~~ 30 ~> 15 ~~] why shorter? <<}{@bob 2026-11-02T10:00+01:00} minutes{++ on kiosks ++}{@2026-11-03T11:00Z}."
+        }
+      },
+      "ops": [
+        {
+          "op": "decideMarks",
+          "revision": "@current",
+          "decisions": {
+            "M-1": "accept"
+          }
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "acceptAll"
+        },
+        {
+          "op": "listMarks"
+        },
+        {
+          "op": "removeAll"
+        },
+        {
+          "op": "listMarks"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "substitution",
+                "decision": "accept",
+                "markup": "{~~ 30 ~> 15 ~~}{@alice 2026-11-01T09:30+01:00}",
+                "result": "15"
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob 2026-11-02T10:00+01:00}",
+              "context": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob 2026-11-02T10:00+01:00} minutes{++ on kiosks ++}{@2026-11-03T11:00Z}.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": "accepted"
+              },
+              "changedAt": "2026-11-02T10:00+01:00"
+            },
+            {
+              "id": "M-2",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "oldText": "",
+              "newText": "on kiosks",
+              "comment": null,
+              "markup": "{++ on kiosks ++}{@2026-11-03T11:00Z}",
+              "context": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob 2026-11-02T10:00+01:00} minutes{++ on kiosks ++}{@2026-11-03T11:00Z}.",
+              "changedAt": "2026-11-03T11:00Z"
+            }
+          ],
+          {
+            "applied": [
+              {
+                "id": "M-2",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "insertion",
+                "decision": "accept",
+                "markup": "{++ on kiosks ++}{@2026-11-03T11:00Z}",
+                "result": "on kiosks"
+              }
+            ],
+            "malformed": []
+          },
+          [
+            {
+              "id": "M-1",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "comment",
+              "oldText": "",
+              "newText": "",
+              "comment": "why shorter?",
+              "markup": "{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob 2026-11-02T10:00+01:00}",
+              "context": "after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob 2026-11-02T10:00+01:00} minutes on kiosks.",
+              "quotedChange": {
+                "kind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "outcome": "accepted"
+              },
+              "changedAt": "2026-11-02T10:00+01:00"
+            }
+          ],
+          {
+            "applied": [
+              {
+                "id": "M-1",
+                "path": "DEMO/SUM",
+                "field": null,
+                "line": 0,
+                "markKind": "comment",
+                "decision": "accept",
+                "markup": "{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@bob 2026-11-02T10:00+01:00}",
+                "result": ""
+              }
+            ],
+            "malformed": []
+          },
+          []
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "after 15 minutes on kiosks."
           }
         }
       }

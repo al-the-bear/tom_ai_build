@@ -970,7 +970,7 @@ fn new_block(p: &ReviewPiece, member: &str, v: &MergeValue, ctx: &mut MergeConte
             field: v.field.clone(),
         },
     );
-    format_comment_block(&id, &p.comment_text, Some(&author)).join("\n")
+    format_comment_block(&id, &p.comment_text, Some(&author), p.changed_at.as_deref()).join("\n")
 }
 
 /// One value merged; the base text when no copy differs from it.
@@ -1150,7 +1150,7 @@ fn merge_answers(
             }
             for key in texts.keys() {
                 let Some(written) =
-                    set_individual_answer_text(&texts.get(&key), &id, &ctx.members[i], a)
+                    set_individual_answer_text(&texts.get(&key), &id, &ctx.members[i], a, None)
                 else {
                     continue;
                 };

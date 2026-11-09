@@ -17,6 +17,7 @@ number is the same in all of them.
 from __future__ import annotations
 
 import re
+from datetime import datetime, timedelta
 from dataclasses import dataclass, field as dc_field
 from enum import Enum
 from typing import Any, Callable, Optional, Sequence
@@ -133,6 +134,8 @@ class SpecIndividualAnswer:
     members: tuple[str, ...]
     #: The answer, trimmed.
     answer: str
+    #: When the answer was last written (SOM §11.9.10), or ``None``.
+    changed_at: Optional[str] = None
 
     @property
     def answer_letter(self) -> Optional[str]:
@@ -146,6 +149,7 @@ class SpecIndividualAnswer:
             "members": list(self.members),
             "answer": self.answer,
             "answerLetter": self.answer_letter,
+            **({"changedAt": self.changed_at} if self.changed_at is not None else {}),
         }
 
 
@@ -222,6 +226,8 @@ class SpecReviewAnnotation:
     base: str = ""
     #: A conflict's lettered alternatives.
     alternatives: tuple[SpecConflictAlternative, ...] = ()
+    #: When a comment or mark was last changed (SOM §11.9.10), or ``None``.
+    changed_at: Optional[str] = None
 
     @property
     def open(self) -> bool:
@@ -271,6 +277,7 @@ class SpecReviewAnnotation:
                 "author": self.author,
                 "text": self.text,
                 "context": self.context,
+                **({"changedAt": self.changed_at} if self.changed_at is not None else {}),
             }
         if self.kind is SpecReviewAnnotationKind.QUESTION:
             out: dict[str, Any] = {
@@ -322,6 +329,8 @@ class SpecReviewAnnotation:
             "newText": self.new_text,
             "comment": self.comment,
         }
+        if self.changed_at is not None:
+            out["changedAt"] = self.changed_at
         if team:
             out["authors"] = list(self.authors)
             out["votes"] = [v.to_json() for v in self.votes]
@@ -450,6 +459,8 @@ class SpecMarkEntry:
     #: The change an attached change comment is about, by id; ``None``
     #: otherwise.
     change_id: Optional[str] = None
+    #: When the mark was last changed (SOM §11.9.10), or ``None``.
+    changed_at: Optional[str] = None
 
     def to_json(self, team: bool = False) -> dict[str, Any]:
         """The canonical JSON form the conformance corpus pins; *team* adds
@@ -474,6 +485,8 @@ class SpecMarkEntry:
             out["commentId"] = self.comment_id
         if self.change_id is not None:
             out["changeId"] = self.change_id
+        if self.changed_at is not None:
+            out["changedAt"] = self.changed_at
         if team:
             out["authors"] = list(self.authors)
             out["votes"] = [v.to_json() for v in self.votes]
@@ -634,6 +647,60 @@ def is_review_member_id(s: str) -> bool:
     return _MEMBER_ID.fullmatch(s) is not None
 
 
+#: A change time as annotations write it (SOM §11.9.10): minutes with the
+#: writer's UTC offset, ``2026-11-07T14:05+01:00`` or ``2026-11-07T13:05Z``.
+_REVIEW_TIME = re.compile(
+    r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(?:Z|[+-][0-9]{2}:[0-9]{2})"
+)
+
+#: An ISO 8601 time a caller may pass as ``at``: minutes, optional seconds
+#: and fraction, and an offset or ``Z``.
+_REVIEW_TIME_IN = re.compile(
+    r"([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2})"
+    r"(?::[0-9]{2}(?:\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})"
+)
+
+
+def is_review_time(s: str) -> bool:
+    """Whether *s* is a change time of the form SOM §11.9.10 fixes."""
+    return _REVIEW_TIME.fullmatch(s) is not None
+
+
+def normalize_review_time(at: str) -> str:
+    """*at* as a change time (SOM §11.9.10): seconds and fractions cut, the
+    offset kept as given. Raises :class:`SpecReviewAnnotationError` for any
+    other shape."""
+    m = _REVIEW_TIME_IN.fullmatch(_trim(at))
+    if m is None:
+        raise SpecReviewAnnotationError(
+            f'"{at}" is not an ISO 8601 time with an offset or Z '
+            "(e.g. 2026-11-07T14:05+01:00)"
+        )
+    return m.group(1) + m.group(2)
+
+
+def system_review_time(now: "Optional[datetime]" = None) -> str:
+    """*now* (default: the system clock) as a change time in its local
+    offset."""
+    t = (now if now is not None else datetime.now()).astimezone()
+    off = t.utcoffset() or timedelta(0)
+    mins = int(off.total_seconds()) // 60
+    sign = "-" if mins < 0 else "+"
+    mins = abs(mins)
+    return (
+        f"{t.year:04d}-{t.month:02d}-{t.day:02d}T{t.hour:02d}:{t.minute:02d}"
+        f"{sign}{mins // 60:02d}:{mins % 60:02d}"
+    )
+
+
+def _split_time(parts: list[str]) -> tuple[list[str], Optional[str]]:
+    """*parts* (a header's or an answer's comma-separated parts) split into
+    the parts before a trailing change time and the time (SOM §11.9.10)."""
+    if parts and is_review_time(_trim(parts[-1])):
+        return parts[:-1], _trim(parts[-1])
+    return parts, None
+
+
 def _is_unresolved(answer: str) -> bool:
     return answer.startswith(_UNRESOLVED_PREFIX)
 
@@ -690,6 +757,7 @@ class _IndividualAnswer:
     end: int  # last value line of the entry with text (inclusive)
     members: list[str]
     answer: str
+    changed_at: Optional[str] = None
 
 
 @dataclass
@@ -809,6 +877,11 @@ class _Comment:
     header_prefix: str
     #: Where an id is inserted into the first line.
     marker_end: int
+    #: The first line up to where the author's parentheses (or the text)
+    #: start.
+    before_author: str = ""
+    #: When the comment was last changed (SOM §11.9.10), or ``None``.
+    changed_at: Optional[str] = None
 
 
 @dataclass
@@ -835,6 +908,8 @@ class _Mark:
     change_index: Optional[int] = None
     #: The index of this change's attached comment, or ``None``.
     comment_index: Optional[int] = None
+    #: The time in the mark's attribution token (SOM §11.9.10), or ``None``.
+    changed_at: Optional[str] = None
 
     def __post_init__(self) -> None:
         if self.body_end < 0:
@@ -1086,10 +1161,15 @@ def _parse_comment(p: _Parsed, b: _Block) -> _Comment:
                 )
             rest = _lstrip(rest[close + 2:])
     author: Optional[str] = None
+    changed_at: Optional[str] = None
+    before_author = raw0[: len(raw0) - len(rest)]
     if rest.startswith("("):
         close = rest.find(")")
         if close > 0:
-            author = rest[1:close]
+            parts, time = _split_time(rest[1:close].split(","))
+            changed_at = time
+            a = _trim(",".join(parts))
+            author = rest[1:close] if time is None else (a if a else None)
             rest = rest[close + 1:]
             if rest.startswith(":"):
                 rest = rest[1:]
@@ -1119,6 +1199,8 @@ def _parse_comment(p: _Parsed, b: _Block) -> _Comment:
         _context(p, b.start),
         header_prefix,
         marker_end,
+        before_author,
+        changed_at,
     )
 
 
@@ -1199,7 +1281,8 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                 continue
             match = _INDIVIDUAL_ANSWER.match(inner[m])
             assert match is not None
-            members = [_trim(x) for x in match.group(1).split(",")]
+            member_parts, answer_time = _split_time(match.group(1).split(","))
+            members = [_trim(x) for x in member_parts]
             for member in members:
                 if member in answered:
                     p.malformed.append(
@@ -1212,7 +1295,11 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                 end -= 1
             individual.append(
                 _IndividualAnswer(
-                    b.start + m, b.start + end, members, answer_text_at(m, len(match.group(0)))
+                    b.start + m,
+                    b.start + end,
+                    members,
+                    answer_text_at(m, len(match.group(0))),
+                    answer_time,
                 )
             )
         answer_text = "" if answer is None else answer_text_at(answer, len(_ANSWER_LABEL))
@@ -1501,7 +1588,8 @@ def _attach_token(p: _Parsed, seg: str, at: int, base: int, m: _Mark) -> int:
     if close < 0 or (line_end >= 0 and close > line_end):
         p.malformed.append(f'line {m.line}: attribution token "{{@" is not closed (SOM §11.9.8)')
         return at
-    reason, authors, votes = _read_token(seg[at + 2:close], m.kind)
+    reason, authors, votes, time = _read_token(seg[at + 2:close], m.kind)
+    m.changed_at = time
     if reason is not None:
         p.malformed.append(f"line {m.line}: attribution token {reason} (SOM §11.9.8)")
     else:
@@ -1519,12 +1607,27 @@ def _is_change_mark(kind: SpecMarkKind) -> bool:
 
 def _read_token(
     inside: str, kind: SpecMarkKind
-) -> tuple[Optional[str], tuple[str, ...], tuple[SpecMarkVote, ...]]:
-    """The members of a token's inside, ``<authors>[ <votes>]``, or (as the
-    first member) the reason it breaks the grammar of SOM §11.9.8."""
+) -> tuple[Optional[str], tuple[str, ...], tuple[SpecMarkVote, ...], Optional[str]]:
+    """The members of a token's inside, ``<authors>[ <votes>][ <time>]``,
+    or (as the first member) the reason it breaks the grammar of SOM
+    §11.9.8; the last member is the change time (SOM §11.9.10)."""
     words = [w for w in re.split(r"\s+", _trim(re.sub(r",\s+", ",", inside))) if w != ""]
     if not words:
-        return ("is empty", (), ())
+        return ("is empty", (), (), None)
+    time: Optional[str] = None
+    if is_review_time(words[-1]):
+        time = words.pop()
+    reason, authors, votes = _read_members(words, kind)
+    return (reason, authors, votes, time)
+
+
+def _read_members(
+    words: list[str], kind: SpecMarkKind
+) -> tuple[Optional[str], tuple[str, ...], tuple[SpecMarkVote, ...]]:
+    """The authors and votes of a token's words (its time taken off), or (as
+    the first member) the reason they break the grammar of SOM §11.9.8."""
+    if not words:
+        return (None, (), ())
     authors: list[str] = []
     votes: list[SpecMarkVote] = []
     k = 0
@@ -1574,6 +1677,7 @@ def _annotations_of(
                     author=c.author,
                     text=c.text,
                     context=c.context,
+                    changed_at=c.changed_at,
                 ),
             ))
             seq += 1
@@ -1621,7 +1725,10 @@ def _annotations_of(
                         options=q.options,
                         recommended=q.recommended,
                         answers=tuple(
-                            SpecIndividualAnswer(tuple(a.members), a.answer) for a in q.answers
+                            SpecIndividualAnswer(
+                                tuple(a.members), a.answer, changed_at=a.changed_at
+                            )
+                            for a in q.answers
                         ),
                     ),
                 ))
@@ -1642,6 +1749,7 @@ def _annotations_of(
                 comment=m.comment,
                 authors=m.authors,
                 votes=m.votes,
+                changed_at=m.changed_at,
             ),
         ))
         seq += 1
@@ -1702,15 +1810,28 @@ def _quoted(lines: list[str]) -> list[str]:
     return [">" if line == "" else f"> {line}" for line in lines]
 
 
-def format_comment_block(id: str, text: str, author: Optional[str] = None) -> list[str]:
-    """The lines of a comment block."""
+def format_comment_block(
+    id: str, text: str, author: Optional[str] = None, changed_at: Optional[str] = None
+) -> list[str]:
+    """The lines of a comment block; *changed_at* goes into the header's
+    parentheses after the author (SOM §11.9.10)."""
     t = text.split("\n")
     head = f"> {_ARROW}{_VS16} **{id}**"
-    if author:
-        head += f" ({author}):"
+    who = _author_and_time(author, changed_at)
+    if who is not None:
+        head += f" ({who}):"
     if t[0] != "":
         head += f" {t[0]}"
     return [head, *_quoted(t[1:])]
+
+
+def _author_and_time(author: Optional[str], changed_at: Optional[str]) -> Optional[str]:
+    """A comment header's parentheses: the author and the change time,
+    either alone, or ``None`` when there is neither (SOM §11.9.10)."""
+    a = author if author else None
+    if a is None:
+        return changed_at
+    return a if changed_at is None else f"{a}, {changed_at}"
 
 
 def format_question_block(q: SpecQuestionDraft) -> list[str]:
@@ -1896,6 +2017,44 @@ def _non_space_count(s: str) -> int:
     return sum(1 for c in s if not _is_anchor_space(c))
 
 
+def _stamp_marks(before: str, after: str, author: Optional[str], time: str) -> str:
+    """*after* (a value just written as marks) with an attribution token on
+    every change mark it lacks one on (SOM §11.9.10): the token of the same
+    change in *before* (same kind, old and new text; each used once, in
+    order) when *before* held it, else a new one with *author* and *time*."""
+
+    def key(m: _Mark) -> str:
+        return (
+            f"{m.kind.value}\u0000{_mark_replacement(m, False)}"
+            f"\u0000{_mark_replacement(m, True)}"
+        )
+
+    old = [
+        (key(m), before[m.body_end:m.end])
+        for m in _parse(before).marks
+        if _is_change_mark(m.kind)
+    ]
+    used = [False] * len(old)
+    fresh = format_attribution_token([author] if author is not None else [], [], time)
+    inserts: list[tuple[int, str]] = []
+    for m in _parse(after).marks:
+        if not _is_change_mark(m.kind) or m.end > m.body_end:
+            continue
+        k = key(m)
+        token = fresh
+        for i, (ok, ot) in enumerate(old):
+            if not used[i] and ok == k:
+                used[i] = True
+                token = ot
+                break
+        if token != "":
+            inserts.append((m.body_end, token))
+    v = after
+    for at, token in reversed(inserts):
+        v = v[:at] + token + v[at:]
+    return v
+
+
 def _mark_keeping_change_comments(current: str, text: str) -> "SpecMarkedChange":
     """``set_marked`` with the value's change comments kept (SOM §11.9.3):
     taken out of the original, then written back where their anchor
@@ -2003,10 +2162,14 @@ def _is_commented_answer(answer: str, options: tuple[SpecQuestionOption, ...]) -
     return option is None or rest != option.text
 
 
-def _individual_answer_lines(members: list[str], answer: str) -> list[str]:
-    """The lines of one individual-answer entry."""
+def _individual_answer_lines(
+    members: list[str], answer: str, changed_at: Optional[str] = None
+) -> list[str]:
+    """The lines of one individual-answer entry; *changed_at* closes the
+    member list (SOM §11.9.10)."""
     a = answer.split("\n")
-    return [_trim_right(f"> **Answer ({', '.join(members)}):** {a[0]}"), *_quoted(a[1:])]
+    who = ", ".join([*members, *([changed_at] if changed_at is not None else [])])
+    return [_trim_right(f"> **Answer ({who}):** {a[0]}"), *_quoted(a[1:])]
 
 
 @dataclass
@@ -2018,9 +2181,12 @@ class _AnswerEntry:
     members: list[str]
     answer: str
     lines: Optional[list[str]]
+    changed_at: Optional[str] = None
 
 
-def _set_individual_answer(value: str, q: _Question, member: str, answer: str) -> str:
+def _set_individual_answer(
+    value: str, q: _Question, member: str, answer: str, changed_at: Optional[str] = None
+) -> str:
     """*value* with member *member*'s individual answer to question *q* set
     to *answer* (SOM §11.9.8): the member leaves the line it was on (a line
     left empty goes); a non-empty answer that is not commented joins the line
@@ -2030,7 +2196,10 @@ def _set_individual_answer(value: str, q: _Question, member: str, answer: str) -
     between run and team answer, and a run left empty takes that line with
     it. Entries left alone keep their bytes."""
     lines = value.split("\n")
-    entries = [_AnswerEntry(list(a.members), a.answer, lines[a.line:a.end + 1]) for a in q.answers]
+    entries = [
+        _AnswerEntry(list(a.members), a.answer, lines[a.line:a.end + 1], a.changed_at)
+        for a in q.answers
+    ]
     for e in entries:
         if member in e.members:
             e.members.remove(member)
@@ -2045,7 +2214,9 @@ def _set_individual_answer(value: str, q: _Question, member: str, answer: str) -
                 (
                     e
                     for e in kept
-                    if e.answer == text and not _is_commented_answer(e.answer, q.options)
+                    if e.answer == text
+                    and e.changed_at == changed_at
+                    and not _is_commented_answer(e.answer, q.options)
                 ),
                 None,
             )
@@ -2054,13 +2225,13 @@ def _set_individual_answer(value: str, q: _Question, member: str, answer: str) -
             join.members.append(member)
             join.lines = None
         else:
-            kept.append(_AnswerEntry([member], text, None))
+            kept.append(_AnswerEntry([member], text, None, changed_at))
     run: list[str] = []
     for e in kept:
         if e.lines is not None:
             run.extend(e.lines)
         else:
-            run.extend(_individual_answer_lines(e.members, e.answer))
+            run.extend(_individual_answer_lines(e.members, e.answer, e.changed_at))
     if q.answers:
         start = q.answers[0].line
         to = q.answers[-1].end
@@ -2154,18 +2325,41 @@ def _replace_text_run(value: str, b: _Block, text: str) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _check_author(author: Optional[str]) -> None:
+    if author is not None and not is_review_member_id(author):
+        raise SpecReviewAnnotationError(
+            f'"{author}" is not a member id (lowercase letters, digits and _)'
+        )
+
+
 class SpecReviewAnnotations:
     """The annotations of a document, and the operations that edit them
     (SOM §11.9). Values are visited in a fixed order — content paths sorted,
     then form paths sorted with their field names sorted — so "document order"
     is the same in every runtime."""
 
-    def __init__(self, doc: SpecDocument, qualifier: Optional[str] = None) -> None:
+    def __init__(
+        self,
+        doc: SpecDocument,
+        qualifier: Optional[str] = None,
+        clock: Optional[Callable[[], str]] = None,
+    ) -> None:
         #: The document.
         self.doc = doc
         #: The document's id or name, written in front of a comment id cited
         #: outside the document (``SBP`` → ``SBP C-12``); ``None`` for bare ids.
         self.qualifier = qualifier
+        #: The clock the write operations take a change time from when no
+        #: ``at`` is passed (SOM §11.9.10); ``None``: the system clock in the
+        #: writer's offset. The conformance drivers pass a fixed one.
+        self.clock = clock
+
+    def _time(self, at: Optional[str]) -> str:
+        """The change time a write records: *at* normalized, else the
+        clock's."""
+        if at is not None:
+            return normalize_review_time(at)
+        return self.clock() if self.clock is not None else system_review_time()
 
     def _values(self) -> list[tuple[str, Optional[str], str]]:
         out: list[tuple[str, Optional[str], str]] = []
@@ -2271,17 +2465,20 @@ class SpecReviewAnnotations:
         field: Optional[str] = None,
         author: Optional[str] = None,
         id: Optional[str] = None,
+        at: Optional[str] = None,
     ) -> str:
         """Inserts a comment block after paragraph *after_paragraph* (0-based;
         -1: at the start) of the value at *path* / *field*, and returns its id
-        — *id* when given, else the next free one."""
+        — *id* when given, else the next free one. The header records the
+        change time: *at*, else the clock's (SOM §11.9.10)."""
+        time = self._time(at)
         cid = id if id is not None else self.next_comment_id()
         value = self._get(path, field)
         end = self._paragraph_last_line(value, after_paragraph)
         self._set(
             path,
             field,
-            _insert_after_line(value, end, format_comment_block(cid, text, author)),
+            _insert_after_line(value, end, format_comment_block(cid, text, author, time)),
         )
         return cid
 
@@ -2307,7 +2504,13 @@ class SpecReviewAnnotations:
             _insert_after_line(text, c.block.end, format_question_block(question)),
         )
 
-    def set_answer(self, question_id: str, answer: str, author: Optional[str] = None) -> None:
+    def set_answer(
+        self,
+        question_id: str,
+        answer: str,
+        author: Optional[str] = None,
+        at: Optional[str] = None,
+    ) -> None:
         """Writes *answer* after the question's ``**Answer:**`` (empty: reopens
         it). With *author*, writes that member's individual answer instead,
         grouped and placed by the rules of SOM §11.9.8 (empty: only takes the
@@ -2318,7 +2521,8 @@ class SpecReviewAnnotations:
             )
         path, field, text, _b, q = self._find_question(question_id)
         if author is not None:
-            self._set(path, field, _set_individual_answer(text, q, author, answer))
+            time = None if _trim(answer) == "" else self._time(at)
+            self._set(path, field, _set_individual_answer(text, q, author, answer, time))
             return
         lines = text.split("\n")
         a = answer.split("\n")
@@ -2338,13 +2542,19 @@ class SpecReviewAnnotations:
             lines[last + 1:last + 1] = [">", *written]
         self._set(path, field, "\n".join(lines))
 
-    def edit_comment(self, comment_id: str, text: str) -> None:
+    def edit_comment(self, comment_id: str, text: str, at: Optional[str] = None) -> None:
         """Replaces a comment's text; its marker, id and author stay as
-        written."""
+        written, the change time becomes *at*, else the clock's (SOM
+        §11.9.10)."""
+        time = self._time(at)
         path, field, value, c = self._find_comment(comment_id)
         lines = value.split("\n")
         t = text.split("\n")
-        block = [_trim_right(f"{c.header_prefix}{t[0]}"), *_quoted(t[1:])]
+        who = _author_and_time(c.author, time)
+        block = [
+            _trim_right(f"{_trim_right(c.before_author)} ({who}): {t[0]}"),
+            *_quoted(t[1:]),
+        ]
         lines[c.block.start:c.block.end + 1] = block
         self._set(path, field, "\n".join(lines))
 
@@ -2451,6 +2661,7 @@ class SpecReviewAnnotations:
                             None if m.change_index is None
                             else f"M-{first + m.change_index}"
                         ),
+                        changed_at=m.changed_at,
                     )
                 )
         return out
@@ -2576,6 +2787,7 @@ class SpecReviewAnnotations:
         text: str,
         author: Optional[str] = None,
         revision: Optional[str] = None,
+        at: Optional[str] = None,
     ) -> str:
         """Writes a change comment (SOM §11.9.3) directly after the change
         mark *mark_id*, its quote written from the mark and *text* after it,
@@ -2584,7 +2796,9 @@ class SpecReviewAnnotations:
         unknown id, a stale *revision*, a mark that is not a change or already
         has an attached comment, a change its quote cannot hold, a *text* that
         is empty or holds a mark delimiter or a blank line, and an *author*
-        that is not a member id."""
+        that is not a member id. Its token records the change time: *at*,
+        else the clock's (SOM §11.9.10)."""
+        time = self._time(at)
         path, field, value, p, k = self._find_mark(mark_id, revision)
         m = p.marks[k]
         if not _is_change_mark(m.kind):
@@ -2609,21 +2823,27 @@ class SpecReviewAnnotations:
             raise SpecReviewAnnotationError(
                 f'{mark_id} holds "{d}]" or "<<}}", which its quote cannot hold'
             )
-        markup = f"{{>> [{d} {body} {d}] {comment} <<}}" + (
-            "" if author is None else f"{{@{author}}}"
+        markup = f"{{>> [{d} {body} {d}] {comment} <<}}" + format_attribution_token(
+            [author] if author is not None else [], [], time
         )
         self._set(path, field, value[:m.end] + markup + value[m.end:])
         return f"M-{int(mark_id[2:]) + 1}"
 
     def edit_mark_comment(
-        self, mark_id: str, text: str, revision: Optional[str] = None
+        self,
+        mark_id: str,
+        text: str,
+        revision: Optional[str] = None,
+        at: Optional[str] = None,
     ) -> None:
         """Replaces the comment of the comment mark, change comment or
         commented highlight *mark_id* with *text* (SOM §11.9.3). A change
         comment keeps its quote as written, and the attribution token stays.
         Refused — nothing changes — for an unknown id, a stale *revision*, a
         mark that holds no comment, and a *text* that is empty or holds a mark
-        delimiter or a blank line."""
+        delimiter or a blank line. The token's change time becomes *at*, else
+        the clock's (SOM §11.9.10)."""
+        time = self._time(at)
         path, field, value, p, k = self._find_mark(mark_id, revision)
         m = p.marks[k]
         comment = _check_inline_comment(text)
@@ -2639,7 +2859,8 @@ class SpecReviewAnnotations:
             markup = f"{{== {m.text} ==}}{{>> {comment} <<}}"
         else:
             raise SpecReviewAnnotationError(f"{mark_id} holds no comment")
-        self._set(path, field, value[:m.start] + markup + value[m.body_end:])
+        token = format_attribution_token(list(m.authors), list(m.votes), time)
+        self._set(path, field, value[:m.start] + markup + token + value[m.end:])
 
     def remove_all_annotations(self) -> SpecMarkReport:
         """Removes every annotation and writes the result back: every inline
@@ -2759,21 +2980,50 @@ class SpecReviewAnnotations:
             return value
         return _replace_paragraph_before(value, c.block, result)
 
-    def set_marked(self, path: str, text: str, field: Optional[str] = None) -> "SpecMarkedChange":
+    def set_marked(
+        self,
+        path: str,
+        text: str,
+        field: Optional[str] = None,
+        author: Optional[str] = None,
+        at: Optional[str] = None,
+    ) -> "SpecMarkedChange":
         """Writes *text* at *path* / *field* as a marked change against the
         value there now (SOM §11.9.3). A value that already holds change marks
         is compared from its original — every mark rejected — so a second edit
-        of the same passage updates its mark instead of nesting one."""
-        result = _mark_keeping_change_comments(self._get(path, field), text)
-        self._set(path, field, result.text)
-        return result
+        of the same passage updates its mark instead of nesting one. Every
+        change mark carries a token (SOM §11.9.10): an unchanged mark keeps
+        its own, a new one gets *author* and *at* (else the clock's time)."""
+        _check_author(author)
+        time = self._time(at)
+        current = self._get(path, field)
+        result = _mark_keeping_change_comments(current, text)
+        stamped = SpecMarkedChange(
+            _stamp_marks(current, result.text, author, time), result.exact
+        )
+        self._set(path, field, stamped.text)
+        return stamped
 
-    def mark_against(self, path: str, earlier: str, field: Optional[str] = None) -> "SpecMarkedChange":
+    def mark_against(
+        self,
+        path: str,
+        earlier: str,
+        field: Optional[str] = None,
+        author: Optional[str] = None,
+        at: Optional[str] = None,
+    ) -> "SpecMarkedChange":
         """Marks the value at *path* / *field* as a change against *earlier*,
-        an earlier version of it."""
-        result = mark_change_text(earlier, self._get(path, field))
-        self._set(path, field, result.text)
-        return result
+        an earlier version of it; its change marks are stamped as
+        :meth:`set_marked` stamps them."""
+        _check_author(author)
+        time = self._time(at)
+        current = self._get(path, field)
+        result = mark_change_text(earlier, current)
+        stamped = SpecMarkedChange(
+            _stamp_marks(current, result.text, author, time), result.exact
+        )
+        self._set(path, field, stamped.text)
+        return stamped
 
     def paragraphs(self, path: str, field: Optional[str] = None) -> "list[SpecParagraph]":
         """The paragraphs of the value at ``path`` / ``field``, in order — the
@@ -3300,6 +3550,8 @@ class ReviewPiece:
     comment_text: str = ""
     #: The ids of a question block's questions.
     question_ids: tuple[str, ...] = ()
+    #: A comment's change time (SOM §11.9.10), ``None`` without one.
+    changed_at: Optional[str] = None
 
     @property
     def is_text(self) -> bool:
@@ -3325,6 +3577,7 @@ def review_pieces(value: str) -> list[ReviewPiece]:
                 author=None if comment is None else comment.author,
                 comment_text="" if comment is None else comment.text,
                 question_ids=() if b is None else tuple(q.id for q in b.questions),
+                changed_at=None if comment is None else comment.changed_at,
             )
         )
     return out
@@ -3352,6 +3605,8 @@ class ReviewMark:
     accepted: str
     #: The text rejecting it leaves.
     rejected: str
+    #: Its token's change time (SOM §11.9.10), or ``None``.
+    changed_at: Optional[str] = None
 
     @property
     def has_token(self) -> bool:
@@ -3372,6 +3627,7 @@ def review_marks(value: str) -> list[ReviewMark]:
             votes=m.votes,
             accepted=_mark_replacement(m, True),
             rejected=_mark_replacement(m, False),
+            changed_at=m.changed_at,
         )
         for m in _parse(value).marks
     ]
@@ -3392,13 +3648,20 @@ def decide_review_marks(value: str, decisions: dict[int, bool]) -> str:
 
 
 def format_attribution_token(
-    authors: Sequence[str], votes: Sequence[SpecMarkVote]
+    authors: Sequence[str],
+    votes: Sequence[SpecMarkVote],
+    changed_at: Optional[str] = None,
 ) -> str:
-    """The attribution token for *authors* and *votes*,
-    ``{@agent +alice -bob}``."""
-    v = " ".join(f"{'+' if x.vote is SpecVote.ACCEPT else '-'}{x.member}" for x in votes)
-    sep = " " if authors and v else ""
-    return f"{{@{','.join(authors)}{sep}{v}}}"
+    """The attribution token for *authors*, *votes* and *changed_at*,
+    ``{@agent +alice -bob 2026-11-07T14:05+01:00}`` (SOM §11.9.8,
+    §11.9.10); empty when there is nothing to write."""
+    parts: list[str] = []
+    if authors:
+        parts.append(",".join(authors))
+    parts.extend(f"{'+' if x.vote is SpecVote.ACCEPT else '-'}{x.member}" for x in votes)
+    if changed_at is not None:
+        parts.append(changed_at)
+    return f"{{@{' '.join(parts)}}}" if parts else ""
 
 
 def with_attribution(
@@ -3409,7 +3672,11 @@ def with_attribution(
 ) -> str:
     """*value* with mark *m*'s token replaced by one for *authors* and
     *votes*."""
-    return value[: m.body_end] + format_attribution_token(authors, votes) + value[m.end:]
+    return (
+        value[: m.body_end]
+        + format_attribution_token(authors, votes, m.changed_at)
+        + value[m.end:]
+    )
 
 
 def review_team_answers(value: str) -> dict[str, str]:
@@ -3423,7 +3690,11 @@ def review_team_answers(value: str) -> dict[str, str]:
 
 
 def set_individual_answer_text(
-    value: str, question_id: str, member: str, answer: str
+    value: str,
+    question_id: str,
+    member: str,
+    answer: str,
+    changed_at: Optional[str] = None,
 ) -> Optional[str]:
     """*value* with *member*'s individual answer to question *question_id*
     set, as :meth:`SpecReviewAnnotations.set_answer` with an ``author`` does;
@@ -3431,7 +3702,7 @@ def set_individual_answer_text(
     for b in _parse(value).blocks:
         for q in b.questions:
             if q.id == question_id:
-                return _set_individual_answer(value, q, member, answer)
+                return _set_individual_answer(value, q, member, answer, changed_at)
     return None
 
 

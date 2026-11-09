@@ -3419,6 +3419,10 @@ fn check_annotation_case_with(
 
 type AnnotationResult = Result<Json, SpecReviewAnnotationError>;
 
+/// The change time every annotation write records in the conformance cases
+/// (SOM §11.9.10) unless a case names its own `now`.
+const CORPUS_NOW: &str = "2026-11-07T14:05+01:00";
+
 fn run_annotation_case(
     model: &SpecModel,
     tree: &SomMetaTree,
@@ -3429,9 +3433,18 @@ fn run_annotation_case(
         cc.get("state").expect("annotation case state"),
     ));
     let qualifier = cc.get("qualifier").and_then(|q| q.as_str()).map(str::to_string);
+    // A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+    // every runtime: the case's `now`, else the corpus default.
+    let now = cc
+        .get("now")
+        .and_then(|n| n.as_str())
+        .unwrap_or(CORPUS_NOW)
+        .to_string();
     let mut results = Vec::new();
     for op in cc.get("ops").and_then(|o| o.as_array()).unwrap_or(&[]) {
-        let mut api = SpecReviewAnnotations::with_qualifier(&mut doc, qualifier.as_deref());
+        let now = now.clone();
+        let mut api =
+            SpecReviewAnnotations::with_clock(&mut doc, qualifier.as_deref(), move || now.clone());
         let s = |k: &str| op.get(k).and_then(|v| v.as_str());
         let floor = op.get("floor").and_then(|v| v.as_i64()).unwrap_or(0).max(0) as u64;
         let draft = || SpecQuestionDraft::from_json(op.get("question").unwrap_or(&Json::Null));
@@ -3451,6 +3464,7 @@ fn run_annotation_case(
                     s("text").unwrap_or(""),
                     s("author"),
                     s("id"),
+                    s("at"),
                 )
                 .map(|id| jstr(&id)),
             "insertQuestion" => unit(api.insert_question(
@@ -3466,8 +3480,11 @@ fn run_annotation_case(
                 s("id").unwrap_or(""),
                 s("answer").unwrap_or(""),
                 s("author"),
+                s("at"),
             )),
-            "editComment" => unit(api.edit_comment(s("id").unwrap_or(""), s("text").unwrap_or(""))),
+            "editComment" => {
+                unit(api.edit_comment(s("id").unwrap_or(""), s("text").unwrap_or(""), s("at")))
+            }
             "resolve" => unit(api.resolve(s("id").unwrap_or(""))),
             "applyMark" => unit(api.apply_mark(
                 s("path").unwrap_or(""),
@@ -3519,6 +3536,7 @@ fn run_annotation_case(
                     s("text").unwrap_or(""),
                     s("author"),
                     revision.as_deref(),
+                    s("at"),
                 )
                 .map(|id| jstr(&id))
             }
@@ -3531,18 +3549,27 @@ fn run_annotation_case(
                     s("id").unwrap_or(""),
                     s("text").unwrap_or(""),
                     revision.as_deref(),
+                    s("at"),
                 ))
             }
-            "setMarked" => Ok(api
-                .set_marked(s("path").unwrap_or(""), s("field"), s("text").unwrap_or(""))
-                .to_json()),
-            "markAgainst" => Ok(api
+            "setMarked" => api
+                .set_marked(
+                    s("path").unwrap_or(""),
+                    s("field"),
+                    s("text").unwrap_or(""),
+                    s("author"),
+                    s("at"),
+                )
+                .map(|m| m.to_json()),
+            "markAgainst" => api
                 .mark_against(
                     s("path").unwrap_or(""),
                     s("field"),
                     s("earlier").unwrap_or(""),
+                    s("author"),
+                    s("at"),
                 )
-                .to_json()),
+                .map(|m| m.to_json()),
             "strip" => Json::parse(&api.stripped().to_json().to_canonical_json())
                 .map_err(|e| panic!("strip state does not parse: {}", e)),
             "roundTrip" => {

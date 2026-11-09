@@ -1496,7 +1496,9 @@ Header grammar of the first line:
 `> ⬆️ [**C-<n>**] [(<author>)[:]] <text>`, where:
 
 - `<n>` is a decimal number without leading zeros;
-- `<author>` contains no `)`;
+- `<author>` contains no `)`; its last `, `-separated part may be the time of
+  the comment's last change, `(Alexis, 2026-11-07T14:05+01:00)` or
+  `(2026-11-07T14:05+01:00)` alone (§11.9.10);
 - the text may continue on further `>` lines.
 
 The block holds the reviewer's comment and nothing else. It ends at the first
@@ -2046,7 +2048,8 @@ with no space between, belongs to that mark:
 {~~old~>new~~}{@agent +alice +bob -carol} the agent's proposal: alice and bob accept, carol rejects
 ```
 
-Grammar: `{@<authors>[ <votes>]}`, where:
+Grammar: `{@[<authors>][ <votes>][ <time>]}` (at least one of the three),
+where:
 
 - `<authors>` is one or more member ids separated by `,` (a space after a comma
   is allowed; the API writes none). They proposed the mark.
@@ -2062,6 +2065,8 @@ Grammar: `{@<authors>[ <votes>]}`, where:
   change comment (§11.9.3) takes authors only too, and its token follows it;
   the change's own token stays between the two:
   `{~~30~>15~~}{@alice}{>>[~~30~>15~~] why?<<}{@bob}`.
+- `<time>` is the time of the mark's last change (§11.9.10), the last word of
+  the token: `{@alice 2026-11-07T14:05+01:00}`, `{@2026-11-07T14:05Z}`.
 
 The token is part of its mark: the mark's markup includes it, a decision
 (§11.9.3 "Accepting and rejecting") removes it with the mark in both
@@ -2087,9 +2092,13 @@ answers:
 ```
 
 - `<ids>` is one or more member ids separated by `, ` (a missing space is
-  read). An individual answer runs to the next `**Answer` line, the next `**❓`
-  header or the end of the block, like the team answer.
-- Members whose answers are identical share one line. An answer that carries
+  read). The last part may be the time the answer was last written
+  (§11.9.10): `**Answer (alice, 2026-11-07T14:05+01:00):**`. An individual
+  answer runs to the next `**Answer` line, the next `**❓` header or the end of
+  the block, like the team answer.
+- Members whose answers are identical share one line; with a time, the times
+  have to be equal as well, so a member who gives the same answer later gets a
+  line of their own. An answer that carries
   anything beyond an option letter (`(a)` or `**(a)**`, optionally followed by
   exactly that option's text) is a **commented answer** and always gets a line
   of its own, even when another member chose the same letter; so does an answer
@@ -2397,6 +2406,58 @@ Consolidation completes it. Plain Markdown has no revision entry.
 
 Cases: `corpus/review_merge_cases.json`. A runtime's `doc/review_annotations.md`
 says whether its driver runs them.
+
+#### 11.9.10 Change times
+
+A reviewer has to see what is new since the last round, so an annotation says
+when it was last changed. The time is written where its author is written —
+who and when travel together:
+
+| Annotation | Where the time goes |
+|------------|---------------------|
+| Inline mark (change, highlight, comment, change comment) | the last word of its attribution token (§11.9.8): `{@alice 2026-11-07T14:05+01:00}`; a token may hold the time alone, `{@2026-11-07T14:05+01:00}` |
+| Comment block | the last part of its header's parentheses (§11.9.1): `> ⬆️ **C-12** (Alexis, 2026-11-07T14:05+01:00): …`, or `(2026-11-07T14:05+01:00):` without an author |
+| Individual answer | the last part of its member list (§11.9.8): `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+A question block and the team answer `**Answer:**` have no author and carry no
+time.
+
+**Format.** Minutes with the writer's UTC offset:
+`YYYY-MM-DDTHH:MM` followed by `Z` or `±HH:MM` (`2026-11-07T14:05+01:00`).
+A word or part of that exact shape is a time; anything else keeps its old
+meaning (an author, a member id). Annotations written before carry no time
+and stay valid.
+
+**Writing.** Every runtime operation that writes an annotation's own text
+writes the time, and every one that edits it replaces the time:
+
+| Operation | Writes the time on |
+|-----------|--------------------|
+| `insertComment` | the new comment block |
+| `editComment` | the comment block (its author stays) |
+| `commentChange` | the new change comment's token |
+| `editMarkComment` | the mark's token (a token is added when the mark has none; its authors and votes stay) |
+| `setMarked` | every change mark it writes that the value did not hold before; a mark it writes again unchanged (same kind, same old and new text) keeps its token |
+| `setAnswer` with an author | the member's individual answer |
+
+The caller may pass the time (`at`, ISO 8601 with an offset or `Z`; seconds
+and fractions are cut to minutes, the offset is kept as given). Otherwise the
+operation takes it from the clock of the `SpecReviewAnnotations` it runs on:
+the system clock in the writer's offset, unless one was given when it was made
+(the conformance drivers give a fixed one). An `at` of any other shape is
+refused.
+
+**What does not change it.** Deciding a change, answering a question, voting,
+assigning comment ids and merging copies (§11.9.9, which carries each
+annotation's time over from the copy that wrote it) change no annotation's own
+text, so they keep its time. A change comment keeps its time when its change is
+decided; an annotation that is removed takes its time with it.
+
+**Reading.** The listing reports `changedAt` — the time as written, or none — on
+every comment, mark and individual answer it lists (`SpecReviewAnnotation`,
+`SpecMarkEntry`, the individual answers); the JSON forms write it only when
+there is one. A time that is not of the format is not a time: it is read as
+before (an author, a member id) and reported where that reading is a finding.
 
 ## 12. The hierarchical `*.docspecs.yaml` format
 

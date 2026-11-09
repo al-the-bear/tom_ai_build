@@ -217,11 +217,11 @@
       "expect": {
         "results": [
           {
-            "text": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+            "text": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}{@2026-11-07T14:05+01:00}",
             "exact": true
           },
           {
-            "text": "{~~ Bob ~> Alice ~~} Smith",
+            "text": "{~~ Bob ~> Alice ~~}{@2026-11-07T14:05+01:00} Smith",
             "exact": true
           },
           [
@@ -234,8 +234,9 @@
               "oldText": "30 minutes of inactivity.",
               "newText": "15 minutes of inactivity on kiosks.",
               "comment": null,
-              "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
-              "context": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}"
+              "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}{@2026-11-07T14:05+01:00}",
+              "changedAt": "2026-11-07T14:05+01:00"
             },
             {
               "id": "M-2",
@@ -246,8 +247,9 @@
               "oldText": "Bob",
               "newText": "Alice",
               "comment": null,
-              "markup": "{~~ Bob ~> Alice ~~}",
-              "context": "{~~ Bob ~> Alice ~~} Smith"
+              "markup": "{~~ Bob ~> Alice ~~}{@2026-11-07T14:05+01:00}",
+              "context": "{~~ Bob ~> Alice ~~}{@2026-11-07T14:05+01:00} Smith",
+              "changedAt": "2026-11-07T14:05+01:00"
             }
           ],
           {
@@ -259,7 +261,7 @@
                 "line": 0,
                 "markKind": "substitution",
                 "decision": "accept",
-                "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+                "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}{@2026-11-07T14:05+01:00}",
                 "result": "15 minutes of inactivity on kiosks."
               },
               {
@@ -269,7 +271,7 @@
                 "line": 0,
                 "markKind": "substitution",
                 "decision": "accept",
-                "markup": "{~~ Bob ~> Alice ~~}",
+                "markup": "{~~ Bob ~> Alice ~~}{@2026-11-07T14:05+01:00}",
                 "result": "Alice"
               }
             ],
@@ -315,7 +317,7 @@
       "expect": {
         "results": [
           {
-            "text": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+            "text": "Sessions expire after {~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}{@2026-11-07T14:05+01:00}",
             "exact": true
           },
           {
@@ -327,7 +329,7 @@
                 "line": 0,
                 "markKind": "substitution",
                 "decision": "reject",
-                "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}",
+                "markup": "{~~ 30 minutes of inactivity. ~> 15 minutes of inactivity on kiosks. ~~}{@2026-11-07T14:05+01:00}",
                 "result": "30 minutes of inactivity."
               }
             ],
@@ -378,11 +380,11 @@
       "expect": {
         "results": [
           {
-            "text": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity.",
+            "text": "Sessions expire after {~~ 30 ~> 15 ~~}{@2026-11-07T14:05+01:00} minutes of inactivity.",
             "exact": true
           },
           {
-            "text": "Sessions expire after {~~ 30 ~> 10 ~~} minutes of inactivity.",
+            "text": "Sessions expire after {~~ 30 ~> 10 ~~}{@2026-11-07T14:05+01:00} minutes of inactivity.",
             "exact": true
           },
           [
@@ -395,14 +397,15 @@
               "oldText": "30",
               "newText": "10",
               "comment": null,
-              "markup": "{~~ 30 ~> 10 ~~}",
-              "context": "Sessions expire after {~~ 30 ~> 10 ~~} minutes of inactivity."
+              "markup": "{~~ 30 ~> 10 ~~}{@2026-11-07T14:05+01:00}",
+              "context": "Sessions expire after {~~ 30 ~> 10 ~~}{@2026-11-07T14:05+01:00} minutes of inactivity.",
+              "changedAt": "2026-11-07T14:05+01:00"
             }
           ]
         ],
         "state": {
           "content": {
-            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 10 ~~} minutes of inactivity."
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 10 ~~}{@2026-11-07T14:05+01:00} minutes of inactivity."
           },
           "forms": {
             "DEMO/DET": {
@@ -439,7 +442,7 @@
       "expect": {
         "results": [
           {
-            "text": "Sessions {~~ end after 30 minutes. ~> expire after 30 minutes of inactivity. ~~}",
+            "text": "Sessions {~~ end after 30 minutes. ~> expire after 30 minutes of inactivity. ~~}{@2026-11-07T14:05+01:00}",
             "exact": true
           },
           {
@@ -451,7 +454,7 @@
                 "line": 0,
                 "markKind": "substitution",
                 "decision": "reject",
-                "markup": "{~~ end after 30 minutes. ~> expire after 30 minutes of inactivity. ~~}",
+                "markup": "{~~ end after 30 minutes. ~> expire after 30 minutes of inactivity. ~~}{@2026-11-07T14:05+01:00}",
                 "result": "end after 30 minutes."
               }
             ],

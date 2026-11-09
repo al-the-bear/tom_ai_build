@@ -797,7 +797,7 @@ def _new_block(p: ReviewPiece, member: str, v: _MergeValue, ctx: _MergeContext) 
     cid = ctx.placeholder("C")
     author = p.author if p.author is not None else member
     ctx.pending_comments[cid] = SpecMergeComment(id=cid, author=author, path=v.path, field=v.field)
-    return "\n".join(format_comment_block(cid, p.comment_text, author))
+    return "\n".join(format_comment_block(cid, p.comment_text, author, p.changed_at))
 
 
 def _merge_value(v: _MergeValue, ctx: _MergeContext) -> str:

@@ -650,7 +650,8 @@ public final class SpecReviewMerge {
     String id = ctx.placeholder('C');
     String author = p.author != null ? p.author : member;
     ctx.pendingComments.put(id, new SpecReviewMergeReport.Comment(id, author, v.path, v.field));
-    return String.join("\n", SpecReviewAnnotations.formatCommentBlock(id, p.commentText, author));
+    return String.join(
+        "\n", SpecReviewAnnotations.formatCommentBlock(id, p.commentText, author, p.changedAt));
   }
 
   /** One value merged; the base text when no copy differs from it. */

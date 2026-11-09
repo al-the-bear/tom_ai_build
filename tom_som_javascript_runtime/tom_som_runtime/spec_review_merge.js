@@ -550,7 +550,7 @@ function _newBlock(p, member, v, ctx) {
   const id = ctx.placeholder('C');
   const author = p.author ?? member;
   ctx.pendingComments.set(id, { id, author, path: v.path, field: v.field });
-  return formatCommentBlock({ id, text: p.commentText, author }).join('\n');
+  return formatCommentBlock({ id, text: p.commentText, author, changedAt: p.changedAt }).join('\n');
 }
 
 /** One value merged; the base text when no copy differs from it. */

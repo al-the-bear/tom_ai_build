@@ -2872,6 +2872,7 @@ type annotationCase struct {
 	Name      string           `json:"name"`
 	State     som.DocumentJson `json:"state"`
 	Qualifier *string          `json:"qualifier"`
+	Now       *string          `json:"now"`
 	Ops       []map[string]any `json:"ops"`
 	Expect    any              `json:"expect"`
 }
@@ -2911,6 +2912,10 @@ func opDraft(op map[string]any) som.SpecQuestionDraft {
 	return d
 }
 
+// corpusNow is the change time every annotation write records in the
+// conformance cases (SOM §11.9.10) unless a case names its own `now`.
+const corpusNow = "2026-11-07T14:05+01:00"
+
 // runAnnotationCase is a port of the Dart harness's `_runAnnotationCase`:
 // every op runs in order on one document; an op that fails answers
 // `{error: true}` and changes nothing.
@@ -2925,7 +2930,13 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 	if cc.Qualifier != nil {
 		qualifier = *cc.Qualifier
 	}
-	api := som.NewSpecReviewAnnotations(doc, qualifier)
+	// A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+	// every runtime: the case's `now`, else the corpus default.
+	now := corpusNow
+	if cc.Now != nil {
+		now = *cc.Now
+	}
+	api := som.NewSpecReviewAnnotationsWithClock(doc, qualifier, func() string { return now })
 	results := []any{}
 	for _, op := range cc.Ops {
 		var result any
@@ -2945,16 +2956,16 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			result = api.AssignCommentIDs(opInt(op, "floor"))
 		case "insertComment":
 			result, err = api.InsertComment(opString(op, "path"), opString(op, "field"),
-				opInt(op, "afterParagraph"), opString(op, "text"), opString(op, "author"), opString(op, "id"))
+				opInt(op, "afterParagraph"), opString(op, "text"), opString(op, "author"), opString(op, "id"), opString(op, "at"))
 		case "insertQuestion":
 			err = api.InsertQuestion(opString(op, "path"), opString(op, "field"),
 				opInt(op, "afterParagraph"), opDraft(op))
 		case "insertQuestionAfterComment":
 			err = api.InsertQuestionAfterComment(opString(op, "commentId"), opDraft(op))
 		case "setAnswer":
-			err = api.SetAnswer(opString(op, "id"), opString(op, "answer"), opString(op, "author"))
+			err = api.SetAnswer(opString(op, "id"), opString(op, "answer"), opString(op, "author"), opString(op, "at"))
 		case "editComment":
-			err = api.EditComment(opString(op, "id"), opString(op, "text"))
+			err = api.EditComment(opString(op, "id"), opString(op, "text"), opString(op, "at"))
 		case "resolve":
 			err = api.Resolve(opString(op, "id"))
 		case "applyMark":
@@ -3012,17 +3023,28 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			if revision == "@current" {
 				revision = api.Revision()
 			}
-			result, err = api.CommentChange(opString(op, "id"), opString(op, "text"), opString(op, "author"), revision)
+			result, err = api.CommentChange(opString(op, "id"), opString(op, "text"), opString(op, "author"), revision,
+				opString(op, "at"))
 		case "editMarkComment":
 			revision := opString(op, "revision")
 			if revision == "@current" {
 				revision = api.Revision()
 			}
-			err = api.EditMarkComment(opString(op, "id"), opString(op, "text"), revision)
+			err = api.EditMarkComment(opString(op, "id"), opString(op, "text"), revision, opString(op, "at"))
 		case "setMarked":
-			result = api.SetMarked(opString(op, "path"), opString(op, "field"), opString(op, "text")).ToJSON()
+			var marked som.SpecMarkedChange
+			marked, err = api.SetMarked(opString(op, "path"), opString(op, "field"), opString(op, "text"),
+				opString(op, "author"), opString(op, "at"))
+			if err == nil {
+				result = marked.ToJSON()
+			}
 		case "markAgainst":
-			result = api.MarkAgainst(opString(op, "path"), opString(op, "field"), opString(op, "earlier")).ToJSON()
+			var marked som.SpecMarkedChange
+			marked, err = api.MarkAgainst(opString(op, "path"), opString(op, "field"), opString(op, "earlier"),
+				opString(op, "author"), opString(op, "at"))
+			if err == nil {
+				result = marked.ToJSON()
+			}
 		case "roundTrip":
 			current := canonJSON(t, doc.ToJSON())
 			yamlOK := false

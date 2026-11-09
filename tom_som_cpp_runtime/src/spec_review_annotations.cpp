@@ -13,6 +13,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <ctime>
 #include <set>
 #include <utility>
 
@@ -234,6 +235,7 @@ struct IndividualAnswer {
   std::size_t end = 0;   // last value line of the entry with text (inclusive)
   std::vector<std::string> members;
   std::string answer;
+  std::optional<std::string> changedAt;  // its change time (SOM §11.9.10)
 };
 
 struct Question {
@@ -271,6 +273,10 @@ struct Comment {
   std::string context;
   std::string headerPrefix;  // the first line up to where the text starts
   std::size_t markerEnd = 0;  // where an id is inserted into the first line
+  /* The first line up to where the author's parentheses (or the text)
+   * start. */
+  std::string beforeAuthor;
+  std::optional<std::string> changedAt;  // its change time (SOM §11.9.10)
 };
 
 /* One parsed mark; start/end are byte offsets into the value (never
@@ -296,6 +302,8 @@ struct Mark {
   std::optional<std::size_t> changeIndex;
   /* The index of this change's attached comment, or nullopt. */
   std::optional<std::size_t> commentIndex;
+  /* The time in the mark's attribution token (SOM §11.9.10), or nullopt. */
+  std::optional<std::string> changedAt;
 };
 
 /* The quote a change comment opens with (SOM §11.9.3); offsets are byte
@@ -412,6 +420,31 @@ std::vector<std::string> splitTrimmed(const std::string& s, char sep) {
   }
 }
 
+/* `s` split on `sep`, the pieces as written (empty pieces kept). */
+std::vector<std::string> splitOn(const std::string& s, char sep) {
+  std::vector<std::string> out;
+  std::size_t from = 0;
+  while (true) {
+    const std::size_t at = s.find(sep, from);
+    out.push_back(
+        s.substr(from, at == std::string::npos ? std::string::npos : at - from));
+    if (at == std::string::npos) return out;
+    from = at + 1;
+  }
+}
+
+/* `parts` (a header's or an answer's comma-separated parts) without a
+ * trailing change time, which goes into `time` (SOM §11.9.10). */
+std::vector<std::string> splitTime(std::vector<std::string> parts,
+                                   std::optional<std::string>& time) {
+  time.reset();
+  if (!parts.empty() && isReviewTime(trim(parts.back()))) {
+    time = trim(parts.back());
+    parts.pop_back();
+  }
+  return parts;
+}
+
 void parseComment(Parsed& p, std::size_t bi) {
   const Block b = p.blocks[bi];
   const std::string& raw0 = p.lines[b.start];
@@ -436,10 +469,25 @@ void parseComment(Parsed& p, std::size_t bi) {
     }
   }
   std::optional<std::string> author;
+  std::optional<std::string> changedAt;
+  const std::string beforeAuthor = raw0.substr(0, raw0.size() - rest.size());
   if (startsWith(rest, "(")) {
     std::size_t close = rest.find(')');
     if (close != std::string::npos && close > 0) {
-      author = rest.substr(1, close - 1);
+      const std::string inside = rest.substr(1, close - 1);
+      const std::vector<std::string> parts =
+          splitTime(splitOn(inside, ','), changedAt);
+      if (!changedAt) {
+        author = inside;
+      } else {
+        std::string a;
+        for (std::size_t i = 0; i < parts.size(); i++) {
+          if (i > 0) a += ',';
+          a += parts[i];
+        }
+        a = trim(a);
+        if (!a.empty()) author = a;
+      }
       rest = rest.substr(close + 1);
       if (startsWith(rest, ":")) rest = rest.substr(1);
       rest = lstrip(rest);
@@ -470,6 +518,8 @@ void parseComment(Parsed& p, std::size_t bi) {
   c.text = trim(text);
   c.context = contextOf(p, b.start);
   c.markerEnd = markerEnd;
+  c.beforeAuthor = beforeAuthor;
+  c.changedAt = std::move(changedAt);
   p.comments.push_back(std::move(c));
 }
 
@@ -689,7 +739,8 @@ void parseQuestions(Parsed& p, std::size_t bi) {
       }
       const auto label = individualAnswerLabel(in[m]);
       IndividualAnswer entry;
-      entry.members = splitTrimmed(label->first, ',');
+      entry.members = splitTime(splitTrimmed(label->first, ','),
+                                entry.changedAt);
       for (const std::string& member : entry.members) {
         if (!answered.insert(member).second) {
           p.malformed.push_back("line " + std::to_string(b.start + m) + ": " +
@@ -921,8 +972,9 @@ bool isChangeMark(SpecMarkKind kind) {
          kind == SpecMarkKind::Substitution;
 }
 
-/* The members of a token's inside, `<authors>[ <votes>]`, into `m`; or the
- * reason it breaks the grammar of SOM §11.9.8 (then `m` is left alone). */
+/* The members of a token's inside, `<authors>[ <votes>][ <time>]`, into `m`;
+ * or the reason it breaks the grammar of SOM §11.9.8 (then `m`'s authors and
+ * votes are left alone; its change time is still read). */
 std::optional<std::string> readToken(const std::string& inside, Mark& m) {
   // A space after a comma is allowed: `,` and the whitespace after it is one
   // separator.
@@ -940,8 +992,19 @@ std::optional<std::string> readToken(const std::string& inside, Mark& m) {
     }
     if (any) i = j;
   }
-  const std::vector<std::string> words = splitWords(joined);
+  std::vector<std::string> words = splitWords(joined);
   if (words.empty()) return std::string("is empty");
+  // A trailing change time (SOM §11.9.10) is read off first; the rest are
+  // the authors and votes, and a time-only token is valid.
+  if (isReviewTime(words.back())) {
+    m.changedAt = words.back();
+    words.pop_back();
+  }
+  if (words.empty()) {
+    m.authors.clear();
+    m.votes.clear();
+    return std::nullopt;
+  }
   std::vector<std::string> authors;
   std::vector<SpecMarkVote> votes;
   std::size_t k = 0;
@@ -1363,6 +1426,7 @@ void annotationsOf(const Parsed& p, const std::string& path,
       a.author = c.author;
       a.text = c.text;
       a.context = c.context;
+      a.changedAt = c.changedAt;
       o.push_back({b.start, 0, seq++, std::move(a)});
     } else if (b.kind == SpecReviewAnnotationKind::Conflict) {
       const Conflict& c = p.conflicts[b.conflict];
@@ -1391,7 +1455,7 @@ void annotationsOf(const Parsed& p, const std::string& path,
         a.options = q.options;
         a.recommended = q.recommended;
         for (const IndividualAnswer& ia : q.answers) {
-          a.answers.push_back({ia.members, ia.answer});
+          a.answers.push_back({ia.members, ia.answer, ia.changedAt});
         }
         o.push_back({q.header, 0, seq++, std::move(a)});
       }
@@ -1405,6 +1469,7 @@ void annotationsOf(const Parsed& p, const std::string& path,
     a.comment = m.comment;
     a.authors = m.authors;
     a.votes = m.votes;
+    a.changedAt = m.changedAt;
     o.push_back({m.line, 1, seq++, std::move(a)});
   }
   std::sort(o.begin(), o.end(), [](const Ordered& x, const Ordered& y) {
@@ -1697,13 +1762,15 @@ bool isCommentedAnswer(const std::string& answer,
 
 /* The lines of one individual-answer entry. */
 std::vector<std::string> individualAnswerLines(
-    const std::vector<std::string>& members, const std::string& answer) {
+    const std::vector<std::string>& members, const std::string& answer,
+    const std::optional<std::string>& changedAt = std::nullopt) {
   const std::vector<std::string> a = splitLines(answer);
   std::string names;
   for (std::size_t i = 0; i < members.size(); i++) {
     if (i > 0) names += ", ";
     names += members[i];
   }
+  if (changedAt) names += (members.empty() ? "" : ", ") + *changedAt;
   std::vector<std::string> out{
       trimRight("> **Answer (" + names + "):** " + a[0])};
   for (std::string& l : quoted(a, 1)) out.push_back(std::move(l));
@@ -1718,20 +1785,23 @@ std::vector<std::string> individualAnswerLines(
  * the run before the team's `**Answer:**`, with a `>` line between run and
  * team answer, and a run left empty takes that line with it. Entries left
  * alone keep their bytes. */
-std::string setIndividualAnswer(const std::string& value, const Question& q,
-                                const std::string& member,
-                                const std::string& answer) {
+std::string setIndividualAnswer(
+    const std::string& value, const Question& q, const std::string& member,
+    const std::string& answer,
+    const std::optional<std::string>& changedAt = std::nullopt) {
   std::vector<std::string> lines = splitLines(value);
   struct Entry {
     std::vector<std::string> members;
     std::string answer;
     std::optional<std::vector<std::string>> lines;  // nullopt: rewrite it
+    std::optional<std::string> changedAt;
   };
   std::vector<Entry> kept;
   for (const IndividualAnswer& a : q.answers) {
     Entry e{a.members, a.answer,
             std::vector<std::string>(lines.begin() + a.line,
-                                     lines.begin() + a.end + 1)};
+                                     lines.begin() + a.end + 1),
+            a.changedAt};
     const auto at = std::find(e.members.begin(), e.members.end(), member);
     if (at != e.members.end()) {
       e.members.erase(at);
@@ -1744,7 +1814,8 @@ std::string setIndividualAnswer(const std::string& value, const Question& q,
     Entry* join = nullptr;
     if (!isCommentedAnswer(text, q.options)) {
       for (Entry& e : kept) {
-        if (e.answer == text && !isCommentedAnswer(e.answer, q.options)) {
+        if (e.answer == text && e.changedAt == changedAt &&
+            !isCommentedAnswer(e.answer, q.options)) {
           join = &e;
           break;
         }
@@ -1754,13 +1825,14 @@ std::string setIndividualAnswer(const std::string& value, const Question& q,
       join->members.push_back(member);
       join->lines.reset();
     } else {
-      kept.push_back({{member}, text, std::nullopt});
+      kept.push_back({{member}, text, std::nullopt, changedAt});
     }
   }
   std::vector<std::string> run;
   for (const Entry& e : kept) {
     const std::vector<std::string> l =
-        e.lines ? *e.lines : individualAnswerLines(e.members, e.answer);
+        e.lines ? *e.lines
+                : individualAnswerLines(e.members, e.answer, e.changedAt);
     run.insert(run.end(), l.begin(), l.end());
   }
   if (!q.answers.empty()) {
@@ -1912,6 +1984,84 @@ bool isReviewMemberId(const std::string& s) {
 
 namespace {
 
+bool isDigit(char c) { return c >= '0' && c <= '9'; }
+
+/* Whether `s` holds `YYYY-MM-DDTHH:MM` at `at`. */
+bool isMinutesAt(const std::string& s, std::size_t at) {
+  static const char kShape[] = "dddd-dd-ddTdd:dd";
+  if (s.size() < at + 16) return false;
+  for (std::size_t i = 0; i < 16; i++) {
+    const char c = s[at + i];
+    if (kShape[i] == 'd' ? !isDigit(c) : c != kShape[i]) return false;
+  }
+  return true;
+}
+
+/* Whether `s` from `at` to its end is `Z` or `±HH:MM`. */
+bool isOffsetAt(const std::string& s, std::size_t at) {
+  if (s.size() == at + 1) return s[at] == 'Z';
+  return s.size() == at + 6 && (s[at] == '+' || s[at] == '-') &&
+         isDigit(s[at + 1]) && isDigit(s[at + 2]) && s[at + 3] == ':' &&
+         isDigit(s[at + 4]) && isDigit(s[at + 5]);
+}
+
+}  // namespace
+
+bool isReviewTime(const std::string& s) {
+  return isMinutesAt(s, 0) && isOffsetAt(s, 16);
+}
+
+std::string normalizeReviewTime(const std::string& at) {
+  const std::string t = trim(at);
+  if (isMinutesAt(t, 0)) {
+    std::size_t i = 16;
+    // Optional seconds, and after them an optional fraction.
+    if (i + 3 <= t.size() && t[i] == ':' && isDigit(t[i + 1]) &&
+        isDigit(t[i + 2])) {
+      i += 3;
+      if (i + 1 < t.size() && t[i] == '.' && isDigit(t[i + 1])) {
+        i++;
+        while (i < t.size() && isDigit(t[i])) i++;
+      }
+    }
+    if (isOffsetAt(t, i)) return t.substr(0, 16) + t.substr(i);
+  }
+  throw SpecReviewAnnotationError(
+      "\"" + at +
+      "\" is not an ISO 8601 time with an offset or Z "
+      "(e.g. 2026-11-07T14:05+01:00)");
+}
+
+std::string systemReviewTime() {
+  const std::time_t now = std::time(nullptr);
+  std::tm local{};
+  std::tm utc{};
+#if defined(_WIN32)
+  localtime_s(&local, &now);
+  gmtime_s(&utc, &now);
+#else
+  localtime_r(&now, &local);
+  gmtime_r(&now, &utc);
+#endif
+  // The offset is the local broken-down time minus the UTC one of the same
+  // instant; the two are at most a day apart.
+  long days = local.tm_yday - utc.tm_yday;
+  if (local.tm_year != utc.tm_year) days = local.tm_year > utc.tm_year ? 1 : -1;
+  const long offset =
+      (days * 24 + (local.tm_hour - utc.tm_hour)) * 60 +
+      (local.tm_min - utc.tm_min);
+  char stamp[32];
+  const std::size_t n = std::strftime(stamp, sizeof stamp, "%Y-%m-%dT%H:%M",
+                                      &local);
+  const long mins = offset < 0 ? -offset : offset;
+  char zone[16];
+  std::snprintf(zone, sizeof zone, "%c%02ld:%02ld", offset < 0 ? '-' : '+',
+                mins / 60, mins % 60);
+  return std::string(stamp, n) + zone;
+}
+
+namespace {
+
 std::string jsonStrList(const std::vector<std::string>& v) {
   std::string b = "[";
   for (std::size_t i = 0; i < v.size(); i++) {
@@ -1945,7 +2095,10 @@ std::optional<std::string> SpecIndividualAnswer::answerLetter() const {
 std::string SpecIndividualAnswer::toJson() const {
   return "{\"members\":" + jsonStrList(members) +
          ",\"answer\":" + jsonEncodeStr(answer) +
-         ",\"answerLetter\":" + jsonStrOrNull(answerLetter()) + "}";
+         ",\"answerLetter\":" + jsonStrOrNull(answerLetter()) +
+         (changedAt ? ",\"changedAt\":" + jsonEncodeStr(*changedAt)
+                    : std::string()) +
+         "}";
 }
 
 std::string SpecConflictAlternative::toJson() const {
@@ -2004,6 +2157,7 @@ std::string SpecReviewAnnotation::toJson(bool team) const {
            ",\"author\":" + jsonStrOrNull(author) +
            ",\"text\":" + jsonEncodeStr(text) +
            ",\"context\":" + jsonEncodeStr(context);
+      if (changedAt) b += ",\"changedAt\":" + jsonEncodeStr(*changedAt);
       break;
     case SpecReviewAnnotationKind::Question:
       b += ",\"id\":" + jsonStrOrNull(id) +
@@ -2039,6 +2193,7 @@ std::string SpecReviewAnnotation::toJson(bool team) const {
            ",\"text\":" + jsonEncodeStr(text) +
            ",\"newText\":" + jsonStrOrNull(newText) +
            ",\"comment\":" + jsonStrOrNull(comment);
+      if (changedAt) b += ",\"changedAt\":" + jsonEncodeStr(*changedAt);
       if (team) {
         b += ",\"authors\":" + jsonStrList(authors) +
              ",\"votes\":" + jsonList(votes);
@@ -2065,12 +2220,28 @@ std::string SpecReviewAnnotationCounts::toJson(bool team) const {
 
 /* ---- text level ----------------------------------------------------------- */
 
+namespace {
+
+/* A comment header's parentheses: the author and the change time, either
+ * alone, or nullopt when there is neither (SOM §11.9.10). */
+std::optional<std::string> authorAndTime(
+    const std::optional<std::string>& author,
+    const std::optional<std::string>& changedAt) {
+  if (!author || author->empty()) return changedAt;
+  return changedAt ? *author + ", " + *changedAt : *author;
+}
+
+}  // namespace
+
 std::vector<std::string> formatCommentBlock(
     const std::string& id, const std::string& text,
-    const std::optional<std::string>& author) {
+    const std::optional<std::string>& author,
+    const std::optional<std::string>& changedAt) {
   const std::vector<std::string> t = splitLines(text);
   std::string head = "> " + kArrow + kVs16 + " **" + id + "**";
-  if (author && !author->empty()) head += " (" + *author + "):";
+  if (const auto who = authorAndTime(author, changedAt)) {
+    head += " (" + *who + "):";
+  }
   if (!t[0].empty()) head += " " + t[0];
   std::vector<std::string> out{head};
   for (std::string& l : quoted(t, 1)) out.push_back(std::move(l));
@@ -2458,16 +2629,25 @@ std::vector<SpecParagraph> SpecReviewAnnotations::paragraphs(
   return out;
 }
 
+std::string SpecReviewAnnotations::changeTime(
+    const std::optional<std::string>& at) const {
+  if (at) return normalizeReviewTime(*at);
+  return clock_ ? clock_() : systemReviewTime();
+}
+
 std::string SpecReviewAnnotations::insertComment(
     const std::string& path, const std::optional<std::string>& field,
     long long afterParagraph, const std::string& text,
     const std::optional<std::string>& author,
-    const std::optional<std::string>& id) {
+    const std::optional<std::string>& id,
+    const std::optional<std::string>& at) {
+  const std::string time = changeTime(at);
   const std::string cid = id ? *id : nextCommentId();
   const std::string value = getValue(*doc_, path, field);
   const long long end = paragraphLastLine(value, afterParagraph);
   setValue(*doc_, path, field,
-           insertAfterLine(value, end, formatCommentBlock(cid, text, author)));
+           insertAfterLine(value, end,
+                           formatCommentBlock(cid, text, author, time)));
   return cid;
 }
 
@@ -2491,7 +2671,8 @@ void SpecReviewAnnotations::insertQuestionAfterComment(
 
 void SpecReviewAnnotations::setAnswer(
     const std::string& questionId, const std::string& answer,
-    const std::optional<std::string>& author) {
+    const std::optional<std::string>& author,
+    const std::optional<std::string>& at) {
   if (author && !isReviewMemberId(*author)) {
     throw SpecReviewAnnotationError(
         "\"" + *author +
@@ -2500,8 +2681,11 @@ void SpecReviewAnnotations::setAnswer(
   const Found f = findQuestion(*doc_, questionId);
   const Question& q = f.parsed.questions[f.index];
   if (author) {
+    const std::optional<std::string> time =
+        trim(answer).empty() ? std::nullopt
+                             : std::optional<std::string>(changeTime(at));
     setValue(*doc_, f.value.path, f.value.field,
-             setIndividualAnswer(f.value.text, q, *author, answer));
+             setIndividualAnswer(f.value.text, q, *author, answer, time));
     return;
   }
   std::vector<std::string> lines = splitLines(f.value.text);
@@ -2527,13 +2711,17 @@ void SpecReviewAnnotations::setAnswer(
 }
 
 void SpecReviewAnnotations::editComment(const std::string& commentId,
-                                        const std::string& text) {
+                                        const std::string& text,
+                                        const std::optional<std::string>& at) {
+  const std::string time = changeTime(at);
   const Found f = findComment(*doc_, commentId);
   const Comment& c = f.parsed.comments[f.index];
   const Block& b = f.parsed.blocks[f.block];
   std::vector<std::string> lines = splitLines(f.value.text);
   const std::vector<std::string> t = splitLines(text);
-  std::vector<std::string> block{trimRight(c.headerPrefix + t[0])};
+  const std::string who = *authorAndTime(c.author, time);
+  std::vector<std::string> block{
+      trimRight(trimRight(c.beforeAuthor) + " (" + who + "): " + t[0])};
   for (std::string& l : quoted(t, 1)) block.push_back(std::move(l));
   lines.erase(lines.begin() + b.start, lines.begin() + b.end + 1);
   lines.insert(lines.begin() + b.start, block.begin(), block.end());
@@ -2642,6 +2830,8 @@ std::string SpecMarkEntry::toJson(bool team) const {
                     : std::string()) +
          (changeId ? ",\"changeId\":" + jsonEncodeStr(*changeId)
                    : std::string()) +
+         (changedAt ? ",\"changedAt\":" + jsonEncodeStr(*changedAt)
+                    : std::string()) +
          (team ? ",\"authors\":" + jsonStrList(authors) +
                      ",\"votes\":" + jsonList(votes)
                : std::string()) +
@@ -2763,6 +2953,7 @@ std::vector<SpecMarkEntry> SpecReviewAnnotations::listMarks(
       if (m.changeIndex) {
         e.changeId = "M-" + std::to_string(first + *m.changeIndex);
       }
+      e.changedAt = m.changedAt;
       out.push_back(std::move(e));
     }
   }
@@ -2911,7 +3102,9 @@ FoundMark findMark(const SpecReviewAnnotations& api, const SpecDocument& doc,
 std::string SpecReviewAnnotations::commentChange(
     const std::string& markId, const std::string& text,
     const std::optional<std::string>& author,
-    const std::optional<std::string>& revision) {
+    const std::optional<std::string>& revision,
+    const std::optional<std::string>& at) {
+  const std::string time = changeTime(at);
   const FoundMark f = findMark(*this, *doc_, markId, revision);
   const Mark& m = f.parsed.marks[f.index];
   if (!isChangeMark(m.kind)) {
@@ -2939,9 +3132,11 @@ std::string SpecReviewAnnotations::commentChange(
                                     "]\" or \"<<}\", which its quote cannot "
                                     "hold");
   }
-  const std::string markup = "{>> [" + d + " " + body + " " + d + "] " +
-                             comment + " <<}" +
-                             (author ? "{@" + *author + "}" : "");
+  std::vector<std::string> authors;
+  if (author) authors.push_back(*author);
+  const std::string markup =
+      "{>> [" + d + " " + body + " " + d + "] " + comment + " <<}" +
+      review_internal::formatAttributionToken(authors, {}, time);
   setValue(*doc_, f.path, f.field,
            f.value.substr(0, m.end) + markup + f.value.substr(m.end));
   return "M-" + std::to_string(std::stoll(markId.substr(2)) + 1);
@@ -2949,7 +3144,9 @@ std::string SpecReviewAnnotations::commentChange(
 
 void SpecReviewAnnotations::editMarkComment(
     const std::string& markId, const std::string& text,
-    const std::optional<std::string>& revision) {
+    const std::optional<std::string>& revision,
+    const std::optional<std::string>& at) {
+  const std::string time = changeTime(at);
   const FoundMark f = findMark(*this, *doc_, markId, revision);
   const Mark& m = f.parsed.marks[f.index];
   const std::string comment = checkInlineComment(text);
@@ -2968,8 +3165,10 @@ void SpecReviewAnnotations::editMarkComment(
   } else {
     throw SpecReviewAnnotationError(markId + " holds no comment");
   }
+  const std::string token =
+      review_internal::formatAttributionToken(m.authors, m.votes, time);
   setValue(*doc_, f.path, f.field,
-           f.value.substr(0, m.start) + markup + f.value.substr(m.bodyEnd));
+           f.value.substr(0, m.start) + markup + token + f.value.substr(m.end));
 }
 
 /* A decided conflict, as `removeAllAnnotations` found it before any change. */
@@ -3493,22 +3692,88 @@ SpecMarkedChange markChangeText(const std::string& oldValue,
   return {text, exact};
 }
 
+namespace {
+
+/* `after` (a value just written as marks) with an attribution token on every
+ * change mark it lacks one on (SOM §11.9.10): the token of the same change in
+ * `before` (same kind, old and new text; each used once, in order) when
+ * `before` held it, else a new one with `author` and `time`. */
+std::string stampMarks(const std::string& before, const std::string& after,
+                       const std::optional<std::string>& author,
+                       const std::string& time) {
+  auto key = [](const Mark& m) {
+    return std::string(specMarkKindName(m.kind)) + '\0' +
+           markReplacement(m, false) + '\0' + markReplacement(m, true);
+  };
+  std::vector<std::pair<std::string, std::string>> old;
+  for (const Mark& m : parse(before).marks) {
+    if (isChangeMark(m.kind)) {
+      old.emplace_back(key(m), before.substr(m.bodyEnd, m.end - m.bodyEnd));
+    }
+  }
+  std::vector<bool> used(old.size(), false);
+  std::vector<std::string> authors;
+  if (author) authors.push_back(*author);
+  const std::string fresh =
+      review_internal::formatAttributionToken(authors, {}, time);
+  std::vector<std::pair<std::size_t, std::string>> inserts;
+  for (const Mark& m : parse(after).marks) {
+    if (!isChangeMark(m.kind) || m.end > m.bodyEnd) continue;
+    const std::string k = key(m);
+    std::string token = fresh;
+    for (std::size_t i = 0; i < old.size(); i++) {
+      if (!used[i] && old[i].first == k) {
+        used[i] = true;
+        token = old[i].second;
+        break;
+      }
+    }
+    if (!token.empty()) inserts.emplace_back(m.bodyEnd, token);
+  }
+  std::string v = after;
+  for (auto it = inserts.rbegin(); it != inserts.rend(); ++it) {
+    v = v.substr(0, it->first) + it->second + v.substr(it->first);
+  }
+  return v;
+}
+
+/* Refuses an `author` that is not a member id. */
+void checkAuthor(const std::optional<std::string>& author) {
+  if (author && !isReviewMemberId(*author)) {
+    throw SpecReviewAnnotationError(
+        "\"" + *author +
+        "\" is not a member id (lowercase letters, digits and _)");
+  }
+}
+
+}  // namespace
+
 SpecMarkedChange SpecReviewAnnotations::setMarked(
     const std::string& path, const std::optional<std::string>& field,
-    const std::string& text) {
-  SpecMarkedChange result =
-      markKeepingChangeComments(getValue(*doc_, path, field), text);
-  setValue(*doc_, path, field, result.text);
-  return result;
+    const std::string& text, const std::optional<std::string>& author,
+    const std::optional<std::string>& at) {
+  checkAuthor(author);
+  const std::string time = changeTime(at);
+  const std::string current = getValue(*doc_, path, field);
+  const SpecMarkedChange result = markKeepingChangeComments(current, text);
+  SpecMarkedChange stamped{stampMarks(current, result.text, author, time),
+                           result.exact};
+  setValue(*doc_, path, field, stamped.text);
+  return stamped;
 }
 
 SpecMarkedChange SpecReviewAnnotations::markAgainst(
     const std::string& path, const std::optional<std::string>& field,
-    const std::string& earlier) {
-  SpecMarkedChange result =
-      markChangeText(earlier, getValue(*doc_, path, field));
-  setValue(*doc_, path, field, result.text);
-  return result;
+    const std::string& earlier, const std::optional<std::string>& author,
+    const std::optional<std::string>& at) {
+  checkAuthor(author);
+  const std::string time = changeTime(at);
+  const std::string current = getValue(*doc_, path, field);
+  const SpecMarkedChange result = markChangeText(earlier, current);
+  SpecMarkedChange stamped{stampMarks(current, result.text, author, time),
+                           result.exact};
+  setValue(*doc_, path, field, stamped.text);
+  return stamped;
 }
 
 // ---------------------------------------------------------------------------
@@ -3533,6 +3798,7 @@ std::vector<ReviewPiece> reviewPieces(const std::string& value) {
         piece.id = c.id;
         piece.author = c.author;
         piece.commentText = c.text;
+        piece.changedAt = c.changedAt;
       } else if (b.kind == SpecReviewAnnotationKind::Conflict) {
         piece.id = p.conflicts[b.conflict].id;
       } else {
@@ -3558,6 +3824,7 @@ std::vector<ReviewMark> reviewMarks(const std::string& value) {
     r.markup = value.substr(m.start, m.end - m.start);
     r.authors = m.authors;
     r.votes = m.votes;
+    r.changedAt = m.changedAt;
     r.accepted = markReplacement(m, true);
     r.rejected = markReplacement(m, false);
     out.push_back(std::move(r));
@@ -3577,16 +3844,28 @@ std::string decideReviewMarks(const std::string& value,
   return v;
 }
 
-std::string formatAttributionToken(const std::vector<std::string>& authors,
-                                   const std::vector<SpecMarkVote>& votes) {
-  std::string out = "{@";
-  for (std::size_t i = 0; i < authors.size(); i++) {
-    if (i > 0) out += ",";
-    out += authors[i];
+std::string formatAttributionToken(
+    const std::vector<std::string>& authors,
+    const std::vector<SpecMarkVote>& votes,
+    const std::optional<std::string>& changedAt) {
+  std::vector<std::string> parts;
+  if (!authors.empty()) {
+    std::string a;
+    for (std::size_t i = 0; i < authors.size(); i++) {
+      if (i > 0) a += ",";
+      a += authors[i];
+    }
+    parts.push_back(std::move(a));
   }
-  for (std::size_t i = 0; i < votes.size(); i++) {
-    if (i > 0 || !authors.empty()) out += " ";
-    out += (votes[i].accept ? "+" : "-") + votes[i].member;
+  for (const SpecMarkVote& v : votes) {
+    parts.push_back((v.accept ? "+" : "-") + v.member);
+  }
+  if (changedAt) parts.push_back(*changedAt);
+  if (parts.empty()) return "";
+  std::string out = "{@";
+  for (std::size_t i = 0; i < parts.size(); i++) {
+    if (i > 0) out += " ";
+    out += parts[i];
   }
   return out + "}";
 }
@@ -3594,7 +3873,8 @@ std::string formatAttributionToken(const std::vector<std::string>& authors,
 std::string withAttribution(const std::string& value, const ReviewMark& m,
                             const std::vector<std::string>& authors,
                             const std::vector<SpecMarkVote>& votes) {
-  return value.substr(0, m.bodyEnd) + formatAttributionToken(authors, votes) +
+  return value.substr(0, m.bodyEnd) +
+         formatAttributionToken(authors, votes, m.changedAt) +
          value.substr(m.end);
 }
 
@@ -3611,10 +3891,11 @@ std::vector<std::pair<std::string, std::string>> reviewTeamAnswers(
 
 std::optional<std::string> setIndividualAnswerText(
     const std::string& value, const std::string& questionId,
-    const std::string& member, const std::string& answer) {
+    const std::string& member, const std::string& answer,
+    const std::optional<std::string>& changedAt) {
   for (const Question& q : parse(value).questions) {
     if (q.id == questionId)
-      return setIndividualAnswer(value, q, member, answer);
+      return setIndividualAnswer(value, q, member, answer, changedAt);
   }
   return std::nullopt;
 }

@@ -83,6 +83,9 @@ public final class SpecReviewAnnotation {
   /** A conflict's lettered alternatives; empty for the other kinds. */
   public final List<SpecConflictAlternative> alternatives;
 
+  /** When a comment or mark was last changed (SOM §11.9.10), or null. */
+  public final String changedAt;
+
   SpecReviewAnnotation(
       SpecReviewAnnotationKind kind,
       String path,
@@ -152,6 +155,36 @@ public final class SpecReviewAnnotation {
       List<SpecIndividualAnswer> answers,
       String base,
       List<SpecConflictAlternative> alternatives) {
+    this(kind, path, field, line, id, qualifiedId, author, text, context, topic, starred,
+        combined, answer, options, recommended, markKind, newText, comment, authors, votes,
+        answers, base, alternatives, null);
+  }
+
+  SpecReviewAnnotation(
+      SpecReviewAnnotationKind kind,
+      String path,
+      String field,
+      int line,
+      String id,
+      String qualifiedId,
+      String author,
+      String text,
+      String context,
+      String topic,
+      boolean starred,
+      boolean combined,
+      String answer,
+      List<SpecQuestionOption> options,
+      String recommended,
+      SpecMarkKind markKind,
+      String newText,
+      String comment,
+      List<String> authors,
+      List<SpecMarkVote> votes,
+      List<SpecIndividualAnswer> answers,
+      String base,
+      List<SpecConflictAlternative> alternatives,
+      String changedAt) {
     this.kind = kind;
     this.path = path;
     this.field = field;
@@ -178,6 +211,7 @@ public final class SpecReviewAnnotation {
     this.answers = frozen(answers);
     this.base = base == null ? "" : base;
     this.alternatives = frozen(alternatives);
+    this.changedAt = changedAt;
   }
 
   private static <T> List<T> frozen(List<T> list) {
@@ -243,6 +277,9 @@ public final class SpecReviewAnnotation {
         out.put("author", author);
         out.put("text", text);
         out.put("context", context);
+        if (changedAt != null) {
+          out.put("changedAt", changedAt);
+        }
         break;
       case QUESTION:
         out.put("id", id);
@@ -293,6 +330,9 @@ public final class SpecReviewAnnotation {
         out.put("text", text);
         out.put("newText", newText);
         out.put("comment", comment);
+        if (changedAt != null) {
+          out.put("changedAt", changedAt);
+        }
         if (team) {
           out.put("authors", new ArrayList<Object>(authors));
           List<Object> vs = new ArrayList<>();

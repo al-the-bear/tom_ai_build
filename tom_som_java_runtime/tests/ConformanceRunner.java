@@ -1143,6 +1143,12 @@ public final class ConformanceRunner {
   }
 
   /**
+   * The change time every annotation write records in the conformance cases (SOM §11.9.10) unless
+   * a case names its own {@code now}.
+   */
+  private static final String CORPUS_NOW = "2026-11-07T14:05+01:00";
+
+  /**
    * Runs one annotation-script case; {@code team} renders the results in the extended form {@code
    * team_annotation_cases.json} pins (SOM §11.9.8).
    */
@@ -1151,7 +1157,11 @@ public final class ConformanceRunner {
       SpecModel model, SomMetaTree tree, Map<String, Object> c, boolean team) {
     SpecDocument doc =
         documentFromState(Json.parseObject(Json.write(c.get("state"))));
-    SpecReviewAnnotations api = new SpecReviewAnnotations(doc, (String) c.get("qualifier"));
+    // A fixed clock, so a write's change time (SOM §11.9.10) is the same in every runtime: the
+    // case's `now`, else the corpus default.
+    String now = c.get("now") != null ? (String) c.get("now") : CORPUS_NOW;
+    SpecReviewAnnotations api =
+        new SpecReviewAnnotations(doc, (String) c.get("qualifier"), () -> now);
     List<Object> results = new ArrayList<>();
     for (Object opObj : (List<Object>) c.get("ops")) {
       Map<String, Object> op = (Map<String, Object>) opObj;
@@ -1201,7 +1211,8 @@ public final class ConformanceRunner {
             ((Number) op.get("afterParagraph")).intValue(),
             (String) op.get("text"),
             (String) op.get("author"),
-            (String) op.get("id"));
+            (String) op.get("id"),
+            (String) op.get("at"));
       case "insertQuestion":
         api.insertQuestion(
             (String) op.get("path"),
@@ -1215,10 +1226,14 @@ public final class ConformanceRunner {
             SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")));
         return null;
       case "setAnswer":
-        api.setAnswer((String) op.get("id"), (String) op.get("answer"), (String) op.get("author"));
+        api.setAnswer(
+            (String) op.get("id"),
+            (String) op.get("answer"),
+            (String) op.get("author"),
+            (String) op.get("at"));
         return null;
       case "editComment":
-        api.editComment((String) op.get("id"), (String) op.get("text"));
+        api.editComment((String) op.get("id"), (String) op.get("text"), (String) op.get("at"));
         return null;
       case "resolve":
         api.resolve((String) op.get("id"));
@@ -1275,7 +1290,8 @@ public final class ConformanceRunner {
               (String) op.get("id"),
               (String) op.get("text"),
               (String) op.get("author"),
-              "@current".equals(rev) ? api.revision() : rev);
+              "@current".equals(rev) ? api.revision() : rev,
+              (String) op.get("at"));
         }
       case "editMarkComment":
         {
@@ -1283,16 +1299,25 @@ public final class ConformanceRunner {
           api.editMarkComment(
               (String) op.get("id"),
               (String) op.get("text"),
-              "@current".equals(rev) ? api.revision() : rev);
+              "@current".equals(rev) ? api.revision() : rev,
+              (String) op.get("at"));
           return null;
         }
       case "setMarked":
         return api.setMarked(
-                (String) op.get("path"), (String) op.get("field"), (String) op.get("text"))
+                (String) op.get("path"),
+                (String) op.get("field"),
+                (String) op.get("text"),
+                (String) op.get("author"),
+                (String) op.get("at"))
             .toJson();
       case "markAgainst":
         return api.markAgainst(
-                (String) op.get("path"), (String) op.get("field"), (String) op.get("earlier"))
+                (String) op.get("path"),
+                (String) op.get("field"),
+                (String) op.get("earlier"),
+                (String) op.get("author"),
+                (String) op.get("at"))
             .toJson();
       case "roundTrip":
         {

@@ -4247,7 +4247,8 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     char *id = spec_review_annotations_insert_comment(
         api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
         json_i64_or(op, "afterParagraph", 0), som_json_str_or(op, "text"),
-        json_opt_str(op, "author"), json_opt_str(op, "id"), &err);
+        json_opt_str(op, "author"), json_opt_str(op, "id"),
+        json_opt_str(op, "at"), &err);
     if (id == NULL) {
       ok = 0;
     } else {
@@ -4275,15 +4276,16 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     const char *author = json_opt_str(op, "author");
     ok = author != NULL ? spec_review_annotations_set_member_answer(
                               api, som_json_str_or(op, "id"), author,
-                              som_json_str_or(op, "answer"), &err)
+                              som_json_str_or(op, "answer"),
+                              json_opt_str(op, "at"), &err)
                         : spec_review_annotations_set_answer(
                               api, som_json_str_or(op, "id"),
                               som_json_str_or(op, "answer"), &err);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "editComment") == 0) {
-    ok = spec_review_annotations_edit_comment(api, som_json_str_or(op, "id"),
-                                              som_json_str_or(op, "text"),
-                                              &err);
+    ok = spec_review_annotations_edit_comment(
+        api, som_json_str_or(op, "id"), som_json_str_or(op, "text"),
+        json_opt_str(op, "at"), &err);
     som_buf_puts(&b, "null");
   } else if (strcmp(name, "resolve") == 0) {
     ok = spec_review_annotations_resolve(api, som_json_str_or(op, "id"), &err);
@@ -4306,7 +4308,7 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     if (strcmp(name, "commentChange") == 0) {
       char *id = spec_review_annotations_comment_change(
           api, som_json_str_or(op, "id"), som_json_str_or(op, "text"),
-          json_opt_str(op, "author"), rev, &err);
+          json_opt_str(op, "author"), rev, json_opt_str(op, "at"), &err);
       if (id == NULL) {
         ok = 0;
       } else {
@@ -4318,7 +4320,7 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     } else {
       ok = spec_review_annotations_edit_mark_comment(
           api, som_json_str_or(op, "id"), som_json_str_or(op, "text"), rev,
-          &err);
+          json_opt_str(op, "at"), &err);
       som_buf_puts(&b, "null");
     }
     free(current);
@@ -4401,17 +4403,21 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     spec_mark_report_free(&report);
   } else if (strcmp(name, "setMarked") == 0 ||
              strcmp(name, "markAgainst") == 0) {
-    SpecMarkedChange mc =
-        strcmp(name, "setMarked") == 0
-            ? spec_review_annotations_set_marked(
-                  api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
-                  som_json_str_or(op, "text"))
-            : spec_review_annotations_mark_against(
-                  api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
-                  som_json_str_or(op, "earlier"));
-    char *j = spec_marked_change_to_json(&mc);
-    som_buf_puts(&b, j);
-    free(j);
+    SpecMarkedChange mc;
+    ok = strcmp(name, "setMarked") == 0
+             ? spec_review_annotations_set_marked(
+                   api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+                   som_json_str_or(op, "text"), json_opt_str(op, "author"),
+                   json_opt_str(op, "at"), &mc, &err)
+             : spec_review_annotations_mark_against(
+                   api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+                   som_json_str_or(op, "earlier"), json_opt_str(op, "author"),
+                   json_opt_str(op, "at"), &mc, &err);
+    if (ok) {
+      char *j = spec_marked_change_to_json(&mc);
+      som_buf_puts(&b, j);
+      free(j);
+    }
     spec_marked_change_free(&mc);
   } else if (strcmp(name, "strip") == 0) {
     *stripped = spec_review_annotations_stripped(api);
@@ -4461,6 +4467,16 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
   return som_buf_take(&b);
 }
 
+/* The change time every annotation write records in the conformance cases
+ * (SOM §11.9.10) unless a case names its own `now` — the Dart reference's
+ * `_corpusNow`. */
+#define CORPUS_NOW "2026-11-07T14:05+01:00"
+
+/* A fixed clock: the time its context names. */
+static char *fixed_clock(void *context) {
+  return som_strdup((const char *)context);
+}
+
 /* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
  * every op runs in order on one document loaded from `state`; each op's
  * result and the final state must equal `expect` (JSON equality). `team`
@@ -4486,8 +4502,12 @@ static void run_annotation_cases_in(Checker *c, const SpecModel *model,
     SpecDocument doc;
     doc_from_state(&doc, &state);
     document_json_free(&state);
-    SpecReviewAnnotations api =
-        spec_review_annotations_make(&doc, json_opt_str(kase, "qualifier"));
+    /* A fixed clock, so a write's change time (SOM §11.9.10) is the same in
+     * every runtime: the case's `now`, else the corpus default. */
+    const char *now = json_opt_str(kase, "now");
+    SpecReviewAnnotations api = spec_review_annotations_make_with_clock(
+        &doc, json_opt_str(kase, "qualifier"), fixed_clock,
+        (void *)(now != NULL ? now : CORPUS_NOW));
     const SomJson *ops = som_json_get(kase, "ops");
     const SomJson *expect = som_json_get(kase, "expect");
     const SomJson *want_results = som_json_get(expect, "results");

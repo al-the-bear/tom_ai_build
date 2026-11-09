@@ -23,8 +23,8 @@
  * or a mark that is not there returns 0 (or NULL), changes nothing, and fills
  * `*err` (a `SpecReviewAnnotationError`, when non-NULL) with an owned message.
  *
- * Ownership: `SpecReviewAnnotations` borrows its document and qualifier; both
- * must outlive it, and it owns nothing. Every listed annotation, list, id and
+ * Ownership: `SpecReviewAnnotations` borrows its document, qualifier and
+ * clock context; they must outlive it, and it owns nothing. Every listed annotation, list, id and
  * string returned is owned by the caller and released as documented below.
  */
 #ifndef SPEC_REVIEW_ANNOTATIONS_H
@@ -99,6 +99,9 @@ typedef struct {
 typedef struct {
   SomStrList members; /* who gave this answer, in the order written */
   char *answer;       /* the answer, trimmed */
+  /* When the answer was last written (SOM §11.9.10), the last part of the
+   * member list; NULL without one. */
+  char *changed_at;
 } SpecIndividualAnswer;
 
 /* One lettered alternative of a conflict block, `- (a) **alice:** text`.
@@ -180,6 +183,9 @@ typedef struct {
   /* A conflict's lettered alternatives. */
   SpecConflictAlternative *alternatives;
   size_t alternatives_len;
+  /* When a comment or mark was last changed (SOM §11.9.10); NULL without a
+   * change time and for the other kinds. */
+  char *changed_at;
 } SpecReviewAnnotation;
 
 void spec_review_annotation_free(SpecReviewAnnotation *a);
@@ -202,7 +208,9 @@ char *spec_review_annotation_answer_letter(const SpecReviewAnnotation *a);
 char *spec_review_annotation_decision_letter(const SpecReviewAnnotation *a);
 
 /* The canonical JSON form the conformance corpus pins (every key written,
- * `null` explicitly). Owned result. */
+ * `null` explicitly, except `changedAt`, written only when set: after a
+ * comment's `context`, after a mark's `comment`, and after an individual
+ * answer's `answerLetter`). Owned result. */
 char *spec_review_annotation_to_json(const SpecReviewAnnotation *a);
 /* The same with the team members of SOM §11.9.8. Owned. */
 char *spec_review_annotation_to_team_json(const SpecReviewAnnotation *a);
@@ -261,6 +269,31 @@ typedef struct {
 void spec_review_annotation_error_init(SpecReviewAnnotationError *err);
 void spec_review_annotation_error_free(SpecReviewAnnotationError *err);
 
+/* ---- change times (SOM §11.9.10) ------------------------------------------
+ *
+ * Every annotation records when it was last changed, next to its author: the
+ * last word of a mark's attribution token (`{@alice 2026-11-07T14:05+01:00}`,
+ * `{@2026-11-07T14:05+01:00}`), the last part of a comment header's
+ * parentheses (`(Alexis, 2026-11-07T14:05+01:00):`) and of an individual
+ * answer's member list. A change time is minutes with the writer's UTC
+ * offset, `2026-11-07T14:05+01:00` or `2026-11-07T13:05Z`. */
+
+/* Whether `s` is a change time of the form SOM §11.9.10 fixes:
+ * `YYYY-MM-DDTHH:MM` followed by `Z` or `+HH:MM` / `-HH:MM`. */
+int spec_review_is_time(const char *s);
+
+/* `at` — an ISO 8601 time with minutes, optional seconds and fraction, and an
+ * offset or `Z` (`YYYY-MM-DDTHH:MM[:SS[.fff]](Z|±HH:MM)`, surrounding
+ * whitespace ignored) — as a change time: seconds and fraction cut, the offset
+ * kept as given. Owned; NULL (filling `*err`, when non-NULL) for any other
+ * shape. */
+char *spec_review_normalize_time(const char *at,
+                                 SpecReviewAnnotationError *err);
+
+/* The system clock's current local time as a change time, in its local UTC
+ * offset (`2026-11-07T14:05+01:00`). Owned. */
+char *spec_review_system_time(void);
+
 /* ---- inline-mark review (SOM §11.9.3) ------------------------------------ */
 
 /* What to do with one inline mark. */
@@ -318,11 +351,15 @@ typedef struct {
   char *comment_id;
   /* The change an attached change comment is about, by id; NULL otherwise. */
   char *change_id;
+  /* When the mark was last changed (SOM §11.9.10), from its attribution
+   * token; NULL without one. */
+  char *changed_at;
 } SpecMarkEntry;
 
 void spec_mark_entry_free(SpecMarkEntry *e);
 /* The canonical JSON form the conformance corpus pins; `quotedChange`,
- * `commentId` and `changeId` appear only on the marks they describe. Owned. */
+ * `commentId`, `changeId` and `changedAt` appear only on the marks they
+ * describe. Owned. */
 char *spec_mark_entry_to_json(const SpecMarkEntry *e);
 /* The same with `authors` and `votes`. Owned. */
 char *spec_mark_entry_to_team_json(const SpecMarkEntry *e);
@@ -433,10 +470,22 @@ char *spec_marked_change_to_json(const SpecMarkedChange *c);
 SpecMarkedChange spec_mark_change_text(const char *old_value,
                                        const char *new_value);
 
-/* The lines of a comment block (`author` NULL or "" for none), written into
- * `out` (initialised by the callee). */
+/* The lines of a comment block (`author` NULL or "" for none; `changed_at`,
+ * a change time, NULL for none), written into `out` (initialised by the
+ * callee). The header's parentheses hold the author and the change time,
+ * `(Alexis, 2026-11-07T14:05+01:00):`, or either alone (SOM §11.9.10). */
 void spec_format_comment_block(const char *id, const char *text,
-                               const char *author, SomStrList *out);
+                               const char *author, const char *changed_at,
+                               SomStrList *out);
+
+/* The attribution token for `authors`, `votes` and `changed_at` (each may be
+ * empty / NULL), `{@agent +alice -bob 2026-11-07T14:05+01:00}` (SOM §11.9.8,
+ * §11.9.10): the authors joined with `,`, then the votes, then the time,
+ * separated by spaces. "" when there is nothing to write. Owned. */
+char *spec_review_format_attribution_token(const SomStrList *authors,
+                                           const SpecMarkVote *votes,
+                                           size_t votes_len,
+                                           const char *changed_at);
 
 /* The lines of a question block, written into `out` (initialised by the
  * callee). */
@@ -482,17 +531,35 @@ typedef struct {
 void spec_paragraph_list_init(SpecParagraphList *l);
 void spec_paragraph_list_free(SpecParagraphList *l);
 
+/* A clock the writes take their change time from (SOM §11.9.10) when no `at`
+ * is passed: called with the `clock_context` it was registered with, it
+ * returns the change time to record as a heap string (`malloc`) the runtime
+ * frees. NULL from the clock falls back to the system clock. */
+typedef char *(*SpecReviewClock)(void *context);
+
 /* The annotations of a document, and the operations that edit them. */
 typedef struct {
   SpecDocument *doc; /* borrowed */
   /* The document's id or name, written in front of a comment id cited
    * outside the document (`SBP` → `SBP C-12`); NULL for bare ids. Borrowed. */
   const char *qualifier;
+  /* The clock the writes take a change time from when no `at` is passed;
+   * NULL: the system clock in the writer's offset
+   * (`spec_review_system_time`). */
+  SpecReviewClock clock;
+  /* Passed to `clock`; borrowed. */
+  void *clock_context;
 } SpecReviewAnnotations;
 
-/* Wraps `doc`. */
+/* Wraps `doc`, with the system clock. */
 SpecReviewAnnotations spec_review_annotations_make(SpecDocument *doc,
                                                    const char *qualifier);
+
+/* Wraps `doc`; `clock` (with `clock_context`) fixes the change time the
+ * writes record (the conformance driver passes a fixed one). */
+SpecReviewAnnotations spec_review_annotations_make_with_clock(
+    SpecDocument *doc, const char *qualifier, SpecReviewClock clock,
+    void *clock_context);
 
 /* Every annotation, in document order, written into `out` (initialised by the
  * callee; release with `spec_review_annotation_list_free`). */
@@ -527,14 +594,17 @@ int spec_review_annotations_paragraphs(const SpecReviewAnnotations *r,
 /* Inserts a comment block after paragraph `after_paragraph` (0-based; -1: at
  * the start) of the value at `path` / `field` (NULL: content), and returns its
  * id (owned) — `id` when non-NULL, else the next free one. `author` may be
- * NULL. Returns NULL (filling `*err`) when the paragraph does not exist. */
+ * NULL. The header records the change time (SOM §11.9.10): `at` normalized
+ * (`spec_review_normalize_time`) when non-NULL, else the clock's. Returns
+ * NULL (filling `*err`) when the paragraph does not exist or `at` is not a
+ * time; nothing changes then. */
 char *spec_review_annotations_insert_comment(const SpecReviewAnnotations *r,
                                              const char *path,
                                              const char *field,
                                              long long after_paragraph,
                                              const char *text,
                                              const char *author,
-                                             const char *id,
+                                             const char *id, const char *at,
                                              SpecReviewAnnotationError *err);
 
 /* Inserts a question block after paragraph `after_paragraph` (0-based; -1: at
@@ -560,20 +630,27 @@ int spec_review_annotations_set_answer(const SpecReviewAnnotations *r,
 
 /* Writes member `author`'s individual answer to the question instead of the
  * team's, grouped and placed by the rules of SOM §11.9.8: the member leaves
- * the line it was on; a non-empty answer that is not commented joins the line
- * with the identical uncommented answer, else gets a line of its own (empty:
- * only takes the member out). Refused — 0, `*err` filled — when `author` is not
- * a member id or the question does not exist. */
+ * the line it was on; a non-empty answer is written with its change time
+ * (SOM §11.9.10; `at` normalized when non-NULL, else the clock's) and, when
+ * it is not commented, joins the line with the identical uncommented answer
+ * and the same time, else gets a line of its own (empty: only takes the
+ * member out; `at` is then not read). Refused — 0, `*err` filled, nothing
+ * changes — when `author` is not a member id, the question does not exist or
+ * `at` is not a time. */
 int spec_review_annotations_set_member_answer(const SpecReviewAnnotations *r,
                                               const char *question_id,
                                               const char *author,
                                               const char *answer,
+                                              const char *at,
                                               SpecReviewAnnotationError *err);
 
-/* Replaces a comment's text; its marker, id and author stay as written. */
+/* Replaces a comment's text; its marker, id and author stay as written, and
+ * the header records the change time (SOM §11.9.10): `at` normalized when
+ * non-NULL, else the clock's. Refused — 0, `*err` filled, nothing changes —
+ * for an unknown id and an `at` that is not a time. */
 int spec_review_annotations_edit_comment(const SpecReviewAnnotations *r,
                                          const char *comment_id,
-                                         const char *text,
+                                         const char *text, const char *at,
                                          SpecReviewAnnotationError *err);
 
 /* Removes one comment or question by id (a qualified comment id, `SBP C-12`,
@@ -628,29 +705,35 @@ void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
 
 /* Writes a change comment (SOM §11.9.3) directly after the change mark
  * `mark_id` (`M-<n>`), its quote written from the mark and `text` after it,
- * with an attribution token `{@author}` when `author` is non-NULL, and
- * returns the new comment's id (owned). Refused — NULL, `*err` filled,
- * nothing changes — for an unknown id, a stale `revision` (when non-NULL),
- * a mark that is not a change or already has an attached comment, a change
- * its quote cannot hold, a `text` that is empty or holds a mark delimiter or
- * a blank line, and an `author` that is not a member id. */
+ * with an attribution token holding `author` (when non-NULL) and the change
+ * time (SOM §11.9.10; `at` normalized when non-NULL, else the clock's),
+ * `{@author 2026-11-07T14:05+01:00}`, and returns the new comment's id
+ * (owned). Refused — NULL, `*err` filled, nothing changes — for an unknown
+ * id, a stale `revision` (when non-NULL), a mark that is not a change or
+ * already has an attached comment, a change its quote cannot hold, a `text`
+ * that is empty or holds a mark delimiter or a blank line, an `author` that is
+ * not a member id, and an `at` that is not a time. */
 char *spec_review_annotations_comment_change(const SpecReviewAnnotations *r,
                                              const char *mark_id,
                                              const char *text,
                                              const char *author,
                                              const char *revision,
+                                             const char *at,
                                              SpecReviewAnnotationError *err);
 
 /* Replaces the comment of the comment mark, change comment or commented
  * highlight `mark_id` with `text` (SOM §11.9.3). A change comment keeps its
- * quote as written, and the attribution token stays. Refused — 0, `*err`
- * filled, nothing changes — for an unknown id, a stale `revision` (when
- * non-NULL), a mark that holds no comment, and a `text` that is empty or
- * holds a mark delimiter or a blank line. */
+ * quote as written; the attribution token keeps its authors and votes and
+ * records the change time (SOM §11.9.10; `at` normalized when non-NULL, else
+ * the clock's). Refused — 0, `*err` filled, nothing changes — for an unknown
+ * id, a stale `revision` (when non-NULL), a mark that holds no comment, a
+ * `text` that is empty or holds a mark delimiter or a blank line, and an `at`
+ * that is not a time. */
 int spec_review_annotations_edit_mark_comment(const SpecReviewAnnotations *r,
                                               const char *mark_id,
                                               const char *text,
                                               const char *revision,
+                                              const char *at,
                                               SpecReviewAnnotationError *err);
 
 /* Removes every annotation and writes the result back: every inline mark
@@ -665,20 +748,37 @@ int spec_review_annotations_remove_all_annotations(
     SpecReviewAnnotationError *err);
 
 /* Writes `text` at `path` / `field` (NULL: content) as a marked change
- * against the value there now. A value that already holds change marks is
- * compared from its original — every mark rejected — so a second edit of the
- * same passage updates its mark instead of nesting one. Change comments are
- * kept: taken out of the original, then written back where as many
- * non-whitespace characters have passed as before them (SOM §11.9.3). */
-SpecMarkedChange spec_review_annotations_set_marked(
-    const SpecReviewAnnotations *r, const char *path, const char *field,
-    const char *text);
+ * against the value there now, into `*out` (initialised by the callee in
+ * every case; release with `spec_marked_change_free`). A value that already
+ * holds change marks is compared from its original — every mark rejected — so
+ * a second edit of the same passage updates its mark instead of nesting one.
+ * Change comments are kept: taken out of the original, then written back
+ * where as many non-whitespace characters have passed as before them (SOM
+ * §11.9.3). Every change mark written gets an attribution token (SOM
+ * §11.9.10): the token of the same change in the value before (same kind, old
+ * and new text; each used once, in order) when it held it, else
+ * `{@author <time>}` (`author` NULL: `{@<time>}`), the time `at` normalized
+ * when non-NULL, else the clock's. Refused — 0, `*err` filled, nothing
+ * changes — for an `author` that is not a member id and an `at` that is not a
+ * time. */
+int spec_review_annotations_set_marked(const SpecReviewAnnotations *r,
+                                       const char *path, const char *field,
+                                       const char *text, const char *author,
+                                       const char *at, SpecMarkedChange *out,
+                                       SpecReviewAnnotationError *err);
 
 /* Marks the value at `path` / `field` as a change against `earlier`, an
- * earlier version of it, and writes the result. */
-SpecMarkedChange spec_review_annotations_mark_against(
-    const SpecReviewAnnotations *r, const char *path, const char *field,
-    const char *earlier);
+ * earlier version of it, and writes the result into `*out` (initialised by
+ * the callee in every case); its change marks get attribution tokens as
+ * `spec_review_annotations_set_marked` writes them. Refused — 0, `*err`
+ * filled, nothing changes — for an `author` that is not a member id and an
+ * `at` that is not a time. */
+int spec_review_annotations_mark_against(const SpecReviewAnnotations *r,
+                                         const char *path, const char *field,
+                                         const char *earlier,
+                                         const char *author, const char *at,
+                                         SpecMarkedChange *out,
+                                         SpecReviewAnnotationError *err);
 
 /* A copy of the document without any annotation, for reading. The document
  * itself is unchanged. Owned heap document: release with
@@ -708,6 +808,7 @@ typedef struct {
   char *author;       /* a comment's author; NULL without one */
   char *comment_text; /* a comment's text; "" for the others */
   SomStrList question_ids; /* a question block's question ids */
+  char *changed_at; /* a comment's change time (SOM §11.9.10); NULL without */
 } SpecReviewPiece;
 
 typedef struct {
@@ -732,6 +833,7 @@ typedef struct {
   size_t votes_len;
   char *accepted; /* the text accepting it leaves */
   char *rejected; /* the text rejecting it leaves */
+  char *changed_at; /* its token's change time (SOM §11.9.10); NULL without */
 } SpecReviewMark;
 
 typedef struct {
@@ -749,8 +851,9 @@ void spec_review_marks_free(SpecReviewMarks *m);
 char *spec_review_decide_marks_text(const char *value, const int *decisions,
                                     size_t len);
 
-/* `value` with mark `m`'s token replaced by one for `authors` and `votes`,
- * `{@agent +alice -bob}`. */
+/* `value` with mark `m`'s token replaced by one for `authors`, `votes` and the
+ * mark's own change time, `{@agent +alice -bob 2026-11-07T14:05+01:00}`; the
+ * token is left out when there is nothing to write. */
 char *spec_review_with_attribution(const char *value, const SpecReviewMark *m,
                                    const SomStrList *authors,
                                    const SpecMarkVote *votes, size_t votes_len);
@@ -762,12 +865,13 @@ void spec_review_team_answers(const char *value, SomStrList *ids,
                               SomStrList *answers);
 
 /* `value` with `member`'s individual answer to question `question_id` set, as
- * `spec_review_annotations_set_member_answer` does; NULL when the value holds
- * no such question. */
+ * `spec_review_annotations_set_member_answer` does, with the change time
+ * `changed_at` (NULL: none); NULL when the value holds no such question. */
 char *spec_review_set_individual_answer_text(const char *value,
                                              const char *question_id,
                                              const char *member,
-                                             const char *answer);
+                                             const char *answer,
+                                             const char *changed_at);
 
 /* Carries the edits `x` → `y` over to `b`, a text equal to `x` except where
  * marks of `b` were decided in `x` (SOM §11.9.9, step 3): every edit lands in

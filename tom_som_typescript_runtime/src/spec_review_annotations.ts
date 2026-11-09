@@ -157,16 +157,24 @@ export class SpecIndividualAnswer {
   readonly answer: string;
   /** The letter the answer starts with (`(a)` or `**(a)**`), or null. */
   readonly answerLetter: string | null;
+  /** When the answer was last written (SOM §11.9.10), or null. */
+  readonly changedAt: string | null;
 
-  constructor(members: string[], answer: string) {
+  constructor(members: string[], answer: string, changedAt: string | null = null) {
     this.members = members;
     this.answer = answer;
     this.answerLetter = _leadingLetter(answer);
+    this.changedAt = changedAt;
   }
 
   /** The canonical JSON form. */
   toJson(): Record<string, unknown> {
-    return { members: this.members, answer: this.answer, answerLetter: this.answerLetter };
+    return {
+      members: this.members,
+      answer: this.answer,
+      answerLetter: this.answerLetter,
+      ...(this.changedAt !== null ? { changedAt: this.changedAt } : {}),
+    };
   }
 }
 
@@ -216,6 +224,7 @@ export interface SpecReviewAnnotationInit {
   answers?: SpecIndividualAnswer[];
   base?: string;
   alternatives?: SpecConflictAlternative[];
+  changedAt?: string | null;
 }
 
 /** One annotation, located by the value that holds it. */
@@ -265,6 +274,8 @@ export class SpecReviewAnnotation {
   readonly votes: SpecMarkVote[];
   /** A question's individual answers, in the order written. */
   readonly answers: SpecIndividualAnswer[];
+  /** When a comment or mark was last changed (SOM §11.9.10), or null. */
+  readonly changedAt: string | null;
   /** A conflict's `(base)` text. */
   readonly base: string;
   /** A conflict's lettered alternatives. */
@@ -294,6 +305,7 @@ export class SpecReviewAnnotation {
     this.answers = init.answers ?? [];
     this.base = init.base ?? '';
     this.alternatives = init.alternatives ?? [];
+    this.changedAt = init.changedAt ?? null;
   }
 
   /**
@@ -346,6 +358,7 @@ export class SpecReviewAnnotation {
           author: this.author,
           text: this.text,
           context: this.context,
+          ...(this.changedAt !== null ? { changedAt: this.changedAt } : {}),
         };
       case SpecReviewAnnotationKind.QUESTION:
         return {
@@ -393,6 +406,7 @@ export class SpecReviewAnnotation {
           text: this.text,
           newText: this.newText,
           comment: this.comment,
+          ...(this.changedAt !== null ? { changedAt: this.changedAt } : {}),
           ...(team
             ? { authors: this.authors, votes: this.votes.map((v) => v.toJson()) }
             : {}),
@@ -562,6 +576,8 @@ export class SpecMarkEntry {
   readonly commentId: string | null;
   /** The change an attached change comment is about, by id; null otherwise. */
   readonly changeId: string | null;
+  /** When the mark was last changed (SOM §11.9.10), or null. */
+  readonly changedAt: string | null;
 
   constructor(init: {
     id: string;
@@ -579,6 +595,7 @@ export class SpecMarkEntry {
     quotedChange?: Record<string, unknown> | null;
     commentId?: string | null;
     changeId?: string | null;
+    changedAt?: string | null;
   }) {
     this.id = init.id;
     this.path = init.path;
@@ -595,6 +612,7 @@ export class SpecMarkEntry {
     this.quotedChange = init.quotedChange ?? null;
     this.commentId = init.commentId ?? null;
     this.changeId = init.changeId ?? null;
+    this.changedAt = init.changedAt ?? null;
   }
 
   /**
@@ -618,6 +636,7 @@ export class SpecMarkEntry {
     if (this.quotedChange !== null) out.quotedChange = this.quotedChange;
     if (this.commentId !== null) out.commentId = this.commentId;
     if (this.changeId !== null) out.changeId = this.changeId;
+    if (this.changedAt !== null) out.changedAt = this.changedAt;
     if (options.team ?? false) {
       out.authors = this.authors;
       out.votes = this.votes.map((v) => v.toJson());
@@ -825,6 +844,58 @@ export function isReviewMemberId(s: string): boolean {
   return _MEMBER_ID.test(s);
 }
 
+/**
+ * A change time as annotations write it (SOM §11.9.10): minutes with the
+ * writer's UTC offset, `2026-11-07T14:05+01:00` or `2026-11-07T13:05Z`.
+ */
+const _REVIEW_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})$/;
+
+/** An ISO 8601 time a caller may pass as `at`: minutes, optional seconds and fraction, and an offset or `Z`. */
+const _REVIEW_TIME_IN = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/;
+
+/** Whether `s` is a change time of the form SOM §11.9.10 fixes. */
+export function isReviewTime(s: string): boolean {
+  return _REVIEW_TIME.test(s);
+}
+
+/**
+ * `at` as a change time (SOM §11.9.10): seconds and fractions cut, the offset
+ * kept as given. Throws {@link SpecReviewAnnotationError} for any other shape.
+ */
+export function normalizeReviewTime(at: string): string {
+  const m = _REVIEW_TIME_IN.exec(at.trim());
+  if (m === null) {
+    throw new SpecReviewAnnotationError(
+      `"${at}" is not an ISO 8601 time with an offset or Z (e.g. 2026-11-07T14:05+01:00)`,
+    );
+  }
+  return `${m[1]}${m[2]}`;
+}
+
+/** `now` (default: the system clock) as a change time in its local offset. */
+export function systemReviewTime(now?: Date): string {
+  const t = now ?? new Date();
+  const two = (n: number): string => String(n).padStart(2, '0');
+  const off = -t.getTimezoneOffset();
+  const sign = off < 0 ? '-' : '+';
+  const mins = Math.abs(off);
+  return (
+    `${String(t.getFullYear()).padStart(4, '0')}-${two(t.getMonth() + 1)}-${two(t.getDate())}` +
+    `T${two(t.getHours())}:${two(t.getMinutes())}${sign}${two(Math.floor(mins / 60))}:${two(mins % 60)}`
+  );
+}
+
+/**
+ * `parts` (a header's or an answer's comma-separated parts) split into the
+ * parts before a trailing change time and the time (SOM §11.9.10).
+ */
+function _splitTime(parts: string[]): [string[], string | null] {
+  if (parts.length > 0 && isReviewTime(parts[parts.length - 1].trim())) {
+    return [parts.slice(0, parts.length - 1), parts[parts.length - 1].trim()];
+  }
+  return [parts, null];
+}
+
 function _isUnresolved(answer: string): boolean {
   return answer.startsWith(_UNRESOLVED_PREFIX);
 }
@@ -842,6 +913,7 @@ interface _IndividualAnswer {
   end: number; // last value line of the entry with text (inclusive)
   members: string[];
   answer: string;
+  changedAt: string | null;
 }
 
 /** One question region inside a question block. */
@@ -883,6 +955,10 @@ interface _Comment {
   headerPrefix: string;
   /** Where an id is inserted into the first line, and how. */
   markerEnd: number;
+  /** The first line up to where the author's parentheses (or the text) start. */
+  beforeAuthor: string;
+  /** When the comment was last changed (SOM §11.9.10), or null. */
+  changedAt: string | null;
 }
 
 /** One parsed block of a value (lines [start, end] inclusive). */
@@ -914,6 +990,8 @@ interface _Mark {
   votes: SpecMarkVote[];
   /** A comment mark's quote of a change (SOM §11.9.3), or null. */
   quote: _Quote | null;
+  /** The time in the mark's attribution token (SOM §11.9.10), or null. */
+  changedAt: string | null;
   /** The index (among the value's marks) of the change this change comment is attached to, or null. */
   changeIndex: number | null;
   /** The index of this change's attached comment, or null. */
@@ -1190,10 +1268,15 @@ function _parseComment(p: _Parsed, b: _Block): _Comment {
     }
   }
   let author: string | null = null;
+  let changedAt: string | null = null;
+  const beforeAuthor = raw0.substring(0, raw0.length - rest.length);
   if (rest.startsWith('(')) {
     const close = rest.indexOf(')');
     if (close > 0) {
-      author = rest.substring(1, close);
+      const [parts, time] = _splitTime(rest.substring(1, close).split(','));
+      changedAt = time;
+      const a = parts.join(',').trim();
+      author = time === null ? rest.substring(1, close) : a.length === 0 ? null : a;
       rest = rest.substring(close + 1);
       if (rest.startsWith(':')) rest = rest.substring(1);
       rest = _lstrip(rest);
@@ -1226,6 +1309,8 @@ function _parseComment(p: _Parsed, b: _Block): _Comment {
     context: _context(p, b.start),
     headerPrefix,
     markerEnd,
+    beforeAuthor,
+    changedAt,
   };
 }
 
@@ -1383,7 +1468,8 @@ function _parseQuestions(p: _Parsed, b: _Block): void {
         continue;
       }
       const match = _INDIVIDUAL_ANSWER.exec(inner[m]) as RegExpExecArray;
-      const members = match[1].split(',').map((x) => x.trim());
+      const [memberParts, answerTime] = _splitTime(match[1].split(','));
+      const members = memberParts.map((x) => x.trim());
       for (const member of members) {
         if (answered.has(member)) {
           p.malformed.push(
@@ -1400,6 +1486,7 @@ function _parseQuestions(p: _Parsed, b: _Block): void {
         end: b.start + end,
         members,
         answer: answerText(m, match[0].length),
+        changedAt: answerTime,
       });
     }
     list.push({
@@ -1656,6 +1743,7 @@ function _scanSegment(
       authors: [],
       votes: [],
       quote: null,
+      changedAt: null,
       changeIndex: null,
       commentIndex: null,
     });
@@ -1744,6 +1832,7 @@ function _attachToken(p: _Parsed, seg: string, at: number, base: number, m: _Mar
     return at;
   }
   const read = _readToken(seg.substring(at + 2, close), m.kind);
+  m.changedAt = typeof read === 'string' ? _tokenTime(seg.substring(at + 2, close)) : read.changedAt;
   if (typeof read === 'string') {
     p.malformed.push(`line ${m.line}: attribution token ${read} (SOM §11.9.8)`);
   } else {
@@ -1763,16 +1852,42 @@ function _isChangeMark(kind: SpecMarkKindValue): boolean {
   );
 }
 
+/** The words of a token's inside, `, ` folded to `,`. */
+function _tokenWords(inside: string): string[] {
+  return inside.replace(/,\s+/g, ',').trim().split(/\s+/).filter((w) => w.length > 0);
+}
+
+/** The change time a token's inside ends with (SOM §11.9.10), or null. */
+function _tokenTime(inside: string): string | null {
+  const words = _tokenWords(inside);
+  return words.length > 0 && isReviewTime(words[words.length - 1]) ? words[words.length - 1] : null;
+}
+
 /**
- * The members of a token's inside, `<authors>[ <votes>]`, or the reason it
- * breaks the grammar of SOM §11.9.8.
+ * The members of a token's inside, `<authors>[ <votes>][ <time>]`, or the
+ * reason it breaks the grammar of SOM §11.9.8.
  */
 function _readToken(
   inside: string,
   kind: SpecMarkKindValue,
-): { authors: string[]; votes: SpecMarkVote[] } | string {
-  const words = inside.replace(/,\s+/g, ',').trim().split(/\s+/).filter((w) => w.length > 0);
+): { authors: string[]; votes: SpecMarkVote[]; changedAt: string | null } | string {
+  const words = _tokenWords(inside);
   if (words.length === 0) return 'is empty';
+  let changedAt: string | null = null;
+  if (isReviewTime(words[words.length - 1])) changedAt = words.pop() as string;
+  const read = _readMembers(words, kind);
+  return typeof read === 'string' ? read : { ...read, changedAt };
+}
+
+/**
+ * The authors and votes of a token's words (its time taken off), or the
+ * reason they break the grammar of SOM §11.9.8.
+ */
+function _readMembers(
+  words: string[],
+  kind: SpecMarkKindValue,
+): { authors: string[]; votes: SpecMarkVote[] } | string {
+  if (words.length === 0) return { authors: [], votes: [] };
   const authors: string[] = [];
   const votes: SpecMarkVote[] = [];
   let k = 0;
@@ -1823,6 +1938,7 @@ function _annotationsOf(
           author: c.author,
           text: c.text,
           context: c.context,
+          changedAt: c.changedAt,
         }),
       ]);
     } else if (b.kind === SpecReviewAnnotationKind.CONFLICT) {
@@ -1865,7 +1981,9 @@ function _annotationsOf(
             answer: q.answer,
             options: q.options,
             recommended: q.recommended,
-            answers: q.answers.map((a) => new SpecIndividualAnswer(a.members, a.answer)),
+            answers: q.answers.map(
+              (a) => new SpecIndividualAnswer(a.members, a.answer, a.changedAt),
+            ),
           }),
         ]);
       }
@@ -1887,6 +2005,7 @@ function _annotationsOf(
         comment: m.comment,
         authors: m.authors,
         votes: m.votes,
+        changedAt: m.changedAt,
       }),
     ]);
   }
@@ -1956,13 +2075,25 @@ export function formatCommentBlock(options: {
   id: string;
   text: string;
   author?: string | null;
+  changedAt?: string | null;
 }): string[] {
   const { id, text, author } = options;
   const t = text.split('\n');
   let head = `> ${_ARROW}${_VS16} **${id}**`;
-  if (author != null && author.length > 0) head += ` (${author}):`;
+  const who = _authorAndTime(author ?? null, options.changedAt ?? null);
+  if (who !== null) head += ` (${who}):`;
   if (t[0].length > 0) head += ` ${t[0]}`;
   return [head, ..._quoted(t.slice(1))];
+}
+
+/**
+ * A comment header's parentheses: the author and the change time, either
+ * alone, or null when there is neither (SOM §11.9.10).
+ */
+function _authorAndTime(author: string | null, changedAt: string | null): string | null {
+  const a = author !== null && author.length > 0 ? author : null;
+  if (a === null) return changedAt;
+  return changedAt === null ? a : `${a}, ${changedAt}`;
 }
 
 /** The lines of a question block. */
@@ -2172,6 +2303,51 @@ function _nonSpaceCount(s: string): number {
   return n;
 }
 
+/** Refuses an author that is not a member id (SOM §11.9.8). */
+function _checkAuthor(author: string | null): void {
+  if (author !== null && !_MEMBER_ID.test(author)) {
+    throw new SpecReviewAnnotationError(
+      `"${author}" is not a member id (lowercase letters, digits and _)`,
+    );
+  }
+}
+
+/**
+ * `after` (a value just written as marks) with an attribution token on every
+ * change mark it lacks one on (SOM §11.9.10): the token of the same change in
+ * `before` (same kind, old and new text; each used once, in order) when
+ * `before` held it, else a new one with `author` and `time`.
+ */
+function _stampMarks(before: string, after: string, author: string | null, time: string): string {
+  const key = (m: _Mark): string =>
+    `${m.kind}\u0000${_markReplacement(m, false)}\u0000${_markReplacement(m, true)}`;
+  const old: Array<[string, string]> = _parse(before)
+    .marks.filter((m) => _isChangeMark(m.kind))
+    .map((m) => [key(m), before.substring(m.bodyEnd, m.end)]);
+  const used = old.map(() => false);
+  const fresh = formatAttributionToken(author !== null ? [author] : [], [], time);
+  const inserts: Array<[number, string]> = [];
+  for (const m of _parse(after).marks) {
+    if (!_isChangeMark(m.kind) || m.end > m.bodyEnd) continue;
+    const k = key(m);
+    let token = fresh;
+    for (let i = 0; i < old.length; i++) {
+      if (!used[i] && old[i][0] === k) {
+        used[i] = true;
+        token = old[i][1];
+        break;
+      }
+    }
+    if (token.length > 0) inserts.push([m.bodyEnd, token]);
+  }
+  let v = after;
+  for (let i = inserts.length - 1; i >= 0; i--) {
+    const [at, token] = inserts[i];
+    v = `${v.substring(0, at)}${token}${v.substring(at)}`;
+  }
+  return v;
+}
+
 /**
  * `setMarked` with the value's change comments kept (SOM §11.9.3): taken out
  * of the original, then written back where their anchor falls.
@@ -2275,9 +2451,14 @@ function _isCommentedAnswer(answer: string, options: SpecQuestionOption[]): bool
 }
 
 /** The lines of one individual-answer entry. */
-function _individualAnswerLines(members: string[], answer: string): string[] {
+function _individualAnswerLines(
+  members: string[],
+  answer: string,
+  changedAt: string | null = null,
+): string[] {
   const a = answer.split('\n');
-  return [`> **Answer (${members.join(', ')}):** ${a[0]}`.trimEnd(), ..._quoted(a.slice(1))];
+  const who = [...members, ...(changedAt !== null ? [changedAt] : [])].join(', ');
+  return [`> **Answer (${who}):** ${a[0]}`.trimEnd(), ..._quoted(a.slice(1))];
 }
 
 /**
@@ -2290,13 +2471,25 @@ function _individualAnswerLines(members: string[], answer: string): string[] {
  * answer, and a run left empty takes that line with it. Entries left alone
  * keep their bytes.
  */
-function _setIndividualAnswer(value: string, q: _Question, member: string, answer: string): string {
+function _setIndividualAnswer(
+  value: string,
+  q: _Question,
+  member: string,
+  answer: string,
+  changedAt: string | null = null,
+): string {
   const lines = value.split('\n');
-  type Entry = { members: string[]; answer: string; lines: string[] | null };
+  type Entry = {
+    members: string[];
+    answer: string;
+    lines: string[] | null;
+    changedAt: string | null;
+  };
   const entries: Entry[] = q.answers.map((a) => ({
     members: a.members.slice(),
     answer: a.answer,
     lines: lines.slice(a.line, a.end + 1),
+    changedAt: a.changedAt,
   }));
   for (const e of entries) {
     const at = e.members.indexOf(member);
@@ -2310,15 +2503,22 @@ function _setIndividualAnswer(value: string, q: _Question, member: string, answe
   if (text.length > 0) {
     const join = _isCommentedAnswer(text, q.options)
       ? undefined
-      : kept.find((e) => e.answer === text && !_isCommentedAnswer(e.answer, q.options));
+      : kept.find(
+          (e) =>
+            e.answer === text &&
+            e.changedAt === changedAt &&
+            !_isCommentedAnswer(e.answer, q.options),
+        );
     if (join !== undefined) {
       join.members.push(member);
       join.lines = null;
     } else {
-      kept.push({ members: [member], answer: text, lines: null });
+      kept.push({ members: [member], answer: text, lines: null, changedAt });
     }
   }
-  const run = kept.flatMap((e) => e.lines ?? _individualAnswerLines(e.members, e.answer));
+  const run = kept.flatMap(
+    (e) => e.lines ?? _individualAnswerLines(e.members, e.answer, e.changedAt),
+  );
   if (q.answers.length > 0) {
     const from = q.answers[0].line;
     let to = q.answers[q.answers.length - 1].end;
@@ -2423,9 +2623,26 @@ export class SpecReviewAnnotations {
    */
   readonly qualifier: string | null;
 
-  constructor(doc: SpecDocument, options: { qualifier?: string | null } = {}) {
+  /**
+   * The clock the write operations take a change time from when no `at` is
+   * passed (SOM §11.9.10); null: the system clock in the writer's offset.
+   */
+  readonly clock: (() => string) | null;
+
+  /** Wraps `doc`. `clock` fixes the change time the writes record (the conformance drivers pass a fixed one). */
+  constructor(
+    doc: SpecDocument,
+    options: { qualifier?: string | null; clock?: (() => string) | null } = {},
+  ) {
     this.doc = doc;
     this.qualifier = options.qualifier ?? null;
+    this.clock = options.clock ?? null;
+  }
+
+  /** The change time a write records: `at` normalized, else the clock's. */
+  private _time(at: string | null | undefined): string {
+    if (at != null) return normalizeReviewTime(at);
+    return this.clock !== null ? this.clock() : systemReviewTime();
   }
 
   /** Every value as `[path, field or null, text]`, in document order. */
@@ -2563,7 +2780,9 @@ export class SpecReviewAnnotations {
     text: string;
     author?: string | null;
     id?: string | null;
+    at?: string | null;
   }): string {
+    const time = this._time(options.at);
     const field = options.field ?? null;
     const cid = options.id ?? this.nextCommentId();
     const value = this._get(options.path, field);
@@ -2574,7 +2793,12 @@ export class SpecReviewAnnotations {
       _insertAfterLine(
         value,
         end,
-        formatCommentBlock({ id: cid, text: options.text, author: options.author ?? null }),
+        formatCommentBlock({
+          id: cid,
+          text: options.text,
+          author: options.author ?? null,
+          changedAt: time,
+        }),
       ),
     );
     return cid;
@@ -2608,7 +2832,11 @@ export class SpecReviewAnnotations {
    * placed by the rules of SOM §11.9.8 (empty: only takes the member out); an
    * author that is not a member id is refused.
    */
-  setAnswer(questionId: string, answer: string, options: { author?: string | null } = {}): void {
+  setAnswer(
+    questionId: string,
+    answer: string,
+    options: { author?: string | null; at?: string | null } = {},
+  ): void {
     const author = options.author ?? null;
     if (author !== null && !_MEMBER_ID.test(author)) {
       throw new SpecReviewAnnotationError(
@@ -2617,7 +2845,8 @@ export class SpecReviewAnnotations {
     }
     const [path, field, text, , q] = this._findQuestion(questionId);
     if (author !== null) {
-      this._set(path, field, _setIndividualAnswer(text, q, author, answer));
+      const time = answer.trim().length === 0 ? null : this._time(options.at);
+      this._set(path, field, _setIndividualAnswer(text, q, author, answer, time));
       return;
     }
     const lines = text.split('\n');
@@ -2642,11 +2871,16 @@ export class SpecReviewAnnotations {
   }
 
   /** Replaces a comment's text; its marker, id and author stay as written. */
-  editComment(commentId: string, text: string): void {
+  editComment(commentId: string, text: string, options: { at?: string | null } = {}): void {
+    const time = this._time(options.at);
     const [path, field, value, c] = this._findComment(commentId);
     const lines = value.split('\n');
     const t = text.split('\n');
-    const block = [`${c.headerPrefix}${t[0]}`.trimEnd(), ..._quoted(t.slice(1))];
+    const who = _authorAndTime(c.author, time);
+    const block = [
+      `${c.beforeAuthor.trimEnd()} (${who}): ${t[0]}`.trimEnd(),
+      ..._quoted(t.slice(1)),
+    ];
     lines.splice(c.block.start, c.block.end - c.block.start + 1, ...block);
     this._set(path, field, lines.join('\n'));
   }
@@ -2760,6 +2994,7 @@ export class SpecReviewAnnotations {
             quotedChange: m.quote !== null ? _quoteJson(m.quote) : null,
             commentId: m.commentIndex === null ? null : `M-${first + m.commentIndex}`,
             changeId: m.changeIndex === null ? null : `M-${first + m.changeIndex}`,
+            changedAt: m.changedAt,
           }),
         );
       }
@@ -2911,9 +3146,10 @@ export class SpecReviewAnnotations {
   commentChange(
     markId: string,
     text: string,
-    options: { author?: string | null; revision?: string | null } = {},
+    options: { author?: string | null; revision?: string | null; at?: string | null } = {},
   ): string {
     const author = options.author ?? null;
+    const time = this._time(options.at);
     const [path, field, value, p, k] = this._findMark(markId, options.revision ?? null);
     const m = p.marks[k];
     if (!_isChangeMark(m.kind)) {
@@ -2934,7 +3170,9 @@ export class SpecReviewAnnotations {
         `${markId} holds "${d}]" or "<<}", which its quote cannot hold`,
       );
     }
-    const markup = `{>> [${d} ${body} ${d}] ${comment} <<}${author === null ? '' : `{@${author}}`}`;
+    const markup =
+      `{>> [${d} ${body} ${d}] ${comment} <<}` +
+      formatAttributionToken(author === null ? [] : [author], [], time);
     this._set(path, field, `${value.substring(0, m.end)}${markup}${value.substring(m.end)}`);
     return `M-${parseInt(markId.substring(2), 10) + 1}`;
   }
@@ -2947,7 +3185,12 @@ export class SpecReviewAnnotations {
    * comment, and a `text` that is empty or holds a mark delimiter or a blank
    * line.
    */
-  editMarkComment(markId: string, text: string, options: { revision?: string | null } = {}): void {
+  editMarkComment(
+    markId: string,
+    text: string,
+    options: { revision?: string | null; at?: string | null } = {},
+  ): void {
+    const time = this._time(options.at);
     const [path, field, value, p, k] = this._findMark(markId, options.revision ?? null);
     const m = p.marks[k];
     const comment = _checkInlineComment(text);
@@ -2964,7 +3207,8 @@ export class SpecReviewAnnotations {
     } else {
       throw new SpecReviewAnnotationError(`${markId} holds no comment`);
     }
-    this._set(path, field, `${value.substring(0, m.start)}${markup}${value.substring(m.bodyEnd)}`);
+    const token = formatAttributionToken(m.authors, m.votes, time);
+    this._set(path, field, `${value.substring(0, m.start)}${markup}${token}${value.substring(m.end)}`);
   }
 
   /**
@@ -3094,22 +3338,48 @@ export class SpecReviewAnnotations {
    * compared from its original — every mark rejected — so a second edit of
    * the same passage updates its mark instead of nesting one.
    */
-  setMarked(options: { path: string; field?: string | null; text: string }): SpecMarkedChange {
+  setMarked(options: {
+    path: string;
+    field?: string | null;
+    text: string;
+    author?: string | null;
+    at?: string | null;
+  }): SpecMarkedChange {
+    const author = options.author ?? null;
+    _checkAuthor(author);
+    const time = this._time(options.at);
     const field = options.field ?? null;
-    const result = _markKeepingChangeComments(this._get(options.path, field), options.text);
-    this._set(options.path, field, result.text);
-    return result;
+    const current = this._get(options.path, field);
+    const result = _markKeepingChangeComments(current, options.text);
+    const stamped = new SpecMarkedChange(_stampMarks(current, result.text, author, time), {
+      exact: result.exact,
+    });
+    this._set(options.path, field, stamped.text);
+    return stamped;
   }
 
   /**
    * Marks the value at `path` / `field` as a change against `earlier`, an
    * earlier version of it.
    */
-  markAgainst(options: { path: string; field?: string | null; earlier: string }): SpecMarkedChange {
+  markAgainst(options: {
+    path: string;
+    field?: string | null;
+    earlier: string;
+    author?: string | null;
+    at?: string | null;
+  }): SpecMarkedChange {
+    const author = options.author ?? null;
+    _checkAuthor(author);
+    const time = this._time(options.at);
     const field = options.field ?? null;
-    const result = markChangeText(options.earlier, this._get(options.path, field));
-    this._set(options.path, field, result.text);
-    return result;
+    const current = this._get(options.path, field);
+    const result = markChangeText(options.earlier, current);
+    const stamped = new SpecMarkedChange(_stampMarks(current, result.text, author, time), {
+      exact: result.exact,
+    });
+    this._set(options.path, field, stamped.text);
+    return stamped;
   }
 
   /**
@@ -3687,6 +3957,8 @@ export interface ReviewPiece {
   author: string | null;
   /** A comment's text. */
   commentText: string;
+  /** A comment's change time (SOM §11.9.10), null without one. */
+  changedAt: string | null;
   /** The ids of a question block's questions. */
   questionIds: string[];
 }
@@ -3703,6 +3975,7 @@ export function reviewPieces(value: string): ReviewPiece[] {
       id: b?.comment?.id ?? b?.conflict?.id ?? null,
       author: b?.comment?.author ?? null,
       commentText: b?.comment?.text ?? '',
+      changedAt: b?.comment?.changedAt ?? null,
       questionIds: (b?.questions ?? []).map((q) => q.id),
     };
   });
@@ -3722,6 +3995,8 @@ export interface ReviewMark {
   accepted: string;
   /** The text rejecting it leaves. */
   rejected: string;
+  /** Its token's change time (SOM §11.9.10), or null. */
+  changedAt: string | null;
 }
 
 function _reviewMark(value: string, m: _Mark): ReviewMark {
@@ -3735,6 +4010,7 @@ function _reviewMark(value: string, m: _Mark): ReviewMark {
     votes: m.votes,
     accepted: _markReplacement(m, true),
     rejected: _markReplacement(m, false),
+    changedAt: m.changedAt,
   };
 }
 
@@ -3759,10 +4035,22 @@ export function decideReviewMarks(value: string, decisions: Map<number, boolean>
   return v;
 }
 
-/** The attribution token for `authors` and `votes`, `{@agent +alice -bob}`. @internal */
-export function formatAttributionToken(authors: string[], votes: SpecMarkVote[]): string {
-  const v = votes.map((x) => `${x.vote === 'accept' ? '+' : '-'}${x.member}`).join(' ');
-  return `{@${authors.join(',')}${authors.length > 0 && v.length > 0 ? ' ' : ''}${v}}`;
+/**
+ * The attribution token for `authors`, `votes` and `changedAt`,
+ * `{@agent +alice -bob 2026-11-07T14:05+01:00}` (SOM §11.9.8, §11.9.10);
+ * empty when there is nothing to write. @internal
+ */
+export function formatAttributionToken(
+  authors: string[],
+  votes: SpecMarkVote[],
+  changedAt: string | null = null,
+): string {
+  const parts = [
+    ...(authors.length > 0 ? [authors.join(',')] : []),
+    ...votes.map((x) => `${x.vote === 'accept' ? '+' : '-'}${x.member}`),
+    ...(changedAt !== null ? [changedAt] : []),
+  ];
+  return parts.length === 0 ? '' : `{@${parts.join(' ')}}`;
 }
 
 /** `value` with mark `m`'s token replaced by one for `authors` and `votes`. @internal */
@@ -3773,7 +4061,9 @@ export function withAttribution(
   votes: SpecMarkVote[],
 ): string {
   return (
-    value.substring(0, m.bodyEnd) + formatAttributionToken(authors, votes) + value.substring(m.end)
+    value.substring(0, m.bodyEnd) +
+    formatAttributionToken(authors, votes, m.changedAt) +
+    value.substring(m.end)
   );
 }
 
@@ -3798,10 +4088,11 @@ export function setIndividualAnswerText(
   questionId: string,
   member: string,
   answer: string,
+  changedAt: string | null = null,
 ): string | null {
   for (const b of _parse(value).blocks) {
     for (const q of b.questions ?? []) {
-      if (q.id === questionId) return _setIndividualAnswer(value, q, member, answer);
+      if (q.id === questionId) return _setIndividualAnswer(value, q, member, answer, changedAt);
     }
   }
   return null;

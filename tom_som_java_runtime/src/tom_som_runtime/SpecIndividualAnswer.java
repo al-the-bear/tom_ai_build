@@ -17,10 +17,18 @@ public final class SpecIndividualAnswer {
   /** The letter the answer starts with ({@code (a)} or {@code **(a)**}), or null. */
   public final String answerLetter;
 
+  /** When the answer was last written (SOM §11.9.10), or null. */
+  public final String changedAt;
+
   public SpecIndividualAnswer(List<String> members, String answer) {
+    this(members, answer, null);
+  }
+
+  public SpecIndividualAnswer(List<String> members, String answer, String changedAt) {
     this.members = Collections.unmodifiableList(new ArrayList<>(members));
     this.answer = answer;
     this.answerLetter = SpecReviewAnnotations.leadingLetter(answer);
+    this.changedAt = changedAt;
   }
 
   /** The canonical JSON form. */
@@ -29,6 +37,9 @@ public final class SpecIndividualAnswer {
     out.put("members", new ArrayList<Object>(members));
     out.put("answer", answer);
     out.put("answerLetter", answerLetter);
+    if (changedAt != null) {
+      out.put("changedAt", changedAt);
+    }
     return out;
   }
 }

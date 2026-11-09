@@ -1886,6 +1886,69 @@
           "revision": null
         }
       }
+    },
+    {
+      "name": "change times travel with a copy's marks and comments",
+      "model": null,
+      "format": "markdown",
+      "base": "# A\n\nThe text stays.\n",
+      "copies": [
+        {
+          "memberId": "alice",
+          "displayName": "Alice Owner",
+          "role": "Product owner",
+          "document": "# A\n\nThe text {++ really ++}{@alice 2026-11-04T09:00+01:00} stays.\n\n> ⬆️ (alice, 2026-11-04T09:05+01:00): Why not?\n"
+        }
+      ],
+      "options": {
+        "team": [
+          {
+            "memberId": "alice",
+            "displayName": "Alice Owner",
+            "role": "Product owner"
+          },
+          {
+            "memberId": "bob",
+            "displayName": "Bob Dev",
+            "role": "Developer"
+          },
+          {
+            "memberId": "carol",
+            "displayName": "Carol QA",
+            "role": "Tester"
+          }
+        ],
+        "date": "2026-11-05",
+        "author": "Alice Owner"
+      },
+      "expect": {
+        "merged": "# A\n\nThe text {++ really ++}{@alice 2026-11-04T09:00+01:00} stays.\n\n> ⬆️ **C-1** (alice, 2026-11-04T09:05+01:00): Why not?\n",
+        "report": {
+          "reviewers": [
+            {
+              "memberId": "alice",
+              "displayName": "Alice Owner",
+              "role": "Product owner",
+              "guest": false
+            }
+          ],
+          "conflicts": [],
+          "votes": [],
+          "unanimous": [],
+          "answers": [],
+          "comments": [
+            {
+              "id": "C-1",
+              "author": "alice",
+              "path": "A",
+              "field": null
+            }
+          ],
+          "additions": [],
+          "guestQuestions": [],
+          "revision": null
+        }
+      }
     }
   ]
 }

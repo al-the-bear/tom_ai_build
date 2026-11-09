@@ -16,6 +16,7 @@ rest of the value byte for byte as it was.
 - [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
+- [Change times](#change-times)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -101,11 +102,11 @@ All in namespace `som`.
 | `nextCommentId(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assignCommentIds(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
 | `paragraphs(path, field)` | The value's paragraphs as `SpecParagraph`, each with its `index` (what `afterParagraph` takes), `startLine` / `endLine` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold throws `SpecReviewAnnotationError` |
-| `insertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
+| `insertComment(path, field, afterParagraph, text, author, id, at)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
 | `insertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `insertQuestionAfterComment(commentId, question)` | A question block directly after a comment block |
-| `setAnswer(questionId, answer, author)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With `author`, writes that member's individual answer instead ([Team reviews](#team-reviews)) |
-| `editComment(commentId, text)` | New text; the marker, id and author stay as written |
+| `setAnswer(questionId, answer, author, at)` | Writes the answer after `**Answer:**`; an empty answer reopens the question; adds the line when it is missing. With `author`, writes that member's individual answer instead ([Team reviews](#team-reviews)) |
+| `editComment(commentId, text, at)` | New text; the marker, id and author stay as written, the change time is updated ([Change times](#change-times)) |
 | `resolve(id)` | Removes one comment or question (a qualified comment id is accepted) and one adjacent blank line. A question of a combined block takes only its own lines; the block goes with its last question |
 | `applyMark(path, field, index, accept)` | Accepts or rejects inline mark `index` of one value. Accept takes the insertion, the deletion or the new text; reject keeps the old. A highlight or comment mark is removed either way, its text staying |
 | `stripped()` | A copy of the document without any annotation, every mark accepted, for reading. The document is unchanged |
@@ -155,8 +156,8 @@ const som::SpecMarkReport report = review.decideMarks(
 | Operation | Does |
 |-----------|------|
 | `som::markChangeText(old, new)` | `new` with every difference from `old` marked. Accepting all marks gives `new`, rejecting all gives `old`. Returns a `SpecMarkedChange` (`text`, `exact`) |
-| `setMarked(path, field, text)` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
-| `markAgainst(path, field, earlier)` | Marks the value already written against an earlier version |
+| `setMarked(path, field, text, author, at)` | Writes `text` as a marked change against the value there. A value that already holds marks is compared from its original, so a second edit updates its mark |
+| `markAgainst(path, field, earlier, author, at)` | Marks the value already written against an earlier version |
 
 `exact` is false only when a difference could not be marked, i.e. a change
 inside fenced code. The new text is then written unmarked.
@@ -178,8 +179,8 @@ comment readable once the change is decided. The notation is SOM §11.9.3.
 |-----------|------|
 | `listMarks()` | A change comment's `SpecMarkEntry` carries `quotedChange` (a `SpecQuotedChange`: `kind`, `oldText`, `newText`, `outcome`) and `changeId`, its `comment` being the text after the quote. Its change's entry carries `commentId`. All three are `std::nullopt` on other marks and left out of `toJson()` then |
 | `decideMarks`, `applyMark`, `acceptAllMarks`, `rejectAllMarks` | Deciding a change leaves its attached comment, the quote recording ` \| accepted` or ` \| rejected`. Deciding the comment itself removes it |
-| `commentChange(markId, text, author, revision)` | Writes a change comment after the change `markId`, its quote taken from the mark; returns the comment's id. `author` and `revision` are optional |
-| `editMarkComment(markId, text, revision)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote; the attribution token stays |
+| `commentChange(markId, text, author, revision, at)` | Writes a change comment after the change `markId`, its quote taken from the mark; returns the comment's id. `author` and `revision` are optional |
+| `editMarkComment(markId, text, revision, at)` | Replaces the comment of a comment mark, change comment or commented highlight. A change comment keeps its quote; the attribution token stays |
 | `setMarked(path, field, text)` | Keeps the value's change comments; a comment on a change marked again follows the new mark, detached, with its old quote |
 
 Both writing operations throw `SpecReviewAnnotationError` (nothing changes)
@@ -197,7 +198,8 @@ const std::string commentId =
     review.commentChange(change.id, "why shorter?", "alice", rev);
 review.decideMarks({{change.id, som::SpecMarkDecision::Accept}},
                    review.revision());
-// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice} minutes
+// after 15{>> [~~ 30 ~> 15 ~~ | accepted] why shorter? <<}{@alice <now>} minutes
+// (<now>: the change time, e.g. 2026-11-07T14:05+01:00 — see Change times)
 ```
 
 `commentId` is the new comment's `M-<n>`, valid for the revision after the
@@ -333,6 +335,45 @@ Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
 A unit whose copy no longer holds more than 16 of the base's marks as written
 is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
 grow past 65536.
+
+## Change times
+
+Every annotation records when it was last changed, next to its author, so a
+reviewer sees what is new since the last round (SOM §11.9.10). The time is
+minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
+
+| Annotation | Written as |
+|------------|------------|
+| Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
+| Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
+| Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+The writes record it, each with an optional `at` (ISO 8601 with an offset or
+`Z`; seconds are cut, any other shape throws `SpecReviewAnnotationError` and
+nothing changes): `insertComment`, `editComment` (the author stays),
+`commentChange`, `editMarkComment` (authors and votes stay), `setMarked` and
+`markAgainst` (both take an optional `author`; a mark written again unchanged
+keeps its token) and `setAnswer` with an `author`. Without `at` the time comes
+from the `SpecReviewAnnotations::Clock` (a `std::function<std::string()>`) the
+`SpecReviewAnnotations` was constructed with, else from the system clock.
+Deciding, voting, answering and merging keep the times; removing an
+annotation takes its time with it. `som::normalizeReviewTime`,
+`som::isReviewTime` and `som::systemReviewTime` are the helpers.
+
+Reading reports `changedAt` on `SpecReviewAnnotation` (comments and marks),
+`SpecMarkEntry` and `SpecIndividualAnswer`; `toJson()` writes it only when
+there is one.
+
+```cpp
+som::SpecDocument doc;
+doc.setContent("SBP/INSC", "Sessions expire after 15 minutes.");
+som::SpecReviewAnnotations review(
+    doc, std::nullopt, [] { return std::string("2026-11-07T14:05+01:00"); });
+review.insertComment("SBP/INSC", std::nullopt, 0, "Why 15?", "alexis");
+// > ⬆️ **C-1** (alexis, 2026-11-07T14:05+01:00): Why 15?
+review.editComment("C-1", "Why 15 and not 20?", "2026-11-08T09:00Z");
+// > ⬆️ **C-1** (alexis, 2026-11-08T09:00Z): Why 15 and not 20?
+```
 
 ## Validation
 

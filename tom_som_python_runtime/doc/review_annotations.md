@@ -16,6 +16,7 @@ was.
 - [Comments on changes](#comments-on-changes)
 - [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Team reviews](#team-reviews)
+- [Change times](#change-times)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -316,6 +317,41 @@ Sessions expire after {~~ 30 ~> 15 ~~}{@alice,bob} minutes.
 A unit whose copy no longer holds more than 16 of the base's marks as written
 is read as an edit (step 4 of SOM §11.9.9): the decision combinations would
 grow past 65536.
+
+## Change times
+
+Every annotation records when it was last changed, next to its author, so a
+reviewer sees what is new since the last round (SOM §11.9.10). The time is
+minutes with the writer's UTC offset, `2026-11-07T14:05+01:00`:
+
+| Annotation | Written as |
+|------------|------------|
+| Inline mark | last word of its attribution token, `{@alice 2026-11-07T14:05+01:00}` or `{@2026-11-07T14:05+01:00}` |
+| Comment block | last part of the header's parentheses, `(Alexis, 2026-11-07T14:05+01:00):` |
+| Individual answer | last part of the member list, `**Answer (alice, 2026-11-07T14:05+01:00):**` |
+
+The writes record it, each with an optional `at=` (ISO 8601 with an offset or
+`Z`; seconds are cut, any other shape raises `SpecReviewAnnotationError`):
+`insert_comment`, `edit_comment` (the author stays), `comment_change`,
+`edit_mark_comment` (authors and votes stay), `set_marked` and `mark_against`
+(both take an optional `author=`; a mark written again unchanged keeps its
+token) and `set_answer` with an `author=`. Without `at` the time comes from the
+`clock` the `SpecReviewAnnotations` was made with, else from the system clock.
+Deciding, voting, answering and merging keep the times; removing an annotation
+takes its time with it. `normalize_review_time`, `is_review_time` and
+`system_review_time` are the helpers.
+
+Reading reports `changed_at` on `SpecReviewAnnotation` (comments and marks),
+`SpecMarkEntry` and `SpecIndividualAnswer`; `to_json` writes it as
+`changedAt` only when there is one.
+
+```python
+review = SpecReviewAnnotations(doc, clock=lambda: "2026-11-07T14:05+01:00")
+review.insert_comment(path="DEMO/SUM", after_paragraph=0, text="Why 15?", author="alexis")
+# > ⬆️ **C-1** (alexis, 2026-11-07T14:05+01:00): Why 15?
+review.edit_comment("C-1", "Why 15 and not 20?", at="2026-11-08T09:00Z")
+# > ⬆️ **C-1** (alexis, 2026-11-08T09:00Z): Why 15 and not 20?
+```
 
 ## Validation
 

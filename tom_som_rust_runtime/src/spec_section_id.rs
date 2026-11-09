@@ -193,7 +193,7 @@ pub fn today_month_day() -> (i64, i64) {
 
 /// Converts a count of days since 1970-01-01 into a `(year, month, day)` civil
 /// date using Howard Hinnant's dependency-free algorithm.
-fn civil_from_days(z_in: i64) -> (i64, i64, i64) {
+pub(crate) fn civil_from_days(z_in: i64) -> (i64, i64, i64) {
     let z = z_in + 719_468;
     let era = if z >= 0 { z } else { z - 146_096 } / 146_097;
     let doe = z - era * 146_097; // [0, 146096]
