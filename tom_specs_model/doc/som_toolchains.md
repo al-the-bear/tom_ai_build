@@ -198,8 +198,10 @@ types only — so `tom_specs_clitool` never loads a `packages.sum`.
 The analyzer's summary APIs are **internal, not public API**. The dependency is
 pinned at `analyzer: ^14.7.0` and the version must be moved deliberately,
 together with `tom_analyzer_shared` (`^0.12.0`, on analyzer 14):
-a summary written by one analyzer major cannot be read by another, so the move
-also regenerates the embedded SDK summary (below). `tom_analyzer_shared` keys
+a summary is read reliably only by the analyzer version that wrote it — one
+written by 14.5 fails under 14.7 with `RangeError`s — so the move also
+regenerates the embedded SDK summary (below), and the constraint's floor is the
+version that wrote it. `tom_analyzer_shared` keys
 its summary cache on the analyzer major, the Dart SDK version and the
 analyzer's data version, invalidates a bundle when a transitive dependency
 changes version, and caches a bundle only when it is complete.
@@ -207,7 +209,7 @@ changes version, and caches a bundle only when it is complete.
 ### Regenerating after an SDK change
 
 The chunk files are checked into version control, so they must be rebuilt
-whenever the Dart SDK version or the analyzer major moves:
+whenever the Dart SDK version or the analyzer version (a minor too) moves:
 
 ```bash
 cd tom_ai/ai_build/tom_specs_clitool
