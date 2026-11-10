@@ -16,7 +16,8 @@ never built the model.
   `readCommittedModelVersion`; `readModelVersionStamp` refuses a stamp whose
   version differs from the pubspec (left from an earlier build).
 - `check_format` names a package that was never resolved (no package config)
-  instead of reporting its files as unformatted.
+  instead of reporting its files as unformatted, and runs the formatter in
+  batches under the Windows command-line limit (`formatBatches`).
 - `createAnalysisDriver` refuses a package that declares dependencies but was
   never resolved (`UnresolvedPackageException`): analysing it resolved none
   of its imports, so the generators emitted facades with no document roots

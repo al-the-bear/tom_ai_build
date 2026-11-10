@@ -198,12 +198,31 @@ class FormatReport {
   }
 }
 
+/// [files] split into runs of arguments whose joined length stays under
+/// [maxChars], each run holding at least one file.
+List<List<String>> formatBatches(List<String> files, {int maxChars = 24000}) {
+  final batches = <List<String>>[];
+  var current = <String>[];
+  var length = 0;
+  for (final file in files) {
+    if (current.isNotEmpty && length + file.length + 1 > maxChars) {
+      batches.add(current);
+      current = <String>[];
+      length = 0;
+    }
+    current.add(file);
+    length += file.length + 1;
+  }
+  if (current.isNotEmpty) batches.add(current);
+  return batches;
+}
+
 /// Runs `dart format --output=none --set-exit-if-changed` over [set]'s
 /// directories under [containerRoot].
 ///
-/// One invocation for the whole manifest: the formatter's cost is dominated by
-/// parsing, and ten processes would pay the VM's startup ten times to learn the
-/// same thing.
+/// As few invocations as the command-line limit allows ([formatBatches]): the
+/// formatter's cost is dominated by parsing, and a process per package would
+/// pay the VM's startup once per package to learn the same thing.
 FormatReport checkFormatting({
   required String containerRoot,
   required FormatSet set,
@@ -228,39 +247,46 @@ FormatReport checkFormatting({
     );
   }
 
-  final ProcessResult result;
-  try {
-    result = Process.runSync(
-      'dart',
-      ['format', '--output=none', '--set-exit-if-changed', ...files],
-      stdoutEncoding: utf8,
-      stderrEncoding: utf8,
-    );
-  } on ProcessException catch (e) {
-    return FormatReport(
-      unformatted: const [],
-      missingPackages: missing,
-      unresolvedPackages: unresolved,
-      unavailable: 'could not run `dart format` ($e)',
-    );
-  }
+  // Batched: Windows caps a command line at 32,767 characters, and the whole
+  // manifest is several times that ("Der Dateiname oder die Erweiterung ist
+  // zu lang"). The batches stay well under it on every host.
+  final stdoutText = StringBuffer();
+  for (final batch in formatBatches(files)) {
+    final ProcessResult result;
+    try {
+      result = Process.runSync(
+        'dart',
+        ['format', '--output=none', '--set-exit-if-changed', ...batch],
+        stdoutEncoding: utf8,
+        stderrEncoding: utf8,
+      );
+    } on ProcessException catch (e) {
+      return FormatReport(
+        unformatted: const [],
+        missingPackages: missing,
+        unresolvedPackages: unresolved,
+        unavailable: 'could not run `dart format` ($e)',
+      );
+    }
 
-  // Exit 0 clean, 1 "would change", anything else is the formatter failing —
-  // a parse error in a source file, say. Reporting that as "clean" would hide
-  // a broken file behind a green gate.
-  if (result.exitCode > 1) {
-    return FormatReport(
-      unformatted: const [],
-      missingPackages: missing,
-      unresolvedPackages: unresolved,
-      unavailable:
-          '`dart format` exited ${result.exitCode}: '
-          '${(result.stderr as String).trim()}',
-    );
+    // Exit 0 clean, 1 "would change", anything else is the formatter failing —
+    // a parse error in a source file, say. Reporting that as "clean" would
+    // hide a broken file behind a green gate.
+    if (result.exitCode > 1) {
+      return FormatReport(
+        unformatted: const [],
+        missingPackages: missing,
+        unresolvedPackages: unresolved,
+        unavailable:
+            '`dart format` exited ${result.exitCode}: '
+            '${(result.stderr as String).trim()}',
+      );
+    }
+    stdoutText.write(result.stdout as String);
   }
 
   final unformatted = <String>[];
-  for (final line in (result.stdout as String).split('\n')) {
+  for (final line in stdoutText.toString().split('\n')) {
     if (!line.startsWith('Changed ')) continue;
     final path = line.substring('Changed '.length).trim();
     unformatted.add(
