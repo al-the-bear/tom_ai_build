@@ -20,6 +20,13 @@ String _packageRoot() => p.normalize(Directory.current.path);
 String _containerRoot() =>
     p.normalize(p.join(_packageRoot(), '..', '..', '..'));
 
+/// Gives [dir] a pubspec that has something to resolve.
+void _pubspecWithDependency(String dir) {
+  File(
+    p.join(dir, 'pubspec.yaml'),
+  ).writeAsStringSync('name: pkg\ndependencies:\n  path: ^1.9.0\n');
+}
+
 /// Gives [dir] the package config `dart pub get` would write.
 void _resolve(String dir) {
   File(p.join(dir, '.dart_tool', 'package_config.json'))
@@ -119,6 +126,7 @@ void main() {
       addTearDown(() => tmp.deleteSync(recursive: true));
       final lib = Directory(p.join(tmp.path, 'pkg', 'lib'))
         ..createSync(recursive: true);
+      _pubspecWithDependency(p.join(tmp.path, 'pkg'));
       File(
         p.join(lib.path, 'ugly.dart'),
       ).writeAsStringSync('void   main( ) {print("x") ;}\n');
@@ -138,6 +146,7 @@ void main() {
       final tmp = Directory.systemTemp.createTempSync('format_gate_ws_');
       addTearDown(() => tmp.deleteSync(recursive: true));
       Directory(p.join(tmp.path, 'pkg', 'lib')).createSync(recursive: true);
+      _pubspecWithDependency(p.join(tmp.path, 'pkg'));
       _resolve(tmp.path);
       final unresolved = <String>[];
       const FormatSet(
@@ -160,6 +169,14 @@ void main() {
       expect(formatBatches(['x' * 5000], maxChars: 1000), [
         ['x' * 5000],
       ]);
+    });
+
+    test('a folder with nothing to resolve counts as resolved', () {
+      // tom_som_conformance: scripts and a corpus, no pubspec of its own.
+      final tmp = Directory.systemTemp.createTempSync('format_gate_nopub_');
+      addTearDown(() => tmp.deleteSync(recursive: true));
+      Directory(p.join(tmp.path, 'pkg', 'tool')).createSync(recursive: true);
+      expect(isResolvedPackage(p.join(tmp.path, 'pkg'), tmp.path), isTrue);
     });
 
     test('a missing manifest package is a finding, not a quiet skip', () {

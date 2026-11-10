@@ -19,6 +19,7 @@ import 'package:analyzer/src/summary2/package_bundle_format.dart';
 import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
+import 'package_resolution.dart';
 import 'sdk_summary/sdk_summary_chunks.dart';
 
 /// Creates an [AnalysisDriver] using the embedded SDK summary.
@@ -94,7 +95,7 @@ Uint8List _loadEmbeddedSdkSummary() {
     // anyway resolves none of its imports, so every annotation reads as
     // unresolved and a generator emits a facade with no document roots,
     // without a word. Refuse instead; a dependency-free package needs none.
-    if (_declaresDependencies(packagePath)) {
+    if (declaresDependencies(packagePath)) {
       throw UnresolvedPackageException(packagePath);
     }
     return (packageMap: {}, packages: Packages({}));
@@ -166,14 +167,4 @@ class UnresolvedPackageException implements Exception {
   String toString() =>
       '$packagePath has no .dart_tool/package_config.json: run '
       '`dart pub get` there first (without it none of its imports resolve)';
-}
-
-/// Whether the pubspec at [packagePath] declares a non-empty `dependencies:`.
-bool _declaresDependencies(String packagePath) {
-  final pubspec = io.File(p.join(packagePath, 'pubspec.yaml'));
-  if (!pubspec.existsSync()) return false;
-  return RegExp(
-    r'^dependencies:\s*\n\s+\S',
-    multiLine: true,
-  ).hasMatch(pubspec.readAsStringSync());
 }

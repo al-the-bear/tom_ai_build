@@ -46,6 +46,8 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'package_resolution.dart';
+
 /// The manifest of packages the formatter governs, and the source directories
 /// checked inside each.
 class FormatSet {
@@ -131,23 +133,6 @@ class FormatSet {
     }
     out.sort();
     return out;
-  }
-}
-
-/// Whether [packageRoot] has a package config, in itself or in a folder above
-/// it up to [containerRoot] (a pub workspace resolves its members there): a
-/// package never resolved there cannot be formatted, analysed or documented
-/// faithfully, so the gates name it rather than judge it.
-bool isResolvedPackage(String packageRoot, String containerRoot) {
-  final stop = p.normalize(p.absolute(containerRoot));
-  var dir = p.normalize(p.absolute(packageRoot));
-  while (true) {
-    if (File(p.join(dir, '.dart_tool', 'package_config.json')).existsSync()) {
-      return true;
-    }
-    final parent = p.dirname(dir);
-    if (dir == stop || parent == dir) return false;
-    dir = parent;
   }
 }
 
