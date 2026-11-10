@@ -59,6 +59,27 @@ class ModelVersionStampException implements Exception {
   String toString() => message;
 }
 
+/// The model version `tom_specs_model/pubspec.yaml` commits: the version every
+/// host agrees on.
+///
+/// The versioner's stamp is generated per host and is not committed (its build
+/// number churns every run), so a check of committed artefacts on a host that
+/// did not generate them reads the version from here, never from the stamp.
+/// Throws a [ModelVersionStampException] when the pubspec has no `version:`.
+String readCommittedModelVersion(String modelDir) {
+  final pubspec = File(p.join(modelDir, 'pubspec.yaml'));
+  final match = pubspec.existsSync()
+      ? RegExp(
+          r'^version:\s*(\S+)\s*$',
+          multiLine: true,
+        ).firstMatch(pubspec.readAsStringSync())
+      : null;
+  if (match == null) {
+    throw ModelVersionStampException('No `version:` in ${pubspec.path}.');
+  }
+  return match.group(1)!;
+}
+
 /// The path of the generated stamp source inside [modelDir].
 String modelVersionStampPath(String modelDir) =>
     p.join(modelDir, 'lib', 'src', 'version.versioner.dart');
@@ -66,7 +87,9 @@ String modelVersionStampPath(String modelDir) =>
 /// Parses the stamp produced by `buildkit :versioner` in [modelDir].
 ///
 /// Throws a [ModelVersionStampException] when the file is absent (the versioner
-/// step has not run) or carries no `version` field.
+/// step has not run), carries no `version` field, or names another version
+/// than the committed pubspec (a stamp left from an earlier build on this
+/// host, which would stamp the generated artefacts with the wrong model).
 ModelVersionStamp readModelVersionStamp(String modelDir) {
   final file = File(modelVersionStampPath(modelDir));
   if (!file.existsSync()) {
@@ -87,6 +110,14 @@ ModelVersionStamp readModelVersionStamp(String modelDir) {
   if (version.isEmpty) {
     throw ModelVersionStampException(
       'Could not parse `version` from ${file.path}.',
+    );
+  }
+  final committed = readCommittedModelVersion(modelDir);
+  if (version != committed) {
+    throw ModelVersionStampException(
+      'The version stamp at ${file.path} is $version but '
+      '${p.join(modelDir, 'pubspec.yaml')} is $committed: the stamp is left '
+      'from an earlier build (run `buildkit :versioner` in the model package).',
     );
   }
   return ModelVersionStamp(

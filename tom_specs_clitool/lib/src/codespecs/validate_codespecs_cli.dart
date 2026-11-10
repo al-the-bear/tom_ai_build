@@ -470,9 +470,14 @@ Map<String, String> _migrations(String? path) {
   return {
     for (final entity in dir.listSync(recursive: true))
       if (entity is File && entity.path.toLowerCase().endsWith('.sql'))
-        p.relative(entity.path, from: dir.path): entity.readAsStringSync(),
+        _slashed(p.relative(entity.path, from: dir.path)): entity
+            .readAsStringSync(),
   };
 }
+
+/// [relative] written with `/` on every host, as the reports and the
+/// back-links index name files.
+String _slashed(String relative) => p.split(relative).join('/');
 
 /// The per-area extracts under [path] plus an optional gate record. The `.md`
 /// views beside them are deliberately not read: a view read as input becomes
@@ -490,7 +495,7 @@ CsExtractSet _extracts(String? path) {
     final isExtract = entity.path.endsWith('.extract.yaml');
     final isGate = p.basename(entity.path) == kCsGateRecordFile;
     if (!isExtract && !isGate) continue;
-    sources[p.relative(entity.path, from: dir.path)] = entity
+    sources[_slashed(p.relative(entity.path, from: dir.path))] = entity
         .readAsStringSync();
   }
   try {

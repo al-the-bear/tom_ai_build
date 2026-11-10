@@ -26,13 +26,24 @@ void main() {
   final clitoolRoot = Directory.current.path;
   final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
   final modelDir = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model'));
+  // The committed model version, never the versioner's stamp: the stamp is
+  // generated per host and not committed, so on a host that did not build the
+  // model it is absent or left from an earlier build. A committed asset is
+  // checked against what every host agrees on; the label's build part records
+  // the build that exported it.
+  final committedVersion = readCommittedModelVersion(modelDir);
+  final committedMajor = int.parse(committedVersion.split('.').first);
 
   group('committed asset target/stamp policy', () {
     test('the stamp is derived from the model versioner', () {
-      final versioner = readModelVersionStamp(modelDir);
+      final versioner = ModelVersionStamp(
+        version: committedVersion,
+        buildNumber: 3,
+        gitCommit: 'abc1234',
+      );
       final stamp = ModelJsonStamp.from(versioner);
-      expect(stamp.version, versioner.majorVersion);
-      expect(stamp.label, versioner.label);
+      expect(stamp.version, committedMajor);
+      expect(stamp.label, '$committedVersion+3.abc1234');
     });
 
     test('the derived stamp takes the major, never the build number', () {
@@ -54,7 +65,11 @@ void main() {
     test('both committed assets take the same stamp', () {
       // They are one export of one model, so they can only honestly claim one
       // version. A per-target pin is what let them disagree.
-      final versioner = readModelVersionStamp(modelDir);
+      final versioner = ModelVersionStamp(
+        version: committedVersion,
+        buildNumber: 1,
+        gitCommit: '',
+      );
       final expected = ModelJsonStamp.from(versioner);
       for (final target in ModelJsonTarget.values) {
         expect(
@@ -99,8 +114,6 @@ void main() {
   });
 
   group('committed assets on disk carry their target stamp', () {
-    final versioner = readModelVersionStamp(modelDir);
-
     for (final target in ModelJsonTarget.values) {
       final path = target.outputPathIn(containerRoot);
       final file = File(path);
@@ -115,17 +128,16 @@ void main() {
         }
         final asset =
             json.decode(file.readAsStringSync()) as Map<String, dynamic>;
-        final expected = ModelJsonStamp.from(versioner);
         expect(
           asset['modelVersion'],
-          expected.version,
+          committedMajor,
           reason:
               'refresh it with `dart run bin/model_json.dart '
               '--target ${target.id}`',
         );
         expect(
           asset['modelVersionLabel'],
-          expected.label,
+          startsWith('$committedVersion+'),
           reason:
               'refresh it with `dart run bin/model_json.dart '
               '--target ${target.id}`',

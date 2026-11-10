@@ -20,6 +20,13 @@ String _packageRoot() => p.normalize(Directory.current.path);
 String _containerRoot() =>
     p.normalize(p.join(_packageRoot(), '..', '..', '..'));
 
+/// Gives [dir] the package config `dart pub get` would write.
+void _resolve(String dir) {
+  File(p.join(dir, '.dart_tool', 'package_config.json'))
+    ..createSync(recursive: true)
+    ..writeAsStringSync('{"configVersion": 2, "packages": []}\n');
+}
+
 void main() {
   group('formatting — every governed package is `dart format` clean', () {
     final manifestPath = p.join(_packageRoot(), 'tool', 'format_set.yaml');
@@ -72,6 +79,7 @@ void main() {
       addTearDown(() => tmp.deleteSync(recursive: true));
       final lib = Directory(p.join(tmp.path, 'pkg', 'lib'))
         ..createSync(recursive: true);
+      _resolve(p.join(tmp.path, 'pkg'));
       final target = File(p.join(lib.path, 'ugly.dart'))
         ..writeAsStringSync('void   main( ) {print("x") ;}\n');
       final before = target.readAsStringSync();
@@ -94,6 +102,42 @@ void main() {
             'the gate reports; `dart format` repairs. A gate that '
             'rewrote files would edit a branch at a moment nobody chose',
       );
+    });
+
+    test('an unresolved package is named, its files not judged', () {
+      // Without a package config `dart format` formats at the newest language
+      // version, not the package's, so a fresh checkout (bigbeast) reported
+      // files as unformatted that were not. The gate says what is missing.
+      final tmp = Directory.systemTemp.createTempSync('format_gate_unres_');
+      addTearDown(() => tmp.deleteSync(recursive: true));
+      final lib = Directory(p.join(tmp.path, 'pkg', 'lib'))
+        ..createSync(recursive: true);
+      File(
+        p.join(lib.path, 'ugly.dart'),
+      ).writeAsStringSync('void   main( ) {print("x") ;}\n');
+
+      final report = checkFormatting(
+        containerRoot: tmp.path,
+        set: const FormatSet(packages: ['pkg'], directories: ['lib']),
+      );
+
+      expect(report.unresolvedPackages, ['pkg']);
+      expect(report.unformatted, isEmpty);
+      expect(report.isClean, isFalse);
+      expect(report.summary, contains('not resolved'));
+    });
+
+    test('a package resolved by a workspace above it counts as resolved', () {
+      final tmp = Directory.systemTemp.createTempSync('format_gate_ws_');
+      addTearDown(() => tmp.deleteSync(recursive: true));
+      Directory(p.join(tmp.path, 'pkg', 'lib')).createSync(recursive: true);
+      _resolve(tmp.path);
+      final unresolved = <String>[];
+      const FormatSet(
+        packages: ['pkg'],
+        directories: ['lib'],
+      ).resolveFiles(tmp.path, unresolvedPackages: unresolved);
+      expect(unresolved, isEmpty);
     });
 
     test('a missing manifest package is a finding, not a quiet skip', () {

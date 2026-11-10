@@ -91,15 +91,26 @@ class FormatSet {
   /// [missingPackages] collects manifest entries with no directory at all —
   /// a moved or renamed package, which would otherwise shrink the gate's
   /// subject in silence.
+  ///
+  /// [unresolvedPackages] collects packages that exist but were never resolved
+  /// (no `.dart_tool/package_config.json` in the package or above it): without
+  /// one, `dart format` formats at the newest language version rather than the
+  /// package's, and reports files as unformatted that are not. Their files are
+  /// left out, and the package is named instead.
   List<String> resolveFiles(
     String containerRoot, {
     List<String>? missingPackages,
+    List<String>? unresolvedPackages,
   }) {
     final out = <String>[];
     for (final package in packages) {
       final root = p.join(containerRoot, package);
       if (!Directory(root).existsSync()) {
         missingPackages?.add(package);
+        continue;
+      }
+      if (unresolvedPackages != null && !_isResolved(root, containerRoot)) {
+        unresolvedPackages.add(package);
         continue;
       }
       for (final dir in directories) {
@@ -122,6 +133,21 @@ class FormatSet {
   }
 }
 
+/// Whether [packageRoot] has a package config, in itself or in a folder above
+/// it up to [containerRoot] (a pub workspace resolves its members there).
+bool _isResolved(String packageRoot, String containerRoot) {
+  final stop = p.normalize(p.absolute(containerRoot));
+  var dir = p.normalize(p.absolute(packageRoot));
+  while (true) {
+    if (File(p.join(dir, '.dart_tool', 'package_config.json')).existsSync()) {
+      return true;
+    }
+    final parent = p.dirname(dir);
+    if (dir == stop || parent == dir) return false;
+    dir = parent;
+  }
+}
+
 /// What the formatter would change, and what got in the way of asking.
 class FormatReport {
   /// Files `dart format` would rewrite, container-root-relative, sorted.
@@ -129,6 +155,10 @@ class FormatReport {
 
   /// Manifest packages that are not on disk.
   final List<String> missingPackages;
+
+  /// Manifest packages on disk but never resolved (`dart pub get` not run),
+  /// whose files were not checked.
+  final List<String> unresolvedPackages;
 
   /// Why the check could not run at all, or `null` when it did.
   ///
@@ -141,12 +171,16 @@ class FormatReport {
   const FormatReport({
     required this.unformatted,
     this.missingPackages = const [],
+    this.unresolvedPackages = const [],
     this.unavailable,
   });
 
   /// Whether every governed file is already formatted.
   bool get isClean =>
-      unavailable == null && unformatted.isEmpty && missingPackages.isEmpty;
+      unavailable == null &&
+      unformatted.isEmpty &&
+      missingPackages.isEmpty &&
+      unresolvedPackages.isEmpty;
 
   /// A one-line summary for a CLI.
   String get summary {
@@ -156,6 +190,9 @@ class FormatReport {
       if (unformatted.isNotEmpty) '${unformatted.length} unformatted file(s)',
       if (missingPackages.isNotEmpty)
         '${missingPackages.length} manifest package(s) missing',
+      if (unresolvedPackages.isNotEmpty)
+        '${unresolvedPackages.length} package(s) not resolved '
+            '(run `dart pub get` there)',
     ];
     return 'formatting: ${parts.join(', ')}';
   }
@@ -172,12 +209,22 @@ FormatReport checkFormatting({
   required FormatSet set,
 }) {
   final missing = <String>[];
-  final files = set.resolveFiles(containerRoot, missingPackages: missing);
+  final unresolved = <String>[];
+  final files = set.resolveFiles(
+    containerRoot,
+    missingPackages: missing,
+    unresolvedPackages: unresolved,
+  );
   if (files.isEmpty) {
     return FormatReport(
       unformatted: const [],
       missingPackages: missing,
-      unavailable: 'no manifest package has a governed Dart file on disk',
+      unresolvedPackages: unresolved,
+      unavailable: unresolved.isEmpty
+          ? 'no manifest package has a governed Dart file on disk'
+          : 'no resolved package to check — ${unresolved.length} package(s) '
+                'not resolved (run `dart pub get` there): '
+                '${unresolved.join(', ')}',
     );
   }
 
@@ -193,6 +240,7 @@ FormatReport checkFormatting({
     return FormatReport(
       unformatted: const [],
       missingPackages: missing,
+      unresolvedPackages: unresolved,
       unavailable: 'could not run `dart format` ($e)',
     );
   }
@@ -204,6 +252,7 @@ FormatReport checkFormatting({
     return FormatReport(
       unformatted: const [],
       missingPackages: missing,
+      unresolvedPackages: unresolved,
       unavailable:
           '`dart format` exited ${result.exitCode}: '
           '${(result.stderr as String).trim()}',
@@ -220,5 +269,9 @@ FormatReport checkFormatting({
   }
   unformatted.sort();
 
-  return FormatReport(unformatted: unformatted, missingPackages: missing);
+  return FormatReport(
+    unformatted: unformatted,
+    missingPackages: missing,
+    unresolvedPackages: unresolved,
+  );
 }

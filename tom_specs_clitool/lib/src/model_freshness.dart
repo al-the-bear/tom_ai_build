@@ -80,6 +80,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:crypto/crypto.dart';
 import 'package:path/path.dart' as p;
 
+import 'model_version_stamp.dart' show readCommittedModelVersion;
 import 'serialization_order.dart' show collectModelSourceFiles;
 import 'spec_object_model_config.dart';
 
@@ -215,14 +216,18 @@ class LibrarySurface {
 /// could assert that the fingerprint is stable but never that it moves for the
 /// right reasons.
 LibrarySurface fingerprintSources(List<File> files, {required String rootDir}) {
-  final sorted = [...files]..sort((a, b) => a.path.compareTo(b.path));
+  // Relative and `/`-separated, so the hash does not depend on where the
+  // workspace is checked out, nor on the host's separator — sorted by that
+  // name too, since `\` and `/` order differently against `.` and letters.
+  String relativeOf(File f) =>
+      p.split(p.relative(f.path, from: rootDir)).join('/');
+  final sorted = [...files]
+    ..sort((a, b) => relativeOf(a).compareTo(relativeOf(b)));
 
   final buffer = StringBuffer();
   var declarations = 0;
   for (final file in sorted) {
-    // Relative, so the hash does not depend on where the workspace is checked
-    // out — nor, for the tests, on the temp directory of the day.
-    final relative = p.relative(file.path, from: rootDir).replaceAll(r'\', '/');
+    final relative = relativeOf(file);
     final rendered = _renderUnit(file);
     declarations += rendered.declarationCount;
     if (rendered.text.isEmpty) continue;
@@ -249,20 +254,19 @@ ModelSurface computeModelSurface({
 }) {
   final root = p.join(modelPackagePath, 'lib', 'src');
 
-  // Exactly the file set `ModelReader` reflects, plus the version stamp: three
-  // of the meta's fields (`modelVersion`, `modelVersionLabel`, `generatedAt`)
-  // are read straight out of `version.versioner.dart`, so a model rebuild that
-  // moved them leaves the committed metas claiming an older build.
+  // Exactly the file set `ModelReader` reflects, plus the committed model
+  // version: the metas carry it, so a version bump without a regeneration
+  // leaves them describing the previous model. The version comes from the
+  // pubspec, not from `version.versioner.dart`: that stamp is generated per
+  // host and not committed, so a fingerprint over it could only be reproduced
+  // on the host that last built the model, and a fresh checkout has none.
   final files = collectModelSourceFiles(modelPackagePath);
-  final versioner = File(p.join(root, 'version.versioner.dart'));
-  if (!versioner.existsSync()) {
-    throw StateError('model version stamp not found at ${versioner.path}');
-  }
+  final version = readCommittedModelVersion(modelPackagePath);
 
-  final surface = fingerprintSources([...files, versioner], rootDir: root);
+  final surface = fingerprintSources(files, rootDir: root);
 
   return ModelSurface(
-    fingerprint: surface.hash,
+    fingerprint: _sha256('${surface.hash}\nmodelVersion=$version'),
     fileCount: surface.fileCount,
     declarationCount: surface.declarationCount,
     packages: [...packages]..sort(),
@@ -352,7 +356,9 @@ class _RenderedUnit {
 /// function bodies out.
 _RenderedUnit _renderUnit(File file) {
   final unit = parseFile(
-    path: file.absolute.path,
+    // The analyzer refuses a path that is not normalized (mixed separators on
+    // Windows).
+    path: p.normalize(file.absolute.path),
     featureSet: FeatureSet.latestLanguageVersion(),
     throwIfDiagnostics: false,
   ).unit;

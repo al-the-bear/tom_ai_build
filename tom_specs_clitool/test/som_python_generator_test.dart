@@ -295,12 +295,21 @@ void main() {
   });
 }
 
-/// Resolves a `python3` executable from PATH, or `null` when none is available.
+/// A Python 3 interpreter that actually runs, or `null` when none does.
+///
+/// Probed by running it, not by `which`/`where`: on Windows `python3` is often
+/// the Microsoft Store alias, which `where` finds but which only prints an
+/// install hint and exits 9009. The emitter tests probe the same way.
 String? _whichPython3() {
-  final which = Platform.isWindows ? 'where' : 'which';
-  final res = Process.runSync(which, ['python3']);
-  if (res.exitCode != 0) return null;
-  final out = (res.stdout as String).trim();
-  if (out.isEmpty) return null;
-  return out.split(RegExp(r'[\r\n]+')).first.trim();
+  for (final exe in ['python3', 'python']) {
+    try {
+      final r = Process.runSync(exe, ['--version']);
+      if (r.exitCode == 0 && '${r.stdout}${r.stderr}'.contains('Python 3')) {
+        return exe;
+      }
+    } on ProcessException {
+      // not on PATH; try the next name
+    }
+  }
+  return null;
 }

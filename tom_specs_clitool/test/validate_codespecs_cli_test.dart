@@ -33,14 +33,27 @@ Future<(int, String, String)> _run(List<String> args) async {
   return (code, '$out', '$err');
 }
 
+/// Whether the sample's extracts are missing, and if so marks the test skipped
+/// with the reason. The extracts are the sample's stage-2 output, written by
+/// running it (`tom_specs_samples/phase4_codespecs_run`, `dart run`) and not
+/// committed (its `.gitignore`): a fresh checkout has none until the sample
+/// has run there, and that is the host's state, not the validator's.
+bool _extractsMissing(String dir) {
+  if (Directory(dir).existsSync()) return false;
+  markTestSkipped(
+    '$dir does not exist: run the sample first '
+    '(cd tom_specs_samples/phase4_codespecs_run && dart run)',
+  );
+  return true;
+}
+
 void main() {
-  final extracts = [
-    '--extracts',
-    p.join(_sample, 'build', 'codespecs_extracts'),
-  ];
+  final extractsDir = p.join(_sample, 'build', 'codespecs_extracts');
+  final extracts = ['--extracts', extractsDir];
 
   group('--json', () {
     test('a clean trio: one versioned document, exit 0', () async {
+      if (_extractsMissing(extractsDir)) return;
       final (code, out, err) = await _run([
         ..._trio(_sample),
         ...extracts,
@@ -62,6 +75,7 @@ void main() {
     });
 
     test('a violation carries check, title, file, line, token, area', () async {
+      if (_extractsMissing(extractsDir)) return;
       // A copy of the trio whose entity renames one back-link token: check 36
       // reports the stale token at the declaration, check 35 the real token
       // the trio no longer cites, with its area.
@@ -102,6 +116,7 @@ void main() {
     });
 
     test('the text report is unchanged by the option', () async {
+      if (_extractsMissing(extractsDir)) return;
       final (code, out, err) = await _run([..._trio(_sample), ...extracts]);
       expect(code, 0, reason: err);
       expect(out.trim().split('\n').last, 'codespecs: 41 checks passed');
@@ -114,6 +129,7 @@ void main() {
     );
 
     test('runs checks 40 and 41 against the hook catalogue', () async {
+      if (_extractsMissing(extractsDir)) return;
       final (code, out, err) = await _run([
         ..._trio(_sample),
         ...extracts,
@@ -132,6 +148,7 @@ void main() {
     });
 
     test('omitted, checks 40 and 41 are announced unrun', () async {
+      if (_extractsMissing(extractsDir)) return;
       final (code, out, _) = await _run([..._trio(_sample), ...extracts]);
       expect(code, 0);
       expect(
@@ -214,7 +231,15 @@ const csFeatureReservedPaths = {};
   test(
     'the compiled binary runs standalone over the sample trio',
     () async {
-      final exe = p.absolute(p.join('.dart_tool', 'exe', 'validate_codespecs'));
+      if (_extractsMissing(extractsDir)) return;
+      // `dart compile exe` does not create the output's folder, and a fresh
+      // checkout has no `.dart_tool/exe/`; Windows runs only an `.exe`.
+      final exeDir = Directory(p.absolute(p.join('.dart_tool', 'exe')))
+        ..createSync(recursive: true);
+      final exe = p.join(
+        exeDir.path,
+        Platform.isWindows ? 'validate_codespecs.exe' : 'validate_codespecs',
+      );
       final compile = await Process.run(Platform.resolvedExecutable, [
         'compile',
         'exe',

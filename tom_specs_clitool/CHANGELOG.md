@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.14.1
+
+Fixes found by the first run of the suite on Linux and Windows hosts that had
+never built the model.
+
+- Windows paths: `validate_codespecs --backlinks`, its findings and the
+  extract keys, the doc-coverage report, the documentation-build link scan
+  and the §10.2 citation corpus write `/`-separated paths on every host; the
+  analyzer is given normalized paths (doc coverage, model freshness).
+- The model-freshness fingerprint hashes the model sources plus the committed
+  model version (`tom_specs_model/pubspec.yaml`), no longer the per-host,
+  uncommitted `version.versioner.dart`, so it is reproducible on a fresh
+  checkout; its file set is sorted by the `/`-separated name. New
+  `readCommittedModelVersion`; `readModelVersionStamp` refuses a stamp whose
+  version differs from the pubspec (left from an earlier build).
+- `check_format` names a package that was never resolved (no package config)
+  instead of reporting its files as unformatted.
+
 ## 0.14.0
 
 - `bin/spec_checks.dart`: the TomSpecs process checks on any project's

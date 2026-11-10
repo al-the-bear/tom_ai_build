@@ -21,6 +21,8 @@ library;
 
 import 'dart:io';
 
+import 'canonical_path.dart';
+
 /// Raised when a write/mutate operation targets a path outside the facade's
 /// writable whitelist. Thrown *before* any filesystem change.
 final class FilePermissionError implements Exception {
@@ -228,8 +230,9 @@ final class SpecFileFacade {
   static const String _sep = '/';
 
   String _basename(String path) {
-    final i = path.lastIndexOf(Platform.pathSeparator);
-    return i < 0 ? path : path.substring(i + 1);
+    final slashed = toSlashes(path, windows: Platform.isWindows);
+    final i = slashed.lastIndexOf(_sep);
+    return i < 0 ? slashed : slashed.substring(i + 1);
   }
 
   /// [path] relative to [root] (both absolute), `/`-separated; falls back to the
@@ -296,6 +299,7 @@ final class SpecFileFacade {
   /// the whitelist roots and every checked path are reduced to.
   static String _canonicalize(String path, String base) {
     final abs = _normalize(_absolute(path, base));
+    final rootLength = canonicalRootLength(abs, windows: Platform.isWindows);
 
     // Resolve symlinks on the longest existing prefix, then re-attach the
     // not-yet-existing tail (so a write to a new file under a symlinked dir is
@@ -305,7 +309,9 @@ final class SpecFileFacade {
     while (FileSystemEntity.typeSync(probe, followLinks: false) ==
         FileSystemEntityType.notFound) {
       final i = probe.lastIndexOf(_sep);
-      if (i <= 0) break;
+      // Never cut into the root: `C:` alone is the drive's current directory,
+      // not its root.
+      if (i < rootLength) break;
       tail.insert(0, probe.substring(i + 1));
       probe = probe.substring(0, i);
     }
@@ -323,24 +329,11 @@ final class SpecFileFacade {
     return _normalize(joined);
   }
 
-  static String _absolute(String path, String base) {
-    final p = path.replaceAll(Platform.pathSeparator, _sep);
-    if (p.startsWith(_sep)) return p;
-    final b = base.replaceAll(Platform.pathSeparator, _sep);
-    return '$b$_sep$p';
-  }
+  static String _absolute(String path, String base) =>
+      absoluteAgainst(path, base, windows: Platform.isWindows);
 
-  /// Collapses `.` and `..` segments in an absolute, `/`-separated path.
-  static String _normalize(String path) {
-    final out = <String>[];
-    for (final seg in path.split(_sep)) {
-      if (seg.isEmpty || seg == '.') continue;
-      if (seg == '..') {
-        if (out.isNotEmpty) out.removeLast();
-        continue;
-      }
-      out.add(seg);
-    }
-    return '$_sep${out.join(_sep)}';
-  }
+  /// Collapses `.` and `..` segments in an absolute path, written in the
+  /// canonical form of `canonical_path.dart`.
+  static String _normalize(String path) =>
+      normalizeCanonical(path, windows: Platform.isWindows);
 }

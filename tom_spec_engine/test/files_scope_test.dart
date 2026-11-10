@@ -45,13 +45,9 @@ void main() {
   group('facade defaults', () {
     test('default writable root is <workspace>/agent/scratchpad', () {
       expect(facade.writableRoots, hasLength(1));
-      expect(
-        facade.writableRoots.single,
-        endsWith(
-          '${Platform.pathSeparator}agent'
-          '${Platform.pathSeparator}scratchpad',
-        ),
-      );
+      // The canonical form is `/`-separated on every platform
+      // (lib/src/scope/canonical_path.dart).
+      expect(facade.writableRoots.single, endsWith('/agent/scratchpad'));
     });
   });
 

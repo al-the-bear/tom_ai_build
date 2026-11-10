@@ -87,16 +87,73 @@ void main() {
       );
     });
 
-    test('the fingerprint covers the reader file set plus the version stamp', () {
-      // Pins the one deliberate difference from ModelReader's own file set: the
-      // reader skips `*.versioner.dart`, but three of the meta's stamped fields
-      // are read straight out of it, so the gate must not.
+    test('the fingerprint covers the reader file set, not the versioner', () {
+      // The versioner's stamp is generated per host and not committed, so a
+      // fingerprint over it could be reproduced only where the model was last
+      // built: on a fresh checkout it is absent, on another host it is left
+      // from another build. The committed version stands in for it (MF-V1).
       final readerFiles = collectModelSourceFiles(modelDir);
       final surface = computeModelSurface(
         modelPackagePath: modelDir,
         packages: const ['tom_som_dart_v0'],
       );
-      expect(surface.fileCount, readerFiles.length + 1);
+      expect(surface.fileCount, readerFiles.length);
+    });
+  });
+
+  group('MF-V1 the committed model version', () {
+    late Directory dir;
+
+    setUp(() {
+      dir = Directory.systemTemp.createTempSync('model_version_');
+      Directory(p.join(dir.path, 'lib', 'src')).createSync(recursive: true);
+      File(
+        p.join(dir.path, 'lib', 'src', 'a.dart'),
+      ).writeAsStringSync('class A { final int x = 1; }\n');
+    });
+    tearDown(() => dir.deleteSync(recursive: true));
+
+    String fingerprintAt(String version) {
+      File(
+        p.join(dir.path, 'pubspec.yaml'),
+      ).writeAsStringSync('name: m\nversion: $version\n');
+      return computeModelSurface(
+        modelPackagePath: dir.path,
+        packages: const ['tom_som_dart_v0'],
+      ).fingerprint;
+    }
+
+    test('MF-V1.1 a version bump alone moves the fingerprint', () {
+      expect(fingerprintAt('1.8.0'), isNot(fingerprintAt('1.9.0')));
+      expect(fingerprintAt('1.8.0'), fingerprintAt('1.8.0'));
+    });
+
+    test('MF-V1.2 the versioner stamp does not enter it', () {
+      final before = fingerprintAt('1.8.0');
+      File(
+        p.join(dir.path, 'lib', 'src', 'version.versioner.dart'),
+      ).writeAsStringSync("const String version = '1.8.0';\n");
+      expect(fingerprintAt('1.8.0'), before);
+    });
+
+    test('MF-V1.3 a stamp left from an earlier build is refused', () {
+      fingerprintAt('1.8.0');
+      File(
+        p.join(dir.path, 'lib', 'src', 'version.versioner.dart'),
+      ).writeAsStringSync(
+        "static const String version = '1.3.2';\n"
+        'static const int buildNumber = 1;\n',
+      );
+      expect(
+        () => readModelVersionStamp(dir.path),
+        throwsA(
+          isA<ModelVersionStampException>().having(
+            (e) => e.message,
+            'message',
+            contains('left from an earlier build'),
+          ),
+        ),
+      );
     });
   });
 

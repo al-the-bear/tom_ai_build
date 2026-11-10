@@ -16,7 +16,7 @@ environment:
 # read (SOM §10.3).
 dependencies:
   tom_som_dart_v0: ^1.8.0
-  tom_som_dart_runtime: ^1.8.0
+  tom_som_dart_runtime: ^1.8.1
   tom_specs_model: ^1.8.0
 
 # Phase 5 derives a test suite and Phase 6 implements against it, so unlike the

@@ -73,6 +73,9 @@ void main(List<String> arguments) {
   for (final package in report.missingPackages) {
     stdout.writeln('  MISSING PACKAGE  $package');
   }
+  for (final package in report.unresolvedPackages) {
+    stdout.writeln('  NOT RESOLVED     $package  (run `dart pub get` there)');
+  }
   stdout.writeln(report.summary);
 
   if (report.unavailable != null) exit(2);

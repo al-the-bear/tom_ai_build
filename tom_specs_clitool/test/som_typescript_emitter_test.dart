@@ -203,7 +203,15 @@ String? _runtimeDir() {
 /// The project-local `tsc` binary inside the runtime's `node_modules`, or `null`
 /// when the runtime has not been `npm install`ed yet.
 String? _tsc(String runtimeDir) {
-  final bin = p.join(runtimeDir, 'node_modules', '.bin', 'tsc');
+  // npm writes a `tsc.cmd` launcher on Windows beside a shell script Windows
+  // cannot run (`%1 ist keine zulässige Win32-Anwendung`); the `.cmd` is run
+  // through the shell.
+  final bin = p.join(
+    runtimeDir,
+    'node_modules',
+    '.bin',
+    Platform.isWindows ? 'tsc.cmd' : 'tsc',
+  );
   return File(bin).existsSync() ? bin : null;
 }
 
@@ -312,7 +320,7 @@ void main() {
         File(
           p.join(dir.path, 'tsconfig.json'),
         ).writeAsStringSync(jsonEncode(tsconfig));
-        final r = Process.runSync(tsc, [
+        final r = Process.runSync(tsc, runInShell: Platform.isWindows, [
           '-p',
           'tsconfig.json',
         ], workingDirectory: dir.path);

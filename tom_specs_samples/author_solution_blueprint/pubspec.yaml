@@ -12,4 +12,4 @@ environment:
 # the point of being a sample (tom_specs_documentation_standard.md §7.1).
 dependencies:
   tom_som_dart_v0: ^1.8.0
-  tom_som_dart_runtime: ^1.8.0
+  tom_som_dart_runtime: ^1.8.1

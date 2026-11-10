@@ -135,21 +135,30 @@ class PackageSurface {
 /// test could assert that the fingerprint is stable but never that it moves for
 /// the right reasons.
 PackageSurface fingerprintLibrary(Directory libDir) {
-  // Sorted, so the rendering does not depend on filesystem order.
+  // Each file with its path relative to [libDir], always `/`-separated: the
+  // rendered names and the sort order must not depend on the host's separator,
+  // or Windows computes a different fingerprint from the same tree. URI paths
+  // are `/`-separated on every platform.
+  final libPath = libDir.absolute.uri.path;
+  final base = libPath.endsWith('/') ? libPath : '$libPath/';
+  String relativeOf(File f) =>
+      Uri.decodeComponent(f.absolute.uri.path.substring(base.length));
+
+  // Sorted by that path, so the rendering does not depend on filesystem order.
   final files =
       libDir
           .listSync(recursive: true)
           .whereType<File>()
           .where((f) => f.path.endsWith('.dart'))
           .toList()
-        ..sort((a, b) => a.path.compareTo(b.path));
+        ..sort((a, b) => relativeOf(a).compareTo(relativeOf(b)));
 
   final buffer = StringBuffer();
   var declarations = 0;
   for (final file in files) {
     // Relative, so the hash does not depend on where the workspace is checked
     // out — nor, for the tests, on the temp directory of the day.
-    final relative = file.path.substring(libDir.path.length + 1);
+    final relative = relativeOf(file);
     final rendered = _renderUnit(file);
     declarations += rendered.declarationCount;
     if (rendered.text.isEmpty) continue;
@@ -271,7 +280,9 @@ class _RenderedUnit {
 /// Renders [file]'s token stream, minus comments and minus function bodies.
 _RenderedUnit _renderUnit(File file) {
   final unit = parseFile(
-    path: file.absolute.path,
+    // The analyzer refuses a path that is not normalized, and on Windows one
+    // assembled as `C:\tmp\x/lib\a.dart` is not.
+    path: File.fromUri(file.absolute.uri).path,
     featureSet: FeatureSet.latestLanguageVersion(),
     throwIfDiagnostics: false,
   ).unit;

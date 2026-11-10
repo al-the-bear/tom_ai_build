@@ -36,6 +36,7 @@ export 'src/model_version_stamp.dart'
         ModelVersionStamp,
         ModelVersionStampException,
         modelVersionStampPath,
+        readCommittedModelVersion,
         readModelVersionStamp;
 export 'src/model_json_target.dart'
     show

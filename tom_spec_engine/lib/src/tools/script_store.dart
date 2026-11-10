@@ -78,7 +78,9 @@ final class FileScriptStore implements ScriptStore {
     final names = <String>[];
     for (final entity in dir.listSync()) {
       if (entity is! File) continue;
-      final base = entity.path.split('/').last;
+      // The URI's last segment, not a split on `/`: on Windows the listed
+      // path ends in `\name.d4rt.dart`.
+      final base = entity.uri.pathSegments.last;
       if (base.endsWith(scriptFileSuffix)) {
         names.add(base.substring(0, base.length - scriptFileSuffix.length));
       }

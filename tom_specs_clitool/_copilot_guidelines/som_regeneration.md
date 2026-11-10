@@ -133,6 +133,20 @@ Resolving the model (what `ModelReader` does) costs ~10 s and was rejected for
 the same reason. The fingerprint parses **syntactically** instead, which brings
 the whole model in under a second.
 
+### The version in the fingerprint
+
+Beside the model source, the fingerprint takes the **committed** model version,
+the `version:` of `tom_specs_model/pubspec.yaml`: the metas carry it, so a
+version bump without a regeneration is stale. It deliberately does **not** take
+`lib/src/version.versioner.dart`. That stamp is generated per host by
+`buildkit :versioner` and is not committed (its build number churns every run),
+so a fingerprint over it could be reproduced only on the host that last built
+the model: a fresh checkout has none, another host one left from another build.
+The build number and commit the metas' `modelVersionLabel` carries are a record
+of the build that generated them, not something a gate on another host can
+check. Generation itself still reads the stamp, and refuses one whose version is
+not the pubspec's.
+
 ### What the fingerprint deliberately ignores
 
 Taken over each file's token stream, so these are free and will not raise a false

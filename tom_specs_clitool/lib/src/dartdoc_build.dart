@@ -247,7 +247,9 @@ Set<String> allowedDoclinkPackages(String packageDir) {
         if (allowed.contains(target)) continue;
         final text = link.group(2)!.replaceAll(_tag, '').trim();
         found.add(
-          '${p.relative(page.path, from: outputDir)}: [$text] -> $target',
+          // `/`-separated, so a finding reads the same on every host.
+          '${p.split(p.relative(page.path, from: outputDir)).join('/')}: '
+          '[$text] -> $target',
         );
       }
     }

@@ -341,7 +341,11 @@ void main() {
 
     // The emitted manifest's relative runtimeSourcePath resolves from this temp
     // project back to the real runtime src, so build_jar.sh compiles against it.
-    final res = Process.runSync('bash', [result.buildScriptPath]);
+    // `/`-separated: bash on Windows (Git Bash) reads `\` as an escape, so a
+    // `C:\…\build_jar.sh` arrives as `C:…build_jar.sh`.
+    final res = Process.runSync('bash', [
+      result.buildScriptPath.replaceAll(r'\', '/'),
+    ]);
     expect(
       res.exitCode,
       0,

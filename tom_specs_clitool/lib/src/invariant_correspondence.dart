@@ -464,9 +464,10 @@ const String _corpusExemption = 'test/invariant_correspondence_test.dart';
 Map<String, String> readCitingCorpus(String clitoolRoot) {
   final corpus = <String, String>{};
   void add(File file) {
-    final path = p.normalize(
-      file.path.replaceFirst(RegExp('^${RegExp.escape(clitoolRoot)}/'), ''),
-    );
+    // Relative to the package and `/`-separated on every host: the keys are
+    // matched against `/`-written names (the exemption, `lib/src/validator.dart`)
+    // and printed in findings.
+    final path = p.split(p.relative(file.path, from: clitoolRoot)).join('/');
     if (path.endsWith(_corpusExemption)) return;
     corpus[path] = file.readAsStringSync();
   }

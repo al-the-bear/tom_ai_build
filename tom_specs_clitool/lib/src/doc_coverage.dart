@@ -284,10 +284,13 @@ Future<DocCoverageResult> measurePackage({
 
   for (final path in files) {
     final unit = parseFile(
-      path: path,
+      // The analyzer refuses a path that is not normalized: on Windows the
+      // package path arrives as `C:\ws\tom_ai/ai_build/x\lib\a.dart`.
+      path: p.normalize(p.absolute(path)),
       featureSet: FeatureSet.latestLanguageVersion(),
     ).unit;
-    final where = p.relative(path, from: libDir.path);
+    // `/`-separated on every host, so the report reads the same everywhere.
+    final where = p.split(p.relative(path, from: libDir.path)).join('/');
     for (final decl in unit.declarations) {
       _countDeclaration(decl, where, count);
     }

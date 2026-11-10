@@ -57,7 +57,9 @@ CsLocusProject readCsLocusProjectFromDirectory({
   if (libDir.existsSync()) {
     for (final entity in libDir.listSync(recursive: true)) {
       if (entity is io.File && entity.path.endsWith('.dart')) {
-        sources[p.relative(entity.path, from: root)] = entity
+        // `/`-separated on every host: the paths go into findings and the
+        // back-links index, which must read the same on Windows.
+        sources[p.split(p.relative(entity.path, from: root)).join('/')] = entity
             .readAsStringSync();
       }
     }
