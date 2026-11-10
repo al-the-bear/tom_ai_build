@@ -397,7 +397,8 @@ void main() {
       // Node resolves the runtime's compiled entry (`dist/src/index.js`)
       // through the node_modules link below, so the runtime dist must exist.
       if (!File(p.join(runtimeDir, 'dist', 'src', 'index.js')).existsSync()) {
-        final build = await Process.run('npm', [
+        // `npm` is `npm.cmd` on Windows, run through the shell.
+        final build = await Process.run('npm', runInShell: Platform.isWindows, [
           'run',
           'build',
         ], workingDirectory: runtimeDir);
