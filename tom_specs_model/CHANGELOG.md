@@ -1,3 +1,9 @@
+## 1.8.1
+
+- No change of structure: every 1.8.0 document is a 1.8.1 document. The chain
+  moves with `tom_som_dart_runtime` 1.8.1, which added the process-check
+  library `spec_checks.dart`; model, facades and runtimes carry one version.
+
 ## 1.8.0
 
 - `ProtocolFeatureKind.saml2IdentityProvider`: a SAML 2.0 identity provider as a

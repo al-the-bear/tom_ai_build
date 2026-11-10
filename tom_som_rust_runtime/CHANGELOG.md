@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.1
+
+- No change of structure: the chain moves with `tom_som_dart_runtime` 1.8.1
+  (the Dart-only process-check library `spec_checks.dart`). This runtime is
+  unchanged.
+
 ## 1.8.0
 
 - Plain YAML scalars (SOM §12.5): whether a non-text value (int, double,
