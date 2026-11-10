@@ -37,6 +37,14 @@ void main() {
     for (final e in set.entries) {
       test('APISIG-2: ${p.basename(e.package)} quotes the code', () async {
         final dir = p.join(_containerRoot(), e.package);
+        // Unresolved, every imported type reads as `InvalidType` and every
+        // quoted signature as wrong (bigbeast, whose engine cannot resolve).
+        if (!isResolvedPackage(dir, _containerRoot())) {
+          markTestSkipped(
+            '${e.package} is not resolved here: run `dart pub get` there',
+          );
+          return;
+        }
         final report = await checkApiSignatures(
           packageDir: dir,
           docDir: p.join(dir, e.docs),

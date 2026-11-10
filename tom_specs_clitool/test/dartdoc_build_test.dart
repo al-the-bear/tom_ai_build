@@ -38,11 +38,26 @@ void main() {
       final scratch = Directory.systemTemp.createTempSync('dartdoc_gate_');
       addTearDown(() => scratch.deleteSync(recursive: true));
       // Each build is single-threaded analysis: a few side by side.
+      // A package never resolved here documents nothing it imports, so every
+      // link into a dependency reads as unresolved. It is named and left out;
+      // the others are still checked.
+      final unresolved = [
+        for (final package in set.packages)
+          if (!isResolvedPackage(
+            p.join(_containerRoot(), package),
+            _containerRoot(),
+          ))
+            package,
+      ];
+      final resolved = [
+        for (final package in set.packages)
+          if (!unresolved.contains(package)) package,
+      ];
       final reports = <DartdocBuildReport>[];
-      for (var i = 0; i < set.packages.length; i += 4) {
+      for (var i = 0; i < resolved.length; i += 4) {
         reports.addAll(
           await Future.wait([
-            for (final package in set.packages.skip(i).take(4))
+            for (final package in resolved.skip(i).take(4))
               buildDartdoc(
                 packageDir: p.join(_containerRoot(), package),
                 scratchDir: scratch.path,
@@ -69,6 +84,12 @@ void main() {
           reason: report.package,
         );
         expect(report.faults, 0, reason: report.package);
+      }
+      if (unresolved.isNotEmpty) {
+        markTestSkipped(
+          'not resolved here, so not built: ${unresolved.join(', ')} '
+          '(run `dart pub get` there)',
+        );
       }
     }, timeout: const Timeout(Duration(minutes: 8)));
   });

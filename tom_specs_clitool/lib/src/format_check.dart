@@ -109,7 +109,8 @@ class FormatSet {
         missingPackages?.add(package);
         continue;
       }
-      if (unresolvedPackages != null && !_isResolved(root, containerRoot)) {
+      if (unresolvedPackages != null &&
+          !isResolvedPackage(root, containerRoot)) {
         unresolvedPackages.add(package);
         continue;
       }
@@ -134,8 +135,10 @@ class FormatSet {
 }
 
 /// Whether [packageRoot] has a package config, in itself or in a folder above
-/// it up to [containerRoot] (a pub workspace resolves its members there).
-bool _isResolved(String packageRoot, String containerRoot) {
+/// it up to [containerRoot] (a pub workspace resolves its members there): a
+/// package never resolved there cannot be formatted, analysed or documented
+/// faithfully, so the gates name it rather than judge it.
+bool isResolvedPackage(String packageRoot, String containerRoot) {
   final stop = p.normalize(p.absolute(containerRoot));
   var dir = p.normalize(p.absolute(packageRoot));
   while (true) {

@@ -69,6 +69,13 @@ void main() {
             'invites the next person who touches it to reformat it '
             'incidentally, which buries their real change in the diff.',
       );
+      // A package never resolved here could not be judged; the others were.
+      if (report.unresolvedPackages.isNotEmpty) {
+        markTestSkipped(
+          'not resolved here, so not checked: '
+          '${report.unresolvedPackages.join(', ')} (run `dart pub get` there)',
+        );
+      }
     });
 
     test('the check reports an unformatted file rather than repairing it', () {
