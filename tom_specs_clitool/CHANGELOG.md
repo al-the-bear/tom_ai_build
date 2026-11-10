@@ -17,6 +17,10 @@ never built the model.
   version differs from the pubspec (left from an earlier build).
 - `check_format` names a package that was never resolved (no package config)
   instead of reporting its files as unformatted.
+- `createAnalysisDriver` refuses a package that declares dependencies but was
+  never resolved (`UnresolvedPackageException`): analysing it resolved none
+  of its imports, so the generators emitted facades with no document roots
+  without saying why.
 
 ## 0.14.0
 

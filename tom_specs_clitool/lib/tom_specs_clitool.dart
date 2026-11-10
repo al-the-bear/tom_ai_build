@@ -1,7 +1,8 @@
 /// TomSpecs CLI Tool — model outline generator.
 library;
 
-export 'src/analyzer_bootstrap.dart' show createAnalysisDriver;
+export 'src/analyzer_bootstrap.dart'
+    show UnresolvedPackageException, createAnalysisDriver;
 export 'src/dartdoc_build.dart'
     show
         DartdocBuildReport,

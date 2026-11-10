@@ -146,7 +146,10 @@ final class SpecFileFacade {
             ? _relative(e.path, rootPath)
             : _basename(e.path);
         if (re == null || re.hasMatch(candidate)) {
-          if (seen.add(e.path)) out.add(e.path);
+          // In the canonical form, like every path the facade hands out: the
+          // listing is native (`C:/ws\scratch\a.md` on Windows).
+          final found = _normalize(e.path);
+          if (seen.add(found)) out.add(found);
         }
       }
     }

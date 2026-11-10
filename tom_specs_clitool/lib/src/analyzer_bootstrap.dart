@@ -89,6 +89,14 @@ Uint8List _loadEmbeddedSdkSummary() {
   );
 
   if (!configFile.existsSync()) {
+    // A package with dependencies and no package config was never resolved
+    // (`dart pub get` not run there, as on a fresh checkout). Analysing it
+    // anyway resolves none of its imports, so every annotation reads as
+    // unresolved and a generator emits a facade with no document roots,
+    // without a word. Refuse instead; a dependency-free package needs none.
+    if (_declaresDependencies(packagePath)) {
+      throw UnresolvedPackageException(packagePath);
+    }
     return (packageMap: {}, packages: Packages({}));
   }
 
@@ -142,4 +150,30 @@ Uint8List _loadEmbeddedSdkSummary() {
   }
 
   return (packageMap: packageMap, packages: Packages(packagesMap));
+}
+
+/// A package declaring dependencies but holding no
+/// `.dart_tool/package_config.json`: it was never resolved, so analysing it
+/// would resolve none of its imports.
+class UnresolvedPackageException implements Exception {
+  /// Reports the unresolved package at [packagePath].
+  UnresolvedPackageException(this.packagePath);
+
+  /// The package root that has no package config.
+  final String packagePath;
+
+  @override
+  String toString() =>
+      '$packagePath has no .dart_tool/package_config.json: run '
+      '`dart pub get` there first (without it none of its imports resolve)';
+}
+
+/// Whether the pubspec at [packagePath] declares a non-empty `dependencies:`.
+bool _declaresDependencies(String packagePath) {
+  final pubspec = io.File(p.join(packagePath, 'pubspec.yaml'));
+  if (!pubspec.existsSync()) return false;
+  return RegExp(
+    r'^dependencies:\s*\n\s+\S',
+    multiLine: true,
+  ).hasMatch(pubspec.readAsStringSync());
 }

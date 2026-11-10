@@ -341,11 +341,29 @@ void main() {
 
     // The emitted manifest's relative runtimeSourcePath resolves from this temp
     // project back to the real runtime src, so build_jar.sh compiles against it.
-    // `/`-separated: bash on Windows (Git Bash) reads `\` as an escape, so a
-    // `C:\…\build_jar.sh` arrives as `C:…build_jar.sh`.
-    final res = Process.runSync('bash', [
-      result.buildScriptPath.replaceAll(r'\', '/'),
-    ]);
+    // On Windows by name from its own folder, so no path is translated: the `bash`
+    // on PATH is often WSL's, which reads neither `C:\…` nor `C:/…` and has a
+    // toolchain of its own, so the JDK is probed through that same bash.
+    final scriptDir = p.dirname(result.buildScriptPath);
+    final probe = Process.runSync('bash', [
+      '-c',
+      'command -v javac && command -v jar',
+    ], workingDirectory: scriptDir);
+    if (probe.exitCode != 0) {
+      markTestSkipped(
+        'the bash on PATH reaches no javac/jar (on Windows usually WSL\'s '
+        'bash; put Git Bash first, or install a JDK in WSL)',
+      );
+      return;
+    }
+    // The full path elsewhere: from a working directory bash would see the
+    // physical `/private/var/…` of a macOS temp folder, against which the
+    // manifest's relative runtime path no longer resolves.
+    final res = Platform.isWindows
+        ? Process.runSync('bash', [
+            p.basename(result.buildScriptPath),
+          ], workingDirectory: scriptDir)
+        : Process.runSync('bash', [result.buildScriptPath]);
     expect(
       res.exitCode,
       0,
