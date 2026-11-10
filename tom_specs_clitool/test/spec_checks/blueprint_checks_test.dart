@@ -2,7 +2,7 @@
 // measurement and the question-register check.
 //
 // The groups on the real Blueprint read tom_uam's from the workspace (and skip
-// when it is absent); its check data is tom_uam's `<spec-root>/checks/`. The
+// when it, or its check data in `<spec-root>/checks/`, is absent). The
 // coverage group on the real model reads the ai_build checkout named by
 // AI_BUILD (default: this repository).
 import 'dart:io';
@@ -18,6 +18,18 @@ const _checks = '$_ws/tom_uam/tom_specs/checks';
 const _ws = '../../..';
 
 final _blueprint = File('$_dir/tom_uam.sbp.docspecs.yaml');
+
+/// Whether tom_uam's real data is here: the Blueprint and its `checks/`
+/// folder. A checkout of tom_uam from before its check data moved to
+/// `checks/` has the one without the other; that is the host's state, so the
+/// real-data tests skip there as they do when tom_uam is absent.
+final bool _hasRealData =
+    _blueprint.existsSync() && Directory(_checks).existsSync();
+
+/// The skip reason when [_hasRealData] is false.
+const String _noRealData =
+    "tom_uam's Blueprint or its tom_specs/checks/ is not in this checkout "
+    '(run from the workspace root, on a current tom_uam)';
 
 String _read(String path) => File(path).readAsStringSync();
 
@@ -48,14 +60,14 @@ void main() {
     late String yaml;
     late String config;
     setUpAll(() {
-      if (!_blueprint.existsSync()) return;
+      if (!_hasRealData) return;
       yaml = _blueprint.readAsStringSync();
       config = _read('$_checks/authorization_cross_check.yaml');
     });
 
     test('BCK-1.1: the Blueprint has no finding', () {
-      if (!_blueprint.existsSync()) {
-        return markTestSkipped('run from the workspace root');
+      if (!_hasRealData) {
+        return markTestSkipped(_noRealData);
       }
       final r = crossCheckAuthorization(yaml, config);
       expect(r.findings.values.expand((l) => l), isEmpty);
@@ -64,8 +76,8 @@ void main() {
     });
 
     test('BCK-1.2: a screen missing from "Called by" is reported (F)', () {
-      if (!_blueprint.existsSync()) {
-        return markTestSkipped('run from the workspace root');
+      if (!_hasRealData) {
+        return markTestSkipped(_noRealData);
       }
       final broken = _once(
         yaml,
@@ -82,8 +94,8 @@ void main() {
     });
 
     test('BCK-1.5: text struck out by a review mark does not count (F)', () {
-      if (!_blueprint.existsSync()) {
-        return markTestSkipped('run from the workspace root');
+      if (!_hasRealData) {
+        return markTestSkipped(_noRealData);
       }
       // A screen named only in the deleted part of a mark is not named; one in
       // the inserted or new part is.
@@ -114,8 +126,8 @@ void main() {
     test(
       'BCK-1.3: a handler missing from the handler table is reported (A)',
       () {
-        if (!_blueprint.existsSync()) {
-          return markTestSkipped('run from the workspace root');
+        if (!_hasRealData) {
+          return markTestSkipped(_noRealData);
         }
         final r = crossCheckAuthorization(
           yaml,
@@ -134,8 +146,8 @@ void main() {
     test(
       'BCK-1.4: an action whose operation the screen cannot reach is reported (B)',
       () {
-        if (!_blueprint.existsSync()) {
-          return markTestSkipped('run from the workspace root');
+        if (!_hasRealData) {
+          return markTestSkipped(_noRealData);
         }
         // setUpInstallation is reachable by the operations role only, which the
         // application screen does not admit.
@@ -278,7 +290,7 @@ rules:
         '$ab/tom_som_conformance/samples/exercise_full_model.docspecs.yaml',
       );
       final m = File('$ab/tom_som_dart_v0/meta/spec_model.meta.json');
-      if (!_blueprint.existsSync() || !s.existsSync() || !m.existsSync()) {
+      if (!_hasRealData || !s.existsSync() || !m.existsSync()) {
         return markTestSkipped(
           'needs the workspace root and an ai_build checkout',
         );
@@ -408,8 +420,8 @@ $row81
 
     test('BCK-3.5: the real index agrees with the real Blueprint', () {
       final clarFile = File('$_dir/clarifications.sbp.md');
-      if (!_blueprint.existsSync() || !clarFile.existsSync()) {
-        return markTestSkipped('run from the workspace root');
+      if (!_hasRealData || !clarFile.existsSync()) {
+        return markTestSkipped(_noRealData);
       }
       final r = checkQuestionRegister(
         _blueprint.readAsStringSync(),
@@ -460,7 +472,7 @@ document:
     test('BCK-4.2: the real Blueprint holds every required field', () {
       final ab = Platform.environment['AI_BUILD'] ?? '..';
       final m = File('$ab/tom_som_dart_v0/meta/spec_model.meta.json');
-      if (!_blueprint.existsSync() || !m.existsSync()) {
+      if (!_hasRealData || !m.existsSync()) {
         return markTestSkipped(
           'needs the workspace root and an ai_build checkout',
         );
