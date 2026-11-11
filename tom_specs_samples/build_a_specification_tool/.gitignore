@@ -6,3 +6,5 @@
 # written — turning "this is how the published packages behave" into "this is
 # how they behaved once".
 pubspec.lock
+# Application package: its pubspec.lock is tracked (al_the_bear tom_app_locks, todo oqa2).
+!/pubspec.lock

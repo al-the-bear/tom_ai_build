@@ -8,3 +8,5 @@ build/
 # lock file would silently pin a reader to the versions of the day it was
 # written.
 pubspec.lock
+# Application package: its pubspec.lock is tracked (al_the_bear tom_app_locks, todo oqa2).
+!/pubspec.lock
