@@ -108,15 +108,19 @@ unpublished_drift:
     command (from-codespecs, map), the IR library (lib/src/irspecs/) with its
     step language for form-3b bodies and the Dart + Tom mapper, its schema,
     and the reader's additions for re-emitting a file; validate_codespecs
-    --ir / --regenerated-ir (tom_specs irspecs2 to irspecs5). Ships with the
-    next release.
+    --ir / --regenerated-ir (tom_specs irspecs2 to irspecs5); `units`
+    reserved in the structural accessors, and the C / C++ facade Makefiles
+    rebuilding on a runtime header change (tom_specs irspecs7). Ships with
+    the next release.
   tom_specs_model: >-
     1.9.0 is bumped and not yet published: the generation-unit register and
     RevisionEntry.changeId (tom_specs irspecs6). The chain is published once
     the runtimes carry the `units` member (irspecs7), in irspecs8.
   tom_som_dart_runtime: >-
     1.9.0 is bumped and not yet published: it moves in lockstep with
-    tom_specs_model 1.9.0 and is published with it (tom_specs irspecs8).
+    tom_specs_model 1.9.0 and carries the `units` member of every section,
+    validation phase 8 and the extract entries' units (tom_specs irspecs7);
+    published with the model (tom_specs irspecs8).
   tom_som_dart_v0: >-
     1.9.0 is bumped and not yet published: generated from tom_specs_model
     1.9.0 and published with it (tom_specs irspecs8).
