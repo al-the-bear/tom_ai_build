@@ -12,6 +12,7 @@ library;
 
 import '../codespecs/cs_model.dart';
 import 'ir_model.dart';
+import 'ir_steps.dart';
 
 /// Every field of every CsModel class a trio's reading holds, by class: what
 /// this codec writes and reads back.
@@ -69,7 +70,7 @@ const Map<String, Set<String>> irCarriedCsModelFields = {
     'location',
   },
   'CsParameter': {'name', 'type'},
-  'CsCall': {'receiver', 'method', 'location'},
+  'CsCall': {'receiver', 'method', 'arguments', 'location'},
   'CsStatement': {
     'kind',
     'source',
@@ -80,6 +81,7 @@ const Map<String, Set<String>> irCarriedCsModelFields = {
     'isFinal',
     'nested',
     'keyword',
+    'hasElse',
     'location',
   },
   'CsConstruction': {'type', 'positional', 'named', 'holder', 'location'},
@@ -158,6 +160,7 @@ IrDocument irDocumentFromData(Object? data, {String source = 'IR document'}) {
 
 Map<String, Object?> _file(IrFile entry) {
   final f = entry.file;
+  final steps = {for (final r in entry.steps) '${r.owner}.${r.body}': r};
   return {
     'locus': entry.locus.name,
     'path': f.path,
@@ -172,12 +175,15 @@ Map<String, Object?> _file(IrFile entry) {
           'line': c.location.line,
         },
     ],
-    'declarations': [for (final d in f.declarations) _declaration(d)],
+    'declarations': [for (final d in f.declarations) _declaration(d, steps)],
     'constructions': [for (final c in f.constructions) _construction(c)],
   };
 }
 
-Map<String, Object?> _declaration(CsDeclaration d) => {
+Map<String, Object?> _declaration(
+  CsDeclaration d,
+  Map<String, IrBodySteps> steps,
+) => {
   'name': d.name,
   'owner': ?d.owner,
   'kind': d.kind.name,
@@ -203,7 +209,10 @@ Map<String, Object?> _declaration(CsDeclaration d) => {
   'isLate': d.isLate,
   'hasInitialiser': d.hasInitialiser,
   'declaredType': ?d.declaredType,
-  'bodies': [for (final b in d.bodies) _body(b)],
+  'bodies': [
+    for (final b in d.bodies)
+      _body(b, d.isTopLevel ? steps['${d.name}.${b.name}'] : null),
+  ],
 };
 
 Map<String, Object?> _marker(CsMarker m) => {
@@ -240,7 +249,7 @@ Map<String, Object?> _value(CsValue v) => switch (v) {
   CsUnknownValue(:final source) => {'kind': 'unknown', 'source': source},
 };
 
-Map<String, Object?> _body(CsMethodBody b) => {
+Map<String, Object?> _body(CsMethodBody b, IrBodySteps? record) => {
   'name': b.name,
   'shape': b.shape.name,
   'line': b.location.line,
@@ -253,11 +262,42 @@ Map<String, Object?> _body(CsMethodBody b) => {
   'thrownMessage': ?b.thrownMessage,
   'calls': [for (final c in b.calls) _call(c)],
   'statements': [for (final s in b.statements) _statement(s)],
+  if (record?.steps case final steps?)
+    'steps': [for (final step in steps) _step(step)],
+  if (record?.issue case final issue?)
+    'stepsRefused': {
+      'rule': issue.rule,
+      'message': issue.message,
+      'line': issue.line,
+    },
+};
+
+Map<String, Object?> _step(IrStep step) => switch (step) {
+  IrCallStep(:final method, :final arguments) => {
+    'step': 'call',
+    'method': method,
+    'arguments': arguments,
+    'line': step.line,
+  },
+  IrReturnStep(:final method, :final arguments) => {
+    'step': 'return',
+    'method': ?method,
+    'arguments': arguments,
+    'line': step.line,
+  },
+  IrGuardedStep(:final guard, :final arguments, :final steps) => {
+    'step': 'guarded',
+    'guard': guard,
+    'arguments': arguments,
+    'line': step.line,
+    'steps': [for (final s in steps) _step(s)],
+  },
 };
 
 Map<String, Object?> _call(CsCall c) => {
   'receiver': ?c.receiver,
   'method': c.method,
+  'arguments': c.arguments,
   'line': c.location.line,
 };
 
@@ -266,6 +306,7 @@ Map<String, Object?> _statement(CsStatement s) => {
   'source': s.source,
   'line': s.location.line,
   'keyword': ?s.keyword,
+  'hasElse': s.hasElse,
   if (s.call case final call?) 'call': _call(call),
   'valueIdentifier': ?s.valueIdentifier,
   'valueSource': ?s.valueSource,
@@ -291,6 +332,11 @@ IrFile _readFile(Object? data) {
   final path = map['path'] as String;
   CsLocation at(Object? line) => CsLocation(path, line as int);
   final locus = _locus(map['locus']);
+  final steps = <IrBodySteps>[];
+  final declarations = [
+    for (final d in _list(map['declarations']))
+      _readDeclaration(_map(d), locus, at, steps),
+  ];
   return IrFile(
     locus,
     CsFile(
@@ -307,10 +353,7 @@ IrFile _readFile(Object? data) {
             location: at(_map(c)['line']),
           ),
       ],
-      declarations: [
-        for (final d in _list(map['declarations']))
-          _readDeclaration(_map(d), locus, at),
-      ],
+      declarations: declarations,
       constructions: [
         for (final c in _list(map['constructions']))
           CsConstruction(
@@ -322,6 +365,7 @@ IrFile _readFile(Object? data) {
           ),
       ],
     ),
+    steps,
   );
 }
 
@@ -329,7 +373,16 @@ CsDeclaration _readDeclaration(
   Map<String, Object?> d,
   CsLocus locus,
   CsLocation Function(Object?) at,
+  List<IrBodySteps> steps,
 ) {
+  final name = d['name'] as String;
+  if (d['owner'] == null) {
+    for (final b in _list(d['bodies'])) {
+      final body = _map(b);
+      final record = _readBodySteps(name, body);
+      if (record != null) steps.add(record);
+    }
+  }
   final link = d['codeSpec'] == null ? null : _map(d['codeSpec']);
   final doc = d['docComment'] == null ? null : _map(d['docComment']);
   return CsDeclaration(
@@ -377,6 +430,40 @@ CsDeclaration _readDeclaration(
   );
 }
 
+IrBodySteps? _readBodySteps(String owner, Map<String, Object?> body) {
+  final name = body['name'] as String;
+  if (body['steps'] case final List<Object?> steps) {
+    return IrBodySteps.read(owner, name, [for (final s in steps) _readStep(s)]);
+  }
+  if (body['stepsRefused'] case final Object refused) {
+    final issue = _map(refused);
+    return IrBodySteps.refused(
+      owner,
+      name,
+      IrStepIssue(
+        issue['rule'] as String,
+        issue['message'] as String,
+        issue['line'] as int,
+      ),
+    );
+  }
+  return null;
+}
+
+IrStep _readStep(Object? data) {
+  final s = _map(data);
+  final line = s['line'] as int;
+  final arguments = _strings(s['arguments']);
+  return switch (s['step']) {
+    'call' => IrCallStep(s['method'] as String, arguments, line),
+    'return' => IrReturnStep(s['method'] as String?, arguments, line),
+    'guarded' => IrGuardedStep(s['guard'] as String, arguments, [
+      for (final n in _list(s['steps'])) _readStep(n),
+    ], line),
+    final kind => throw IrSpecsException('unknown step "$kind"'),
+  };
+}
+
 CsMethodBody _readBody(
   Map<String, Object?> b,
   CsLocation Function(Object?) at,
@@ -402,6 +489,7 @@ CsCall _readCall(Map<String, Object?> c, CsLocation Function(Object?) at) =>
     CsCall(
       receiver: c['receiver'] as String?,
       method: c['method'] as String,
+      arguments: c['arguments'] == null ? const [] : _strings(c['arguments']),
       location: at(c['line']),
     );
 
@@ -413,6 +501,7 @@ CsStatement _readStatement(
   source: s['source'] as String,
   location: at(s['line']),
   keyword: s['keyword'] as String?,
+  hasElse: s['hasElse'] as bool? ?? false,
   call: s['call'] == null ? null : _readCall(_map(s['call']), at),
   valueIdentifier: s['valueIdentifier'] as String?,
   valueSource: s['valueSource'] as String?,

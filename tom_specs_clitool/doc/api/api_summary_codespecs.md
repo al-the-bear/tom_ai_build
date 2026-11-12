@@ -589,6 +589,7 @@ const CsCall({
   required this.method,
   required this.location,
   this.receiver,
+  this.arguments = const [],
 });
 ```
 
@@ -598,6 +599,7 @@ const CsCall({
 |----------|------|-------------|
 | `receiver` | `String?` | The receiver as written (`collaborator`), or `null` for an unqualified call. |
 | `method` | `String` | The invoked method name. |
+| `arguments` | `List<String>` | The arguments as written, whitespace-collapsed, in source order. |
 | `location` | `CsLocation` | Where the call is written. |
 
 ### CsStatement
@@ -617,6 +619,7 @@ const CsStatement({
   this.isFinal = false,
   this.nested = const [],
   this.keyword,
+  this.hasElse = false,
 });
 ```
 
@@ -633,6 +636,7 @@ const CsStatement({
 | `isFinal` | `bool` | Whether a local binding is declared `final`. |
 | `nested` | `List<CsStatement>` | The statements inside a control-flow statement's blocks, in source order. |
 | `keyword` | `String?` | Which control-flow construct a [CsStatementKind.controlFlow] statement is — `if`, `for`, `while`, `switch`, or `block` for a bare nested block. |
+| `hasElse` | `bool` | Whether an `if` statement has an `else` branch. |
 | `location` | `CsLocation` | Where the statement is written. |
 
 ### CsParameter

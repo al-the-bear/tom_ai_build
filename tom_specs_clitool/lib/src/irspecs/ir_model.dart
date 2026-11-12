@@ -17,6 +17,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show CodeSpecsAreaCatalog;
 
 import '../codespecs/cs_model.dart';
+import 'ir_steps.dart';
 
 /// The `format` of an IR document.
 const String kIrSpecsFormat = 'irspecs-ir';
@@ -57,8 +58,12 @@ class IrFile {
   /// has an empty source.
   final CsFile file;
 
+  /// The steps of the file's form-3b bodies (`irspecs_ir.md`, § Steps), one
+  /// record per body — or the B-rule that kept a body from being steps.
+  final List<IrBodySteps> steps;
+
   /// Creates a file entry.
-  const IrFile(this.locus, this.file);
+  const IrFile(this.locus, this.file, [this.steps = const []]);
 }
 
 /// One IR document: the files of one area, across the three projects.
@@ -187,7 +192,7 @@ List<IrDocument> irFromCsModel({
     for (final file in files) {
       byArea
           .putIfAbsent(areas.areaOf(file), () => [])
-          .add(IrFile(project.locus, file));
+          .add(IrFile(project.locus, file, stepBodiesOf(file)));
     }
   }
   return [

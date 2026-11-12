@@ -692,6 +692,7 @@ CsStatement _statement(String path, LineInfo lines, Statement statement) {
         statement,
         statement.expression,
         keyword: 'if',
+        hasElse: statement.elseStatement != null,
         nested: [
           ..._blockOf(path, lines, statement.thenStatement),
           ..._blockOf(path, lines, statement.elseStatement),
@@ -763,6 +764,7 @@ CsStatement _valueStatement(
   bool isFinal = false,
   List<CsStatement> nested = const [],
   String? keyword,
+  bool hasElse = false,
 }) {
   final unwrapped = value == null ? null : _unwrapAwait(value);
   return CsStatement(
@@ -774,6 +776,7 @@ CsStatement _valueStatement(
         ? CsCall(
             receiver: unwrapped.target?.toSource(),
             method: unwrapped.methodName.name,
+            arguments: _callArguments(unwrapped),
             location: _at(path, lines, unwrapped.offset),
           )
         : null,
@@ -782,8 +785,15 @@ CsStatement _valueStatement(
     boundName: boundName,
     isFinal: isFinal,
     nested: nested,
+    hasElse: hasElse,
   );
 }
+
+/// The arguments of [call] as written, whitespace-collapsed.
+List<String> _callArguments(MethodInvocation call) => [
+  for (final argument in call.argumentList.arguments)
+    _collapse(argument.toSource()),
+];
 
 List<CsStatement> _blockOf(String path, LineInfo lines, Statement? statement) {
   if (statement == null) return const [];
@@ -822,6 +832,7 @@ class _CallCollector extends RecursiveAstVisitor<void> {
       CsCall(
         receiver: node.target?.toSource(),
         method: node.methodName.name,
+        arguments: _callArguments(node),
         location: _at(_path, _lines, node.offset),
       ),
     );

@@ -296,11 +296,24 @@ class CsCall {
   /// The invoked method name.
   final String method;
 
+  /// The arguments as written, whitespace-collapsed, in source order — a
+  /// named argument with its `name:` prefix.
+  ///
+  /// `codespecs_derivation_contract.md` §2.4 B3 passes a collaborator method
+  /// the calling body's own parameters by name, and the IR's step language
+  /// (`irspecs_ir.md`, § Steps) checks exactly that.
+  final List<String> arguments;
+
   /// Where the call is written.
   final CsLocation location;
 
   /// Creates a call site.
-  const CsCall({required this.method, required this.location, this.receiver});
+  const CsCall({
+    required this.method,
+    required this.location,
+    this.receiver,
+    this.arguments = const [],
+  });
 }
 
 /// What kind of statement one line of a generated body is.
@@ -378,6 +391,11 @@ class CsStatement {
   /// name: `if` is derived, repetition and multi-way choice are not.
   final String? keyword;
 
+  /// Whether an `if` statement has an `else` branch. [nested] holds both
+  /// branches' statements, so this is the only way to tell the two apart;
+  /// `codespecs_derivation_contract.md` §2.4 B4–B6 produce no `else`.
+  final bool hasElse;
+
   /// Where the statement is written.
   final CsLocation location;
 
@@ -393,6 +411,7 @@ class CsStatement {
     this.isFinal = false,
     this.nested = const [],
     this.keyword,
+    this.hasElse = false,
   });
 
   /// This statement and every statement nested inside it, outermost first.

@@ -17,6 +17,9 @@ Schema is `tool/irspecs_ir.schema.json`.
   - [IrDocument](#irdocument)
   - [IrAreaIndex](#irareaindex)
   - [IrSpecsException](#irspecsexception)
+  - [IrStep, IrCallStep, IrReturnStep, IrGuardedStep](#irstep-ircallstep-irreturnstep-irguardedstep)
+  - [IrBodySteps and IrStepIssue](#irbodysteps-and-irstepissue)
+  - [IrStepViolation](#irstepviolation)
 - [Functions](#functions)
 
 ## Constants
@@ -28,6 +31,9 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kIrPackageArea` | `'package'` | The area of the document holding the files no area claims. |
 | `irCarriedCsModelFields` | `Map<String, Set<String>>` | Every CsModel field the IR carries, by class. |
 | `irOmittedCsModelFields` | `Map<String, Map<String, String>>` | The CsModel fields the IR leaves out, each with its reason. |
+| `kCollaboratorField` | `'collaborator'` | The field a 3b body reaches its collaborator through. |
+| `kGuardSuffix` | `'Applies'` | The fixed suffix of a guard method's name (B4). |
+| `irStepRules` | `Map<String, String>` | The step validation rules `S1` … `S5`, each with what it holds. |
 
 ## Classes
 
@@ -53,7 +59,7 @@ One generated file in an IR document: its project and its CsModel reading.
 
 #### Constructors
 ```dart
-const IrFile(this.locus, this.file);
+const IrFile(this.locus, this.file, [this.steps = const []]);
 ```
 
 #### Properties
@@ -62,6 +68,7 @@ const IrFile(this.locus, this.file);
 |----------|------|-------------|
 | `locus` | `CsLocus` | The project the file belongs to. |
 | `file` | `CsFile` | The file's CsModel reading; read back from the IR, its `source` is empty. |
+| `steps` | `List<IrBodySteps>` | The steps of the file's form-3b bodies, one record per body. |
 
 ### IrDocument
 
@@ -122,6 +129,88 @@ const IrSpecsException(this.message);
 |----------|------|-------------|
 | `message` | `String` | What is wrong. |
 
+### IrStep, IrCallStep, IrReturnStep, IrGuardedStep
+
+One step of a 3b body (`irspecs_ir.md` §4.7): the sealed `IrStep` with its
+`line`, and its three kinds.
+
+#### Constructors
+```dart
+const IrCallStep(this.method, this.arguments, int line);
+```
+
+```dart
+const IrReturnStep(this.method, this.arguments, int line);
+```
+
+```dart
+const IrGuardedStep(this.guard, this.arguments, this.steps, int line);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `line` | `int` | The line of the statement the step was read from (all kinds). |
+| `method` | `String` / `String?` | The collaborator method called; on `IrReturnStep`, `null` for a bare `return;`. |
+| `guard` | `String` | The guard method of an `IrGuardedStep`. |
+| `arguments` | `List<String>` | The call's arguments as written. |
+| `steps` | `List<IrStep>` | The steps an `IrGuardedStep`'s condition governs. |
+
+### IrBodySteps and IrStepIssue
+
+The steps of one 3b body, or the B-rule that kept it from having them.
+
+#### Constructors
+```dart
+const IrBodySteps.read(this.owner, this.body, List<IrStep> this.steps);
+```
+
+```dart
+const IrBodySteps.refused(this.owner, this.body, IrStepIssue this.issue);
+```
+
+```dart
+const IrStepIssue(this.rule, this.message, this.line);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `owner` | `String` | The top-level declaration the body belongs to. |
+| `body` | `String` | The body's method name. |
+| `steps` | `List<IrStep>?` | The steps; `null` when refused. |
+| `issue` | `IrStepIssue?` | Why the body is not steps; `null` when it is. |
+| `IrStepIssue.rule` | `String` | `B1` … `B8`, or `3b`. |
+| `IrStepIssue.message` | `String` | What the statement does instead. |
+| `IrStepIssue.line` | `int` | The statement's line. |
+
+### IrStepViolation
+
+One step that breaks a validation rule.
+
+#### Constructors
+```dart
+const IrStepViolation(
+  this.rule,
+  this.file,
+  this.body,
+  this.line,
+  this.message,
+);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `rule` | `String` | `S1` … `S5`. |
+| `file` | `String` | The file the body is in. |
+| `body` | `String` | `<owner>.<method>`. |
+| `line` | `int` | The step's line, or the body's. |
+| `message` | `String` | What is wrong. |
+
 ## Functions
 
 | Function | Return Type | Description |
@@ -129,6 +218,10 @@ const IrSpecsException(this.message);
 | `irFromCsModel({required CsLocusProject shared, required CsLocusProject client, required CsLocusProject server, required IrAreaIndex areas})` | `List<IrDocument>` | The IR of a trio: one document per area holding files, in catalogue order, then `package`. |
 | `csModelFromIr(List<IrDocument> documents)` | `({CsLocusProject shared, CsLocusProject client, CsLocusProject server})` | The trio a document set describes; each file's `source` is empty. |
 | `irDocumentFileName(String area)` | `String` | `<CE-CODE>.ir.yaml`, or `package.ir.yaml`. |
+| `collaboratorOwners(CsFile file)` | `Set<String>` | The declarations of a file that have a `collaborator` field. |
+| `stepBodiesOf(CsFile file)` | `List<IrBodySteps>` | Every form-3b body of a declaration with a collaborator, read into steps. |
+| `readIrSteps(String owner, CsMethodBody body)` | `IrBodySteps` | One body's steps, or the rule it breaks. |
+| `validateIrSteps(List<IrDocument> documents)` | `List<IrStepViolation>` | Every violation of S1–S5 in a document set. |
 | `snakeCase(String pascal)` | `String` | `DataAccess` → `data_access`: the N7 folder of a canonical id. |
 | `irDocumentToData(IrDocument document)` | `Map<String, Object?>` | The document as plain data. |
 | `irDocumentFromData(Object? data, {String source = 'IR document'})` | `IrDocument` | The document plain data describes. |

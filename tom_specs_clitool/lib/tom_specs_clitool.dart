@@ -430,6 +430,7 @@ export 'src/codespecs/areas_catalog.dart'
 // document per area, and the `irspecs` command that writes it.
 export 'src/irspecs/ir_codec.dart';
 export 'src/irspecs/ir_model.dart';
+export 'src/irspecs/ir_steps.dart';
 export 'src/irspecs/ir_yaml.dart';
 export 'src/irspecs/irspecs_cli.dart';
 // The public-API dartdoc coverage gate — the `tom_specs_documentation_standard.md` §5 bars of

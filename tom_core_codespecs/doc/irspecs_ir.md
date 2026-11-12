@@ -169,14 +169,73 @@ then `calls` (every call site, in order) and `statements`.
 (form 3b). A form-3b body's `statements` are its statement list as it is
 today — each `kind` (`call`, `localBinding`, `controlFlow`, `returned`,
 `thrown`, `other`), `source` (whitespace-collapsed), `line`, and where it has
-them `keyword` (`if`, `for`, …), `call` (`receiver`, `method`, `line`),
-`valueIdentifier`, `valueSource`, `boundName`, `isFinal` and `nested`
-statements.
+them `keyword` (`if`, `for`, …), `hasElse` (an `if` with an `else`; `nested`
+holds both branches), `call` (`receiver`, `method`, `arguments` as written,
+`line`), `valueIdentifier`, `valueSource`, `boundName`, `isFinal` and `nested`
+statements. A call site in `calls` has the same `receiver`, `method`,
+`arguments` and `line`.
+
+A form-3b body that reaches a collaborator also carries its **steps** (§4.7),
+or `stepsRefused` saying which rule kept it from having them.
 
 ### 4.6 Construction
 
 A `tom_core`-family construction: `type`, `holder` (the declaration it is the
 value of, when there is one), `line`, `positional`, `named`.
+
+### 4.7 Steps
+
+A form-3b body (`codespecs_derivation_contract.md` §2.4) is a statement
+sequence over its collaborator, and rules B1–B8 of the same section confine it
+to three statement shapes. Those shapes are the **step language**: the body as
+data, which a mapper prints in its own language instead of re-reading Dart.
+
+**Which bodies have steps.** Every body of shape `returnsValue` or `other` on a
+top-level declaration that has a `collaborator` field — the seam of
+`codespecs_derivation_contract.md` §3.0.1. A body on a declaration without one
+calls a named substrate (statement kind 2 of `codespecs_derivation_contract.md`
+§2.4, the query composition of `codespecs_derivation_contract.md` §3.3.4),
+which is no B-rule's subject, and has no steps.
+
+**The steps.** `steps` is a list, in order; each step has `step` (its kind),
+`line` and the fields below. Nothing else is a step.
+
+| `step` | Fields | Dart it stands for | From |
+|--------|--------|--------------------|------|
+| `call` | `method`, `arguments` | `await collaborator.<method>(<arguments>);` | B1 (its place in the list is document order), B2 (one contributing step, one call), B3 (every step but the last result-carrying one, and every step of a body returning `void`) |
+| `return` | `method` and `arguments`, or neither | `return collaborator.<method>(<arguments>);` — or `return;` | B3 (the last step of a body returning a value carries its result), B6 (`endFlow` ends a branch block: `return;` in a `void` body, the last step's call returned otherwise) |
+| `guarded` | `guard`, `arguments`, `steps` | `if (await collaborator.<guard>(<arguments>)) { <steps> }` | B4 (a stated condition is a guard method `…Applies` returning `bool` / `Future<bool>`, never a parsed expression), B5 (the block stands before the step it branches from, so its place in the list is its place in the body), B6 (the block holds its flow's own steps and ends with a `return` for `endFlow`, or simply ends for `resumeAtStep`) |
+
+`arguments` are the call's arguments as written; B3 makes them the calling
+body's own parameters, by name and in order. A `guarded` step has no `else`:
+B6 states where control goes after a branch block — out of the body, or on into
+the main sequence — and neither is a second branch. B7 and B8 contribute no step
+kind: B7 rules repetition and multi-way choice out, and B8 sends a prose-only
+body to form 3a, which has no steps.
+
+**Refused.** A body whose statements are not steps carries `stepsRefused`
+instead — `rule`, `message` and the `line` of the first statement that is not a
+step:
+
+| `rule` | The statement |
+|--------|---------------|
+| `B2` | calls something other than the collaborator |
+| `B3` | binds a local, or returns a value that no collaborator call produced |
+| `B4` | branches on a condition that is no collaborator call |
+| `B6` | is an `if` with an `else` |
+| `B7` | is a `for`, `while` or `switch` |
+| `3b` | is none of the statements a form-3b body admits (`codespecs_derivation_contract.md` §2.4: an assignment, a throw, a literal, …) |
+
+**Validation.** `validateIrSteps` (`tom_specs_clitool`, `lib/src/irspecs/ir_steps.dart`)
+checks every step body of a document set:
+
+| Rule | Holds | From |
+|------|-------|------|
+| S1 | the body reads into steps — it has `steps`, not `stepsRefused` | B1–B8 |
+| S2 | the declaration's `collaborator` field names a `@CsCollaborator` class of the same project, and every method a step calls is one of its methods | B2, `codespecs_derivation_contract.md` §3.0.1 |
+| S3 | a `guarded` step calls a guard method — named `…Applies`, returning `bool` or `Future<bool>` — and no other step calls one | B4 |
+| S4 | the return kind is one the body allows: a body returning `void` / `Future<void>` returns no value; a body returning a value returns one wherever it returns, and ends with a `return` step | B3, B6 |
+| S5 | every call passes the calling body's own parameters, by name and in order | B3 |
 
 ## 5. Every field, and the one left out
 
@@ -203,6 +262,8 @@ reader, and so to CsModel and to the IR:
 | Added | Why |
 |-------|-----|
 | `exports` of a file | A project's barrel library is nothing but its exports. |
+| `arguments` of a call | B3 passes a collaborator method the calling body's parameters; the steps carry them and S5 checks them. |
+| `hasElse` of a statement | `nested` holds both branches of an `if`, so an `else` was invisible; no step has one. |
 
 Member order and comments needed nothing new: the reading keeps declarations
 and comments in source order, and the IR writes them in that order.
@@ -215,5 +276,7 @@ the same rule: into the reader, into CsModel, into this table.
 ## 7. Versioning
 
 `formatVersion` changes only when an older reader could not read a new
-document. A new optional key is not such a change; a renamed key, a changed
-value shape or a removed key is.
+document, or a new reader an older one. A new optional key is not such a
+change — `arguments`, `hasElse`, `steps` and `stepsRefused` are optional for
+that reason, and a document without them reads as having none; a renamed key,
+a changed value shape or a removed key is.

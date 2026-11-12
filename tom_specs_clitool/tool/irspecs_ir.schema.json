@@ -5,10 +5,20 @@
   "description": "One area of a CodeSpecs trio as language-neutral data. Normative description: tom_core_codespecs/doc/irspecs_ir.md.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["format", "formatVersion", "area", "projects", "files"],
+  "required": [
+    "format",
+    "formatVersion",
+    "area",
+    "projects",
+    "files"
+  ],
   "properties": {
-    "format": { "const": "irspecs-ir" },
-    "formatVersion": { "const": 1 },
+    "format": {
+      "const": "irspecs-ir"
+    },
+    "formatVersion": {
+      "const": 1
+    },
     "area": {
       "type": "string",
       "pattern": "^(CE-[A-Z]+|package)$"
@@ -20,19 +30,46 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["locus", "package"],
+        "required": [
+          "locus",
+          "package"
+        ],
         "properties": {
-          "locus": { "$ref": "#/$defs/locus" },
-          "package": { "type": "string", "minLength": 1 }
+          "locus": {
+            "$ref": "#/$defs/locus"
+          },
+          "package": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
-    "files": { "type": "array", "items": { "$ref": "#/$defs/file" } }
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/file"
+      }
+    }
   },
   "$defs": {
-    "locus": { "enum": ["shared", "client", "server"] },
-    "line": { "type": "integer", "minimum": 1 },
-    "strings": { "type": "array", "items": { "type": "string" } },
+    "locus": {
+      "enum": [
+        "shared",
+        "client",
+        "server"
+      ]
+    },
+    "line": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "file": {
       "type": "object",
       "additionalProperties": false,
@@ -46,31 +83,57 @@
         "constructions"
       ],
       "properties": {
-        "locus": { "$ref": "#/$defs/locus" },
-        "path": { "type": "string", "minLength": 1 },
-        "imports": { "$ref": "#/$defs/strings" },
-        "exports": { "$ref": "#/$defs/strings" },
+        "locus": {
+          "$ref": "#/$defs/locus"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "imports": {
+          "$ref": "#/$defs/strings"
+        },
+        "exports": {
+          "$ref": "#/$defs/strings"
+        },
         "comments": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["text", "documentation", "banner", "line"],
+            "required": [
+              "text",
+              "documentation",
+              "banner",
+              "line"
+            ],
             "properties": {
-              "text": { "type": "string" },
-              "documentation": { "type": "boolean" },
-              "banner": { "type": "boolean" },
-              "line": { "$ref": "#/$defs/line" }
+              "text": {
+                "type": "string"
+              },
+              "documentation": {
+                "type": "boolean"
+              },
+              "banner": {
+                "type": "boolean"
+              },
+              "line": {
+                "$ref": "#/$defs/line"
+              }
             }
           }
         },
         "declarations": {
           "type": "array",
-          "items": { "$ref": "#/$defs/declaration" }
+          "items": {
+            "$ref": "#/$defs/declaration"
+          }
         },
         "constructions": {
           "type": "array",
-          "items": { "$ref": "#/$defs/construction" }
+          "items": {
+            "$ref": "#/$defs/construction"
+          }
         }
       }
     },
@@ -90,8 +153,14 @@
         "bodies"
       ],
       "properties": {
-        "name": { "type": "string", "minLength": 1 },
-        "owner": { "type": "string", "minLength": 1 },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
         "kind": {
           "enum": [
             "classType",
@@ -104,16 +173,33 @@
             "constructor"
           ]
         },
-        "line": { "$ref": "#/$defs/line" },
-        "markers": { "type": "array", "items": { "$ref": "#/$defs/marker" } },
+        "line": {
+          "$ref": "#/$defs/line"
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/marker"
+          }
+        },
         "codeSpec": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "source", "line"],
+          "required": [
+            "id",
+            "source",
+            "line"
+          ],
           "properties": {
-            "id": { "type": "string" },
-            "source": { "$ref": "#/$defs/strings" },
-            "line": { "$ref": "#/$defs/line" }
+            "id": {
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/strings"
+            },
+            "line": {
+              "$ref": "#/$defs/line"
+            }
           }
         },
         "docSpec": {
@@ -121,53 +207,113 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["sectionId", "description"],
+            "required": [
+              "sectionId",
+              "description"
+            ],
             "properties": {
-              "sectionId": { "type": "string" },
-              "description": { "type": "string" }
+              "sectionId": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
             }
           }
         },
-        "docSpecLine": { "$ref": "#/$defs/line" },
+        "docSpecLine": {
+          "$ref": "#/$defs/line"
+        },
         "docComment": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["lines", "line"],
+          "required": [
+            "lines",
+            "line"
+          ],
           "properties": {
-            "lines": { "$ref": "#/$defs/strings" },
-            "line": { "$ref": "#/$defs/line" }
+            "lines": {
+              "$ref": "#/$defs/strings"
+            },
+            "line": {
+              "$ref": "#/$defs/line"
+            }
           }
         },
-        "isAbstract": { "type": "boolean" },
-        "isStatic": { "type": "boolean" },
-        "isFinal": { "type": "boolean" },
-        "isLate": { "type": "boolean" },
-        "hasInitialiser": { "type": "boolean" },
-        "declaredType": { "type": "string" },
-        "bodies": { "type": "array", "items": { "$ref": "#/$defs/body" } }
+        "isAbstract": {
+          "type": "boolean"
+        },
+        "isStatic": {
+          "type": "boolean"
+        },
+        "isFinal": {
+          "type": "boolean"
+        },
+        "isLate": {
+          "type": "boolean"
+        },
+        "hasInitialiser": {
+          "type": "boolean"
+        },
+        "declaredType": {
+          "type": "string"
+        },
+        "bodies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/body"
+          }
+        }
       }
     },
     "marker": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "positional", "named", "line"],
+      "required": [
+        "name",
+        "positional",
+        "named",
+        "line"
+      ],
       "properties": {
-        "name": { "type": "string", "minLength": 1 },
-        "positional": { "$ref": "#/$defs/values" },
-        "named": { "$ref": "#/$defs/named" },
-        "line": { "$ref": "#/$defs/line" }
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "positional": {
+          "$ref": "#/$defs/values"
+        },
+        "named": {
+          "$ref": "#/$defs/named"
+        },
+        "line": {
+          "$ref": "#/$defs/line"
+        }
       }
     },
-    "values": { "type": "array", "items": { "$ref": "#/$defs/value" } },
+    "values": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/value"
+      }
+    },
     "named": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["name", "value"],
+        "required": [
+          "name",
+          "value"
+        ],
         "properties": {
-          "name": { "type": "string", "minLength": 1 },
-          "value": { "$ref": "#/$defs/value" }
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "$ref": "#/$defs/value"
+          }
         }
       }
     },
@@ -176,73 +322,137 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "value"],
+          "required": [
+            "kind",
+            "value"
+          ],
           "properties": {
-            "kind": { "const": "string" },
-            "value": { "type": "string" }
+            "kind": {
+              "const": "string"
+            },
+            "value": {
+              "type": "string"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "value"],
+          "required": [
+            "kind",
+            "value"
+          ],
           "properties": {
-            "kind": { "const": "bool" },
-            "value": { "type": "boolean" }
+            "kind": {
+              "const": "bool"
+            },
+            "value": {
+              "type": "boolean"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "value"],
+          "required": [
+            "kind",
+            "value"
+          ],
           "properties": {
-            "kind": { "const": "int" },
-            "value": { "type": "integer" }
+            "kind": {
+              "const": "int"
+            },
+            "value": {
+              "type": "integer"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind"],
-          "properties": { "kind": { "const": "null" } }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["kind", "prefix", "name"],
+          "required": [
+            "kind"
+          ],
           "properties": {
-            "kind": { "const": "qualified" },
-            "prefix": { "type": "string" },
-            "name": { "type": "string" }
+            "kind": {
+              "const": "null"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "type", "positional", "named"],
+          "required": [
+            "kind",
+            "prefix",
+            "name"
+          ],
           "properties": {
-            "kind": { "const": "construction" },
-            "type": { "type": "string" },
-            "positional": { "$ref": "#/$defs/values" },
-            "named": { "$ref": "#/$defs/named" }
+            "kind": {
+              "const": "qualified"
+            },
+            "prefix": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "values"],
+          "required": [
+            "kind",
+            "type",
+            "positional",
+            "named"
+          ],
           "properties": {
-            "kind": { "const": "list" },
-            "values": { "$ref": "#/$defs/values" }
+            "kind": {
+              "const": "construction"
+            },
+            "type": {
+              "type": "string"
+            },
+            "positional": {
+              "$ref": "#/$defs/values"
+            },
+            "named": {
+              "$ref": "#/$defs/named"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "source"],
+          "required": [
+            "kind",
+            "values"
+          ],
           "properties": {
-            "kind": { "const": "unknown" },
-            "source": { "type": "string" }
+            "kind": {
+              "const": "list"
+            },
+            "values": {
+              "$ref": "#/$defs/values"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "source"
+          ],
+          "properties": {
+            "kind": {
+              "const": "unknown"
+            },
+            "source": {
+              "type": "string"
+            }
           }
         }
       ]
@@ -260,46 +470,123 @@
         "statements"
       ],
       "properties": {
-        "name": { "type": "string" },
-        "shape": { "enum": ["none", "throwOnly", "returnsValue", "other"] },
-        "line": { "$ref": "#/$defs/line" },
-        "isAsync": { "type": "boolean" },
+        "name": {
+          "type": "string"
+        },
+        "shape": {
+          "enum": [
+            "none",
+            "throwOnly",
+            "returnsValue",
+            "other"
+          ]
+        },
+        "line": {
+          "$ref": "#/$defs/line"
+        },
+        "isAsync": {
+          "type": "boolean"
+        },
         "parameters": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "properties": {
-              "name": { "type": "string" },
-              "type": { "type": "string" }
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
             }
           }
         },
-        "returnType": { "type": "string" },
-        "thrownType": { "type": "string" },
-        "thrownMessage": { "type": "string" },
-        "calls": { "type": "array", "items": { "$ref": "#/$defs/call" } },
+        "returnType": {
+          "type": "string"
+        },
+        "thrownType": {
+          "type": "string"
+        },
+        "thrownMessage": {
+          "type": "string"
+        },
+        "calls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/call"
+          }
+        },
         "statements": {
           "type": "array",
-          "items": { "$ref": "#/$defs/statement" }
+          "items": {
+            "$ref": "#/$defs/statement"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        },
+        "stepsRefused": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "rule",
+            "message",
+            "line"
+          ],
+          "properties": {
+            "rule": {
+              "type": "string",
+              "pattern": "^(B[1-8]|3b)$"
+            },
+            "message": {
+              "type": "string"
+            },
+            "line": {
+              "$ref": "#/$defs/line"
+            }
+          }
         }
       }
     },
     "call": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["method", "line"],
+      "required": [
+        "method",
+        "line"
+      ],
       "properties": {
-        "receiver": { "type": "string" },
-        "method": { "type": "string" },
-        "line": { "$ref": "#/$defs/line" }
+        "receiver": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "arguments": {
+          "$ref": "#/$defs/strings"
+        },
+        "line": {
+          "$ref": "#/$defs/line"
+        }
       }
     },
     "statement": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["kind", "source", "line", "isFinal", "nested"],
+      "required": [
+        "kind",
+        "source",
+        "line",
+        "isFinal",
+        "nested"
+      ],
       "properties": {
         "kind": {
           "enum": [
@@ -311,31 +598,152 @@
             "other"
           ]
         },
-        "source": { "type": "string" },
-        "line": { "$ref": "#/$defs/line" },
-        "keyword": { "type": "string" },
-        "call": { "$ref": "#/$defs/call" },
-        "valueIdentifier": { "type": "string" },
-        "valueSource": { "type": "string" },
-        "boundName": { "type": "string" },
-        "isFinal": { "type": "boolean" },
+        "source": {
+          "type": "string"
+        },
+        "line": {
+          "$ref": "#/$defs/line"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "hasElse": {
+          "type": "boolean"
+        },
+        "call": {
+          "$ref": "#/$defs/call"
+        },
+        "valueIdentifier": {
+          "type": "string"
+        },
+        "valueSource": {
+          "type": "string"
+        },
+        "boundName": {
+          "type": "string"
+        },
+        "isFinal": {
+          "type": "boolean"
+        },
         "nested": {
           "type": "array",
-          "items": { "$ref": "#/$defs/statement" }
+          "items": {
+            "$ref": "#/$defs/statement"
+          }
         }
       }
     },
     "construction": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "line", "positional", "named"],
+      "required": [
+        "type",
+        "line",
+        "positional",
+        "named"
+      ],
       "properties": {
-        "type": { "type": "string" },
-        "holder": { "type": "string" },
-        "line": { "$ref": "#/$defs/line" },
-        "positional": { "$ref": "#/$defs/values" },
-        "named": { "$ref": "#/$defs/named" }
+        "type": {
+          "type": "string"
+        },
+        "holder": {
+          "type": "string"
+        },
+        "line": {
+          "$ref": "#/$defs/line"
+        },
+        "positional": {
+          "$ref": "#/$defs/values"
+        },
+        "named": {
+          "$ref": "#/$defs/named"
+        }
       }
+    },
+    "step": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "step",
+            "method",
+            "arguments",
+            "line"
+          ],
+          "properties": {
+            "step": {
+              "const": "call"
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "arguments": {
+              "$ref": "#/$defs/strings"
+            },
+            "line": {
+              "$ref": "#/$defs/line"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "step",
+            "arguments",
+            "line"
+          ],
+          "properties": {
+            "step": {
+              "const": "return"
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            },
+            "arguments": {
+              "$ref": "#/$defs/strings"
+            },
+            "line": {
+              "$ref": "#/$defs/line"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "step",
+            "guard",
+            "arguments",
+            "line",
+            "steps"
+          ],
+          "properties": {
+            "step": {
+              "const": "guarded"
+            },
+            "guard": {
+              "type": "string",
+              "pattern": "Applies$"
+            },
+            "arguments": {
+              "$ref": "#/$defs/strings"
+            },
+            "line": {
+              "$ref": "#/$defs/line"
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/step"
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }
