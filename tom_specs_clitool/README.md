@@ -491,7 +491,7 @@ question the next one depends on:
    `tool/release_set.yaml`'s `unpublished_drift:` until it is published.
 2. **Bump.** Raise the version and add the CHANGELOG entry of every member that
    moved, and of every member that depends on one in lockstep. When the model
-   chain moves, regenerate after the bump (`buildkit -v -p . :versioner` in
+   chain moves, regenerate after the bump (`buildkit :versioner` run inside
    `tom_specs_model`, then `bin/generate_som.dart`), so the generated packages
    carry the new version.
 3. **Preflight.** `tool/verify_published_tests.sh --preflight` runs every

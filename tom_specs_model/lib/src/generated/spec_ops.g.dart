@@ -2402,6 +2402,12 @@ void registerSpecOps() {
             label: 'components',
             sectionId: 'ARCM-COMP-LST',
           ),
+          SpecSlot.list(
+            () => n.generationUnits,
+            (v) => n.generationUnits = v.cast<GenerationUnitEntry>(),
+            label: 'generationUnits',
+            sectionId: 'GENUN-UNIT-LST',
+          ),
           SpecSlot.node(
             () => n.communicationPatterns,
             (v) => n.communicationPatterns = v as CommunicationPatterns,
@@ -2448,6 +2454,7 @@ void registerSpecOps() {
           ..principles = n.principles
           ..componentOrganization = n.componentOrganization
           ..components = n.components
+          ..generationUnits = n.generationUnits
           ..communicationPatterns = n.communicationPatterns
           ..dataArchitecture = n.dataArchitecture
           ..scalabilityArchitecture = n.scalabilityArchitecture
@@ -19544,6 +19551,40 @@ void registerSpecOps() {
           ..resolution = n.resolution;
       },
       yamlScalar: (o) => (o as GapEntry).content,
+    ),
+  );
+  SpecRegistry.register(
+    GenerationUnitEntry,
+    SpecClassOps(
+      slots: (o) {
+        final n = o as GenerationUnitEntry;
+        return [
+          SpecSlot.list(
+            () => n.mappings,
+            (v) => n.mappings = v.cast<GenerationUnitMappingEntry>(),
+            label: 'mappings',
+            sectionId: 'GEMAP-MAPP-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as GenerationUnitEntry;
+        return GenerationUnitEntry()
+          ..content = n.content
+          ..mappings = n.mappings;
+      },
+      yamlScalar: (o) => (o as GenerationUnitEntry).content,
+    ),
+  );
+  SpecRegistry.register(
+    GenerationUnitMappingEntry,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as GenerationUnitMappingEntry;
+        return GenerationUnitMappingEntry()..content = n.content;
+      },
+      yamlScalar: (o) => (o as GenerationUnitMappingEntry).content,
     ),
   );
   SpecRegistry.register(

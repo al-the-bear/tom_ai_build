@@ -809,5 +809,5 @@ The follow-up-taxonomy vocabulary (`codespecs_mapping.md` §8.3).
 
 Why a section is deliberately routed to neither CodeSpecs nor a follow-up process (`codespecs_mapping.md` §8.3).
 
-**Values (3):** `container`, `overview`, `view`
+**Values (4):** `container`, `overview`, `view`, `generation`
 

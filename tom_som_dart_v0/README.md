@@ -39,16 +39,16 @@ or pin it explicitly in `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_som_dart_v0: ^1.8.1
+  tom_som_dart_v0: ^1.9.0
 ```
 
-`tom_som_dart_v0` and `tom_som_dart_runtime` both carry version `1.8.1`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_dart_v0` and `tom_som_dart_runtime` both carry version `1.9.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
 ### Document roots
 
-Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1270 model classes are reached through it.
+Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1272 model classes are reached through it.
 
 | Section id | Document | Generated root type |
 | ---------- | -------- | ------------------- |
@@ -254,7 +254,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.8.1**, tracking the TomSpecs model version and matching `tom_som_dart_runtime`. Generated surface: 14 document roots, 1270 model classes. Verify the package with:
+Version **1.9.0**, tracking the TomSpecs model version and matching `tom_som_dart_runtime`. Generated surface: 14 document roots, 1272 model classes. Verify the package with:
 
 ```bash
 dart pub get

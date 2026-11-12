@@ -115,6 +115,14 @@ class RevisionEntry extends DocSpecsSection {
       'Summary of changes',
       hint: 'One or two sentences on what changed and why.',
     ),
+    Field(
+      'changeId',
+      String,
+      'Change',
+      hint:
+          'The change this revision records, when a tom_spec_change run made '
+          'it: chg<n>_<date code>-<slug>.',
+    ),
   ])
   @override
   @SerializationOrder(0)

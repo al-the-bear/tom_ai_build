@@ -247,7 +247,7 @@ export class NoArtifactLink {
   /**
    * The `NoArtifactReason` code name with its type prefix stripped —
    * `container`, not `NoArtifactReason.container`. One of `container`,
-   * `overview`, `view`.
+   * `overview`, `view`, `generation`.
    */
   reason: string;
 

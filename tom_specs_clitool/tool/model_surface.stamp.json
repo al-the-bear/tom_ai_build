@@ -1,7 +1,7 @@
 {
-  "fingerprint": "835b62ed1fd5b1ca2d8da088b118d2c56948b571a8735ee4d1af48d39b207ee3",
+  "fingerprint": "0ca0de312286caeabe593a051cf2335609978cc6d6d2feea7a73a670cb3b8625",
   "fileCount": 45,
-  "declarationCount": 1310,
+  "declarationCount": 1313,
   "packages": [
     "tom_som_c_v0",
     "tom_som_cpp_v0",
@@ -13,6 +13,6 @@
     "tom_som_rust_v0",
     "tom_som_typescript_v0"
   ],
-  "modelHash": "5258fbd1b09214e7877efe16e9bf5e6db18b90888c6b045f7988f38293a30190",
-  "modelVersion": "1.8.1"
+  "modelHash": "d9d011c0338f033aaae10552a1f6a4c60a545d3cb014e456a3e6f46f2d719177",
+  "modelVersion": "1.9.0"
 }

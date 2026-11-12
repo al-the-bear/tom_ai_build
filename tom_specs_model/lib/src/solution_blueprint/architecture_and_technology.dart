@@ -1802,24 +1802,39 @@ Provide the architectural vision and primary style selection rationale.
   @SerializationOrder(4)
   List<ArchitectureComponentEntry> components = [];
 
-  /// Communication patterns between components.
+  /// The generation units Phase 4 writes code for, and the mapper each of
+  /// their areas is written by.
+  @StandardReferences(
+    ['arc42 — deployment view', 'C4 model — software architecture diagrams'],
+    'The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.',
+  )
+  @SectionId('GENUN-UNIT-LST')
+  @SectionIdPattern('GENUN-UNIT-xxx')
+  @ContentHelp(
+    'Add one entry per generated unit — a client, a server, the package both '
+    'share — and give each the mapper of every area it holds.',
+  )
   @SerializationOrder(5)
+  List<GenerationUnitEntry> generationUnits = [];
+
+  /// Communication patterns between components.
+  @SerializationOrder(6)
   CommunicationPatterns communicationPatterns = CommunicationPatterns();
 
   /// Data management architecture.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DataArchitecture dataArchitecture = DataArchitecture();
 
   /// Scalability and performance architecture.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   ScalabilityArchitecture scalabilityArchitecture = ScalabilityArchitecture();
 
   /// Integration architecture with external systems.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   IntegrationArchitecture integrationArchitecture = IntegrationArchitecture();
 
   /// Deployment topology and infrastructure.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DeploymentTopology deploymentTopology = DeploymentTopology();
 
   /// Architecture decision records.
@@ -1830,7 +1845,7 @@ Provide the architectural vision and primary style selection rationale.
   @SectionId('ARDE-DECI-LST')
   @SectionIdPattern('ARDE-DECI-xxx')
   @ContentHelp('Add one entry per architecture decision record.')
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   List<ArchitectureDecisionRecord> decisionRecords = [];
 }
 
@@ -2247,6 +2262,131 @@ class ComponentOrganization extends DocSpecsSection {
   ])
   @SerializationOrder(4)
   DocSpecsSection? dependencies;
+}
+
+/// What a generation unit is.
+///
+/// The kind decides which areas a unit can hold — a client holds no
+/// persistence, a server no screens — so it is a required, closed choice.
+enum GenerationUnitKind {
+  /// A client application: screens, client calls, client configuration.
+  client,
+
+  /// A server: services, persistence, jobs, server configuration.
+  server,
+
+  /// The package client and server both depend on: wire types, catalogues.
+  shared,
+
+  /// A unit that is none of the three — a tool, a library of its own.
+  other,
+}
+
+/// One generation unit: a package the CodeSpecs generator writes code into.
+///
+/// A unit **builds** a deployment target (`DEPTAR`) or an architecture
+/// component (`ARCM`), at least one of the two; which areas it holds and in
+/// which language and framework is said by its mappings — one per area, or
+/// several for one area where the same area is written for two client
+/// technologies. A section that goes to other units than its area's default
+/// names them in its `units` member; the default is every unit with a mapping
+/// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
+///
+/// It configures Phase 4 rather than specifying anything Phase 4 emits, so it
+/// is routed to no artifact (`NoArtifactReason.generation`).
+@StandardReferences(
+  ['arc42 — deployment view', 'C4 model — software architecture diagrams'],
+  'A single unit the CodeSpecs generator writes code into: its kind, what it builds and the mapper of each area.',
+)
+@SectionId('GENUN')
+@NoArtifact(
+  NoArtifactReason.generation,
+  note:
+      'read by the CodeSpecs generator to place what it emits (the unit a '
+      'section goes to and the mapper of its area); no artifact of its own',
+)
+class GenerationUnitEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'unitId',
+      String,
+      'Unit Id',
+      required: true,
+      hint:
+          'The id a section\'s `units` member cites, as written — usually the '
+          'package name (meridian_codespec_server)',
+    ),
+    Field(
+      'kind',
+      GenerationUnitKind,
+      'Kind',
+      required: true,
+      hint: 'client, server, shared or other',
+    ),
+    Field(
+      'deploymentTarget',
+      String,
+      'Deployment Target',
+      hint:
+          'The deployment target (DEPTAR-DEPL-…) this unit builds; this or '
+          'the component, or both',
+      refersTo: ['DEPTAR.@sectionId'],
+    ),
+    Field(
+      'component',
+      String,
+      'Component',
+      hint:
+          'The architecture component (ARCM-COMP-…) this unit builds; this or '
+          'the deployment target, or both',
+      refersTo: ['ARCM.@sectionId'],
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// The mapper each area of the unit is written by.
+  @SectionId('GEMAP-MAPP-LST')
+  @SectionIdPattern('GEMAP-MAPP-xxx')
+  @ContentHelp(
+    'Add one entry per area the unit holds; an area written for two '
+    'technologies gets two entries.',
+  )
+  @SerializationOrder(1)
+  List<GenerationUnitMappingEntry> mappings = [];
+}
+
+/// One mapping of a generation unit: the area and the mapper that writes it.
+@StandardReferences([
+  'C4 model — software architecture diagrams',
+], 'Which mapper writes one CodeSpecs area of a generation unit.')
+@SectionId('GEMAP')
+@NoArtifact(
+  NoArtifactReason.generation,
+  note: 'read by the CodeSpecs generator to pick the mapper of an area',
+)
+class GenerationUnitMappingEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'area',
+      String,
+      'Area',
+      required: true,
+      hint: 'The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)',
+    ),
+    Field(
+      'mapping',
+      String,
+      'Mapping',
+      required: true,
+      hint: 'The mapper id (dart-tom)',
+    ),
+    Field('note', String, 'Note', hint: 'Why this mapping, where it differs'),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// Architecture component/service entry.

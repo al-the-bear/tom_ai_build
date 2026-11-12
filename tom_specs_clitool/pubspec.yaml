@@ -49,7 +49,7 @@ dependencies:
   # The annotation library the model is written against. The validator reads
   # `deferredCodeSpecParts` from it (invariant PART-ROUTED's exemption) rather than
   # restating which CodeSpecs parts have no generated surface.
-  tom_specs_core: ^0.4.0
+  tom_specs_core: ^0.5.0
 
 dev_dependencies:
   json_schema: ^5.2.2

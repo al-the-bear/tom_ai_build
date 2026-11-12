@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+- `NoArtifactReason.generation`: a section the CodeSpecs generator reads to
+  decide where what it emits goes (the generation-unit register); it becomes
+  no artifact of its own.
+
 ## 0.4.0
 
 - `Field.multiple`: a reference field that holds several ids, written

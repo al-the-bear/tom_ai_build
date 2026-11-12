@@ -774,23 +774,30 @@ func metaChildrenArchitectureStyle(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ArchitectureStyle", MemberName: "generationUnits", SectionID: "GENUN-UNIT-LST", SectionIDPattern: "GENUN-UNIT-xxx", Kind: som.SomMetaKindList, TypeName: "GenerationUnitEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.", DocComment: "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"arc42 — deployment view", "C4 model — software architecture diagrams"}, "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."}}}}
+			n.ElementNode = metaCx("GenerationUnitEntry", s, metaChildrenGenerationUnitEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "GenerationUnitEntry", ClassSectionID: "GENUN", Kind: som.SomMetaKindComplex, TypeName: "GenerationUnitEntry", DocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", ClassDocComment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 		metaCx("CommunicationPatterns", s, metaChildrenCommunicationPatterns, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "CommunicationPatterns", MemberName: "communicationPatterns", ClassSectionID: "COMPAT", Kind: som.SomMetaKindComplex, TypeName: "CommunicationPatterns", SerializationOrder: metaIntPtr(5), DocComment: "Communication patterns between components.", ClassDocComment: "Communication patterns between components.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "CommunicationPatterns", MemberName: "communicationPatterns", ClassSectionID: "COMPAT", Kind: som.SomMetaKindComplex, TypeName: "CommunicationPatterns", SerializationOrder: metaIntPtr(6), DocComment: "Communication patterns between components.", ClassDocComment: "Communication patterns between components.", Recursive: r, Children: c}
 		}),
 		metaCx("DataArchitecture", s, metaChildrenDataArchitecture, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataArchitecture", MemberName: "dataArchitecture", ClassSectionID: "DAAR", Kind: som.SomMetaKindComplex, TypeName: "DataArchitecture", SerializationOrder: metaIntPtr(6), DocComment: "Data management architecture.", ClassDocComment: "Data architecture decisions.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataArchitecture", MemberName: "dataArchitecture", ClassSectionID: "DAAR", Kind: som.SomMetaKindComplex, TypeName: "DataArchitecture", SerializationOrder: metaIntPtr(7), DocComment: "Data management architecture.", ClassDocComment: "Data architecture decisions.", Recursive: r, Children: c}
 		}),
 		metaCx("ScalabilityArchitecture", s, metaChildrenScalabilityArchitecture, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ScalabilityArchitecture", MemberName: "scalabilityArchitecture", ClassSectionID: "SCAR", Kind: som.SomMetaKindComplex, TypeName: "ScalabilityArchitecture", SerializationOrder: metaIntPtr(7), DocComment: "Scalability and performance architecture.", ClassDocComment: "Scalability and performance architecture.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ScalabilityArchitecture", MemberName: "scalabilityArchitecture", ClassSectionID: "SCAR", Kind: som.SomMetaKindComplex, TypeName: "ScalabilityArchitecture", SerializationOrder: metaIntPtr(8), DocComment: "Scalability and performance architecture.", ClassDocComment: "Scalability and performance architecture.", Recursive: r, Children: c}
 		}),
 		metaCx("IntegrationArchitecture", s, metaChildrenIntegrationArchitecture, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "IntegrationArchitecture", MemberName: "integrationArchitecture", ClassSectionID: "INAR", Kind: som.SomMetaKindComplex, TypeName: "IntegrationArchitecture", SerializationOrder: metaIntPtr(8), DocComment: "Integration architecture with external systems.", ClassDocComment: "Integration architecture with external systems.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "IntegrationArchitecture", MemberName: "integrationArchitecture", ClassSectionID: "INAR", Kind: som.SomMetaKindComplex, TypeName: "IntegrationArchitecture", SerializationOrder: metaIntPtr(9), DocComment: "Integration architecture with external systems.", ClassDocComment: "Integration architecture with external systems.", Recursive: r, Children: c}
 		}),
 		metaCx("DeploymentTopology", s, metaChildrenDeploymentTopology, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DeploymentTopology", MemberName: "deploymentTopology", ClassSectionID: "DETO", Kind: som.SomMetaKindComplex, TypeName: "DeploymentTopology", SerializationOrder: metaIntPtr(9), DocComment: "Deployment topology and infrastructure.", ClassDocComment: "Deployment topology and infrastructure.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DeploymentTopology", MemberName: "deploymentTopology", ClassSectionID: "DETO", Kind: som.SomMetaKindComplex, TypeName: "DeploymentTopology", SerializationOrder: metaIntPtr(10), DocComment: "Deployment topology and infrastructure.", ClassDocComment: "Deployment topology and infrastructure.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ArchitectureStyle", MemberName: "decisionRecords", SectionID: "ARDE-DECI-LST", SectionIDPattern: "ARDE-DECI-xxx", Kind: som.SomMetaKindList, TypeName: "ArchitectureDecisionRecord", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per architecture decision record.", DocComment: "Architecture decision records.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ADR (Architecture Decision Records) — decision capture", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The recorded architecture decisions and their rationale."}}}}
+			n := &som.SomMetaNode{ClassName: "ArchitectureStyle", MemberName: "decisionRecords", SectionID: "ARDE-DECI-LST", SectionIDPattern: "ARDE-DECI-xxx", Kind: som.SomMetaKindList, TypeName: "ArchitectureDecisionRecord", SerializationOrder: metaIntPtr(11), ContentHelp: "Add one entry per architecture decision record.", DocComment: "Architecture decision records.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ADR (Architecture Decision Records) — decision capture", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The recorded architecture decisions and their rationale."}}}}
 			n.ElementNode = metaCx("ArchitectureDecisionRecord", s, metaChildrenArchitectureDecisionRecord, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ArchitectureDecisionRecord", ClassSectionID: "ARDE", Kind: som.SomMetaKindComplex, TypeName: "ArchitectureDecisionRecord", DocComment: "Architecture Decision Record (ADR) entry.", ClassDocComment: "Architecture Decision Record (ADR) entry.", Recursive: r, Children: c}
 			})
@@ -7004,6 +7011,25 @@ func metaChildrenGapEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenGenerationUnitEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "GenerationUnitEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "unitId", TypeName: "String", Description: "Unit Id", Required: true, Hint: "The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)", Order: 0}, {Name: "kind", TypeName: "GenerationUnitKind", Description: "Kind", Required: true, Hint: "client, server, shared or other", Order: 1, EnumValues: []string{"client", "server", "shared", "other"}}, {Name: "deploymentTarget", TypeName: "String", Description: "Deployment Target", Hint: "The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both", Order: 2, RefersTo: []string{"DEPTAR.@sectionId"}}, {Name: "component", TypeName: "String", Description: "Component", Hint: "The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both", Order: 3, RefersTo: []string{"ARCM.@sectionId"}}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "GenerationUnitEntry", MemberName: "mappings", SectionID: "GEMAP-MAPP-LST", SectionIDPattern: "GEMAP-MAPP-xxx", Kind: som.SomMetaKindList, TypeName: "GenerationUnitMappingEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per area the unit holds; an area written for two technologies gets two entries.", DocComment: "The mapper each area of the unit is written by."}
+			n.ElementNode = metaCx("GenerationUnitMappingEntry", s, metaChildrenGenerationUnitMappingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "GenerationUnitMappingEntry", ClassSectionID: "GEMAP", Kind: som.SomMetaKindComplex, TypeName: "GenerationUnitMappingEntry", DocComment: "One mapping of a generation unit: the area and the mapper that writes it.", ClassDocComment: "One mapping of a generation unit: the area and the mapper that writes it.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenGenerationUnitMappingEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "GenerationUnitMappingEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "area", TypeName: "String", Description: "Area", Required: true, Hint: "The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)", Order: 0}, {Name: "mapping", TypeName: "String", Description: "Mapping", Required: true, Hint: "The mapper id (dart-tom)", Order: 1}, {Name: "note", TypeName: "String", Description: "Note", Hint: "Why this mapping, where it differs", Order: 2}}}},
+	}
+}
+
 func metaChildrenGeographicDistributionRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "GeographicDistributionRequirements", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "primaryRegion", TypeName: "String", Description: "Primary Region", Hint: "Primary deployment region", Order: 0}, {Name: "secondaryRegions", TypeName: "String", Description: "Secondary Regions", Hint: "Secondary/backup regions", Order: 1}, {Name: "edgeLocations", TypeName: "String", Description: "Edge Locations", Hint: "CDN edge locations", Order: 2}, {Name: "regionalCompliance", TypeName: "String", Description: "Regional Compliance", Hint: "Data residency requirements", Order: 3}}}},
@@ -12230,7 +12256,7 @@ func metaChildrenReviewerRecord(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRevisionEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RevisionEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "version", TypeName: "String", Description: "Version", Required: true, Hint: "Semantic version of this revision, e.g. \"1.2.0\".", Order: 0}, {Name: "date", TypeName: "String", Description: "Date", Required: true, Hint: "Date the revision was published (ISO 8601).", Order: 1}, {Name: "author", TypeName: "String", Description: "Author", Required: true, Hint: "Person or role who produced the revision.", Order: 2}, {Name: "summary", TypeName: "String", Description: "Summary of changes", Hint: "One or two sentences on what changed and why.", Order: 3}}}},
+		{ClassName: "RevisionEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "version", TypeName: "String", Description: "Version", Required: true, Hint: "Semantic version of this revision, e.g. \"1.2.0\".", Order: 0}, {Name: "date", TypeName: "String", Description: "Date", Required: true, Hint: "Date the revision was published (ISO 8601).", Order: 1}, {Name: "author", TypeName: "String", Description: "Author", Required: true, Hint: "Person or role who produced the revision.", Order: 2}, {Name: "summary", TypeName: "String", Description: "Summary of changes", Hint: "One or two sentences on what changed and why.", Order: 3}, {Name: "changeId", TypeName: "String", Description: "Change", Hint: "The change this revision records, when a tom_spec_change run made it: chg<n>_<date code>-<slug>.", Order: 4}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "RevisionEntry", MemberName: "reviewTeam", SectionID: "RVWER-TEAM-LST", SectionIDPattern: "RVWER-TEAM-xxx", Kind: som.SomMetaKindList, TypeName: "ReviewerRecord", SerializationOrder: metaIntPtr(1), ContentHelp: "The members the review round started with, each written out in full.", DocComment: "The review team the round leading to this revision started with."}
 			n.ElementNode = metaCx("ReviewerRecord", s, metaChildrenReviewerRecord, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -18869,6 +18895,12 @@ func (x *ArchitectureStyleNav) ComponentOrganization() *ComponentOrganizationNav
 func (x *ArchitectureStyleNav) Components() *som.SomListMetaRef[*ArchitectureComponentEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/ARCM-COMP-LST", func(t *som.SomMetaTree, p string) *ArchitectureComponentEntryNav {
 		return newArchitectureComponentEntryNav(t, p)
+	})
+}
+
+func (x *ArchitectureStyleNav) GenerationUnits() *som.SomListMetaRef[*GenerationUnitEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GENUN-UNIT-LST", func(t *som.SomMetaTree, p string) *GenerationUnitEntryNav {
+		return newGenerationUnitEntryNav(t, p)
 	})
 }
 
@@ -32792,6 +32824,48 @@ func (x *GapEntryNav) Workaround() *som.SomMetaRef {
 
 func (x *GapEntryNav) Resolution() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GAENRE"}
+}
+
+// GenerationUnitEntryNav holds the dot-notation accessors of `GenerationUnitEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type GenerationUnitEntryNav struct {
+	som.SomMetaRef
+}
+
+// newGenerationUnitEntryNav binds a GenerationUnitEntryNav accessor to a tree and a path.
+func newGenerationUnitEntryNav(tree *som.SomMetaTree, path string) *GenerationUnitEntryNav {
+	return &GenerationUnitEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *GenerationUnitEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *GenerationUnitEntryNav) Mappings() *som.SomListMetaRef[*GenerationUnitMappingEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GEMAP-MAPP-LST", func(t *som.SomMetaTree, p string) *GenerationUnitMappingEntryNav {
+		return newGenerationUnitMappingEntryNav(t, p)
+	})
+}
+
+// GenerationUnitMappingEntryNav holds the dot-notation accessors of `GenerationUnitMappingEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type GenerationUnitMappingEntryNav struct {
+	som.SomMetaRef
+}
+
+// newGenerationUnitMappingEntryNav binds a GenerationUnitMappingEntryNav accessor to a tree and a path.
+func newGenerationUnitMappingEntryNav(tree *som.SomMetaTree, path string) *GenerationUnitMappingEntryNav {
+	return &GenerationUnitMappingEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *GenerationUnitMappingEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
 // GeographicDistributionRequirementsNav holds the dot-notation accessors of `GeographicDistributionRequirements` (SOM §8).
@@ -60981,6 +61055,12 @@ func (x *D00SolutionBlueprintID) ARCM_COMP_LST() *som.SomListMetaRef[*Architectu
 	})
 }
 
+func (x *D00SolutionBlueprintID) GENUN_UNIT_LST() *som.SomListMetaRef[*GenerationUnitEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST", func(t *som.SomMetaTree, p string) *GenerationUnitEntryID {
+		return newGenerationUnitEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) COPASY() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY"}
 }
@@ -66209,6 +66289,12 @@ func (x *D06ArchitectureTechnologySpecificationID) ARCM_COMP_LST() *som.SomListM
 	})
 }
 
+func (x *D06ArchitectureTechnologySpecificationID) GENUN_UNIT_LST() *som.SomListMetaRef[*GenerationUnitEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/architectureStyle/GENUN-UNIT-LST", func(t *som.SomMetaTree, p string) *GenerationUnitEntryID {
+		return newGenerationUnitEntryID(t, p)
+	})
+}
+
 func (x *D06ArchitectureTechnologySpecificationID) COPASY() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/basicTechnicalRequirements/architectureStyle/communicationPatterns/COPASY"}
 }
@@ -70869,6 +70955,12 @@ func (x *D13CodeSpecsProjectionID) COORDE() *som.SomMetaRef {
 func (x *D13CodeSpecsProjectionID) ARCM_COMP_LST() *som.SomListMetaRef[*ArchitectureComponentEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST", func(t *som.SomMetaTree, p string) *ArchitectureComponentEntryID {
 		return newArchitectureComponentEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) GENUN_UNIT_LST() *som.SomListMetaRef[*GenerationUnitEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST", func(t *som.SomMetaTree, p string) *GenerationUnitEntryID {
+		return newGenerationUnitEntryID(t, p)
 	})
 }
 
@@ -76532,6 +76624,38 @@ func (x *GapEntryID) GAENWO() *som.SomMetaRef {
 
 func (x *GapEntryID) GAENRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/GAENRE"}
+}
+
+// GenerationUnitEntryID holds the ID-tree accessors of `GenerationUnitEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type GenerationUnitEntryID struct {
+	som.SomMetaRef
+}
+
+// newGenerationUnitEntryID binds a GenerationUnitEntryID accessor to a tree and a path.
+func newGenerationUnitEntryID(tree *som.SomMetaTree, path string) *GenerationUnitEntryID {
+	return &GenerationUnitEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *GenerationUnitEntryID) GEMAP_MAPP_LST() *som.SomListMetaRef[*GenerationUnitMappingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GEMAP-MAPP-LST", func(t *som.SomMetaTree, p string) *GenerationUnitMappingEntryID {
+		return newGenerationUnitMappingEntryID(t, p)
+	})
+}
+
+// GenerationUnitMappingEntryID holds the ID-tree accessors of `GenerationUnitMappingEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type GenerationUnitMappingEntryID struct {
+	som.SomMetaRef
+}
+
+// newGenerationUnitMappingEntryID binds a GenerationUnitMappingEntryID accessor to a tree and a path.
+func newGenerationUnitMappingEntryID(tree *som.SomMetaTree, path string) *GenerationUnitMappingEntryID {
+	return &GenerationUnitMappingEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // GlobalRoleExclusionEntryID holds the ID-tree accessors of `GlobalRoleExclusionEntry` (SOM §8): methods

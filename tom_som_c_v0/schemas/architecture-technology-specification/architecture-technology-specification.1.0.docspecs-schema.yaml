@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: architecture-technology-specification/1.8
+# Schema: architecture-technology-specification/1.9
 
 title-format: "# <!--[ATS]--> Architecture & Technology Specification"
 section-types:
@@ -319,6 +319,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per evaluation criterion.
+  gemap-mapp-lst:
+    prefix: GEMAP_MAPP_LST
+    subsection-types:
+      gemap-mapp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per area the unit holds; an area written for two technologies gets two entries.
+  genun-unit-lst:
+    prefix: GENUN_UNIT_LST
+    subsection-types:
+      genun-unit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds."
   mapro-proc-lst:
     prefix: MAPRO_PROC_LST
     subsection-types:
@@ -1237,6 +1253,21 @@ section-types:
       pattern: ^EVCEN-ITEM-.+$
       error-message: IDs of this section must match EVCEN-ITEM-xxx
     description: Add one entry per evaluation criterion.
+  gemap-mapp:
+    prefix: GEMAP_MAPP_
+    pattern-check-id:
+      pattern: ^GEMAP-MAPP-.+$
+      error-message: IDs of this section must match GEMAP-MAPP-xxx
+    description: Add one entry per area the unit holds; an area written for two technologies gets two entries.
+  genun-unit:
+    prefix: GENUN_UNIT_
+    subsection-types:
+      gemap-mapp-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^GENUN-UNIT-.+$
+      error-message: IDs of this section must match GENUN-UNIT-xxx
+    description: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds."
   mapro-proc:
     prefix: MAPRO_PROC_
     pattern-check-id:
@@ -8554,6 +8585,8 @@ section-types:
       coor:
         max-count: 1
       arcm-comp-lst:
+        max-count: 1
+      genun-unit-lst:
         max-count: 1
       compat:
         max-count: 1

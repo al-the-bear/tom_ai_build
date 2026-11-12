@@ -342,7 +342,7 @@ class KindLink {
 class NoArtifactLink {
   /// The `NoArtifactReason` code name with its type prefix stripped —
   /// `container`, not `NoArtifactReason.container`. One of `container`,
-  /// `overview`, `view`.
+  /// `overview`, `view`, `generation`.
   final String reason;
 
   /// The annotation's free-text `note`. On an `overview` this customarily names

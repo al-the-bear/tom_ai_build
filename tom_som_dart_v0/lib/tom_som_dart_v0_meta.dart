@@ -2547,13 +2547,25 @@ List<SomMetaNode> _mc$ArchitectureStyle(Set<String> s) => [
           docComment: 'Component/service catalog.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 42010 — architecture description', 'arc42 — architecture documentation template', 'C4 model — software architecture diagrams'], 'connotation': 'The catalog of components and services that make up the architecture.'})],
           elementNode: _cx('ArchitectureComponentEntry', s, _mc$ArchitectureComponentEntry, (r, c) => SomMetaNode(className: 'ArchitectureComponentEntry', classSectionId: 'ARCM', kind: SomMetaKind.complex, typeName: 'ArchitectureComponentEntry', docComment: 'Architecture component/service entry.', classDocComment: 'Architecture component/service entry.', recursive: r, children: c))),
+       SomMetaNode(
+          className: 'ArchitectureStyle',
+          memberName: 'generationUnits',
+          sectionId: 'GENUN-UNIT-LST',
+          sectionIdPattern: 'GENUN-UNIT-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'GenerationUnitEntry',
+          serializationOrder: 5,
+          contentHelp: 'Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.',
+          docComment: 'The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['arc42 — deployment view', 'C4 model — software architecture diagrams'], 'connotation': 'The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.'})],
+          elementNode: _cx('GenerationUnitEntry', s, _mc$GenerationUnitEntry, (r, c) => SomMetaNode(className: 'GenerationUnitEntry', classSectionId: 'GENUN', kind: SomMetaKind.complex, typeName: 'GenerationUnitEntry', docComment: 'One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area\'s default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section\'s area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).', classDocComment: 'One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area\'s default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section\'s area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).', recursive: r, children: c))),
        _cx('CommunicationPatterns', s, _mc$CommunicationPatterns, (r, c) => SomMetaNode(
           className: 'CommunicationPatterns',
           memberName: 'communicationPatterns',
           classSectionId: 'COMPAT',
           kind: SomMetaKind.complex,
           typeName: 'CommunicationPatterns',
-          serializationOrder: 5,
+          serializationOrder: 6,
           docComment: 'Communication patterns between components.',
           classDocComment: 'Communication patterns between components.',
           recursive: r,
@@ -2564,7 +2576,7 @@ List<SomMetaNode> _mc$ArchitectureStyle(Set<String> s) => [
           classSectionId: 'DAAR',
           kind: SomMetaKind.complex,
           typeName: 'DataArchitecture',
-          serializationOrder: 6,
+          serializationOrder: 7,
           docComment: 'Data management architecture.',
           classDocComment: 'Data architecture decisions.',
           recursive: r,
@@ -2575,7 +2587,7 @@ List<SomMetaNode> _mc$ArchitectureStyle(Set<String> s) => [
           classSectionId: 'SCAR',
           kind: SomMetaKind.complex,
           typeName: 'ScalabilityArchitecture',
-          serializationOrder: 7,
+          serializationOrder: 8,
           docComment: 'Scalability and performance architecture.',
           classDocComment: 'Scalability and performance architecture.',
           recursive: r,
@@ -2586,7 +2598,7 @@ List<SomMetaNode> _mc$ArchitectureStyle(Set<String> s) => [
           classSectionId: 'INAR',
           kind: SomMetaKind.complex,
           typeName: 'IntegrationArchitecture',
-          serializationOrder: 8,
+          serializationOrder: 9,
           docComment: 'Integration architecture with external systems.',
           classDocComment: 'Integration architecture with external systems.',
           recursive: r,
@@ -2597,7 +2609,7 @@ List<SomMetaNode> _mc$ArchitectureStyle(Set<String> s) => [
           classSectionId: 'DETO',
           kind: SomMetaKind.complex,
           typeName: 'DeploymentTopology',
-          serializationOrder: 9,
+          serializationOrder: 10,
           docComment: 'Deployment topology and infrastructure.',
           classDocComment: 'Deployment topology and infrastructure.',
           recursive: r,
@@ -2609,7 +2621,7 @@ List<SomMetaNode> _mc$ArchitectureStyle(Set<String> s) => [
           sectionIdPattern: 'ARDE-DECI-xxx',
           kind: SomMetaKind.list,
           typeName: 'ArchitectureDecisionRecord',
-          serializationOrder: 10,
+          serializationOrder: 11,
           contentHelp: 'Add one entry per architecture decision record.',
           docComment: 'Architecture decision records.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ADR (Architecture Decision Records) — decision capture', 'ISO/IEC/IEEE 42010 — architecture description'], 'connotation': 'The recorded architecture decisions and their rationale.'})],
@@ -23106,6 +23118,39 @@ List<SomMetaNode> _mc$GapEntry(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BABOK v3 §6 — gap analysis (closing the gap toward the desired state)'], 'connotation': 'The proposed path from this gap to the desired state — approach, timeline, success criteria, and dependencies on other gaps.'})]),
     ];
 
+List<SomMetaNode> _mc$GenerationUnitEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'GenerationUnitEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section\'s `form`.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'unitId', typeName: 'String', description: 'Unit Id', required: true, hint: 'The id a section\'s `units` member cites, as written — usually the package name (meridian_codespec_server)', order: 0), SomFormFieldMeta(name: 'kind', typeName: 'GenerationUnitKind', description: 'Kind', required: true, hint: 'client, server, shared or other', order: 1, enumValues: ['client', 'server', 'shared', 'other']), SomFormFieldMeta(name: 'deploymentTarget', typeName: 'String', description: 'Deployment Target', hint: 'The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both', order: 2, refersTo: ['DEPTAR.@sectionId']), SomFormFieldMeta(name: 'component', typeName: 'String', description: 'Component', hint: 'The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both', order: 3, refersTo: ['ARCM.@sectionId'])])),
+       SomMetaNode(
+          className: 'GenerationUnitEntry',
+          memberName: 'mappings',
+          sectionId: 'GEMAP-MAPP-LST',
+          sectionIdPattern: 'GEMAP-MAPP-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'GenerationUnitMappingEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per area the unit holds; an area written for two technologies gets two entries.',
+          docComment: 'The mapper each area of the unit is written by.',
+          elementNode: _cx('GenerationUnitMappingEntry', s, _mc$GenerationUnitMappingEntry, (r, c) => SomMetaNode(className: 'GenerationUnitMappingEntry', classSectionId: 'GEMAP', kind: SomMetaKind.complex, typeName: 'GenerationUnitMappingEntry', docComment: 'One mapping of a generation unit: the area and the mapper that writes it.', classDocComment: 'One mapping of a generation unit: the area and the mapper that writes it.', recursive: r, children: c))),
+    ];
+
+List<SomMetaNode> _mc$GenerationUnitMappingEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'GenerationUnitMappingEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section\'s `form`.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'area', typeName: 'String', description: 'Area', required: true, hint: 'The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)', order: 0), SomFormFieldMeta(name: 'mapping', typeName: 'String', description: 'Mapping', required: true, hint: 'The mapper id (dart-tom)', order: 1), SomFormFieldMeta(name: 'note', typeName: 'String', description: 'Note', hint: 'Why this mapping, where it differs', order: 2)])),
+    ];
+
 List<SomMetaNode> _mc$GeographicDistributionRequirements(Set<String> s) => [
        SomMetaNode(
           className: 'GeographicDistributionRequirements',
@@ -39928,7 +39973,7 @@ List<SomMetaNode> _mc$RevisionEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section\'s `form`.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'version', typeName: 'String', description: 'Version', required: true, hint: 'Semantic version of this revision, e.g. "1.2.0".', order: 0), SomFormFieldMeta(name: 'date', typeName: 'String', description: 'Date', required: true, hint: 'Date the revision was published (ISO 8601).', order: 1), SomFormFieldMeta(name: 'author', typeName: 'String', description: 'Author', required: true, hint: 'Person or role who produced the revision.', order: 2), SomFormFieldMeta(name: 'summary', typeName: 'String', description: 'Summary of changes', hint: 'One or two sentences on what changed and why.', order: 3)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'version', typeName: 'String', description: 'Version', required: true, hint: 'Semantic version of this revision, e.g. "1.2.0".', order: 0), SomFormFieldMeta(name: 'date', typeName: 'String', description: 'Date', required: true, hint: 'Date the revision was published (ISO 8601).', order: 1), SomFormFieldMeta(name: 'author', typeName: 'String', description: 'Author', required: true, hint: 'Person or role who produced the revision.', order: 2), SomFormFieldMeta(name: 'summary', typeName: 'String', description: 'Summary of changes', hint: 'One or two sentences on what changed and why.', order: 3), SomFormFieldMeta(name: 'changeId', typeName: 'String', description: 'Change', hint: 'The change this revision records, when a tom_spec_change run made it: chg<n>_<date code>-<slug>.', order: 4)])),
        SomMetaNode(
           className: 'RevisionEntry',
           memberName: 'reviewTeam',
@@ -56729,6 +56774,7 @@ class ArchitectureStyle$Nav extends SomMetaRef {
   SomListMetaRef<ArchitecturePrincipleEntry$Nav> get principles => SomListMetaRef(tree, '$path/ARPR-PRIN-LST', ArchitecturePrincipleEntry$Nav.new);
   ComponentOrganization$Nav get componentOrganization => ComponentOrganization$Nav(tree, '$path/componentOrganization');
   SomListMetaRef<ArchitectureComponentEntry$Nav> get components => SomListMetaRef(tree, '$path/ARCM-COMP-LST', ArchitectureComponentEntry$Nav.new);
+  SomListMetaRef<GenerationUnitEntry$Nav> get generationUnits => SomListMetaRef(tree, '$path/GENUN-UNIT-LST', GenerationUnitEntry$Nav.new);
   CommunicationPatterns$Nav get communicationPatterns => CommunicationPatterns$Nav(tree, '$path/communicationPatterns');
   DataArchitecture$Nav get dataArchitecture => DataArchitecture$Nav(tree, '$path/dataArchitecture');
   ScalabilityArchitecture$Nav get scalabilityArchitecture => ScalabilityArchitecture$Nav(tree, '$path/scalabilityArchitecture');
@@ -61970,6 +62016,25 @@ class GapEntry$Nav extends SomMetaRef {
   SomMetaRef get discovery => SomMetaRef(tree, '$path/GAENDI');
   SomMetaRef get workaround => SomMetaRef(tree, '$path/GAENWO');
   SomMetaRef get resolution => SomMetaRef(tree, '$path/GAENRE');
+}
+
+/// Dot-notation accessors of `GenerationUnitEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class GenerationUnitEntry$Nav extends SomMetaRef {
+  GenerationUnitEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<GenerationUnitMappingEntry$Nav> get mappings => SomListMetaRef(tree, '$path/GEMAP-MAPP-LST', GenerationUnitMappingEntry$Nav.new);
+}
+
+/// Dot-notation accessors of `GenerationUnitMappingEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class GenerationUnitMappingEntry$Nav extends SomMetaRef {
+  GenerationUnitMappingEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
 }
 
 /// Dot-notation accessors of `GeographicDistributionRequirements` (SOM §8). Every getter is one
@@ -72594,6 +72659,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get COORCO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORCO');
   SomMetaRef get COORDE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDE');
   SomListMetaRef<ArchitectureComponentEntry$Id> get ARCM_COMP_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST', ArchitectureComponentEntry$Id.new);
+  SomListMetaRef<GenerationUnitEntry$Id> get GENUN_UNIT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST', GenerationUnitEntry$Id.new);
   SomMetaRef get COPASY => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY');
   SomMetaRef get COPAAS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAAS');
   SomMetaRef get CPDE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/CPDE');
@@ -73796,6 +73862,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get COORCO => SomMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/componentOrganization/COORCO');
   SomMetaRef get COORDE => SomMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/componentOrganization/COORDE');
   SomListMetaRef<ArchitectureComponentEntry$Id> get ARCM_COMP_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/ARCM-COMP-LST', ArchitectureComponentEntry$Id.new);
+  SomListMetaRef<GenerationUnitEntry$Id> get GENUN_UNIT_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/GENUN-UNIT-LST', GenerationUnitEntry$Id.new);
   SomMetaRef get COPASY => SomMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/communicationPatterns/COPASY');
   SomMetaRef get COPAAS => SomMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/communicationPatterns/COPAAS');
   SomMetaRef get CPDE => SomMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/communicationPatterns/CPDE');
@@ -74888,6 +74955,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get COORCO => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORCO');
   SomMetaRef get COORDE => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/componentOrganization/COORDE');
   SomListMetaRef<ArchitectureComponentEntry$Id> get ARCM_COMP_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST', ArchitectureComponentEntry$Id.new);
+  SomListMetaRef<GenerationUnitEntry$Id> get GENUN_UNIT_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST', GenerationUnitEntry$Id.new);
   SomMetaRef get COPASY => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY');
   SomMetaRef get COPAAS => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPAAS');
   SomMetaRef get CPDE => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/CPDE');
@@ -76579,6 +76647,21 @@ class GapEntry$Id extends SomMetaRef {
   SomMetaRef get GAENDI => SomMetaRef(tree, '$path/GAENDI');
   SomMetaRef get GAENWO => SomMetaRef(tree, '$path/GAENWO');
   SomMetaRef get GAENRE => SomMetaRef(tree, '$path/GAENRE');
+}
+
+/// ID-tree accessors of `GenerationUnitEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class GenerationUnitEntry$Id extends SomMetaRef {
+  GenerationUnitEntry$Id(super.tree, super.path);
+  SomListMetaRef<GenerationUnitMappingEntry$Id> get GEMAP_MAPP_LST => SomListMetaRef(tree, '$path/GEMAP-MAPP-LST', GenerationUnitMappingEntry$Id.new);
+}
+
+/// ID-tree accessors of `GenerationUnitMappingEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class GenerationUnitMappingEntry$Id extends SomMetaRef {
+  GenerationUnitMappingEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `GlobalRoleExclusionEntry` (SOM §8): getters named by section

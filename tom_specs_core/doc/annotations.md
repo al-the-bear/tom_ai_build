@@ -384,7 +384,7 @@ than an omission:
 
 The first two are lists because a section can feed several parts or several
 processes at once. `@NoArtifact` is single-valued because a section is unrouted
-for *one* reason — `container`, `overview` or `view`.
+for *one* reason — `container`, `overview`, `view` or `generation`.
 
 ```dart
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -412,7 +412,7 @@ Output:
 overview: Specified normatively by the entity sections below.
 CodeSpecPart values: 28
 FollowUpProcess values: 9
-NoArtifactReason values: 3
+NoArtifactReason values: 4
 ```
 
 The three enums are closed catalogues transcribed from

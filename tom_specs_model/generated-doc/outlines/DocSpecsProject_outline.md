@@ -7,7 +7,7 @@
       - header: `DocumentHeader`
         - content @Form(documentId, project, version, date, author, status)
       - revisionHistory: `RevisionEntry`[]
-        - content @Form(version, date, author, summary)
+        - content @Form(version, date, author, summary, changeId)
         - reviewTeam: `ReviewerRecord`[]
           - content @Form(memberId, displayName, role, guest)
         - reviewers: `ReviewerRecord`[]
@@ -1381,6 +1381,10 @@
                 coupling, dependencies
             - components: `ArchitectureComponentEntry`[]
               - content @Form(componentType, domain), purpose, boundaries, dependencies, technical, ownership
+            - generationUnits: `GenerationUnitEntry`[]
+              - content @Form(unitId, kind, deploymentTarget, component)
+              - mappings: `GenerationUnitMappingEntry`[]
+                - content @Form(area, mapping, note)
             - `CommunicationPatterns`
               - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous,
                 dataExchange, reliability, observability
@@ -3049,7 +3053,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -3388,7 +3392,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -3525,7 +3529,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -3606,7 +3610,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -3756,7 +3760,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -3827,7 +3831,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -4119,7 +4123,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -4240,7 +4244,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -4345,7 +4349,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -4388,7 +4392,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -4425,6 +4429,10 @@
             dependencies
         - components: `ArchitectureComponentEntry`[]
           - content @Form(componentType, domain), purpose, boundaries, dependencies, technical, ownership
+        - generationUnits: `GenerationUnitEntry`[]
+          - content @Form(unitId, kind, deploymentTarget, component)
+          - mappings: `GenerationUnitMappingEntry`[]
+            - content @Form(area, mapping, note)
         - `CommunicationPatterns`
           - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous, dataExchange,
             reliability, observability
@@ -5071,7 +5079,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -5151,7 +5159,7 @@
       - members: `ReviewTeamMember`[]
         - content @Form(memberId, displayName, role, stakeholder, email, owner)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]
@@ -5604,6 +5612,10 @@
               dependencies
           - components: `ArchitectureComponentEntry`[]
             - content @Form(componentType, domain), purpose, boundaries, dependencies, technical, ownership
+          - generationUnits: `GenerationUnitEntry`[]
+            - content @Form(unitId, kind, deploymentTarget, component)
+            - mappings: `GenerationUnitMappingEntry`[]
+              - content @Form(area, mapping, note)
           - `CommunicationPatterns`
             - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous, dataExchange,
               reliability, observability

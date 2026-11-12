@@ -1,3 +1,15 @@
+## 1.9.0
+
+- The generation-unit register: `SolutionArchitectureAndTechnology.generationUnits`
+  (`GENUN-UNIT-LST`), each `GenerationUnitEntry` with its `unitId`, its
+  `GenerationUnitKind` (client, server, shared, other), the deployment target
+  or architecture component it builds, and its `mappings` (`GEMAP-MAPP-LST`):
+  the area and the mapper that writes it. Routed `@NoArtifact(generation)`:
+  the CodeSpecs generator reads it to place what it emits.
+- `RevisionEntry.changeId`: the change a revision records, when a
+  tom_spec_change run made it.
+- Additive: every 1.8 document stays valid.
+
 ## 1.8.1
 
 - No change of structure: every 1.8.0 document is a 1.8.1 document. The chain

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-10T03:17:44.254444Z",
+  "generatedAt": "2026-11-12T21:27:43.283230Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.8.1+34.6aba4f68",
-  "classCount": 1270,
+  "modelVersionLabel": "1.9.0+35.0cb6858c",
+  "classCount": 1272,
   "rootCount": 14,
-  "modelHash": "5258fbd1b09214e7877efe16e9bf5e6db18b90888c6b045f7988f38293a30190",
+  "modelHash": "d9d011c0338f033aaae10552a1f6a4c60a545d3cb014e456a3e6f46f2d719177",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -15512,11 +15512,49 @@
           "elementIsComplex": true
         },
         {
-          "name": "communicationPatterns",
-          "kind": "complex",
-          "doc": "Communication patterns between components.",
+          "name": "generationUnits",
+          "kind": "list",
+          "doc": "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.",
+          "help": "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.",
+          "sectionId": "GENUN-UNIT-LST",
+          "sectionIdPattern": "GENUN-UNIT-xxx",
+          "standardReferences": {
+            "standards": [
+              "arc42 — deployment view",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "arc42 — deployment view",
+                  "C4 model — software architecture diagrams"
+                ],
+                "connotation": "The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GENUN-UNIT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "GENUN-UNIT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds."
+              }
+            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -15524,12 +15562,13 @@
               }
             }
           ],
-          "type": "CommunicationPatterns"
+          "elementType": "GenerationUnitEntry",
+          "elementIsComplex": true
         },
         {
-          "name": "dataArchitecture",
+          "name": "communicationPatterns",
           "kind": "complex",
-          "doc": "Data management architecture.",
+          "doc": "Communication patterns between components.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -15539,12 +15578,12 @@
               }
             }
           ],
-          "type": "DataArchitecture"
+          "type": "CommunicationPatterns"
         },
         {
-          "name": "scalabilityArchitecture",
+          "name": "dataArchitecture",
           "kind": "complex",
-          "doc": "Scalability and performance architecture.",
+          "doc": "Data management architecture.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -15554,12 +15593,12 @@
               }
             }
           ],
-          "type": "ScalabilityArchitecture"
+          "type": "DataArchitecture"
         },
         {
-          "name": "integrationArchitecture",
+          "name": "scalabilityArchitecture",
           "kind": "complex",
-          "doc": "Integration architecture with external systems.",
+          "doc": "Scalability and performance architecture.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -15569,18 +15608,33 @@
               }
             }
           ],
-          "type": "IntegrationArchitecture"
+          "type": "ScalabilityArchitecture"
         },
         {
-          "name": "deploymentTopology",
+          "name": "integrationArchitecture",
           "kind": "complex",
-          "doc": "Deployment topology and infrastructure.",
+          "doc": "Integration architecture with external systems.",
           "serializationOrder": 9,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 9
+              }
+            }
+          ],
+          "type": "IntegrationArchitecture"
+        },
+        {
+          "name": "deploymentTopology",
+          "kind": "complex",
+          "doc": "Deployment topology and infrastructure.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
               }
             }
           ],
@@ -15600,7 +15654,7 @@
             ],
             "connotation": "The recorded architecture decisions and their rationale."
           },
-          "serializationOrder": 10,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -15633,7 +15687,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 11
               }
             }
           ],
@@ -119406,6 +119460,230 @@
         }
       ]
     },
+    "GenerationUnitEntry": {
+      "name": "GenerationUnitEntry",
+      "sectionId": "GENUN",
+      "doc": "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).",
+      "standardReferences": {
+        "standards": [
+          "arc42 — deployment view",
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "A single unit the CodeSpecs generator writes code into: its kind, what it builds and the mapper of each area."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "arc42 — deployment view",
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "A single unit the CodeSpecs generator writes code into: its kind, what it builds and the mapper of each area."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "GENUN"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.generation",
+            "note": "read by the CodeSpecs generator to place what it emits (the unit a section goes to and the mapper of its area); no artifact of its own"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "unitId",
+              "label": "Unit Id",
+              "hint": "The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "kind",
+              "label": "Kind",
+              "hint": "client, server, shared or other",
+              "type": "GenerationUnitKind",
+              "required": true,
+              "enumValues": [
+                "client",
+                "server",
+                "shared",
+                "other"
+              ],
+              "enumValueDocs": {
+                "client": "A client application: screens, client calls, client configuration.",
+                "server": "A server: services, persistence, jobs, server configuration.",
+                "shared": "The package client and server both depend on: wire types, catalogues.",
+                "other": "A unit that is none of the three — a tool, a library of its own."
+              }
+            },
+            {
+              "name": "deploymentTarget",
+              "label": "Deployment Target",
+              "hint": "The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DEPTAR.@sectionId"
+              ]
+            },
+            {
+              "name": "component",
+              "label": "Component",
+              "hint": "The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ARCM.@sectionId"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mappings",
+          "kind": "list",
+          "doc": "The mapper each area of the unit is written by.",
+          "help": "Add one entry per area the unit holds; an area written for two technologies gets two entries.",
+          "sectionId": "GEMAP-MAPP-LST",
+          "sectionIdPattern": "GEMAP-MAPP-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "GEMAP-MAPP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "GEMAP-MAPP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per area the unit holds; an area written for two technologies gets two entries."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "GenerationUnitMappingEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "GenerationUnitMappingEntry": {
+      "name": "GenerationUnitMappingEntry",
+      "sectionId": "GEMAP",
+      "doc": "One mapping of a generation unit: the area and the mapper that writes it.",
+      "standardReferences": {
+        "standards": [
+          "C4 model — software architecture diagrams"
+        ],
+        "connotation": "Which mapper writes one CodeSpecs area of a generation unit."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "C4 model — software architecture diagrams"
+            ],
+            "connotation": "Which mapper writes one CodeSpecs area of a generation unit."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "GEMAP"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.generation",
+            "note": "read by the CodeSpecs generator to pick the mapper of an area"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "area",
+              "label": "Area",
+              "hint": "The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "mapping",
+              "label": "Mapping",
+              "hint": "The mapper id (dart-tom)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "hint": "Why this mapping, where it differs",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "GeographicDistributionRequirements": {
       "name": "GeographicDistributionRequirements",
       "sectionId": "GEDIRE",
@@ -216296,6 +216574,13 @@
               "name": "summary",
               "label": "Summary of changes",
               "hint": "One or two sentences on what changed and why.",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "changeId",
+              "label": "Change",
+              "hint": "The change this revision records, when a tom_spec_change run made it: chg<n>_<date code>-<slug>.",
               "type": "String",
               "required": false
             }

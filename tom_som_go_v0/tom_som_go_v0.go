@@ -20,7 +20,7 @@ import (
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
-const Version = "v1.8.0"
+const Version = "v1.9.0"
 
 // ActionTriggerKind is the generated named type for `ActionTriggerKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
@@ -603,6 +603,34 @@ func parseFlowReturnPoint(token string) FlowReturnPoint {
 	switch FlowReturnPoint(token) {
 	case FlowReturnPointResumeAtStep, FlowReturnPointEndFlow:
 		return FlowReturnPoint(token)
+	}
+	return ""
+}
+
+// GenerationUnitKind is the generated named type for `GenerationUnitKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type GenerationUnitKind string
+
+const (
+	// A client application: screens, client calls, client configuration.
+	GenerationUnitKindClient GenerationUnitKind = "client"
+	// A server: services, persistence, jobs, server configuration.
+	GenerationUnitKindServer GenerationUnitKind = "server"
+	// The package client and server both depend on: wire types, catalogues.
+	GenerationUnitKindShared GenerationUnitKind = "shared"
+	// A unit that is none of the three — a tool, a library of its own.
+	GenerationUnitKindOther GenerationUnitKind = "other"
+)
+
+// parseGenerationUnitKind returns the GenerationUnitKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseGenerationUnitKind(token string) GenerationUnitKind {
+	switch GenerationUnitKind(token) {
+	case GenerationUnitKindClient, GenerationUnitKindServer, GenerationUnitKindShared, GenerationUnitKindOther:
+		return GenerationUnitKind(token)
 	}
 	return ""
 }
@@ -4218,6 +4246,14 @@ func (x *ArchitectureStyle) Components() *som.SomList[*ArchitectureComponentEntr
 	return som.NewSomList(x.Doc(), x.Path()+"/ARCM-COMP-LST", func(d *som.SpecDocument, p string) *ArchitectureComponentEntry {
 		return NewArchitectureComponentEntry(d, p)
 	}, "ARCM-COMP-xxx")
+}
+
+// The generation units Phase 4 writes code for, and the mapper each of
+// their areas is written by.
+func (x *ArchitectureStyle) GenerationUnits() *som.SomList[*GenerationUnitEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/GENUN-UNIT-LST", func(d *som.SpecDocument, p string) *GenerationUnitEntry {
+		return NewGenerationUnitEntry(d, p)
+	}, "GENUN-UNIT-xxx")
 }
 
 // Communication patterns between components.
@@ -11468,7 +11504,7 @@ type D00SolutionBlueprint struct {
 
 // D00SolutionBlueprintModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D00SolutionBlueprintModelVersion = "1.8"
+const D00SolutionBlueprintModelVersion = "1.9"
 
 // NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11618,7 +11654,7 @@ type D01CurrentLandscapeAssessment struct {
 
 // D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D01CurrentLandscapeAssessmentModelVersion = "1.8"
+const D01CurrentLandscapeAssessmentModelVersion = "1.9"
 
 // NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11759,7 +11795,7 @@ type D02TargetOperatingModel struct {
 
 // D02TargetOperatingModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D02TargetOperatingModelModelVersion = "1.8"
+const D02TargetOperatingModelModelVersion = "1.9"
 
 // NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11913,7 +11949,7 @@ type D03InformationModel struct {
 
 // D03InformationModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D03InformationModelModelVersion = "1.8"
+const D03InformationModelModelVersion = "1.9"
 
 // NewD03InformationModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12133,7 +12169,7 @@ type D04RequirementsSpecification struct {
 
 // D04RequirementsSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D04RequirementsSpecificationModelVersion = "1.8"
+const D04RequirementsSpecificationModelVersion = "1.9"
 
 // NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12277,7 +12313,7 @@ type D05InteractionScenarios struct {
 
 // D05InteractionScenariosModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D05InteractionScenariosModelVersion = "1.8"
+const D05InteractionScenariosModelVersion = "1.9"
 
 // NewD05InteractionScenarios creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12414,7 +12450,7 @@ type D06ArchitectureTechnologySpecification struct {
 
 // D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D06ArchitectureTechnologySpecificationModelVersion = "1.8"
+const D06ArchitectureTechnologySpecificationModelVersion = "1.9"
 
 // NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12573,7 +12609,7 @@ type D07IntegrationInterfaceSpecification struct {
 
 // D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D07IntegrationInterfaceSpecificationModelVersion = "1.8"
+const D07IntegrationInterfaceSpecificationModelVersion = "1.9"
 
 // NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12729,7 +12765,7 @@ type D08SecurityAccessSpecification struct {
 
 // D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D08SecurityAccessSpecificationModelVersion = "1.8"
+const D08SecurityAccessSpecificationModelVersion = "1.9"
 
 // NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12881,7 +12917,7 @@ type D09ExperienceDesignSpecification struct {
 
 // D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D09ExperienceDesignSpecificationModelVersion = "1.8"
+const D09ExperienceDesignSpecificationModelVersion = "1.9"
 
 // NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13046,7 +13082,7 @@ type D10QualityAcceptancePlan struct {
 
 // D10QualityAcceptancePlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D10QualityAcceptancePlanModelVersion = "1.8"
+const D10QualityAcceptancePlanModelVersion = "1.9"
 
 // NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13241,7 +13277,7 @@ type D11DeliveryRoadmap struct {
 
 // D11DeliveryRoadmapModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D11DeliveryRoadmapModelVersion = "1.8"
+const D11DeliveryRoadmapModelVersion = "1.9"
 
 // NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13388,7 +13424,7 @@ type D12TransitionRolloutPlan struct {
 
 // D12TransitionRolloutPlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D12TransitionRolloutPlanModelVersion = "1.8"
+const D12TransitionRolloutPlanModelVersion = "1.9"
 
 // NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -13558,7 +13594,7 @@ type D13CodeSpecsProjection struct {
 
 // D13CodeSpecsProjectionModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D13CodeSpecsProjectionModelVersion = "1.8"
+const D13CodeSpecsProjectionModelVersion = "1.9"
 
 // NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -22909,6 +22945,58 @@ func (x *GapEntry) Workaround() *GapEntryWorkaroundForm {
 // Resolution planning.
 func (x *GapEntry) Resolution() *GapEntryResolutionForm {
 	return NewGapEntryResolutionForm(x.Doc(), x.Path()+"/GAENRE")
+}
+
+// One generation unit: a package the CodeSpecs generator writes code into.
+//
+// A unit **builds** a deployment target (`DEPTAR`) or an architecture
+// component (`ARCM`), at least one of the two; which areas it holds and in
+// which language and framework is said by its mappings — one per area, or
+// several for one area where the same area is written for two client
+// technologies. A section that goes to other units than its area's default
+// names them in its `units` member; the default is every unit with a mapping
+// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
+//
+// It configures Phase 4 rather than specifying anything Phase 4 emits, so it
+// is routed to no artifact (`NoArtifactReason.generation`).
+type GenerationUnitEntry struct {
+	som.SomNode
+}
+
+// NewGenerationUnitEntry binds a GenerationUnitEntry facade to a document and a path.
+func NewGenerationUnitEntry(doc *som.SpecDocument, path string) *GenerationUnitEntry {
+	return &GenerationUnitEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in the section's `form`.
+func (x *GenerationUnitEntry) Content() *GenerationUnitEntryContentForm {
+	return NewGenerationUnitEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// The mapper each area of the unit is written by.
+func (x *GenerationUnitEntry) Mappings() *som.SomList[*GenerationUnitMappingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/GEMAP-MAPP-LST", func(d *som.SpecDocument, p string) *GenerationUnitMappingEntry {
+		return NewGenerationUnitMappingEntry(d, p)
+	}, "GEMAP-MAPP-xxx")
+}
+
+// One mapping of a generation unit: the area and the mapper that writes it.
+type GenerationUnitMappingEntry struct {
+	som.SomNode
+}
+
+// NewGenerationUnitMappingEntry binds a GenerationUnitMappingEntry facade to a document and a path.
+func NewGenerationUnitMappingEntry(doc *som.SpecDocument, path string) *GenerationUnitMappingEntry {
+	return &GenerationUnitMappingEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in the section's `form`.
+func (x *GenerationUnitMappingEntry) Content() *GenerationUnitMappingEntryContentForm {
+	return NewGenerationUnitMappingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Geographic distribution requirements.
@@ -123183,6 +123271,114 @@ func (x *GapEntryWorkaroundForm) SetRiskIfNotAddressed(value string) {
 	x.Doc().SetFormField(x.Path(), "riskIfNotAddressed", value)
 }
 
+// GenerationUnitEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type GenerationUnitEntryContentForm struct {
+	som.SomNode
+}
+
+// NewGenerationUnitEntryContentForm binds a GenerationUnitEntryContentForm facade to a document and a path.
+func NewGenerationUnitEntryContentForm(doc *som.SpecDocument, path string) *GenerationUnitEntryContentForm {
+	return &GenerationUnitEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GenerationUnitEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GenerationUnitEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GenerationUnitEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GenerationUnitEntryContentForm) UnitId() string {
+	return x.Doc().FormFieldOr(x.Path(), "unitId")
+}
+
+func (x *GenerationUnitEntryContentForm) SetUnitId(value string) {
+	x.Doc().SetFormField(x.Path(), "unitId", value)
+}
+
+func (x *GenerationUnitEntryContentForm) Kind() GenerationUnitKind {
+	return parseGenerationUnitKind(x.Doc().FormFieldOr(x.Path(), "kind"))
+}
+
+func (x *GenerationUnitEntryContentForm) SetKind(value GenerationUnitKind) {
+	x.Doc().SetFormField(x.Path(), "kind", string(value))
+}
+
+func (x *GenerationUnitEntryContentForm) DeploymentTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "deploymentTarget")
+}
+
+func (x *GenerationUnitEntryContentForm) SetDeploymentTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "deploymentTarget", value)
+}
+
+func (x *GenerationUnitEntryContentForm) Component() string {
+	return x.Doc().FormFieldOr(x.Path(), "component")
+}
+
+func (x *GenerationUnitEntryContentForm) SetComponent(value string) {
+	x.Doc().SetFormField(x.Path(), "component", value)
+}
+
+// GenerationUnitMappingEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type GenerationUnitMappingEntryContentForm struct {
+	som.SomNode
+}
+
+// NewGenerationUnitMappingEntryContentForm binds a GenerationUnitMappingEntryContentForm facade to a document and a path.
+func NewGenerationUnitMappingEntryContentForm(doc *som.SpecDocument, path string) *GenerationUnitMappingEntryContentForm {
+	return &GenerationUnitMappingEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GenerationUnitMappingEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GenerationUnitMappingEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GenerationUnitMappingEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GenerationUnitMappingEntryContentForm) Area() string {
+	return x.Doc().FormFieldOr(x.Path(), "area")
+}
+
+func (x *GenerationUnitMappingEntryContentForm) SetArea(value string) {
+	x.Doc().SetFormField(x.Path(), "area", value)
+}
+
+func (x *GenerationUnitMappingEntryContentForm) Mapping() string {
+	return x.Doc().FormFieldOr(x.Path(), "mapping")
+}
+
+func (x *GenerationUnitMappingEntryContentForm) SetMapping(value string) {
+	x.Doc().SetFormField(x.Path(), "mapping", value)
+}
+
+func (x *GenerationUnitMappingEntryContentForm) Note() string {
+	return x.Doc().FormFieldOr(x.Path(), "note")
+}
+
+func (x *GenerationUnitMappingEntryContentForm) SetNote(value string) {
+	x.Doc().SetFormField(x.Path(), "note", value)
+}
+
 // GeographicDistributionRequirementsAnycastForm is the generated section facade for the `anycast` @Form section: its own
 // content text followed by one typed member per form field.
 type GeographicDistributionRequirementsAnycastForm struct {
@@ -180996,6 +181192,14 @@ func (x *RevisionEntryContentForm) Summary() string {
 
 func (x *RevisionEntryContentForm) SetSummary(value string) {
 	x.Doc().SetFormField(x.Path(), "summary", value)
+}
+
+func (x *RevisionEntryContentForm) ChangeId() string {
+	return x.Doc().FormFieldOr(x.Path(), "changeId")
+}
+
+func (x *RevisionEntryContentForm) SetChangeId(value string) {
+	x.Doc().SetFormField(x.Path(), "changeId", value)
 }
 
 // RiskBusinessImpactContentForm is the generated section facade for the `content` @Form section: its own

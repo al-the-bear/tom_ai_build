@@ -1444,6 +1444,18 @@ which lives in `tom_code_specs`, not here.
 **Follow-up taxonomy:** `@FollowUpKind(List<FollowUpProcess>)` — tags a SOM
 follow-up subtree root with its process taxonomy.
 
+**No artifact:** `@NoArtifact(NoArtifactReason, {note})` — the third routing
+verdict beside the two above, for a section that feeds nothing (§10.2
+`ROUTE-TOTAL`). Its reason is one of four: `container`, `overview`, `view`, and
+`generation` — a section the CodeSpecs generator reads to place what it emits.
+The generation-unit register is that section:
+`SolutionArchitectureAndTechnology.generationUnits` (`GENUN-UNIT-LST`), each
+`GenerationUnitEntry` naming a unit's `unitId`, its `GenerationUnitKind`
+(client, server, shared, other), the deployment target (`DEPTAR`) or
+architecture component (`ARCM`) it builds — at least one of the two — and its
+`mappings` (`GEMAP-MAPP-LST`): per area, the mapper that writes it, several for
+one area where it is written for two technologies.
+
 **Validation & authoring guidance:** `@Prefix`, `@PatternCheckId`,
 `@PatternCheck`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`,
 `@ValidationPrompt`, `@MinLength`, `@MaxLength`, `@ContentHelp`, `@Comment`.
@@ -2303,7 +2315,7 @@ hand.
     - header: `DocumentHeader`
       - content @Form(documentId, project, version, date, author, status)
     - revisionHistory: `RevisionEntry`[]
-      - content @Form(version, date, author, summary)
+      - content @Form(version, date, author, summary, changeId)
       - reviewTeam: `ReviewerRecord`[]
         - content @Form(memberId, displayName, role, guest)
       - reviewers: `ReviewerRecord`[]

@@ -819,28 +819,36 @@ fn meta_children_architecture_style(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             }));
             Rc::new(n)
         },
+        {
+            let mut n = som::SomMetaNode { class_name: "ArchitectureStyle".to_string(), member_name: "generationUnits".to_string(), section_id: "GENUN-UNIT-LST".to_string(), section_id_pattern: "GENUN-UNIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GenerationUnitEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.".to_string(), doc_comment: "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("arc42 — deployment view".to_string()), som::Json::Str("C4 model — software architecture diagrams".to_string())])), ("connotation".to_string(), som::Json::Str("The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("GenerationUnitEntry", s, meta_children_generation_unit_entry, |r, c| som::SomMetaNode {
+                class_name: "GenerationUnitEntry".to_string(), class_section_id: "GENUN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GenerationUnitEntry".to_string(), doc_comment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).".to_string(), class_doc_comment: "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
         meta_cx("CommunicationPatterns", s, meta_children_communication_patterns, |r, c| som::SomMetaNode {
-            class_name: "CommunicationPatterns".to_string(), member_name: "communicationPatterns".to_string(), class_section_id: "COMPAT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CommunicationPatterns".to_string(), serialization_order: Some(5), doc_comment: "Communication patterns between components.".to_string(), class_doc_comment: "Communication patterns between components.".to_string(),
+            class_name: "CommunicationPatterns".to_string(), member_name: "communicationPatterns".to_string(), class_section_id: "COMPAT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CommunicationPatterns".to_string(), serialization_order: Some(6), doc_comment: "Communication patterns between components.".to_string(), class_doc_comment: "Communication patterns between components.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DataArchitecture", s, meta_children_data_architecture, |r, c| som::SomMetaNode {
-            class_name: "DataArchitecture".to_string(), member_name: "dataArchitecture".to_string(), class_section_id: "DAAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataArchitecture".to_string(), serialization_order: Some(6), doc_comment: "Data management architecture.".to_string(), class_doc_comment: "Data architecture decisions.".to_string(),
+            class_name: "DataArchitecture".to_string(), member_name: "dataArchitecture".to_string(), class_section_id: "DAAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataArchitecture".to_string(), serialization_order: Some(7), doc_comment: "Data management architecture.".to_string(), class_doc_comment: "Data architecture decisions.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ScalabilityArchitecture", s, meta_children_scalability_architecture, |r, c| som::SomMetaNode {
-            class_name: "ScalabilityArchitecture".to_string(), member_name: "scalabilityArchitecture".to_string(), class_section_id: "SCAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScalabilityArchitecture".to_string(), serialization_order: Some(7), doc_comment: "Scalability and performance architecture.".to_string(), class_doc_comment: "Scalability and performance architecture.".to_string(),
+            class_name: "ScalabilityArchitecture".to_string(), member_name: "scalabilityArchitecture".to_string(), class_section_id: "SCAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScalabilityArchitecture".to_string(), serialization_order: Some(8), doc_comment: "Scalability and performance architecture.".to_string(), class_doc_comment: "Scalability and performance architecture.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("IntegrationArchitecture", s, meta_children_integration_architecture, |r, c| som::SomMetaNode {
-            class_name: "IntegrationArchitecture".to_string(), member_name: "integrationArchitecture".to_string(), class_section_id: "INAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrationArchitecture".to_string(), serialization_order: Some(8), doc_comment: "Integration architecture with external systems.".to_string(), class_doc_comment: "Integration architecture with external systems.".to_string(),
+            class_name: "IntegrationArchitecture".to_string(), member_name: "integrationArchitecture".to_string(), class_section_id: "INAR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrationArchitecture".to_string(), serialization_order: Some(9), doc_comment: "Integration architecture with external systems.".to_string(), class_doc_comment: "Integration architecture with external systems.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DeploymentTopology", s, meta_children_deployment_topology, |r, c| som::SomMetaNode {
-            class_name: "DeploymentTopology".to_string(), member_name: "deploymentTopology".to_string(), class_section_id: "DETO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeploymentTopology".to_string(), serialization_order: Some(9), doc_comment: "Deployment topology and infrastructure.".to_string(), class_doc_comment: "Deployment topology and infrastructure.".to_string(),
+            class_name: "DeploymentTopology".to_string(), member_name: "deploymentTopology".to_string(), class_section_id: "DETO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeploymentTopology".to_string(), serialization_order: Some(10), doc_comment: "Deployment topology and infrastructure.".to_string(), class_doc_comment: "Deployment topology and infrastructure.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "ArchitectureStyle".to_string(), member_name: "decisionRecords".to_string(), section_id: "ARDE-DECI-LST".to_string(), section_id_pattern: "ARDE-DECI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ArchitectureDecisionRecord".to_string(), serialization_order: Some(10), content_help: "Add one entry per architecture decision record.".to_string(), doc_comment: "Architecture decision records.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ADR (Architecture Decision Records) — decision capture".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The recorded architecture decisions and their rationale.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ArchitectureStyle".to_string(), member_name: "decisionRecords".to_string(), section_id: "ARDE-DECI-LST".to_string(), section_id_pattern: "ARDE-DECI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ArchitectureDecisionRecord".to_string(), serialization_order: Some(11), content_help: "Add one entry per architecture decision record.".to_string(), doc_comment: "Architecture decision records.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ADR (Architecture Decision Records) — decision capture".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The recorded architecture decisions and their rationale.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ArchitectureDecisionRecord", s, meta_children_architecture_decision_record, |r, c| som::SomMetaNode {
                 class_name: "ArchitectureDecisionRecord".to_string(), class_section_id: "ARDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ArchitectureDecisionRecord".to_string(), doc_comment: "Architecture Decision Record (ADR) entry.".to_string(), class_doc_comment: "Architecture Decision Record (ADR) entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7728,6 +7736,26 @@ fn meta_children_gap_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>
     ]
 }
 
+fn meta_children_generation_unit_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "GenerationUnitEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "unitId".to_string(), type_name: "String".to_string(), description: "Unit Id".to_string(), required: true, hint: "The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "kind".to_string(), type_name: "GenerationUnitKind".to_string(), description: "Kind".to_string(), required: true, hint: "client, server, shared or other".to_string(), order: 1, enum_values: vec!["client".to_string(), "server".to_string(), "shared".to_string(), "other".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "deploymentTarget".to_string(), type_name: "String".to_string(), description: "Deployment Target".to_string(), required: false, hint: "The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both".to_string(), order: 2, enum_values: vec![], refers_to: vec!["DEPTAR.@sectionId".to_string()], code: false }, som::SomFormFieldMeta { name: "component".to_string(), type_name: "String".to_string(), description: "Component".to_string(), required: false, hint: "The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both".to_string(), order: 3, enum_values: vec![], refers_to: vec!["ARCM.@sectionId".to_string()], code: false }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "GenerationUnitEntry".to_string(), member_name: "mappings".to_string(), section_id: "GEMAP-MAPP-LST".to_string(), section_id_pattern: "GEMAP-MAPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GenerationUnitMappingEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per area the unit holds; an area written for two technologies gets two entries.".to_string(), doc_comment: "The mapper each area of the unit is written by.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("GenerationUnitMappingEntry", s, meta_children_generation_unit_mapping_entry, |r, c| som::SomMetaNode {
+                class_name: "GenerationUnitMappingEntry".to_string(), class_section_id: "GEMAP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GenerationUnitMappingEntry".to_string(), doc_comment: "One mapping of a generation unit: the area and the mapper that writes it.".to_string(), class_doc_comment: "One mapping of a generation unit: the area and the mapper that writes it.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_generation_unit_mapping_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "GenerationUnitMappingEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "area".to_string(), type_name: "String".to_string(), description: "Area".to_string(), required: true, hint: "The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "mapping".to_string(), type_name: "String".to_string(), description: "Mapping".to_string(), required: true, hint: "The mapper id (dart-tom)".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "note".to_string(), type_name: "String".to_string(), description: "Note".to_string(), required: false, hint: "Why this mapping, where it differs".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_geographic_distribution_requirements(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "GeographicDistributionRequirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "primaryRegion".to_string(), type_name: "String".to_string(), description: "Primary Region".to_string(), required: false, hint: "Primary deployment region".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "secondaryRegions".to_string(), type_name: "String".to_string(), description: "Secondary Regions".to_string(), required: false, hint: "Secondary/backup regions".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "edgeLocations".to_string(), type_name: "String".to_string(), description: "Edge Locations".to_string(), required: false, hint: "CDN edge locations".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "regionalCompliance".to_string(), type_name: "String".to_string(), description: "Regional Compliance".to_string(), required: false, hint: "Data residency requirements".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
@@ -13344,7 +13372,7 @@ fn meta_children_reviewer_record(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
 
 fn meta_children_revision_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "RevisionEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "version".to_string(), type_name: "String".to_string(), description: "Version".to_string(), required: true, hint: "Semantic version of this revision, e.g. \"1.2.0\".".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "date".to_string(), type_name: "String".to_string(), description: "Date".to_string(), required: true, hint: "Date the revision was published (ISO 8601).".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "author".to_string(), type_name: "String".to_string(), description: "Author".to_string(), required: true, hint: "Person or role who produced the revision.".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "summary".to_string(), type_name: "String".to_string(), description: "Summary of changes".to_string(), required: false, hint: "One or two sentences on what changed and why.".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "RevisionEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "version".to_string(), type_name: "String".to_string(), description: "Version".to_string(), required: true, hint: "Semantic version of this revision, e.g. \"1.2.0\".".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "date".to_string(), type_name: "String".to_string(), description: "Date".to_string(), required: true, hint: "Date the revision was published (ISO 8601).".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "author".to_string(), type_name: "String".to_string(), description: "Author".to_string(), required: true, hint: "Person or role who produced the revision.".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "summary".to_string(), type_name: "String".to_string(), description: "Summary of changes".to_string(), required: false, hint: "One or two sentences on what changed and why.".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "changeId".to_string(), type_name: "String".to_string(), description: "Change".to_string(), required: false, hint: "The change this revision records, when a tom_spec_change run made it: chg<n>_<date code>-<slug>.".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "RevisionEntry".to_string(), member_name: "reviewTeam".to_string(), section_id: "RVWER-TEAM-LST".to_string(), section_id_pattern: "RVWER-TEAM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReviewerRecord".to_string(), serialization_order: Some(1), content_help: "The members the review round started with, each written out in full.".to_string(), doc_comment: "The review team the round leading to this revision started with.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReviewerRecord", s, meta_children_reviewer_record, |r, c| som::SomMetaNode {
@@ -21224,6 +21252,10 @@ impl<'a> ArchitectureStyleNav<'a> {
 
     pub fn components(&self) -> som::SomListMetaRef<'a, ArchitectureComponentEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ARCM-COMP-LST"), ArchitectureComponentEntryNav::new)
+    }
+
+    pub fn generation_units(&self) -> som::SomListMetaRef<'a, GenerationUnitEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GENUN-UNIT-LST"), GenerationUnitEntryNav::new)
     }
 
     pub fn communication_patterns(&self) -> CommunicationPatternsNav<'a> {
@@ -40108,6 +40140,72 @@ impl<'a> GapEntryNav<'a> {
 
     pub fn resolution(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GAENRE"))
+    }
+}
+
+/// GenerationUnitEntryNav holds the dot-notation accessors of `GenerationUnitEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct GenerationUnitEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> GenerationUnitEntryNav<'a> {
+    /// Binds a GenerationUnitEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> GenerationUnitEntryNav<'a> {
+        GenerationUnitEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn mappings(&self) -> som::SomListMetaRef<'a, GenerationUnitMappingEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GEMAP-MAPP-LST"), GenerationUnitMappingEntryNav::new)
+    }
+}
+
+/// GenerationUnitMappingEntryNav holds the dot-notation accessors of `GenerationUnitMappingEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct GenerationUnitMappingEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> GenerationUnitMappingEntryNav<'a> {
+    /// Binds a GenerationUnitMappingEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> GenerationUnitMappingEntryNav<'a> {
+        GenerationUnitMappingEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -78480,6 +78578,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST"), ArchitectureComponentEntryId::new)
     }
 
+    pub fn GENUN_UNIT_LST(&self) -> som::SomListMetaRef<'a, GenerationUnitEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST"), GenerationUnitEntryId::new)
+    }
+
     pub fn COPASY(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY"))
     }
@@ -83276,6 +83378,10 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/architectureStyle/ARCM-COMP-LST"), ArchitectureComponentEntryId::new)
     }
 
+    pub fn GENUN_UNIT_LST(&self) -> som::SomListMetaRef<'a, GenerationUnitEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/architectureStyle/GENUN-UNIT-LST"), GenerationUnitEntryId::new)
+    }
+
     pub fn COPASY(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/architectureStyle/communicationPatterns/COPASY"))
     }
@@ -87628,6 +87734,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
 
     pub fn ARCM_COMP_LST(&self) -> som::SomListMetaRef<'a, ArchitectureComponentEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST"), ArchitectureComponentEntryId::new)
+    }
+
+    pub fn GENUN_UNIT_LST(&self) -> som::SomListMetaRef<'a, GenerationUnitEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST"), GenerationUnitEntryId::new)
     }
 
     pub fn COPASY(&self) -> som::SomMetaRef<'a> {
@@ -94200,6 +94310,62 @@ impl<'a> GapEntryId<'a> {
 
     pub fn GAENRE(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GAENRE"))
+    }
+}
+
+/// GenerationUnitEntryId holds the ID-tree accessors of `GenerationUnitEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct GenerationUnitEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> GenerationUnitEntryId<'a> {
+    /// Binds a GenerationUnitEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> GenerationUnitEntryId<'a> {
+        GenerationUnitEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn GEMAP_MAPP_LST(&self) -> som::SomListMetaRef<'a, GenerationUnitMappingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GEMAP-MAPP-LST"), GenerationUnitMappingEntryId::new)
+    }
+}
+
+/// GenerationUnitMappingEntryId holds the ID-tree accessors of `GenerationUnitMappingEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct GenerationUnitMappingEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> GenerationUnitMappingEntryId<'a> {
+    /// Binds a GenerationUnitMappingEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> GenerationUnitMappingEntryId<'a> {
+        GenerationUnitMappingEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 

@@ -1324,6 +1324,67 @@ pub fn parse_flow_return_point(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `GenerationUnitKind` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// A client application: screens, client calls, client configuration.
+pub const GENERATION_UNIT_KIND_CLIENT: &str = "client";
+/// A server: services, persistence, jobs, server configuration.
+pub const GENERATION_UNIT_KIND_SERVER: &str = "server";
+/// The package client and server both depend on: wire types, catalogues.
+pub const GENERATION_UNIT_KIND_SHARED: &str = "shared";
+/// A unit that is none of the three — a tool, a library of its own.
+pub const GENERATION_UNIT_KIND_OTHER: &str = "other";
+
+/// GenerationUnitKind is the generated enum for `GenerationUnitKind` values.
+///
+/// The stored token is what [GenerationUnitKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum GenerationUnitKind {
+    /// A client application: screens, client calls, client configuration.
+    Client,
+    /// A server: services, persistence, jobs, server configuration.
+    Server,
+    /// The package client and server both depend on: wire types, catalogues.
+    Shared,
+    /// A unit that is none of the three — a tool, a library of its own.
+    Other,
+}
+
+impl GenerationUnitKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            GenerationUnitKind::Client => "client",
+            GenerationUnitKind::Server => "server",
+            GenerationUnitKind::Shared => "shared",
+            GenerationUnitKind::Other => "other",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "client" => Some(GenerationUnitKind::Client),
+            "server" => Some(GenerationUnitKind::Server),
+            "shared" => Some(GenerationUnitKind::Shared),
+            "other" => Some(GenerationUnitKind::Other),
+            _ => None,
+        }
+    }
+}
+
+/// parse_generation_unit_kind returns token when it is a known GenerationUnitKind value, else "".
+pub fn parse_generation_unit_kind(token: &str) -> String {
+    match token {
+        GENERATION_UNIT_KIND_CLIENT | GENERATION_UNIT_KIND_SERVER | GENERATION_UNIT_KIND_SHARED | GENERATION_UNIT_KIND_OTHER => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `GradedAccessLevel` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Full, interactive access.
@@ -7007,6 +7068,17 @@ impl ArchitectureStyle {
             format!("{}/{}", self.node.path(), "ARCM-COMP-LST"),
             Box::new(ArchitectureComponentEntry::new),
             "ARCM-COMP-xxx".to_string(),
+        )
+    }
+
+    /// The generation units Phase 4 writes code for, and the mapper each of
+    /// their areas is written by.
+    pub fn generation_units(&self) -> som::SomList<GenerationUnitEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "GENUN-UNIT-LST"),
+            Box::new(GenerationUnitEntry::new),
+            "GENUN-UNIT-xxx".to_string(),
         )
     }
 
@@ -15888,7 +15960,7 @@ pub struct D00SolutionBlueprint {
 }
 
 /// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.8";
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.9";
 
 impl D00SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
@@ -16033,7 +16105,7 @@ pub struct D01CurrentLandscapeAssessment {
 }
 
 /// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.8";
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.9";
 
 impl D01CurrentLandscapeAssessment {
     /// Creates the typed facade at the document root and verifies the
@@ -16175,7 +16247,7 @@ pub struct D02TargetOperatingModel {
 }
 
 /// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.8";
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.9";
 
 impl D02TargetOperatingModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16333,7 +16405,7 @@ pub struct D03InformationModel {
 }
 
 /// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.8";
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.9";
 
 impl D03InformationModel {
     /// Creates the typed facade at the document root and verifies the
@@ -16566,7 +16638,7 @@ pub struct D04RequirementsSpecification {
 }
 
 /// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.8";
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.9";
 
 impl D04RequirementsSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16712,7 +16784,7 @@ pub struct D05InteractionScenarios {
 }
 
 /// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.8";
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.9";
 
 impl D05InteractionScenarios {
     /// Creates the typed facade at the document root and verifies the
@@ -16850,7 +16922,7 @@ pub struct D06ArchitectureTechnologySpecification {
 }
 
 /// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.8";
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.9";
 
 impl D06ArchitectureTechnologySpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17007,7 +17079,7 @@ pub struct D07IntegrationInterfaceSpecification {
 }
 
 /// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.8";
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.9";
 
 impl D07IntegrationInterfaceSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17170,7 +17242,7 @@ pub struct D08SecurityAccessSpecification {
 }
 
 /// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.8";
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.9";
 
 impl D08SecurityAccessSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17320,7 +17392,7 @@ pub struct D09ExperienceDesignSpecification {
 }
 
 /// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.8";
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.9";
 
 impl D09ExperienceDesignSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -17483,7 +17555,7 @@ pub struct D10QualityAcceptancePlan {
 }
 
 /// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.8";
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.9";
 
 impl D10QualityAcceptancePlan {
     /// Creates the typed facade at the document root and verifies the
@@ -17676,7 +17748,7 @@ pub struct D11DeliveryRoadmap {
 }
 
 /// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.8";
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.9";
 
 impl D11DeliveryRoadmap {
     /// Creates the typed facade at the document root and verifies the
@@ -17824,7 +17896,7 @@ pub struct D12TransitionRolloutPlan {
 }
 
 /// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.8";
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.9";
 
 impl D12TransitionRolloutPlan {
     /// Creates the typed facade at the document root and verifies the
@@ -17992,7 +18064,7 @@ pub struct D13CodeSpecsProjection {
 }
 
 /// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.8";
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.9";
 
 impl D13CodeSpecsProjection {
     /// Creates the typed facade at the document root and verifies the
@@ -29286,6 +29358,79 @@ impl GapEntry {
     /// Resolution planning.
     pub fn resolution(&self) -> GapEntryResolutionForm {
         GapEntryResolutionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "GAENRE"))
+    }
+}
+
+/// One generation unit: a package the CodeSpecs generator writes code into.
+///
+/// A unit **builds** a deployment target (`DEPTAR`) or an architecture
+/// component (`ARCM`), at least one of the two; which areas it holds and in
+/// which language and framework is said by its mappings — one per area, or
+/// several for one area where the same area is written for two client
+/// technologies. A section that goes to other units than its area's default
+/// names them in its `units` member; the default is every unit with a mapping
+/// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
+///
+/// It configures Phase 4 rather than specifying anything Phase 4 emits, so it
+/// is routed to no artifact (`NoArtifactReason.generation`).
+pub struct GenerationUnitEntry {
+    pub node: som::SomNode,
+}
+
+impl GenerationUnitEntry {
+    /// Binds a GenerationUnitEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GenerationUnitEntry {
+        GenerationUnitEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
+    pub fn content(&self) -> GenerationUnitEntryContentForm {
+        GenerationUnitEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// The mapper each area of the unit is written by.
+    pub fn mappings(&self) -> som::SomList<GenerationUnitMappingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "GEMAP-MAPP-LST"),
+            Box::new(GenerationUnitMappingEntry::new),
+            "GEMAP-MAPP-xxx".to_string(),
+        )
+    }
+}
+
+/// One mapping of a generation unit: the area and the mapper that writes it.
+pub struct GenerationUnitMappingEntry {
+    pub node: som::SomNode,
+}
+
+impl GenerationUnitMappingEntry {
+    /// Binds a GenerationUnitMappingEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GenerationUnitMappingEntry {
+        GenerationUnitMappingEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in the section's `form`.
+    pub fn content(&self) -> GenerationUnitMappingEntryContentForm {
+        GenerationUnitMappingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -141315,6 +141460,130 @@ impl GapEntryWorkaroundForm {
     }
 }
 
+/// GenerationUnitEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GenerationUnitEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl GenerationUnitEntryContentForm {
+    /// Binds a GenerationUnitEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GenerationUnitEntryContentForm {
+        GenerationUnitEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn unit_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "unitId")
+    }
+
+    pub fn set_unit_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "unitId", value);
+    }
+
+    pub fn kind(&self) -> Option<GenerationUnitKind> {
+        GenerationUnitKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "kind"))
+    }
+
+    pub fn set_kind(&self, value: Option<GenerationUnitKind>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "kind", text);
+    }
+
+    pub fn deployment_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deploymentTarget")
+    }
+
+    pub fn set_deployment_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deploymentTarget", value);
+    }
+
+    pub fn component(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "component")
+    }
+
+    pub fn set_component(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "component", value);
+    }
+}
+
+/// GenerationUnitMappingEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GenerationUnitMappingEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl GenerationUnitMappingEntryContentForm {
+    /// Binds a GenerationUnitMappingEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GenerationUnitMappingEntryContentForm {
+        GenerationUnitMappingEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn area(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "area")
+    }
+
+    pub fn set_area(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "area", value);
+    }
+
+    pub fn mapping(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mapping")
+    }
+
+    pub fn set_mapping(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mapping", value);
+    }
+
+    pub fn note(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "note")
+    }
+
+    pub fn set_note(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "note", value);
+    }
+}
+
 /// GeographicDistributionRequirementsAnycastForm is the generated section facade for the `anycast` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct GeographicDistributionRequirementsAnycastForm {
@@ -203635,6 +203904,15 @@ impl RevisionEntryContentForm {
     pub fn set_summary(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "summary", value);
+    }
+
+    pub fn change_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "changeId")
+    }
+
+    pub fn set_change_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "changeId", value);
     }
 }
 

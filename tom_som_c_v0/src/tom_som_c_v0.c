@@ -182,6 +182,16 @@ char *parse_flow_return_point(const char *token) {
   return som_strdup("");
 }
 
+char *parse_generation_unit_kind(const char *token) {
+  if (strcmp(token, GENERATION_UNIT_KIND_CLIENT) == 0 ||
+      strcmp(token, GENERATION_UNIT_KIND_SERVER) == 0 ||
+      strcmp(token, GENERATION_UNIT_KIND_SHARED) == 0 ||
+      strcmp(token, GENERATION_UNIT_KIND_OTHER) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_graded_access_level(const char *token) {
   if (strcmp(token, GRADED_ACCESS_LEVEL_FULL) == 0 ||
       strcmp(token, GRADED_ACCESS_LEVEL_READ) == 0 ||
@@ -2800,6 +2810,13 @@ SomList architecture_style_components(const ArchitectureStyle *self) {
   char *path = spec_path_join(self->node.path, "ARCM-COMP-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "ARCM-COMP-xxx");
+  free(path);
+  return out;
+}
+SomList architecture_style_generation_units(const ArchitectureStyle *self) {
+  char *path = spec_path_join(self->node.path, "GENUN-UNIT-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "GENUN-UNIT-xxx");
   free(path);
   return out;
 }
@@ -21339,6 +21356,49 @@ GapEntryResolutionForm gap_entry_resolution(const GapEntry *self) {
   char *path = spec_path_join(self->node.path, "GAENRE");
   GapEntryResolutionForm out;
   gap_entry_resolution_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void generation_unit_entry_init(GenerationUnitEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void generation_unit_entry_free(GenerationUnitEntry *self) {
+  som_node_free(&self->node);
+}
+int generation_unit_entry_can_have_content(const GenerationUnitEntry *self) {
+  (void)self;
+  return 0;
+}
+GenerationUnitEntryContentForm generation_unit_entry_content(const GenerationUnitEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  GenerationUnitEntryContentForm out;
+  generation_unit_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList generation_unit_entry_mappings(const GenerationUnitEntry *self) {
+  char *path = spec_path_join(self->node.path, "GEMAP-MAPP-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "GEMAP-MAPP-xxx");
+  free(path);
+  return out;
+}
+
+void generation_unit_mapping_entry_init(GenerationUnitMappingEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void generation_unit_mapping_entry_free(GenerationUnitMappingEntry *self) {
+  som_node_free(&self->node);
+}
+int generation_unit_mapping_entry_can_have_content(const GenerationUnitMappingEntry *self) {
+  (void)self;
+  return 0;
+}
+GenerationUnitMappingEntryContentForm generation_unit_mapping_entry_content(const GenerationUnitMappingEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  GenerationUnitMappingEntryContentForm out;
+  generation_unit_mapping_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -98859,6 +98919,83 @@ void gap_entry_workaround_form_set_risk_if_not_addressed(GapEntryWorkaroundForm 
   spec_document_set_form_field(self->node.doc, self->node.path, "riskIfNotAddressed", value);
 }
 
+void generation_unit_entry_content_form_init(GenerationUnitEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void generation_unit_entry_content_form_free(GenerationUnitEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *generation_unit_entry_content_form_content(const GenerationUnitEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_entry_content_form_set_content(GenerationUnitEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *generation_unit_entry_content_form_unit_id(const GenerationUnitEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "unitId");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_entry_content_form_set_unit_id(GenerationUnitEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "unitId", value);
+}
+char *generation_unit_entry_content_form_kind(const GenerationUnitEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "kind");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_entry_content_form_set_kind(GenerationUnitEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "kind", value);
+}
+char *generation_unit_entry_content_form_deployment_target(const GenerationUnitEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deploymentTarget");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_entry_content_form_set_deployment_target(GenerationUnitEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "deploymentTarget", value);
+}
+char *generation_unit_entry_content_form_component(const GenerationUnitEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "component");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_entry_content_form_set_component(GenerationUnitEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "component", value);
+}
+
+void generation_unit_mapping_entry_content_form_init(GenerationUnitMappingEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void generation_unit_mapping_entry_content_form_free(GenerationUnitMappingEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *generation_unit_mapping_entry_content_form_content(const GenerationUnitMappingEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_mapping_entry_content_form_set_content(GenerationUnitMappingEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *generation_unit_mapping_entry_content_form_area(const GenerationUnitMappingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "area");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_mapping_entry_content_form_set_area(GenerationUnitMappingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "area", value);
+}
+char *generation_unit_mapping_entry_content_form_mapping(const GenerationUnitMappingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "mapping");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_mapping_entry_content_form_set_mapping(GenerationUnitMappingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "mapping", value);
+}
+char *generation_unit_mapping_entry_content_form_note(const GenerationUnitMappingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "note");
+  return som_strdup(v != NULL ? v : "");
+}
+void generation_unit_mapping_entry_content_form_set_note(GenerationUnitMappingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "note", value);
+}
+
 void geographic_distribution_requirements_anycast_form_init(GeographicDistributionRequirementsAnycastForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -138583,6 +138720,13 @@ char *revision_entry_content_form_summary(const RevisionEntryContentForm *self) 
 }
 void revision_entry_content_form_set_summary(RevisionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "summary", value);
+}
+char *revision_entry_content_form_change_id(const RevisionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeId");
+  return som_strdup(v != NULL ? v : "");
+}
+void revision_entry_content_form_set_change_id(RevisionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "changeId", value);
 }
 
 void risk_business_impact_content_form_init(RiskBusinessImpactContentForm *self, SpecDocument *doc, const char *path) {

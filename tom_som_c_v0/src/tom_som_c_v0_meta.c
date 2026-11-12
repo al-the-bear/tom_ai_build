@@ -541,6 +541,8 @@ static SomMetaNode **meta_children_functional_requirements(SomStrList *stack, si
 static SomMetaNode **meta_children_functional_responsibilities(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_functional_suitability_characteristic(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_gap_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_generation_unit_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_generation_unit_mapping_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_geographic_distribution_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_global_role_exclusion_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_glossary_and_abbreviations(SomStrList *stack, size_t *len);
@@ -1582,6 +1584,8 @@ static void meta_build_architecture_style_principles_elem(SomMetaNode *n);
 static void meta_build_architecture_style_component_organization(SomMetaNode *n);
 static void meta_build_architecture_style_components(SomMetaNode *n);
 static void meta_build_architecture_style_components_elem(SomMetaNode *n);
+static void meta_build_architecture_style_generation_units(SomMetaNode *n);
+static void meta_build_architecture_style_generation_units_elem(SomMetaNode *n);
 static void meta_build_architecture_style_communication_patterns(SomMetaNode *n);
 static void meta_build_architecture_style_data_architecture(SomMetaNode *n);
 static void meta_build_architecture_style_scalability_architecture(SomMetaNode *n);
@@ -3700,6 +3704,10 @@ static void meta_build_gap_entry_description(SomMetaNode *n);
 static void meta_build_gap_entry_discovery(SomMetaNode *n);
 static void meta_build_gap_entry_workaround(SomMetaNode *n);
 static void meta_build_gap_entry_resolution(SomMetaNode *n);
+static void meta_build_generation_unit_entry_content(SomMetaNode *n);
+static void meta_build_generation_unit_entry_mappings(SomMetaNode *n);
+static void meta_build_generation_unit_entry_mappings_elem(SomMetaNode *n);
+static void meta_build_generation_unit_mapping_entry_content(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_content(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_cdn(SomMetaNode *n);
 static void meta_build_geographic_distribution_requirements_routing(SomMetaNode *n);
@@ -8062,6 +8070,16 @@ static void *meta_nav_factory_gap_entry(const SomMetaTree *tree, const char *pat
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_generation_unit_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_generation_unit_entry *r = (som_nav_generation_unit_entry *)malloc(sizeof(som_nav_generation_unit_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_generation_unit_mapping_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_generation_unit_mapping_entry *r = (som_nav_generation_unit_mapping_entry *)malloc(sizeof(som_nav_generation_unit_mapping_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_global_role_exclusion_entry(const SomMetaTree *tree, const char *path) {
   som_nav_global_role_exclusion_entry *r = (som_nav_global_role_exclusion_entry *)malloc(sizeof(som_nav_global_role_exclusion_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10654,6 +10672,16 @@ static void *meta_id_factory_functional_requirement_entry(const SomMetaTree *tre
 }
 static void *meta_id_factory_gap_entry(const SomMetaTree *tree, const char *path) {
   som_id_gap_entry *r = (som_id_gap_entry *)malloc(sizeof(som_id_gap_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_generation_unit_entry(const SomMetaTree *tree, const char *path) {
+  som_id_generation_unit_entry *r = (som_id_generation_unit_entry *)malloc(sizeof(som_id_generation_unit_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_generation_unit_mapping_entry(const SomMetaTree *tree, const char *path) {
+  som_id_generation_unit_mapping_entry *r = (som_id_generation_unit_mapping_entry *)malloc(sizeof(som_id_generation_unit_mapping_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -20169,6 +20197,30 @@ static void meta_build_architecture_style_components_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Architecture component/service entry.");
   meta_set(&n->class_doc_comment, "Architecture component/service entry.");
 }
+static void meta_build_architecture_style_generation_units(SomMetaNode *n) {
+  meta_set(&n->class_name, "ArchitectureStyle");
+  meta_set(&n->member_name, "generationUnits");
+  meta_set(&n->section_id, "GENUN-UNIT-LST");
+  meta_set(&n->section_id_pattern, "GENUN-UNIT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "GenerationUnitEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->content_help, "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.");
+  meta_set(&n->doc_comment, "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"arc42 — deployment view\",\"C4 model — software architecture diagrams\"],\"connotation\":\"The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.\"}", NULL);
+}
+static void meta_build_architecture_style_generation_units_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "GenerationUnitEntry");
+  meta_set(&n->class_section_id, "GENUN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "GenerationUnitEntry");
+  meta_set(&n->doc_comment, "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).");
+  meta_set(&n->class_doc_comment, "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).");
+}
 static void meta_build_architecture_style_communication_patterns(SomMetaNode *n) {
   meta_set(&n->class_name, "CommunicationPatterns");
   meta_set(&n->member_name, "communicationPatterns");
@@ -20176,7 +20228,7 @@ static void meta_build_architecture_style_communication_patterns(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CommunicationPatterns");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Communication patterns between components.");
   meta_set(&n->class_doc_comment, "Communication patterns between components.");
 }
@@ -20187,7 +20239,7 @@ static void meta_build_architecture_style_data_architecture(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataArchitecture");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Data management architecture.");
   meta_set(&n->class_doc_comment, "Data architecture decisions.");
 }
@@ -20198,7 +20250,7 @@ static void meta_build_architecture_style_scalability_architecture(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScalabilityArchitecture");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Scalability and performance architecture.");
   meta_set(&n->class_doc_comment, "Scalability and performance architecture.");
 }
@@ -20209,7 +20261,7 @@ static void meta_build_architecture_style_integration_architecture(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "IntegrationArchitecture");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Integration architecture with external systems.");
   meta_set(&n->class_doc_comment, "Integration architecture with external systems.");
 }
@@ -20220,7 +20272,7 @@ static void meta_build_architecture_style_deployment_topology(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DeploymentTopology");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Deployment topology and infrastructure.");
   meta_set(&n->class_doc_comment, "Deployment topology and infrastructure.");
 }
@@ -20232,7 +20284,7 @@ static void meta_build_architecture_style_decision_records(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ArchitectureDecisionRecord");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->content_help, "Add one entry per architecture decision record.");
   meta_set(&n->doc_comment, "Architecture decision records.");
   n->extra_len = 1;
@@ -72308,6 +72360,104 @@ static void meta_build_gap_entry_resolution(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §6 — gap analysis (closing the gap toward the desired state)\"],\"connotation\":\"The proposed path from this gap to the desired state — approach, timeline, success criteria, and dependencies on other gaps.\"}", NULL);
 }
+static void meta_build_generation_unit_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "GenerationUnitEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("unitId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Unit Id");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("kind");
+  n->form->fields[1].type_name = som_strdup("GenerationUnitKind");
+  n->form->fields[1].description = som_strdup("Kind");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("client, server, shared or other");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].enum_values_len = 4;
+  n->form->fields[1].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("client");
+  n->form->fields[1].enum_values[1] = som_strdup("server");
+  n->form->fields[1].enum_values[2] = som_strdup("shared");
+  n->form->fields[1].enum_values[3] = som_strdup("other");
+  n->form->fields[2].name = som_strdup("deploymentTarget");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Deployment Target");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("DEPTAR.@sectionId");
+  n->form->fields[3].name = som_strdup("component");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Component");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("ARCM.@sectionId");
+}
+static void meta_build_generation_unit_entry_mappings(SomMetaNode *n) {
+  meta_set(&n->class_name, "GenerationUnitEntry");
+  meta_set(&n->member_name, "mappings");
+  meta_set(&n->section_id, "GEMAP-MAPP-LST");
+  meta_set(&n->section_id_pattern, "GEMAP-MAPP-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "GenerationUnitMappingEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per area the unit holds; an area written for two technologies gets two entries.");
+  meta_set(&n->doc_comment, "The mapper each area of the unit is written by.");
+}
+static void meta_build_generation_unit_entry_mappings_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "GenerationUnitMappingEntry");
+  meta_set(&n->class_section_id, "GEMAP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "GenerationUnitMappingEntry");
+  meta_set(&n->doc_comment, "One mapping of a generation unit: the area and the mapper that writes it.");
+  meta_set(&n->class_doc_comment, "One mapping of a generation unit: the area and the mapper that writes it.");
+}
+static void meta_build_generation_unit_mapping_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "GenerationUnitMappingEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("area");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Area");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("mapping");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Mapping");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The mapper id (dart-tom)");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("note");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Note");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Why this mapping, where it differs");
+  n->form->fields[2].order = 2;
+}
 static void meta_build_geographic_distribution_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "GeographicDistributionRequirements");
   meta_set(&n->member_name, "content");
@@ -120164,8 +120314,8 @@ static void meta_build_revision_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("version");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Version");
@@ -120190,6 +120340,12 @@ static void meta_build_revision_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("One or two sentences on what changed and why.");
   n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("changeId");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Change");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The change this revision records, when a tom_spec_change run made it: chg<n>_<date code>-<slug>.");
+  n->form->fields[4].order = 4;
 }
 static void meta_build_revision_entry_review_team(SomMetaNode *n) {
   meta_set(&n->class_name, "RevisionEntry");
@@ -166558,6 +166714,12 @@ static SomMetaNode **meta_children_architecture_style(SomStrList *stack, size_t 
     ln->element_node = meta_cx("ArchitectureComponentEntry", stack, meta_children_architecture_component_entry, meta_build_architecture_style_components_elem);
     meta_push(&arr, len, &cap, ln);
   }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_architecture_style_generation_units(ln);
+    ln->element_node = meta_cx("GenerationUnitEntry", stack, meta_children_generation_unit_entry, meta_build_architecture_style_generation_units_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   meta_push(&arr, len, &cap, meta_cx("CommunicationPatterns", stack, meta_children_communication_patterns, meta_build_architecture_style_communication_patterns));
   meta_push(&arr, len, &cap, meta_cx("DataArchitecture", stack, meta_children_data_architecture, meta_build_architecture_style_data_architecture));
   meta_push(&arr, len, &cap, meta_cx("ScalabilityArchitecture", stack, meta_children_scalability_architecture, meta_build_architecture_style_scalability_architecture));
@@ -177633,6 +177795,37 @@ static SomMetaNode **meta_children_gap_entry(SomStrList *stack, size_t *len) {
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_gap_entry_resolution(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_generation_unit_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_generation_unit_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_generation_unit_entry_mappings(ln);
+    ln->element_node = meta_cx("GenerationUnitMappingEntry", stack, meta_children_generation_unit_mapping_entry, meta_build_generation_unit_entry_mappings_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_generation_unit_mapping_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_generation_unit_mapping_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -199885,6 +200078,13 @@ SomListMetaRef architecture_style_nav_components(som_nav_architecture_style x) {
   free(path);
   return out;
 }
+SomListMetaRef architecture_style_nav_generation_units(som_nav_architecture_style x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "GENUN-UNIT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_generation_unit_entry);
+  free(path);
+  return out;
+}
 som_nav_communication_patterns architecture_style_nav_communication_patterns(som_nav_architecture_style x) {
   som_nav_communication_patterns out;
   char *path = spec_path_join(x.ref.path, "communicationPatterns");
@@ -213174,6 +213374,27 @@ SomMetaRef gap_entry_nav_workaround(som_nav_gap_entry x) {
 SomMetaRef gap_entry_nav_resolution(som_nav_gap_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "GAENRE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef generation_unit_entry_nav_content(som_nav_generation_unit_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef generation_unit_entry_nav_mappings(som_nav_generation_unit_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "GEMAP-MAPP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_generation_unit_mapping_entry);
+  free(path);
+  return out;
+}
+SomMetaRef generation_unit_mapping_entry_nav_content(som_nav_generation_unit_mapping_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -238862,6 +239083,13 @@ SomListMetaRef d00_solution_blueprint_id_arcm_comp_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_genun_unit_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_generation_unit_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_copasy(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY");
@@ -246982,6 +247210,13 @@ SomListMetaRef d06_architecture_technology_specification_id_arcm_comp_lst(som_id
   free(path);
   return out;
 }
+SomListMetaRef d06_architecture_technology_specification_id_genun_unit_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "basicTechnicalRequirements/architectureStyle/GENUN-UNIT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_generation_unit_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d06_architecture_technology_specification_id_copasy(som_id_d06_architecture_technology_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "basicTechnicalRequirements/architectureStyle/communicationPatterns/COPASY");
@@ -254283,6 +254518,13 @@ SomListMetaRef d13_code_specs_projection_id_arcm_comp_lst(som_id_d13_code_specs_
   free(path);
   return out;
 }
+SomListMetaRef d13_code_specs_projection_id_genun_unit_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_generation_unit_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d13_code_specs_projection_id_copasy(som_id_d13_code_specs_projection x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY");
@@ -261413,6 +261655,13 @@ SomMetaRef gap_entry_id_gaenre(som_id_gap_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "GAENRE");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef generation_unit_entry_id_gemap_mapp_lst(som_id_generation_unit_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "GEMAP-MAPP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_generation_unit_mapping_entry);
   free(path);
   return out;
 }

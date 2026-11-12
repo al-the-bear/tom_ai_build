@@ -13,7 +13,8 @@
 /// "produces nothing" a **recorded decision** rather than an omission, which is
 /// what lets the `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL`
 /// demand that every `@SectionId`-carrying class reachable from a specification
-/// root carry exactly one of the three verdicts.
+/// root carry exactly one of the three verdicts. The reason that goes with it
+/// is one of four ([NoArtifactReason]).
 ///
 /// Mutually exclusive with both `@CodeSpecKind` and `@FollowUpKind` — a section
 /// that feeds something is not a section that feeds nothing.
@@ -48,10 +49,10 @@ class NoArtifact {
 /// Why a section is deliberately routed to neither CodeSpecs nor a follow-up
 /// process (`codespecs_mapping.md` §8.3).
 ///
-/// A closed vocabulary of three: the section groups, it restates, or it
-/// re-presents. Anything else that produces nothing is one of these three in
-/// disguise; anything that does not fit is a section that should have been
-/// routed.
+/// A closed vocabulary of four: the section groups, it restates, it
+/// re-presents, or it steers generation. Anything else that produces nothing
+/// is one of these four in disguise; anything that does not fit is a section
+/// that should have been routed.
 enum NoArtifactReason {
   /// A structural grouping node. Its own content is a headline plus at most an
   /// introductory sentence; every routable fact lives in its children, which
@@ -71,4 +72,10 @@ enum NoArtifactReason {
   /// that it is derived rather than prose — a generator could in principle
   /// *produce* it, never consume it.
   view,
+
+  /// Read by the CodeSpecs generator to decide where what it emits goes — the
+  /// generation-unit register, which names the units and the mapper each area
+  /// is written by. It configures Phase 4 rather than specifying anything
+  /// Phase 4 emits, so it becomes no artifact of its own.
+  generation,
 }

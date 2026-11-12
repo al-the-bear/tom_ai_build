@@ -16,7 +16,7 @@ public final class NoArtifactLink {
   /**
    * The {@code NoArtifactReason} code name with its type prefix stripped —
    * {@code container}, not {@code NoArtifactReason.container}. One of
-   * {@code container}, {@code overview}, {@code view}.
+   * {@code container}, {@code overview}, {@code view}, {@code generation}.
    */
   public final String reason;
 

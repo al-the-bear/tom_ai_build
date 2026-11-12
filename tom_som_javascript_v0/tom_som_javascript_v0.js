@@ -562,6 +562,31 @@ function _parseFlowReturnPoint(token) {
   return null;
 }
 
+// Generated enum for `GenerationUnitKind` values.
+const GenerationUnitKind = Object.freeze({
+  // A client application: screens, client calls, client configuration.
+  "client": "client",
+  // A server: services, persistence, jobs, server configuration.
+  "server": "server",
+  // The package client and server both depend on: wire types, catalogues.
+  "shared": "shared",
+  // A unit that is none of the three — a tool, a library of its own.
+  "other": "other",
+});
+
+// Parses a stored token into a GenerationUnitKind value, or null.
+function _parseGenerationUnitKind(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(GenerationUnitKind)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `GradedAccessLevel` values.
 const GradedAccessLevel = Object.freeze({
   // Full, interactive access.
@@ -3887,6 +3912,12 @@ class ArchitectureStyle extends SomNode {
   // Component/service catalog.
   get components() {
     return new SomList(this.doc, this.path + "/ARCM-COMP-LST", (d, p) => new ArchitectureComponentEntry(d, p), "ARCM-COMP-xxx");
+  }
+
+  // The generation units Phase 4 writes code for, and the mapper each of
+  // their areas is written by.
+  get generationUnits() {
+    return new SomList(this.doc, this.path + "/GENUN-UNIT-LST", (d, p) => new GenerationUnitEntry(d, p), "GENUN-UNIT-xxx");
   }
 
   // Communication patterns between components.
@@ -10375,7 +10406,7 @@ class CutoverProcedure extends SomNode {
 // per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10505,7 +10536,7 @@ class D00SolutionBlueprint extends SomNode {
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10622,7 +10653,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10750,7 +10781,7 @@ class D02TargetOperatingModel extends SomNode {
 // integrity constraints.
 class D03InformationModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10942,7 +10973,7 @@ class D03InformationModel extends SomNode {
 // and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11062,7 +11093,7 @@ class D04RequirementsSpecification extends SomNode {
 // and traceability.
 class D05InteractionScenarios extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11175,7 +11206,7 @@ class D05InteractionScenarios extends SomNode {
 // and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11312,7 +11343,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11440,7 +11471,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 // compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11570,7 +11601,7 @@ class D08SecurityAccessSpecification extends SomNode {
 // mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11713,7 +11744,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11886,7 +11917,7 @@ class D10QualityAcceptancePlan extends SomNode {
 // framework.
 class D11DeliveryRoadmap extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -12009,7 +12040,7 @@ class D11DeliveryRoadmap extends SomNode {
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -12157,7 +12188,7 @@ class D12TransitionRolloutPlan extends SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.8";
+  static MODEL_VERSION = "1.9";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -20583,6 +20614,50 @@ class GapEntry extends SomNode {
   // Resolution planning.
   get resolution() {
     return new GapEntryResolutionForm(this.doc, this.path + "/GAENRE");
+  }
+}
+
+// One generation unit: a package the CodeSpecs generator writes code into.
+//
+// A unit **builds** a deployment target (`DEPTAR`) or an architecture
+// component (`ARCM`), at least one of the two; which areas it holds and in
+// which language and framework is said by its mappings — one per area, or
+// several for one area where the same area is written for two client
+// technologies. A section that goes to other units than its area's default
+// names them in its `units` member; the default is every unit with a mapping
+// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
+//
+// It configures Phase 4 rather than specifying anything Phase 4 emits, so it
+// is routed to no artifact (`NoArtifactReason.generation`).
+class GenerationUnitEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  get content() {
+    return new GenerationUnitEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // The mapper each area of the unit is written by.
+  get mappings() {
+    return new SomList(this.doc, this.path + "/GEMAP-MAPP-LST", (d, p) => new GenerationUnitMappingEntry(d, p), "GEMAP-MAPP-xxx");
+  }
+}
+
+// One mapping of a generation unit: the area and the mapper that writes it.
+class GenerationUnitMappingEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  get content() {
+    return new GenerationUnitMappingEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -105274,6 +105349,100 @@ class GapEntryWorkaroundForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class GenerationUnitEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get unitId() {
+    return this.doc.formField(this.path, "unitId") || '';
+  }
+
+  set unitId(value) {
+    this.doc.setFormField(this.path, "unitId", value);
+  }
+
+  get kind() {
+    return this.doc.formField(this.path, "kind") || '';
+  }
+
+  set kind(value) {
+    this.doc.setFormField(this.path, "kind", value);
+  }
+
+  get deploymentTarget() {
+    return this.doc.formField(this.path, "deploymentTarget") || '';
+  }
+
+  set deploymentTarget(value) {
+    this.doc.setFormField(this.path, "deploymentTarget", value);
+  }
+
+  get component() {
+    return this.doc.formField(this.path, "component") || '';
+  }
+
+  set component(value) {
+    this.doc.setFormField(this.path, "component", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class GenerationUnitMappingEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get area() {
+    return this.doc.formField(this.path, "area") || '';
+  }
+
+  set area(value) {
+    this.doc.setFormField(this.path, "area", value);
+  }
+
+  get mapping() {
+    return this.doc.formField(this.path, "mapping") || '';
+  }
+
+  set mapping(value) {
+    this.doc.setFormField(this.path, "mapping", value);
+  }
+
+  get note() {
+    return this.doc.formField(this.path, "note") || '';
+  }
+
+  set note(value) {
+    this.doc.setFormField(this.path, "note", value);
+  }
+}
+
 // Generated section facade for the `anycast` @Form section: its own content text followed by one typed member per form field.
 class GeographicDistributionRequirementsAnycastForm extends SomNode {
   constructor(doc, path) {
@@ -153456,6 +153625,14 @@ class RevisionEntryContentForm extends SomNode {
   set summary(value) {
     this.doc.setFormField(this.path, "summary", value);
   }
+
+  get changeId() {
+    return this.doc.formField(this.path, "changeId") || '';
+  }
+
+  set changeId(value) {
+    this.doc.setFormField(this.path, "changeId", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -198254,6 +198431,7 @@ module.exports = {
   DecisionState,
   ExportFieldKind,
   FlowReturnPoint,
+  GenerationUnitKind,
   GradedAccessLevel,
   Impact,
   ImportanceBand,
@@ -198762,6 +198940,8 @@ module.exports = {
   FunctionalResponsibilities,
   FunctionalSuitabilityCharacteristic,
   GapEntry,
+  GenerationUnitEntry,
+  GenerationUnitMappingEntry,
   GeographicDistributionRequirements,
   GlobalRoleExclusionEntry,
   GlossaryAndAbbreviations,
@@ -200658,6 +200838,8 @@ module.exports = {
   GapEntryDiscoveryForm,
   GapEntryResolutionForm,
   GapEntryWorkaroundForm,
+  GenerationUnitEntryContentForm,
+  GenerationUnitMappingEntryContentForm,
   GeographicDistributionRequirementsAnycastForm,
   GeographicDistributionRequirementsCdnForm,
   GeographicDistributionRequirementsContentForm,

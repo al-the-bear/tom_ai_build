@@ -2414,7 +2414,9 @@ appends a draft entry, its id generated from the list's pattern with
   `role`);
 - `reviewers`: every copy's member, written out, guests with `guest: true`.
 
-Consolidation completes it. Plain Markdown has no revision entry.
+The entry's optional `changeId` — the change a tom_spec_change run records —
+is left empty: a review round is not a change, and the change process writes
+the field itself. Consolidation completes it. Plain Markdown has no revision entry.
 
 **Report.** The merge report lists, in merged document order:
 

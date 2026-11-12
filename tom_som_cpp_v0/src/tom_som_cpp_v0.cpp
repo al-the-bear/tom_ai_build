@@ -319,6 +319,22 @@ std::optional<std::string> FlowReturnPoint::parse(const std::string& token) {
   return std::nullopt;
 }
 
+std::optional<std::string> GenerationUnitKind::parse(const std::string& token) {
+  if (token == client) {
+    return token;
+  }
+  if (token == server) {
+    return token;
+  }
+  if (token == shared) {
+    return token;
+  }
+  if (token == other) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> GradedAccessLevel::parse(const std::string& token) {
   if (token == full) {
     return token;
@@ -1767,6 +1783,9 @@ ComponentOrganization ArchitectureStyle::componentOrganization() const {
 }
 som::SomList ArchitectureStyle::components() const {
   return som::SomList(doc(), som::joinPath(path(), "ARCM-COMP-LST"), "ARCM-COMP-xxx");
+}
+som::SomList ArchitectureStyle::generationUnits() const {
+  return som::SomList(doc(), som::joinPath(path(), "GENUN-UNIT-LST"), "GENUN-UNIT-xxx");
 }
 CommunicationPatterns ArchitectureStyle::communicationPatterns() const {
   return CommunicationPatterns(doc(), som::joinPath(path(), "communicationPatterns"));
@@ -9314,6 +9333,21 @@ GapEntryWorkaroundForm GapEntry::workaround() const {
 }
 GapEntryResolutionForm GapEntry::resolution() const {
   return GapEntryResolutionForm(doc(), som::joinPath(path(), "GAENRE"));
+}
+
+GenerationUnitEntry::GenerationUnitEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+GenerationUnitEntryContentForm GenerationUnitEntry::content() const {
+  return GenerationUnitEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList GenerationUnitEntry::mappings() const {
+  return som::SomList(doc(), som::joinPath(path(), "GEMAP-MAPP-LST"), "GEMAP-MAPP-xxx");
+}
+
+GenerationUnitMappingEntry::GenerationUnitMappingEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+GenerationUnitMappingEntryContentForm GenerationUnitMappingEntry::content() const {
+  return GenerationUnitMappingEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 GeographicDistributionRequirements::GeographicDistributionRequirements(som::SpecDocument& doc, std::string path)
@@ -59097,6 +59131,66 @@ void GapEntryWorkaroundForm::setRiskIfNotAddressed(const std::string& value) {
   doc().setFormField(path(), "riskIfNotAddressed", value);
 }
 
+GenerationUnitEntryContentForm::GenerationUnitEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GenerationUnitEntryContentForm::content() const {
+  return doc().content(path());
+}
+void GenerationUnitEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GenerationUnitEntryContentForm::unitId() const {
+  return doc().formField(path(), "unitId");
+}
+void GenerationUnitEntryContentForm::setUnitId(const std::string& value) {
+  doc().setFormField(path(), "unitId", value);
+}
+std::string GenerationUnitEntryContentForm::kind() const {
+  return doc().formField(path(), "kind");
+}
+void GenerationUnitEntryContentForm::setKind(const std::string& value) {
+  doc().setFormField(path(), "kind", value);
+}
+std::string GenerationUnitEntryContentForm::deploymentTarget() const {
+  return doc().formField(path(), "deploymentTarget");
+}
+void GenerationUnitEntryContentForm::setDeploymentTarget(const std::string& value) {
+  doc().setFormField(path(), "deploymentTarget", value);
+}
+std::string GenerationUnitEntryContentForm::component() const {
+  return doc().formField(path(), "component");
+}
+void GenerationUnitEntryContentForm::setComponent(const std::string& value) {
+  doc().setFormField(path(), "component", value);
+}
+
+GenerationUnitMappingEntryContentForm::GenerationUnitMappingEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GenerationUnitMappingEntryContentForm::content() const {
+  return doc().content(path());
+}
+void GenerationUnitMappingEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GenerationUnitMappingEntryContentForm::area() const {
+  return doc().formField(path(), "area");
+}
+void GenerationUnitMappingEntryContentForm::setArea(const std::string& value) {
+  doc().setFormField(path(), "area", value);
+}
+std::string GenerationUnitMappingEntryContentForm::mapping() const {
+  return doc().formField(path(), "mapping");
+}
+void GenerationUnitMappingEntryContentForm::setMapping(const std::string& value) {
+  doc().setFormField(path(), "mapping", value);
+}
+std::string GenerationUnitMappingEntryContentForm::note() const {
+  return doc().formField(path(), "note");
+}
+void GenerationUnitMappingEntryContentForm::setNote(const std::string& value) {
+  doc().setFormField(path(), "note", value);
+}
+
 GeographicDistributionRequirementsAnycastForm::GeographicDistributionRequirementsAnycastForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string GeographicDistributionRequirementsAnycastForm::content() const {
@@ -90829,6 +90923,12 @@ std::string RevisionEntryContentForm::summary() const {
 }
 void RevisionEntryContentForm::setSummary(const std::string& value) {
   doc().setFormField(path(), "summary", value);
+}
+std::string RevisionEntryContentForm::changeId() const {
+  return doc().formField(path(), "changeId");
+}
+void RevisionEntryContentForm::setChangeId(const std::string& value) {
+  doc().setFormField(path(), "changeId", value);
 }
 
 RiskBusinessImpactContentForm::RiskBusinessImpactContentForm(som::SpecDocument& doc, std::string path)

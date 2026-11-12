@@ -104,6 +104,10 @@
             dependencies
         - components: `ArchitectureComponentEntry`[]
           - content @Form(componentType, domain), purpose, boundaries, dependencies, technical, ownership
+        - generationUnits: `GenerationUnitEntry`[]
+          - content @Form(unitId, kind, deploymentTarget, component)
+          - mappings: `GenerationUnitMappingEntry`[]
+            - content @Form(area, mapping, note)
         - `CommunicationPatterns`
           - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous, dataExchange,
             reliability, observability

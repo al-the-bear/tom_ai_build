@@ -98,9 +98,9 @@ makes it against an input that is bounded and whose provenance is recorded. The
 split exists because the two halves fail differently: a mechanical rule applied
 to prose invents structure that is not there, and an author given a
 652-section document reads the wrong parts of it. §1.1.1 states the boundary as a
-rule, and fixes the three things every downstream step needs from it — what the
-extract is, where the extractor lives, and what ids the generated todo tree
-occupies.
+rule, and fixes the four things every downstream step needs from it — what the
+extract is, where the extractor lives, what ids the generated todo tree
+occupies, and which units the code is written into.
 
 #### 1.1.1 The Phase-4 production contract
 
@@ -221,6 +221,17 @@ project stops the run instead of being guessed through: `CLAUDE.md` rules that
 `<prefix>*` iteration **refuses** a `decision-needed` todo and pauses the queue.
 That is why the quality gate is the starting prompt's first act rather than a
 review afterwards.
+
+**4 — The units.** What the generator writes code *into* is stated by the
+specification, not assumed: the generation-unit register
+(`SolutionArchitectureAndTechnology.generationUnits`, `GENUN-UNIT-LST`) names
+each unit — its `unitId`, its kind (client, server, shared, other), the
+deployment target or architecture component it builds — and, per area, the
+mapper that writes it (`GEMAP-MAPP-LST`: `CE-DB` → `dart-tom`), several for one
+area where the area is written for two technologies. The register is routed
+`@NoArtifact(generation)`: it steers Phase 4 and becomes no artifact. The IR a
+unit's code is written from, and the Dart + Tom mapper, are
+[`irspecs_ir.md`](irspecs_ir.md).
 
 #### 1.1.2 The Phase-4 run procedure
 
@@ -5565,10 +5576,11 @@ markers, and the trio is exhaustive by construction:
 
 `@NoArtifact` (`tom_specs_core`) is the marker that makes the absence of the
 other two *readable as a decision* rather than as an omission. Its reason is a
-closed three: `container` — a chapter node whose children are routed
+closed four: `container` — a chapter node whose children are routed
 individually; `overview` — prose introducing sections that carry the facts
 themselves; `view` — a diagram or traceability rendering of content stated
-elsewhere. It carries the same optional `note` as the other two, and rides in the
+elsewhere; `generation` — read by the CodeSpecs generator to place what it
+emits, which is the generation-unit register (§1.1.1). It carries the same optional `note` as the other two, and rides in the
 generic `extra` bag of the cross-language meta exactly as `@CodeSpecKind` does
 (§8.4), so all nine runtimes carry it without a slot.
 

@@ -519,6 +519,8 @@ void buildFunctionalRequirementsChildren(som::SomMetaNode& parent, std::vector<s
 void buildFunctionalResponsibilitiesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFunctionalSuitabilityCharacteristicChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildGenerationUnitEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildGenerationUnitMappingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlobalRoleExclusionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGlossaryAndAbbreviationsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -5721,6 +5723,31 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
     parent.addChild(std::move(ln));
   }
   {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ArchitectureStyle";
+    (*ln).memberName = "generationUnits";
+    (*ln).sectionId = "GENUN-UNIT-LST";
+    (*ln).sectionIdPattern = "GENUN-UNIT-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "GenerationUnitEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 5;
+    (*ln).contentHelp = "Add one entry per generated unit — a client, a server, the package both share — and give each the mapper of every area it holds.";
+    (*ln).docComment = "The generation units Phase 4 writes code for, and the mapper each of\ntheir areas is written by.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"arc42 — deployment view\",\"C4 model — software architecture diagrams\"],\"connotation\":\"The units the CodeSpecs generator writes code into: one per client, server or shared package, with the mapper of each area.\"}", nullptr)});
+    ln->elementNode = metaCx("GenerationUnitEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "GenerationUnitEntry";
+        n.classSectionId = "GENUN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "GenerationUnitEntry";
+        n.docComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
+        n.classDocComment = "One generation unit: a package the CodeSpecs generator writes code into.\n\nA unit **builds** a deployment target (`DEPTAR`) or an architecture\ncomponent (`ARCM`), at least one of the two; which areas it holds and in\nwhich language and framework is said by its mappings — one per area, or\nseveral for one area where the same area is written for two client\ntechnologies. A section that goes to other units than its area's default\nnames them in its `units` member; the default is every unit with a mapping\nfor the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).\n\nIt configures Phase 4 rather than specifying anything Phase 4 emits, so it\nis routed to no artifact (`NoArtifactReason.generation`).";
+      },
+      buildGenerationUnitEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
     auto n = metaCx("CommunicationPatterns", stack,
       [](som::SomMetaNode& n) {
         n.className = "CommunicationPatterns";
@@ -5729,7 +5756,7 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CommunicationPatterns";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 6;
         n.docComment = "Communication patterns between components.";
         n.classDocComment = "Communication patterns between components.";
       },
@@ -5745,7 +5772,7 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataArchitecture";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.docComment = "Data management architecture.";
         n.classDocComment = "Data architecture decisions.";
       },
@@ -5761,7 +5788,7 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScalabilityArchitecture";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.docComment = "Scalability and performance architecture.";
         n.classDocComment = "Scalability and performance architecture.";
       },
@@ -5777,7 +5804,7 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "IntegrationArchitecture";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.docComment = "Integration architecture with external systems.";
         n.classDocComment = "Integration architecture with external systems.";
       },
@@ -5793,7 +5820,7 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DeploymentTopology";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.docComment = "Deployment topology and infrastructure.";
         n.classDocComment = "Deployment topology and infrastructure.";
       },
@@ -5809,7 +5836,7 @@ void buildArchitectureStyleChildren(som::SomMetaNode& parent, std::vector<std::s
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ArchitectureDecisionRecord";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 10;
+    (*ln).serializationOrder = 11;
     (*ln).contentHelp = "Add one entry per architecture decision record.";
     (*ln).docComment = "Architecture decision records.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ADR (Architecture Decision Records) — decision capture\",\"ISO/IEC/IEEE 42010 — architecture description\"],\"connotation\":\"The recorded architecture decisions and their rationale.\"}", nullptr)});
@@ -40251,6 +40278,68 @@ void buildGapEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& s
   }
 }
 
+void buildGenerationUnitEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GenerationUnitEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unitId", "String", "Unit Id", true, "The id a section's `units` member cites, as written — usually the package name (meridian_codespec_server)", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"kind", "GenerationUnitKind", "Kind", true, "client, server, shared or other", 1, std::vector<std::string>{"client", "server", "shared", "other"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deploymentTarget", "String", "Deployment Target", false, "The deployment target (DEPTAR-DEPL-…) this unit builds; this or the component, or both", 2, std::vector<std::string>{}, std::vector<std::string>{"DEPTAR.@sectionId"}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"component", "String", "Component", false, "The architecture component (ARCM-COMP-…) this unit builds; this or the deployment target, or both", 3, std::vector<std::string>{}, std::vector<std::string>{"ARCM.@sectionId"}, false});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "GenerationUnitEntry";
+    (*ln).memberName = "mappings";
+    (*ln).sectionId = "GEMAP-MAPP-LST";
+    (*ln).sectionIdPattern = "GEMAP-MAPP-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "GenerationUnitMappingEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per area the unit holds; an area written for two technologies gets two entries.";
+    (*ln).docComment = "The mapper each area of the unit is written by.";
+    ln->elementNode = metaCx("GenerationUnitMappingEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "GenerationUnitMappingEntry";
+        n.classSectionId = "GEMAP";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "GenerationUnitMappingEntry";
+        n.docComment = "One mapping of a generation unit: the area and the mapper that writes it.";
+        n.classDocComment = "One mapping of a generation unit: the area and the mapper that writes it.";
+      },
+      buildGenerationUnitMappingEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildGenerationUnitMappingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GenerationUnitMappingEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in the section's `form`.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"area", "String", "Area", true, "The CodeSpecs area code, CE- and capitals (CE-DB, CE-SC)", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mapping", "String", "Mapping", true, "The mapper id (dart-tom)", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"note", "String", "Note", false, "Why this mapping, where it differs", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    parent.addChild(std::move(n));
+  }
+}
+
 void buildGeographicDistributionRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -69383,6 +69472,7 @@ void buildRevisionEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).form->fields.push_back(som::SomFormFieldMeta{"date", "String", "Date", true, "Date the revision was published (ISO 8601).", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"author", "String", "Author", true, "Person or role who produced the revision.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"summary", "String", "Summary of changes", false, "One or two sentences on what changed and why.", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeId", "String", "Change", false, "The change this revision records, when a tom_spec_change run made it: chg<n>_<date code>-<slug>.", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -97058,6 +97148,12 @@ void* metaNavFactoryFunctionalRequirementEntry(const som::SomMetaTree* tree, con
 void* metaNavFactoryGapEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGapEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryGenerationUnitEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavGenerationUnitEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryGenerationUnitMappingEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavGenerationUnitMappingEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryGlobalRoleExclusionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGlobalRoleExclusionEntry{som::SomMetaRef(tree, path)};
 }
@@ -98614,6 +98710,12 @@ void* metaIdFactoryFunctionalRequirementEntry(const som::SomMetaTree* tree, cons
 }
 void* metaIdFactoryGapEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGapEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryGenerationUnitEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdGenerationUnitEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryGenerationUnitMappingEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdGenerationUnitMappingEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryGlobalRoleExclusionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGlobalRoleExclusionEntry{som::SomMetaRef(tree, path)};
@@ -100732,6 +100834,9 @@ NavComponentOrganization navArchitectureStyle_componentOrganization(NavArchitect
 }
 som::SomListMetaRef navArchitectureStyle_components(NavArchitectureStyle x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ARCM-COMP-LST"), metaNavFactoryArchitectureComponentEntry);
+}
+som::SomListMetaRef navArchitectureStyle_generationUnits(NavArchitectureStyle x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GENUN-UNIT-LST"), metaNavFactoryGenerationUnitEntry);
 }
 NavCommunicationPatterns navArchitectureStyle_communicationPatterns(NavArchitectureStyle x) {
   return NavCommunicationPatterns{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "communicationPatterns"))};
@@ -106429,6 +106534,15 @@ som::SomMetaRef navGapEntry_workaround(NavGapEntry x) {
 }
 som::SomMetaRef navGapEntry_resolution(NavGapEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GAENRE"));
+}
+som::SomMetaRef navGenerationUnitEntry_content(NavGenerationUnitEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navGenerationUnitEntry_mappings(NavGenerationUnitEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GEMAP-MAPP-LST"), metaNavFactoryGenerationUnitMappingEntry);
+}
+som::SomMetaRef navGenerationUnitMappingEntry_content(NavGenerationUnitMappingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navGeographicDistributionRequirements_content(NavGeographicDistributionRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -117438,6 +117552,9 @@ som::SomMetaRef idD00SolutionBlueprint_COORDE(IdD00SolutionBlueprint x) {
 som::SomListMetaRef idD00SolutionBlueprint_ARCM_COMP_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST"), metaIdFactoryArchitectureComponentEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_GENUN_UNIT_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST"), metaIdFactoryGenerationUnitEntry);
+}
 som::SomMetaRef idD00SolutionBlueprint_COPASY(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY"));
 }
@@ -120918,6 +121035,9 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_COORDE(IdD06Architectur
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_ARCM_COMP_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/architectureStyle/ARCM-COMP-LST"), metaIdFactoryArchitectureComponentEntry);
 }
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_GENUN_UNIT_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/architectureStyle/GENUN-UNIT-LST"), metaIdFactoryGenerationUnitEntry);
+}
 som::SomMetaRef idD06ArchitectureTechnologySpecification_COPASY(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/architectureStyle/communicationPatterns/COPASY"));
 }
@@ -124047,6 +124167,9 @@ som::SomMetaRef idD13CodeSpecsProjection_COORDE(IdD13CodeSpecsProjection x) {
 som::SomListMetaRef idD13CodeSpecsProjection_ARCM_COMP_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/architectureStyle/ARCM-COMP-LST"), metaIdFactoryArchitectureComponentEntry);
 }
+som::SomListMetaRef idD13CodeSpecsProjection_GENUN_UNIT_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/architectureStyle/GENUN-UNIT-LST"), metaIdFactoryGenerationUnitEntry);
+}
 som::SomMetaRef idD13CodeSpecsProjection_COPASY(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/architectureStyle/communicationPatterns/COPASY"));
 }
@@ -127103,6 +127226,9 @@ som::SomMetaRef idGapEntry_GAENWO(IdGapEntry x) {
 }
 som::SomMetaRef idGapEntry_GAENRE(IdGapEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GAENRE"));
+}
+som::SomListMetaRef idGenerationUnitEntry_GEMAP_MAPP_LST(IdGenerationUnitEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GEMAP-MAPP-LST"), metaIdFactoryGenerationUnitMappingEntry);
 }
 som::SomMetaRef idGoalDependencyEntry_GOLDE_RELA_REF(IdGoalDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GOLDE-RELA-REF"));

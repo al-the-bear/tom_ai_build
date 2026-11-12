@@ -8,7 +8,7 @@
     - members: `ReviewTeamMember`[]
       - content @Form(memberId, displayName, role, stakeholder, email, owner)
   - revisionHistory: `RevisionEntry`[]
-    - content @Form(version, date, author, summary)
+    - content @Form(version, date, author, summary, changeId)
     - reviewTeam: `ReviewerRecord`[]
       - content @Form(memberId, displayName, role, guest)
     - reviewers: `ReviewerRecord`[]

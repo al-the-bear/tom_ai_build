@@ -99,11 +99,9 @@ workspace_prefixes:
 # no longer drifts the package that holds it.
 unpublished_drift:
   tom_specs_core: >-
-    Documentation only since 0.4.0: the links into tom_core_codespecs's
-    documents were re-pointed when that package moved from tom_core to this
-    repository, and DocSpecsSection.content's doc names the section's `form`
-    in backticks rather than as a link a generated facade cannot resolve.
-    Ships with the next release.
+    0.5.0 is bumped and not yet published: NoArtifactReason.generation (the
+    generation-unit register's routing), with the documentation fixes since
+    0.4.0. Published with the 1.9.0 model chain (tom_specs irspecs8).
   tom_specs_clitool: >-
     Since 0.14.1 the release-drift gate no longer counts dot-named paths
     (isPubHidden), which pub never ships; and IR Specs: the `irspecs`
@@ -113,8 +111,15 @@ unpublished_drift:
     --ir / --regenerated-ir (tom_specs irspecs2 to irspecs5). Ships with the
     next release.
   tom_specs_model: >-
-    Documentation only since 1.8.1: doc/index.md lists irspecs_ir.md, the IR
-    Specs document. Ships with the next release.
+    1.9.0 is bumped and not yet published: the generation-unit register and
+    RevisionEntry.changeId (tom_specs irspecs6). The chain is published once
+    the runtimes carry the `units` member (irspecs7), in irspecs8.
+  tom_som_dart_runtime: >-
+    1.9.0 is bumped and not yet published: it moves in lockstep with
+    tom_specs_model 1.9.0 and is published with it (tom_specs irspecs8).
+  tom_som_dart_v0: >-
+    1.9.0 is bumped and not yet published: generated from tom_specs_model
+    1.9.0 and published with it (tom_specs irspecs8).
   tom_core_codespecs: >-
     Documentation only since 0.13.4: doc/irspecs_ir.md, the IR Specs
     intermediate representation, and its row in doc/index.md; the derivation

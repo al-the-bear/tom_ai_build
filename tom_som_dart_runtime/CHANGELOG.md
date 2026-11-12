@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.0
+
+- No change of its own: the chain moves with `tom_specs_model` 1.9.0 (the
+  generation-unit register and `RevisionEntry.changeId`); model, facades and
+  runtimes carry one version.
+
 ## 1.8.1
 
 - A new library, `package:tom_som_dart_runtime/spec_checks.dart`: the TomSpecs

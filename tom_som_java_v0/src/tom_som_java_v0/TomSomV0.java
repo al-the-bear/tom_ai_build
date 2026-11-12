@@ -808,6 +808,45 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `GenerationUnitKind` values.
+  public enum GenerationUnitKind {
+    /**
+     * A client application: screens, client calls, client configuration.
+     */
+    client("client"),
+    /**
+     * A server: services, persistence, jobs, server configuration.
+     */
+    server("server"),
+    /**
+     * The package client and server both depend on: wire types, catalogues.
+     */
+    shared("shared"),
+    /**
+     * A unit that is none of the three — a tool, a library of its own.
+     */
+    other("other");
+
+    public final String token;
+
+    GenerationUnitKind(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a GenerationUnitKind, or null.
+    public static GenerationUnitKind parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (GenerationUnitKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `GradedAccessLevel` values.
   public enum GradedAccessLevel {
     /**
@@ -4564,6 +4603,12 @@ public final class TomSomV0 {
     // Component/service catalog.
     public SomList<ArchitectureComponentEntry> components() {
       return new SomList<>(doc, path + "/ARCM-COMP-LST", (d, p) -> new ArchitectureComponentEntry(d, p), "ARCM-COMP-xxx");
+    }
+
+    // The generation units Phase 4 writes code for, and the mapper each of
+    // their areas is written by.
+    public SomList<GenerationUnitEntry> generationUnits() {
+      return new SomList<>(doc, path + "/GENUN-UNIT-LST", (d, p) -> new GenerationUnitEntry(d, p), "GENUN-UNIT-xxx");
     }
 
     // Communication patterns between components.
@@ -11088,7 +11133,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11226,7 +11271,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11351,7 +11396,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11487,7 +11532,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11683,7 +11728,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11812,7 +11857,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11933,7 +11978,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12078,7 +12123,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12214,7 +12259,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12352,7 +12397,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12503,7 +12548,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12684,7 +12729,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12815,7 +12860,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12971,7 +13016,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.8";
+    public static final String MODEL_VERSION = "1.9";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -21462,6 +21507,50 @@ public final class TomSomV0 {
     // Resolution planning.
     public GapEntryResolutionForm resolution() {
       return new GapEntryResolutionForm(doc, path + "/GAENRE");
+    }
+  }
+
+  // One generation unit: a package the CodeSpecs generator writes code into.
+  //
+  // A unit **builds** a deployment target (`DEPTAR`) or an architecture
+  // component (`ARCM`), at least one of the two; which areas it holds and in
+  // which language and framework is said by its mappings — one per area, or
+  // several for one area where the same area is written for two client
+  // technologies. A section that goes to other units than its area's default
+  // names them in its `units` member; the default is every unit with a mapping
+  // for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
+  //
+  // It configures Phase 4 rather than specifying anything Phase 4 emits, so it
+  // is routed to no artifact (`NoArtifactReason.generation`).
+  public static final class GenerationUnitEntry extends SomNode {
+    public GenerationUnitEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in the section's `form`.
+    public GenerationUnitEntryContentForm content() {
+      return new GenerationUnitEntryContentForm(doc, path + "/content");
+    }
+
+    // The mapper each area of the unit is written by.
+    public SomList<GenerationUnitMappingEntry> mappings() {
+      return new SomList<>(doc, path + "/GEMAP-MAPP-LST", (d, p) -> new GenerationUnitMappingEntry(d, p), "GEMAP-MAPP-xxx");
+    }
+  }
+
+  // One mapping of a generation unit: the area and the mapper that writes it.
+  public static final class GenerationUnitMappingEntry extends SomNode {
+    public GenerationUnitMappingEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in the section's `form`.
+    public GenerationUnitMappingEntryContentForm content() {
+      return new GenerationUnitMappingEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -114100,6 +114189,112 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GenerationUnitEntryContentForm extends SomNode {
+    public GenerationUnitEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String unitId() {
+      String v = doc.formField(path, "unitId");
+      return v == null ? "" : v;
+    }
+
+    public void unitId(String value) {
+      doc.setFormField(path, "unitId", value);
+    }
+
+    public GenerationUnitKind kind() {
+      return GenerationUnitKind.parse(doc.formField(path, "kind"));
+    }
+
+    public void setKind(GenerationUnitKind value) {
+      doc.setFormField(path, "kind", value == null ? "" : value.token);
+    }
+
+    public String deploymentTarget() {
+      String v = doc.formField(path, "deploymentTarget");
+      return v == null ? "" : v;
+    }
+
+    public void deploymentTarget(String value) {
+      doc.setFormField(path, "deploymentTarget", value);
+    }
+
+    public String component() {
+      String v = doc.formField(path, "component");
+      return v == null ? "" : v;
+    }
+
+    public void component(String value) {
+      doc.setFormField(path, "component", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GenerationUnitMappingEntryContentForm extends SomNode {
+    public GenerationUnitMappingEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String area() {
+      String v = doc.formField(path, "area");
+      return v == null ? "" : v;
+    }
+
+    public void area(String value) {
+      doc.setFormField(path, "area", value);
+    }
+
+    public String mapping() {
+      String v = doc.formField(path, "mapping");
+      return v == null ? "" : v;
+    }
+
+    public void mapping(String value) {
+      doc.setFormField(path, "mapping", value);
+    }
+
+    public String note() {
+      String v = doc.formField(path, "note");
+      return v == null ? "" : v;
+    }
+
+    public void note(String value) {
+      doc.setFormField(path, "note", value);
+    }
+  }
+
   // Generated section facade for the `anycast` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class GeographicDistributionRequirementsAnycastForm extends SomNode {
@@ -168780,6 +168975,15 @@ public final class TomSomV0 {
 
     public void summary(String value) {
       doc.setFormField(path, "summary", value);
+    }
+
+    public String changeId() {
+      String v = doc.formField(path, "changeId");
+      return v == null ? "" : v;
+    }
+
+    public void changeId(String value) {
+      doc.setFormField(path, "changeId", value);
     }
   }
 

@@ -416,6 +416,22 @@ struct FlowReturnPoint {
   FlowReturnPoint() = delete;
 };
 
+// Generated enum tokens for `GenerationUnitKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct GenerationUnitKind {
+  // A client application: screens, client calls, client configuration.
+  static constexpr const char* client = "client";
+  // A server: services, persistence, jobs, server configuration.
+  static constexpr const char* server = "server";
+  // The package client and server both depend on: wire types, catalogues.
+  static constexpr const char* shared = "shared";
+  // A unit that is none of the three — a tool, a library of its own.
+  static constexpr const char* other = "other";
+  // Returns the token when it is a known GenerationUnitKind value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  GenerationUnitKind() = delete;
+};
+
 // Generated enum tokens for `GradedAccessLevel` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct GradedAccessLevel {
@@ -1862,6 +1878,8 @@ class FunctionalRequirements;
 class FunctionalResponsibilities;
 class FunctionalSuitabilityCharacteristic;
 class GapEntry;
+class GenerationUnitEntry;
+class GenerationUnitMappingEntry;
 class GeographicDistributionRequirements;
 class GlobalRoleExclusionEntry;
 class GlossaryAndAbbreviations;
@@ -3758,6 +3776,8 @@ class GapEntryDescriptionForm;
 class GapEntryDiscoveryForm;
 class GapEntryResolutionForm;
 class GapEntryWorkaroundForm;
+class GenerationUnitEntryContentForm;
+class GenerationUnitMappingEntryContentForm;
 class GeographicDistributionRequirementsAnycastForm;
 class GeographicDistributionRequirementsCdnForm;
 class GeographicDistributionRequirementsContentForm;
@@ -6802,6 +6822,10 @@ class ArchitectureStyle : public som::SomNode {
   // Component/service catalog.
   // Returns the list view; element type: ArchitectureComponentEntry (construct from item paths).
   som::SomList components() const;
+  // The generation units Phase 4 writes code for, and the mapper each of
+  // their areas is written by.
+  // Returns the list view; element type: GenerationUnitEntry (construct from item paths).
+  som::SomList generationUnits() const;
   // Communication patterns between components.
   CommunicationPatterns communicationPatterns() const;
   // Data management architecture.
@@ -10714,7 +10738,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10783,7 +10807,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10850,7 +10874,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10923,7 +10947,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11039,7 +11063,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11109,7 +11133,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11175,7 +11199,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11249,7 +11273,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11323,7 +11347,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11399,7 +11423,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11476,7 +11500,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11565,7 +11589,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11635,7 +11659,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11720,7 +11744,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
 class D13CodeSpecsProjection : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.8";
+  static constexpr const char* kModelVersion = "1.9";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -16944,6 +16968,40 @@ class GapEntry : public som::SomNode {
   GapEntryWorkaroundForm workaround() const;
   // Resolution planning.
   GapEntryResolutionForm resolution() const;
+};
+
+// One generation unit: a package the CodeSpecs generator writes code into.
+//
+// A unit **builds** a deployment target (`DEPTAR`) or an architecture
+// component (`ARCM`), at least one of the two; which areas it holds and in
+// which language and framework is said by its mappings — one per area, or
+// several for one area where the same area is written for two client
+// technologies. A section that goes to other units than its area's default
+// names them in its `units` member; the default is every unit with a mapping
+// for the section's area (`irspecs_ir.md` in `tom_core_codespecs/doc/`).
+//
+// It configures Phase 4 rather than specifying anything Phase 4 emits, so it
+// is routed to no artifact (`NoArtifactReason.generation`).
+class GenerationUnitEntry : public som::SomNode {
+ public:
+  GenerationUnitEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  GenerationUnitEntryContentForm content() const;
+  // The mapper each area of the unit is written by.
+  // Returns the list view; element type: GenerationUnitMappingEntry (construct from item paths).
+  som::SomList mappings() const;
+};
+
+// One mapping of a generation unit: the area and the mapper that writes it.
+class GenerationUnitMappingEntry : public som::SomNode {
+ public:
+  GenerationUnitMappingEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in the section's `form`.
+  GenerationUnitMappingEntryContentForm content() const;
 };
 
 // Geographic distribution requirements.
@@ -53559,6 +53617,40 @@ class GapEntryWorkaroundForm : public som::SomNode {
   void setRiskIfNotAddressed(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class GenerationUnitEntryContentForm : public som::SomNode {
+ public:
+  GenerationUnitEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string unitId() const;
+  void setUnitId(const std::string& value);
+  std::string kind() const;
+  void setKind(const std::string& value);
+  std::string deploymentTarget() const;
+  void setDeploymentTarget(const std::string& value);
+  std::string component() const;
+  void setComponent(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class GenerationUnitMappingEntryContentForm : public som::SomNode {
+ public:
+  GenerationUnitMappingEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string area() const;
+  void setArea(const std::string& value);
+  std::string mapping() const;
+  void setMapping(const std::string& value);
+  std::string note() const;
+  void setNote(const std::string& value);
+};
+
 // Generated section facade for the `anycast` @Form section: its own `content` text followed by one typed member per form field.
 class GeographicDistributionRequirementsAnycastForm : public som::SomNode {
  public:
@@ -70289,6 +70381,8 @@ class RevisionEntryContentForm : public som::SomNode {
   void setAuthor(const std::string& value);
   std::string summary() const;
   void setSummary(const std::string& value);
+  std::string changeId() const;
+  void setChangeId(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
