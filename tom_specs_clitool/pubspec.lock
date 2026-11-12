@@ -637,10 +637,10 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: e245af5da10b2337882753e63244a951598ed0f8e45cc50880fa8beea0d59117
+      sha256: "3a0fcc0ecacd1d6c395d0ecdeee96c6ddcdfda95e908d3ef029b855b0a3471e7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.22.0"
+    version: "2.22.1"
   tom_doc_scanner:
     dependency: "direct dev"
     description:

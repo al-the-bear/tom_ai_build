@@ -4136,6 +4136,18 @@ document:
                   content: Exercise form preamble.
                 ACEO ownership:
                   content: Exercise form preamble.
+            GENUN-UNIT-LST generationUnits:
+              GENUN-UNIT-1:
+                content:
+                  content: Exercise form preamble.
+                  unitId: "Exercise value."
+                  kind: "client"
+                GEMAP-MAPP-LST mappings:
+                  GEMAP-MAPP-1:
+                    content:
+                      content: Exercise form preamble.
+                      area: "Exercise value."
+                      mapping: "Exercise value."
             COMPAT communicationPatterns:
               content:
                 content: Exercise form preamble.
