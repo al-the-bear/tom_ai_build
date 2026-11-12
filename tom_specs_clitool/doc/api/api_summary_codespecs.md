@@ -38,6 +38,8 @@ the checks themselves, see
   - [CsMethodBody](#csmethodbody)
   - [CsDocComment](#csdoccomment)
   - [CsComment](#cscomment)
+  - [CsAnnotation](#csannotation)
+  - [CsParameterKind](#csparameterkind)
   - [CsDeclaration](#csdeclaration)
   - [CsConstruction](#csconstruction)
   - [CsFile](#csfile)
@@ -354,7 +356,7 @@ A string literal.
 
 #### Constructors
 ```dart
-const CsStringValue(this.value);
+const CsStringValue(this.value, [this.literal]);
 ```
 
 #### Properties
@@ -362,6 +364,7 @@ const CsStringValue(this.value);
 | Property | Type | Description |
 |----------|------|-------------|
 | `value` | `String` | The literal text. |
+| `literal` | `String?` | The literal as written (adjacent literals joined by one space), when read from source. |
 
 #### Methods
 
@@ -552,7 +555,7 @@ One `DocRef` tuple of a `@DocSpec` annotation.
 
 #### Constructors
 ```dart
-const CsDocRef(this.sectionId, this.description);
+const CsDocRef(this.sectionId, this.description, [this.descriptionLiteral]);
 ```
 
 #### Properties
@@ -561,6 +564,7 @@ const CsDocRef(this.sectionId, this.description);
 |----------|------|-------------|
 | `sectionId` | `String` | The SOM section id, verbatim. |
 | `description` | `String` | The one-sentence edge description. |
+| `descriptionLiteral` | `String?` | `description` as written. |
 
 ### CsCodeSpecLink
 
@@ -645,7 +649,12 @@ One formal parameter of a generated method, as written.
 
 #### Constructors
 ```dart
-const CsParameter(this.name, [this.type]);
+const CsParameter(
+  this.name, [
+  this.type,
+  this.kind = CsParameterKind.requiredPositional,
+  this.defaultValue,
+]);
 ```
 
 #### Properties
@@ -654,6 +663,8 @@ const CsParameter(this.name, [this.type]);
 |----------|------|-------------|
 | `name` | `String` | The parameter name. |
 | `type` | `String?` | The declared type as written, or `null` when the parameter declares none. |
+| `kind` | `CsParameterKind` | Required or optional, positional or named. |
+| `defaultValue` | `String?` | The default value as written. |
 
 #### Methods
 
@@ -678,6 +689,9 @@ const CsMethodBody({
   this.thrownMessage,
   this.thrownType,
   this.isAsync = false,
+  this.accessor,
+  this.isArrow = false,
+  this.thrownLiteral,
 });
 ```
 
@@ -694,6 +708,9 @@ const CsMethodBody({
 | `thrownMessage` | `String?` | The literal argument of the `throw`, when the body is a single throw of a constructor call with a string literal. |
 | `thrownType` | `String?` | The thrown type, when the body is a single throw of a constructor call. |
 | `isAsync` | `bool` | Whether the method is declared `async` / `async*`. |
+| `accessor` | `String?` | `get` or `set` for an accessor. |
+| `isArrow` | `bool` | Whether the body is an arrow body. |
+| `thrownLiteral` | `String?` | The thrown construction's first argument as written. |
 | `location` | `CsLocation` | Where the method is declared. |
 
 ### CsDocComment
@@ -735,6 +752,33 @@ const CsComment({
 | `isBanner` | `bool` | Whether it precedes the file's very first token — `codespecs_derivation_contract.md` §2.7's banner position. |
 | `location` | `CsLocation` | Where the comment is. |
 
+### CsAnnotation
+
+An annotation that is neither a `Cs*` marker nor a back-link (`@tomService`), kept as written.
+
+#### Constructors
+```dart
+const CsAnnotation(this.source, this.location);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `source` | `String` | The annotation as written, `@` included. |
+| `location` | `CsLocation` | Where it is written. |
+
+### CsParameterKind
+
+The four kinds of a formal parameter.
+
+| Value | Meaning |
+|-------|---------|
+| `requiredPositional` | `f(int a)` |
+| `optionalPositional` | `f([int a])` |
+| `requiredNamed` | `f({required int a})` |
+| `optionalNamed` | `f({int a})` |
+
 ### CsDeclaration
 
 A generated declaration — a top-level class/enum/variable, or a member of one.
@@ -759,6 +803,13 @@ const CsDeclaration({
   this.isAbstract = false,
   this.isStatic = false,
   this.docComment,
+  this.annotations = const [],
+  this.typeParameters,
+  this.superclass,
+  this.interfaces = const [],
+  this.mixins = const [],
+  this.isConst = false,
+  this.initialiser,
 });
 ```
 
@@ -783,6 +834,13 @@ const CsDeclaration({
 | `isStatic` | `bool` | Whether a member is declared `static`. |
 | `docComment` | `CsDocComment?` | The `///` block above the declaration, or `null` when there is none (`codespecs_derivation_contract.md` §2.8 C2). |
 | `location` | `CsLocation` | Where the declaration is written. |
+| `annotations` | `List<CsAnnotation>` | The annotations that are neither `Cs*` markers nor back-links, in source order. |
+| `typeParameters` | `String?` | A class's type parameters as written. |
+| `superclass` | `String?` | A class's superclass as written. |
+| `interfaces` | `List<String>` | A class's `implements` types as written. |
+| `mixins` | `List<String>` | A class's `with` types as written. |
+| `isConst` | `bool` | Whether a variable is written `const`. |
+| `initialiser` | `String?` | A variable's initialiser as written, or an enum constant's argument list. |
 | `path` | `String get` | The `<owner>.<member>` path for a member, the bare name for a top-level declaration — the N9 form of a reference target. |
 
 #### Methods

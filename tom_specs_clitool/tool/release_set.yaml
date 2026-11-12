@@ -107,16 +107,18 @@ unpublished_drift:
   tom_specs_clitool: >-
     Since 0.14.1 the release-drift gate no longer counts dot-named paths
     (isPubHidden), which pub never ships; and IR Specs: the `irspecs`
-    command, the IR library (lib/src/irspecs/) with its step language for
-    form-3b bodies, its schema, and the reader's `exports`, call `arguments`
-    and `hasElse` (tom_specs irspecs2, irspecs3). Ships with the next release.
+    command (from-codespecs, map), the IR library (lib/src/irspecs/) with its
+    step language for form-3b bodies and the Dart + Tom mapper, its schema,
+    and the reader's additions for re-emitting a file (tom_specs irspecs2,
+    irspecs3, irspecs4). Ships with the next release.
   tom_specs_model: >-
     Documentation only since 1.8.1: doc/index.md lists irspecs_ir.md, the IR
     Specs document. Ships with the next release.
   tom_core_codespecs: >-
     Documentation only since 0.13.4: doc/irspecs_ir.md, the IR Specs
-    intermediate representation, and its row in doc/index.md. Ships with the
-    next release.
+    intermediate representation, and its row in doc/index.md; the derivation
+    contract's §2.7 makes `dart format` the layout of a generated file. Ships
+    with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

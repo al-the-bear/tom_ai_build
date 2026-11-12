@@ -10,7 +10,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef(
     'content',
     'supplies the request shape, each member it carries and the rule set '
-    'constraining the new quantity',
+        'constraining the new quantity',
   ),
 ])
 class AmendOrderLineRequest {
@@ -37,7 +37,7 @@ class AmendOrderLineRequest {
     DocRef(
       'content',
       'supplies the member type, its requiredness and the rule set '
-      'constraining it',
+          'constraining it',
     ),
   ])
   @CsValidation(rules: 'required, min:1')

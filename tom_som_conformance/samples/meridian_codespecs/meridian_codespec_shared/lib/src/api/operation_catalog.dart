@@ -16,17 +16,14 @@ import 'package:tom_code_specs/tom_code_specs.dart';
 ])
 class SbpOperations {
   /// Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
-  @DocSpec([
-    DocRef('content', 'supplies the operation name'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the operation name')])
   @CsEndpoint('amendOrderLine')
   static const CsOperationRef amendOrderLine = CsOperationRef('amendOrderLine');
 
   /// Returns one state-filtered page of the order work list in queue order.
-  @DocSpec([
-    DocRef('content', 'supplies the operation name'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the operation name')])
   @CsEndpoint('fetchOrderWorkList')
-  static const CsOperationRef fetchOrderWorkList =
-      CsOperationRef('fetchOrderWorkList');
+  static const CsOperationRef fetchOrderWorkList = CsOperationRef(
+    'fetchOrderWorkList',
+  );
 }

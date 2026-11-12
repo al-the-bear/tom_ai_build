@@ -13,7 +13,7 @@ import 'amend_order_line_call_collaborator.dart';
   DocRef(
     'content',
     'supplies the step that issues this call, the operation it cites and '
-    'the steps of each handling body',
+        'the steps of each handling body',
   ),
 ])
 @CsServerCall(SbpOperations.amendOrderLine)

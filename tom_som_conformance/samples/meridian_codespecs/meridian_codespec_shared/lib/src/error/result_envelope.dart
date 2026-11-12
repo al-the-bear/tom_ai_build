@@ -12,19 +12,13 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   ),
 ])
 class Result<T> {
-  @DocSpec([
-    DocRef('content', 'supplies the discriminator field name'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the discriminator field name')])
   late bool success;
 
-  @DocSpec([
-    DocRef('content', 'supplies the success arm name'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the success arm name')])
   T? value;
 
-  @DocSpec([
-    DocRef('content', 'supplies the error arm name'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the error arm name')])
   ErrorResult? error;
 }
 
@@ -36,47 +30,28 @@ class Result<T> {
   ),
 ])
 class ErrorResult {
-  @DocSpec([
-    DocRef('content', 'supplies the error code the arm carries'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the error code the arm carries')])
   late String code;
 
-  @DocSpec([
-    DocRef('content', 'supplies the severity catalogue'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the severity catalogue')])
   late String severity;
 
-  @DocSpec([
-    DocRef('content', 'supplies the retryability flag'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the retryability flag')])
   late bool retryable;
 
-  @DocSpec([
-    DocRef('content', 'supplies the field-level detail list'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the field-level detail list')])
   late List<FieldError> fieldDetails;
 }
 
 @CodeSpec('errorResult.FieldError', source: ['content'])
-@DocSpec([
-  DocRef(
-    'content',
-    'supplies the field-level error detail shape',
-  ),
-])
+@DocSpec([DocRef('content', 'supplies the field-level error detail shape')])
 class FieldError {
-  @DocSpec([
-    DocRef('content', 'supplies the field-level error detail shape'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the field-level error detail shape')])
   late String fieldPath;
 
-  @DocSpec([
-    DocRef('content', 'supplies the field-level error detail shape'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the field-level error detail shape')])
   late String errorCode;
 
-  @DocSpec([
-    DocRef('content', 'supplies the field-level error detail shape'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the field-level error detail shape')])
   String? message;
 }

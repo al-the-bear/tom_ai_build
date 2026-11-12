@@ -61,8 +61,14 @@ class CsStringValue extends CsValue {
   /// The literal text.
   final String value;
 
+  /// The literal as written — `'a'`, or adjacent literals `'a ' 'b'` joined
+  /// by one space — when it was read from source; `null` for a value built in
+  /// code. Kept because where an author split a long string is part of what
+  /// was written, and no rule re-derives it (`irspecs_ir.md` §6).
+  final String? literal;
+
   /// Creates a string value.
-  const CsStringValue(this.value);
+  const CsStringValue(this.value, [this.literal]);
 
   @override
   String toString() => "'$value'";
@@ -228,8 +234,11 @@ class CsDocRef {
   /// The one-sentence edge description.
   final String description;
 
+  /// [description] as written (see [CsStringValue.literal]).
+  final String? descriptionLiteral;
+
   /// Creates a doc reference.
-  const CsDocRef(this.sectionId, this.description);
+  const CsDocRef(this.sectionId, this.description, [this.descriptionLiteral]);
 }
 
 /// A `@CodeSpec` back-link.
@@ -436,11 +445,37 @@ class CsParameter {
   /// The declared type as written, or `null` when the parameter declares none.
   final String? type;
 
+  /// Which kind of parameter it is.
+  final CsParameterKind kind;
+
+  /// The default value as written, or `null` when it has none.
+  final String? defaultValue;
+
   /// Creates a parameter.
-  const CsParameter(this.name, [this.type]);
+  const CsParameter(
+    this.name, [
+    this.type,
+    this.kind = CsParameterKind.requiredPositional,
+    this.defaultValue,
+  ]);
 
   @override
   String toString() => type == null ? name : '$type $name';
+}
+
+/// The four kinds of a formal parameter.
+enum CsParameterKind {
+  /// `f(int a)`.
+  requiredPositional,
+
+  /// `f([int a])`.
+  optionalPositional,
+
+  /// `f({required int a})`.
+  requiredNamed,
+
+  /// `f({int a})`.
+  optionalNamed,
 }
 
 /// A method or accessor body of a generated declaration.
@@ -474,6 +509,16 @@ class CsMethodBody {
   /// Whether the method is declared `async` / `async*`.
   final bool isAsync;
 
+  /// `get` or `set` for an accessor; `null` for a method.
+  final String? accessor;
+
+  /// Whether the body is an arrow body (`=> …`) rather than a block.
+  final bool isArrow;
+
+  /// The thrown construction's first argument as written (see
+  /// [CsStringValue.literal]), when the body is a single throw of one.
+  final String? thrownLiteral;
+
   /// Where the method is declared.
   final CsLocation location;
 
@@ -489,6 +534,9 @@ class CsMethodBody {
     this.thrownMessage,
     this.thrownType,
     this.isAsync = false,
+    this.accessor,
+    this.isArrow = false,
+    this.thrownLiteral,
   });
 
   /// Every statement of the body, nested ones included.
@@ -609,6 +657,19 @@ class CsComment {
   });
 }
 
+/// An annotation that is neither a `Cs*` marker nor a back-link — `@tomService`
+/// — kept as written so the file can be written again.
+class CsAnnotation {
+  /// The annotation as written, `@` included.
+  final String source;
+
+  /// Where it is written.
+  final CsLocation location;
+
+  /// Creates an annotation.
+  const CsAnnotation(this.source, this.location);
+}
+
 /// A generated declaration — a top-level class/enum/variable, or a member of
 /// one.
 class CsDeclaration {
@@ -683,6 +744,30 @@ class CsDeclaration {
   /// (`codespecs_derivation_contract.md` §2.8 C2).
   final CsDocComment? docComment;
 
+  /// The annotations that are neither `Cs*` markers nor back-links, in source
+  /// order.
+  final List<CsAnnotation> annotations;
+
+  /// A class's type parameters as written (`<T>`), or `null`.
+  final String? typeParameters;
+
+  /// A class's superclass as written (`TomRepository<Customer, String>`), or
+  /// `null`.
+  final String? superclass;
+
+  /// A class's `implements` types as written, in order.
+  final List<String> interfaces;
+
+  /// A class's `with` types as written, in order.
+  final List<String> mixins;
+
+  /// Whether a variable declaration is written `const`.
+  final bool isConst;
+
+  /// A variable's initialiser as written, or an enum constant's argument
+  /// list; `null` when there is none.
+  final String? initialiser;
+
   /// Where the declaration is written.
   final CsLocation location;
 
@@ -705,6 +790,13 @@ class CsDeclaration {
     this.isAbstract = false,
     this.isStatic = false,
     this.docComment,
+    this.annotations = const [],
+    this.typeParameters,
+    this.superclass,
+    this.interfaces = const [],
+    this.mixins = const [],
+    this.isConst = false,
+    this.initialiser,
   });
 
   /// The line of the first annotation written on the declaration, or the

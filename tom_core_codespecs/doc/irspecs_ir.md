@@ -123,11 +123,14 @@ One record per emitting declaration and per member of one. A member names its
 | `line` | where the declaration's name is |
 | `markers` | the `Cs*` markers written on it, in source order (§4.4) — `@CsCollaborator` among them for a collaborator class |
 | `codeSpec` | the `@CodeSpec` back-link: `id` (`<canonical id>.<identifier>`), `source` (its section ids), `line` |
-| `docSpec` | the `@DocSpec` tuples, each `sectionId` and `description`; absent when the annotation is, `[]` when it is written empty |
+| `docSpec` | the `@DocSpec` tuples, each `sectionId`, `description` and, as written, `descriptionLiteral` (§4.4); absent when the annotation is, `[]` when it is written empty |
 | `docSpecLine` | where the `@DocSpec` annotation is |
 | `docComment` | the `///` block above it: `lines` exactly as written (each with its `///`), `line` of the first |
-| `isAbstract`, `isStatic`, `isFinal`, `isLate`, `hasInitialiser` | the keywords as written (`late final` is `isLate` and `isFinal`) |
+| `annotations` | the annotations that are neither `Cs*` markers nor back-links (`@tomService`), each `source` as written and `line` |
+| `typeParameters`, `superclass`, `interfaces`, `mixins` | a class's header as written: `<T>`, the `extends` type, the `implements` and `with` types |
+| `isAbstract`, `isStatic`, `isConst`, `isFinal`, `isLate`, `hasInitialiser` | the keywords as written (`late final` is `isLate` and `isFinal`); `isConst` is written only when true |
 | `declaredType` | a variable's declared type as written, when it has one |
+| `initialiser` | a variable's initialiser as written, or an enum constant's argument list |
 | `bodies` | the method and accessor bodies it declares (§4.5) |
 
 The **collaborator** of a form-3b body (`codespecs_derivation_contract.md`
@@ -146,7 +149,7 @@ A value is a mapping with a `kind`:
 
 | `kind` | Further keys | Written for |
 |--------|--------------|-------------|
-| `string` | `value` | a string literal |
+| `string` | `value`, `literal` | a string literal; `literal` is the literal as written — adjacent literals joined by one space — because where a long string is split is part of what was written |
 | `bool` | `value` | `true` / `false` |
 | `int` | `value` | an integer literal |
 | `null` | — | `null`, written where a per-kind slot is deliberately absent |
@@ -160,10 +163,14 @@ dropping it, so a value outside the seven is carried and visible, not lost.
 
 ### 4.5 Body and statement
 
-A body is `name`, `shape`, `line`, `isAsync`, `parameters` (each `name` and,
-when declared, `type`, as written), `returnType`, and for a form-3a body
-(`codespecs_derivation_contract.md` §2.4) `thrownType` and `thrownMessage`;
-then `calls` (every call site, in order) and `statements`.
+A body is `name`, `shape`, `line`, `isAsync`, `accessor` (`get` / `set` for
+an accessor), `isArrow` (an arrow body, written only when true), `parameters`
+(each `name`, and when declared `type` as written, `kind` when it is not a
+required positional parameter — `optionalPositional`, `requiredNamed`,
+`optionalNamed` — and `default` as written), `returnType`, and for a form-3a
+body (`codespecs_derivation_contract.md` §2.4) `thrownType`, `thrownMessage`
+and, as written, `thrownLiteral`; then `calls` (every call site, in order) and
+`statements`.
 
 `shape` is `none` (no body), `throwOnly` (form 3a), `returnsValue` or `other`
 (form 3b). A form-3b body's `statements` are its statement list as it is
@@ -264,16 +271,68 @@ reader, and so to CsModel and to the IR:
 | `exports` of a file | A project's barrel library is nothing but its exports. |
 | `arguments` of a call | B3 passes a collaborator method the calling body's parameters; the steps carry them and S5 checks them. |
 | `hasElse` of a statement | `nested` holds both branches of an `if`, so an `else` was invisible; no step has one. |
+| `literal` of a string value, `descriptionLiteral` of a `DocRef`, `thrownLiteral` of a body | Where an author split a long string into adjacent literals is part of what was written; `dart format` never moves it and no rule re-derives it. |
+| `annotations` of a declaration | An annotation that is neither a marker nor a back-link — `@tomService` — is part of the declaration. |
+| `typeParameters`, `superclass`, `interfaces`, `mixins` of a class | The class header: a repository is `extends TomRepository<Customer, String>`, an envelope `Result<T>`. |
+| `isConst` and `initialiser` of a variable | A catalogue member is `static const … = CsMessageKey('…')`, a route `final … = TomRouteDefinition(…)`. |
+| `kind` and `default` of a parameter, `accessor` and `isArrow` of a body | A parameter list and a body form a mapper has to write as they were. |
 
 Member order and comments needed nothing new: the reading keeps declarations
 and comments in source order, and the IR writes them in that order.
 
-What a mapper needs beyond this — a class's supertypes, a field's initialiser,
-a constructor's shape, an enum constant's arguments — is found by the Dart +
-Tom mapper's byte-equal proof and added here, field by field, under
-the same rule: into the reader, into CsModel, into this table.
+All of them were found the way §7 says every such fact is found: by writing
+the trio again from the IR and comparing it, byte for byte, with the trio it
+was read from. A fact a future trio needs and this table lacks is added the
+same way — into the reader, into CsModel, into this table — never as a special
+case in a mapper.
 
-## 7. Versioning
+## 7. The Dart + Tom mapper
+
+The first mapper writes the trio CodeSpecs writes today: Dart on the `tom_core`
+family, following [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md).
+
+```text
+irspecs map --mapper dart-tom --ir <spec-root>/irspecs --out <dir>
+```
+
+It writes one folder per package under `--out` (`<dir>/<package>/lib/…`), every
+package's folder whether or not it holds a file, and runs `dart format` over
+what it wrote. Its output is defined by two promises:
+
+1. **Byte-equal.** For a trio in the form the derivation contract requires,
+   `irspecs from-codespecs` followed by `irspecs map` reproduces every
+   `lib/` source of the trio byte for byte. The test
+   `tom_specs_clitool/test/irspecs_dart_tom_test.dart` holds this for both
+   Meridian trios and checks that the reproduced trio passes
+   `validate_codespecs` with the result the original gets. A difference is a
+   fact this document's records do not carry; it is fixed in the IR (§6), not
+   in the mapper.
+2. **Refused, not approximated.** A construct the mapper has no rule for — a
+   constructor, a mixin, a top-level function, a comment that is neither the
+   banner nor a doc comment, a form-3b body without steps — stops the run
+   naming the file and line (exit `1`), so nothing is written that only
+   resembles its input.
+
+**What it prints from.** A form-3b body from its **steps** (§4.7), never from
+its statement text: `await` before a call and a guard where the body is
+`async`, `return` without `await`, the guarded steps inside the `if`. A form-3a
+body from `thrownType` and the explication (`thrownLiteral`, else
+`thrownMessage` quoted). Markers, `@CodeSpec` and `@DocSpec` from their values.
+What is Dart by nature — a type, an initialiser, a non-`Cs*` annotation, a
+class header, a string's literal — as written.
+
+**Layout.** The mapper prints each file as an unbroken stream of tokens and
+leaves line breaks, indentation and trailing commas to `dart format`, which
+`codespecs_derivation_contract.md` §2.7 makes the layout of every generated
+file. The two things the formatter keeps from its input are the mapper's:
+
+- **blank lines** — after the banner, between the import groups (`dart:`,
+  `package:`, relative; `export`s after the `import`s, grouped the same way),
+  before every top-level declaration, between the members of a class or enum;
+- **annotation order** — the doc comment first, then every annotation in the
+  order of its `line`, back-links, markers and other annotations alike.
+
+## 8. Versioning
 
 `formatVersion` changes only when an older reader could not read a new
 document, or a new reader an older one. A new optional key is not such a

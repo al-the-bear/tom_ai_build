@@ -10,18 +10,14 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef(
     'content',
     'supplies the step list this collaborator carries, the behaviour each '
-    'step states and the condition the branch is taken under',
+        'step states and the condition the branch is taken under',
   ),
 ])
 @CsCollaborator()
 abstract class AmendOrderLineCallCollaborator {
   /// Puts the line id, the new quantity and the order version onto the amendment command.
-  @DocSpec([
-    DocRef('content', 'supplies the behaviour this step states'),
-  ])
-  Future<void> assembleRequestStageTheCoreFields(
-    AmendOrderLineRequest request,
-  );
+  @DocSpec([DocRef('content', 'supplies the behaviour this step states')])
+  Future<void> assembleRequestStageTheCoreFields(AmendOrderLineRequest request);
 
   /// Only when the clerk entered a justification
   @DocSpec([
@@ -32,24 +28,18 @@ abstract class AmendOrderLineCallCollaborator {
   );
 
   /// Adds the clerk's justification note to the command.
-  @DocSpec([
-    DocRef('content', 'supplies the behaviour this step states'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the behaviour this step states')])
   Future<void> assembleRequestAttachTheJustification(
     AmendOrderLineRequest request,
   );
 
   /// Applies the returned price snapshot and reservation state to the open line.
-  @DocSpec([
-    DocRef('content', 'supplies the behaviour this step states'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the behaviour this step states')])
   Future<void> handleResponseApplyThePriceSnapshot(
     AmendOrderLineResponse response,
   );
 
   /// Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.
-  @DocSpec([
-    DocRef('content', 'supplies the behaviour this step states'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the behaviour this step states')])
   Future<void> handleErrorSurfaceTheRejection(ErrorResult error);
 }

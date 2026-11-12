@@ -9,10 +9,7 @@ import '../domain_enum/order_status.dart';
 /// Returns one state-filtered page of the order work list in queue order.
 @CodeSpec('serverApi.FetchOrderWorkListRequest', source: ['content'])
 @DocSpec([
-  DocRef(
-    'content',
-    'supplies the request shape and each member it carries',
-  ),
+  DocRef('content', 'supplies the request shape and each member it carries'),
 ])
 class FetchOrderWorkListRequest {
   /// Show only orders in this lifecycle state; absent means every open state.
@@ -20,7 +17,7 @@ class FetchOrderWorkListRequest {
     DocRef(
       'content',
       'supplies the member type, its requiredness and the OrderStatus domain '
-      'enum it selects from',
+          'enum it selects from',
     ),
   ])
   OrderStatus? stateFilter;

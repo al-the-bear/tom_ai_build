@@ -7,10 +7,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
 /// Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
 @CodeSpec('serverApi.AmendOrderLineResponse', source: ['content'])
 @DocSpec([
-  DocRef(
-    'content',
-    'supplies the response shape and each member it carries',
-  ),
+  DocRef('content', 'supplies the response shape and each member it carries'),
 ])
 class AmendOrderLineResponse {
   /// The fresh price snapshot applied to the amended line.

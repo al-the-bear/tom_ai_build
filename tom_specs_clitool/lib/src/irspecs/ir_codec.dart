@@ -51,11 +51,19 @@ const Map<String, Set<String>> irCarriedCsModelFields = {
     'isAbstract',
     'isStatic',
     'docComment',
+    'annotations',
+    'typeParameters',
+    'superclass',
+    'interfaces',
+    'mixins',
+    'isConst',
+    'initialiser',
     'location',
   },
+  'CsAnnotation': {'source', 'location'},
   'CsMarker': {'name', 'positional', 'named', 'location'},
   'CsCodeSpecLink': {'id', 'source', 'location'},
-  'CsDocRef': {'sectionId', 'description'},
+  'CsDocRef': {'sectionId', 'description', 'descriptionLiteral'},
   'CsDocComment': {'lines', 'location'},
   'CsMethodBody': {
     'name',
@@ -67,9 +75,12 @@ const Map<String, Set<String>> irCarriedCsModelFields = {
     'thrownMessage',
     'thrownType',
     'isAsync',
+    'accessor',
+    'isArrow',
+    'thrownLiteral',
     'location',
   },
-  'CsParameter': {'name', 'type'},
+  'CsParameter': {'name', 'type', 'kind', 'defaultValue'},
   'CsCall': {'receiver', 'method', 'arguments', 'location'},
   'CsStatement': {
     'kind',
@@ -85,7 +96,7 @@ const Map<String, Set<String>> irCarriedCsModelFields = {
     'location',
   },
   'CsConstruction': {'type', 'positional', 'named', 'holder', 'location'},
-  'CsStringValue': {'value'},
+  'CsStringValue': {'value', 'literal'},
   'CsBoolValue': {'value'},
   'CsIntValue': {'value'},
   'CsNullValue': {},
@@ -96,7 +107,7 @@ const Map<String, Set<String>> irCarriedCsModelFields = {
 };
 
 /// The CsModel fields the IR deliberately does not carry, with the reason
-/// (`irspecs_ir.md`, § What the IR leaves out).
+/// (`irspecs_ir.md`, § Every field, and the one left out).
 const Map<String, Map<String, String>> irOmittedCsModelFields = {
   'CsFile': {
     'source':
@@ -198,16 +209,31 @@ Map<String, Object?> _declaration(
   if (d.docSpec case final refs?)
     'docSpec': [
       for (final r in refs)
-        {'sectionId': r.sectionId, 'description': r.description},
+        {
+          'sectionId': r.sectionId,
+          'description': r.description,
+          'descriptionLiteral': ?r.descriptionLiteral,
+        },
     ],
   'docSpecLine': ?d.docSpecLocation?.line,
   if (d.docComment case final doc?)
     'docComment': {'lines': doc.lines, 'line': doc.location.line},
+  if (d.annotations.isNotEmpty)
+    'annotations': [
+      for (final a in d.annotations)
+        {'source': a.source, 'line': a.location.line},
+    ],
+  'typeParameters': ?d.typeParameters,
+  'superclass': ?d.superclass,
+  if (d.interfaces.isNotEmpty) 'interfaces': d.interfaces,
+  if (d.mixins.isNotEmpty) 'mixins': d.mixins,
   'isAbstract': d.isAbstract,
   'isStatic': d.isStatic,
   'isFinal': d.isFinal,
   'isLate': d.isLate,
+  if (d.isConst) 'isConst': true,
   'hasInitialiser': d.hasInitialiser,
+  'initialiser': ?d.initialiser,
   'declaredType': ?d.declaredType,
   'bodies': [
     for (final b in d.bodies)
@@ -227,7 +253,11 @@ List<Object?> _named(Map<String, CsValue> named) => [
 ];
 
 Map<String, Object?> _value(CsValue v) => switch (v) {
-  CsStringValue(:final value) => {'kind': 'string', 'value': value},
+  CsStringValue(:final value, :final literal) => {
+    'kind': 'string',
+    'value': value,
+    'literal': ?literal,
+  },
   CsBoolValue(:final value) => {'kind': 'bool', 'value': value},
   CsIntValue(:final value) => {'kind': 'int', 'value': value},
   CsNullValue() => {'kind': 'null'},
@@ -254,12 +284,21 @@ Map<String, Object?> _body(CsMethodBody b, IrBodySteps? record) => {
   'shape': b.shape.name,
   'line': b.location.line,
   'isAsync': b.isAsync,
+  'accessor': ?b.accessor,
+  if (b.isArrow) 'isArrow': true,
   'parameters': [
-    for (final p in b.parameters) {'name': p.name, 'type': ?p.type},
+    for (final p in b.parameters)
+      {
+        'name': p.name,
+        'type': ?p.type,
+        if (p.kind != CsParameterKind.requiredPositional) 'kind': p.kind.name,
+        'default': ?p.defaultValue,
+      },
   ],
   'returnType': ?b.returnType,
   'thrownType': ?b.thrownType,
   'thrownMessage': ?b.thrownMessage,
+  'thrownLiteral': ?b.thrownLiteral,
   'calls': [for (final c in b.calls) _call(c)],
   'statements': [for (final s in b.statements) _statement(s)],
   if (record?.steps case final steps?)
@@ -414,12 +453,23 @@ CsDeclaration _readDeclaration(
               CsDocRef(
                 _map(r)['sectionId'] as String,
                 _map(r)['description'] as String,
+                _map(r)['descriptionLiteral'] as String?,
               ),
           ],
     docSpecLocation: d['docSpecLine'] == null ? null : at(d['docSpecLine']),
     docComment: doc == null
         ? null
         : CsDocComment(_strings(doc['lines']), at(doc['line'])),
+    annotations: [
+      for (final a in _list(d['annotations'] ?? const []))
+        CsAnnotation(_map(a)['source'] as String, at(_map(a)['line'])),
+    ],
+    typeParameters: d['typeParameters'] as String?,
+    superclass: d['superclass'] as String?,
+    interfaces: _strings(d['interfaces'] ?? const []),
+    mixins: _strings(d['mixins'] ?? const []),
+    isConst: d['isConst'] as bool? ?? false,
+    initialiser: d['initialiser'] as String?,
     isAbstract: d['isAbstract'] as bool,
     isStatic: d['isStatic'] as bool,
     isFinal: d['isFinal'] as bool,
@@ -472,9 +522,19 @@ CsMethodBody _readBody(
   shape: CsBodyShape.values.byName(b['shape'] as String),
   location: at(b['line']),
   isAsync: b['isAsync'] as bool,
+  accessor: b['accessor'] as String?,
+  isArrow: b['isArrow'] as bool? ?? false,
+  thrownLiteral: b['thrownLiteral'] as String?,
   parameters: [
     for (final p in _list(b['parameters']))
-      CsParameter(_map(p)['name'] as String, _map(p)['type'] as String?),
+      CsParameter(
+        _map(p)['name'] as String,
+        _map(p)['type'] as String?,
+        _map(p)['kind'] == null
+            ? CsParameterKind.requiredPositional
+            : CsParameterKind.values.byName(_map(p)['kind'] as String),
+        _map(p)['default'] as String?,
+      ),
   ],
   returnType: b['returnType'] as String?,
   thrownType: b['thrownType'] as String?,
@@ -513,7 +573,7 @@ CsStatement _readStatement(
 CsValue _readValue(Object? data) {
   final v = _map(data);
   return switch (v['kind']) {
-    'string' => CsStringValue(v['value'] as String),
+    'string' => CsStringValue(v['value'] as String, v['literal'] as String?),
     'bool' => CsBoolValue(v['value'] as bool),
     'int' => CsIntValue(v['value'] as int),
     'null' => const CsNullValue(),

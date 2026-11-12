@@ -9,10 +9,7 @@ import 'order_dto.dart';
 /// Returns one state-filtered page of the order work list in queue order.
 @CodeSpec('serverApi.FetchOrderWorkListResponse', source: ['content'])
 @DocSpec([
-  DocRef(
-    'content',
-    'supplies the response shape and each member it carries',
-  ),
+  DocRef('content', 'supplies the response shape and each member it carries'),
 ])
 class FetchOrderWorkListResponse {
   /// The page of matching orders in queue order.
@@ -20,7 +17,7 @@ class FetchOrderWorkListResponse {
     DocRef(
       'content',
       'supplies the member type, its multiplicity and the Order data entity '
-      'it is typed by',
+          'it is typed by',
     ),
   ])
   late List<OrderDto> orders;

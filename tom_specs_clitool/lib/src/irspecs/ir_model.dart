@@ -54,7 +54,7 @@ class IrFile {
   final CsLocus locus;
 
   /// The file's CsModel reading. Its `source` is not carried by the IR (see
-  /// `irspecs_ir.md`, § What the IR leaves out): a file read back from the IR
+  /// `irspecs_ir.md`, § Every field, and the one left out): a file read back from the IR
   /// has an empty source.
   final CsFile file;
 
@@ -102,7 +102,7 @@ class IrSpecsException implements Exception {
 
 /// Which area a generated file belongs to, decided from the area catalogue.
 ///
-/// Three rules, first match wins (`irspecs_ir.md`, § One document per area):
+/// Four rules, first match wins (`irspecs_ir.md`, § One document per area):
 ///
 /// 1. **The folder.** `codespecs_derivation_contract.md` §2.1 N7 writes a
 ///    part's files under `lib/src/<canonical id, snake_case>/`, so a file

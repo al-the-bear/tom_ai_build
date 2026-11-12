@@ -217,6 +217,9 @@
               },
               "description": {
                 "type": "string"
+              },
+              "descriptionLiteral": {
+                "type": "string"
               }
             }
           }
@@ -240,6 +243,38 @@
             }
           }
         },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source",
+              "line"
+            ],
+            "properties": {
+              "source": {
+                "type": "string",
+                "pattern": "^@"
+              },
+              "line": {
+                "$ref": "#/$defs/line"
+              }
+            }
+          }
+        },
+        "typeParameters": {
+          "type": "string"
+        },
+        "superclass": {
+          "type": "string"
+        },
+        "interfaces": {
+          "$ref": "#/$defs/strings"
+        },
+        "mixins": {
+          "$ref": "#/$defs/strings"
+        },
         "isAbstract": {
           "type": "boolean"
         },
@@ -252,8 +287,14 @@
         "isLate": {
           "type": "boolean"
         },
+        "isConst": {
+          "type": "boolean"
+        },
         "hasInitialiser": {
           "type": "boolean"
+        },
+        "initialiser": {
+          "type": "string"
         },
         "declaredType": {
           "type": "string"
@@ -331,6 +372,9 @@
               "const": "string"
             },
             "value": {
+              "type": "string"
+            },
+            "literal": {
               "type": "string"
             }
           }
@@ -487,6 +531,15 @@
         "isAsync": {
           "type": "boolean"
         },
+        "accessor": {
+          "enum": [
+            "get",
+            "set"
+          ]
+        },
+        "isArrow": {
+          "type": "boolean"
+        },
         "parameters": {
           "type": "array",
           "items": {
@@ -501,6 +554,17 @@
               },
               "type": {
                 "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "requiredPositional",
+                  "optionalPositional",
+                  "requiredNamed",
+                  "optionalNamed"
+                ]
+              },
+              "default": {
+                "type": "string"
               }
             }
           }
@@ -512,6 +576,9 @@
           "type": "string"
         },
         "thrownMessage": {
+          "type": "string"
+        },
+        "thrownLiteral": {
           "type": "string"
         },
         "calls": {

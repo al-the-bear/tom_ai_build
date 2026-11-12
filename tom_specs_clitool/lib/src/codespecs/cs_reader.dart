@@ -110,6 +110,17 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             bodies: _bodies(path, lines, members),
             isAbstract: member.abstractKeyword != null,
             docComment: _docComment(path, lines, member.documentationComment),
+            typeParameters: member.namePart.typeParameters?.toSource(),
+            superclass: member.extendsClause?.superclass.toSource(),
+            interfaces: [
+              for (final t
+                  in member.implementsClause?.interfaces ?? <NamedType>[])
+                t.toSource(),
+            ],
+            mixins: [
+              for (final t in member.withClause?.mixinTypes ?? <NamedType>[])
+                t.toSource(),
+            ],
           ),
         );
         declarations.addAll(
@@ -147,6 +158,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
               metadata: constant.metadata,
               offset: constant.name.offset,
               isStatic: true,
+              initialiser: constant.arguments?.toSource(),
               docComment: _docComment(
                 path,
                 lines,
@@ -181,7 +193,9 @@ CsFile _readFile(CsLocus locus, String path, String source) {
               metadata: member.metadata,
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
+              initialiser: variable.initializer?.toSource(),
               isFinal: member.variables.isFinal,
+              isConst: member.variables.isConst,
               isLate: member.variables.isLate,
               declaredType: member.variables.type?.toSource(),
               docComment: _docComment(path, lines, member.documentationComment),
@@ -304,7 +318,9 @@ List<CsDeclaration> _classMembers(
               metadata: member.metadata,
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
+              initialiser: variable.initializer?.toSource(),
               isFinal: member.fields.isFinal,
+              isConst: member.fields.isConst,
               isLate: member.fields.isLate,
               declaredType: member.fields.type?.toSource(),
               isStatic: member.isStatic,
@@ -331,6 +347,7 @@ List<CsDeclaration> _classMembers(
                 member.body,
                 parameters: member.parameters,
                 returnType: member.returnType,
+                accessor: member.propertyKeyword?.lexeme,
               ),
             ],
             isStatic: member.isStatic,
@@ -389,8 +406,15 @@ CsDeclaration _declaration({
   bool isAbstract = false,
   bool isStatic = false,
   CsDocComment? docComment,
+  String? typeParameters,
+  String? superclass,
+  List<String> interfaces = const [],
+  List<String> mixins = const [],
+  bool isConst = false,
+  String? initialiser,
 }) {
   final markers = <CsMarker>[];
+  final others = <CsAnnotation>[];
   CsCodeSpecLink? codeSpec;
   List<CsDocRef>? docSpec;
   CsLocation? docSpecLocation;
@@ -407,6 +431,8 @@ CsDeclaration _declaration({
         !_backLinkAnnotations.contains(annotationName)) {
       final (positional, named) = _arguments(annotation.arguments);
       markers.add(CsMarker(annotationName, positional, named, location));
+    } else {
+      others.add(CsAnnotation(annotation.toSource(), location));
     }
   }
 
@@ -427,6 +453,13 @@ CsDeclaration _declaration({
     isAbstract: isAbstract,
     isStatic: isStatic,
     docComment: docComment,
+    annotations: others,
+    typeParameters: typeParameters,
+    superclass: superclass,
+    interfaces: interfaces,
+    mixins: mixins,
+    isConst: isConst,
+    initialiser: initialiser,
     location: _at(path, lines, offset),
   );
 }
@@ -459,9 +492,11 @@ List<CsDocRef> _docRefs(Annotation annotation) {
           ? (args[0] as CsStringValue).value
           : '';
       final description = args.length > 1 && args[1] is CsStringValue
-          ? (args[1] as CsStringValue).value
-          : '';
-      out.add(CsDocRef(sectionId, description));
+          ? args[1] as CsStringValue
+          : null;
+      out.add(
+        CsDocRef(sectionId, description?.value ?? '', description?.literal),
+      );
     }
   }
   return out;
@@ -487,6 +522,7 @@ List<CsMethodBody> _bodies(
           member.body,
           parameters: member.parameters,
           returnType: member.returnType,
+          accessor: member.propertyKeyword?.lexeme,
         ),
       );
     }
@@ -501,6 +537,7 @@ CsMethodBody _body(
   FunctionBody body, {
   FormalParameterList? parameters,
   TypeAnnotation? returnType,
+  String? accessor,
 }) {
   final location = _at(path, lines, body.offset);
   final isAsync = body.isAsynchronous;
@@ -516,6 +553,8 @@ CsMethodBody _body(
       parameters: formals,
       returnType: declaredReturn,
       isAsync: isAsync,
+      accessor: accessor,
+      isArrow: body is ExpressionFunctionBody,
     );
   }
   if (body is ExpressionFunctionBody) {
@@ -531,6 +570,8 @@ CsMethodBody _body(
         isAsync: isAsync,
         parameters: formals,
         returnType: declaredReturn,
+        accessor: accessor,
+        isArrow: true,
       );
     }
     // An arrow body *is* a return, so it reads as one — which is what lets the
@@ -552,6 +593,8 @@ CsMethodBody _body(
       parameters: formals,
       returnType: declaredReturn,
       isAsync: isAsync,
+      accessor: accessor,
+      isArrow: true,
     );
   }
   if (body is BlockFunctionBody) {
@@ -581,6 +624,8 @@ CsMethodBody _body(
       parameters: formals,
       returnType: declaredReturn,
       isAsync: isAsync,
+      accessor: accessor,
+      isArrow: body is ExpressionFunctionBody,
     );
   }
   return CsMethodBody(
@@ -607,7 +652,18 @@ List<CsParameter> _parameters(FormalParameterList? parameters) {
     // function-typed parameter's `type` is its return type, its parameter
     // list sits in `functionTypedSuffix`.
     out.add(
-      CsParameter(parameter.name?.lexeme ?? '', parameter.type?.toSource()),
+      CsParameter(
+        parameter.name?.lexeme ?? '',
+        parameter.type?.toSource(),
+        parameter.isRequiredPositional
+            ? CsParameterKind.requiredPositional
+            : parameter.isOptionalPositional
+            ? CsParameterKind.optionalPositional
+            : parameter.isRequiredNamed
+            ? CsParameterKind.requiredNamed
+            : CsParameterKind.optionalNamed,
+        parameter.defaultClause?.value.toSource(),
+      ),
     );
   }
   return out;
@@ -854,6 +910,8 @@ CsMethodBody _throwBody(
   required bool isAsync,
   List<CsParameter> parameters = const [],
   String? returnType,
+  String? accessor,
+  bool isArrow = false,
 }) {
   final thrown = _value(expression.expression);
   if (thrown is! CsConstructionValue) {
@@ -864,13 +922,17 @@ CsMethodBody _throwBody(
       parameters: parameters,
       returnType: returnType,
       isAsync: isAsync,
+      accessor: accessor,
+      isArrow: isArrow,
     );
   }
   final String? message;
+  String? literal;
   if (thrown.positional.isEmpty) {
     message = '';
-  } else if (thrown.positional.first case final CsStringValue literal) {
-    message = literal.value;
+  } else if (thrown.positional.first case final CsStringValue string) {
+    message = string.value;
+    literal = string.literal;
   } else {
     message = null;
   }
@@ -880,9 +942,12 @@ CsMethodBody _throwBody(
     location: location,
     thrownType: thrown.type,
     thrownMessage: message,
+    thrownLiteral: literal,
     parameters: parameters,
     returnType: returnType,
     isAsync: isAsync,
+    accessor: accessor,
+    isArrow: isArrow,
   );
 }
 
@@ -966,7 +1031,7 @@ CsConstruction? _constructionOf(
 CsValue _value(Expression expression) {
   switch (expression) {
     case SimpleStringLiteral():
-      return CsStringValue(expression.value);
+      return CsStringValue(expression.value, expression.toSource());
     case AdjacentStrings():
       final buffer = StringBuffer();
       for (final part in expression.strings) {
@@ -976,7 +1041,7 @@ CsValue _value(Expression expression) {
           return CsUnknownValue('$expression');
         }
       }
-      return CsStringValue(buffer.toString());
+      return CsStringValue(buffer.toString(), expression.toSource());
     case BooleanLiteral():
       return CsBoolValue(expression.value);
     case IntegerLiteral():

@@ -14,110 +14,126 @@ class SbpMessages {
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Orders')
-  static const CsMessageKey screenOrdersTitle =
-      CsMessageKey('screen.orders.title');
+  static const CsMessageKey screenOrdersTitle = CsMessageKey(
+    'screen.orders.title',
+  );
 
   /// Label of the state selector on the work list filter bar.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'State')
-  static const CsMessageKey screenOrdersFilterState =
-      CsMessageKey('screen.orders.filter.state');
+  static const CsMessageKey screenOrdersFilterState = CsMessageKey(
+    'screen.orders.filter.state',
+  );
 
   /// Helper text of the state selector.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Show only orders in the selected lifecycle state')
-  static const CsMessageKey screenOrdersFilterStateHint =
-      CsMessageKey('screen.orders.filter.state.hint');
+  static const CsMessageKey screenOrdersFilterStateHint = CsMessageKey(
+    'screen.orders.filter.state.hint',
+  );
 
   /// Row action that navigates from the work list to order detail.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Open')
-  static const CsMessageKey screenOrdersActionOpen =
-      CsMessageKey('screen.orders.action.open');
+  static const CsMessageKey screenOrdersActionOpen = CsMessageKey(
+    'screen.orders.action.open',
+  );
 
   /// Shown on the work list when the filtered queue is empty, and as the status column's empty-data copy.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'No orders match the selected state filter')
-  static const CsMessageKey screenOrdersEmpty =
-      CsMessageKey('screen.orders.empty');
+  static const CsMessageKey screenOrdersEmpty = CsMessageKey(
+    'screen.orders.empty',
+  );
 
   /// Recovery action offered on the empty work list.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Clear filter')
-  static const CsMessageKey screenOrdersEmptyActionClear =
-      CsMessageKey('screen.orders.empty.action.clear');
+  static const CsMessageKey screenOrdersEmptyActionClear = CsMessageKey(
+    'screen.orders.empty.action.clear',
+  );
 
   /// Page title of order detail (SCR-02).
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Order {orderId}')
-  static const CsMessageKey screenOrderTitle =
-      CsMessageKey('screen.order.title');
+  static const CsMessageKey screenOrderTitle = CsMessageKey(
+    'screen.order.title',
+  );
 
   /// Submit action on an order line.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Amend line')
-  static const CsMessageKey screenOrderActionAmend =
-      CsMessageKey('screen.order.action.amend');
+  static const CsMessageKey screenOrderActionAmend = CsMessageKey(
+    'screen.order.action.amend',
+  );
 
   /// Header action that releases a credit or stock hold.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Release hold')
-  static const CsMessageKey screenOrderActionRelease =
-      CsMessageKey('screen.order.action.release');
+  static const CsMessageKey screenOrderActionRelease = CsMessageKey(
+    'screen.order.action.release',
+  );
 
   /// Shown on order detail when a line amendment fails validation or reservation.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'The amendment could not be applied')
-  static const CsMessageKey screenOrderAmendError =
-      CsMessageKey('screen.order.amend.error');
+  static const CsMessageKey screenOrderAmendError = CsMessageKey(
+    'screen.order.amend.error',
+  );
 
   /// Recovery action offered after a rejected amendment.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Retry')
-  static const CsMessageKey screenOrderAmendActionRetry =
-      CsMessageKey('screen.order.amend.action.retry');
+  static const CsMessageKey screenOrderAmendActionRetry = CsMessageKey(
+    'screen.order.amend.action.retry',
+  );
 
   /// Copy of the ORDER_VERSION_CONFLICT error code.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
-  @CsText(baseCopy: 'The order changed while you were editing; reload and retry')
-  static const CsMessageKey errorOrderVersionConflict =
-      CsMessageKey('error.order.versionConflict');
+  @CsText(
+    baseCopy: 'The order changed while you were editing; reload and retry',
+  )
+  static const CsMessageKey errorOrderVersionConflict = CsMessageKey(
+    'error.order.versionConflict',
+  );
 
   /// Description of the amendOrderLine server operation.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Re-prices and re-reserves an amended order line')
-  static const CsMessageKey opOrderAmendLine =
-      CsMessageKey('op.order.amendLine');
+  static const CsMessageKey opOrderAmendLine = CsMessageKey(
+    'op.order.amendLine',
+  );
 
   /// Description of the fetchOrderWorkList server operation.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
   ])
   @CsText(baseCopy: 'Fetches a state-filtered page of the order work list')
-  static const CsMessageKey opOrderFetchWorkList =
-      CsMessageKey('op.order.fetchWorkList');
+  static const CsMessageKey opOrderFetchWorkList = CsMessageKey(
+    'op.order.fetchWorkList',
+  );
 }

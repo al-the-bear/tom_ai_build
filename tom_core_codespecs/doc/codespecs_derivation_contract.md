@@ -782,6 +782,17 @@ catalogue-file cases, one catalogue), so there is never
 a second thing for a library comment to describe, and two comments from one
 source is §2.3 test (a) applied to prose.
 
+**The layout is `dart format`'s.** A generated file is exactly what `dart format`
+in the SDK's default style writes for it, so where a line breaks, how far it is
+indented and whether an argument list carries a trailing comma are decided in
+one place, and N8's byte-identical regeneration holds whoever produced the
+tokens. The formatter keeps two things from its input, so they are fixed here:
+a **blank line** between the banner and the imports, between the import groups
+(`dart:`, `package:`, relative, in that order), before every top-level
+declaration and between the members of a class or enum, and nowhere else; and
+the place a long string is split into **adjacent literals**, which the formatter
+never moves.
+
 ### 2.8 Comments — which SOM text becomes which comment
 
 A specification reaches code three ways: as **constructs** (each entry's point
@@ -2102,7 +2113,10 @@ import 'package:<app>_codespec_shared/<app>_codespec_shared.dart';
   ],
 )
 @DocSpec([
-  DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement'),
+  DocRef(
+    'DAENT-IDEN',
+    'supplies the entity, its table and its storage placement',
+  ),
   DocRef('content', 'supplies the entity narrative and the maximum length'),
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),

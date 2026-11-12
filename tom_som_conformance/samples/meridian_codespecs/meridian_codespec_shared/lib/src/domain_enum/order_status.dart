@@ -10,7 +10,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef(
     'content',
     'supplies the enum name, its backing type and default, and each value id '
-    'and description',
+        'and description',
   ),
 ])
 @CsEnum()

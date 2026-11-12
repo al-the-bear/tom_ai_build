@@ -13,9 +13,7 @@ import 'package:tom_core_codespecs/tom_core_codespecs.dart';
 ])
 @CsLayout('SCR-01-SEC-1')
 class Scr01Sec1Layout {
-  @DocSpec([
-    DocRef('SSEL', 'supplies the layout direction and display order'),
-  ])
+  @DocSpec([DocRef('SSEL', 'supplies the layout direction and display order')])
   final TomLayoutContainerNode base = TomLayoutContainerNode(
     nodeId: 'SCR-01-SEC-1',
     kind: TomLayoutContainerKind.row,

@@ -13,7 +13,7 @@ import 'fetch_order_work_list_call_collaborator.dart';
   DocRef(
     'content',
     'supplies the step that issues this call, the operation it cites and '
-    'the steps of each handling body',
+        'the steps of each handling body',
   ),
 ])
 @CsServerCall(SbpOperations.fetchOrderWorkList)
@@ -22,10 +22,7 @@ class FetchOrderWorkListCall {
 
   /// Order shows state Confirmed with both lines priced and reserved.
   @DocSpec([
-    DocRef(
-      'content',
-      'supplies the behaviour text this fallback body throws',
-    ),
+    DocRef('content', 'supplies the behaviour text this fallback body throws'),
   ])
   Future<void> assembleRequest(FetchOrderWorkListRequest request) {
     throw UnsupportedError(
@@ -46,10 +43,7 @@ class FetchOrderWorkListCall {
 
   /// Order shows state Confirmed with both lines priced and reserved.
   @DocSpec([
-    DocRef(
-      'content',
-      'supplies the behaviour text this fallback body throws',
-    ),
+    DocRef('content', 'supplies the behaviour text this fallback body throws'),
   ])
   Future<void> handleError(ErrorResult error) {
     throw UnsupportedError(

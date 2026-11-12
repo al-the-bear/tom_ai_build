@@ -8,16 +8,13 @@ import 'package:tom_core_server/tom_core_server.dart';
 
 import '../data_access/order.dart';
 
-@CodeSpec(
-  'serviceUnit.OrderService',
-  source: ['DAENT-CLAS', 'content'],
-)
+@CodeSpec('serviceUnit.OrderService', source: ['DAENT-CLAS', 'content'])
 @DocSpec([
   DocRef('DAENT-CLAS', 'supplies the bounded context and aggregate root'),
   DocRef(
     'content',
     'supplies each server operation this unit realises, its purpose and '
-    'its authorization requirement',
+        'its authorization requirement',
   ),
 ])
 @tomService
@@ -28,7 +25,7 @@ abstract class OrderService {
     DocRef(
       'content',
       'supplies the operation name, its purpose and its authorization '
-      'requirement',
+          'requirement',
     ),
   ])
   @CsEndpoint('amendOrderLine')
@@ -51,7 +48,7 @@ abstract class OrderService {
     DocRef(
       'content',
       'supplies the operation name, its purpose and its authorization '
-      'requirement',
+          'requirement',
     ),
   ])
   @CsEndpoint('fetchOrderWorkList')

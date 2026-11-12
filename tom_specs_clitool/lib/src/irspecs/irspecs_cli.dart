@@ -1,13 +1,19 @@
 /// The `irspecs` command, as a function the entry point and the tests both
 /// call.
 ///
-/// `irspecs from-codespecs` reads a CodeSpecs trio and writes its IR
-/// (`irspecs_ir.md`): one `<CE-CODE>.ir.yaml` per area holding files, plus
-/// `package.ir.yaml` for the files no area claims, into `--out` (a spec
-/// root's `irspecs/` folder). An IR file in `--out` that the trio no longer
-/// produces is deleted, so the folder is always the IR of exactly that trio.
+/// Two subcommands:
 ///
-/// Exit codes: `0` written, `2` bad usage.
+/// * `irspecs from-codespecs` reads a CodeSpecs trio and writes its IR
+///   (`irspecs_ir.md`): one `<CE-CODE>.ir.yaml` per area holding files, plus
+///   `package.ir.yaml` for the files no area claims, into `--out` (a spec
+///   root's `irspecs/` folder). An IR file in `--out` that the trio no longer
+///   produces is deleted, so the folder is always the IR of exactly that
+///   trio.
+/// * `irspecs map --mapper dart-tom --ir <dir> --out <dir>` writes the trio
+///   an IR folder describes, one folder per package under `--out`, through
+///   the Dart + Tom mapper, formatted with `dart format`.
+///
+/// Exit codes: `0` written, `1` the mapper refused the IR, `2` bad usage.
 library;
 
 import 'dart:convert';
@@ -22,6 +28,7 @@ import '../codespecs/cs_model.dart';
 import '../codespecs/cs_reader.dart';
 import 'ir_model.dart';
 import 'ir_yaml.dart';
+import 'mappers/dart_tom/dart_tom_mapper.dart';
 
 /// The `from-codespecs` option set — exposed so the README correspondence
 /// test reads it.
@@ -40,7 +47,18 @@ ArgParser irspecsParser() => ArgParser()
   )
   ..addOption(
     'out',
-    help: "The folder to write the IR to: a spec root's irspecs/ folder.",
+    help:
+        "from-codespecs: the folder to write the IR to, a spec root's "
+        'irspecs/ folder. map: the folder to write the packages into.',
+  )
+  ..addOption(
+    'ir',
+    help: 'map: the folder of *.ir.yaml documents to write code from.',
+  )
+  ..addOption(
+    'mapper',
+    help: 'map: which mapper writes the code.',
+    allowed: [kDartTomMapper],
   )
   ..addOption(
     'areas',
@@ -69,7 +87,9 @@ Future<int> runIrspecs(
   void usage() => stderrSink.writeln(
     'Usage: dart run tom_specs_clitool:irspecs from-codespecs '
     '--shared <dir> --client <dir> --server <dir> --areas <json> '
-    '--out <dir>\n\n${parser.usage}',
+    '--out <dir>\n'
+    '       dart run tom_specs_clitool:irspecs map --mapper dart-tom '
+    '--ir <dir> --out <dir>\n\n${parser.usage}',
   );
 
   final ArgResults results;
@@ -84,14 +104,18 @@ Future<int> runIrspecs(
     stdoutSink.writeln(parser.usage);
     return 0;
   }
-  if (results.rest.length != 1 || results.rest.single != 'from-codespecs') {
+  final subcommand = results.rest.length == 1 ? results.rest.single : null;
+  if (subcommand != 'from-codespecs' && subcommand != 'map') {
     stderrSink.writeln(
       results.rest.isEmpty
-          ? 'Name the subcommand: from-codespecs.'
+          ? 'Name the subcommand: from-codespecs or map.'
           : 'Unknown subcommand: ${results.rest.join(' ')}.',
     );
     usage();
     return 2;
+  }
+  if (subcommand == 'map') {
+    return _map(results, stdoutSink, stderrSink, usage);
   }
   final missing = [
     for (final option in ['shared', 'client', 'server', 'areas', 'out'])
@@ -158,4 +182,51 @@ Future<int> runIrspecs(
     }
   }
   return 0;
+}
+
+Future<int> _map(
+  ArgResults results,
+  StringSink stdoutSink,
+  StringSink stderrSink,
+  void Function() usage,
+) async {
+  final missing = [
+    for (final option in ['mapper', 'ir', 'out'])
+      if (results.option(option) == null) '--$option',
+  ];
+  if (missing.isNotEmpty) {
+    stderrSink.writeln('Missing ${missing.join(', ')}.');
+    usage();
+    return 2;
+  }
+  final irDir = Directory(results.option('ir')!);
+  if (!irDir.existsSync()) {
+    stderrSink.writeln('IR folder not found: ${irDir.path}');
+    return 2;
+  }
+  final List<IrDocument> documents;
+  try {
+    documents = [
+      for (final f
+          in irDir.listSync().whereType<File>().toList()
+            ..sort((a, b) => a.path.compareTo(b.path)))
+        if (f.path.endsWith('.ir.yaml'))
+          readIrYaml(f.readAsStringSync(), source: f.path),
+    ];
+  } on IrSpecsException catch (e) {
+    stderrSink.writeln(e.message);
+    return 2;
+  }
+  if (documents.isEmpty) {
+    stderrSink.writeln('No *.ir.yaml in ${irDir.path}.');
+    return 2;
+  }
+  try {
+    final written = await writeDartTom(documents, results.option('out')!);
+    stdoutSink.writeln('${written.length} file(s) written and formatted.');
+    return 0;
+  } on IrMapException catch (e) {
+    stderrSink.writeln(e.message);
+    return 1;
+  }
 }

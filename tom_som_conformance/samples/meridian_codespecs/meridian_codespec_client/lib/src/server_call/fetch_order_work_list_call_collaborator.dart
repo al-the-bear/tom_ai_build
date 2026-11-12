@@ -10,15 +10,13 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef(
     'content',
     'supplies the step list this collaborator carries and the behaviour '
-    'each step states',
+        'each step states',
   ),
 ])
 @CsCollaborator()
 abstract class FetchOrderWorkListCallCollaborator {
   /// Renders the returned page of work-list rows into the order table.
-  @DocSpec([
-    DocRef('content', 'supplies the behaviour this step states'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the behaviour this step states')])
   Future<void> handleResponseRenderTheWorkListPage(
     FetchOrderWorkListResponse response,
   );

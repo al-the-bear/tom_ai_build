@@ -10,28 +10,24 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   DocRef(
     'content',
     'supplies each error code with its severity, and fixes the '
-    'result-envelope shape the codes are returned in',
+        'result-envelope shape the codes are returned in',
   ),
 ])
 @CsError()
 class SbpErrorCodes {
-  @DocSpec([
-    DocRef('content', 'supplies the error code and its severity'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the error code and its severity')])
   @CsError(severity: CsErrorSeverity.error)
   static const CsErrorCode validationFailed = CsErrorCode('VALIDATION_FAILED');
 
-  @DocSpec([
-    DocRef('content', 'supplies the error code and its severity'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the error code and its severity')])
   @CsError(severity: CsErrorSeverity.error)
-  static const CsErrorCode orderAlreadyDispatched =
-      CsErrorCode('ORDER_ALREADY_DISPATCHED');
+  static const CsErrorCode orderAlreadyDispatched = CsErrorCode(
+    'ORDER_ALREADY_DISPATCHED',
+  );
 
-  @DocSpec([
-    DocRef('content', 'supplies the error code and its severity'),
-  ])
+  @DocSpec([DocRef('content', 'supplies the error code and its severity')])
   @CsError(severity: CsErrorSeverity.warning)
-  static const CsErrorCode orderVersionConflict =
-      CsErrorCode('ORDER_VERSION_CONFLICT');
+  static const CsErrorCode orderVersionConflict = CsErrorCode(
+    'ORDER_VERSION_CONFLICT',
+  );
 }

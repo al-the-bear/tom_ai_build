@@ -20,6 +20,7 @@ Schema is `tool/irspecs_ir.schema.json`.
   - [IrStep, IrCallStep, IrReturnStep, IrGuardedStep](#irstep-ircallstep-irreturnstep-irguardedstep)
   - [IrBodySteps and IrStepIssue](#irbodysteps-and-irstepissue)
   - [IrStepViolation](#irstepviolation)
+  - [IrMapException](#irmapexception)
 - [Functions](#functions)
 
 ## Constants
@@ -34,6 +35,7 @@ Schema is `tool/irspecs_ir.schema.json`.
 | `kCollaboratorField` | `'collaborator'` | The field a 3b body reaches its collaborator through. |
 | `kGuardSuffix` | `'Applies'` | The fixed suffix of a guard method's name (B4). |
 | `irStepRules` | `Map<String, String>` | The step validation rules `S1` … `S5`, each with what it holds. |
+| `kDartTomMapper` | `'dart-tom'` | The Dart + Tom mapper's id, as `irspecs map --mapper` names it. |
 
 ## Classes
 
@@ -211,6 +213,21 @@ const IrStepViolation(
 | `line` | `int` | The step's line, or the body's. |
 | `message` | `String` | What is wrong. |
 
+### IrMapException
+
+Raised when the IR holds something the Dart + Tom mapper has no rule to print.
+
+#### Constructors
+```dart
+const IrMapException(this.message);
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `message` | `String` | What could not be printed, and where. |
+
 ## Functions
 
 | Function | Return Type | Description |
@@ -228,5 +245,8 @@ const IrStepViolation(
 | `writeIrYaml(IrDocument document)` | `String` | The document as YAML text, every string quoted. |
 | `readIrYaml(String text, {String source = 'IR document'})` | `IrDocument` | The document YAML text holds. |
 | `plainYaml(Object? yaml)` | `Object?` | Parsed YAML as plain maps, lists and scalars. |
+| `mapDartTom(List<IrDocument> documents)` | `Map<String, String>` | The Dart + Tom mapper: `<package>/<path>` → unformatted source. |
+| `formatDartFiles(List<String> paths)` | `Future<void>` | Runs `dart format` over the paths. |
+| `writeDartTom(List<IrDocument> documents, String outDir)` | `Future<List<String>>` | Writes and formats the trio the documents describe; returns the written paths. |
 | `irspecsParser()` | `ArgParser` | The `irspecs` option set. |
 | `runIrspecs(List<String> arguments, {StringSink? out, StringSink? err})` | `Future<int>` | Runs `irspecs`; returns the exit code. |

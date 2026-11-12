@@ -11,10 +11,22 @@ import 'package:tom_core_codespecs/tom_core_codespecs.dart';
 )
 @DocSpec([
   DocRef('content', 'supplies the route, its path and its stable id'),
-  DocRef('SCECL', 'supplies the screen category, route pattern and parent screen of the routed screen'),
-  DocRef('SCENPR', 'records the page title resource and layout preset of the routed screen'),
-  DocRef('SCETR', 'records the use cases, requirements and entities the routed screen serves'),
-  DocRef('AZREQ-ROLE', 'supplies the roles required to access the routed screen'),
+  DocRef(
+    'SCECL',
+    'supplies the screen category, route pattern and parent screen of the routed screen',
+  ),
+  DocRef(
+    'SCENPR',
+    'records the page title resource and layout preset of the routed screen',
+  ),
+  DocRef(
+    'SCETR',
+    'records the use cases, requirements and entities the routed screen serves',
+  ),
+  DocRef(
+    'AZREQ-ROLE',
+    'supplies the roles required to access the routed screen',
+  ),
 ])
 @CsRoute()
 final TomRouteDefinition orderWorkListRoute = TomRouteDefinition(
@@ -23,9 +35,7 @@ final TomRouteDefinition orderWorkListRoute = TomRouteDefinition(
 );
 
 @CodeSpec('navigation.orderDetailRoute', source: ['content'])
-@DocSpec([
-  DocRef('content', 'supplies the route, its path and its stable id'),
-])
+@DocSpec([DocRef('content', 'supplies the route, its path and its stable id')])
 @CsRoute()
 final TomRouteDefinition orderDetailRoute = TomRouteDefinition(
   routeId: 'order-detail',
