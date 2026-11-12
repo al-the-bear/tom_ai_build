@@ -818,6 +818,7 @@ const CsFile({
   required this.imports,
   required this.declarations,
   required this.constructions,
+  this.exports = const [],
   this.comments = const [],
 });
 ```
@@ -829,6 +830,7 @@ const CsFile({
 | `path` | `String` | The file path as given to the reader. |
 | `source` | `String` | The file's source text, verbatim. |
 | `imports` | `List<String>` | The `import` URIs the file declares. |
+| `exports` | `List<String>` | The `export` URIs the file declares, in source order. |
 | `declarations` | `List<CsDeclaration>` | The declarations the file contributes. |
 | `constructions` | `List<CsConstruction>` | The substrate constructions the file contains. |
 | `comments` | `List<CsComment>` | Every comment token in the file, in source order. |

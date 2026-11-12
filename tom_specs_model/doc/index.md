@@ -16,9 +16,9 @@ is the authority for that tier, and it owns the membership test that assigns a
 fact to one tier or the other. The two never restate each other: a package
 document cites a document in this folder, it does not paraphrase one.
 
-**Fifteen documents plus this index.** Thirteen are in this folder; the two
-CodeSpecs documents ship with `tom_core_codespecs`, the package they specify,
-and are linked there. Each holds exactly one authority and is listed exactly
+**Sixteen documents plus this index.** Thirteen are in this folder; the two
+CodeSpecs documents and the IR Specs document ship with `tom_core_codespecs`,
+the package they specify, and are linked there. Each holds exactly one authority and is listed exactly
 once below — if two documents could answer the same question, one
 of them is wrong. Read the *Authority for* column, not the title: the title says
 what a document is about, the authority says what it decides.
@@ -164,6 +164,7 @@ generated language runtimes and two file formats.
 |----------|---------------|
 | [codespecs_mapping.md](../../tom_core_codespecs/doc/codespecs_mapping.md) | **Everything CodeSpecs *except* what code comes out.** The four pillars and the `tom_core`-family basis (§1.1), the neutral vocabulary (§1.2), the parts catalogue and the three generated projects (§4), the per-part gap analysis and spec-authorable attribute surfaces (§5), the server contract (§7), the SOM→CodeSpecs derivation *map* — the four walk questions, the document map, the CodeSpecs/follow-up split, and (§8.5) the per-part walk index naming where each part's walk enters and where it is stated (§8) — the bidirectional DocSpecs↔CodeSpecs link (§9), the config/settings scope split and the `code_spec` architecture principles (§11–§12). |
 | [codespecs_derivation_contract.md](../../tom_core_codespecs/doc/codespecs_derivation_contract.md) | **What code comes out.** The per-`Cs*`-annotation derivation contract: for every active marker, which SOM class and fields feed it, the exact Dart emitted and its `tom_core`-family superclass, how each annotation argument is derived, the deterministic naming rules (N1–N10), the universal comment-derivation rule (§2.8), the locus project, the typed cross-references and the `@CodeSpec`/`@DocSpec` back-links — plus the constructor shape of every marker and the validator checks that enforce them. |
+| [irspecs_ir.md](../../tom_core_codespecs/doc/irspecs_ir.md) | **What the IR of a trio holds.** IR Specs' intermediate representation (format `irspecs-ir`): a CodeSpecs trio as language-neutral data, one `<CE-CODE>.ir.yaml` per area, the rules that assign a file to its area, the record of every declaration, marker value, back-link, doc comment, body and statement, the one CsModel field left out and why, and what the IR adds to the reading. Written by `tom_specs_clitool`'s `irspecs from-codespecs`; constrained by `tool/irspecs_ir.schema.json`. |
 | [codespecs_prompt.md](codespecs_prompt.md) | **How a Phase-4 run starts, and when it refuses to.** The starting prompt, and the quality gate that is its first act: the mechanical tier (§4 — schema completeness *and* the instance-tier validator, routing totality, required-argument sources, carrier presence), the pre-gate extraction run and its walk root (§5), the per-area verdict with its fixed question, three outcomes and gap-naming output shape (§6), and the L0/L1/L2 instantiation that leaves the queue paused by construction (§7). |
 
 ## The creation process

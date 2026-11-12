@@ -773,6 +773,13 @@ class CsFile {
   /// The `import` URIs the file declares.
   final List<String> imports;
 
+  /// The `export` URIs the file declares, in source order.
+  ///
+  /// No check reads them; they are read because a project's barrel library is
+  /// nothing but exports, and the IR (`irspecs_ir.md`) has to carry everything
+  /// a mapper needs to write the file again.
+  final List<String> exports;
+
   /// The declarations the file contributes.
   final List<CsDeclaration> declarations;
 
@@ -789,6 +796,7 @@ class CsFile {
     required this.imports,
     required this.declarations,
     required this.constructions,
+    this.exports = const [],
     this.comments = const [],
   });
 }

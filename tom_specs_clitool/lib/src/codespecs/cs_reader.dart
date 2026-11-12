@@ -81,9 +81,12 @@ CsFile _readFile(CsLocus locus, String path, String source) {
   final unit = parsed.unit;
 
   final imports = <String>[];
+  final exports = <String>[];
   for (final directive in unit.directives) {
     if (directive is ImportDirective) {
       imports.add(directive.uri.stringValue ?? '');
+    } else if (directive is ExportDirective) {
+      exports.add(directive.uri.stringValue ?? '');
     }
   }
 
@@ -224,6 +227,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
     path: path,
     source: source,
     imports: imports,
+    exports: exports,
     declarations: declarations,
     constructions: constructions,
     comments: _comments(path, lines, unit),

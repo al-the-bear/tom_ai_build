@@ -16,14 +16,15 @@ documents here cite it rather than restating it
 
 ## Design
 
-The normative CodeSpecs design this package implements. The package's source
-cites these two by section number, and ships them so that every such citation
+The normative CodeSpecs design this package implements, and the IR a trio is
+written to. The package's source cites the first two by section number, and ships them so that every such citation
 resolves for a reader of the package.
 
 | Document | Covers |
 |----------|--------|
 | [codespecs_mapping.md](codespecs_mapping.md) | The parts catalogue, the five-package `tom_core`-family basis, the attribute surfaces, and every reuse-versus-gap verdict |
 | [codespecs_derivation_contract.md](codespecs_derivation_contract.md) | What code comes out per marker, and which `tom_core`-family class it is built on |
+| [irspecs_ir.md](irspecs_ir.md) | The IR Specs intermediate representation: a trio as language-neutral data, one document per area, and every CsModel field it carries |
 
 ## API reference
 

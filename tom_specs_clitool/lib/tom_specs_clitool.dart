@@ -400,9 +400,6 @@ export 'src/codespecs/cs_check_table.dart'
         CsCheckTableCorrespondence,
         parseCsCheckRows,
         compareCsCheckTable;
-// The Phase-4 area catalogue — codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6
-// transcribed into the input `spec_codespecs_extract` reads in all nine
-// runtimes.
 // The release-drift gate — which release-set packages have moved since the
 // commit that set their current version, and which of those say why.
 export 'src/release_closure.dart';
@@ -411,11 +408,15 @@ export 'src/release_drift.dart'
         PackageDrift,
         ReleaseDriftReport,
         computeReleaseDrift,
+        isPubHidden,
         isPubIgnored,
         loadAcknowledgedDrift,
         readPubIgnore,
         releaseDriftIgnoredPaths,
         renderReleaseDrift;
+// The Phase-4 area catalogue — codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6
+// transcribed into the input `spec_codespecs_extract` reads in all nine
+// runtimes.
 export 'src/codespecs/areas_catalog.dart'
     show
         AreasCatalog,
@@ -425,6 +426,12 @@ export 'src/codespecs/areas_catalog.dart'
         writeAreasCatalog,
         kSliceCites,
         kAuthoringSliceOrder;
+// IR Specs (irspecs_ir.md): a CodeSpecs trio as language-neutral data, one
+// document per area, and the `irspecs` command that writes it.
+export 'src/irspecs/ir_codec.dart';
+export 'src/irspecs/ir_model.dart';
+export 'src/irspecs/ir_yaml.dart';
+export 'src/irspecs/irspecs_cli.dart';
 // The public-API dartdoc coverage gate — the `tom_specs_documentation_standard.md` §5 bars of
 // tom_specs_documentation_standard.md, held against reality by a walker over
 // the committed manifest, in the shape of the release-closure gate beside it.

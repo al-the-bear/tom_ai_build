@@ -11,6 +11,7 @@ entry points and tests import.
 | Generation | [api_summary_generation.md](api_summary_generation.md) | The config block, the metadata tree, the schema and ops generators, and the per-language packaging renderers |
 | Gates | [api_summary_gates.md](api_summary_gates.md) | The three citation gates and the release-set closure walker |
 | CodeSpecs | [api_summary_codespecs.md](api_summary_codespecs.md) | The Phase-4 trio reader, the resolved model, the forty-one checks and the area catalogue |
+| IR Specs | [api_summary_irspecs.md](api_summary_irspecs.md) | The IR of a trio: the document model, the area index, the codec, the YAML file form and the `irspecs` command |
 
 **The nine per-language emitter triples are not summarised individually.** Each
 language contributes a `Som<Lang>Generator` / `Som<Lang>Emitter` /
