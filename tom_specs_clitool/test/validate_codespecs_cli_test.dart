@@ -275,4 +275,185 @@ const csFeatureReservedPaths = {};
     timeout: const Timeout(Duration(minutes: 3)),
     testOn: 'mac-os || linux',
   );
+
+  group('--ir (irspecs_ir.md §7)', () {
+    final areasJson = p.normalize(
+      p.absolute(
+        '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json',
+      ),
+    );
+    final meridian = p.normalize(
+      p.absolute('../tom_som_conformance/samples/meridian_codespecs'),
+    );
+    final trios = {
+      'phase4_codespecs_run': [
+        for (final l in ['shared', 'client', 'server'])
+          p.join(_sample, 'codespec', l),
+      ],
+      'meridian_codespecs': [
+        for (final l in ['shared', 'client', 'server'])
+          p.join(meridian, 'meridian_codespec_$l'),
+      ],
+    };
+
+    List<String> trioArgs(List<String> roots) => [
+      '--shared',
+      roots[0],
+      '--client',
+      roots[1],
+      '--server',
+      roots[2],
+    ];
+
+    /// The IR of [roots], written by `irspecs from-codespecs` into a folder of
+    /// its own.
+    Future<String> irOf(List<String> roots, String name) async {
+      final dir = Directory(p.join('.dart_tool', 'test_tmp', 'irspecs5', name));
+      if (dir.existsSync()) dir.deleteSync(recursive: true);
+      final code = await runIrspecs([
+        'from-codespecs',
+        ...trioArgs(roots),
+        '--areas',
+        areasJson,
+        '--out',
+        dir.path,
+      ], out: StringBuffer());
+      expect(code, 0);
+      return dir.path;
+    }
+
+    /// The JSON report without its `inputs`, which name the paths given, and
+    /// with each unrun check's reason reduced to the checks it names: the
+    /// reason for check 31 names the option that would run it, which is
+    /// `--regenerated-ir` for an IR and the three trio options otherwise.
+    Map<String, dynamic> verdict(String out) {
+      final json = (jsonDecode(out) as Map<String, dynamic>)..remove('inputs');
+      if (json['notRun'] case final List<dynamic> notRun) {
+        json['notRun'] = [for (final n in notRun) (n as Map)['checks']];
+      }
+      return json;
+    }
+
+    for (final MapEntry(key: name, value: roots) in trios.entries) {
+      test('$name: the IR reports what the trio reports', () async {
+        final ir = await irOf(roots, name);
+        final (trioCode, trioOut, _) = await _run([
+          ...trioArgs(roots),
+          '--json',
+        ]);
+        final (irCode, irOut, irErr) = await _run(['--ir', ir, '--json']);
+        expect(irCode, trioCode, reason: irErr);
+        expect(verdict(irOut), verdict(trioOut));
+        expect(irCode, 0);
+      });
+
+      test('$name: the back-link index is the same from the IR', () async {
+        final ir = await irOf(roots, name);
+        final (_, trioOut, _) = await _run([...trioArgs(roots), '--backlinks']);
+        final (_, irOut, _) = await _run(['--ir', ir, '--backlinks']);
+        expect(verdict(irOut), verdict(trioOut));
+      });
+    }
+
+    test('phase4: with the extracts too', () async {
+      if (_extractsMissing(extractsDir)) return;
+      final roots = trios['phase4_codespecs_run']!;
+      final ir = await irOf(roots, 'phase4_extracts');
+      final (trioCode, trioOut, _) = await _run([
+        ...trioArgs(roots),
+        ...extracts,
+        '--json',
+      ]);
+      final (irCode, irOut, _) = await _run([
+        '--ir',
+        ir,
+        ...extracts,
+        '--json',
+      ]);
+      expect(irCode, trioCode);
+      expect(verdict(irOut), verdict(trioOut));
+    });
+
+    test('a violating trio fails the same way through its IR', () async {
+      if (_extractsMissing(extractsDir)) return;
+      final copy = Directory(p.join('.dart_tool', 'test_tmp', 'irspecs5_seed'));
+      if (copy.existsSync()) copy.deleteSync(recursive: true);
+      for (final f in Directory(
+        p.join(_sample, 'codespec'),
+      ).listSync(recursive: true).whereType<File>()) {
+        File(p.join(copy.path, p.relative(f.path, from: _sample)))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            f.readAsStringSync().replaceAll("'DAATT-DATA'", "'DAATT-GONE'"),
+          );
+      }
+      final roots = [
+        for (final l in ['shared', 'client', 'server'])
+          p.join(copy.path, 'codespec', l),
+      ];
+      final ir = await irOf(roots, 'seeded');
+      final (trioCode, trioOut, _) = await _run([
+        ...trioArgs(roots),
+        ...extracts,
+        '--json',
+      ]);
+      final (irCode, irOut, _) = await _run([
+        '--ir',
+        ir,
+        ...extracts,
+        '--json',
+      ]);
+      expect(trioCode, 1);
+      expect(irCode, 1);
+      expect(verdict(irOut), verdict(trioOut));
+    });
+
+    test('check 31 compares two IR runs record by record', () async {
+      final roots = trios['meridian_codespecs']!;
+      final ir = await irOf(roots, 'run1');
+      final same = await irOf(roots, 'run2');
+      final (sameCode, sameOut, _) = await _run([
+        '--ir',
+        ir,
+        '--regenerated-ir',
+        same,
+        '--json',
+      ]);
+      expect(sameCode, 0);
+      expect(
+        (jsonDecode(sameOut)['notRun'] as List).expand(
+          (n) => (n as Map)['checks'] as List,
+        ),
+        isNot(contains(31)),
+      );
+      // A second run that disagreed on one table name.
+      final drifted = File(p.join(same, 'CE-DB.ir.yaml'));
+      drifted.writeAsStringSync(
+        drifted.readAsStringSync().replaceFirst(
+          '"mom_customer"',
+          '"mom_customers"',
+        ),
+      );
+      final (code, out, _) = await _run([
+        '--ir',
+        ir,
+        '--regenerated-ir',
+        same,
+        '--json',
+      ]);
+      expect(code, 1);
+      final violations = (jsonDecode(out)['violations'] as List)
+          .cast<Map<String, dynamic>>();
+      expect(violations.map((v) => v['check']), [31]);
+      expect(violations.single['message'], contains('customer.dart'));
+    });
+
+    test('--ir is given instead of the trio, never beside it', () async {
+      final ir = await irOf(trios['meridian_codespecs']!, 'usage');
+      expect((await _run(['--ir', ir, '--shared', ir])).$1, 2);
+      expect((await _run([..._trio(_sample), '--regenerated-ir', ir])).$1, 2);
+      expect((await _run(['--ir', ir, '--regenerated-shared', ir])).$1, 2);
+      expect((await _run(['--ir', p.join(ir, 'missing')])).$1, 2);
+    });
+  });
 }

@@ -42,7 +42,8 @@ produces — the folder is always the IR of exactly that trio.
 
 The documents are `<spec-root>/irspecs/<CE-CODE>.ir.yaml`, one per area that
 holds at least one file, written in catalogue order, and `package.ir.yaml` for
-the files no area claims. A file belongs to exactly one document; the first of
+the files no area claims — always written, files or not, because its header
+names the trio's three packages even for a trio that holds no file. A file belongs to exactly one document; the first of
 these rules that applies decides which:
 
 1. **The folder.** [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md)
@@ -280,13 +281,43 @@ reader, and so to CsModel and to the IR:
 Member order and comments needed nothing new: the reading keeps declarations
 and comments in source order, and the IR writes them in that order.
 
-All of them were found the way §7 says every such fact is found: by writing
+All of them were found the way §8 says every such fact is found: by writing
 the trio again from the IR and comparing it, byte for byte, with the trio it
 was read from. A fact a future trio needs and this table lacks is added the
 same way — into the reader, into CsModel, into this table — never as a special
 case in a mapper.
 
-## 7. The Dart + Tom mapper
+## 7. The checks on the IR
+
+The forty-one checks of `codespecs_derivation_contract.md` §6 run on the IR as
+they run on the trio, so a specification's CodeSpecs are checked before any
+code exists:
+
+```text
+validate_codespecs --ir <spec-root>/irspecs [--extracts …] [--json]
+```
+
+`--ir` stands in for `--shared`, `--client` and `--server`; every other input
+is the same. The IR is read back into the CsModel the checks read from Dart
+(§5), so the checks themselves do not change and the report is the trio's
+report — `tom_specs_clitool/test/validate_codespecs_cli_test.dart` holds that
+for both Meridian trios, with and without extracts and for a violating trio,
+and `test/codespecs_validator_ir_test.dart` runs every check's fixtures through
+the IR.
+
+The one field the IR leaves out, a file's text (§5), is read by one check:
+check 31 compares two generation runs. On the IR the two runs are two IR
+folders (`--regenerated-ir`), and a file's text is replaced by its IR record,
+so check 31 compares records: a second run that disagrees on anything the IR
+holds is reported, file by file. Layout is not compared, because
+`codespecs_derivation_contract.md` §2.7 leaves it to `dart format`; the two
+fixtures about whitespace and the line of the first difference are the Dart
+text's and are skipped through the IR with that reason.
+
+`package.ir.yaml` is written for every trio, files or not (§2): it is what
+names the three packages when no other document does.
+
+## 8. The Dart + Tom mapper
 
 The first mapper writes the trio CodeSpecs writes today: Dart on the `tom_core`
 family, following [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md).
@@ -332,7 +363,7 @@ file. The two things the formatter keeps from its input are the mapper's:
 - **annotation order** — the doc comment first, then every annotation in the
   order of its `line`, back-links, markers and other annotations alike.
 
-## 8. Versioning
+## 9. Versioning
 
 `formatVersion` changes only when an older reader could not read a new
 document, or a new reader an older one. A new optional key is not such a

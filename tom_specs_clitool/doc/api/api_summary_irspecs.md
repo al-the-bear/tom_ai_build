@@ -243,6 +243,9 @@ const IrMapException(this.message);
 | `irDocumentToData(IrDocument document)` | `Map<String, Object?>` | The document as plain data. |
 | `irDocumentFromData(Object? data, {String source = 'IR document'})` | `IrDocument` | The document plain data describes. |
 | `writeIrYaml(IrDocument document)` | `String` | The document as YAML text, every string quoted. |
+| `readIrFolder(String dir)` | `List<IrDocument>` | Every `*.ir.yaml` document in a folder, in file-name order. |
+| `irFileToData(IrFile entry)` | `Map<String, Object?>` | One file entry as data — the record check 31 compares between two IR runs. |
+| `csModelForChecks(List<IrDocument> documents)` | `({CsLocusProject shared, CsLocusProject client, CsLocusProject server})` | The trio for the forty-one checks: `csModelFromIr`, each file's `source` its IR record. |
 | `readIrYaml(String text, {String source = 'IR document'})` | `IrDocument` | The document YAML text holds. |
 | `plainYaml(Object? yaml)` | `Object?` | Parsed YAML as plain maps, lists and scalars. |
 | `mapDartTom(List<IrDocument> documents)` | `Map<String, String>` | The Dart + Tom mapper: `<package>/<path>` → unformatted source. |

@@ -199,26 +199,11 @@ Future<int> _map(
     usage();
     return 2;
   }
-  final irDir = Directory(results.option('ir')!);
-  if (!irDir.existsSync()) {
-    stderrSink.writeln('IR folder not found: ${irDir.path}');
-    return 2;
-  }
   final List<IrDocument> documents;
   try {
-    documents = [
-      for (final f
-          in irDir.listSync().whereType<File>().toList()
-            ..sort((a, b) => a.path.compareTo(b.path)))
-        if (f.path.endsWith('.ir.yaml'))
-          readIrYaml(f.readAsStringSync(), source: f.path),
-    ];
+    documents = readIrFolder(results.option('ir')!);
   } on IrSpecsException catch (e) {
     stderrSink.writeln(e.message);
-    return 2;
-  }
-  if (documents.isEmpty) {
-    stderrSink.writeln('No *.ir.yaml in ${irDir.path}.');
     return 2;
   }
   try {

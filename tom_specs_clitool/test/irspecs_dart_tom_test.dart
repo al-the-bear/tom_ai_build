@@ -1,4 +1,4 @@
-/// The Dart + Tom mapper (`irspecs_ir.md` §7): trio → IR → trio is byte-equal
+/// The Dart + Tom mapper (`irspecs_ir.md` §8): trio → IR → trio is byte-equal
 /// on both Meridian trios, and the reproduced trio passes validate_codespecs.
 ///
 /// A difference here is a fact the IR does not carry — fixed in the IR and its

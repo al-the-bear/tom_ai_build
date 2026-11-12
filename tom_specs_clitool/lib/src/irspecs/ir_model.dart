@@ -173,9 +173,10 @@ String snakeCase(String pascal) => pascal
     .toLowerCase();
 
 /// The IR of a CodeSpecs trio: one [IrDocument] per area holding files, in
-/// catalogue order, then the [kIrPackageArea] document when any file is in it.
+/// catalogue order, then the [kIrPackageArea] document — always, files or
+/// not, because it names the trio's three packages even when no file does.
 ///
-/// Areas with no file get no document.
+/// Other areas with no file get no document.
 List<IrDocument> irFromCsModel({
   required CsLocusProject shared,
   required CsLocusProject client,
@@ -196,9 +197,14 @@ List<IrDocument> irFromCsModel({
     }
   }
   return [
-    for (final area in [...areas.areaOrder, kIrPackageArea])
+    for (final area in areas.areaOrder)
       if (byArea[area] != null)
         IrDocument(area: area, projects: projects, files: byArea[area]!),
+    IrDocument(
+      area: kIrPackageArea,
+      projects: projects,
+      files: byArea[kIrPackageArea] ?? const [],
+    ),
   ];
 }
 

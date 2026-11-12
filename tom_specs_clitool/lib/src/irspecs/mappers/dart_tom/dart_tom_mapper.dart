@@ -1,4 +1,4 @@
-/// The Dart + Tom mapper (`irspecs_ir.md` §7): an IR document set to the
+/// The Dart + Tom mapper (`irspecs_ir.md` §8): an IR document set to the
 /// `<app>_codespec_shared` / `_client` / `_server` sources CodeSpecs writes,
 /// following `codespecs_derivation_contract.md`.
 ///

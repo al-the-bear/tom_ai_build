@@ -2515,7 +2515,9 @@ versioned JSON document — per violation its check, defining section, file, lin
 and, where the check knows them, the token and area — and `--backlinks` writes
 the trio's `@CodeSpec`/`@DocSpec` back-link index for tracing code to spec
 values. The reader parses source text only, so the command compiles into a
-standalone executable. The fourth column names each check's class
+standalone executable. The checks also run on the trio's IR — `--ir <dir>` in
+place of the three trio options — with the same report, before any code exists
+([`irspecs_ir.md`](irspecs_ir.md) §7). The fourth column names each check's class
 in `cs_checks.dart`, so the correspondence is stated rather than inferred: a
 check numbered below with no class, or a class in the registry with no row, is a
 defect in one of the two.

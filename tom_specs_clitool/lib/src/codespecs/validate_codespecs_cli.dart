@@ -29,6 +29,9 @@ import 'cs_checks.dart';
 import 'cs_extract.dart';
 import 'cs_model.dart';
 import 'cs_reader.dart';
+import '../irspecs/ir_checks.dart';
+import '../irspecs/ir_model.dart';
+import '../irspecs/ir_yaml.dart';
 
 /// The `format` of the `--json` report. Bumped only on a breaking change.
 const String kCodeSpecsReportFormat = 'codespecs-validation';
@@ -62,6 +65,20 @@ ArgParser validateCodespecsParser() => ArgParser()
   ..addOption(
     'server',
     help: 'Path to the generated <app>_codespec_server package.',
+  )
+  ..addOption(
+    'ir',
+    help:
+        "The trio's IR (irspecs_ir.md): a folder of *.ir.yaml documents, "
+        'checked in place of --shared, --client and --server — before any '
+        'code exists. Give the one or the other.',
+  )
+  ..addOption(
+    'regenerated-ir',
+    help:
+        "With --ir: a second generation run's IR folder, for the "
+        'determinism check (31), which then compares the two runs\' IR '
+        'records file by file.',
   )
   ..addOption(
     'migrations',
@@ -161,9 +178,26 @@ Future<int> runValidateCodespecs(
       _printUsage(parser, stdoutSink);
       return 0;
     }
+    final irDir = results.option('ir');
+    final trioGiven = [
+      'shared',
+      'client',
+      'server',
+    ].where((n) => results.option(n) != null).toList();
+    if (irDir != null && trioGiven.isNotEmpty) {
+      throw const _UsageError(
+        '--ir is the trio as data; give it or --shared/--client/--server, '
+        'not both.',
+      );
+    }
+    if (irDir == null && results.option('regenerated-ir') != null) {
+      throw const _UsageError(
+        '--regenerated-ir compares two IR runs; it needs --ir.',
+      );
+    }
     final missing = [
       for (final name in ['shared', 'client', 'server'])
-        if (results.option(name) == null) name,
+        if (irDir == null && results.option(name) == null) name,
     ];
     if (missing.isNotEmpty) {
       throw _UsageError(
@@ -178,9 +212,13 @@ Future<int> runValidateCodespecs(
       );
     }
 
-    final shared = _project(CsLocus.shared, results.option('shared')!);
-    final client = _project(CsLocus.client, results.option('client')!);
-    final server = _project(CsLocus.server, results.option('server')!);
+    final (:shared, :client, :server) = irDir == null
+        ? (
+            shared: _project(CsLocus.shared, results.option('shared')!),
+            client: _project(CsLocus.client, results.option('client')!),
+            server: _project(CsLocus.server, results.option('server')!),
+          )
+        : _irTrio(irDir, '--ir');
 
     if (results.flag('backlinks')) {
       stdoutSink.writeln(
@@ -188,9 +226,13 @@ Future<int> runValidateCodespecs(
           codeSpecsBacklinkIndex(
             [shared, client, server],
             inputs: {
-              'shared': results.option('shared'),
-              'client': results.option('client'),
-              'server': results.option('server'),
+              if (irDir != null)
+                'ir': irDir
+              else ...{
+                'shared': results.option('shared'),
+                'client': results.option('client'),
+                'server': results.option('server'),
+              },
             },
           ),
         ),
@@ -262,10 +304,13 @@ Future<int> runValidateCodespecs(
       if (regeneration == null)
         {
           'checks': [31],
-          'reason':
-              'check 31 (determinism) not run — pass '
-              '--regenerated-shared/--regenerated-client/--regenerated-server '
-              'pointing at a second generation run over the same model.',
+          'reason': irDir == null
+              ? 'check 31 (determinism) not run — pass '
+                    '--regenerated-shared/--regenerated-client/'
+                    '--regenerated-server pointing at a second generation run '
+                    'over the same model.'
+              : 'check 31 (determinism) not run — pass --regenerated-ir '
+                    'pointing at a second generation run\'s IR folder.',
         },
       if (extracts.isEmpty)
         {
@@ -305,6 +350,8 @@ Future<int> runValidateCodespecs(
             report,
             inputs: {
               for (final name in [
+                if (irDir != null) 'ir',
+                if (irDir != null) 'regenerated-ir',
                 'shared',
                 'client',
                 'server',
@@ -443,6 +490,26 @@ CsLocusProject _project(CsLocus locus, String path) {
 /// The second run's trio, or `null` when the caller performed none. All three
 /// or none: checking a third of a second run would be worse than none.
 CodeSpecsRegeneration? _regeneration(ArgResults results) {
+  final irAgain = results.option('regenerated-ir');
+  if (results.option('ir') != null) {
+    if ([
+      'regenerated-shared',
+      'regenerated-client',
+      'regenerated-server',
+    ].any((n) => results.option(n) != null)) {
+      throw const _UsageError(
+        'with --ir the second run is an IR folder too: give --regenerated-ir, '
+        'not --regenerated-shared/--regenerated-client/--regenerated-server.',
+      );
+    }
+    if (irAgain == null) return null;
+    final again = _irTrio(irAgain, '--regenerated-ir');
+    return CodeSpecsRegeneration(
+      shared: again.shared,
+      client: again.client,
+      server: again.server,
+    );
+  }
   final shared = results.option('regenerated-shared');
   final client = results.option('regenerated-client');
   final server = results.option('regenerated-server');
@@ -536,4 +603,16 @@ void _printUsage(ArgParser parser, StringSink sink) {
   );
   sink.writeln();
   sink.writeln(parser.usage);
+}
+
+/// The trio the IR folder [dir] describes, for the checks.
+({CsLocusProject shared, CsLocusProject client, CsLocusProject server}) _irTrio(
+  String dir,
+  String option,
+) {
+  try {
+    return csModelForChecks(readIrFolder(dir));
+  } on IrSpecsException catch (e) {
+    throw _UsageError('$option: ${e.message}');
+  }
 }

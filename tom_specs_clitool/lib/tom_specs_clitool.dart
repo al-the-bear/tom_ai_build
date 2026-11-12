@@ -428,6 +428,7 @@ export 'src/codespecs/areas_catalog.dart'
         kAuthoringSliceOrder;
 // IR Specs (irspecs_ir.md): a CodeSpecs trio as language-neutral data, one
 // document per area, and the `irspecs` command that writes it.
+export 'src/irspecs/ir_checks.dart';
 export 'src/irspecs/ir_codec.dart';
 export 'src/irspecs/ir_model.dart';
 export 'src/irspecs/ir_steps.dart';

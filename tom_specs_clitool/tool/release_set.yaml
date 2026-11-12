@@ -109,8 +109,9 @@ unpublished_drift:
     (isPubHidden), which pub never ships; and IR Specs: the `irspecs`
     command (from-codespecs, map), the IR library (lib/src/irspecs/) with its
     step language for form-3b bodies and the Dart + Tom mapper, its schema,
-    and the reader's additions for re-emitting a file (tom_specs irspecs2,
-    irspecs3, irspecs4). Ships with the next release.
+    and the reader's additions for re-emitting a file; validate_codespecs
+    --ir / --regenerated-ir (tom_specs irspecs2 to irspecs5). Ships with the
+    next release.
   tom_specs_model: >-
     Documentation only since 1.8.1: doc/index.md lists irspecs_ir.md, the IR
     Specs document. Ships with the next release.

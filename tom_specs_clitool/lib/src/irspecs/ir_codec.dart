@@ -169,6 +169,10 @@ IrDocument irDocumentFromData(Object? data, {String source = 'IR document'}) {
 // Writing
 // ---------------------------------------------------------------------------
 
+/// One file entry of a document as data — the record `validate_codespecs`
+/// compares between two IR runs (check 31) in place of the file's text.
+Map<String, Object?> irFileToData(IrFile entry) => _file(entry);
+
 Map<String, Object?> _file(IrFile entry) {
   final f = entry.file;
   final steps = {for (final r in entry.steps) '${r.owner}.${r.body}': r};

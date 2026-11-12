@@ -16,7 +16,78 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:test/test.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show CodeSpecsAreaCatalog;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
+
+/// Whether every fixture is checked through the IR (`irspecs_ir.md` §7):
+/// written as IR documents, read back, and given to the checks in the CsModel
+/// shape [csModelForChecks] builds. `codespecs_validator_ir_test.dart` runs
+/// this whole file with it set, so each check's fixtures prove the check
+/// behaves the same on the IR as on the Dart.
+bool _throughIr = false;
+
+/// The reason a test is skipped through the IR: its subject is the emitted
+/// Dart text, which the IR does not carry (`irspecs_ir.md` §5) and which
+/// `codespecs_derivation_contract.md` §2.7 leaves to `dart format`.
+const _textOnly =
+    'its subject is the Dart text, which the IR does not carry; on the IR, '
+    'check 31 compares IR records';
+
+Object _skipThroughIr() => _throughIr ? _textOnly : false;
+
+final _areas = IrAreaIndex(
+  CodeSpecsAreaCatalog.fromJson(
+    jsonDecode(
+          File(
+            '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json',
+          ).readAsStringSync(),
+        )
+        as Map<String, dynamic>,
+  ),
+);
+
+/// [input] as the checks see it through the IR, when [_throughIr] is set.
+CodeSpecsValidationInput _maybeThroughIr(CodeSpecsValidationInput input) {
+  if (!_throughIr) return input;
+  ({CsLocusProject shared, CsLocusProject client, CsLocusProject server}) viaIr(
+    CsLocusProject shared,
+    CsLocusProject client,
+    CsLocusProject server,
+  ) {
+    final documents = irFromCsModel(
+      shared: shared,
+      client: client,
+      server: server,
+      areas: _areas,
+    );
+    return csModelForChecks([
+      for (final d in documents) readIrYaml(writeIrYaml(d)),
+    ]);
+  }
+
+  final trio = viaIr(input.shared, input.client, input.server);
+  final again = input.regeneration;
+  final repeat = again == null
+      ? null
+      : viaIr(again.shared, again.client, again.server);
+  return CodeSpecsValidationInput(
+    shared: trio.shared,
+    client: trio.client,
+    server: trio.server,
+    migrations: input.migrations,
+    enumMirrors: input.enumMirrors,
+    extracts: input.extracts,
+    featureCatalogue: input.featureCatalogue,
+    regeneration: repeat == null
+        ? null
+        : CodeSpecsRegeneration(
+            shared: repeat.shared,
+            client: repeat.client,
+            server: repeat.server,
+          ),
+  );
+}
 
 const _sharedPackage = 'app_codespec_shared';
 const _clientPackage = 'app_codespec_client';
@@ -33,46 +104,48 @@ CodeSpecsValidationInput _input({
   Map<String, String>? againServer,
   CsExtractSet? extracts,
   CsFeatureCatalogue? features,
-}) => CodeSpecsValidationInput(
-  shared: readCsLocusProject(
-    locus: CsLocus.shared,
-    packageName: _sharedPackage,
-    sources: shared,
-  ),
-  client: readCsLocusProject(
-    locus: CsLocus.client,
-    packageName: _clientPackage,
-    sources: client,
-  ),
-  server: readCsLocusProject(
-    locus: CsLocus.server,
-    packageName: _serverPackage,
-    sources: server,
-  ),
-  migrations: migrations,
-  enumMirrors: mirrors,
-  extracts: extracts,
-  featureCatalogue: features,
-  regeneration:
-      againShared == null && againClient == null && againServer == null
-      ? null
-      : CodeSpecsRegeneration(
-          shared: readCsLocusProject(
-            locus: CsLocus.shared,
-            packageName: _sharedPackage,
-            sources: againShared ?? shared,
+}) => _maybeThroughIr(
+  CodeSpecsValidationInput(
+    shared: readCsLocusProject(
+      locus: CsLocus.shared,
+      packageName: _sharedPackage,
+      sources: shared,
+    ),
+    client: readCsLocusProject(
+      locus: CsLocus.client,
+      packageName: _clientPackage,
+      sources: client,
+    ),
+    server: readCsLocusProject(
+      locus: CsLocus.server,
+      packageName: _serverPackage,
+      sources: server,
+    ),
+    migrations: migrations,
+    enumMirrors: mirrors,
+    extracts: extracts,
+    featureCatalogue: features,
+    regeneration:
+        againShared == null && againClient == null && againServer == null
+        ? null
+        : CodeSpecsRegeneration(
+            shared: readCsLocusProject(
+              locus: CsLocus.shared,
+              packageName: _sharedPackage,
+              sources: againShared ?? shared,
+            ),
+            client: readCsLocusProject(
+              locus: CsLocus.client,
+              packageName: _clientPackage,
+              sources: againClient ?? client,
+            ),
+            server: readCsLocusProject(
+              locus: CsLocus.server,
+              packageName: _serverPackage,
+              sources: againServer ?? server,
+            ),
           ),
-          client: readCsLocusProject(
-            locus: CsLocus.client,
-            packageName: _clientPackage,
-            sources: againClient ?? client,
-          ),
-          server: readCsLocusProject(
-            locus: CsLocus.server,
-            packageName: _serverPackage,
-            sources: againServer ?? server,
-          ),
-        ),
+  ),
 );
 
 /// One `<CE-CODE>.extract.yaml`, in the shape `spec_codespecs_extract` emits.
@@ -330,7 +403,11 @@ void _redGreen(
   });
 }
 
-void main() {
+void main() => defineCodeSpecsFixtures();
+
+/// Declares every fixture; with [throughIr], each is checked through the IR.
+void defineCodeSpecsFixtures({bool throughIr = false}) {
+  _throughIr = throughIr;
   group('§6 check catalogue', () {
     test('names the forty-one checks in table order', () {
       expect(codeSpecsChecks.map((c) => c.number), [
@@ -2862,7 +2939,7 @@ class OrderService {
         againServer: {'lib/a.dart': 'class  Order {}\n'},
       );
       expect(_forCheck(31, input), isNotEmpty);
-    });
+    }, skip: _skipThroughIr());
 
     test('the message names the line the two runs first disagreed on', () {
       final input = _input(
@@ -2870,7 +2947,7 @@ class OrderService {
         againServer: {'lib/a.dart': 'class Order {}\nclass Item {}\n'},
       );
       expect(_forCheck(31, input).single.message, contains('line 2'));
-    });
+    }, skip: _skipThroughIr());
   });
 
   group('32 — comment source (§2.8 C1)', () {

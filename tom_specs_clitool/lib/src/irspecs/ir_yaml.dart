@@ -12,6 +12,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
@@ -99,3 +100,25 @@ String _scalar(Object? value) => switch (value) {
   final Map<Object?, Object?> m when m.isEmpty => '{}',
   _ => throw ArgumentError.value(value, 'value', 'not an IR scalar'),
 };
+
+/// Every `*.ir.yaml` document in [dir], in file-name order.
+///
+/// Throws [IrSpecsException] when [dir] does not exist, holds no IR document,
+/// or holds one that does not read.
+List<IrDocument> readIrFolder(String dir) {
+  final folder = Directory(dir);
+  if (!folder.existsSync()) {
+    throw IrSpecsException('IR folder not found: $dir');
+  }
+  final files =
+      folder
+          .listSync()
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.ir.yaml'))
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
+  if (files.isEmpty) throw IrSpecsException('No *.ir.yaml in $dir.');
+  return [
+    for (final f in files) readIrYaml(f.readAsStringSync(), source: f.path),
+  ];
+}
