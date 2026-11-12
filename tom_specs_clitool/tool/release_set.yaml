@@ -104,6 +104,11 @@ unpublished_drift:
     repository, and DocSpecsSection.content's doc names the section's `form`
     in backticks rather than as a link a generated facade cannot resolve.
     Ships with the next release.
+  tom_specs_clitool: >-
+    Since 0.14.1 the release-drift gate no longer counts dot-named paths
+    (isPubHidden), which pub never ships; found when oqa2's `.gitignore` line
+    re-including the application lock drifted three members (tom_specs frzhold4).
+    A gate-only change; ships with the next release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

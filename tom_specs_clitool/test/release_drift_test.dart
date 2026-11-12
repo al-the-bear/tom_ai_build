@@ -133,6 +133,18 @@ void main() {
     });
   });
 
+  group('RDR7: a hidden path is never published, so not drift', () {
+    test('a dot-named file or directory at any depth is hidden', () {
+      // pub leaves every dot-named file and directory out of the archive, so a
+      // change to `.gitignore` (or `.pubignore` itself) is no unpublished change.
+      expect(isPubHidden('.gitignore'), isTrue);
+      expect(isPubHidden('.pubignore'), isTrue);
+      expect(isPubHidden('test/fixtures/.hidden/a.yaml'), isTrue);
+      expect(isPubHidden('lib/src/a.dart'), isFalse);
+      expect(isPubHidden('doc/a.md'), isFalse);
+    });
+  });
+
   group('RDR4: the verdict', () {
     test('drift is a violation only when it is not acknowledged', () {
       const drifted = PackageDrift(

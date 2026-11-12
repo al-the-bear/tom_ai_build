@@ -359,6 +359,16 @@ bool isPubIgnored(String path, List<String> entries) {
   return false;
 }
 
+/// Whether the package-relative [path] is hidden: a segment of it is
+/// dot-named.
+///
+/// pub leaves every hidden file and directory out of the archive, so a change
+/// to one — `.gitignore` re-including an application package's `pubspec.lock`,
+/// `.pubignore` itself — is not unpublished change. Counting it reported three
+/// release members as behind for a line pub.dev would never carry.
+bool isPubHidden(String path) =>
+    p.posix.split(path.replaceAll(r'\', '/')).any((s) => s.startsWith('.'));
+
 List<String> _changedSince(
   String repoRoot,
   String dir,
@@ -384,6 +394,7 @@ List<String> _changedSince(
           .where((f) {
             final inPackage = p.relative(f, from: rel);
             if (isPubIgnored(inPackage, pubIgnored)) return false;
+            if (isPubHidden(inPackage)) return false;
             return !releaseDriftIgnoredPaths.any(
               (ignored) => ignored.endsWith('/')
                   ? inPackage.startsWith(ignored)
